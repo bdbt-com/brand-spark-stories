@@ -1,6 +1,9 @@
+import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { 
   BookOpen, 
   Target, 
@@ -13,10 +16,15 @@ import {
   Rocket,
   Heart,
   DollarSign,
-  Zap
+  Zap,
+  ArrowRight,
+  X
 } from "lucide-react";
 
 const Tips = () => {
+  const [emailCapture, setEmailCapture] = useState<number | null>(null);
+  const [email, setEmail] = useState("");
+
   const tipCategories = [
     {
       icon: Target,
@@ -125,8 +133,29 @@ const Tips = () => {
     }
   };
 
+  const handleDownloadClick = (index: number) => {
+    setEmailCapture(index);
+  };
+
+  const handleEmailSubmit = (e: React.FormEvent, tipTitle: string) => {
+    e.preventDefault();
+    if (email) {
+      // Handle email submission logic here
+      console.log(`Sending ${tipTitle} guide to ${email}`);
+      // Reset form
+      setEmail("");
+      setEmailCapture(null);
+      // Show success message (you could add a toast here)
+    }
+  };
+
+  const closeEmailCapture = () => {
+    setEmailCapture(null);
+    setEmail("");
+  };
+
   return (
-    <div className="min-h-screen py-20">
+    <div className="min-h-screen py-20 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
@@ -144,7 +173,7 @@ const Tips = () => {
           {tipCategories.map((tip, index) => (
             <Card 
               key={index} 
-              className="group hover:shadow-medium transition-all duration-300 hover:-translate-y-2 cursor-pointer"
+              className="group hover:shadow-medium transition-all duration-300 hover:-translate-y-2 cursor-pointer relative overflow-hidden bg-card/80 backdrop-blur-sm"
             >
               <CardHeader className="pb-3">
                 <div className="flex items-center justify-between mb-2">
@@ -160,56 +189,104 @@ const Tips = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <p className="text-muted-foreground text-sm leading-relaxed">
-                  {tip.description}
-                </p>
-                
-                <div className="space-y-2">
-                  <p className="text-xs font-medium text-foreground">What's Included:</p>
-                  <ul className="space-y-1">
-                    {tip.items.map((item, itemIndex) => (
-                      <li key={itemIndex} className="text-xs text-muted-foreground flex items-center">
-                        <div className="w-1 h-1 bg-primary rounded-full mr-2"></div>
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                {emailCapture === index ? (
+                  /* Email Capture Form */
+                  <div className="space-y-4 animate-fade-in">
+                    <div className="flex items-center justify-between">
+                      <h4 className="font-semibold text-foreground">Get Your Free Guide</h4>
+                      <Button 
+                        variant="ghost" 
+                        size="icon"
+                        onClick={closeEmailCapture}
+                        className="w-6 h-6 hover:bg-destructive/10 hover:text-destructive"
+                      >
+                        <X className="w-4 h-4" />
+                      </Button>
+                    </div>
+                    <form onSubmit={(e) => handleEmailSubmit(e, tip.title)} className="space-y-3">
+                      <div>
+                        <Label htmlFor={`email-${index}`} className="text-xs">Email Address</Label>
+                        <Input
+                          id={`email-${index}`}
+                          type="email"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          placeholder="your@email.com"
+                          required
+                          className="mt-1 text-sm"
+                        />
+                      </div>
+                      <Button 
+                        type="submit" 
+                        variant="hero" 
+                        size="sm" 
+                        className="w-full"
+                      >
+                        Send Guide <ArrowRight className="w-4 h-4 ml-1" />
+                      </Button>
+                    </form>
+                    <p className="text-xs text-muted-foreground">
+                      We'll email you the guide instantly. No spam, ever.
+                    </p>
+                  </div>
+                ) : (
+                  /* Original Content */
+                  <>
+                    <p className="text-muted-foreground text-sm leading-relaxed">
+                      {tip.description}
+                    </p>
+                    
+                    <div className="space-y-2">
+                      <p className="text-xs font-medium text-foreground">What's Included:</p>
+                      <ul className="space-y-1">
+                        {tip.items.map((item, itemIndex) => (
+                          <li key={itemIndex} className="text-xs text-muted-foreground flex items-center">
+                            <div className="w-1 h-1 bg-primary rounded-full mr-2"></div>
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
 
-                <div className="flex items-center justify-between pt-2 border-t border-border">
-                  <span className="text-xs text-muted-foreground flex items-center">
-                    <Clock className="w-3 h-3 mr-1" />
-                    {tip.duration}
-                  </span>
-                  <Button 
-                    size="sm" 
-                    variant="ghost" 
-                    className="text-primary hover:text-primary hover:bg-primary/10 group-hover:bg-primary/10"
-                  >
-                    Download
-                  </Button>
-                </div>
+                    <div className="flex items-center justify-between pt-2 border-t border-border">
+                      <span className="text-xs text-muted-foreground flex items-center">
+                        <Clock className="w-3 h-3 mr-1" />
+                        {tip.duration}
+                      </span>
+                      <Button 
+                        size="sm" 
+                        variant="ghost" 
+                        className="text-primary hover:text-primary hover:bg-primary/10 group-hover:bg-primary/10"
+                        onClick={() => handleDownloadClick(index)}
+                      >
+                        Download
+                      </Button>
+                    </div>
+                  </>
+                )}
               </CardContent>
             </Card>
           ))}
         </div>
 
         {/* CTA Section */}
-        <div className="text-center bg-gradient-subtle rounded-2xl p-12">
-          <h2 className="text-3xl font-bold mb-4 text-foreground">
-            Want More Exclusive Content?
-          </h2>
-          <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Join our premium community for advanced strategies, personal coaching, 
-            and exclusive resources not available anywhere else.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button variant="hero" size="lg">
-              Join Premium Community
-            </Button>
-            <Button variant="outline" size="lg">
-              Browse All Resources
-            </Button>
+        <div className="text-center bg-gradient-hero text-white rounded-2xl p-12 relative overflow-hidden">
+          <div className="relative z-10">
+            <h2 className="text-3xl font-bold mb-4">
+              Want More Exclusive Content?
+            </h2>
+            <p className="text-lg text-white/90 mb-8 max-w-2xl mx-auto">
+              Join our premium community for advanced strategies, personal coaching, 
+              and exclusive resources not available anywhere else.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button variant="accent" size="lg">
+                Join Premium Community
+              </Button>
+              <Button variant="outline" size="lg" className="bg-white/10 border-white/30 text-white hover:bg-white/20">
+                Browse All Resources
+              </Button>
+            </div>
           </div>
         </div>
       </div>

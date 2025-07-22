@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -13,10 +14,13 @@ import {
   DollarSign,
   Users,
   Calendar,
-  Filter
+  ArrowLeft,
+  ArrowRight
 } from "lucide-react";
 
 const DailyWins = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+
   const wins = [
     {
       id: 1,
@@ -92,55 +96,16 @@ const DailyWins = () => {
       likes: 198,
       comments: 45,
       featured: true
-    },
-    {
-      id: 6,
-      user: {
-        name: "Alex Martinez",
-        avatar: "/api/placeholder/50/50",
-        initials: "AM",
-        level: "Community"
-      },
-      content: "Paid off my last credit card today! It took 18 months of disciplined budgeting and the financial strategies from our money management workshops. Debt-free feels amazing! 💳",
-      category: "Finance",
-      date: "1 day ago",
-      likes: 134,
-      comments: 28,
-      featured: false
-    },
-    {
-      id: 7,
-      user: {
-        name: "Lisa Wong",
-        avatar: "/api/placeholder/50/50",
-        initials: "LW",
-        level: "Gold Member"
-      },
-      content: "Spoke at my first conference today! 6 months ago I was terrified of public speaking. The confidence-building exercises and practice sessions here transformed my fear into excitement! 🎤",
-      category: "Personal Growth",
-      date: "1 day ago",
-      likes: 167,
-      comments: 39,
-      featured: true
-    },
-    {
-      id: 8,
-      user: {
-        name: "Ryan Foster",
-        avatar: "/api/placeholder/50/50",
-        initials: "RF",
-        level: "Premium"
-      },
-      content: "Hit 1000 subscribers on my YouTube channel! The content creation strategies and consistency tips from this community were game-changers. On to the next milestone! 📹",
-      category: "Creator",
-      date: "2 days ago",
-      likes: 91,
-      comments: 22,
-      featured: false
     }
   ];
 
-  const categories = ["All", "Business", "Health", "Career", "Finance", "Personal Growth", "Creator", "Fitness"];
+  // Auto-rotate carousel every 7 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % wins.length);
+    }, 7000);
+    return () => clearInterval(interval);
+  }, [wins.length]);
 
   const getCategoryIcon = (category: string) => {
     switch (category) {
@@ -177,8 +142,16 @@ const DailyWins = () => {
     }
   };
 
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % wins.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + wins.length) % wins.length);
+  };
+
   return (
-    <div className="min-h-screen py-20 bg-gradient-subtle">
+    <div className="min-h-screen py-20 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
@@ -191,145 +164,152 @@ const DailyWins = () => {
           </p>
         </div>
 
-        {/* Stats */}
-        <div className="grid md:grid-cols-4 gap-6 mb-12">
-          {[
-            { icon: Trophy, label: "Total Wins", value: "2,847", color: "text-yellow-500" },
-            { icon: Users, label: "Active Members", value: "1,234", color: "text-blue-500" },
-            { icon: Target, label: "Goals Achieved", value: "5,692", color: "text-green-500" },
-            { icon: Star, label: "This Week", value: "156", color: "text-purple-500" }
-          ].map((stat, index) => (
-            <Card key={index} className="text-center hover:shadow-medium transition-shadow duration-300">
-              <CardContent className="p-6">
-                <stat.icon className={`w-8 h-8 mx-auto mb-3 ${stat.color}`} />
-                <div className="text-2xl font-bold text-foreground">{stat.value}</div>
-                <div className="text-sm text-muted-foreground">{stat.label}</div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-
-        {/* Filters */}
-        <div className="flex flex-wrap gap-3 mb-12 justify-center">
-          <Button variant="outline" size="sm" className="gap-2">
-            <Filter className="w-4 h-4" />
-            Filter by:
-          </Button>
-          {categories.map((category) => (
-            <Button
-              key={category}
-              variant={category === "All" ? "default" : "outline"}
-              size="sm"
-              className="hover:bg-primary hover:text-primary-foreground"
-            >
-              {category}
-            </Button>
-          ))}
-        </div>
-
-        {/* Wins Feed */}
-        <div className="grid lg:grid-cols-2 gap-8">
-          {wins.map((win) => {
-            const CategoryIcon = getCategoryIcon(win.category);
-            return (
-              <Card 
-                key={win.id}
-                className={`group hover:shadow-medium transition-all duration-300 hover:-translate-y-1 ${
-                  win.featured ? "ring-2 ring-primary/20 bg-primary/5" : ""
-                }`}
+        {/* Rotating Wins Carousel */}
+        <div className="relative mb-20">
+          <div className="flex items-center justify-between mb-8">
+            <h2 className="text-2xl lg:text-3xl font-bold text-foreground">Featured Success Stories</h2>
+            <div className="flex gap-2">
+              <Button 
+                variant="outline" 
+                size="icon"
+                onClick={prevSlide}
+                className="hover:bg-primary hover:text-primary-foreground"
               >
-                <CardHeader className="pb-3">
-                  <div className="flex items-start justify-between">
-                    <div className="flex items-center gap-3">
-                      <Avatar className="w-12 h-12">
-                        <AvatarImage src={win.user.avatar} />
-                        <AvatarFallback className="bg-gradient-primary text-white">
-                          {win.user.initials}
-                        </AvatarFallback>
-                      </Avatar>
-                      <div>
-                        <div className="font-semibold text-foreground">{win.user.name}</div>
-                        <div className={`text-xs font-medium ${getLevelColor(win.user.level)}`}>
-                          {win.user.level}
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      {win.featured && (
-                        <Badge className="bg-accent text-accent-foreground">
-                          Featured
-                        </Badge>
-                      )}
-                      <Badge className={getCategoryColor(win.category)}>
-                        <CategoryIcon className="w-3 h-3 mr-1" />
-                        {win.category}
-                      </Badge>
-                    </div>
-                  </div>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <p className="text-foreground leading-relaxed">{win.content}</p>
-                  
-                  <div className="flex items-center justify-between text-sm text-muted-foreground">
-                    <div className="flex items-center gap-1">
-                      <Calendar className="w-4 h-4" />
-                      {win.date}
-                    </div>
-                  </div>
+                <ArrowLeft className="w-4 h-4" />
+              </Button>
+              <Button 
+                variant="outline" 
+                size="icon"
+                onClick={nextSlide}
+                className="hover:bg-primary hover:text-primary-foreground"
+              >
+                <ArrowRight className="w-4 h-4" />
+              </Button>
+            </div>
+          </div>
 
-                  <div className="flex items-center justify-between pt-3 border-t border-border">
-                    <div className="flex items-center gap-4">
-                      <Button 
-                        variant="ghost" 
-                        size="sm" 
-                        className="text-muted-foreground hover:text-destructive group-hover:text-destructive"
-                      >
-                        <Heart className="w-4 h-4 mr-1" />
-                        {win.likes}
-                      </Button>
-                      <Button 
-                        variant="ghost" 
-                        size="sm" 
-                        className="text-muted-foreground hover:text-primary group-hover:text-primary"
-                      >
-                        <MessageCircle className="w-4 h-4 mr-1" />
-                        {win.comments}
-                      </Button>
-                    </div>
-                    <Button 
-                      variant="ghost" 
-                      size="sm" 
-                      className="text-muted-foreground hover:text-foreground"
-                    >
-                      <Share2 className="w-4 h-4" />
-                    </Button>
+          <div className="relative overflow-hidden rounded-2xl shadow-strong bg-card/80 backdrop-blur-sm">
+            <div 
+              className="flex transition-transform duration-500 ease-in-out"
+              style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+            >
+              {wins.map((win) => {
+                const CategoryIcon = getCategoryIcon(win.category);
+                return (
+                  <div key={win.id} className="w-full flex-shrink-0">
+                    <Card className="border-0 shadow-none bg-transparent">
+                      <CardHeader className="pb-3">
+                        <div className="flex items-start justify-between">
+                          <div className="flex items-center gap-4">
+                            <Avatar className="w-16 h-16">
+                              <AvatarImage src={win.user.avatar} />
+                              <AvatarFallback className="bg-gradient-primary text-white text-lg">
+                                {win.user.initials}
+                              </AvatarFallback>
+                            </Avatar>
+                            <div>
+                              <div className="text-xl font-semibold text-foreground">{win.user.name}</div>
+                              <div className={`text-sm font-medium ${getLevelColor(win.user.level)}`}>
+                                {win.user.level}
+                              </div>
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            {win.featured && (
+                              <Badge className="bg-accent text-accent-foreground">
+                                Featured
+                              </Badge>
+                            )}
+                            <Badge className={getCategoryColor(win.category)}>
+                              <CategoryIcon className="w-4 h-4 mr-1" />
+                              {win.category}
+                            </Badge>
+                          </div>
+                        </div>
+                      </CardHeader>
+                      <CardContent className="space-y-6 px-6 pb-8">
+                        <p className="text-lg text-foreground leading-relaxed">{win.content}</p>
+                        
+                        <div className="flex items-center justify-between text-sm text-muted-foreground">
+                          <div className="flex items-center gap-2">
+                            <Calendar className="w-4 h-4" />
+                            {win.date}
+                          </div>
+                        </div>
+
+                        <div className="flex items-center justify-between pt-4 border-t border-border">
+                          <div className="flex items-center gap-6">
+                            <Button 
+                              variant="ghost" 
+                              size="sm" 
+                              className="text-muted-foreground hover:text-destructive"
+                            >
+                              <Heart className="w-5 h-5 mr-2" />
+                              {win.likes}
+                            </Button>
+                            <Button 
+                              variant="ghost" 
+                              size="sm" 
+                              className="text-muted-foreground hover:text-primary"
+                            >
+                              <MessageCircle className="w-5 h-5 mr-2" />
+                              {win.comments}
+                            </Button>
+                          </div>
+                          <Button 
+                            variant="ghost" 
+                            size="sm" 
+                            className="text-muted-foreground hover:text-foreground"
+                          >
+                            <Share2 className="w-5 h-5" />
+                          </Button>
+                        </div>
+                      </CardContent>
+                    </Card>
                   </div>
-                </CardContent>
-              </Card>
-            );
-          })}
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Carousel Indicators */}
+          <div className="flex justify-center mt-8 gap-2">
+            {wins.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentSlide(index)}
+                className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                  index === currentSlide 
+                    ? "bg-primary scale-110" 
+                    : "bg-muted hover:bg-muted-foreground/50"
+                }`}
+              />
+            ))}
+          </div>
         </div>
 
-        {/* Load More */}
-        <div className="text-center mt-12">
+        {/* View All Button */}
+        <div className="text-center mb-20">
           <Button variant="outline" size="lg">
-            Load More Wins
+            View All Community Wins
           </Button>
         </div>
 
         {/* CTA Section */}
-        <div className="mt-20 text-center bg-gradient-hero text-white rounded-2xl p-12">
-          <Trophy className="w-16 h-16 mx-auto mb-6 text-accent-light" />
-          <h2 className="text-3xl font-bold mb-4">
-            Share Your Win Today!
-          </h2>
-          <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-            Every achievement deserves celebration. Share your progress, inspire others, 
-            and become part of our success story.
-          </p>
-          <Button variant="accent" size="lg">
-            Submit Your Win
-          </Button>
+        <div className="text-center bg-gradient-hero text-white rounded-2xl p-12 relative overflow-hidden">
+          <div className="relative z-10">
+            <Trophy className="w-16 h-16 mx-auto mb-6 text-accent-light" />
+            <h2 className="text-3xl font-bold mb-4">
+              Share Your Win Today!
+            </h2>
+            <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+              Every achievement deserves celebration. Share your progress, inspire others, 
+              and become part of our success story.
+            </p>
+            <Button variant="accent" size="lg">
+              Submit Your Win
+            </Button>
+          </div>
         </div>
       </div>
     </div>

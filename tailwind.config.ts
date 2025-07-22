@@ -46,6 +46,10 @@ export default {
 					foreground: 'hsl(var(--accent-foreground))',
 					light: 'hsl(var(--accent-light))'
 				},
+				pattern: {
+					light: 'hsl(var(--pattern-light))',
+					dark: 'hsl(var(--pattern-dark))'
+				},
 				success: {
 					DEFAULT: 'hsl(var(--success))',
 					foreground: 'hsl(var(--success-foreground))'
