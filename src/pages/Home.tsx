@@ -24,7 +24,7 @@ const Home = () => {
                     Discover Our Story <ArrowRight className="w-5 h-5" />
                   </Link>
                 </Button>
-                <Button variant="outline" size="lg" className="bg-white/10 border-white/30 text-white hover:bg-white/20">
+                <Button variant="outline" size="lg" className="bg-white/10 border-white/30 text-white hover:bg-white/20" asChild>
                   <Link to="/tips">
                     Explore Free Resources
                   </Link>
@@ -147,7 +147,7 @@ const Home = () => {
                 Partner With Us <ArrowRight className="w-5 h-5" />
               </Link>
             </Button>
-            <Button variant="outline" size="lg" className="bg-white/10 border-white/30 text-white hover:bg-white/20">
+            <Button variant="outline" size="lg" className="bg-white/10 border-white/30 text-white hover:bg-white/20" asChild>
               <Link to="/daily-wins">
                 See Daily Wins
               </Link>

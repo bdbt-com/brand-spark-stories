@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -280,11 +281,11 @@ const Tips = () => {
               and exclusive resources not available anywhere else.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button variant="accent" size="lg">
-                Join Premium Community
+              <Button variant="accent" size="lg" asChild>
+                <Link to="/partnership">Join Premium Community</Link>
               </Button>
-              <Button variant="outline" size="lg" className="bg-white/10 border-white/30 text-white hover:bg-white/20">
-                Browse All Resources
+              <Button variant="outline" size="lg" className="bg-white/10 border-white/30 text-white hover:bg-white/20" asChild>
+                <Link to="/tips">Browse All Resources</Link>
               </Button>
             </div>
           </div>

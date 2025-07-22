@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -290,8 +291,8 @@ const DailyWins = () => {
 
         {/* View All Button */}
         <div className="text-center mb-20">
-          <Button variant="outline" size="lg">
-            View All Community Wins
+          <Button variant="outline" size="lg" asChild>
+            <Link to="/daily-wins">View All Community Wins</Link>
           </Button>
         </div>
 
@@ -306,8 +307,8 @@ const DailyWins = () => {
               Every achievement deserves celebration. Share your progress, inspire others, 
               and become part of our success story.
             </p>
-            <Button variant="accent" size="lg">
-              Submit Your Win
+            <Button variant="accent" size="lg" asChild>
+              <Link to="/partnership">Submit Your Win</Link>
             </Button>
           </div>
         </div>

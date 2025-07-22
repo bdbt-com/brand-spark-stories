@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -330,11 +331,11 @@ const Podcast = () => {
             packed with actionable insights and success strategies.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button variant="accent" size="lg">
-              Subscribe on YouTube
+            <Button variant="accent" size="lg" asChild>
+              <Link to="/partnership">Subscribe on YouTube</Link>
             </Button>
-            <Button variant="outline" size="lg" className="bg-white/10 border-white/30 text-white hover:bg-white/20">
-              Follow Podcast
+            <Button variant="outline" size="lg" className="bg-white/10 border-white/30 text-white hover:bg-white/20" asChild>
+              <Link to="/partnership">Follow Podcast</Link>
             </Button>
           </div>
         </div>
