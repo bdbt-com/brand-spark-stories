@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { 
   BookOpen, 
   Target, 
@@ -57,12 +58,16 @@ import {
   Pill,
   Leaf,
   XCircle,
-  PenTool
+  PenTool,
+  SlidersHorizontal,
+  Filter
 } from "lucide-react";
 
 const Tips = () => {
   const [emailCapture, setEmailCapture] = useState<number | null>(null);
   const [email, setEmail] = useState("");
+  const [sortBy, setSortBy] = useState("newest");
+  const [categoryFilter, setCategoryFilter] = useState("all");
 
   // Featured cornerstone guide
   const featuredGuide = {
@@ -85,7 +90,11 @@ const Tips = () => {
         "Move daily to maintain muscle function"
       ],
       level: "Easy",
-      duration: "5 min read"
+      duration: "5 min read",
+      category: "health",
+      popularity: 45,
+      views: 1200,
+      dateAdded: "2024-01-15"
     },
     {
       icon: Flame,
@@ -97,7 +106,11 @@ const Tips = () => {
         "Pairs well with exercise for enhanced results"
       ],
       level: "Easy",
-      duration: "6 min read"
+      duration: "6 min read",
+      category: "health",
+      popularity: 52,
+      views: 980,
+      dateAdded: "2024-01-20"
     },
     {
       icon: TrendingUp,
@@ -109,7 +122,11 @@ const Tips = () => {
         "Great self-test for functional fitness"
       ],
       level: "Moderate",
-      duration: "6 min read"
+      duration: "6 min read",
+      category: "health",
+      popularity: 38,
+      views: 750,
+      dateAdded: "2024-02-01"
     },
     {
       icon: BarChart3,
@@ -121,7 +138,11 @@ const Tips = () => {
         "Celebrate streaks to maintain motivation"
       ],
       level: "Easy",
-      duration: "5 min read"
+      duration: "5 min read",
+      category: "happiness",
+      popularity: 63,
+      views: 1450,
+      dateAdded: "2024-02-10"
     },
     {
       icon: Coffee,
@@ -133,7 +154,11 @@ const Tips = () => {
         "Creates a calming daily ritual"
       ],
       level: "Easy",
-      duration: "6 min read"
+      duration: "6 min read",
+      category: "health",
+      popularity: 41,
+      views: 890,
+      dateAdded: "2024-02-15"
     },
     {
       icon: Eye,
@@ -145,7 +170,11 @@ const Tips = () => {
         "Rewires mindset for positivity"
       ],
       level: "Easy",
-      duration: "4 min read"
+      duration: "4 min read",
+      category: "happiness",
+      popularity: 59,
+      views: 1320,
+      dateAdded: "2024-02-20"
     },
     {
       icon: Shield,
@@ -157,7 +186,11 @@ const Tips = () => {
         "Celebrate milestones to stay motivated"
       ],
       level: "Moderate",
-      duration: "6 min read"
+      duration: "6 min read",
+      category: "wealth",
+      popularity: 72,
+      views: 1650,
+      dateAdded: "2024-03-01"
     },
     {
       icon: Heart,
@@ -723,7 +756,50 @@ const Tips = () => {
       level: "Easy",
       duration: "4 min read"
     }
-  ];
+  ].map((tip, index) => ({ 
+    ...tip, 
+    category: tip.category || (index % 3 === 0 ? "health" : index % 3 === 1 ? "wealth" : "happiness"),
+    popularity: tip.popularity || Math.floor(Math.random() * 100) + 1,
+    views: tip.views || Math.floor(Math.random() * 2000) + 100,
+    dateAdded: tip.dateAdded || "2024-01-01"
+  }));
+
+  // Filtering and sorting logic
+  const filteredAndSortedTips = useMemo(() => {
+    let filtered = tipCategories;
+    
+    // Apply category filter
+    if (categoryFilter !== "all") {
+      filtered = filtered.filter(tip => tip.category === categoryFilter);
+    }
+    
+    // Apply sorting
+    switch (sortBy) {
+      case "popularity":
+        return filtered.sort((a, b) => b.popularity - a.popularity);
+      case "views":
+        return filtered.sort((a, b) => b.views - a.views);
+      case "newest":
+        return filtered.sort((a, b) => new Date(b.dateAdded).getTime() - new Date(a.dateAdded).getTime());
+      case "oldest":
+        return filtered.sort((a, b) => new Date(a.dateAdded).getTime() - new Date(b.dateAdded).getTime());
+      case "shortest":
+        return filtered.sort((a, b) => parseInt(a.duration) - parseInt(b.duration));
+      case "longest":
+        return filtered.sort((a, b) => parseInt(b.duration) - parseInt(a.duration));
+      default:
+        return filtered;
+    }
+  }, [categoryFilter, sortBy]);
+
+  const getCategoryColor = (category: string) => {
+    switch (category) {
+      case "health": return "bg-success/10 text-success border-success/20";
+      case "wealth": return "bg-warning/10 text-warning border-warning/20";
+      case "happiness": return "bg-primary/10 text-primary border-primary/20";
+      default: return "bg-muted/10 text-muted-foreground border-muted/20";
+    }
+  };
 
   const getLevelColor = (level: string) => {
     switch (level) {
@@ -877,13 +953,81 @@ const Tips = () => {
           </Card>
         </div>
 
+        {/* Filters and Sorting */}
+        <div className="mb-12">
+          <div className="flex flex-col lg:flex-row gap-6 items-center justify-between">
+            {/* Category Filter Tabs */}
+            <div className="flex flex-wrap gap-2 justify-center lg:justify-start">
+              <Button
+                variant={categoryFilter === "all" ? "default" : "outline"}
+                size="sm"
+                onClick={() => setCategoryFilter("all")}
+                className="gap-2"
+              >
+                <Filter className="w-4 h-4" />
+                All Categories
+              </Button>
+              <Button
+                variant={categoryFilter === "health" ? "default" : "outline"}
+                size="sm"
+                onClick={() => setCategoryFilter("health")}
+                className="gap-2"
+              >
+                <Heart className="w-4 h-4" />
+                Health
+              </Button>
+              <Button
+                variant={categoryFilter === "wealth" ? "default" : "outline"}
+                size="sm"
+                onClick={() => setCategoryFilter("wealth")}
+                className="gap-2"
+              >
+                <DollarSign className="w-4 h-4" />
+                Wealth
+              </Button>
+              <Button
+                variant={categoryFilter === "happiness" ? "default" : "outline"}
+                size="sm"
+                onClick={() => setCategoryFilter("happiness")}
+                className="gap-2"
+              >
+                <Smile className="w-4 h-4" />
+                Happiness
+              </Button>
+            </div>
+
+            {/* Sort Dropdown */}
+            <div className="flex items-center gap-3">
+              <SlidersHorizontal className="w-4 h-4 text-muted-foreground" />
+              <Select value={sortBy} onValueChange={setSortBy}>
+                <SelectTrigger className="w-48">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="newest">Newest First</SelectItem>
+                  <SelectItem value="oldest">Oldest First</SelectItem>
+                  <SelectItem value="popularity">Most Popular</SelectItem>
+                  <SelectItem value="views">Most Viewed</SelectItem>
+                  <SelectItem value="shortest">Shortest Read</SelectItem>
+                  <SelectItem value="longest">Longest Read</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+        </div>
+
         {/* Regular Tips Grid */}
         <div className="mb-8">
-          <h3 className="text-xl font-semibold text-center text-foreground mb-8">Additional Resources</h3>
+          <h3 className="text-xl font-semibold text-center text-foreground mb-8">
+            {categoryFilter === "all" 
+              ? "Additional Resources" 
+              : `${categoryFilter.charAt(0).toUpperCase() + categoryFilter.slice(1)} Tips`}
+            <span className="text-muted-foreground ml-2">({filteredAndSortedTips.length})</span>
+          </h3>
         </div>
         
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-          {tipCategories.map((tip, index) => (
+          {filteredAndSortedTips.map((tip, index) => (
             <Card 
               key={index} 
               className="group hover:shadow-medium transition-all duration-300 hover:-translate-y-2 cursor-pointer relative overflow-hidden bg-card/80 backdrop-blur-sm"
@@ -893,9 +1037,14 @@ const Tips = () => {
                   <div className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                     <tip.icon className="w-6 h-6 text-white" />
                   </div>
-                  <Badge className={getLevelColor(tip.level)}>
-                    {tip.level}
-                  </Badge>
+                  <div className="flex gap-1">
+                    <Badge className={getCategoryColor(tip.category)} variant="outline">
+                      {tip.category}
+                    </Badge>
+                    <Badge className={getLevelColor(tip.level)}>
+                      {tip.level}
+                    </Badge>
+                  </div>
                 </div>
                 <CardTitle className="text-lg leading-snug group-hover:text-primary transition-colors">
                   {tip.title}
