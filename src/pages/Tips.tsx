@@ -19,7 +19,45 @@ import {
   DollarSign,
   Zap,
   ArrowRight,
-  X
+  X,
+  Dumbbell,
+  Flame,
+  BarChart3,
+  Coffee,
+  Eye,
+  Shield,
+  MessageCircle,
+  ShoppingBasket,
+  Map,
+  Truck,
+  Waves,
+  EyeOff,
+  Moon,
+  RefreshCw,
+  Package,
+  Droplets,
+  Activity,
+  Sun,
+  Monitor,
+  Calendar,
+  Bike,
+  Car,
+  Smile,
+  ArrowUp,
+  Footprints,
+  Trees,
+  Play,
+  ArrowDown,
+  Snowflake,
+  RotateCcw,
+  Apple,
+  Minus,
+  Wind,
+  Bus,
+  Pill,
+  Leaf,
+  XCircle,
+  PenTool
 } from "lucide-react";
 
 const Tips = () => {
@@ -38,100 +76,652 @@ const Tips = () => {
 
   const tipCategories = [
     {
-      icon: Target,
-      title: "Goal Setting Mastery",
-      description: "Learn the proven frameworks for setting and achieving meaningful goals that create lasting change.",
-      items: ["SMART Goals Framework", "90-Day Sprint Planning", "Milestone Tracking"],
-      level: "Beginner",
-      duration: "15 min read"
+      icon: Dumbbell,
+      title: "25 Ways to Prevent or Delay Sarcopenia",
+      description: "A checklist of strength-training, nutrition and lifestyle tweaks to keep muscle as you age.",
+      items: [
+        "Lift weights 2-3 times per week minimum",
+        "Prioritise protein intake throughout the day",
+        "Move daily to maintain muscle function"
+      ],
+      level: "Easy",
+      duration: "5 min read"
+    },
+    {
+      icon: Flame,
+      title: "30 Benefits of Activating Your Brown Fat",
+      description: "Explains how cold exposure and certain foods stoke your metabolic furnace.",
+      items: [
+        "BAT burns calories at rest for effortless fat loss",
+        "Boosts insulin sensitivity for better health",
+        "Pairs well with exercise for enhanced results"
+      ],
+      level: "Easy",
+      duration: "6 min read"
     },
     {
       icon: TrendingUp,
-      title: "Productivity Hacks",
-      description: "Time-tested strategies to maximize your output and create more time for what matters most.",
-      items: ["Time Blocking System", "Energy Management", "Focus Techniques"],
-      level: "Intermediate",
-      duration: "20 min read"
+      title: "30 Benefits of Getting Up and Down",
+      description: "Shows why floor mobility predicts longevity and vitality.",
+      items: [
+        "Improves balance and coordination",
+        "Protects joints through natural movement",
+        "Great self-test for functional fitness"
+      ],
+      level: "Moderate",
+      duration: "6 min read"
     },
     {
-      icon: Brain,
-      title: "Mindset Transformation",
-      description: "Powerful mental frameworks that successful people use to overcome challenges and stay motivated.",
-      items: ["Growth Mindset Development", "Limiting Belief Removal", "Confidence Building"],
-      level: "Advanced",
-      duration: "25 min read"
+      icon: BarChart3,
+      title: "30 Ways to Track Your Habit Progress",
+      description: "Thirty low-tech and high-tech tracking options to keep momentum.",
+      items: [
+        "Visibility equals consistency in habit building",
+        "Pick friction-free tools that fit your lifestyle",
+        "Celebrate streaks to maintain motivation"
+      ],
+      level: "Easy",
+      duration: "5 min read"
     },
     {
-      icon: Rocket,
-      title: "Business Growth",
-      description: "Essential strategies for scaling your business and creating sustainable revenue streams.",
-      items: ["Market Research Methods", "Customer Acquisition", "Revenue Optimization"],
-      level: "Intermediate",
-      duration: "30 min read"
+      icon: Coffee,
+      title: "30 Reasons to Drink Green Tea Instead of Water",
+      description: "Positions green tea as a hydration-plus habit for daily wellness.",
+      items: [
+        "Antioxidants boost metabolism naturally",
+        "Cheaper than sugary drinks long-term",
+        "Creates a calming daily ritual"
+      ],
+      level: "Easy",
+      duration: "6 min read"
     },
     {
-      icon: Users,
-      title: "Leadership Essentials",
-      description: "Develop the leadership skills needed to inspire teams and drive meaningful change.",
-      items: ["Communication Mastery", "Team Building", "Decision Making"],
-      level: "Advanced",
-      duration: "25 min read"
+      icon: Eye,
+      title: "Appreciate the Things Around You",
+      description: "A micro-gratitude practice for instant calm and contentment.",
+      items: [
+        "Lowers stress hormones effectively",
+        "Curbs impulse spending habits",
+        "Rewires mindset for positivity"
+      ],
+      level: "Easy",
+      duration: "4 min read"
+    },
+    {
+      icon: Shield,
+      title: "Build a 6-Month Emergency Buffer Fund",
+      description: "Step-by-step guide to six months of bare-bones financial security.",
+      items: [
+        "Automate transfers to remove temptation",
+        "Use windfalls to accelerate progress",
+        "Celebrate milestones to stay motivated"
+      ],
+      level: "Moderate",
+      duration: "6 min read"
     },
     {
       icon: Heart,
-      title: "Work-Life Balance",
-      description: "Create harmony between your professional ambitions and personal well-being.",
-      items: ["Boundary Setting", "Stress Management", "Self-Care Routines"],
-      level: "Beginner",
-      duration: "18 min read"
+      title: "Connect with More Animals",
+      description: "Uses animal interaction for free mood-boosts and stress relief.",
+      items: [
+        "Lowers cortisol levels naturally",
+        "Encourages daily movement and activity",
+        "Sparks empathy and emotional intelligence"
+      ],
+      level: "Easy",
+      duration: "5 min read"
     },
     {
-      icon: DollarSign,
-      title: "Financial Mastery",
-      description: "Build wealth and financial security through smart money management and investment strategies.",
-      items: ["Budgeting Systems", "Investment Basics", "Passive Income"],
-      level: "Intermediate",
-      duration: "22 min read"
+      icon: MessageCircle,
+      title: "Create a WhatsApp Group with Friends for a Specific Purpose",
+      description: "Shows how a focused chat turns goals into shared wins and accountability.",
+      items: [
+        "Built-in accountability from friends",
+        "Low-cost coaching and support system",
+        "30 group-idea prompts included"
+      ],
+      level: "Easy",
+      duration: "5 min read"
     },
     {
-      icon: Lightbulb,
-      title: "Creative Problem Solving",
-      description: "Unlock your creative potential and learn to approach challenges with innovative solutions.",
-      items: ["Design Thinking", "Brainstorming Techniques", "Innovation Methods"],
-      level: "Intermediate",
-      duration: "20 min read"
+      icon: ShoppingBasket,
+      title: "Do Food Shops Using Handbaskets, Not Trolleys",
+      description: "Turning grocery runs into grip-strength and budget training sessions.",
+      items: [
+        "Limits impulse buys naturally",
+        "Builds functional strength daily",
+        "Makes for quicker shopping trips"
+      ],
+      level: "Easy",
+      duration: "5 min read"
+    },
+    {
+      icon: Map,
+      title: "Go Exploring",
+      description: "Free, curiosity-driven walks that break boredom and boost creativity.",
+      items: [
+        "Adds extra steps without gym membership",
+        "Zero-cost entertainment option",
+        "Natural mood lift from novelty"
+      ],
+      level: "Easy",
+      duration: "5 min read"
+    },
+    {
+      icon: Truck,
+      title: "Get Free Deliveroo Plus with Amazon Prime",
+      description: "Simple hack to bundle perks and save on delivery fees.",
+      items: [
+        "Activate in-app for instant savings",
+        "Cancel if Prime lapses to avoid charges",
+        "Stack with cashback for double benefits"
+      ],
+      level: "Easy",
+      duration: "3 min read"
+    },
+    {
+      icon: Waves,
+      title: "Have More Baths",
+      description: "Argues for hot-soak recovery on the cheap for stress relief.",
+      items: [
+        "Lowers cortisol levels effectively",
+        "Helps improve sleep quality",
+        "Creates mindfulness pocket in day"
+      ],
+      level: "Easy",
+      duration: "3 min read"
+    },
+    {
+      icon: EyeOff,
+      title: "Hide Your Savings From Yourself",
+      description: "Automate transfers so you never see spendable cash lying around.",
+      items: [
+        "Pay-yourself-first principle in action",
+        "Out-of-sight equals untouched savings",
+        "Raise percentage with every pay-rise"
+      ],
+      level: "Easy",
+      duration: "5 min read"
+    },
+    {
+      icon: Moon,
+      title: "Limit Screen Time Before Bed",
+      description: "Blueprint for a one-hour digital sunset for better sleep.",
+      items: [
+        "Blue-light block improves sleep quality",
+        "Book swap enhances mental stimulation",
+        "Prep tomorrow reduces morning stress"
+      ],
+      level: "Moderate",
+      duration: "4 min read"
+    },
+    {
+      icon: RefreshCw,
+      title: "Reframe One Thing Today",
+      description: "Cognitive re-appraisal micro-habit for mental resilience.",
+      items: [
+        "Choose one daily annoyance to flip",
+        "Practice perspective shifting regularly",
+        "Repeat daily for lasting mindset change"
+      ],
+      level: "Easy",
+      duration: "4 min read"
+    },
+    {
+      icon: Package,
+      title: "Sell Unused Items",
+      description: "Declutter for cash in three quick steps to boost finances.",
+      items: [
+        "Pick one drawer to start small",
+        "List items same-day for momentum",
+        "Earmark proceeds for debt or savings"
+      ],
+      level: "Easy",
+      duration: "4 min read"
+    },
+    {
+      icon: Droplets,
+      title: "Set a Water Intake Goal",
+      description: "Personalised hydration target with 80 benefits list included.",
+      items: [
+        "Use bottle reminders for consistency",
+        "Track daily intake for awareness",
+        "Pair with meals for habit stacking"
+      ],
+      level: "Easy",
+      duration: "5 min read"
+    },
+    {
+      icon: Activity,
+      title: "Spend Time in Zone 2 Each Week",
+      description: "Explains conversational-pace cardio for longevity and health.",
+      items: [
+        "Boosts mitochondrial function significantly",
+        "Aids fat-burning without stress",
+        "Low-injury risk for sustainable fitness"
+      ],
+      level: "Moderate",
+      duration: "6 min read"
+    },
+    {
+      icon: Sun,
+      title: "Start Your Day with Movement",
+      description: "Thirty morning-move ideas from gentle stretch to kettlebells.",
+      items: [
+        "Sets circadian rhythm naturally",
+        "Triggers natural dopamine release",
+        "Pairs perfectly with coffee brew time"
+      ],
+      level: "Easy",
+      duration: "6 min read"
+    },
+    {
+      icon: Monitor,
+      title: "Use a Standing Desk at Home",
+      description: "Posture-friendly home-office setup guide for better health.",
+      items: [
+        "Alternate sit-stand throughout day",
+        "Anti-fatigue mat reduces leg stress",
+        "Timer nudges prevent static postures"
+      ],
+      level: "Moderate",
+      duration: "4 min read"
+    },
+    {
+      icon: Calendar,
+      title: "Use Free Local Events for Entertainment",
+      description: "Swap spendy nights for council-run fun and community connection.",
+      items: [
+        "Library talks offer free education",
+        "Park runs build fitness community",
+        "Travel-cost hack for budget dates"
+      ],
+      level: "Easy",
+      duration: "4 min read"
+    },
+    {
+      icon: Bike,
+      title: "Use Your Bike or Feet Wherever Possible",
+      description: "Thirty swaps to ditch the car and boost daily activity.",
+      items: [
+        "Active commute improves fitness",
+        "Stairs over lift builds strength",
+        "10k-step goal becomes achievable"
+      ],
+      level: "Moderate",
+      duration: "6 min read"
+    },
+    {
+      icon: Car,
+      title: "Park Further Away",
+      description: "Adds incidental steps and eases parking stress simultaneously.",
+      items: [
+        "Extra 500-1000 steps per day",
+        "Less door-ding risk for car",
+        "Micro-workout mindset development"
+      ],
+      level: "Easy",
+      duration: "3 min read"
+    },
+    {
+      icon: Smile,
+      title: "Smile at Yourself in the Mirror",
+      description: "Tiny self-esteem hack with surprising psychological benefits.",
+      items: [
+        "Triggers natural dopamine spike",
+        "Improves posture automatically",
+        "Anchors positive morning routine"
+      ],
+      level: "Easy",
+      duration: "3 min read"
     },
     {
       icon: Zap,
-      title: "Energy & Wellness",
-      description: "Optimize your physical and mental energy to perform at your highest level consistently.",
-      items: ["Morning Routines", "Nutrition Basics", "Exercise Planning"],
-      level: "Beginner",
-      duration: "15 min read"
+      title: "Stretch Daily",
+      description: "Five-minute mobility flow with 10 starter moves included.",
+      items: [
+        "Reduces stiffness and pain",
+        "Pairs perfectly with kettle time",
+        "Improves posture throughout day"
+      ],
+      level: "Easy",
+      duration: "4 min read"
+    },
+    {
+      icon: ArrowUp,
+      title: "Do Calf Raises While Brushing Your Teeth",
+      description: "Sneak movement into hygiene routine for effortless gains.",
+      items: [
+        "Better circulation and blood flow",
+        "Balance boost for injury prevention",
+        "Perfect habit-stacking demonstration"
+      ],
+      level: "Easy",
+      duration: "3 min read"
+    },
+    {
+      icon: Droplets,
+      title: "Drink One Extra Glass of Water",
+      description: "Quick hydration win plus 25 creative implementation ideas.",
+      items: [
+        "Water bottle on desk as visual cue",
+        "Flavour infusions prevent boredom",
+        "Hourly alarms ensure consistency"
+      ],
+      level: "Easy",
+      duration: "4 min read"
+    },
+    {
+      icon: TrendingUp,
+      title: "Do a Financial Health Check Every 3 Months",
+      description: "Quarterly money MOT template for ongoing financial wellness.",
+      items: [
+        "Cancel unnecessary subscriptions regularly",
+        "Track net-worth progress over time",
+        "Set realistic next-quarter goals"
+      ],
+      level: "Moderate",
+      duration: "6 min read"
     },
     {
       icon: BookOpen,
-      title: "Learning Acceleration",
-      description: "Master the art of rapid skill acquisition and continuous learning in our fast-paced world.",
-      items: ["Speed Reading", "Memory Techniques", "Skill Stacking"],
-      level: "Advanced",
-      duration: "28 min read"
+      title: "Always Use a Shopping List",
+      description: "Curb impulse buys and food waste with this simple habit.",
+      items: [
+        "Note planned meals first",
+        "Stick to specific aisles only",
+        "Save significant money monthly"
+      ],
+      level: "Easy",
+      duration: "3 min read"
     },
     {
-      icon: Star,
-      title: "Personal Branding",
-      description: "Build a powerful personal brand that opens doors and creates opportunities.",
-      items: ["Brand Strategy", "Content Creation", "Network Building"],
-      level: "Intermediate",
-      duration: "24 min read"
+      icon: Brain,
+      title: "Meditate for 5 Minutes a Day",
+      description: "Fast entry-level breath focus for mental clarity and calm.",
+      items: [
+        "Set timer to remove guesswork",
+        "Anchor after coffee for consistency",
+        "Accept wandering mind as normal"
+      ],
+      level: "Easy",
+      duration: "3 min read"
     },
     {
-      icon: Clock,
-      title: "Time Management",
-      description: "Take control of your schedule and make time for what truly matters in your life.",
-      items: ["Priority Matrix", "Calendar Systems", "Habit Stacking"],
-      level: "Beginner",
-      duration: "16 min read"
+      icon: Footprints,
+      title: "Take a Short Walk After Meals",
+      description: "10-minute post-prandial stroll for better digestion and health.",
+      items: [
+        "Blunts glucose spike naturally",
+        "Aids digestion significantly",
+        "Easy social habit to maintain"
+      ],
+      level: "Easy",
+      duration: "3 min read"
+    },
+    {
+      icon: Trees,
+      title: "Get Out in Nature Each Sunday",
+      description: "50 low-cost green time ideas for weekly nature connection.",
+      items: [
+        "Barefoot grounding reduces stress",
+        "Forest mindfulness boosts mood",
+        "Farmers market combines errands"
+      ],
+      level: "Moderate",
+      duration: "5 min read"
+    },
+    {
+      icon: Play,
+      title: "Watch a TED Talk Instead of TV",
+      description: "Swap passive binge for 18-minute learning and growth.",
+      items: [
+        "Curated playlist saves decision fatigue",
+        "Discuss with friend for deeper learning",
+        "Note one action for implementation"
+      ],
+      level: "Easy",
+      duration: "3 min read"
+    },
+    {
+      icon: ArrowDown,
+      title: "Do Deep Squats During TV Ads",
+      description: "Adds strength training while watching your favourite shows.",
+      items: [
+        "Hips below knee for full range",
+        "Hold remote as counterweight",
+        "3 sets of 10 every evening"
+      ],
+      level: "Easy",
+      duration: "3 min read"
+    },
+    {
+      icon: Snowflake,
+      title: "Freeze Fruits & Veg for Smoothies",
+      description: "Saves money and prevents waste with smart food prep.",
+      items: [
+        "Prep bags for convenience",
+        "Smoothie-base list included",
+        "Icy texture provides brown-fat bonus"
+      ],
+      level: "Easy",
+      duration: "3 min read"
+    },
+    {
+      icon: RotateCcw,
+      title: "Try Amazon Subscribe & Save",
+      description: "Automate essentials at discount for effortless savings.",
+      items: [
+        "Select 5+ items for 15% off",
+        "Set 2-month cadence optimal",
+        "Cancel anytime with no penalty"
+      ],
+      level: "Easy",
+      duration: "4 min read"
+    },
+    {
+      icon: Apple,
+      title: "Eat Protein with Every Meal",
+      description: "Simple macro rule for stable energy and better health.",
+      items: [
+        "Palm-size portion guide included",
+        "Mix plant and animal sources",
+        "Stabilise energy throughout day"
+      ],
+      level: "Easy",
+      duration: "4 min read"
+    },
+    {
+      icon: ArrowUp,
+      title: "Practice Good Posture",
+      description: "Desk-to-standing cues and wall tests for spinal health.",
+      items: [
+        "Ears over shoulders alignment",
+        "Hourly reset reminders work",
+        "Strengthen rear chain muscles"
+      ],
+      level: "Moderate",
+      duration: "4 min read"
+    },
+    {
+      icon: Minus,
+      title: "Replace One Sugary Snack Daily",
+      description: "Swap chocolate for fruit and protein alternatives gradually.",
+      items: [
+        "Prep healthy alternatives in advance",
+        "Crowd-out strategy beats restriction",
+        "Track cravings to identify patterns"
+      ],
+      level: "Easy",
+      duration: "3 min read"
+    },
+    {
+      icon: Wind,
+      title: "Breathe Deeply for 60 Seconds Twice a Day",
+      description: "Box-breathing micro-break for instant stress relief.",
+      items: [
+        "Lowers cortisol levels quickly",
+        "Boosts focus and concentration",
+        "Pairs perfectly with kettle boil"
+      ],
+      level: "Easy",
+      duration: "3 min read"
+    },
+    {
+      icon: ArrowUp,
+      title: "Always Take the Stairs",
+      description: "Everyday NEAT upgrade for effortless fitness gains.",
+      items: [
+        "Burns 3x walking calories",
+        "Builds leg strength daily",
+        "Free lifetime gym membership"
+      ],
+      level: "Easy",
+      duration: "4 min read"
+    },
+    {
+      icon: Eye,
+      title: "Look Up at the Sky Once a Day",
+      description: "One-minute perspective reset for mental clarity and calm.",
+      items: [
+        "Eye-strain relief from screens",
+        "Circadian light exposure benefits",
+        "Gratitude spark from nature"
+      ],
+      level: "Easy",
+      duration: "2 min read"
+    },
+    {
+      icon: Bus,
+      title: "Use Public Transport Instead of Driving",
+      description: "Habit swap for wallet and planet with bonus benefits.",
+      items: [
+        "Plan routes for stress reduction",
+        "Read on bus for learning time",
+        "Add walking legs for fitness"
+      ],
+      level: "Moderate",
+      duration: "4 min read"
+    },
+    {
+      icon: Pill,
+      title: "Try Generic Medication Brands",
+      description: "Cut pharmacy spend without quality loss using smart swaps.",
+      items: [
+        "Check active ingredient matches",
+        "Ask pharmacist for guidance",
+        "Save up to 70% on costs"
+      ],
+      level: "Easy",
+      duration: "3 min read"
+    },
+    {
+      icon: Leaf,
+      title: "Try a New Healthy Food Each Week",
+      description: "52-week variety challenge for nutritional diversity.",
+      items: [
+        "List untried plants for inspiration",
+        "Share recipe pics for accountability",
+        "Track favourites for repeat meals"
+      ],
+      level: "Easy",
+      duration: "4 min read"
+    },
+    {
+      icon: Users,
+      title: "Connect with Loved Ones",
+      description: "Sunday call and message script for stronger relationships.",
+      items: [
+        "Calendar cue ensures consistency",
+        "3-question check-in template",
+        "Strengthens bonds over time"
+      ],
+      level: "Easy",
+      duration: "3 min read"
+    },
+    {
+      icon: XCircle,
+      title: "Have a Weekly No-Spend Day",
+      description: "24-hour retail fast for mindful money awareness.",
+      items: [
+        "Pre-plan meals to avoid temptation",
+        "Free fun list for entertainment",
+        "Reflect on spending urges"
+      ],
+      level: "Moderate",
+      duration: "3 min read"
+    },
+    {
+      icon: BookOpen,
+      title: "Learn Something New (5-min Skill)",
+      description: "Quick-fire up-skilling framework for continuous growth.",
+      items: [
+        "Micro-lesson sources provided",
+        "Track wins for motivation",
+        "Stack skills for compound learning"
+      ],
+      level: "Easy",
+      duration: "3 min read"
+    },
+    {
+      icon: Leaf,
+      title: "Try Natural Anxiety Fixes",
+      description: "List of evidence-based, drug-free soothers for stress.",
+      items: [
+        "Breathwork techniques included",
+        "Magnesium supplementation guide",
+        "Nature time prescriptions"
+      ],
+      level: "Easy",
+      duration: "5 min read"
+    },
+    {
+      icon: Users,
+      title: "Join a Community",
+      description: "How to find and plug into groups that fuel personal growth.",
+      items: [
+        "Clarify interests before searching",
+        "Test meetings before committing",
+        "Add value consistently to belong"
+      ],
+      level: "Moderate",
+      duration: "6 min read"
+    },
+    {
+      icon: PenTool,
+      title: "Keep a Notebook by Your Bed",
+      description: "Captures 3 a.m. ideas and improves sleep quality.",
+      items: [
+        "Brain dump reduces racing thoughts",
+        "Pattern spotting reveals insights",
+        "Morning review sparks action"
+      ],
+      level: "Easy",
+      duration: "3 min read"
+    },
+    {
+      icon: RotateCcw,
+      title: "When You Reach the Top of the Stairs, Go Back Down and Up Again",
+      description: "One-minute leg blast hiding in plain sight for fitness.",
+      items: [
+        "Doubles stair benefit instantly",
+        "Free cardio without gym",
+        "Momentum hack for energy"
+      ],
+      level: "Easy",
+      duration: "4 min read"
+    },
+    {
+      icon: Zap,
+      title: "Get Your Lunges In While Vacuuming",
+      description: "Turn household chores into effective leg day workouts.",
+      items: [
+        "Lunge with each vacuum stroke",
+        "Burns extra calories effortlessly",
+        "No extra time required"
+      ],
+      level: "Easy",
+      duration: "4 min read"
     }
   ];
 
