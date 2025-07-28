@@ -7,6 +7,7 @@ import Navigation from "./components/Navigation";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Tips from "./pages/Tips";
+import Blueprint from "./pages/Blueprint";
 import Podcast from "./pages/Podcast";
 import DailyWins from "./pages/DailyWins";
 import Partnership from "./pages/Partnership";
@@ -25,6 +26,7 @@ const App = () => (
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/tips" element={<Tips />} />
+          <Route path="/blueprint" element={<Blueprint />} />
           <Route path="/podcast" element={<Podcast />} />
           <Route path="/daily-wins" element={<DailyWins />} />
           <Route path="/partnership" element={<Partnership />} />
