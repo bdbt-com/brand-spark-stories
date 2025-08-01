@@ -45,8 +45,8 @@ const TipCard = ({ tip, index }: TipCardProps) => {
   };
 
   return (
-    <Card className="group hover:shadow-strong transition-all duration-300 hover:-translate-y-2 cursor-pointer relative overflow-hidden bg-card/80 backdrop-blur-sm border-2 hover:border-primary/20">
-      <CardHeader className="pb-3">
+    <Card className="group hover:shadow-strong transition-all duration-300 hover:-translate-y-2 cursor-pointer relative overflow-hidden bg-card/80 backdrop-blur-sm border-2 hover:border-primary/20 h-[420px] flex flex-col">
+      <CardHeader className="pb-3 flex-shrink-0">
         <div className="flex items-center justify-between mb-3">
           <div className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
             <tip.icon className="w-6 h-6 text-white" />
@@ -65,7 +65,7 @@ const TipCard = ({ tip, index }: TipCardProps) => {
         </CardTitle>
       </CardHeader>
       
-      <CardContent className="space-y-4">
+      <CardContent className="flex-1 flex flex-col justify-between space-y-4 p-4">
         {showEmailForm ? (
           <EmailCaptureForm
             title={tip.title}
@@ -74,50 +74,54 @@ const TipCard = ({ tip, index }: TipCardProps) => {
           />
         ) : (
           <>
-            <p className="text-muted-foreground text-sm leading-relaxed line-clamp-3">
-              {tip.description}
-            </p>
-            
-            <ul className="space-y-2">
-              {tip.items.slice(0, 2).map((item, itemIndex) => (
-                <li key={itemIndex} className="text-sm text-muted-foreground flex items-start">
-                  <span className="w-1.5 h-1.5 bg-primary rounded-full mt-2 mr-3 flex-shrink-0"></span>
-                  {item}
-                </li>
-              ))}
-              {tip.items.length > 2 && (
-                <li className="text-xs text-muted-foreground/70 italic">
-                  +{tip.items.length - 2} more insights included...
-                </li>
-              )}
-            </ul>
-
-            <div className="flex items-center justify-between pt-3 border-t border-border/50">
-              <div className="flex items-center gap-3 text-xs text-muted-foreground">
-                <span className="flex items-center">
-                  <Clock className="w-3 h-3 mr-1" />
-                  {tip.duration}
-                </span>
-                <span className="flex items-center">
-                  <Eye className="w-3 h-3 mr-1" />
-                  {tip.views}
-                </span>
-                <span className="flex items-center">
-                  <TrendingUp className="w-3 h-3 mr-1" />
-                  {tip.popularity}%
-                </span>
-              </div>
+            <div className="flex-1 space-y-4">
+              <p className="text-muted-foreground text-sm leading-relaxed line-clamp-3">
+                {tip.description}
+              </p>
+              
+              <ul className="space-y-2 flex-1">
+                {tip.items.slice(0, 2).map((item, itemIndex) => (
+                  <li key={itemIndex} className="text-sm text-muted-foreground flex items-start">
+                    <span className="w-1.5 h-1.5 bg-primary rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                    {item}
+                  </li>
+                ))}
+                {tip.items.length > 2 && (
+                  <li className="text-xs text-muted-foreground/70 italic">
+                    +{tip.items.length - 2} more insights included...
+                  </li>
+                )}
+              </ul>
             </div>
 
-            <Button 
-              size="sm" 
-              variant="hero" 
-              className="w-full group-hover:shadow-medium transition-all duration-200 hover:scale-[1.02]"
-              onClick={() => setShowEmailForm(true)}
-            >
-              Download Guide 
-              <Download className="w-4 h-4 ml-2 group-hover:translate-y-0.5 transition-transform" />
-            </Button>
+            <div className="space-y-3 mt-auto">
+              <div className="flex items-center justify-between pt-3 border-t border-border/50">
+                <div className="flex items-center gap-3 text-xs text-muted-foreground">
+                  <span className="flex items-center">
+                    <Clock className="w-3 h-3 mr-1" />
+                    {tip.duration}
+                  </span>
+                  <span className="flex items-center">
+                    <Eye className="w-3 h-3 mr-1" />
+                    {tip.views}
+                  </span>
+                  <span className="flex items-center">
+                    <TrendingUp className="w-3 h-3 mr-1" />
+                    {tip.popularity}%
+                  </span>
+                </div>
+              </div>
+
+              <Button 
+                size="sm" 
+                variant="hero" 
+                className="w-full group-hover:shadow-medium transition-all duration-200 hover:scale-[1.02]"
+                onClick={() => setShowEmailForm(true)}
+              >
+                Download Guide 
+                <Download className="w-4 h-4 ml-2 group-hover:translate-y-0.5 transition-transform" />
+              </Button>
+            </div>
           </>
         )}
       </CardContent>
