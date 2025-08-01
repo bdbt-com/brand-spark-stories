@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Clock, Eye, TrendingUp, Download } from "lucide-react";
+import { Clock, Eye, TrendingUp, Download, ChevronDown, ChevronUp } from "lucide-react";
 import EmailCaptureForm from "./EmailCaptureForm";
 
 interface TipCardProps {
@@ -22,6 +22,19 @@ interface TipCardProps {
 
 const TipCard = ({ tip, index }: TipCardProps) => {
   const [showEmailForm, setShowEmailForm] = useState(false);
+  const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
+  
+  // Truncate description to ~80 characters
+  const truncateText = (text: string, maxLength: number = 80) => {
+    if (text.length <= maxLength) return text;
+    return text.slice(0, maxLength).trim() + "...";
+  };
+  
+  const displayDescription = isDescriptionExpanded 
+    ? tip.description 
+    : truncateText(tip.description);
+  
+  const needsTruncation = tip.description.length > 80;
 
   const getCategoryColor = (category: string) => {
     switch (category) {
@@ -74,16 +87,34 @@ const TipCard = ({ tip, index }: TipCardProps) => {
           />
         ) : (
           <>
-            <div className="flex-1 space-y-4">
-              <p className="text-muted-foreground text-sm leading-relaxed line-clamp-3">
-                {tip.description}
-              </p>
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <p className="text-muted-foreground text-sm leading-relaxed">
+                  {displayDescription}
+                </p>
+                {needsTruncation && (
+                  <button
+                    onClick={() => setIsDescriptionExpanded(!isDescriptionExpanded)}
+                    className="text-xs text-primary hover:text-primary/80 transition-colors flex items-center gap-1"
+                  >
+                    {isDescriptionExpanded ? (
+                      <>
+                        Show less <ChevronUp className="w-3 h-3" />
+                      </>
+                    ) : (
+                      <>
+                        Read more <ChevronDown className="w-3 h-3" />
+                      </>
+                    )}
+                  </button>
+                )}
+              </div>
               
-              <ul className="space-y-2 flex-1">
+              <ul className="space-y-2">
                 {tip.items.slice(0, 2).map((item, itemIndex) => (
                   <li key={itemIndex} className="text-sm text-muted-foreground flex items-start">
                     <span className="w-1.5 h-1.5 bg-primary rounded-full mt-2 mr-3 flex-shrink-0"></span>
-                    {item}
+                    <span className="line-clamp-2">{item}</span>
                   </li>
                 ))}
                 {tip.items.length > 2 && (
