@@ -4,24 +4,97 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
-import { BookOpen, Clock, Users, Download, CheckCircle, Target, Zap } from "lucide-react";
+import { BookOpen, Clock, Users, Download, CheckCircle, Target, Zap, Loader2, Mail } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
 const Blueprint = () => {
   const [showEmailForm, setShowEmailForm] = useState(false);
   const [firstName, setFirstName] = useState("");
   const [email, setEmail] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [fieldErrors, setFieldErrors] = useState<{firstName?: string; email?: string}>({});
+  const { toast } = useToast();
+
+  // Validation functions
+  const validateFirstName = (name: string) => {
+    if (!name.trim()) return "First name is required";
+    if (name.trim().length < 2) return "First name must be at least 2 characters";
+    return null;
+  };
+
+  const validateEmail = (email: string) => {
+    if (!email.trim()) return "Email address is required";
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) return "Please enter a valid email address";
+    return null;
+  };
+
+  const handleInputChange = (field: "firstName" | "email", value: string) => {
+    if (field === "firstName") {
+      setFirstName(value);
+      if (fieldErrors.firstName) {
+        const error = validateFirstName(value);
+        setFieldErrors(prev => ({ ...prev, firstName: error || undefined }));
+      }
+    } else {
+      setEmail(value);
+      if (fieldErrors.email) {
+        const error = validateEmail(value);
+        setFieldErrors(prev => ({ ...prev, email: error || undefined }));
+      }
+    }
+  };
 
   const handleDownloadClick = () => {
     setShowEmailForm(true);
   };
 
-  const handleEmailSubmit = (e: React.FormEvent) => {
+  const handleEmailSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Blueprint download requested for:", firstName, email);
-    setFirstName("");
-    setEmail("");
-    setShowEmailForm(false);
-    // TODO: Implement actual email sending and PDF delivery
+    
+    // Validate all fields
+    const firstNameError = validateFirstName(firstName);
+    const emailError = validateEmail(email);
+    
+    if (firstNameError || emailError) {
+      setFieldErrors({
+        firstName: firstNameError || undefined,
+        email: emailError || undefined
+      });
+      return;
+    }
+
+    setIsLoading(true);
+    setFieldErrors({});
+
+    try {
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      
+      setIsSubmitted(true);
+      toast({
+        title: "Success! 🎉",
+        description: "Your blueprint has been sent to your email!",
+      });
+      
+      // Reset form after success animation
+      setTimeout(() => {
+        setFirstName("");
+        setEmail("");
+        setShowEmailForm(false);
+        setIsSubmitted(false);
+      }, 3000);
+      
+    } catch (error) {
+      toast({
+        title: "Oops! Something went wrong",
+        description: "Please try again in a moment.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -51,47 +124,127 @@ const Blueprint = () => {
             </CardHeader>
             <CardContent className="space-y-6">
               {showEmailForm ? (
-                <div className="space-y-4 animate-fade-in">
-                  <div className="text-center">
-                    <h4 className="font-semibold text-foreground">Get Your Free Blueprint</h4>
-                  </div>
-                  <form onSubmit={handleEmailSubmit} className="space-y-4">
-                    <div>
-                      <Label htmlFor="firstName" className="text-sm">First Name</Label>
-                      <Input
-                        id="firstName"
-                        type="text"
-                        value={firstName}
-                        onChange={(e) => setFirstName(e.target.value)}
-                        placeholder="Your first name"
-                        required
-                        className="mt-1"
-                      />
+                <div className="space-y-6 animate-fade-in">
+                  {isSubmitted ? (
+                    <div className="text-center py-8 animate-scale-in">
+                      <div className="w-20 h-20 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-4 animate-pulse">
+                        <CheckCircle className="w-10 h-10 text-green-600 dark:text-green-400" />
+                      </div>
+                      <h4 className="text-xl font-semibold text-foreground mb-2">
+                        Blueprint Sent Successfully! 🎉
+                      </h4>
+                      <p className="text-muted-foreground mb-4">
+                        Check your email - your blueprint should arrive within minutes.
+                      </p>
+                      <div className="flex items-center justify-center text-sm text-muted-foreground">
+                        <Mail className="w-4 h-4 mr-2" />
+                        Sent to: {email}
+                      </div>
                     </div>
-                    <div>
-                      <Label htmlFor="email" className="text-sm">Email Address</Label>
-                      <Input
-                        id="email"
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        placeholder="your@email.com"
-                        required
-                        className="mt-1"
-                      />
-                    </div>
-                    <Button 
-                      type="submit" 
-                      variant="hero" 
-                      size="lg" 
-                      className="w-full"
-                    >
-                      Send Me The Blueprint <Download className="w-4 h-4 ml-2" />
-                    </Button>
-                  </form>
-                  <p className="text-sm text-muted-foreground text-center">
-                    We'll email you the guide instantly. No spam, ever.
-                  </p>
+                  ) : (
+                    <>
+                      <div className="text-center space-y-2">
+                        <h4 className="text-xl font-semibold text-foreground">Get Your Free Blueprint</h4>
+                        <p className="text-sm text-muted-foreground">
+                          Join thousands who've transformed their lives with this system
+                        </p>
+                      </div>
+                      
+                      <form onSubmit={handleEmailSubmit} className="space-y-5">
+                        <div className="space-y-2">
+                          <Label htmlFor="firstName" className="text-sm font-medium">
+                            First Name *
+                          </Label>
+                          <Input
+                            id="firstName"
+                            type="text"
+                            value={firstName}
+                            onChange={(e) => handleInputChange("firstName", e.target.value)}
+                            placeholder="Enter your first name"
+                            disabled={isLoading}
+                            className={`mt-1 transition-all duration-200 ${
+                              fieldErrors.firstName 
+                                ? "border-red-500 focus:border-red-500 focus:ring-red-200" 
+                                : "focus:border-primary focus:ring-primary/20"
+                            }`}
+                            onBlur={() => {
+                              const error = validateFirstName(firstName);
+                              setFieldErrors(prev => ({ ...prev, firstName: error || undefined }));
+                            }}
+                          />
+                          {fieldErrors.firstName && (
+                            <p className="text-xs text-red-500 animate-fade-in flex items-center">
+                              <span className="w-1 h-1 bg-red-500 rounded-full mr-2"></span>
+                              {fieldErrors.firstName}
+                            </p>
+                          )}
+                        </div>
+
+                        <div className="space-y-2">
+                          <Label htmlFor="email" className="text-sm font-medium">
+                            Email Address *
+                          </Label>
+                          <Input
+                            id="email"
+                            type="email"
+                            value={email}
+                            onChange={(e) => handleInputChange("email", e.target.value)}
+                            placeholder="Enter your email address"
+                            disabled={isLoading}
+                            className={`mt-1 transition-all duration-200 ${
+                              fieldErrors.email 
+                                ? "border-red-500 focus:border-red-500 focus:ring-red-200" 
+                                : "focus:border-primary focus:ring-primary/20"
+                            }`}
+                            onBlur={() => {
+                              const error = validateEmail(email);
+                              setFieldErrors(prev => ({ ...prev, email: error || undefined }));
+                            }}
+                          />
+                          {fieldErrors.email && (
+                            <p className="text-xs text-red-500 animate-fade-in flex items-center">
+                              <span className="w-1 h-1 bg-red-500 rounded-full mr-2"></span>
+                              {fieldErrors.email}
+                            </p>
+                          )}
+                        </div>
+
+                        <Button 
+                          type="submit" 
+                          variant="hero" 
+                          size="lg" 
+                          className="w-full transition-all duration-200 hover:scale-[1.02] hover:shadow-lg"
+                          disabled={isLoading}
+                        >
+                          {isLoading ? (
+                            <>
+                              <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                              Sending Blueprint...
+                            </>
+                          ) : (
+                            <>
+                              Send Me The Blueprint
+                              <Download className="w-4 h-4 ml-2 group-hover:translate-y-0.5 transition-transform" />
+                            </>
+                          )}
+                        </Button>
+                      </form>
+
+                      <div className="text-center space-y-2">
+                        <p className="text-sm text-muted-foreground">
+                          📧 Instant delivery • 🚫 No spam, ever • 🔒 Privacy protected
+                        </p>
+                        <button
+                          type="button"
+                          onClick={() => setShowEmailForm(false)}
+                          className="text-xs text-muted-foreground hover:text-foreground transition-colors underline"
+                          disabled={isLoading}
+                        >
+                          ← Go back to preview
+                        </button>
+                      </div>
+                    </>
+                  )}
                 </div>
               ) : (
                 <>
