@@ -376,6 +376,550 @@ const Tips = () => {
       popularity: 83,
       views: 1920,
       dateAdded: "2024-04-30"
+    },
+    {
+      icon: Monitor,
+      title: "Use a Standing Desk at Home",
+      description: "Posture-friendly home-office setup guide for better health.",
+      items: [
+        "Alternate sit-stand throughout day",
+        "Anti-fatigue mat reduces leg stress",
+        "Timer nudges prevent static postures"
+      ],
+      level: "Moderate",
+      duration: "4 min read",
+      category: "health",
+      popularity: 45,
+      views: 1050,
+      dateAdded: "2024-05-01"
+    },
+    {
+      icon: Calendar,
+      title: "Use Free Local Events for Entertainment",
+      description: "Swap spendy nights for council-run fun and community connection.",
+      items: [
+        "Library talks offer free education",
+        "Park runs build fitness community",
+        "Travel-cost hack for budget dates"
+      ],
+      level: "Easy",
+      duration: "4 min read",
+      category: "wealth",
+      popularity: 37,
+      views: 890,
+      dateAdded: "2024-05-05"
+    },
+    {
+      icon: Bike,
+      title: "Use Your Bike or Feet Wherever Possible",
+      description: "Thirty swaps to ditch the car and boost daily activity.",
+      items: [
+        "Active commute improves fitness",
+        "Stairs over lift builds strength",
+        "10k-step goal becomes achievable"
+      ],
+      level: "Moderate",
+      duration: "6 min read",
+      category: "health",
+      popularity: 52,
+      views: 1280,
+      dateAdded: "2024-05-10"
+    },
+    {
+      icon: Car,
+      title: "Park Further Away",
+      description: "Adds incidental steps and eases parking stress simultaneously.",
+      items: [
+        "Extra 500-1000 steps per day",
+        "Less door-ding risk for car",
+        "Micro-workout mindset development"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "health",
+      popularity: 29,
+      views: 720,
+      dateAdded: "2024-05-15"
+    },
+    {
+      icon: Smile,
+      title: "Smile at Yourself in the Mirror",
+      description: "Tiny self-esteem hack with surprising psychological benefits.",
+      items: [
+        "Triggers natural dopamine spike",
+        "Improves posture automatically",
+        "Anchors positive morning routine"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "happiness",
+      popularity: 64,
+      views: 1450,
+      dateAdded: "2024-05-20"
+    },
+    {
+      icon: Zap,
+      title: "Stretch Daily",
+      description: "Five-minute mobility flow with 10 starter moves included.",
+      items: [
+        "Reduces stiffness and pain",
+        "Pairs perfectly with kettle time",
+        "Improves posture throughout day"
+      ],
+      level: "Easy",
+      duration: "4 min read",
+      category: "health",
+      popularity: 71,
+      views: 1630,
+      dateAdded: "2024-05-25"
+    },
+    {
+      icon: ArrowUp,
+      title: "Do Calf Raises While Brushing Your Teeth",
+      description: "Sneak movement into hygiene routine for effortless gains.",
+      items: [
+        "Better circulation and blood flow",
+        "Balance boost for injury prevention",
+        "Perfect habit-stacking demonstration"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "health",
+      popularity: 58,
+      views: 1340,
+      dateAdded: "2024-05-30"
+    },
+    {
+      icon: Droplets,
+      title: "Drink One Extra Glass of Water",
+      description: "Quick hydration win plus 25 creative implementation ideas.",
+      items: [
+        "Water bottle on desk as visual cue",
+        "Flavour infusions prevent boredom",
+        "Hourly alarms ensure consistency"
+      ],
+      level: "Easy",
+      duration: "4 min read",
+      category: "health",
+      popularity: 49,
+      views: 1150,
+      dateAdded: "2024-06-01"
+    },
+    {
+      icon: TrendingUp,
+      title: "Do a Financial Health Check Every 3 Months",
+      description: "Quarterly money MOT template for ongoing financial wellness.",
+      items: [
+        "Cancel unnecessary subscriptions regularly",
+        "Track net-worth progress over time",
+        "Set realistic next-quarter goals"
+      ],
+      level: "Moderate",
+      duration: "6 min read",
+      category: "wealth",
+      popularity: 66,
+      views: 1520,
+      dateAdded: "2024-06-05"
+    },
+    {
+      icon: BookOpen,
+      title: "Always Use a Shopping List",
+      description: "Curb impulse buys and food waste with this simple habit.",
+      items: [
+        "Note planned meals first",
+        "Stick to specific aisles only",
+        "Save significant money monthly"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "wealth",
+      popularity: 43,
+      views: 1020,
+      dateAdded: "2024-06-10"
+    },
+    {
+      icon: Brain,
+      title: "Meditate for 5 Minutes a Day",
+      description: "Fast entry-level breath focus for mental clarity and calm.",
+      items: [
+        "Set timer to remove guesswork",
+        "Anchor after coffee for consistency",
+        "Accept wandering mind as normal"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "happiness",
+      popularity: 77,
+      views: 1780,
+      dateAdded: "2024-06-15"
+    },
+    {
+      icon: Footprints,
+      title: "Take a Short Walk After Meals",
+      description: "10-minute post-prandial stroll for better digestion and health.",
+      items: [
+        "Blunts glucose spike naturally",
+        "Aids digestion significantly",
+        "Easy social habit to maintain"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "health",
+      popularity: 54,
+      views: 1260,
+      dateAdded: "2024-06-20"
+    },
+    {
+      icon: Trees,
+      title: "Get Out in Nature Each Sunday",
+      description: "50 low-cost green time ideas for weekly nature connection.",
+      items: [
+        "Barefoot grounding reduces stress",
+        "Forest mindfulness boosts mood",
+        "Farmers market combines errands"
+      ],
+      level: "Moderate",
+      duration: "5 min read",
+      category: "happiness",
+      popularity: 62,
+      views: 1430,
+      dateAdded: "2024-06-25"
+    },
+    {
+      icon: Play,
+      title: "Watch a TED Talk Instead of TV",
+      description: "Swap passive binge for 18-minute learning and growth.",
+      items: [
+        "Curated playlist saves decision fatigue",
+        "Discuss with friend for deeper learning",
+        "Note one action for implementation"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "happiness",
+      popularity: 48,
+      views: 1120,
+      dateAdded: "2024-06-30"
+    },
+    {
+      icon: ArrowDown,
+      title: "Do Deep Squats During TV Ads",
+      description: "Adds strength training while watching your favourite shows.",
+      items: [
+        "Hips below knee for full range",
+        "Hold remote as counterweight",
+        "3 sets of 10 every evening"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "health",
+      popularity: 39,
+      views: 920,
+      dateAdded: "2024-07-01"
+    },
+    {
+      icon: Snowflake,
+      title: "Freeze Fruits & Veg for Smoothies",
+      description: "Saves money and prevents waste with smart food prep.",
+      items: [
+        "Prep bags for convenience",
+        "Smoothie-base list included",
+        "Icy texture provides brown-fat bonus"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "wealth",
+      popularity: 33,
+      views: 810,
+      dateAdded: "2024-07-05"
+    },
+    {
+      icon: RotateCcw,
+      title: "Try Amazon Subscribe & Save",
+      description: "Automate essentials at discount for effortless savings.",
+      items: [
+        "Select 5+ items for 15% off",
+        "Set 2-month cadence optimal",
+        "Cancel anytime with no penalty"
+      ],
+      level: "Easy",
+      duration: "4 min read",
+      category: "wealth",
+      popularity: 42,
+      views: 980,
+      dateAdded: "2024-07-10"
+    },
+    {
+      icon: Apple,
+      title: "Eat Protein with Every Meal",
+      description: "Simple macro rule for stable energy and better health.",
+      items: [
+        "Palm-size portion guide included",
+        "Mix plant and animal sources",
+        "Stabilise energy throughout day"
+      ],
+      level: "Easy",
+      duration: "4 min read",
+      category: "health",
+      popularity: 69,
+      views: 1590,
+      dateAdded: "2024-07-15"
+    },
+    {
+      icon: ArrowUp,
+      title: "Practice Good Posture",
+      description: "Desk-to-standing cues and wall tests for spinal health.",
+      items: [
+        "Ears over shoulders alignment",
+        "Hourly reset reminders work",
+        "Strengthen rear chain muscles"
+      ],
+      level: "Moderate",
+      duration: "4 min read",
+      category: "health",
+      popularity: 56,
+      views: 1310,
+      dateAdded: "2024-07-20"
+    },
+    {
+      icon: Minus,
+      title: "Replace One Sugary Snack Daily",
+      description: "Swap chocolate for fruit and protein alternatives gradually.",
+      items: [
+        "Prep healthy alternatives in advance",
+        "Crowd-out strategy beats restriction",
+        "Track cravings to identify patterns"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "health",
+      popularity: 47,
+      views: 1100,
+      dateAdded: "2024-07-25"
+    },
+    {
+      icon: Wind,
+      title: "Breathe Deeply for 60 Seconds Twice a Day",
+      description: "Box-breathing micro-break for instant stress relief.",
+      items: [
+        "Lowers cortisol levels quickly",
+        "Boosts focus and concentration",
+        "Pairs perfectly with kettle boil"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "happiness",
+      popularity: 72,
+      views: 1670,
+      dateAdded: "2024-07-30"
+    },
+    {
+      icon: ArrowUp,
+      title: "Always Take the Stairs",
+      description: "Everyday NEAT upgrade for effortless fitness gains.",
+      items: [
+        "Burns 3x walking calories",
+        "Builds leg strength daily",
+        "Free lifetime gym membership"
+      ],
+      level: "Easy",
+      duration: "4 min read",
+      category: "health",
+      popularity: 51,
+      views: 1190,
+      dateAdded: "2024-08-01"
+    },
+    {
+      icon: Eye,
+      title: "Look Up at the Sky Once a Day",
+      description: "One-minute perspective reset for mental clarity and calm.",
+      items: [
+        "Eye-strain relief from screens",
+        "Circadian light exposure benefits",
+        "Gratitude spark from nature"
+      ],
+      level: "Easy",
+      duration: "2 min read",
+      category: "happiness",
+      popularity: 38,
+      views: 890,
+      dateAdded: "2024-08-05"
+    },
+    {
+      icon: Bus,
+      title: "Use Public Transport Instead of Driving",
+      description: "Habit swap for wallet and planet with bonus benefits.",
+      items: [
+        "Plan routes for stress reduction",
+        "Read on bus for learning time",
+        "Add walking legs for fitness"
+      ],
+      level: "Moderate",
+      duration: "4 min read",
+      category: "wealth",
+      popularity: 34,
+      views: 820,
+      dateAdded: "2024-08-10"
+    },
+    {
+      icon: Pill,
+      title: "Try Generic Medication Brands",
+      description: "Cut pharmacy spend without quality loss using smart swaps.",
+      items: [
+        "Check active ingredient matches",
+        "Ask pharmacist for guidance",
+        "Save up to 70% on costs"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "wealth",
+      popularity: 25,
+      views: 650,
+      dateAdded: "2024-08-15"
+    },
+    {
+      icon: Leaf,
+      title: "Try a New Healthy Food Each Week",
+      description: "52-week variety challenge for nutritional diversity.",
+      items: [
+        "List untried plants for inspiration",
+        "Share recipe pics for accountability",
+        "Track favourites for repeat meals"
+      ],
+      level: "Easy",
+      duration: "4 min read",
+      category: "health",
+      popularity: 59,
+      views: 1370,
+      dateAdded: "2024-08-20"
+    },
+    {
+      icon: Users,
+      title: "Connect with Loved Ones",
+      description: "Sunday call and message script for stronger relationships.",
+      items: [
+        "Calendar cue ensures consistency",
+        "3-question check-in template",
+        "Strengthens bonds over time"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "happiness",
+      popularity: 73,
+      views: 1690,
+      dateAdded: "2024-08-25"
+    },
+    {
+      icon: XCircle,
+      title: "Have a Weekly No-Spend Day",
+      description: "24-hour retail fast for mindful money awareness.",
+      items: [
+        "Pre-plan meals to avoid temptation",
+        "Free fun list for entertainment",
+        "Reflect on spending urges"
+      ],
+      level: "Moderate",
+      duration: "3 min read",
+      category: "wealth",
+      popularity: 46,
+      views: 1080,
+      dateAdded: "2024-08-30"
+    },
+    {
+      icon: BookOpen,
+      title: "Learn Something New (5-min Skill)",
+      description: "Quick-fire up-skilling framework for continuous growth.",
+      items: [
+        "Micro-lesson sources provided",
+        "Track wins for motivation",
+        "Stack skills for compound learning"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "happiness",
+      popularity: 55,
+      views: 1290,
+      dateAdded: "2024-09-01"
+    },
+    {
+      icon: Leaf,
+      title: "Try Natural Anxiety Fixes",
+      description: "List of evidence-based, drug-free soothers for stress.",
+      items: [
+        "Breathwork techniques included",
+        "Magnesium supplementation guide",
+        "Nature time prescriptions"
+      ],
+      level: "Easy",
+      duration: "5 min read",
+      category: "happiness",
+      popularity: 67,
+      views: 1550,
+      dateAdded: "2024-09-05"
+    },
+    {
+      icon: Users,
+      title: "Join a Community",
+      description: "How to find and plug into groups that fuel personal growth.",
+      items: [
+        "Clarify interests before searching",
+        "Test meetings before committing",
+        "Add value consistently to belong"
+      ],
+      level: "Moderate",
+      duration: "6 min read",
+      category: "happiness",
+      popularity: 61,
+      views: 1420,
+      dateAdded: "2024-09-10"
+    },
+    {
+      icon: PenTool,
+      title: "Keep a Notebook by Your Bed",
+      description: "Captures 3 a.m. ideas and improves sleep quality.",
+      items: [
+        "Brain dump reduces racing thoughts",
+        "Pattern spotting reveals insights",
+        "Morning review sparks action"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "happiness",
+      popularity: 44,
+      views: 1040,
+      dateAdded: "2024-09-15"
+    },
+    {
+      icon: RotateCcw,
+      title: "When You Reach the Top of the Stairs, Go Back Down and Up Again",
+      description: "One-minute leg blast hiding in plain sight for fitness.",
+      items: [
+        "Doubles stair benefit instantly",
+        "Free cardio without gym",
+        "Momentum hack for energy"
+      ],
+      level: "Easy",
+      duration: "4 min read",
+      category: "health",
+      popularity: 31,
+      views: 760,
+      dateAdded: "2024-09-20"
+    },
+    {
+      icon: Zap,
+      title: "Get Your Lunges In While Vacuuming",
+      description: "Turn household chores into effective leg day workouts.",
+      items: [
+        "Lunge with each vacuum stroke",
+        "Burns extra calories effortlessly",
+        "No extra time required"
+      ],
+      level: "Easy",
+      duration: "4 min read",
+      category: "health",
+      popularity: 36,
+      views: 850,
+      dateAdded: "2024-09-25"
     }
   ];
 
