@@ -20,7 +20,7 @@ const Navigation = () => {
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    <nav className="bg-background/95 backdrop-blur-md border-b border-border sticky top-0 z-50">
+    <nav className="bg-background/95 backdrop-blur-md border-b border-border sticky top-0 z-50 transition-all duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
@@ -33,12 +33,12 @@ const Navigation = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-6 lg:space-x-8">
             {navItems.map((item) => (
               <Link
                 key={item.name}
                 to={item.path}
-                className={`relative py-2 px-1 text-sm font-medium transition-colors hover:text-primary ${
+                className={`relative py-2 px-1 text-sm font-medium transition-all duration-200 hover:text-primary focus-enhanced ${
                   isActive(item.path)
                     ? "text-primary"
                     : "text-muted-foreground"
@@ -50,7 +50,11 @@ const Navigation = () => {
                 )}
               </Link>
             ))}
-            <Button variant="hero" size="sm">
+            <Button 
+              variant="hero" 
+              size="sm" 
+              className="ml-4 hover:scale-105 transition-transform duration-200"
+            >
               Get Started
             </Button>
           </div>
@@ -61,32 +65,47 @@ const Navigation = () => {
               variant="ghost"
               size="icon"
               onClick={() => setIsOpen(!isOpen)}
+              className="focus-enhanced relative"
+              aria-label={isOpen ? "Close menu" : "Open menu"}
             >
-              {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              <div className="relative w-5 h-5">
+                <Menu className={`w-5 h-5 absolute transition-all duration-200 ${isOpen ? 'opacity-0 rotate-90' : 'opacity-100 rotate-0'}`} />
+                <X className={`w-5 h-5 absolute transition-all duration-200 ${isOpen ? 'opacity-100 rotate-0' : 'opacity-0 -rotate-90'}`} />
+              </div>
             </Button>
           </div>
         </div>
 
         {/* Mobile Navigation */}
         {isOpen && (
-          <div className="md:hidden border-t border-border bg-background/95 backdrop-blur-md">
+          <div className="md:hidden border-t border-border bg-background/95 backdrop-blur-md animate-fade-in">
             <div className="px-2 pt-2 pb-3 space-y-1">
-              {navItems.map((item) => (
+              {navItems.map((item, index) => (
                 <Link
                   key={item.name}
                   to={item.path}
-                  className={`block px-3 py-2 rounded-md text-base font-medium transition-colors ${
+                  className={`block px-4 py-3 rounded-lg text-base font-medium transition-all duration-200 focus-enhanced ${
                     isActive(item.path)
-                      ? "text-primary bg-primary/10"
+                      ? "text-primary bg-primary/10 border border-primary/20"
                       : "text-muted-foreground hover:text-primary hover:bg-primary/5"
                   }`}
+                  style={{ animationDelay: `${index * 50}ms` }}
                   onClick={() => setIsOpen(false)}
                 >
                   {item.name}
+                  {isActive(item.path) && (
+                    <span className="ml-2 text-xs bg-primary/20 text-primary px-2 py-1 rounded-full">
+                      Current
+                    </span>
+                  )}
                 </Link>
               ))}
-              <div className="px-3 py-2">
-                <Button variant="hero" size="sm" className="w-full">
+              <div className="px-3 py-2 animate-fade-in" style={{ animationDelay: `${navItems.length * 50}ms` }}>
+                <Button 
+                  variant="hero" 
+                  size="sm" 
+                  className="w-full hover:scale-[1.02] transition-transform duration-200"
+                >
                   Get Started
                 </Button>
               </div>

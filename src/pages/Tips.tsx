@@ -1,28 +1,16 @@
 import { useState, useMemo } from "react";
-import { Link } from "react-router-dom";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import TipCard from "@/components/TipCard";
 import { 
-  BookOpen, 
-  Target, 
-  TrendingUp, 
-  Lightbulb, 
-  Users, 
-  Clock, 
-  Star, 
-  Brain,
-  Rocket,
   Heart,
   DollarSign,
-  Zap,
-  ArrowRight,
-  X,
+  Smile,
+  SlidersHorizontal,
+  Filter,
   Dumbbell,
   Flame,
+  TrendingUp,
   BarChart3,
   Coffee,
   Eye,
@@ -43,7 +31,7 @@ import {
   Calendar,
   Bike,
   Car,
-  Smile,
+  Zap,
   ArrowUp,
   Footprints,
   Trees,
@@ -57,27 +45,16 @@ import {
   Bus,
   Pill,
   Leaf,
+  Users,
   XCircle,
+  BookOpen,
   PenTool,
-  SlidersHorizontal,
-  Filter
+  Brain
 } from "lucide-react";
 
 const Tips = () => {
-  const [emailCapture, setEmailCapture] = useState<number | null>(null);
-  const [email, setEmail] = useState("");
   const [sortBy, setSortBy] = useState("newest");
   const [categoryFilter, setCategoryFilter] = useState("all");
-
-  // Featured cornerstone guide
-  const featuredGuide = {
-    icon: BookOpen,
-    title: "The Source Blueprint",
-    description: "The foundational framework that underpins everything we teach. Master the core principles that successful entrepreneurs use to build thriving businesses and meaningful lives.",
-    items: ["Core Success Principles", "Business Foundation Framework", "Life Integration System"],
-    level: "Essential",
-    duration: "45 min read"
-  };
 
   const tipCategories = [
     {
@@ -202,7 +179,11 @@ const Tips = () => {
         "Sparks empathy and emotional intelligence"
       ],
       level: "Easy",
-      duration: "5 min read"
+      duration: "5 min read",
+      category: "happiness",
+      popularity: 33,
+      views: 890,
+      dateAdded: "2024-03-05"
     },
     {
       icon: MessageCircle,
@@ -214,7 +195,11 @@ const Tips = () => {
         "30 group-idea prompts included"
       ],
       level: "Easy",
-      duration: "5 min read"
+      duration: "5 min read",
+      category: "happiness",
+      popularity: 47,
+      views: 1120,
+      dateAdded: "2024-03-10"
     },
     {
       icon: ShoppingBasket,
@@ -226,7 +211,11 @@ const Tips = () => {
         "Makes for quicker shopping trips"
       ],
       level: "Easy",
-      duration: "5 min read"
+      duration: "5 min read",
+      category: "wealth",
+      popularity: 35,
+      views: 780,
+      dateAdded: "2024-03-15"
     },
     {
       icon: Map,
@@ -238,7 +227,11 @@ const Tips = () => {
         "Natural mood lift from novelty"
       ],
       level: "Easy",
-      duration: "5 min read"
+      duration: "5 min read",
+      category: "happiness",
+      popularity: 41,
+      views: 950,
+      dateAdded: "2024-03-20"
     },
     {
       icon: Truck,
@@ -250,7 +243,11 @@ const Tips = () => {
         "Stack with cashback for double benefits"
       ],
       level: "Easy",
-      duration: "3 min read"
+      duration: "3 min read",
+      category: "wealth",
+      popularity: 28,
+      views: 645,
+      dateAdded: "2024-03-25"
     },
     {
       icon: Waves,
@@ -262,7 +259,11 @@ const Tips = () => {
         "Creates mindfulness pocket in day"
       ],
       level: "Easy",
-      duration: "3 min read"
+      duration: "3 min read",
+      category: "health",
+      popularity: 56,
+      views: 1240,
+      dateAdded: "2024-03-30"
     },
     {
       icon: EyeOff,
@@ -274,7 +275,11 @@ const Tips = () => {
         "Raise percentage with every pay-rise"
       ],
       level: "Easy",
-      duration: "5 min read"
+      duration: "5 min read",
+      category: "wealth",
+      popularity: 68,
+      views: 1580,
+      dateAdded: "2024-04-01"
     },
     {
       icon: Moon,
@@ -286,7 +291,11 @@ const Tips = () => {
         "Prep tomorrow reduces morning stress"
       ],
       level: "Moderate",
-      duration: "4 min read"
+      duration: "4 min read",
+      category: "health",
+      popularity: 74,
+      views: 1720,
+      dateAdded: "2024-04-05"
     },
     {
       icon: RefreshCw,
@@ -298,7 +307,11 @@ const Tips = () => {
         "Repeat daily for lasting mindset change"
       ],
       level: "Easy",
-      duration: "4 min read"
+      duration: "4 min read",
+      category: "happiness",
+      popularity: 51,
+      views: 1180,
+      dateAdded: "2024-04-10"
     },
     {
       icon: Package,
@@ -310,7 +323,11 @@ const Tips = () => {
         "Earmark proceeds for debt or savings"
       ],
       level: "Easy",
-      duration: "4 min read"
+      duration: "4 min read",
+      category: "wealth",
+      popularity: 44,
+      views: 1030,
+      dateAdded: "2024-04-15"
     },
     {
       icon: Droplets,
@@ -322,7 +339,11 @@ const Tips = () => {
         "Pair with meals for habit stacking"
       ],
       level: "Easy",
-      duration: "5 min read"
+      duration: "5 min read",
+      category: "health",
+      popularity: 61,
+      views: 1410,
+      dateAdded: "2024-04-20"
     },
     {
       icon: Activity,
@@ -334,7 +355,11 @@ const Tips = () => {
         "Low-injury risk for sustainable fitness"
       ],
       level: "Moderate",
-      duration: "6 min read"
+      duration: "6 min read",
+      category: "health",
+      popularity: 79,
+      views: 1850,
+      dateAdded: "2024-04-25"
     },
     {
       icon: Sun,
@@ -346,423 +371,13 @@ const Tips = () => {
         "Pairs perfectly with coffee brew time"
       ],
       level: "Easy",
-      duration: "6 min read"
-    },
-    {
-      icon: Monitor,
-      title: "Use a Standing Desk at Home",
-      description: "Posture-friendly home-office setup guide for better health.",
-      items: [
-        "Alternate sit-stand throughout day",
-        "Anti-fatigue mat reduces leg stress",
-        "Timer nudges prevent static postures"
-      ],
-      level: "Moderate",
-      duration: "4 min read"
-    },
-    {
-      icon: Calendar,
-      title: "Use Free Local Events for Entertainment",
-      description: "Swap spendy nights for council-run fun and community connection.",
-      items: [
-        "Library talks offer free education",
-        "Park runs build fitness community",
-        "Travel-cost hack for budget dates"
-      ],
-      level: "Easy",
-      duration: "4 min read"
-    },
-    {
-      icon: Bike,
-      title: "Use Your Bike or Feet Wherever Possible",
-      description: "Thirty swaps to ditch the car and boost daily activity.",
-      items: [
-        "Active commute improves fitness",
-        "Stairs over lift builds strength",
-        "10k-step goal becomes achievable"
-      ],
-      level: "Moderate",
-      duration: "6 min read"
-    },
-    {
-      icon: Car,
-      title: "Park Further Away",
-      description: "Adds incidental steps and eases parking stress simultaneously.",
-      items: [
-        "Extra 500-1000 steps per day",
-        "Less door-ding risk for car",
-        "Micro-workout mindset development"
-      ],
-      level: "Easy",
-      duration: "3 min read"
-    },
-    {
-      icon: Smile,
-      title: "Smile at Yourself in the Mirror",
-      description: "Tiny self-esteem hack with surprising psychological benefits.",
-      items: [
-        "Triggers natural dopamine spike",
-        "Improves posture automatically",
-        "Anchors positive morning routine"
-      ],
-      level: "Easy",
-      duration: "3 min read"
-    },
-    {
-      icon: Zap,
-      title: "Stretch Daily",
-      description: "Five-minute mobility flow with 10 starter moves included.",
-      items: [
-        "Reduces stiffness and pain",
-        "Pairs perfectly with kettle time",
-        "Improves posture throughout day"
-      ],
-      level: "Easy",
-      duration: "4 min read"
-    },
-    {
-      icon: ArrowUp,
-      title: "Do Calf Raises While Brushing Your Teeth",
-      description: "Sneak movement into hygiene routine for effortless gains.",
-      items: [
-        "Better circulation and blood flow",
-        "Balance boost for injury prevention",
-        "Perfect habit-stacking demonstration"
-      ],
-      level: "Easy",
-      duration: "3 min read"
-    },
-    {
-      icon: Droplets,
-      title: "Drink One Extra Glass of Water",
-      description: "Quick hydration win plus 25 creative implementation ideas.",
-      items: [
-        "Water bottle on desk as visual cue",
-        "Flavour infusions prevent boredom",
-        "Hourly alarms ensure consistency"
-      ],
-      level: "Easy",
-      duration: "4 min read"
-    },
-    {
-      icon: TrendingUp,
-      title: "Do a Financial Health Check Every 3 Months",
-      description: "Quarterly money MOT template for ongoing financial wellness.",
-      items: [
-        "Cancel unnecessary subscriptions regularly",
-        "Track net-worth progress over time",
-        "Set realistic next-quarter goals"
-      ],
-      level: "Moderate",
-      duration: "6 min read"
-    },
-    {
-      icon: BookOpen,
-      title: "Always Use a Shopping List",
-      description: "Curb impulse buys and food waste with this simple habit.",
-      items: [
-        "Note planned meals first",
-        "Stick to specific aisles only",
-        "Save significant money monthly"
-      ],
-      level: "Easy",
-      duration: "3 min read"
-    },
-    {
-      icon: Brain,
-      title: "Meditate for 5 Minutes a Day",
-      description: "Fast entry-level breath focus for mental clarity and calm.",
-      items: [
-        "Set timer to remove guesswork",
-        "Anchor after coffee for consistency",
-        "Accept wandering mind as normal"
-      ],
-      level: "Easy",
-      duration: "3 min read"
-    },
-    {
-      icon: Footprints,
-      title: "Take a Short Walk After Meals",
-      description: "10-minute post-prandial stroll for better digestion and health.",
-      items: [
-        "Blunts glucose spike naturally",
-        "Aids digestion significantly",
-        "Easy social habit to maintain"
-      ],
-      level: "Easy",
-      duration: "3 min read"
-    },
-    {
-      icon: Trees,
-      title: "Get Out in Nature Each Sunday",
-      description: "50 low-cost green time ideas for weekly nature connection.",
-      items: [
-        "Barefoot grounding reduces stress",
-        "Forest mindfulness boosts mood",
-        "Farmers market combines errands"
-      ],
-      level: "Moderate",
-      duration: "5 min read"
-    },
-    {
-      icon: Play,
-      title: "Watch a TED Talk Instead of TV",
-      description: "Swap passive binge for 18-minute learning and growth.",
-      items: [
-        "Curated playlist saves decision fatigue",
-        "Discuss with friend for deeper learning",
-        "Note one action for implementation"
-      ],
-      level: "Easy",
-      duration: "3 min read"
-    },
-    {
-      icon: ArrowDown,
-      title: "Do Deep Squats During TV Ads",
-      description: "Adds strength training while watching your favourite shows.",
-      items: [
-        "Hips below knee for full range",
-        "Hold remote as counterweight",
-        "3 sets of 10 every evening"
-      ],
-      level: "Easy",
-      duration: "3 min read"
-    },
-    {
-      icon: Snowflake,
-      title: "Freeze Fruits & Veg for Smoothies",
-      description: "Saves money and prevents waste with smart food prep.",
-      items: [
-        "Prep bags for convenience",
-        "Smoothie-base list included",
-        "Icy texture provides brown-fat bonus"
-      ],
-      level: "Easy",
-      duration: "3 min read"
-    },
-    {
-      icon: RotateCcw,
-      title: "Try Amazon Subscribe & Save",
-      description: "Automate essentials at discount for effortless savings.",
-      items: [
-        "Select 5+ items for 15% off",
-        "Set 2-month cadence optimal",
-        "Cancel anytime with no penalty"
-      ],
-      level: "Easy",
-      duration: "4 min read"
-    },
-    {
-      icon: Apple,
-      title: "Eat Protein with Every Meal",
-      description: "Simple macro rule for stable energy and better health.",
-      items: [
-        "Palm-size portion guide included",
-        "Mix plant and animal sources",
-        "Stabilise energy throughout day"
-      ],
-      level: "Easy",
-      duration: "4 min read"
-    },
-    {
-      icon: ArrowUp,
-      title: "Practice Good Posture",
-      description: "Desk-to-standing cues and wall tests for spinal health.",
-      items: [
-        "Ears over shoulders alignment",
-        "Hourly reset reminders work",
-        "Strengthen rear chain muscles"
-      ],
-      level: "Moderate",
-      duration: "4 min read"
-    },
-    {
-      icon: Minus,
-      title: "Replace One Sugary Snack Daily",
-      description: "Swap chocolate for fruit and protein alternatives gradually.",
-      items: [
-        "Prep healthy alternatives in advance",
-        "Crowd-out strategy beats restriction",
-        "Track cravings to identify patterns"
-      ],
-      level: "Easy",
-      duration: "3 min read"
-    },
-    {
-      icon: Wind,
-      title: "Breathe Deeply for 60 Seconds Twice a Day",
-      description: "Box-breathing micro-break for instant stress relief.",
-      items: [
-        "Lowers cortisol levels quickly",
-        "Boosts focus and concentration",
-        "Pairs perfectly with kettle boil"
-      ],
-      level: "Easy",
-      duration: "3 min read"
-    },
-    {
-      icon: ArrowUp,
-      title: "Always Take the Stairs",
-      description: "Everyday NEAT upgrade for effortless fitness gains.",
-      items: [
-        "Burns 3x walking calories",
-        "Builds leg strength daily",
-        "Free lifetime gym membership"
-      ],
-      level: "Easy",
-      duration: "4 min read"
-    },
-    {
-      icon: Eye,
-      title: "Look Up at the Sky Once a Day",
-      description: "One-minute perspective reset for mental clarity and calm.",
-      items: [
-        "Eye-strain relief from screens",
-        "Circadian light exposure benefits",
-        "Gratitude spark from nature"
-      ],
-      level: "Easy",
-      duration: "2 min read"
-    },
-    {
-      icon: Bus,
-      title: "Use Public Transport Instead of Driving",
-      description: "Habit swap for wallet and planet with bonus benefits.",
-      items: [
-        "Plan routes for stress reduction",
-        "Read on bus for learning time",
-        "Add walking legs for fitness"
-      ],
-      level: "Moderate",
-      duration: "4 min read"
-    },
-    {
-      icon: Pill,
-      title: "Try Generic Medication Brands",
-      description: "Cut pharmacy spend without quality loss using smart swaps.",
-      items: [
-        "Check active ingredient matches",
-        "Ask pharmacist for guidance",
-        "Save up to 70% on costs"
-      ],
-      level: "Easy",
-      duration: "3 min read"
-    },
-    {
-      icon: Leaf,
-      title: "Try a New Healthy Food Each Week",
-      description: "52-week variety challenge for nutritional diversity.",
-      items: [
-        "List untried plants for inspiration",
-        "Share recipe pics for accountability",
-        "Track favourites for repeat meals"
-      ],
-      level: "Easy",
-      duration: "4 min read"
-    },
-    {
-      icon: Users,
-      title: "Connect with Loved Ones",
-      description: "Sunday call and message script for stronger relationships.",
-      items: [
-        "Calendar cue ensures consistency",
-        "3-question check-in template",
-        "Strengthens bonds over time"
-      ],
-      level: "Easy",
-      duration: "3 min read"
-    },
-    {
-      icon: XCircle,
-      title: "Have a Weekly No-Spend Day",
-      description: "24-hour retail fast for mindful money awareness.",
-      items: [
-        "Pre-plan meals to avoid temptation",
-        "Free fun list for entertainment",
-        "Reflect on spending urges"
-      ],
-      level: "Moderate",
-      duration: "3 min read"
-    },
-    {
-      icon: BookOpen,
-      title: "Learn Something New (5-min Skill)",
-      description: "Quick-fire up-skilling framework for continuous growth.",
-      items: [
-        "Micro-lesson sources provided",
-        "Track wins for motivation",
-        "Stack skills for compound learning"
-      ],
-      level: "Easy",
-      duration: "3 min read"
-    },
-    {
-      icon: Leaf,
-      title: "Try Natural Anxiety Fixes",
-      description: "List of evidence-based, drug-free soothers for stress.",
-      items: [
-        "Breathwork techniques included",
-        "Magnesium supplementation guide",
-        "Nature time prescriptions"
-      ],
-      level: "Easy",
-      duration: "5 min read"
-    },
-    {
-      icon: Users,
-      title: "Join a Community",
-      description: "How to find and plug into groups that fuel personal growth.",
-      items: [
-        "Clarify interests before searching",
-        "Test meetings before committing",
-        "Add value consistently to belong"
-      ],
-      level: "Moderate",
-      duration: "6 min read"
-    },
-    {
-      icon: PenTool,
-      title: "Keep a Notebook by Your Bed",
-      description: "Captures 3 a.m. ideas and improves sleep quality.",
-      items: [
-        "Brain dump reduces racing thoughts",
-        "Pattern spotting reveals insights",
-        "Morning review sparks action"
-      ],
-      level: "Easy",
-      duration: "3 min read"
-    },
-    {
-      icon: RotateCcw,
-      title: "When You Reach the Top of the Stairs, Go Back Down and Up Again",
-      description: "One-minute leg blast hiding in plain sight for fitness.",
-      items: [
-        "Doubles stair benefit instantly",
-        "Free cardio without gym",
-        "Momentum hack for energy"
-      ],
-      level: "Easy",
-      duration: "4 min read"
-    },
-    {
-      icon: Zap,
-      title: "Get Your Lunges In While Vacuuming",
-      description: "Turn household chores into effective leg day workouts.",
-      items: [
-        "Lunge with each vacuum stroke",
-        "Burns extra calories effortlessly",
-        "No extra time required"
-      ],
-      level: "Easy",
-      duration: "4 min read"
+      duration: "6 min read",
+      category: "health",
+      popularity: 83,
+      views: 1920,
+      dateAdded: "2024-04-30"
     }
-  ].map((tip, index) => ({ 
-    ...tip, 
-    category: tip.category || (index % 3 === 0 ? "health" : index % 3 === 1 ? "wealth" : "happiness"),
-    popularity: tip.popularity || Math.floor(Math.random() * 100) + 1,
-    views: tip.views || Math.floor(Math.random() * 2000) + 100,
-    dateAdded: tip.dateAdded || "2024-01-01"
-  }));
+  ];
 
   // Filtering and sorting logic
   const filteredAndSortedTips = useMemo(() => {
@@ -792,55 +407,11 @@ const Tips = () => {
     }
   }, [categoryFilter, sortBy]);
 
-  const getCategoryColor = (category: string) => {
-    switch (category) {
-      case "health": return "bg-success/10 text-success border-success/20";
-      case "wealth": return "bg-warning/10 text-warning border-warning/20";
-      case "happiness": return "bg-primary/10 text-primary border-primary/20";
-      default: return "bg-muted/10 text-muted-foreground border-muted/20";
-    }
-  };
-
-  const getLevelColor = (level: string) => {
-    switch (level) {
-      case "Essential": return "bg-gradient-primary text-primary-foreground";
-      case "Beginner": return "bg-success text-success-foreground";
-      case "Intermediate": return "bg-warning text-warning-foreground";
-      case "Advanced": return "bg-destructive text-destructive-foreground";
-      default: return "bg-muted text-muted-foreground";
-    }
-  };
-
-  const handleDownloadClick = (index: number) => {
-    setEmailCapture(index);
-  };
-
-  const handleFeaturedDownloadClick = () => {
-    setEmailCapture(-1); // Use -1 for featured guide
-  };
-
-  const handleEmailSubmit = (e: React.FormEvent, tipTitle: string) => {
-    e.preventDefault();
-    if (email) {
-      // Handle email submission logic here
-      console.log(`Sending ${tipTitle} guide to ${email}`);
-      // Reset form
-      setEmail("");
-      setEmailCapture(null);
-      // Show success message (you could add a toast here)
-    }
-  };
-
-  const closeEmailCapture = () => {
-    setEmailCapture(null);
-    setEmail("");
-  };
-
   return (
-    <div className="min-h-screen py-20 relative">
+    <div className="min-h-screen py-20 relative bg-gradient-to-b from-background to-muted/30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-16 animate-fade-in">
           <h1 className="text-4xl lg:text-5xl font-bold mb-6 text-foreground">
             Free Tips & Guide Catalogue
           </h1>
@@ -850,9 +421,8 @@ const Tips = () => {
           </p>
         </div>
 
-
         {/* Filters and Sorting */}
-        <div className="mb-12">
+        <div className="mb-12 animate-fade-in" style={{ animationDelay: "200ms" }}>
           <div className="flex flex-col lg:flex-row gap-6 items-center justify-between">
             {/* Category Filter Tabs */}
             <div className="flex flex-wrap gap-2 justify-center lg:justify-start">
@@ -860,7 +430,7 @@ const Tips = () => {
                 variant={categoryFilter === "all" ? "default" : "outline"}
                 size="sm"
                 onClick={() => setCategoryFilter("all")}
-                className="gap-2"
+                className="gap-2 transition-all duration-200 hover:scale-105"
               >
                 <Filter className="w-4 h-4" />
                 All Categories
@@ -869,7 +439,7 @@ const Tips = () => {
                 variant={categoryFilter === "health" ? "default" : "outline"}
                 size="sm"
                 onClick={() => setCategoryFilter("health")}
-                className="gap-2"
+                className="gap-2 transition-all duration-200 hover:scale-105"
               >
                 <Heart className="w-4 h-4" />
                 Health
@@ -878,7 +448,7 @@ const Tips = () => {
                 variant={categoryFilter === "wealth" ? "default" : "outline"}
                 size="sm"
                 onClick={() => setCategoryFilter("wealth")}
-                className="gap-2"
+                className="gap-2 transition-all duration-200 hover:scale-105"
               >
                 <DollarSign className="w-4 h-4" />
                 Wealth
@@ -887,7 +457,7 @@ const Tips = () => {
                 variant={categoryFilter === "happiness" ? "default" : "outline"}
                 size="sm"
                 onClick={() => setCategoryFilter("happiness")}
-                className="gap-2"
+                className="gap-2 transition-all duration-200 hover:scale-105"
               >
                 <Smile className="w-4 h-4" />
                 Happiness
@@ -914,141 +484,44 @@ const Tips = () => {
           </div>
         </div>
 
-        {/* Regular Tips Grid */}
-        <div className="mb-8">
+        {/* Results Header */}
+        <div className="mb-8 animate-fade-in" style={{ animationDelay: "300ms" }}>
           <h3 className="text-xl font-semibold text-center text-foreground mb-8">
             {categoryFilter === "all" 
-              ? "Additional Resources" 
-              : `${categoryFilter.charAt(0).toUpperCase() + categoryFilter.slice(1)} Tips`}
+              ? "All Available Guides" 
+              : `${categoryFilter.charAt(0).toUpperCase() + categoryFilter.slice(1)} Guides`}
             <span className="text-muted-foreground ml-2">({filteredAndSortedTips.length})</span>
           </h3>
         </div>
         
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+        {/* Tips Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-16">
           {filteredAndSortedTips.map((tip, index) => (
-            <Card 
-              key={index} 
-              className="group hover:shadow-medium transition-all duration-300 hover:-translate-y-2 cursor-pointer relative overflow-hidden bg-card/80 backdrop-blur-sm"
+            <div 
+              key={index}
+              className="animate-fade-in hover-lift"
+              style={{ animationDelay: `${400 + index * 100}ms` }}
             >
-              <CardHeader className="pb-3">
-                <div className="flex items-center justify-between mb-2">
-                  <div className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                    <tip.icon className="w-6 h-6 text-white" />
-                  </div>
-                  <div className="flex gap-1">
-                    <Badge className={getCategoryColor(tip.category)} variant="outline">
-                      {tip.category}
-                    </Badge>
-                    <Badge className={getLevelColor(tip.level)}>
-                      {tip.level}
-                    </Badge>
-                  </div>
-                </div>
-                <CardTitle className="text-lg leading-snug group-hover:text-primary transition-colors">
-                  {tip.title}
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                {emailCapture === index ? (
-                  /* Email Capture Form */
-                  <div className="space-y-4 animate-fade-in">
-                    <div className="flex items-center justify-between">
-                      <h4 className="font-semibold text-foreground">Get Your Free Guide</h4>
-                      <Button 
-                        variant="ghost" 
-                        size="icon"
-                        onClick={closeEmailCapture}
-                        className="w-6 h-6 hover:bg-destructive/10 hover:text-destructive"
-                      >
-                        <X className="w-4 h-4" />
-                      </Button>
-                    </div>
-                    <form onSubmit={(e) => handleEmailSubmit(e, tip.title)} className="space-y-3">
-                      <div>
-                        <Label htmlFor={`email-${index}`} className="text-xs">Email Address</Label>
-                        <Input
-                          id={`email-${index}`}
-                          type="email"
-                          value={email}
-                          onChange={(e) => setEmail(e.target.value)}
-                          placeholder="your@email.com"
-                          required
-                          className="mt-1 text-sm"
-                        />
-                      </div>
-                      <Button 
-                        type="submit" 
-                        variant="hero" 
-                        size="sm" 
-                        className="w-full"
-                      >
-                        Send Guide <ArrowRight className="w-4 h-4 ml-1" />
-                      </Button>
-                    </form>
-                    <p className="text-xs text-muted-foreground">
-                      We'll email you the guide instantly. No spam, ever.
-                    </p>
-                  </div>
-                ) : (
-                  /* Original Content */
-                  <>
-                    <p className="text-muted-foreground text-sm leading-relaxed">
-                      {tip.description}
-                    </p>
-                    
-                    <div className="space-y-2">
-                      <p className="text-xs font-medium text-foreground">What's Included:</p>
-                      <ul className="space-y-1">
-                        {tip.items.map((item, itemIndex) => (
-                          <li key={itemIndex} className="text-xs text-muted-foreground flex items-center">
-                            <div className="w-1 h-1 bg-primary rounded-full mr-2"></div>
-                            {item}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    <div className="flex items-center justify-between pt-2 border-t border-border">
-                      <span className="text-xs text-muted-foreground flex items-center">
-                        <Clock className="w-3 h-3 mr-1" />
-                        {tip.duration}
-                      </span>
-                      <Button 
-                        size="sm" 
-                        variant="ghost" 
-                        className="text-primary hover:text-primary hover:bg-primary/10 group-hover:bg-primary/10"
-                        onClick={() => handleDownloadClick(index)}
-                      >
-                        Download
-                      </Button>
-                    </div>
-                  </>
-                )}
-              </CardContent>
-            </Card>
+              <TipCard tip={tip} index={index} />
+            </div>
           ))}
         </div>
 
-        {/* CTA Section */}
-        <div className="text-center bg-gradient-hero text-white rounded-2xl p-12 relative overflow-hidden">
-          <div className="relative z-10">
-            <h2 className="text-3xl font-bold mb-4">
-              Want More Exclusive Content?
-            </h2>
-            <p className="text-lg text-white/90 mb-8 max-w-2xl mx-auto">
-              Join our premium community for advanced strategies, personal coaching, 
-              and exclusive resources not available anywhere else.
+        {/* Empty State */}
+        {filteredAndSortedTips.length === 0 && (
+          <div className="text-center py-12 animate-fade-in">
+            <p className="text-muted-foreground text-lg mb-4">
+              No guides found for the selected category.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button variant="accent" size="lg" asChild>
-                <Link to="/partnership">Join Premium Community</Link>
-              </Button>
-              <Button variant="outline" size="lg" className="bg-white/10 border-white/30 text-white hover:bg-white/20" asChild>
-                <Link to="/tips">Browse All Resources</Link>
-              </Button>
-            </div>
+            <Button 
+              variant="outline" 
+              onClick={() => setCategoryFilter("all")}
+              className="hover:scale-105 transition-transform duration-200"
+            >
+              View All Categories
+            </Button>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );
