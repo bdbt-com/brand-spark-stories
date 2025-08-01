@@ -58,63 +58,53 @@ const TipCard = ({ tip, index }: TipCardProps) => {
   };
 
   return (
-    <Card className="group hover:shadow-strong transition-all duration-300 hover:-translate-y-2 cursor-pointer relative overflow-hidden bg-card/80 backdrop-blur-sm border-2 hover:border-primary/20 h-[420px] flex flex-col">
-      <CardHeader className="pb-3 flex-shrink-0">
-        <div className="flex items-center justify-between mb-3">
-          <div className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-            <tip.icon className="w-6 h-6 text-white" />
-          </div>
-          <div className="flex flex-col gap-1">
-            <Badge className={getCategoryColor(tip.category)} variant="outline">
-              {tip.category}
-            </Badge>
-            <Badge className={getLevelColor(tip.level)} variant="outline">
-              {tip.level}
-            </Badge>
-          </div>
-        </div>
-        <CardTitle className="text-lg leading-snug group-hover:text-primary transition-colors line-clamp-2">
-          {tip.title}
-        </CardTitle>
-      </CardHeader>
-      
-      <CardContent className="flex-1 flex flex-col justify-between space-y-4 p-4">
-        {showEmailForm ? (
+    <Card className="group hover:shadow-strong transition-all duration-300 hover:-translate-y-2 cursor-pointer relative overflow-hidden bg-card border-2 hover:border-primary/20 h-[520px] flex flex-col">
+      {showEmailForm ? (
+        <CardContent className="p-6 flex-1 flex items-center">
           <EmailCaptureForm
             title={tip.title}
             onClose={() => setShowEmailForm(false)}
             compact={true}
           />
-        ) : (
-          <>
-            <div className="space-y-4">
-              <div className="space-y-2">
-                <p className="text-muted-foreground text-sm leading-relaxed">
-                  {displayDescription}
-                </p>
-                {needsTruncation && (
-                  <button
-                    onClick={() => setIsDescriptionExpanded(!isDescriptionExpanded)}
-                    className="text-xs text-primary hover:text-primary/80 transition-colors flex items-center gap-1"
-                  >
-                    {isDescriptionExpanded ? (
-                      <>
-                        Show less <ChevronUp className="w-3 h-3" />
-                      </>
-                    ) : (
-                      <>
-                        Read more <ChevronDown className="w-3 h-3" />
-                      </>
-                    )}
-                  </button>
-                )}
+        </CardContent>
+      ) : (
+        <>
+          {/* Fixed Header Section - 140px */}
+          <CardHeader className="pb-4 flex-shrink-0 h-[140px] p-6">
+            <div className="flex items-start justify-between mb-4">
+              <div className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <tip.icon className="w-6 h-6 text-white" />
               </div>
-              
+              <div className="flex flex-col gap-1 items-end">
+                <Badge className={`${getCategoryColor(tip.category)} text-xs`} variant="outline">
+                  {tip.category}
+                </Badge>
+                <Badge className={`${getLevelColor(tip.level)} text-xs`} variant="outline">
+                  {tip.level}
+                </Badge>
+              </div>
+            </div>
+            <CardTitle className="text-lg leading-tight group-hover:text-primary transition-colors h-[48px] overflow-hidden">
+              {tip.title}
+            </CardTitle>
+          </CardHeader>
+          
+          {/* Flexible Content Section */}
+          <CardContent className="flex-1 flex flex-col p-6 pt-0">
+            {/* Description Section - Fixed height */}
+            <div className="mb-4 h-[80px] overflow-hidden">
+              <p className="text-muted-foreground text-sm leading-relaxed">
+                {truncateText(tip.description, 120)}
+              </p>
+            </div>
+            
+            {/* Bullet Points Section - Fixed height */}
+            <div className="mb-4 h-[80px] overflow-hidden">
               <ul className="space-y-2">
                 {tip.items.slice(0, 2).map((item, itemIndex) => (
                   <li key={itemIndex} className="text-sm text-muted-foreground flex items-start">
                     <span className="w-1.5 h-1.5 bg-primary rounded-full mt-2 mr-3 flex-shrink-0"></span>
-                    <span className="line-clamp-2">{item}</span>
+                    <span className="leading-tight">{truncateText(item, 50)}</span>
                   </li>
                 ))}
                 {tip.items.length > 2 && (
@@ -124,10 +114,11 @@ const TipCard = ({ tip, index }: TipCardProps) => {
                 )}
               </ul>
             </div>
-
-            <div className="space-y-3 mt-auto">
-              <div className="flex items-center justify-between pt-3 border-t border-border/50">
-                <div className="flex items-center gap-3 text-xs text-muted-foreground">
+            
+            {/* Stats and Button Section - Fixed to bottom */}
+            <div className="mt-auto space-y-4">
+              <div className="flex items-center justify-between pt-4 border-t border-border/50">
+                <div className="flex items-center gap-4 text-xs text-muted-foreground">
                   <span className="flex items-center">
                     <Clock className="w-3 h-3 mr-1" />
                     {tip.duration}
@@ -146,16 +137,16 @@ const TipCard = ({ tip, index }: TipCardProps) => {
               <Button 
                 size="sm" 
                 variant="hero" 
-                className="w-full group-hover:shadow-medium transition-all duration-200 hover:scale-[1.02]"
+                className="w-full h-10 group-hover:shadow-medium transition-all duration-200 hover:scale-[1.02]"
                 onClick={() => setShowEmailForm(true)}
               >
                 Download Guide 
                 <Download className="w-4 h-4 ml-2 group-hover:translate-y-0.5 transition-transform" />
               </Button>
             </div>
-          </>
-        )}
-      </CardContent>
+          </CardContent>
+        </>
+      )}
     </Card>
   );
 };
