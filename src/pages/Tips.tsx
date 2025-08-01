@@ -148,7 +148,7 @@ const Tips = () => {
       ],
       level: "Easy",
       duration: "4 min read",
-      category: "happiness",
+      category: "wealth", // Changed from happiness to wealth
       popularity: 59,
       views: 1320,
       dateAdded: "2024-02-20"
@@ -596,7 +596,7 @@ const Tips = () => {
       ],
       level: "Easy",
       duration: "3 min read",
-      category: "happiness",
+      category: "wealth", // Changed from happiness to wealth
       popularity: 48,
       views: 1120,
       dateAdded: "2024-06-30"
@@ -740,7 +740,7 @@ const Tips = () => {
       ],
       level: "Easy",
       duration: "2 min read",
-      category: "happiness",
+      category: "wealth", // Changed from happiness to wealth
       popularity: 38,
       views: 890,
       dateAdded: "2024-08-05"
@@ -836,7 +836,7 @@ const Tips = () => {
       ],
       level: "Easy",
       duration: "3 min read",
-      category: "happiness",
+      category: "wealth", // Changed from happiness to wealth
       popularity: 55,
       views: 1290,
       dateAdded: "2024-09-01"
