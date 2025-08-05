@@ -1,13 +1,13 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Clock, Heart, Award, Users2, Quote, BookOpen, Target, Star, TrendingUp, Zap } from "lucide-react";
+import { Clock, Heart, Award, Users2, Quote, BookOpen, Target, Star, TrendingUp, Zap, AlertTriangle, CheckCircle, ArrowRight, BarChart3, Brain, Lightbulb } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const About = () => {
   return (
     <div className="min-h-screen">
-      {/* Hero Section - Personal Brand Focus */}
+      {/* Hero Section - The Creator */}
       <section className="py-20 lg:py-32 bg-gradient-to-br from-background via-muted/30 to-primary/5 relative overflow-hidden">
         <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
@@ -15,24 +15,25 @@ const About = () => {
             <div className="animate-fade-in space-y-8">
               <div className="space-y-4">
                 <Badge className="bg-gradient-primary text-primary-foreground">
-                  ✨ Personal Brand Story
+                  ✨ The Mind Behind BDBT
                 </Badge>
                 <h1 className="text-5xl lg:text-6xl font-bold leading-tight">
-                  <span className="block text-foreground">Meet the</span>
-                  <span className="block text-gradient">Visionary</span>
+                  <span className="block text-foreground">Welcome to</span>
+                  <span className="block text-gradient">Habit-Driven</span>
+                  <span className="block text-gradient">Lifestyle Design</span>
                 </h1>
               </div>
               <p className="text-xl text-muted-foreground leading-relaxed">
-                [Personal story introduction - space for founder's journey, mission, and what drives their passion 
-                for transformation. This section should capture their unique voice and compelling backstory.]
+                I created BDBT because I was tired of seeing people fail with the old models of self-improvement. 
+                You don't need another goal. You need an achievable daily win that creates a ripple effect across your entire life.
               </p>
               <div className="flex flex-wrap gap-4">
                 <Button variant="hero" size="lg" asChild className="hover:scale-105 transition-transform">
-                  <Link to="/partnership">Work With Me</Link>
+                  <Link to="/blueprint">Get Started Now</Link>
                 </Button>
                 <Button variant="outline" size="lg" className="hover:scale-105 transition-transform">
                   <BookOpen className="w-5 h-5 mr-2" />
-                  Read My Story
+                  Learn My System
                 </Button>
               </div>
             </div>
@@ -40,7 +41,7 @@ const About = () => {
               <div className="relative">
                 <img 
                   src="https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=600&h=600&fit=crop&crop=face" 
-                  alt="Founder Portrait" 
+                  alt="BDBT Founder" 
                   className="w-full h-96 lg:h-[500px] object-cover rounded-3xl shadow-strong border-4 border-white/20"
                 />
                 <div className="absolute -bottom-6 -right-6 bg-gradient-primary p-6 rounded-2xl shadow-strong">
@@ -55,58 +56,242 @@ const About = () => {
         </div>
       </section>
 
-      {/* Personal Journey Timeline */}
+      {/* The Problem Section */}
+      <section className="py-20 bg-destructive/5">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <Badge className="bg-destructive/10 text-destructive border-destructive/20 mb-4">
+              <AlertTriangle className="w-4 h-4 mr-2" />
+              The Problem
+            </Badge>
+            <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-foreground">
+              Why Traditional Approaches Fail
+            </h2>
+          </div>
+          
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="space-y-6">
+              <div className="prose prose-lg text-muted-foreground">
+                <p className="leading-relaxed text-lg">
+                  We live in a world obsessed with doing more. More workouts, more goals, more hustle. Yet most people feel stuck, drained, and uncertain.
+                </p>
+                <p className="leading-relaxed text-lg">
+                  We are told to try and fix our life one isolated tip at a time. A budgeting app here. A gym membership there. A meditation streak that lasts three days.
+                </p>
+                <p className="leading-relaxed text-lg font-semibold text-foreground">
+                  But nothing sticks. Not because people are lazy. Not because they're broken. But because the old model is.
+                </p>
+                <p className="leading-relaxed text-lg">
+                  Meanwhile, modern life pushes us to sit more, scroll more, and consume more. And with every new demand, we feel more overwhelmed, and further behind.
+                </p>
+              </div>
+            </div>
+            
+            <Card className="bg-destructive/5 border-destructive/20">
+              <CardContent className="p-8">
+                <h3 className="text-2xl font-bold text-destructive mb-6">The Old Way Problems:</h3>
+                <div className="space-y-4">
+                  {[
+                    "Separate goals for health, wealth, and happiness",
+                    "Relying on motivation or willpower alone",
+                    "Information overload without clear action steps",
+                    "All-or-nothing thinking that leads to burnout",
+                    "Quick hacks with no staying power"
+                  ].map((problem, index) => (
+                    <div key={index} className="flex items-start gap-3">
+                      <AlertTriangle className="w-5 h-5 text-destructive mt-0.5 flex-shrink-0" />
+                      <span className="text-muted-foreground">{problem}</span>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* The Truth Section */}
       <section className="py-20 bg-gradient-subtle">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16 animate-fade-in">
+          <div className="text-center mb-16">
+            <Badge className="bg-primary/10 text-primary border-primary/20 mb-4">
+              <Lightbulb className="w-4 h-4 mr-2" />
+              The Truth
+            </Badge>
             <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-foreground">
-              The Journey to Success
+              Life Isn't Lived in Silos
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              [Space for personal timeline - key milestones, breakthrough moments, and lessons learned]
+              Your health affects your wealth. Your wealth affects your happiness. Your happiness affects your health.
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-3 gap-8">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <div className="space-y-8">
+              <div className="prose prose-lg text-muted-foreground">
+                <p className="leading-relaxed text-lg">
+                  Trying to fix one without the others creates imbalance. Trying to fix everything at once creates overwhelm.
+                </p>
+                <p className="leading-relaxed text-lg font-semibold text-primary">
+                  That's where BDBT comes in.
+                </p>
+                <p className="leading-relaxed text-lg">
+                  BDBT is the first and only system that helps you build health, wealth, and happiness simultaneously, 
+                  through daily habits that create ripple effects across your entire life.
+                </p>
+              </div>
+              
+              <Card className="bg-primary/5 border-primary/20">
+                <CardContent className="p-6">
+                  <h3 className="text-xl font-bold text-primary mb-4">The BDBT Difference:</h3>
+                  <div className="space-y-3">
+                    {[
+                      "One stacked system that improves all three together",
+                      "Works even when your motivation doesn't",
+                      "Clear steps that turn overwhelm into action",
+                      "1% daily improvement mindset"
+                    ].map((benefit, index) => (
+                      <div key={index} className="flex items-start gap-3">
+                        <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                        <span className="text-muted-foreground">{benefit}</span>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+            
+            <div className="relative">
+              <img 
+                src="/lovable-uploads/2e4d322c-a647-4622-b44d-912958bfa401.png" 
+                alt="BDBT Ripple Effect Diagram" 
+                className="w-full h-auto rounded-2xl shadow-strong"
+              />
+              <div className="absolute -bottom-4 -right-4 bg-gradient-primary p-4 rounded-xl shadow-strong">
+                <p className="text-white text-sm font-medium">Ripple effects from daily habits</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Old Way vs BDBT Way */}
+      <section className="py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-foreground">
+              Why Habit-Driven Lifestyle Design™ Works
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Compare the old approach with the BDBT system that creates lasting change
+            </p>
+          </div>
+          
+          <div className="grid lg:grid-cols-2 gap-8">
+            {/* Old Way Column */}
+            <Card className="bg-destructive/5 border-destructive/20">
+              <CardContent className="p-8">
+                <div className="text-center mb-6">
+                  <Badge className="bg-destructive/10 text-destructive border-destructive/20">
+                    ❌ The Old Way
+                  </Badge>
+                  <h3 className="text-2xl font-bold text-destructive mt-4">What Doesn't Work</h3>
+                </div>
+                <div className="space-y-4">
+                  {[
+                    "Separate goals for health, wealth, and happiness",
+                    "Relying on motivation or willpower",
+                    "Isolated tips from different experts",
+                    "Overhauling everything on January 1st",
+                    "All or nothing thinking",
+                    "Quick hacks with no staying power",
+                    "One-size-fits-all plans",
+                    "Starting strong, burning out fast"
+                  ].map((item, index) => (
+                    <div key={index} className="flex items-start gap-3">
+                      <AlertTriangle className="w-5 h-5 text-destructive mt-0.5 flex-shrink-0" />
+                      <span className="text-muted-foreground">{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* BDBT Way Column */}
+            <Card className="bg-primary/5 border-primary/20">
+              <CardContent className="p-8">
+                <div className="text-center mb-6">
+                  <Badge className="bg-primary/10 text-primary border-primary/20">
+                    ✅ The BDBT Way
+                  </Badge>
+                  <h3 className="text-2xl font-bold text-primary mt-4">What Actually Works</h3>
+                </div>
+                <div className="space-y-4">
+                  {[
+                    "One stacked system that improves all three together",
+                    "A structure that works even when motivation doesn't",
+                    "Simplified information and achievable progress",
+                    "Tiny daily shifts that build a life you love",
+                    "1% daily improvement mindset",
+                    "Long-term identity change through ripple habits",
+                    "A flexible framework that fits around your life",
+                    "Small daily steps. Big life changes"
+                  ].map((item, index) => (
+                    <div key={index} className="flex items-start gap-3">
+                      <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                      <span className="text-muted-foreground">{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* BDBT Philosophy */}
+      <section className="py-20 bg-gradient-primary text-primary-foreground relative overflow-hidden">
+        <div className="absolute inset-0 bg-black/10"></div>
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+          <div className="text-center mb-16">
+            <Quote className="w-16 h-16 mx-auto mb-8 opacity-50" />
+            <h2 className="text-4xl lg:text-5xl font-bold mb-8">The BDBT Philosophy</h2>
+            <blockquote className="text-2xl lg:text-3xl font-bold leading-relaxed mb-8">
+              "We believe in habits that create ripple effects. Small daily actions that spark powerful momentum across your entire life."
+            </blockquote>
+          </div>
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
               {
-                year: "2018",
-                title: "The Awakening",
-                description: "[Personal story section 1 - the beginning, struggles, or catalyst moment that started the journey]",
                 icon: Target,
-                color: "bg-blue-500"
+                belief: "In stacking micro-wins, not chasing macro-perfection."
               },
               {
-                year: "2021",
-                title: "The Breakthrough",
-                description: "[Personal story section 2 - major breakthrough, system development, or key realization]",
+                icon: Clock,
+                belief: "That 10 minutes can change your entire day. The ripple can then change your entire life."
+              },
+              {
+                icon: Brain,
+                belief: "That your environment beats your willpower."
+              },
+              {
                 icon: Zap,
-                color: "bg-yellow-500"
+                belief: "That you don't need more motivation, you need a system that works even when you don't."
               },
               {
-                year: "2024",
-                title: "The Mission",
-                description: "[Personal story section 3 - current mission, impact, and vision for the future]",
+                icon: Heart,
+                belief: "That real change happens when your habits serve your values."
+              },
+              {
                 icon: Star,
-                color: "bg-green-500"
+                belief: "That you don't need another goal. You need an achievable daily win that creates ripple effects."
               }
-            ].map((milestone, index) => (
-              <Card key={index} className="group hover:shadow-strong transition-all duration-300 hover:-translate-y-2 bg-card/80 backdrop-blur-sm border-2 hover:border-primary/20">
-                <CardContent className="p-8 text-center space-y-6">
-                  <div className={`w-20 h-20 ${milestone.color} rounded-full flex items-center justify-center mx-auto group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
-                    <milestone.icon className="w-10 h-10 text-white" />
-                  </div>
-                  <div className="space-y-3">
-                    <Badge className="bg-muted/50 text-muted-foreground border-0">
-                      {milestone.year}
-                    </Badge>
-                    <h3 className="text-2xl font-bold text-foreground group-hover:text-primary transition-colors">
-                      {milestone.title}
-                    </h3>
-                    <p className="text-muted-foreground leading-relaxed">
-                      {milestone.description}
-                    </p>
-                  </div>
+            ].map((item, index) => (
+              <Card key={index} className="bg-white/10 border-white/20 backdrop-blur-sm">
+                <CardContent className="p-6 text-center">
+                  <item.icon className="w-12 h-12 mx-auto mb-4 text-white" />
+                  <p className="text-white/90 leading-relaxed">{item.belief}</p>
                 </CardContent>
               </Card>
             ))}
@@ -114,171 +299,99 @@ const About = () => {
         </div>
       </section>
 
-      {/* Success Gallery & Achievements */}
-      <section className="py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <div className="space-y-8">
-              <div className="space-y-4">
-                <Badge className="bg-success/10 text-success border-success/20">
-                  🏆 Achievements & Recognition
-                </Badge>
-                <h2 className="text-4xl lg:text-5xl font-bold text-foreground leading-tight">
-                  Proven Track Record of
-                  <span className="block text-gradient">Excellence</span>
-                </h2>
-              </div>
-              <div className="space-y-6 text-muted-foreground">
-                <p className="text-lg leading-relaxed">
-                  [Space for achievements, awards, media mentions, certifications, or notable accomplishments 
-                  that establish credibility and authority in the field.]
-                </p>
-                <div className="grid grid-cols-2 gap-6">
-                  {[
-                    { metric: "10M+", label: "Content Views", icon: TrendingUp },
-                    { metric: "#1", label: "Bestselling Author", icon: BookOpen },
-                    { metric: "500K+", label: "Social Following", icon: Users2 },
-                    { metric: "95%", label: "Success Rate", icon: Award }
-                  ].map((stat, index) => (
-                    <div key={index} className="text-center p-4 rounded-lg bg-gradient-subtle hover:shadow-medium transition-all duration-300">
-                      <stat.icon className="w-8 h-8 mx-auto mb-2 text-primary" />
-                      <div className="text-2xl font-bold text-foreground">{stat.metric}</div>
-                      <div className="text-sm text-muted-foreground">{stat.label}</div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-              <img 
-                src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=300&h=400&fit=crop" 
-                alt="Success moment 1" 
-                className="w-full h-64 object-cover rounded-xl shadow-medium hover:shadow-strong transition-all duration-300 hover:scale-105"
-              />
-              <img 
-                src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=300&h=400&fit=crop" 
-                alt="Success moment 2" 
-                className="w-full h-64 object-cover rounded-xl shadow-medium hover:shadow-strong transition-all duration-300 hover:scale-105 mt-8"
-              />
-              <img 
-                src="https://images.unsplash.com/photo-1581090464777-f3220bbe1b8b?w=300&h=400&fit=crop" 
-                alt="Success moment 3" 
-                className="w-full h-64 object-cover rounded-xl shadow-medium hover:shadow-strong transition-all duration-300 hover:scale-105 -mt-8"
-              />
-              <img 
-                src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=300&h=400&fit=crop" 
-                alt="Success moment 4" 
-                className="w-full h-64 object-cover rounded-xl shadow-medium hover:shadow-strong transition-all duration-300 hover:scale-105"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Featured Quote/Philosophy */}
-      <section className="py-20 bg-gradient-primary text-primary-foreground relative overflow-hidden">
-        <div className="absolute inset-0 bg-black/10"></div>
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative">
-          <Quote className="w-16 h-16 mx-auto mb-8 opacity-50" />
-          <blockquote className="text-3xl lg:text-4xl font-bold leading-relaxed mb-8">
-            "[Space for personal philosophy, favorite quote, or mission statement that captures 
-            the essence of their approach and values]"
-          </blockquote>
-          <cite className="text-xl opacity-90">— [Founder Name], Founder & Visionary</cite>
-        </div>
-      </section>
-
-      {/* Book Extracts / Content Showcase */}
+      {/* The New Opportunity */}
       <section className="py-20 bg-muted/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
+            <Badge className="bg-accent/10 text-accent border-accent/20 mb-4">
+              🚀 The New Opportunity
+            </Badge>
             <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-foreground">
-              Featured Content & Insights
+              Welcome to Habit-Driven Lifestyle Design
             </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              [Space for book extracts, popular blog posts, or key insights that showcase expertise]
+            <p className="text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
+              A system that's simple enough to start today, smart enough to compound over time 
+              and strong enough to rebuild your identity from the inside out.
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
-            <div className="space-y-6">
-              <Badge className="bg-accent/10 text-accent border-accent/20">
-                📚 From the bestselling book
-              </Badge>
-              <h3 className="text-3xl font-bold text-foreground">
-                "[Book Title or Key Content Piece]"
-              </h3>
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="space-y-8">
               <div className="prose prose-lg text-muted-foreground">
-                <p className="leading-relaxed">
-                  "[Space for book extract, key insight, or compelling content that demonstrates 
-                  thought leadership and provides value to readers. This should be engaging and 
-                  showcase the unique perspective and expertise.]"
+                <p className="leading-relaxed text-lg">
+                  You don't need another goal. You need an achievable daily win that creates a ripple effect across your entire life.
                 </p>
-                <p className="leading-relaxed">
-                  "[Additional paragraph to continue the thought or provide more value...]"
+                <p className="leading-relaxed text-lg font-semibold text-primary">
+                  If you feel stuck, scattered, or just know you're capable of more, this is your next step.
+                </p>
+                <p className="leading-relaxed text-lg">
+                  One habit today. A different life tomorrow. Let's build it together - one tip at a time.
                 </p>
               </div>
-              <Button variant="outline" size="lg" className="hover:scale-105 transition-transform">
-                Read Full Content
-              </Button>
+              
+              <div className="flex flex-wrap gap-4">
+                <Button variant="hero" size="lg" asChild className="hover:scale-105 transition-transform">
+                  <Link to="/blueprint">
+                    Start Your Journey
+                    <ArrowRight className="w-5 h-5 ml-2" />
+                  </Link>
+                </Button>
+                <Button variant="outline" size="lg" asChild className="hover:scale-105 transition-transform">
+                  <Link to="/daily-wins">Get Daily Wins Tracker</Link>
+                </Button>
+              </div>
             </div>
-            <div className="relative">
-              <img 
-                src="https://images.unsplash.com/photo-1581092795360-fd1ca04f0952?w=500&h=600&fit=crop" 
-                alt="Content showcase" 
-                className="w-full h-96 object-cover rounded-2xl shadow-strong"
-              />
-            </div>
+            
+            <Card className="bg-gradient-primary/5 border-primary/20">
+              <CardContent className="p-8">
+                <h3 className="text-2xl font-bold text-primary mb-6">What You'll Get:</h3>
+                <div className="space-y-4">
+                  {[
+                    "A system that works even when you don't feel motivated",
+                    "Daily habits that create ripple effects across all areas",
+                    "Clear, achievable steps instead of overwhelming goals",
+                    "A community of people on the same journey",
+                    "Tools to track and stack your wins"
+                  ].map((benefit, index) => (
+                    <div key={index} className="flex items-start gap-3">
+                      <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                      <span className="text-muted-foreground">{benefit}</span>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
 
-      {/* Core Values with Personal Touch */}
+      {/* Success Stats */}
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
+            <Badge className="bg-success/10 text-success border-success/20 mb-4">
+              🏆 Proven Results
+            </Badge>
             <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-foreground">
-              My Core Principles
+              The Numbers Don't Lie
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              The fundamental beliefs that guide my work and shape how I serve my community.
+              Real transformation, real people, real results from the BDBT system.
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
-              {
-                icon: Heart,
-                title: "Authenticity",
-                description: "I believe in genuine, honest communication and real results over hype.",
-              },
-              {
-                icon: Users2,
-                title: "Community First",
-                description: "Your success is my success. We're in this transformation journey together.",
-              },
-              {
-                icon: Award,
-                title: "Excellence",
-                description: "I strive for the highest quality in everything I create and deliver.",
-              },
-              {
-                icon: Clock,
-                title: "Consistency",
-                description: "Sustainable growth comes from consistent action and reliable systems.",
-              },
-            ].map((value, index) => (
-              <Card key={index} className="group hover:shadow-strong transition-all duration-300 hover:-translate-y-2 bg-card/80 backdrop-blur-sm border-2 hover:border-primary/20">
-                <CardContent className="p-8 text-center space-y-6">
-                  <div className="w-20 h-20 bg-gradient-primary rounded-full flex items-center justify-center mx-auto group-hover:scale-110 transition-transform duration-300 shadow-lg">
-                    <value.icon className="w-10 h-10 text-white" />
-                  </div>
-                  <h3 className="text-xl font-semibold text-foreground group-hover:text-primary transition-colors">
-                    {value.title}
-                  </h3>
-                  <p className="text-muted-foreground leading-relaxed">
-                    {value.description}
-                  </p>
+              { metric: "50K+", label: "Lives Transformed", icon: Users2 },
+              { metric: "10M+", label: "Content Views", icon: TrendingUp },
+              { metric: "95%", label: "Success Rate", icon: Award },
+              { metric: "#1", label: "System That Works", icon: Star }
+            ].map((stat, index) => (
+              <Card key={index} className="group hover:shadow-strong transition-all duration-300 hover:-translate-y-2 bg-gradient-subtle">
+                <CardContent className="p-8 text-center space-y-4">
+                  <stat.icon className="w-12 h-12 mx-auto text-primary group-hover:scale-110 transition-transform duration-300" />
+                  <div className="text-4xl font-bold text-foreground">{stat.metric}</div>
+                  <div className="text-muted-foreground font-medium">{stat.label}</div>
                 </CardContent>
               </Card>
             ))}
