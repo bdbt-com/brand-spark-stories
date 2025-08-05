@@ -72,7 +72,7 @@ const About = () => {
             {/* First statement - Center aligned */}
             <div className="text-center max-w-4xl mx-auto">
               <h3 className="text-3xl lg:text-4xl font-light leading-tight text-foreground mb-6">
-                Why traditional approaches fail to create lasting change.
+                Why do traditional approaches fail to create lasting change?
               </h3>
               <p className="text-xl text-muted-foreground font-light">
                 More workouts. More goals. More hustle. Yet most people feel stuck, drained, and uncertain.
