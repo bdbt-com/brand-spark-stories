@@ -23,9 +23,15 @@ interface TipCardProps {
 const TipCard = ({ tip, index }: TipCardProps) => {
   const [showEmailForm, setShowEmailForm] = useState(false);
   const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
+  const [isTitleExpanded, setIsTitleExpanded] = useState(false);
   
-  // Truncate description to ~80 characters
+  // Truncate text functions
   const truncateText = (text: string, maxLength: number = 80) => {
+    if (text.length <= maxLength) return text;
+    return text.slice(0, maxLength).trim() + "...";
+  };
+  
+  const truncateTitle = (text: string, maxLength: number = 60) => {
     if (text.length <= maxLength) return text;
     return text.slice(0, maxLength).trim() + "...";
   };
@@ -34,6 +40,11 @@ const TipCard = ({ tip, index }: TipCardProps) => {
     ? tip.description 
     : truncateText(tip.description);
   
+  const displayTitle = isTitleExpanded 
+    ? tip.title 
+    : truncateTitle(tip.title);
+  
+  const titleNeedsTruncation = tip.title.length > 60;
   const needsTruncation = tip.description.length > 80;
 
   const getCategoryColor = (category: string) => {
@@ -84,9 +95,30 @@ const TipCard = ({ tip, index }: TipCardProps) => {
                 </Badge>
               </div>
             </div>
-            <CardTitle className="text-lg leading-tight group-hover:text-primary transition-colors h-[48px] overflow-hidden text-center">
-              {tip.title}
-            </CardTitle>
+            <div className="flex flex-col items-center">
+              <CardTitle className="text-lg leading-tight group-hover:text-primary transition-colors text-center">
+                {displayTitle}
+              </CardTitle>
+              {titleNeedsTruncation && (
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setIsTitleExpanded(!isTitleExpanded);
+                  }}
+                  className="mt-1 text-xs text-muted-foreground hover:text-primary transition-colors flex items-center gap-1"
+                >
+                  {isTitleExpanded ? (
+                    <>
+                      Show less <ChevronUp className="w-3 h-3" />
+                    </>
+                  ) : (
+                    <>
+                      Show more <ChevronDown className="w-3 h-3" />
+                    </>
+                  )}
+                </button>
+              )}
+            </div>
           </CardHeader>
           
           {/* Flexible Content Section */}
