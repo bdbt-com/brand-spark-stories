@@ -22,8 +22,7 @@ interface TipCardProps {
 
 const TipCard = ({ tip, index }: TipCardProps) => {
   const [showEmailForm, setShowEmailForm] = useState(false);
-  const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
-  const [isTitleExpanded, setIsTitleExpanded] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
   
   // Truncate text functions
   const truncateText = (text: string, maxLength: number = 80) => {
@@ -36,16 +35,12 @@ const TipCard = ({ tip, index }: TipCardProps) => {
     return text.slice(0, maxLength).trim() + "...";
   };
   
-  const displayDescription = isDescriptionExpanded 
-    ? tip.description 
-    : truncateText(tip.description);
-  
-  const displayTitle = isTitleExpanded 
-    ? tip.title 
-    : truncateTitle(tip.title);
+  const displayTitle = isExpanded ? tip.title : truncateTitle(tip.title);
+  const displayDescription = isExpanded ? tip.description : truncateText(tip.description);
   
   const titleNeedsTruncation = tip.title.length > 60;
-  const needsTruncation = tip.description.length > 80;
+  const descriptionNeedsTruncation = tip.description.length > 80;
+  const anyContentNeedsTruncation = titleNeedsTruncation || descriptionNeedsTruncation || tip.items.length > 2;
 
   const getCategoryColor = (category: string) => {
     switch (category) {
@@ -69,7 +64,7 @@ const TipCard = ({ tip, index }: TipCardProps) => {
   };
 
   return (
-    <Card className="group hover:shadow-strong transition-all duration-300 hover:-translate-y-2 cursor-pointer relative overflow-hidden bg-card border-2 hover:border-primary/20 h-[520px] flex flex-col">
+    <Card className={`group hover:shadow-strong transition-all duration-300 hover:-translate-y-2 cursor-pointer relative overflow-hidden bg-card border-2 hover:border-primary/20 flex flex-col ${isExpanded ? 'h-auto' : 'h-[520px]'}`}>
       {showEmailForm ? (
         <CardContent className="p-6 flex-1 flex items-center">
           <EmailCaptureForm
@@ -80,8 +75,8 @@ const TipCard = ({ tip, index }: TipCardProps) => {
         </CardContent>
       ) : (
         <>
-          {/* Fixed Header Section - 140px */}
-          <CardHeader className="pb-4 flex-shrink-0 h-[140px] p-6">
+          {/* Header Section */}
+          <CardHeader className={`pb-4 flex-shrink-0 p-6 ${isExpanded ? 'h-auto' : 'h-[140px]'}`}>
             <div className="flex items-start justify-between mb-4">
               <div className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                 <tip.icon className="w-6 h-6 text-white" />
@@ -99,47 +94,28 @@ const TipCard = ({ tip, index }: TipCardProps) => {
               <CardTitle className="text-lg leading-tight group-hover:text-primary transition-colors text-center">
                 {displayTitle}
               </CardTitle>
-              {titleNeedsTruncation && (
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setIsTitleExpanded(!isTitleExpanded);
-                  }}
-                  className="mt-1 text-xs text-muted-foreground hover:text-primary transition-colors flex items-center gap-1"
-                >
-                  {isTitleExpanded ? (
-                    <>
-                      Show less <ChevronUp className="w-3 h-3" />
-                    </>
-                  ) : (
-                    <>
-                      Show more <ChevronDown className="w-3 h-3" />
-                    </>
-                  )}
-                </button>
-              )}
             </div>
           </CardHeader>
           
-          {/* Flexible Content Section */}
+          {/* Content Section */}
           <CardContent className="flex-1 flex flex-col p-6 pt-0">
-            {/* Description Section - Fixed height */}
-            <div className="mb-4 h-[80px] overflow-hidden">
+            {/* Description Section */}
+            <div className={`mb-4 ${isExpanded ? 'h-auto' : 'h-[80px] overflow-hidden'}`}>
               <p className="text-muted-foreground text-sm leading-relaxed">
-                {truncateText(tip.description, 120)}
+                {displayDescription}
               </p>
             </div>
             
-            {/* Bullet Points Section - Fixed height */}
-            <div className="mb-4 h-[80px] overflow-hidden">
+            {/* Bullet Points Section */}
+            <div className={`mb-4 ${isExpanded ? 'h-auto' : 'h-[80px] overflow-hidden'}`}>
               <ul className="space-y-2">
-                {tip.items.slice(0, 2).map((item, itemIndex) => (
+                {(isExpanded ? tip.items : tip.items.slice(0, 2)).map((item, itemIndex) => (
                   <li key={itemIndex} className="text-sm text-muted-foreground flex items-start">
                     <span className="w-1.5 h-1.5 bg-primary rounded-full mt-2 mr-3 flex-shrink-0"></span>
-                    <span className="leading-tight">{truncateText(item, 50)}</span>
+                    <span className="leading-tight">{isExpanded ? item : truncateText(item, 50)}</span>
                   </li>
                 ))}
-                {tip.items.length > 2 && (
+                {!isExpanded && tip.items.length > 2 && (
                   <li className="text-xs text-muted-foreground/70 italic">
                     +{tip.items.length - 2} more insights included...
                   </li>
@@ -147,7 +123,32 @@ const TipCard = ({ tip, index }: TipCardProps) => {
               </ul>
             </div>
             
-            {/* Stats and Button Section - Fixed to bottom */}
+            {/* Read More Button */}
+            {anyContentNeedsTruncation && (
+              <div className="mb-4">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setIsExpanded(!isExpanded);
+                  }}
+                  className="text-primary hover:text-primary/80 p-0 h-auto font-normal"
+                >
+                  {isExpanded ? (
+                    <>
+                      Read less <ChevronUp className="w-3 h-3 ml-1" />
+                    </>
+                  ) : (
+                    <>
+                      Read more <ChevronDown className="w-3 h-3 ml-1" />
+                    </>
+                  )}
+                </Button>
+              </div>
+            )}
+            
+            {/* Stats and Button Section */}
             <div className="mt-auto space-y-4">
               <div className="flex items-center justify-between pt-4 border-t border-border/50">
                 <div className="flex items-center gap-4 text-xs text-muted-foreground">
