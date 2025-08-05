@@ -57,72 +57,59 @@ const About = () => {
       </section>
 
       {/* The Problem Section */}
-      <section className="py-20 bg-destructive/5">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <Badge className="bg-destructive/10 text-destructive border-destructive/20 mb-4">
-              <AlertTriangle className="w-4 h-4 mr-2" />
+      <section className="py-32 bg-background">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-20">
+            <h2 className="text-4xl lg:text-6xl font-light mb-8 text-foreground tracking-tight">
               The Problem
-            </Badge>
-            <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-foreground">
-              Why Traditional Approaches Fail
             </h2>
+            <p className="text-xl text-muted-foreground font-light max-w-2xl mx-auto">
+              Why traditional approaches fail to create lasting change
+            </p>
           </div>
           
-          <div className="space-y-16">
-            {/* First paragraph - Left aligned */}
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <div className="space-y-4">
-                <p className="text-xl leading-relaxed text-muted-foreground">
-                  We live in a world obsessed with doing more. More workouts, more goals, more hustle.
-                </p>
-                <p className="text-xl leading-relaxed text-foreground font-semibold">
-                  Yet most people feel stuck, drained, and uncertain.
-                </p>
-              </div>
-              <div className="lg:order-first"></div>
+          <div className="space-y-32">
+            {/* First statement - Center aligned */}
+            <div className="text-center max-w-4xl mx-auto">
+              <h3 className="text-3xl lg:text-4xl font-light leading-tight text-foreground mb-6">
+                We live in a world obsessed with doing more.
+              </h3>
+              <p className="text-xl text-muted-foreground font-light">
+                More workouts. More goals. More hustle. Yet most people feel stuck, drained, and uncertain.
+              </p>
             </div>
 
-            {/* Second paragraph - Right aligned */}
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <div></div>
-              <div className="space-y-4">
-                <p className="text-xl leading-relaxed text-muted-foreground">
-                  We are told to try and fix our life one isolated tip at a time.
-                </p>
-                <p className="text-xl leading-relaxed text-muted-foreground">
-                  A budgeting app here. A gym membership there. A meditation streak that lasts three days.
-                </p>
-              </div>
+            {/* Second statement - Center aligned */}
+            <div className="text-center max-w-4xl mx-auto">
+              <h3 className="text-3xl lg:text-4xl font-light leading-tight text-foreground mb-6">
+                We're told to fix our lives one isolated tip at a time.
+              </h3>
+              <p className="text-xl text-muted-foreground font-light">
+                A budgeting app here. A gym membership there. A meditation streak that lasts three days.
+              </p>
             </div>
 
-            {/* Third paragraph - Left aligned */}
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <div className="space-y-4">
-                <p className="text-2xl leading-relaxed text-destructive font-bold">
-                  But nothing sticks.
-                </p>
-                <p className="text-xl leading-relaxed text-muted-foreground">
-                  Not because people are lazy. Not because they're broken.
-                </p>
-                <p className="text-xl leading-relaxed text-foreground font-semibold">
-                  But because the old model is.
-                </p>
-              </div>
-              <div></div>
+            {/* Third statement - Center aligned with emphasis */}
+            <div className="text-center max-w-4xl mx-auto">
+              <h3 className="text-4xl lg:text-5xl font-medium leading-tight text-foreground mb-6">
+                But nothing sticks.
+              </h3>
+              <p className="text-xl text-muted-foreground font-light mb-4">
+                Not because people are lazy. Not because they're broken.
+              </p>
+              <p className="text-xl text-foreground font-medium">
+                But because the old model is.
+              </p>
             </div>
 
-            {/* Fourth paragraph - Right aligned */}
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <div></div>
-              <div className="space-y-4">
-                <p className="text-xl leading-relaxed text-muted-foreground">
-                  Meanwhile, modern life pushes us to sit more, scroll more, and consume more.
-                </p>
-                <p className="text-xl leading-relaxed text-destructive font-semibold">
-                  And with every new demand, we feel more overwhelmed, and further behind.
-                </p>
-              </div>
+            {/* Fourth statement - Center aligned */}
+            <div className="text-center max-w-4xl mx-auto">
+              <h3 className="text-3xl lg:text-4xl font-light leading-tight text-foreground mb-6">
+                Meanwhile, modern life pushes us further behind.
+              </h3>
+              <p className="text-xl text-muted-foreground font-light">
+                Sit more. Scroll more. Consume more. With every new demand, we feel more overwhelmed.
+              </p>
             </div>
           </div>
         </div>
