@@ -95,14 +95,30 @@ const TipCard = ({ tip, index }: TipCardProps) => {
                 </Badge>
               </div>
             </div>
-            <CardTitle className="text-lg leading-tight group-hover:text-primary transition-colors h-[48px] overflow-hidden text-center relative group/title">
-              <span className="block">{displayTitle}</span>
+            <div className="flex flex-col items-center">
+              <CardTitle className="text-lg leading-tight group-hover:text-primary transition-colors text-center">
+                {displayTitle}
+              </CardTitle>
               {titleNeedsTruncation && (
-                <div className="absolute inset-0 bg-card/95 backdrop-blur-sm opacity-0 group-hover/title:opacity-100 transition-opacity duration-200 flex items-center justify-center p-2">
-                  <span className="text-sm leading-tight text-center">{tip.title}</span>
-                </div>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setIsTitleExpanded(!isTitleExpanded);
+                  }}
+                  className="mt-1 text-xs text-muted-foreground hover:text-primary transition-colors flex items-center gap-1"
+                >
+                  {isTitleExpanded ? (
+                    <>
+                      Show less <ChevronUp className="w-3 h-3" />
+                    </>
+                  ) : (
+                    <>
+                      Show more <ChevronDown className="w-3 h-3" />
+                    </>
+                  )}
+                </button>
               )}
-            </CardTitle>
+            </div>
           </CardHeader>
           
           {/* Flexible Content Section */}
