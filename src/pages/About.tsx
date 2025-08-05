@@ -61,7 +61,7 @@ const About = () => {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-20">
             <h2 className="text-4xl lg:text-6xl font-light mb-8 text-foreground tracking-tight">
-              The Problem
+              We live in a world obsessed with doing more
             </h2>
             <p className="text-xl text-muted-foreground font-light max-w-2xl mx-auto">
               Why traditional approaches fail to create lasting change
