@@ -35,6 +35,7 @@ const TipCard = ({ tip, index }: TipCardProps) => {
     return text.slice(0, maxLength).trim() + "...";
   };
   
+  // Only truncate when NOT expanded
   const displayTitle = isExpanded ? tip.title : truncateTitle(tip.title);
   const displayDescription = isExpanded ? tip.description : truncateText(tip.description);
   
@@ -90,8 +91,8 @@ const TipCard = ({ tip, index }: TipCardProps) => {
                 </Badge>
               </div>
             </div>
-            <div className={`flex flex-col items-center ${isExpanded ? 'h-auto' : 'h-[60px]'} overflow-hidden`}>
-              <CardTitle className="text-lg leading-tight group-hover:text-primary transition-colors text-center">
+            <div className={`flex flex-col items-center ${isExpanded ? 'h-auto min-h-[60px]' : 'h-[60px]'} overflow-hidden`}>
+              <CardTitle className={`text-lg leading-tight group-hover:text-primary transition-colors text-center ${isExpanded ? 'line-clamp-none' : 'line-clamp-2'}`}>
                 {displayTitle}
               </CardTitle>
             </div>
