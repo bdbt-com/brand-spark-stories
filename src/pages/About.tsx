@@ -131,7 +131,7 @@ const About = () => {
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
+          <div className="max-w-4xl mx-auto">
             <div className="space-y-8">
               <div className="prose prose-lg text-muted-foreground">
                 <p className="leading-relaxed text-lg">
@@ -164,17 +164,6 @@ const About = () => {
                   </div>
                 </CardContent>
               </Card>
-            </div>
-            
-            <div className="relative">
-              <img 
-                src="/lovable-uploads/2e4d322c-a647-4622-b44d-912958bfa401.png" 
-                alt="BDBT Ripple Effect Diagram" 
-                className="w-full h-auto rounded-2xl shadow-strong"
-              />
-              <div className="absolute -bottom-4 -right-4 bg-gradient-primary p-4 rounded-xl shadow-strong">
-                <p className="text-white text-sm font-medium">Ripple effects from daily habits</p>
-              </div>
             </div>
           </div>
         </div>
