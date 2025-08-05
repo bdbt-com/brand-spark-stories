@@ -69,43 +69,61 @@ const About = () => {
             </h2>
           </div>
           
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="space-y-6">
-              <div className="prose prose-lg text-muted-foreground">
-                <p className="leading-relaxed text-lg">
-                  We live in a world obsessed with doing more. More workouts, more goals, more hustle. Yet most people feel stuck, drained, and uncertain.
+          <div className="space-y-16">
+            {/* First paragraph - Left aligned */}
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              <div className="space-y-4">
+                <p className="text-xl leading-relaxed text-muted-foreground">
+                  We live in a world obsessed with doing more. More workouts, more goals, more hustle.
                 </p>
-                <p className="leading-relaxed text-lg">
-                  We are told to try and fix our life one isolated tip at a time. A budgeting app here. A gym membership there. A meditation streak that lasts three days.
+                <p className="text-xl leading-relaxed text-foreground font-semibold">
+                  Yet most people feel stuck, drained, and uncertain.
                 </p>
-                <p className="leading-relaxed text-lg font-semibold text-foreground">
-                  But nothing sticks. Not because people are lazy. Not because they're broken. But because the old model is.
+              </div>
+              <div className="lg:order-first"></div>
+            </div>
+
+            {/* Second paragraph - Right aligned */}
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              <div></div>
+              <div className="space-y-4">
+                <p className="text-xl leading-relaxed text-muted-foreground">
+                  We are told to try and fix our life one isolated tip at a time.
                 </p>
-                <p className="leading-relaxed text-lg">
-                  Meanwhile, modern life pushes us to sit more, scroll more, and consume more. And with every new demand, we feel more overwhelmed, and further behind.
+                <p className="text-xl leading-relaxed text-muted-foreground">
+                  A budgeting app here. A gym membership there. A meditation streak that lasts three days.
                 </p>
               </div>
             </div>
-            
-            <Card className="bg-destructive/5 border-destructive/20">
-              <CardContent className="p-8">
-                <h3 className="text-2xl font-bold text-destructive mb-6">The Old Way Problems:</h3>
-                <div className="space-y-4">
-                  {[
-                    "Separate goals for health, wealth, and happiness",
-                    "Relying on motivation or willpower alone",
-                    "Information overload without clear action steps",
-                    "All-or-nothing thinking that leads to burnout",
-                    "Quick hacks with no staying power"
-                  ].map((problem, index) => (
-                    <div key={index} className="flex items-start gap-3">
-                      <AlertTriangle className="w-5 h-5 text-destructive mt-0.5 flex-shrink-0" />
-                      <span className="text-muted-foreground">{problem}</span>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
+
+            {/* Third paragraph - Left aligned */}
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              <div className="space-y-4">
+                <p className="text-2xl leading-relaxed text-destructive font-bold">
+                  But nothing sticks.
+                </p>
+                <p className="text-xl leading-relaxed text-muted-foreground">
+                  Not because people are lazy. Not because they're broken.
+                </p>
+                <p className="text-xl leading-relaxed text-foreground font-semibold">
+                  But because the old model is.
+                </p>
+              </div>
+              <div></div>
+            </div>
+
+            {/* Fourth paragraph - Right aligned */}
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              <div></div>
+              <div className="space-y-4">
+                <p className="text-xl leading-relaxed text-muted-foreground">
+                  Meanwhile, modern life pushes us to sit more, scroll more, and consume more.
+                </p>
+                <p className="text-xl leading-relaxed text-destructive font-semibold">
+                  And with every new demand, we feel more overwhelmed, and further behind.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
