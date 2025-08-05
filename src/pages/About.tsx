@@ -98,7 +98,7 @@ const About = () => {
                 Not because people are lazy. Not because they're broken.
               </p>
               <p className="text-xl text-foreground font-medium">
-                But because the old model is.
+                But because the old model is broken.
               </p>
             </div>
 
