@@ -135,8 +135,13 @@ const About = () => {
                    </div>
                    
                    {/* Photo 9 - Position 9/10 - Ocean Sunset Contemplation */}
-                   
-                 </div>
+                   <div className="w-[400px] h-[400px] bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform rotate-2" style={{
+                  animationDelay: "3300ms",
+                  marginTop: "1350px"
+                }}>
+                     <img src="/lovable-uploads/2e4d322c-a647-4622-b44d-912958bfa401.png" alt="Big Daddy contemplating by ocean at sunset - Deep reflection" className="w-full h-full object-cover rounded-xl" />
+                   </div>
+                  </div>
 
                  {/* Pinned Photos - Right Side - EVEN POSITIONS (2,4,6,8,10) */}
                  <div className="hidden lg:block absolute right-0 top-0 w-[400px] space-y-4 z-10" style={{
@@ -174,6 +179,13 @@ const About = () => {
                      <img src="/lovable-uploads/7208834d-dbba-4fc6-8da5-2f81f4e3796f.png" alt="Big Daddy at sunset - Transformation complete" className="w-full h-full object-cover rounded-xl" />
                    </div>
                    
+                   {/* Photo 10 - Position 10/10 - Looking Forward */}
+                   <div className="w-[400px] h-[400px] bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform -rotate-1" style={{
+                  animationDelay: "3600ms",
+                  marginTop: "1350px"
+                }}>
+                     <img src="/lovable-uploads/091ea38c-18d1-4a6c-b3d0-b2e9e92d382d.png" alt="Big Daddy looking ahead - Vision for the future" className="w-full h-full object-cover rounded-xl" />
+                   </div>
                  </div>
 
                 {/* Main Story Content */}
