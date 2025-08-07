@@ -31,26 +31,26 @@ const Home = () => {
                 </Button>
                 <div className="relative">
                   <div className="absolute inset-0">
-                    <div className="absolute inset-0 rounded-xl border border-primary/40 animate-ping" style={{
+                    <div className="absolute inset-0 rounded-xl border border-accent-light/40 animate-ping transform scale-50" style={{
                       animationDuration: '2s',
                       animationIterationCount: 'infinite'
                     }}></div>
                   </div>
                   <div className="absolute inset-0" style={{ margin: '1px' }}>
-                    <div className="absolute inset-0 rounded-xl border border-primary/50 animate-ping" style={{
+                    <div className="absolute inset-0 rounded-xl border border-accent-light/50 animate-ping transform scale-50" style={{
                       animationDuration: '2s',
                       animationDelay: '0.7s',
                       animationIterationCount: 'infinite'
                     }}></div>
                   </div>
                   <div className="absolute inset-0" style={{ margin: '2px' }}>
-                    <div className="absolute inset-0 rounded-xl border border-primary/60 animate-ping" style={{
+                    <div className="absolute inset-0 rounded-xl border border-accent-light/60 animate-ping transform scale-50" style={{
                       animationDuration: '2s',
                       animationDelay: '1.4s',
                       animationIterationCount: 'infinite'
                     }}></div>
                   </div>
-                  <div className="absolute inset-0 bg-primary/10 rounded-xl animate-pulse" style={{ animationDuration: '3s' }}></div>
+                  <div className="absolute inset-0 bg-accent-light/10 rounded-xl animate-pulse transform scale-50" style={{ animationDuration: '3s' }}></div>
                   <Button variant="secondary" size="lg" asChild className="relative hover:scale-105 transition-transform duration-200 rounded-xl">
                     <Link to="/about">
                       📖 Read My Story <ArrowRight className="w-5 h-5" />
