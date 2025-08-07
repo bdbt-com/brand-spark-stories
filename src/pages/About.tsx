@@ -172,14 +172,6 @@ const About = () => {
                      />
                    </div>
                    
-                   {/* Photo 10 - Position 10/10 FINAL BOTTOM - Peaceful Meditation Gazebo */}
-                   <div className="w-[400px] h-[400px] bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform -rotate-3" style={{ animationDelay: "3500ms", marginTop: "1000px" }}>
-                     <img 
-                       src="/lovable-uploads/dd8771a0-3f95-4ef7-838b-c6e40d9f78c4.png" 
-                       alt="Big Daddy in peaceful meditation - Ultimate balance achieved" 
-                       className="w-full h-full object-cover rounded-xl"
-                     />
-                   </div>
                  </div>
 
                 {/* Main Story Content */}
