@@ -87,7 +87,7 @@ const About = () => {
               <div className="max-w-7xl mx-auto relative">
                 
                  {/* Pinned Photos - Left Side */}
-                 <div className="hidden lg:block absolute left-0 top-0 w-[500px] space-y-8 z-10" style={{ left: '-166px' }}>
+                 <div className="hidden lg:block absolute left-0 top-0 w-[500px] space-y-8 z-10" style={{ left: '-100px' }}>
                    {/* Photo 1 - Top Left - Office/Workspace */}
                    <div className="w-[500px] h-[500px] bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform rotate-3" style={{ animationDelay: "500ms" }}>
                      <img 
@@ -98,7 +98,7 @@ const About = () => {
                    </div>
                    
                    {/* Photo 3 - Mid Left - Dog & Family Life */}
-                   <div className="w-[500px] h-[500px] bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform -rotate-2" style={{ animationDelay: "1200ms", marginTop: "2000px" }}>
+                   <div className="w-[500px] h-[500px] bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform -rotate-2" style={{ animationDelay: "1200ms", marginTop: "800px" }}>
                      <img 
                        src="/lovable-uploads/bb15285e-dc4c-46ae-93a2-3c27d8cad778.png" 
                        alt="Big Daddy with family dog - Life balance" 
@@ -107,7 +107,7 @@ const About = () => {
                    </div>
                    
                    {/* Photo 5 - Lower Left - Success & Wealth */}
-                   <div className="w-[500px] h-[500px] bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform rotate-1" style={{ animationDelay: "1900ms", marginTop: "2000px" }}>
+                   <div className="w-[500px] h-[500px] bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform rotate-1" style={{ animationDelay: "1900ms", marginTop: "800px" }}>
                      <img 
                        src="/lovable-uploads/429221d1-d6c7-4743-9918-18a35e4a4eb2.png" 
                        alt="Big Daddy and success - Financial freedom" 
@@ -116,7 +116,7 @@ const About = () => {
                    </div>
                    
                    {/* Photo 7 - Bottom Left - Sunset Transformation */}
-                   <div className="w-[500px] h-[500px] bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform -rotate-3" style={{ animationDelay: "2600ms", marginTop: "2000px" }}>
+                   <div className="w-[500px] h-[500px] bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform -rotate-3" style={{ animationDelay: "2600ms", marginTop: "800px" }}>
                      <img 
                        src="/lovable-uploads/7208834d-dbba-4fc6-8da5-2f81f4e3796f.png" 
                        alt="Big Daddy at sunset - Transformation complete" 
@@ -126,9 +126,9 @@ const About = () => {
                  </div>
 
                  {/* Pinned Photos - Right Side */}
-                 <div className="hidden lg:block absolute right-0 top-0 w-[500px] space-y-8 z-10" style={{ right: '-166px' }}>
+                 <div className="hidden lg:block absolute right-0 top-0 w-[500px] space-y-8 z-10" style={{ right: '-100px' }}>
                    {/* Photo 2 - Top Right - The Journey Upward */}
-                   <div className="w-[500px] h-[500px] bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform -rotate-1" style={{ animationDelay: "800ms", marginTop: "1000px" }}>
+                   <div className="w-[500px] h-[500px] bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform -rotate-1" style={{ animationDelay: "800ms", marginTop: "400px" }}>
                      <img 
                        src="/lovable-uploads/106caa66-a28a-4871-b4da-391b59d6c6ee.png" 
                        alt="Big Daddy climbing stairs - The journey upward" 
@@ -137,7 +137,7 @@ const About = () => {
                    </div>
                    
                    {/* Photo 4 - Mid Right - Freedom & Success */}
-                   <div className="w-[500px] h-[500px] bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform rotate-2" style={{ animationDelay: "1500ms", marginTop: "2000px" }}>
+                   <div className="w-[500px] h-[500px] bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform rotate-2" style={{ animationDelay: "1500ms", marginTop: "800px" }}>
                      <img 
                        src="/lovable-uploads/11966bbc-71f9-40df-ac7d-d99bead4b5d3.png" 
                        alt="Big Daddy in nature - Freedom and success" 
@@ -146,7 +146,7 @@ const About = () => {
                    </div>
                    
                    {/* Photo 6 - Lower Right - Lifestyle Achievement */}
-                   <div className="w-[500px] h-[500px] bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform -rotate-2" style={{ animationDelay: "2200ms", marginTop: "2000px" }}>
+                   <div className="w-[500px] h-[500px] bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform -rotate-2" style={{ animationDelay: "2200ms", marginTop: "800px" }}>
                      <img 
                        src="/lovable-uploads/639b2e42-bb5e-4e0f-a150-3c447b0ca4d2.png" 
                        alt="Big Daddy relaxing - Lifestyle achievement" 
@@ -155,7 +155,7 @@ const About = () => {
                    </div>
                    
                    {/* Photo 8 - Bottom Right - Coastal Business Life */}
-                   <div className="w-[500px] h-[500px] bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform rotate-1" style={{ animationDelay: "2900ms", marginTop: "2000px" }}>
+                   <div className="w-[500px] h-[500px] bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform rotate-1" style={{ animationDelay: "2900ms", marginTop: "800px" }}>
                      <img 
                        src="/lovable-uploads/8c209669-d4f3-4beb-9184-98693514ffca.png" 
                        alt="Big Daddy on coastal call - Business success" 
