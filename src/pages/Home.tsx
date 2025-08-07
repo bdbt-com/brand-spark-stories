@@ -29,7 +29,7 @@ const Home = () => {
                     ⬤ Start Your Daily Wins <ArrowRight className="w-5 h-5" />
                   </Link>
                 </Button>
-                <Button variant="outline" size="lg" asChild className="hover:scale-105 transition-transform duration-200">
+                <Button variant="secondary" size="lg" asChild className="hover:scale-105 transition-transform duration-200">
                   <Link to="/about">
                     📖 Read My Story <ArrowRight className="w-5 h-5" />
                   </Link>
