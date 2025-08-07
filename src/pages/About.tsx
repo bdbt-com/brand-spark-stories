@@ -5,12 +5,9 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/component
 import { Clock, Heart, Award, Users2, Quote, BookOpen, Target, Star, TrendingUp, Zap, AlertTriangle, CheckCircle, ArrowRight, BarChart3, Brain, Lightbulb, ChevronDown, User } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-
 const About = () => {
   const [isStoryOpen, setIsStoryOpen] = useState(false);
-
-  return (
-    <div className="min-h-screen">
+  return <div className="min-h-screen">
       {/* Hero Section - Owner Story */}
       <section className="py-20 lg:py-32 bg-gradient-to-br from-background via-muted/30 to-primary/5 relative overflow-hidden">
         <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
@@ -42,17 +39,34 @@ const About = () => {
                     <div className="relative">
                        {/* Enhanced Ripple Effect Rings - Ocean Blue with 50% Transparency - Smaller */}
                        <div className="absolute inset-0">
-                         <div className="absolute inset-0 rounded-xl border border-blue-400/50 animate-ping" style={{ animationDuration: '2s', animationIterationCount: 'infinite' }}></div>
+                         <div className="absolute inset-0 rounded-xl border border-blue-400/50 animate-ping" style={{
+                        animationDuration: '2s',
+                        animationIterationCount: 'infinite'
+                      }}></div>
                        </div>
-                       <div className="absolute inset-0" style={{ margin: '1px' }}>
-                         <div className="absolute inset-0 rounded-xl border border-blue-500/50 animate-ping" style={{ animationDuration: '2s', animationDelay: '0.7s', animationIterationCount: 'infinite' }}></div>
+                       <div className="absolute inset-0" style={{
+                      margin: '1px'
+                    }}>
+                         <div className="absolute inset-0 rounded-xl border border-blue-500/50 animate-ping" style={{
+                        animationDuration: '2s',
+                        animationDelay: '0.7s',
+                        animationIterationCount: 'infinite'
+                      }}></div>
                        </div>
-                       <div className="absolute inset-0" style={{ margin: '2px' }}>
-                         <div className="absolute inset-0 rounded-xl border border-blue-600/50 animate-ping" style={{ animationDuration: '2s', animationDelay: '1.4s', animationIterationCount: 'infinite' }}></div>
+                       <div className="absolute inset-0" style={{
+                      margin: '2px'
+                    }}>
+                         <div className="absolute inset-0 rounded-xl border border-blue-600/50 animate-ping" style={{
+                        animationDuration: '2s',
+                        animationDelay: '1.4s',
+                        animationIterationCount: 'infinite'
+                      }}></div>
                        </div>
                        
                        {/* Enhanced Glow Effect - Ocean Blue with Reduced Size */}
-                       <div className="absolute inset-0 bg-blue-500/10 rounded-xl animate-pulse" style={{ animationDuration: '3s' }}></div>
+                       <div className="absolute inset-0 bg-blue-500/10 rounded-xl animate-pulse" style={{
+                      animationDuration: '3s'
+                    }}></div>
                        
                        <Button variant="outline" size="lg" className="relative hover:scale-105 transition-transform text-lg h-16 px-12 py-6 bg-background/95 backdrop-blur-sm border-primary/30 rounded-xl">
                          <BookOpen className="w-6 h-6 mr-3" />
@@ -64,13 +78,11 @@ const About = () => {
                 </Collapsible>
               </div>
             </div>
-            <div className="relative animate-fade-in" style={{ animationDelay: "200ms" }}>
+            <div className="relative animate-fade-in" style={{
+            animationDelay: "200ms"
+          }}>
               <div className="relative">
-                <img 
-                  src="/lovable-uploads/59a1a8dd-ab26-431d-b9c6-9da3f2f01f38.png" 
-                  alt="Big Daddy - BDBT Founder" 
-                  className="w-full h-96 lg:h-[500px] object-cover rounded-3xl shadow-strong border-4 border-white/20"
-                />
+                <img src="/lovable-uploads/59a1a8dd-ab26-431d-b9c6-9da3f2f01f38.png" alt="Big Daddy - BDBT Founder" className="w-full h-96 lg:h-[500px] object-cover rounded-3xl shadow-strong border-4 border-white/20" />
                 <div className="absolute -bottom-6 -right-6 bg-gradient-primary p-6 rounded-2xl shadow-strong">
                   <div className="text-white text-center">
                     <div className="text-2xl font-bold">50K+</div>
@@ -87,89 +99,79 @@ const About = () => {
               <div className="max-w-7xl mx-auto relative">
                 
                  {/* Pinned Photos - Left Side - ODD POSITIONS (1,3,5,7,9) */}
-                 <div className="hidden lg:block absolute left-0 top-0 w-[400px] space-y-4 z-10" style={{ left: '-120px' }}>
+                 <div className="hidden lg:block absolute left-0 top-0 w-[400px] space-y-4 z-10" style={{
+                left: '-120px'
+              }}>
                    {/* Photo 1 - Position 1/10 - Office/Workspace */}
-                   <div className="w-[400px] h-[400px] bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform rotate-3" style={{ animationDelay: "500ms", marginTop: "0px" }}>
-                     <img 
-                       src="/lovable-uploads/5e8aba04-f6cc-44a2-9bcc-eaf2424e3976.png" 
-                       alt="Big Daddy at work - Building the system" 
-                       className="w-full h-full object-cover rounded-xl"
-                     />
+                   <div className="w-[400px] h-[400px] bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform rotate-3" style={{
+                  animationDelay: "500ms",
+                  marginTop: "0px"
+                }}>
+                     <img src="/lovable-uploads/5e8aba04-f6cc-44a2-9bcc-eaf2424e3976.png" alt="Big Daddy at work - Building the system" className="w-full h-full object-cover rounded-xl" />
                    </div>
                    
                    {/* Photo 3 - Position 3/10 - Dog & Family Life */}
-                   <div className="w-[400px] h-[400px] bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform -rotate-2" style={{ animationDelay: "1200ms", marginTop: "1350px" }}>
-                     <img 
-                       src="/lovable-uploads/bb15285e-dc4c-46ae-93a2-3c27d8cad778.png" 
-                       alt="Big Daddy with family dog - Life balance" 
-                       className="w-full h-full object-cover rounded-xl"
-                     />
+                   <div className="w-[400px] h-[400px] bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform -rotate-2" style={{
+                  animationDelay: "1200ms",
+                  marginTop: "1350px"
+                }}>
+                     <img src="/lovable-uploads/bb15285e-dc4c-46ae-93a2-3c27d8cad778.png" alt="Big Daddy with family dog - Life balance" className="w-full h-full object-cover rounded-xl" />
                    </div>
                    
                    {/* Photo 5 - Position 5/10 - Success & Wealth */}
-                   <div className="w-[400px] h-[400px] bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform rotate-1" style={{ animationDelay: "1900ms", marginTop: "1350px" }}>
-                     <img 
-                       src="/lovable-uploads/429221d1-d6c7-4743-9918-18a35e4a4eb2.png" 
-                       alt="Big Daddy and success - Financial freedom" 
-                       className="w-full h-full object-cover rounded-xl"
-                     />
+                   <div className="w-[400px] h-[400px] bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform rotate-1" style={{
+                  animationDelay: "1900ms",
+                  marginTop: "1350px"
+                }}>
+                     <img src="/lovable-uploads/429221d1-d6c7-4743-9918-18a35e4a4eb2.png" alt="Big Daddy and success - Financial freedom" className="w-full h-full object-cover rounded-xl" />
                    </div>
                    
                    {/* Photo 7 - Position 7/10 - Coastal Business Life */}
-                   <div className="w-[400px] h-[400px] bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform -rotate-1" style={{ animationDelay: "2600ms", marginTop: "1350px" }}>
-                     <img 
-                       src="/lovable-uploads/8c209669-d4f3-4beb-9184-98693514ffca.png" 
-                       alt="Big Daddy on coastal call - Business success" 
-                       className="w-full h-full object-cover rounded-xl"
-                     />
+                   <div className="w-[400px] h-[400px] bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform -rotate-1" style={{
+                  animationDelay: "2600ms",
+                  marginTop: "1350px"
+                }}>
+                     <img src="/lovable-uploads/8c209669-d4f3-4beb-9184-98693514ffca.png" alt="Big Daddy on coastal call - Business success" className="w-full h-full object-cover rounded-xl" />
                    </div>
                    
                    {/* Photo 9 - Position 9/10 - Ocean Sunset Contemplation */}
-                   <div className="w-[400px] h-[400px] bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform rotate-2" style={{ animationDelay: "3200ms", marginTop: "1350px" }}>
-                     <img 
-                       src="/lovable-uploads/711d369c-9d1d-4efb-9800-98349c1c7a48.png" 
-                       alt="Big Daddy contemplating by ocean at sunset - Deep reflection" 
-                       className="w-full h-full object-cover rounded-xl"
-                     />
-                   </div>
+                   
                  </div>
 
                  {/* Pinned Photos - Right Side - EVEN POSITIONS (2,4,6,8,10) */}
-                 <div className="hidden lg:block absolute right-0 top-0 w-[400px] space-y-4 z-10" style={{ right: '-120px' }}>
+                 <div className="hidden lg:block absolute right-0 top-0 w-[400px] space-y-4 z-10" style={{
+                right: '-120px'
+              }}>
                    {/* Photo 2 - Position 2/10 - The Journey Upward */}
-                   <div className="w-[400px] h-[400px] bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform -rotate-1" style={{ animationDelay: "800ms", marginTop: "675px" }}>
-                     <img 
-                       src="/lovable-uploads/106caa66-a28a-4871-b4da-391b59d6c6ee.png" 
-                       alt="Big Daddy climbing stairs - The journey upward" 
-                       className="w-full h-full object-cover rounded-xl"
-                     />
+                   <div className="w-[400px] h-[400px] bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform -rotate-1" style={{
+                  animationDelay: "800ms",
+                  marginTop: "675px"
+                }}>
+                     <img src="/lovable-uploads/106caa66-a28a-4871-b4da-391b59d6c6ee.png" alt="Big Daddy climbing stairs - The journey upward" className="w-full h-full object-cover rounded-xl" />
                    </div>
                    
                    {/* Photo 4 - Position 4/10 - Freedom & Success */}
-                   <div className="w-[400px] h-[400px] bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform rotate-2" style={{ animationDelay: "1500ms", marginTop: "1350px" }}>
-                     <img 
-                       src="/lovable-uploads/11966bbc-71f9-40df-ac7d-d99bead4b5d3.png" 
-                       alt="Big Daddy in nature - Freedom and success" 
-                       className="w-full h-full object-cover rounded-xl"
-                     />
+                   <div className="w-[400px] h-[400px] bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform rotate-2" style={{
+                  animationDelay: "1500ms",
+                  marginTop: "1350px"
+                }}>
+                     <img src="/lovable-uploads/11966bbc-71f9-40df-ac7d-d99bead4b5d3.png" alt="Big Daddy in nature - Freedom and success" className="w-full h-full object-cover rounded-xl" />
                    </div>
                    
                    {/* Photo 6 - Position 6/10 - Lifestyle Achievement */}
-                   <div className="w-[400px] h-[400px] bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform -rotate-2" style={{ animationDelay: "2200ms", marginTop: "1350px" }}>
-                     <img 
-                       src="/lovable-uploads/639b2e42-bb5e-4e0f-a150-3c447b0ca4d2.png" 
-                       alt="Big Daddy relaxing - Lifestyle achievement" 
-                       className="w-full h-full object-cover rounded-xl"
-                     />
+                   <div className="w-[400px] h-[400px] bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform -rotate-2" style={{
+                  animationDelay: "2200ms",
+                  marginTop: "1350px"
+                }}>
+                     <img src="/lovable-uploads/639b2e42-bb5e-4e0f-a150-3c447b0ca4d2.png" alt="Big Daddy relaxing - Lifestyle achievement" className="w-full h-full object-cover rounded-xl" />
                    </div>
                    
                    {/* Photo 8 - Position 8/10 - Original Sunset Transformation */}
-                   <div className="w-[400px] h-[400px] bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform rotate-1" style={{ animationDelay: "2900ms", marginTop: "1350px" }}>
-                     <img 
-                       src="/lovable-uploads/7208834d-dbba-4fc6-8da5-2f81f4e3796f.png" 
-                       alt="Big Daddy at sunset - Transformation complete" 
-                       className="w-full h-full object-cover rounded-xl"
-                     />
+                   <div className="w-[400px] h-[400px] bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform rotate-1" style={{
+                  animationDelay: "2900ms",
+                  marginTop: "1350px"
+                }}>
+                     <img src="/lovable-uploads/7208834d-dbba-4fc6-8da5-2f81f4e3796f.png" alt="Big Daddy at sunset - Transformation complete" className="w-full h-full object-cover rounded-xl" />
                    </div>
                    
                  </div>
@@ -425,23 +427,13 @@ const About = () => {
                       </div>
 
                       <div className="text-center pt-8 border-t border-muted space-y-4">
-                        <Button 
-                          variant="hero" 
-                          size="lg" 
-                          asChild 
-                          className="hover:scale-105 transition-transform"
-                        >
+                        <Button variant="hero" size="lg" asChild className="hover:scale-105 transition-transform">
                           <Link to="/blueprint">
                             Get Started Now
                             <ArrowRight className="w-5 h-5 ml-2" />
                           </Link>
                         </Button>
-                        <Button 
-                          variant="outline" 
-                          size="lg" 
-                          asChild 
-                          className="hover:scale-105 transition-transform ml-4"
-                        >
+                        <Button variant="outline" size="lg" asChild className="hover:scale-105 transition-transform ml-4">
                           <Link to="/blueprint">
                             Start Your Journey Now
                             <ArrowRight className="w-5 h-5 ml-2" />
@@ -552,17 +544,10 @@ const About = () => {
                 <CardContent className="p-6">
                   <h3 className="text-xl font-bold text-primary mb-4">The BDBT Difference:</h3>
                   <div className="space-y-3">
-                    {[
-                      "One stacked system that improves all three together",
-                      "Works even when your motivation doesn't",
-                      "Clear steps that turn overwhelm into action",
-                      "1% daily improvement mindset"
-                    ].map((benefit, index) => (
-                      <div key={index} className="flex items-start gap-3">
+                    {["One stacked system that improves all three together", "Works even when your motivation doesn't", "Clear steps that turn overwhelm into action", "1% daily improvement mindset"].map((benefit, index) => <div key={index} className="flex items-start gap-3">
                         <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
                         <span className="text-muted-foreground">{benefit}</span>
-                      </div>
-                    ))}
+                      </div>)}
                   </div>
                 </CardContent>
               </Card>
@@ -594,21 +579,10 @@ const About = () => {
                   <h3 className="text-2xl font-bold text-destructive mt-4">What Doesn't Work</h3>
                 </div>
                 <div className="space-y-4">
-                  {[
-                    "Separate goals for health, wealth, and happiness",
-                    "Relying on motivation or willpower",
-                    "Isolated tips from different experts",
-                    "Overhauling everything on January 1st",
-                    "All or nothing thinking",
-                    "Quick hacks with no staying power",
-                    "One-size-fits-all plans",
-                    "Starting strong, burning out fast"
-                  ].map((item, index) => (
-                    <div key={index} className="flex items-start gap-3">
+                  {["Separate goals for health, wealth, and happiness", "Relying on motivation or willpower", "Isolated tips from different experts", "Overhauling everything on January 1st", "All or nothing thinking", "Quick hacks with no staying power", "One-size-fits-all plans", "Starting strong, burning out fast"].map((item, index) => <div key={index} className="flex items-start gap-3">
                       <AlertTriangle className="w-5 h-5 text-destructive mt-0.5 flex-shrink-0" />
                       <span className="text-muted-foreground">{item}</span>
-                    </div>
-                  ))}
+                    </div>)}
                 </div>
               </CardContent>
             </Card>
@@ -623,21 +597,10 @@ const About = () => {
                   <h3 className="text-2xl font-bold text-primary mt-4">What Actually Works</h3>
                 </div>
                 <div className="space-y-4">
-                  {[
-                    "One stacked system that improves all three together",
-                    "A structure that works even when motivation doesn't",
-                    "Simplified information and achievable progress",
-                    "Tiny daily shifts that build a life you love",
-                    "1% daily improvement mindset",
-                    "Long-term identity change through ripple habits",
-                    "A flexible framework that fits around your life",
-                    "Small daily steps. Big life changes"
-                  ].map((item, index) => (
-                    <div key={index} className="flex items-start gap-3">
+                  {["One stacked system that improves all three together", "A structure that works even when motivation doesn't", "Simplified information and achievable progress", "Tiny daily shifts that build a life you love", "1% daily improvement mindset", "Long-term identity change through ripple habits", "A flexible framework that fits around your life", "Small daily steps. Big life changes"].map((item, index) => <div key={index} className="flex items-start gap-3">
                       <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
                       <span className="text-muted-foreground">{item}</span>
-                    </div>
-                  ))}
+                    </div>)}
                 </div>
               </CardContent>
             </Card>
@@ -658,39 +621,30 @@ const About = () => {
           </div>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              {
-                icon: Target,
-                belief: "In stacking micro-wins, not chasing macro-perfection."
-              },
-              {
-                icon: Clock,
-                belief: "That 10 minutes can change your entire day. The ripple can then change your entire life."
-              },
-              {
-                icon: Brain,
-                belief: "That your environment beats your willpower."
-              },
-              {
-                icon: Zap,
-                belief: "That you don't need more motivation, you need a system that works even when you don't."
-              },
-              {
-                icon: Heart,
-                belief: "That real change happens when your habits serve your values."
-              },
-              {
-                icon: Star,
-                belief: "That you don't need another goal. You need an achievable daily win that creates ripple effects."
-              }
-            ].map((item, index) => (
-              <Card key={index} className="bg-white/10 border-white/20 backdrop-blur-sm">
+            {[{
+            icon: Target,
+            belief: "In stacking micro-wins, not chasing macro-perfection."
+          }, {
+            icon: Clock,
+            belief: "That 10 minutes can change your entire day. The ripple can then change your entire life."
+          }, {
+            icon: Brain,
+            belief: "That your environment beats your willpower."
+          }, {
+            icon: Zap,
+            belief: "That you don't need more motivation, you need a system that works even when you don't."
+          }, {
+            icon: Heart,
+            belief: "That real change happens when your habits serve your values."
+          }, {
+            icon: Star,
+            belief: "That you don't need another goal. You need an achievable daily win that creates ripple effects."
+          }].map((item, index) => <Card key={index} className="bg-white/10 border-white/20 backdrop-blur-sm">
                 <CardContent className="p-6 text-center">
                   <item.icon className="w-12 h-12 mx-auto mb-4 text-white" />
                   <p className="text-white/90 leading-relaxed">{item.belief}</p>
                 </CardContent>
-              </Card>
-            ))}
+              </Card>)}
           </div>
         </div>
       </section>
@@ -742,18 +696,10 @@ const About = () => {
               <CardContent className="p-8">
                 <h3 className="text-2xl font-bold text-primary mb-6">What You'll Get:</h3>
                 <div className="space-y-4">
-                  {[
-                    "A system that works even when you don't feel motivated",
-                    "Daily habits that create ripple effects across all areas",
-                    "Clear, achievable steps instead of overwhelming goals",
-                    "A community of people on the same journey",
-                    "Tools to track and stack your wins"
-                  ].map((benefit, index) => (
-                    <div key={index} className="flex items-start gap-3">
+                  {["A system that works even when you don't feel motivated", "Daily habits that create ripple effects across all areas", "Clear, achievable steps instead of overwhelming goals", "A community of people on the same journey", "Tools to track and stack your wins"].map((benefit, index) => <div key={index} className="flex items-start gap-3">
                       <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
                       <span className="text-muted-foreground">{benefit}</span>
-                    </div>
-                  ))}
+                    </div>)}
                 </div>
               </CardContent>
             </Card>
@@ -777,20 +723,29 @@ const About = () => {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {[
-              { metric: "50K+", label: "Lives Transformed", icon: Users2 },
-              { metric: "10M+", label: "Content Views", icon: TrendingUp },
-              { metric: "95%", label: "Success Rate", icon: Award },
-              { metric: "#1", label: "System That Works", icon: Star }
-            ].map((stat, index) => (
-              <Card key={index} className="group hover:shadow-strong transition-all duration-300 hover:-translate-y-2 bg-gradient-subtle">
+            {[{
+            metric: "50K+",
+            label: "Lives Transformed",
+            icon: Users2
+          }, {
+            metric: "10M+",
+            label: "Content Views",
+            icon: TrendingUp
+          }, {
+            metric: "95%",
+            label: "Success Rate",
+            icon: Award
+          }, {
+            metric: "#1",
+            label: "System That Works",
+            icon: Star
+          }].map((stat, index) => <Card key={index} className="group hover:shadow-strong transition-all duration-300 hover:-translate-y-2 bg-gradient-subtle">
                 <CardContent className="p-8 text-center space-y-4">
                   <stat.icon className="w-12 h-12 mx-auto text-primary group-hover:scale-110 transition-transform duration-300" />
                   <div className="text-4xl font-bold text-foreground">{stat.metric}</div>
                   <div className="text-muted-foreground font-medium">{stat.label}</div>
                 </CardContent>
-              </Card>
-            ))}
+              </Card>)}
           </div>
         </div>
       </section>
@@ -811,27 +766,19 @@ const About = () => {
           </div>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[1, 2, 3, 4].map((_, index) => (
-              <Card key={index} className="group hover:shadow-medium transition-all duration-300 hover:-translate-y-1">
+            {[1, 2, 3, 4].map((_, index) => <Card key={index} className="group hover:shadow-medium transition-all duration-300 hover:-translate-y-1">
                 <CardContent className="p-6 text-center">
-                  <img 
-                    src={`https://images.unsplash.com/photo-${['1649972904349-6e44c42644a7', '1581091226825-a6a2a5aee158', '1486312338219-ce68d2c6f44d', '1581090464777-f3220bbe1b8b'][index]}?w=200&h=200&fit=crop&crop=face`}
-                    alt={`Team Member ${index + 1}`} 
-                    className="w-24 h-24 object-cover rounded-full mx-auto mb-4 shadow-medium"
-                  />
+                  <img src={`https://images.unsplash.com/photo-${['1649972904349-6e44c42644a7', '1581091226825-a6a2a5aee158', '1486312338219-ce68d2c6f44d', '1581090464777-f3220bbe1b8b'][index]}?w=200&h=200&fit=crop&crop=face`} alt={`Team Member ${index + 1}`} className="w-24 h-24 object-cover rounded-full mx-auto mb-4 shadow-medium" />
                   <h3 className="text-lg font-semibold text-foreground mb-1">Team Member {index + 1}</h3>
                   <p className="text-sm text-muted-foreground mb-3">Role Title</p>
                   <p className="text-xs text-muted-foreground leading-relaxed">
                     Brief description of team member's expertise and contribution.
                   </p>
                 </CardContent>
-              </Card>
-            ))}
+              </Card>)}
           </div>
         </div>
       </section>
-    </div>
-  );
+    </div>;
 };
-
 export default About;
