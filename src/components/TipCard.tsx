@@ -45,7 +45,7 @@ const TipCard = ({ tip, index }: TipCardProps) => {
   };
 
   return (
-    <Card className="group hover:shadow-strong transition-all duration-300 hover:-translate-y-2 cursor-pointer relative overflow-hidden bg-card border-2 hover:border-primary/20 flex flex-col h-auto min-h-[520px]">
+    <Card className="group hover-lift-strong interactive cursor-pointer relative overflow-hidden border-2 hover:border-primary/30 flex flex-col h-auto min-h-[520px] shadow-soft">
       {showEmailForm ? (
         <CardContent className="p-6 flex-1 flex items-center">
           <EmailCaptureForm
@@ -59,20 +59,20 @@ const TipCard = ({ tip, index }: TipCardProps) => {
           {/* Header Section */}
           <CardHeader className="pb-4 flex-shrink-0 p-6 h-auto">
             <div className="flex items-start justify-between mb-4">
-              <div className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                <tip.icon className="w-6 h-6 text-white" />
+              <div className="w-14 h-14 bg-gradient-primary rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-soft group-hover:shadow-medium">
+                <tip.icon className="w-7 h-7 text-white" />
               </div>
               <div className="flex flex-col gap-2 items-center">
-                <Badge className={`${getCategoryColor(tip.category)} text-xs font-medium`} variant="outline">
+                <Badge className={`${getCategoryColor(tip.category)} text-xs font-semibold tracking-wide`} variant="outline">
                   {tip.category.charAt(0).toUpperCase() + tip.category.slice(1)}
                 </Badge>
-                <Badge className={`${getLevelColor(tip.level)} text-xs font-medium`} variant="outline">
+                <Badge className={`${getLevelColor(tip.level)} text-xs font-semibold tracking-wide`} variant="outline">
                   {tip.level}
                 </Badge>
               </div>
             </div>
             <div className="flex flex-col items-center h-auto min-h-[60px]">
-              <CardTitle className="text-lg leading-tight group-hover:text-primary transition-colors text-center line-clamp-none">
+              <CardTitle className="text-lg leading-tight group-hover:text-primary transition-colors text-center line-clamp-2 font-semibold">
                 {tip.title}
               </CardTitle>
             </div>
@@ -81,19 +81,19 @@ const TipCard = ({ tip, index }: TipCardProps) => {
           {/* Content Section */}
           <CardContent className="flex-1 flex flex-col p-6 pt-0">
             {/* Description Section */}
-            <div className="mb-4 h-auto">
+            <div className="mb-6 h-auto">
               <p className="text-muted-foreground text-sm leading-relaxed">
                 {tip.description}
               </p>
             </div>
             
             {/* Bullet Points Section */}
-            <div className="mb-4 h-auto">
-              <ul className="space-y-1">
+            <div className="mb-6 h-auto">
+              <ul className="space-y-2">
                 {tip.items.map((item, itemIndex) => (
                   <li key={itemIndex} className="text-sm text-muted-foreground flex items-start">
-                    <span className="w-1.5 h-1.5 bg-primary rounded-full mt-2 mr-3 flex-shrink-0"></span>
-                    <span className="leading-tight">{item}</span>
+                    <span className="w-2 h-2 bg-gradient-primary rounded-full mt-1.5 mr-3 flex-shrink-0 shadow-xs"></span>
+                    <span className="leading-relaxed">{item}</span>
                   </li>
                 ))}
               </ul>
@@ -101,27 +101,27 @@ const TipCard = ({ tip, index }: TipCardProps) => {
             
             {/* Stats and Button Section - Fixed to bottom */}
             <div className="mt-auto space-y-4">
-              <div className="flex items-center justify-between pt-4 border-t border-border/50">
-                <div className="flex items-center gap-4 text-xs text-muted-foreground">
-                  <span className="flex items-center">
-                    <Clock className="w-3 h-3 mr-1" />
+              <div className="flex items-center justify-between pt-4 border-t border-border/30">
+                <div className="flex items-center gap-3 text-xs text-muted-foreground">
+                  <span className="flex items-center gap-1 bg-secondary/50 px-2 py-1 rounded-full">
+                    <Clock className="w-3 h-3" />
                     {tip.duration}
                   </span>
-                  <span className="flex items-center">
-                    <Eye className="w-3 h-3 mr-1" />
+                  <span className="flex items-center gap-1 bg-secondary/50 px-2 py-1 rounded-full">
+                    <Eye className="w-3 h-3" />
                     {tip.views}
                   </span>
-                  <span className="flex items-center">
-                    <TrendingUp className="w-3 h-3 mr-1" />
+                  <span className="flex items-center gap-1 bg-secondary/50 px-2 py-1 rounded-full">
+                    <TrendingUp className="w-3 h-3" />
                     {tip.popularity}%
                   </span>
                 </div>
               </div>
 
               <Button 
-                size="sm" 
-                variant="hero" 
-                className="w-full h-10 group-hover:shadow-medium transition-all duration-200 hover:scale-[1.02]"
+                size="default" 
+                variant="accent" 
+                className="w-full h-11 hover-scale-sm shadow-soft group-hover:shadow-medium"
                 onClick={() => setShowEmailForm(true)}
               >
                 Download Guide 
