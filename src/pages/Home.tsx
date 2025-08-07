@@ -23,11 +23,18 @@ const Home = () => {
               <p className="text-xl lg:text-2xl mb-8 text-white/90 leading-relaxed">
                 Big Daddy's Big Tips teaches simple daily habits that silently transform your health, wealth, and happiness simultaneously. We turn overwhelming life changes into achievable daily steps.
               </p>
-              <Button variant="accent" size="lg" asChild className="hover:scale-105 transition-transform duration-200">
-                <Link to="/blueprint">
-                  ⬤ Start Your Daily Wins <ArrowRight className="w-5 h-5" />
-                </Link>
-              </Button>
+              <div className="flex flex-wrap gap-4">
+                <Button variant="accent" size="lg" asChild className="hover:scale-105 transition-transform duration-200">
+                  <Link to="/blueprint">
+                    ⬤ Start Your Daily Wins <ArrowRight className="w-5 h-5" />
+                  </Link>
+                </Button>
+                <Button variant="outline" size="lg" asChild className="hover:scale-105 transition-transform duration-200">
+                  <Link to="/about">
+                    📖 Read My Story <ArrowRight className="w-5 h-5" />
+                  </Link>
+                </Button>
+              </div>
             </div>
             <div className="animate-float">
               <div className="bg-white/10 backdrop-blur-md rounded-2xl p-8 shadow-strong">

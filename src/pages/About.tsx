@@ -41,14 +41,14 @@ const About = () => {
                   <CollapsibleTrigger asChild>
                     <div className="relative">
                        {/* Enhanced Ripple Effect Rings - Ocean Blue with 50% Transparency - Smaller */}
-                       <div className="absolute inset-0" style={{ margin: '0px' }}>
-                         <div className="absolute inset-0 rounded-xl border-1 border-blue-400/50 animate-ping" style={{ animationDuration: '2s', animationIterationCount: 'infinite' }}></div>
+                       <div className="absolute inset-0">
+                         <div className="absolute inset-0 rounded-xl border border-blue-400/50 animate-ping" style={{ animationDuration: '2s', animationIterationCount: 'infinite' }}></div>
                        </div>
-                       <div className="absolute inset-0" style={{ margin: '-1px' }}>
-                         <div className="absolute inset-0 rounded-xl border-1 border-blue-500/50 animate-ping" style={{ animationDuration: '2s', animationDelay: '0.7s', animationIterationCount: 'infinite' }}></div>
+                       <div className="absolute inset-0" style={{ margin: '1px' }}>
+                         <div className="absolute inset-0 rounded-xl border border-blue-500/50 animate-ping" style={{ animationDuration: '2s', animationDelay: '0.7s', animationIterationCount: 'infinite' }}></div>
                        </div>
-                       <div className="absolute inset-0" style={{ margin: '-2px' }}>
-                         <div className="absolute inset-0 rounded-xl border-1 border-blue-600/50 animate-ping" style={{ animationDuration: '2s', animationDelay: '1.4s', animationIterationCount: 'infinite' }}></div>
+                       <div className="absolute inset-0" style={{ margin: '2px' }}>
+                         <div className="absolute inset-0 rounded-xl border border-blue-600/50 animate-ping" style={{ animationDuration: '2s', animationDelay: '1.4s', animationIterationCount: 'infinite' }}></div>
                        </div>
                        
                        {/* Enhanced Glow Effect - Ocean Blue with Reduced Size */}
@@ -86,83 +86,83 @@ const About = () => {
             <CollapsibleContent className="mt-16">
               <div className="max-w-7xl mx-auto relative">
                 
-                {/* Pinned Photos - Left Side */}
-                <div className="hidden lg:block absolute left-0 top-0 w-96 space-y-8 z-10" style={{ left: '-128px' }}>
-                  {/* Photo 1 - Top Left - Office/Workspace */}
-                  <div className="w-96 h-96 bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform rotate-3" style={{ animationDelay: "500ms" }}>
-                    <img 
-                      src="/lovable-uploads/5e8aba04-f6cc-44a2-9bcc-eaf2424e3976.png" 
-                      alt="Big Daddy at work - Building the system" 
-                      className="w-full h-full object-cover rounded-xl"
-                    />
-                  </div>
-                  
-                  {/* Photo 3 - Mid Left - Dog & Family Life */}
-                  <div className="w-96 h-96 bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform -rotate-2" style={{ animationDelay: "1200ms", marginTop: "2000px" }}>
-                    <img 
-                      src="/lovable-uploads/bb15285e-dc4c-46ae-93a2-3c27d8cad778.png" 
-                      alt="Big Daddy with family dog - Life balance" 
-                      className="w-full h-full object-cover rounded-xl"
-                    />
-                  </div>
-                  
-                  {/* Photo 5 - Lower Left - Success & Wealth */}
-                  <div className="w-96 h-96 bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform rotate-1" style={{ animationDelay: "1900ms", marginTop: "2000px" }}>
-                    <img 
-                      src="/lovable-uploads/429221d1-d6c7-4743-9918-18a35e4a4eb2.png" 
-                      alt="Big Daddy and success - Financial freedom" 
-                      className="w-full h-full object-cover rounded-xl"
-                    />
-                  </div>
-                  
-                  {/* Photo 7 - Bottom Left - Sunset Transformation */}
-                  <div className="w-96 h-96 bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform -rotate-3" style={{ animationDelay: "2600ms", marginTop: "2000px" }}>
-                    <img 
-                      src="/lovable-uploads/7208834d-dbba-4fc6-8da5-2f81f4e3796f.png" 
-                      alt="Big Daddy at sunset - Transformation complete" 
-                      className="w-full h-full object-cover rounded-xl"
-                    />
-                  </div>
-                </div>
+                 {/* Pinned Photos - Left Side */}
+                 <div className="hidden lg:block absolute left-0 top-0 w-[500px] space-y-8 z-10" style={{ left: '-166px' }}>
+                   {/* Photo 1 - Top Left - Office/Workspace */}
+                   <div className="w-[500px] h-[500px] bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform rotate-3" style={{ animationDelay: "500ms" }}>
+                     <img 
+                       src="/lovable-uploads/5e8aba04-f6cc-44a2-9bcc-eaf2424e3976.png" 
+                       alt="Big Daddy at work - Building the system" 
+                       className="w-full h-full object-cover rounded-xl"
+                     />
+                   </div>
+                   
+                   {/* Photo 3 - Mid Left - Dog & Family Life */}
+                   <div className="w-[500px] h-[500px] bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform -rotate-2" style={{ animationDelay: "1200ms", marginTop: "2000px" }}>
+                     <img 
+                       src="/lovable-uploads/bb15285e-dc4c-46ae-93a2-3c27d8cad778.png" 
+                       alt="Big Daddy with family dog - Life balance" 
+                       className="w-full h-full object-cover rounded-xl"
+                     />
+                   </div>
+                   
+                   {/* Photo 5 - Lower Left - Success & Wealth */}
+                   <div className="w-[500px] h-[500px] bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform rotate-1" style={{ animationDelay: "1900ms", marginTop: "2000px" }}>
+                     <img 
+                       src="/lovable-uploads/429221d1-d6c7-4743-9918-18a35e4a4eb2.png" 
+                       alt="Big Daddy and success - Financial freedom" 
+                       className="w-full h-full object-cover rounded-xl"
+                     />
+                   </div>
+                   
+                   {/* Photo 7 - Bottom Left - Sunset Transformation */}
+                   <div className="w-[500px] h-[500px] bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform -rotate-3" style={{ animationDelay: "2600ms", marginTop: "2000px" }}>
+                     <img 
+                       src="/lovable-uploads/7208834d-dbba-4fc6-8da5-2f81f4e3796f.png" 
+                       alt="Big Daddy at sunset - Transformation complete" 
+                       className="w-full h-full object-cover rounded-xl"
+                     />
+                   </div>
+                 </div>
 
-                {/* Pinned Photos - Right Side */}
-                <div className="hidden lg:block absolute right-0 top-0 w-96 space-y-8 z-10" style={{ right: '-128px' }}>
-                  {/* Photo 2 - Top Right - The Journey Upward */}
-                  <div className="w-96 h-96 bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform -rotate-1" style={{ animationDelay: "800ms", marginTop: "1000px" }}>
-                    <img 
-                      src="/lovable-uploads/106caa66-a28a-4871-b4da-391b59d6c6ee.png" 
-                      alt="Big Daddy climbing stairs - The journey upward" 
-                      className="w-full h-full object-cover rounded-xl"
-                    />
-                  </div>
-                  
-                  {/* Photo 4 - Mid Right - Freedom & Success */}
-                  <div className="w-96 h-96 bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform rotate-2" style={{ animationDelay: "1500ms", marginTop: "2000px" }}>
-                    <img 
-                      src="/lovable-uploads/11966bbc-71f9-40df-ac7d-d99bead4b5d3.png" 
-                      alt="Big Daddy in nature - Freedom and success" 
-                      className="w-full h-full object-cover rounded-xl"
-                    />
-                  </div>
-                  
-                  {/* Photo 6 - Lower Right - Lifestyle Achievement */}
-                  <div className="w-96 h-96 bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform -rotate-2" style={{ animationDelay: "2200ms", marginTop: "2000px" }}>
-                    <img 
-                      src="/lovable-uploads/639b2e42-bb5e-4e0f-a150-3c447b0ca4d2.png" 
-                      alt="Big Daddy relaxing - Lifestyle achievement" 
-                      className="w-full h-full object-cover rounded-xl"
-                    />
-                  </div>
-                  
-                  {/* Photo 8 - Bottom Right - Coastal Business Life */}
-                  <div className="w-96 h-96 bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform rotate-1" style={{ animationDelay: "2900ms", marginTop: "2000px" }}>
-                    <img 
-                      src="/lovable-uploads/8c209669-d4f3-4beb-9184-98693514ffca.png" 
-                      alt="Big Daddy on coastal call - Business success" 
-                      className="w-full h-full object-cover rounded-xl"
-                    />
-                  </div>
-                </div>
+                 {/* Pinned Photos - Right Side */}
+                 <div className="hidden lg:block absolute right-0 top-0 w-[500px] space-y-8 z-10" style={{ right: '-166px' }}>
+                   {/* Photo 2 - Top Right - The Journey Upward */}
+                   <div className="w-[500px] h-[500px] bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform -rotate-1" style={{ animationDelay: "800ms", marginTop: "1000px" }}>
+                     <img 
+                       src="/lovable-uploads/106caa66-a28a-4871-b4da-391b59d6c6ee.png" 
+                       alt="Big Daddy climbing stairs - The journey upward" 
+                       className="w-full h-full object-cover rounded-xl"
+                     />
+                   </div>
+                   
+                   {/* Photo 4 - Mid Right - Freedom & Success */}
+                   <div className="w-[500px] h-[500px] bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform rotate-2" style={{ animationDelay: "1500ms", marginTop: "2000px" }}>
+                     <img 
+                       src="/lovable-uploads/11966bbc-71f9-40df-ac7d-d99bead4b5d3.png" 
+                       alt="Big Daddy in nature - Freedom and success" 
+                       className="w-full h-full object-cover rounded-xl"
+                     />
+                   </div>
+                   
+                   {/* Photo 6 - Lower Right - Lifestyle Achievement */}
+                   <div className="w-[500px] h-[500px] bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform -rotate-2" style={{ animationDelay: "2200ms", marginTop: "2000px" }}>
+                     <img 
+                       src="/lovable-uploads/639b2e42-bb5e-4e0f-a150-3c447b0ca4d2.png" 
+                       alt="Big Daddy relaxing - Lifestyle achievement" 
+                       className="w-full h-full object-cover rounded-xl"
+                     />
+                   </div>
+                   
+                   {/* Photo 8 - Bottom Right - Coastal Business Life */}
+                   <div className="w-[500px] h-[500px] bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform rotate-1" style={{ animationDelay: "2900ms", marginTop: "2000px" }}>
+                     <img 
+                       src="/lovable-uploads/8c209669-d4f3-4beb-9184-98693514ffca.png" 
+                       alt="Big Daddy on coastal call - Business success" 
+                       className="w-full h-full object-cover rounded-xl"
+                     />
+                   </div>
+                 </div>
 
                 {/* Main Story Content */}
                 <div className="max-w-4xl mx-auto lg:px-32">
