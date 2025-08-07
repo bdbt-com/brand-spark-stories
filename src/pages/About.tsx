@@ -54,7 +54,7 @@ const About = () => {
             <div className="relative animate-fade-in" style={{ animationDelay: "200ms" }}>
               <div className="relative">
                 <img 
-                  src="https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=600&h=600&fit=crop&crop=face" 
+                  src="/lovable-uploads/59a1a8dd-ab26-431d-b9c6-9da3f2f01f38.png" 
                   alt="Big Daddy - BDBT Founder" 
                   className="w-full h-96 lg:h-[500px] object-cover rounded-3xl shadow-strong border-4 border-white/20"
                 />
