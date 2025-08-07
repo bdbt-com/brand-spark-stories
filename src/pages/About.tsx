@@ -42,11 +42,23 @@ const About = () => {
                 </Button>
                 <Collapsible open={isStoryOpen} onOpenChange={setIsStoryOpen}>
                   <CollapsibleTrigger asChild>
-                    <Button variant="outline" size="lg" className="hover:scale-105 transition-transform h-12 px-8">
-                      <BookOpen className="w-5 h-5 mr-2" />
-                      Read My Story
-                      <ChevronDown className={`w-4 h-4 ml-2 transition-transform ${isStoryOpen ? 'rotate-180' : ''}`} />
-                    </Button>
+                    <div className="relative">
+                      {/* Ripple Effect Rings */}
+                      <div className="absolute inset-0 -m-2">
+                        <div className="absolute inset-0 rounded-lg border-2 border-primary/20 animate-ping" style={{ animationDuration: '3s' }}></div>
+                        <div className="absolute inset-0 rounded-lg border-2 border-primary/15 animate-ping" style={{ animationDuration: '3s', animationDelay: '1s' }}></div>
+                        <div className="absolute inset-0 rounded-lg border-2 border-primary/10 animate-ping" style={{ animationDuration: '3s', animationDelay: '2s' }}></div>
+                      </div>
+                      
+                      {/* Glow Effect */}
+                      <div className="absolute inset-0 -m-1 bg-gradient-primary/5 rounded-lg animate-pulse" style={{ animationDuration: '2s' }}></div>
+                      
+                      <Button variant="outline" size="lg" className="relative hover:scale-105 transition-transform h-12 px-8 bg-background/95 backdrop-blur-sm border-primary/30">
+                        <BookOpen className="w-5 h-5 mr-2" />
+                        Read My Story
+                        <ChevronDown className={`w-4 h-4 ml-2 transition-transform ${isStoryOpen ? 'rotate-180' : ''}`} />
+                      </Button>
+                    </div>
                   </CollapsibleTrigger>
                 </Collapsible>
               </div>
