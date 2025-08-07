@@ -37,9 +37,6 @@ const About = () => {
                 </p>
               </div>
               <div className="flex flex-wrap gap-4">
-                <Button variant="hero" size="lg" asChild className="hover:scale-105 transition-transform">
-                  <Link to="/blueprint">Get Started Now</Link>
-                </Button>
                 <Collapsible open={isStoryOpen} onOpenChange={setIsStoryOpen}>
                   <CollapsibleTrigger asChild>
                     <div className="relative">
@@ -397,12 +394,23 @@ const About = () => {
                         </p>
                       </div>
 
-                      <div className="text-center pt-8 border-t border-muted">
+                      <div className="text-center pt-8 border-t border-muted space-y-4">
                         <Button 
                           variant="hero" 
                           size="lg" 
                           asChild 
                           className="hover:scale-105 transition-transform"
+                        >
+                          <Link to="/blueprint">
+                            Get Started Now
+                            <ArrowRight className="w-5 h-5 ml-2" />
+                          </Link>
+                        </Button>
+                        <Button 
+                          variant="outline" 
+                          size="lg" 
+                          asChild 
+                          className="hover:scale-105 transition-transform ml-4"
                         >
                           <Link to="/blueprint">
                             Start Your Journey Now
