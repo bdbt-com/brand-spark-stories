@@ -40,26 +40,26 @@ const About = () => {
                 <Collapsible open={isStoryOpen} onOpenChange={setIsStoryOpen}>
                   <CollapsibleTrigger asChild>
                     <div className="relative">
-                      {/* Enhanced Ripple Effect Rings - Ocean Blue with 50% Transparency */}
-                      <div className="absolute inset-0">
-                        <div className="absolute inset-0 rounded-2xl border-2 border-blue-400/50 animate-ping" style={{ animationDuration: '2s', animationIterationCount: 'infinite' }}></div>
-                      </div>
-                      <div className="absolute inset-0" style={{ margin: '2px' }}>
-                        <div className="absolute inset-0 rounded-2xl border-2 border-blue-500/50 animate-ping" style={{ animationDuration: '2s', animationDelay: '0.7s', animationIterationCount: 'infinite' }}></div>
-                      </div>
-                      <div className="absolute inset-0" style={{ margin: '4px' }}>
-                        <div className="absolute inset-0 rounded-2xl border-2 border-blue-600/50 animate-ping" style={{ animationDuration: '2s', animationDelay: '1.4s', animationIterationCount: 'infinite' }}></div>
-                      </div>
-                      
-                      {/* Enhanced Glow Effect - Ocean Blue with 50% Transparency */}
-                      <div className="absolute inset-0 bg-blue-500/15 rounded-2xl animate-pulse" style={{ animationDuration: '3s' }}></div>
-                      
-                      <Button variant="outline" size="lg" className="relative hover:scale-105 transition-transform text-2xl h-24 px-16 py-8 bg-background/95 backdrop-blur-sm border-primary/30 rounded-2xl">
-                        <BookOpen className="w-8 h-8 mr-4" />
-                        Read My Story
-                        <ChevronDown className={`w-6 h-6 ml-4 transition-transform ${isStoryOpen ? 'rotate-180' : ''}`} />
-                      </Button>
-                    </div>
+                       {/* Enhanced Ripple Effect Rings - Ocean Blue with 50% Transparency - Smaller */}
+                       <div className="absolute inset-0" style={{ margin: '0px' }}>
+                         <div className="absolute inset-0 rounded-xl border-1 border-blue-400/50 animate-ping" style={{ animationDuration: '2s', animationIterationCount: 'infinite' }}></div>
+                       </div>
+                       <div className="absolute inset-0" style={{ margin: '-1px' }}>
+                         <div className="absolute inset-0 rounded-xl border-1 border-blue-500/50 animate-ping" style={{ animationDuration: '2s', animationDelay: '0.7s', animationIterationCount: 'infinite' }}></div>
+                       </div>
+                       <div className="absolute inset-0" style={{ margin: '-2px' }}>
+                         <div className="absolute inset-0 rounded-xl border-1 border-blue-600/50 animate-ping" style={{ animationDuration: '2s', animationDelay: '1.4s', animationIterationCount: 'infinite' }}></div>
+                       </div>
+                       
+                       {/* Enhanced Glow Effect - Ocean Blue with Reduced Size */}
+                       <div className="absolute inset-0 bg-blue-500/10 rounded-xl animate-pulse" style={{ animationDuration: '3s' }}></div>
+                       
+                       <Button variant="outline" size="lg" className="relative hover:scale-105 transition-transform text-lg h-16 px-12 py-6 bg-background/95 backdrop-blur-sm border-primary/30 rounded-xl">
+                         <BookOpen className="w-6 h-6 mr-3" />
+                         Read My Story
+                         <ChevronDown className={`w-5 h-5 ml-3 transition-transform ${isStoryOpen ? 'rotate-180' : ''}`} />
+                        </Button>
+                     </div>
                   </CollapsibleTrigger>
                 </Collapsible>
               </div>
