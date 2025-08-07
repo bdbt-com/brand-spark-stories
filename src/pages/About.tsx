@@ -41,18 +41,18 @@ const About = () => {
                   <CollapsibleTrigger asChild>
                     <div className="relative">
                       {/* Enhanced Ripple Effect Rings - Ocean Blue with 50% Transparency */}
-                      <div className="absolute inset-0" style={{ margin: '0px' }}>
-                        <div className="absolute inset-0 rounded-2xl border-2 border-blue-400/50 animate-ping" style={{ animationDuration: '2s', animationIterationCount: 'infinite' }}></div>
+                      <div className="absolute inset-1">
+                        <div className="absolute inset-0 rounded-2xl border-1 border-blue-400/50 animate-ping" style={{ animationDuration: '2s', animationIterationCount: 'infinite' }}></div>
                       </div>
-                      <div className="absolute inset-0" style={{ margin: '-1px' }}>
-                        <div className="absolute inset-0 rounded-2xl border-2 border-blue-500/50 animate-ping" style={{ animationDuration: '2s', animationDelay: '0.7s', animationIterationCount: 'infinite' }}></div>
+                      <div className="absolute inset-2">
+                        <div className="absolute inset-0 rounded-2xl border-1 border-blue-500/50 animate-ping" style={{ animationDuration: '2s', animationDelay: '0.7s', animationIterationCount: 'infinite' }}></div>
                       </div>
-                      <div className="absolute inset-0" style={{ margin: '-2px' }}>
-                        <div className="absolute inset-0 rounded-2xl border-2 border-blue-600/50 animate-ping" style={{ animationDuration: '2s', animationDelay: '1.4s', animationIterationCount: 'infinite' }}></div>
+                      <div className="absolute inset-3">
+                        <div className="absolute inset-0 rounded-2xl border-1 border-blue-600/50 animate-ping" style={{ animationDuration: '2s', animationDelay: '1.4s', animationIterationCount: 'infinite' }}></div>
                       </div>
                       
                       {/* Enhanced Glow Effect - Ocean Blue with 50% Transparency */}
-                      <div className="absolute inset-0 bg-blue-500/20 rounded-2xl animate-pulse" style={{ animationDuration: '3s' }}></div>
+                      <div className="absolute inset-1 bg-blue-500/10 rounded-2xl animate-pulse" style={{ animationDuration: '3s' }}></div>
                       
                       <Button variant="outline" size="lg" className="relative hover:scale-105 transition-transform text-2xl h-24 px-16 py-8 bg-background/95 backdrop-blur-sm border-primary/30 rounded-2xl">
                         <BookOpen className="w-8 h-8 mr-4" />
