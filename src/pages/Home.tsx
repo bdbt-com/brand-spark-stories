@@ -41,7 +41,7 @@ const Home = () => {
                 <img 
                   src="/lovable-uploads/091ea38c-18d1-4a6c-b3d0-b2e9e92d382d.png" 
                   alt="Daily Success Journey" 
-                  className="w-full h-[500px] lg:h-[600px] object-cover rounded-xl transform scale-150"
+                  className="w-full h-80 object-cover rounded-xl transform scale-150"
                 />
               </div>
             </div>
