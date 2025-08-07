@@ -83,21 +83,21 @@ const About = () => {
                   </div>
                   
                   {/* Photo 3 - Mid Left */}
-                  <div className="w-30 h-30 bg-gradient-primary/10 border-2 border-primary/20 rounded-xl shadow-soft animate-fade-in" style={{ animationDelay: "1200ms", marginTop: "600px" }}>
+                  <div className="w-30 h-30 bg-gradient-primary/10 border-2 border-primary/20 rounded-xl shadow-soft animate-fade-in" style={{ animationDelay: "1200ms", marginTop: "1200px" }}>
                     <div className="w-full h-full rounded-lg bg-muted/50 flex items-center justify-center">
                       <span className="text-sm text-muted-foreground">Photo</span>
                     </div>
                   </div>
                   
                   {/* Photo 5 - Lower Left */}
-                  <div className="w-30 h-30 bg-gradient-primary/10 border-2 border-primary/20 rounded-xl shadow-soft animate-fade-in" style={{ animationDelay: "1900ms", marginTop: "600px" }}>
+                  <div className="w-30 h-30 bg-gradient-primary/10 border-2 border-primary/20 rounded-xl shadow-soft animate-fade-in" style={{ animationDelay: "1900ms", marginTop: "1200px" }}>
                     <div className="w-full h-full rounded-lg bg-muted/50 flex items-center justify-center">
                       <span className="text-sm text-muted-foreground">Photo</span>
                     </div>
                   </div>
                   
                   {/* Photo 7 - Bottom Left */}
-                  <div className="w-30 h-30 bg-gradient-primary/10 border-2 border-primary/20 rounded-xl shadow-soft animate-fade-in" style={{ animationDelay: "2600ms", marginTop: "600px" }}>
+                  <div className="w-30 h-30 bg-gradient-primary/10 border-2 border-primary/20 rounded-xl shadow-soft animate-fade-in" style={{ animationDelay: "2600ms", marginTop: "1200px" }}>
                     <div className="w-full h-full rounded-lg bg-muted/50 flex items-center justify-center">
                       <span className="text-sm text-muted-foreground">Photo</span>
                     </div>
@@ -107,28 +107,28 @@ const About = () => {
                 {/* Pinned Photos - Right Side */}
                 <div className="hidden lg:block absolute right-0 top-0 w-36 space-y-8">
                   {/* Photo 2 - Top Right */}
-                  <div className="w-30 h-30 bg-gradient-primary/10 border-2 border-primary/20 rounded-xl shadow-soft animate-fade-in" style={{ animationDelay: "800ms", marginTop: "300px" }}>
+                  <div className="w-30 h-30 bg-gradient-primary/10 border-2 border-primary/20 rounded-xl shadow-soft animate-fade-in" style={{ animationDelay: "800ms", marginTop: "600px" }}>
                     <div className="w-full h-full rounded-lg bg-muted/50 flex items-center justify-center">
                       <span className="text-sm text-muted-foreground">Photo</span>
                     </div>
                   </div>
                   
                   {/* Photo 4 - Mid Right */}
-                  <div className="w-30 h-30 bg-gradient-primary/10 border-2 border-primary/20 rounded-xl shadow-soft animate-fade-in" style={{ animationDelay: "1500ms", marginTop: "600px" }}>
+                  <div className="w-30 h-30 bg-gradient-primary/10 border-2 border-primary/20 rounded-xl shadow-soft animate-fade-in" style={{ animationDelay: "1500ms", marginTop: "1200px" }}>
                     <div className="w-full h-full rounded-lg bg-muted/50 flex items-center justify-center">
                       <span className="text-sm text-muted-foreground">Photo</span>
                     </div>
                   </div>
                   
                   {/* Photo 6 - Lower Right */}
-                  <div className="w-30 h-30 bg-gradient-primary/10 border-2 border-primary/20 rounded-xl shadow-soft animate-fade-in" style={{ animationDelay: "2200ms", marginTop: "600px" }}>
+                  <div className="w-30 h-30 bg-gradient-primary/10 border-2 border-primary/20 rounded-xl shadow-soft animate-fade-in" style={{ animationDelay: "2200ms", marginTop: "1200px" }}>
                     <div className="w-full h-full rounded-lg bg-muted/50 flex items-center justify-center">
                       <span className="text-sm text-muted-foreground">Photo</span>
                     </div>
                   </div>
                   
                   {/* Photo 8 - Bottom Right */}
-                  <div className="w-30 h-30 bg-gradient-primary/10 border-2 border-primary/20 rounded-xl shadow-soft animate-fade-in" style={{ animationDelay: "2900ms", marginTop: "600px" }}>
+                  <div className="w-30 h-30 bg-gradient-primary/10 border-2 border-primary/20 rounded-xl shadow-soft animate-fade-in" style={{ animationDelay: "2900ms", marginTop: "1200px" }}>
                     <div className="w-full h-full rounded-lg bg-muted/50 flex items-center justify-center">
                       <span className="text-sm text-muted-foreground">Photo</span>
                     </div>
