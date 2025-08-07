@@ -24,10 +24,55 @@ const Home = () => {
     "/lovable-uploads/dd8771a0-3f95-4ef7-838b-c6e40d9f78c4.png",
   ];
   const [embla, setEmbla] = useState<CarouselApi | null>(null);
+  const [filteredImages, setFilteredImages] = useState<string[]>([]);
+
+  const isPhotoLike = (src: string): Promise<boolean> =>
+    new Promise((resolve) => {
+      const img = new Image();
+      img.onload = () => {
+        const size = 32;
+        const canvas = document.createElement("canvas");
+        canvas.width = size;
+        canvas.height = size;
+        const ctx = canvas.getContext("2d");
+        if (!ctx) return resolve(true);
+        ctx.drawImage(img, 0, 0, size, size);
+        const { data } = ctx.getImageData(0, 0, size, size);
+        let whiteish = 0;
+        const total = size * size;
+        for (let i = 0; i < total; i++) {
+          const r = data[i * 4];
+          const g = data[i * 4 + 1];
+          const b = data[i * 4 + 2];
+          const max = Math.max(r, g, b);
+          const min = Math.min(r, g, b);
+          const sat = max === 0 ? 0 : (1 - min / max) * 100;
+          const bright = (r + g + b) / 3;
+          if (bright > 245 && sat < 10) whiteish++;
+        }
+        const ratio = whiteish / total;
+        resolve(ratio < 0.6);
+      };
+      img.onerror = () => resolve(true);
+      img.src = src;
+    });
+
+  useEffect(() => {
+    let cancelled = false;
+    const run = async () => {
+      const keep = await Promise.all(images.map((s) => isPhotoLike(s)));
+      const next = images.filter((_, i) => keep[i]);
+      if (!cancelled) setFilteredImages(next);
+    };
+    run();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   useEffect(() => {
     if (!embla) return;
     const id = setInterval(() => {
-      if (!embla) return;
       if (embla.canScrollNext()) {
         embla.scrollNext();
       } else {
@@ -100,7 +145,7 @@ const Home = () => {
                   aria-label="Daily success journey image carousel"
                 >
                   <CarouselContent>
-                    {images.map((src, idx) => (
+                    {(filteredImages.length ? filteredImages : images).map((src, idx) => (
                       <CarouselItem key={src}>
                         <img
                           src={src}
