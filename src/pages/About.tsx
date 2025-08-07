@@ -137,7 +137,7 @@ const About = () => {
                  {/* Pinned Photos - Right Side - 5 IMAGES EVENLY SPACED */}
                  <div className="hidden lg:block absolute right-0 top-0 w-[400px] space-y-4 z-10" style={{ right: '-120px' }}>
                     {/* Photo 2 - Position 2/10 - The Journey Upward */}
-                    <div className="w-[400px] h-[400px] bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform -rotate-1" style={{ animationDelay: "800ms", marginTop: "1500px" }}>
+                    <div className="w-[400px] h-[400px] bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform -rotate-1" style={{ animationDelay: "800ms", marginTop: "0px" }}>
                       <img 
                         src="/lovable-uploads/106caa66-a28a-4871-b4da-391b59d6c6ee.png" 
                         alt="Big Daddy climbing stairs - The journey upward" 
