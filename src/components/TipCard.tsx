@@ -45,7 +45,7 @@ const TipCard = ({ tip, index }: TipCardProps) => {
   };
 
   return (
-    <Card className="group hover-lift-strong interactive cursor-pointer relative overflow-hidden border-2 hover:border-primary/30 flex flex-col h-auto min-h-[520px] shadow-soft">
+    <Card className="group hover-lift-strong interactive cursor-pointer relative overflow-hidden border-2 hover:border-primary/30 flex flex-col h-full min-h-[560px] shadow-soft">
       {showEmailForm ? (
         <CardContent className="p-6 flex-1 flex items-center">
           <EmailCaptureForm

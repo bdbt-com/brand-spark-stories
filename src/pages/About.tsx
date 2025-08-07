@@ -2,7 +2,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
-import { Clock, Heart, Award, Users2, Quote, BookOpen, Target, Star, TrendingUp, Zap, AlertTriangle, CheckCircle, ArrowRight, BarChart3, Brain, Lightbulb, ChevronDown, User } from "lucide-react";
+import { Clock, Heart, Award, Users2, Quote, BookOpen, Target, Star, TrendingUp, Zap, AlertTriangle, CheckCircle, ArrowRight, ArrowDown, BarChart3, Brain, Lightbulb, ChevronDown, User } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 const About = () => {
@@ -463,7 +463,7 @@ const About = () => {
       </section>
 
       {/* The Problem Section */}
-      <section className="py-32 bg-background">
+      <section id="problem" className="py-32 bg-background">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-20">
             <h2 className="text-4xl lg:text-6xl font-light mb-8 text-foreground tracking-tight">
@@ -517,12 +517,24 @@ const About = () => {
                 Sit more. Scroll more. Consume more. With every new demand, we feel more overwhelmed.
               </p>
             </div>
+            {/* Down Arrow to next section */}
+            <div className="mt-12 flex justify-center">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="rounded-full w-12 h-12 bg-primary/10 hover:bg-primary/20 text-primary shadow-soft"
+                onClick={() => document.getElementById('why-habit-driven-lifestyles-work')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+                aria-label="Scroll to next section"
+              >
+                <ArrowDown className="w-6 h-6" />
+              </Button>
+            </div>
           </div>
         </div>
       </section>
 
       {/* The Truth Section */}
-      <section className="py-20 bg-gradient-subtle">
+      <section id="why-habit-driven-lifestyles-work" className="py-20 bg-gradient-subtle">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <Badge className="bg-primary/10 text-primary border-primary/20 mb-4">

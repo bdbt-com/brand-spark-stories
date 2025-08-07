@@ -2047,11 +2047,11 @@ const Tips = () => {
         </div>
         
         {/* Tips Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-16">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-16 auto-rows-fr items-stretch">
           {filteredAndSortedTips.map((tip, index) => (
             <div 
               key={index}
-              className="animate-fade-in hover-lift"
+              className="animate-fade-in hover-lift h-full flex"
               style={{ animationDelay: `${400 + index * 100}ms` }}
             >
               <TipCard tip={tip} index={index} />
