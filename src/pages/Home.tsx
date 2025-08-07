@@ -37,11 +37,11 @@ const Home = () => {
               </div>
             </div>
             <div className="animate-float">
-              <div className="bg-white/10 backdrop-blur-md rounded-2xl p-8 shadow-strong overflow-hidden">
+              <div className="bg-white/10 backdrop-blur-md rounded-2xl p-8 shadow-strong">
                 <img 
                   src="/lovable-uploads/091ea38c-18d1-4a6c-b3d0-b2e9e92d382d.png" 
                   alt="Daily Success Journey" 
-                  className="w-full h-80 object-cover rounded-xl transform scale-[2.25]"
+                  className="w-full h-[480px] object-cover rounded-xl"
                 />
               </div>
             </div>
