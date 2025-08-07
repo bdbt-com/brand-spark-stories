@@ -29,11 +29,34 @@ const Home = () => {
                     ⬤ Start Your Daily Wins <ArrowRight className="w-5 h-5" />
                   </Link>
                 </Button>
-                <Button variant="secondary" size="lg" asChild className="hover:scale-105 transition-transform duration-200">
-                  <Link to="/about">
-                    📖 Read My Story <ArrowRight className="w-5 h-5" />
-                  </Link>
-                </Button>
+                <div className="relative">
+                  <div className="absolute inset-0">
+                    <div className="absolute inset-0 rounded-xl border border-primary/40 animate-ping" style={{
+                      animationDuration: '2s',
+                      animationIterationCount: 'infinite'
+                    }}></div>
+                  </div>
+                  <div className="absolute inset-0" style={{ margin: '1px' }}>
+                    <div className="absolute inset-0 rounded-xl border border-primary/50 animate-ping" style={{
+                      animationDuration: '2s',
+                      animationDelay: '0.7s',
+                      animationIterationCount: 'infinite'
+                    }}></div>
+                  </div>
+                  <div className="absolute inset-0" style={{ margin: '2px' }}>
+                    <div className="absolute inset-0 rounded-xl border border-primary/60 animate-ping" style={{
+                      animationDuration: '2s',
+                      animationDelay: '1.4s',
+                      animationIterationCount: 'infinite'
+                    }}></div>
+                  </div>
+                  <div className="absolute inset-0 bg-primary/10 rounded-xl animate-pulse" style={{ animationDuration: '3s' }}></div>
+                  <Button variant="secondary" size="lg" asChild className="relative hover:scale-105 transition-transform duration-200 rounded-xl">
+                    <Link to="/about">
+                      📖 Read My Story <ArrowRight className="w-5 h-5" />
+                    </Link>
+                  </Button>
+                </div>
               </div>
             </div>
             <div className="animate-float">
