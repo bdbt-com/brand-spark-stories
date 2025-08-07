@@ -27,20 +27,24 @@ const About = () => {
                   <span className="block text-gradient">The System</span>
                 </h1>
               </div>
-              <p className="text-xl text-muted-foreground leading-relaxed">
-                How one dad turned daily overwhelm into a life-changing ripple effect. 
-                From financial services to single parenting, discover the real story behind 
-                Big Daddy's Big Tips and why I'm sharing it with you.
-              </p>
+              <div className="space-y-6">
+                <p className="text-xl text-muted-foreground leading-relaxed">
+                  How one dad turned daily overwhelm into a life-changing ripple effect.
+                </p>
+                <p className="text-xl text-muted-foreground leading-relaxed">
+                  From financial services to single parenting, discover the real story behind 
+                  Big Daddy's Big Tips and why I'm sharing it with you.
+                </p>
+              </div>
               <div className="flex flex-wrap gap-4">
                 <Button variant="hero" size="lg" asChild className="hover:scale-105 transition-transform">
                   <Link to="/blueprint">Get Started Now</Link>
                 </Button>
                 <Collapsible open={isStoryOpen} onOpenChange={setIsStoryOpen}>
                   <CollapsibleTrigger asChild>
-                    <Button variant="outline" size="lg" className="hover:scale-105 transition-transform">
+                    <Button variant="outline" size="lg" className="hover:scale-105 transition-transform h-12 px-8">
                       <BookOpen className="w-5 h-5 mr-2" />
-                      Learn My System
+                      Read My Story
                       <ChevronDown className={`w-4 h-4 ml-2 transition-transform ${isStoryOpen ? 'rotate-180' : ''}`} />
                     </Button>
                   </CollapsibleTrigger>
