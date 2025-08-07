@@ -72,7 +72,7 @@ const TipCard = ({ tip, index }: TipCardProps) => {
               </div>
             </div>
             <div className="flex flex-col items-center h-auto min-h-[60px]">
-              <CardTitle className="text-lg leading-tight group-hover:text-primary transition-colors text-center line-clamp-2 font-semibold">
+              <CardTitle className="text-lg leading-tight group-hover:text-primary transition-colors text-center break-words font-semibold">
                 {tip.title}
               </CardTitle>
             </div>
