@@ -920,6 +920,1014 @@ const Tips = () => {
       popularity: 36,
       views: 850,
       dateAdded: "2024-09-25"
+    },
+    {
+      icon: Dumbbell,
+      title: "30 Benefits of Greater Grip Strength",
+      description: "Comprehensive guide to building functional grip strength and its health benefits.",
+      items: [
+        "Improves overall upper body strength significantly",
+        "Enhances athletic performance in multiple sports",
+        "Strong predictor of longevity and health"
+      ],
+      level: "Moderate",
+      duration: "6 min read",
+      category: "health",
+      popularity: 41,
+      views: 950,
+      dateAdded: "2024-10-01"
+    },
+    {
+      icon: Activity,
+      title: "30 Benefits of Using an AB Roller",
+      description: "Master the ab roller for core strength and full-body stability.",
+      items: [
+        "Targets entire core including deep muscles",
+        "Improves functional movement patterns",
+        "Builds impressive core strength efficiently"
+      ],
+      level: "Hard",
+      duration: "7 min read",
+      category: "health",
+      popularity: 38,
+      views: 880,
+      dateAdded: "2024-10-02"
+    },
+    {
+      icon: Apple,
+      title: "30 Reasons to Swap Butter for Peanut Butter",
+      description: "Nutritional comparison and health benefits of making the switch.",
+      items: [
+        "Higher protein content for satiety",
+        "Heart-healthy monounsaturated fats",
+        "More micronutrients per serving"
+      ],
+      level: "Easy",
+      duration: "5 min read",
+      category: "health",
+      popularity: 35,
+      views: 820,
+      dateAdded: "2024-10-03"
+    },
+    {
+      icon: Brain,
+      title: "30 Ways to Reduce Decision Fatigue in Everyday Life",
+      description: "Streamline choices to preserve mental energy for what matters.",
+      items: [
+        "Create daily routine templates",
+        "Batch similar decisions together",
+        "Automate recurring choices"
+      ],
+      level: "Moderate",
+      duration: "6 min read",
+      category: "happiness",
+      popularity: 58,
+      views: 1340,
+      dateAdded: "2024-10-04"
+    },
+    {
+      icon: Footprints,
+      title: "50 Ways to Walk More in a Day",
+      description: "Creative strategies to increase daily steps without formal exercise.",
+      items: [
+        "Take phone calls while walking",
+        "Park at far end of lots",
+        "Use stairs instead of elevators"
+      ],
+      level: "Easy",
+      duration: "7 min read",
+      category: "health",
+      popularity: 52,
+      views: 1210,
+      dateAdded: "2024-10-05"
+    },
+    {
+      icon: Trees,
+      title: "50 Ways to Incorporate Nature into Your Daily Life",
+      description: "Bring the outdoors inside and connect with nature anywhere.",
+      items: [
+        "Add plants to your workspace",
+        "Listen to nature sounds while working",
+        "Take breaks in green spaces"
+      ],
+      level: "Easy",
+      duration: "8 min read",
+      category: "happiness",
+      popularity: 46,
+      views: 1070,
+      dateAdded: "2024-10-06"
+    },
+    {
+      icon: Zap,
+      title: "Add 5-Minute Mobility Routine to Your Day",
+      description: "Quick daily mobility flow to combat stiffness and improve movement.",
+      items: [
+        "Focus on problem areas first",
+        "Perfect for morning or evening",
+        "Requires no equipment or space"
+      ],
+      level: "Easy",
+      duration: "4 min read",
+      category: "health",
+      popularity: 49,
+      views: 1150,
+      dateAdded: "2024-10-07"
+    },
+    {
+      icon: Droplets,
+      title: "Add Lemon to Water for a Vitamin C Boost",
+      description: "Simple hydration upgrade with immune and digestive benefits.",
+      items: [
+        "Supports immune system naturally",
+        "Aids digestion and metabolism",
+        "Adds flavor without calories"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "health",
+      popularity: 43,
+      views: 1000,
+      dateAdded: "2024-10-08"
+    },
+    {
+      icon: Sun,
+      title: "Be More Japanese: Eat Until 80% Full",
+      description: "Practice Hara Hachi Bu for better digestion and weight management.",
+      items: [
+        "Improves digestion significantly",
+        "Natural portion control method",
+        "Reduces post-meal fatigue"
+      ],
+      level: "Moderate",
+      duration: "5 min read",
+      category: "health",
+      popularity: 55,
+      views: 1280,
+      dateAdded: "2024-10-09"
+    },
+    {
+      icon: Heart,
+      title: "Be More Japanese: Find Your Strong Sense of Life Purpose",
+      description: "Discover your Ikigai for a more meaningful and fulfilling life.",
+      items: [
+        "Combines passion with mission",
+        "Creates sense of direction",
+        "Improves mental wellbeing"
+      ],
+      level: "Moderate",
+      duration: "8 min read",
+      category: "happiness",
+      popularity: 67,
+      views: 1550,
+      dateAdded: "2024-10-10"
+    },
+    {
+      icon: BarChart3,
+      title: "Body Composition",
+      description: "Understanding muscle vs fat ratios for optimal health outcomes.",
+      items: [
+        "Focus on muscle preservation",
+        "Track strength not just weight",
+        "Optimize protein intake timing"
+      ],
+      level: "Moderate",
+      duration: "6 min read",
+      category: "health",
+      popularity: 44,
+      views: 1020,
+      dateAdded: "2024-10-11"
+    },
+    {
+      icon: Package,
+      title: "Borrow or Rent Items",
+      description: "Save money and space by accessing instead of owning.",
+      items: [
+        "Use library tool lending programs",
+        "Rent specialized equipment as needed",
+        "Share items with neighbors"
+      ],
+      level: "Easy",
+      duration: "4 min read",
+      category: "wealth",
+      popularity: 39,
+      views: 920,
+      dateAdded: "2024-10-12"
+    },
+    {
+      icon: ShoppingBasket,
+      title: "Buy from Farmers' Markets",
+      description: "Get fresher produce while supporting local agriculture.",
+      items: [
+        "Seasonal produce at peak nutrition",
+        "Often cheaper than supermarkets",
+        "Builds community connections"
+      ],
+      level: "Easy",
+      duration: "5 min read",
+      category: "wealth",
+      popularity: 42,
+      views: 980,
+      dateAdded: "2024-10-13"
+    },
+    {
+      icon: Package,
+      title: "Buy Generic/Store-Brand Products Instead of Big Name Brands",
+      description: "Same quality products at fraction of the cost.",
+      items: [
+        "Often made by same manufacturers",
+        "Save 20-40% on grocery bills",
+        "Check ingredient lists for verification"
+      ],
+      level: "Easy",
+      duration: "4 min read",
+      category: "wealth",
+      popularity: 47,
+      views: 1100,
+      dateAdded: "2024-10-14"
+    },
+    {
+      icon: Play,
+      title: "Buy Used/Second-Hand Video Games",
+      description: "Gaming on a budget without sacrificing entertainment quality.",
+      items: [
+        "Save 50-70% on popular titles",
+        "Check condition before purchase",
+        "Digital marketplaces offer guarantees"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "wealth",
+      popularity: 31,
+      views: 740,
+      dateAdded: "2024-10-15"
+    },
+    {
+      icon: TrendingUp,
+      title: "Capitalise on the Benefits Offered by Your Employer",
+      description: "Maximize workplace perks and benefits for financial gain.",
+      items: [
+        "Review all available benefits annually",
+        "Use health savings accounts maximally",
+        "Take advantage of employer matching"
+      ],
+      level: "Moderate",
+      duration: "6 min read",
+      category: "wealth",
+      popularity: 56,
+      views: 1300,
+      dateAdded: "2024-10-16"
+    },
+    {
+      icon: Apple,
+      title: "Chew Food More Slowly",
+      description: "Improve digestion and satiety through mindful eating practices.",
+      items: [
+        "Put fork down between bites",
+        "Chew each bite 20-30 times",
+        "Reduces overeating naturally"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "health",
+      popularity: 48,
+      views: 1120,
+      dateAdded: "2024-10-17"
+    },
+    {
+      icon: Smile,
+      title: "Create a Capsule Wardrobe",
+      description: "Simplify clothing choices while reducing spending.",
+      items: [
+        "Choose versatile, quality pieces",
+        "Stick to 2-3 color palette",
+        "Reduces decision fatigue daily"
+      ],
+      level: "Moderate",
+      duration: "7 min read",
+      category: "wealth",
+      popularity: 45,
+      views: 1050,
+      dateAdded: "2024-10-18"
+    },
+    {
+      icon: Package,
+      title: "Declutter Your Living and Working Spaces",
+      description: "Clear spaces for mental clarity and improved productivity.",
+      items: [
+        "Start with one drawer or area",
+        "Use one-year rule for items",
+        "Donate items in good condition"
+      ],
+      level: "Easy",
+      duration: "5 min read",
+      category: "happiness",
+      popularity: 61,
+      views: 1420,
+      dateAdded: "2024-10-19"
+    },
+    {
+      icon: Dumbbell,
+      title: "Do 10 Reverse Lunges While Watching TV",
+      description: "Strengthen legs and glutes during leisure time.",
+      items: [
+        "Alternate legs for each set",
+        "Focus on controlled movement",
+        "Perfect multitasking exercise"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "health",
+      popularity: 37,
+      views: 860,
+      dateAdded: "2024-10-20"
+    },
+    {
+      icon: Activity,
+      title: "Do 30-Second Plank Every Day",
+      description: "Build core strength with minimal time investment.",
+      items: [
+        "Start with modified version if needed",
+        "Focus on proper form over duration",
+        "Gradually increase hold time"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "health",
+      popularity: 54,
+      views: 1260,
+      dateAdded: "2024-10-21"
+    },
+    {
+      icon: Zap,
+      title: "Do 5 Minutes of Jumping Jacks or Skipping Daily",
+      description: "Quick cardio burst for heart health and energy.",
+      items: [
+        "Excellent warm-up exercise",
+        "Improves coordination significantly",
+        "Burns calories efficiently"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "health",
+      popularity: 46,
+      views: 1070,
+      dateAdded: "2024-10-22"
+    },
+    {
+      icon: Calendar,
+      title: "Do a Spending Freeze Challenge for a Week",
+      description: "Reset spending habits with a temporary purchasing pause.",
+      items: [
+        "Only buy essential needs",
+        "Track urges to spend",
+        "Discover wants vs needs clearly"
+      ],
+      level: "Moderate",
+      duration: "4 min read",
+      category: "wealth",
+      popularity: 53,
+      views: 1230,
+      dateAdded: "2024-10-23"
+    },
+    {
+      icon: Dumbbell,
+      title: "Do One Minute of Deep Squats per Day",
+      description: "Improve hip mobility and leg strength with daily practice.",
+      items: [
+        "Hold deep squat position",
+        "Focus on ankle and hip mobility",
+        "Great for desk workers"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "health",
+      popularity: 41,
+      views: 950,
+      dateAdded: "2024-10-24"
+    },
+    {
+      icon: Droplets,
+      title: "Drink Warm Lemon Water with Cayenne Pepper Every Day",
+      description: "Morning metabolism booster with detox benefits.",
+      items: [
+        "Kickstarts metabolism naturally",
+        "Supports immune system function",
+        "Aids natural detoxification"
+      ],
+      level: "Easy",
+      duration: "4 min read",
+      category: "health",
+      popularity: 39,
+      views: 910,
+      dateAdded: "2024-10-25"
+    },
+    {
+      icon: Apple,
+      title: "Eat the Fibre on Your Plate First",
+      description: "Strategic eating order for better blood sugar control.",
+      items: [
+        "Vegetables first, then protein",
+        "Carbohydrates consumed last",
+        "Improves glucose response significantly"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "health",
+      popularity: 44,
+      views: 1020,
+      dateAdded: "2024-10-26"
+    },
+    {
+      icon: Sun,
+      title: "Expose Yourself to Natural Sunlight in the Morning",
+      description: "Reset circadian rhythm with morning light exposure.",
+      items: [
+        "Within 30 minutes of waking",
+        "10-15 minutes minimum exposure",
+        "Improves sleep quality at night"
+      ],
+      level: "Easy",
+      duration: "4 min read",
+      category: "health",
+      popularity: 57,
+      views: 1320,
+      dateAdded: "2024-10-27"
+    },
+    {
+      icon: Apple,
+      title: "Expand Your Diet to Improve Your Health",
+      description: "Diversify nutrition with new foods and cooking methods.",
+      items: [
+        "Try one new vegetable weekly",
+        "Experiment with different cuisines",
+        "Focus on colorful whole foods"
+      ],
+      level: "Moderate",
+      duration: "6 min read",
+      category: "health",
+      popularity: 50,
+      views: 1160,
+      dateAdded: "2024-10-28"
+    },
+    {
+      icon: Heart,
+      title: "Hug Daily",
+      description: "Physical affection for emotional and physical health benefits.",
+      items: [
+        "Releases oxytocin naturally",
+        "Reduces stress and anxiety",
+        "Strengthens relationships significantly"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "happiness",
+      popularity: 62,
+      views: 1440,
+      dateAdded: "2024-10-29"
+    },
+    {
+      icon: Droplets,
+      title: "Invest in a Quality Water Bottle",
+      description: "Hydration infrastructure for consistent water intake.",
+      items: [
+        "Choose insulated stainless steel",
+        "Track intake with marked bottles",
+        "Reduces plastic waste significantly"
+      ],
+      level: "Easy",
+      duration: "4 min read",
+      category: "health",
+      popularity: 40,
+      views: 930,
+      dateAdded: "2024-10-30"
+    },
+    {
+      icon: PenTool,
+      title: "Journal Daily",
+      description: "Process thoughts and emotions through daily writing practice.",
+      items: [
+        "Start with just 5 minutes",
+        "Stream-of-consciousness writing works",
+        "Improves mental clarity significantly"
+      ],
+      level: "Easy",
+      duration: "4 min read",
+      category: "happiness",
+      popularity: 65,
+      views: 1510,
+      dateAdded: "2024-10-31"
+    },
+    {
+      icon: XCircle,
+      title: "Learn to Say No",
+      description: "Boundary setting for time and energy management.",
+      items: [
+        "Practice polite declining phrases",
+        "Prioritize important commitments",
+        "Reduces overwhelm significantly"
+      ],
+      level: "Moderate",
+      duration: "5 min read",
+      category: "happiness",
+      popularity: 69,
+      views: 1600,
+      dateAdded: "2024-11-01"
+    },
+    {
+      icon: Calendar,
+      title: "Plan Your Day & Define What Success Looks Like",
+      description: "Daily planning framework for purposeful productivity.",
+      items: [
+        "Define 3 key priorities",
+        "Schedule important tasks first",
+        "Review progress each evening"
+      ],
+      level: "Moderate",
+      duration: "5 min read",
+      category: "happiness",
+      popularity: 72,
+      views: 1670,
+      dateAdded: "2024-11-02"
+    },
+    {
+      icon: Heart,
+      title: "Practice Gratitude",
+      description: "Daily appreciation practice for improved mental wellbeing.",
+      items: [
+        "Write three things daily",
+        "Be specific about reasons",
+        "Share gratitude with others"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "happiness",
+      popularity: 75,
+      views: 1740,
+      dateAdded: "2024-11-03"
+    },
+    {
+      icon: Smile,
+      title: "Practice Positive Self-Talk",
+      description: "Reframe internal dialogue for improved self-confidence.",
+      items: [
+        "Notice negative thought patterns",
+        "Replace criticism with curiosity",
+        "Speak to yourself kindly"
+      ],
+      level: "Moderate",
+      duration: "5 min read",
+      category: "happiness",
+      popularity: 68,
+      views: 1580,
+      dateAdded: "2024-11-04"
+    },
+    {
+      icon: Waves,
+      title: "Prioritise Finding Time to Unwind, Relax and Recharge",
+      description: "Schedule rest as essential for sustainable productivity.",
+      items: [
+        "Block time for relaxation",
+        "Choose activities that truly restore",
+        "Protect downtime from interruptions"
+      ],
+      level: "Moderate",
+      duration: "5 min read",
+      category: "happiness",
+      popularity: 64,
+      views: 1480,
+      dateAdded: "2024-11-05"
+    },
+    {
+      icon: BookOpen,
+      title: "Read for 20 Minutes a Day",
+      description: "Build reading habit for continuous learning and growth.",
+      items: [
+        "Choose topics that interest you",
+        "Keep book visible as reminder",
+        "Track progress for motivation"
+      ],
+      level: "Easy",
+      duration: "4 min read",
+      category: "happiness",
+      popularity: 59,
+      views: 1370,
+      dateAdded: "2024-11-06"
+    },
+    {
+      icon: Apple,
+      title: "Replace a Dessert with a Yogurt or Fruit Option",
+      description: "Healthier dessert swaps without feeling deprived.",
+      items: [
+        "Greek yogurt with berries",
+        "Frozen fruit for ice cream substitute",
+        "Dark chocolate as occasional treat"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "health",
+      popularity: 43,
+      views: 1000,
+      dateAdded: "2024-11-07"
+    },
+    {
+      icon: Droplets,
+      title: "Replace Sugary Drinks with Water",
+      description: "Hydration upgrade for better health and budget.",
+      items: [
+        "Infuse water with fruits",
+        "Sparkling water for variety",
+        "Gradual reduction prevents cravings"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "health",
+      popularity: 51,
+      views: 1190,
+      dateAdded: "2024-11-08"
+    },
+    {
+      icon: Calendar,
+      title: "Review Your Day",
+      description: "Evening reflection practice for continuous improvement.",
+      items: [
+        "What went well today?",
+        "What could be improved?",
+        "Plan tomorrow's priorities"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "happiness",
+      popularity: 56,
+      views: 1300,
+      dateAdded: "2024-11-09"
+    },
+    {
+      icon: XCircle,
+      title: "Say Goodbye to Netflix, Prime & Binge-Watching",
+      description: "Reclaim time from passive entertainment consumption.",
+      items: [
+        "Replace with active hobbies",
+        "Set viewing time limits",
+        "Choose quality over quantity"
+      ],
+      level: "Moderate",
+      duration: "5 min read",
+      category: "happiness",
+      popularity: 47,
+      views: 1090,
+      dateAdded: "2024-11-10"
+    },
+    {
+      icon: Smile,
+      title: "Say Something Kind to Yourself Out Loud Daily",
+      description: "Verbal self-compassion for improved self-esteem.",
+      items: [
+        "Use your name when speaking",
+        "Focus on efforts not just outcomes",
+        "Practice in mirror for impact"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "happiness",
+      popularity: 53,
+      views: 1230,
+      dateAdded: "2024-11-11"
+    },
+    {
+      icon: ArrowUp,
+      title: "Set an Hourly Reminder to Stand Up",
+      description: "Combat sedentary lifestyle with regular movement breaks.",
+      items: [
+        "Set phone or watch reminders",
+        "Take 2-minute walking breaks",
+        "Stretch while standing"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "health",
+      popularity: 48,
+      views: 1120,
+      dateAdded: "2024-11-12"
+    },
+    {
+      icon: Brain,
+      title: "Sit in Silence for 5 Minutes a Day",
+      description: "Meditation starter practice for mental clarity.",
+      items: [
+        "No music or distractions",
+        "Focus on breath naturally",
+        "Don't judge wandering thoughts"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "happiness",
+      popularity: 60,
+      views: 1390,
+      dateAdded: "2024-11-13"
+    },
+    {
+      icon: Snowflake,
+      title: "Stop Compromising on Sleep",
+      description: "Prioritize sleep quality for optimal health and performance.",
+      items: [
+        "Consistent sleep schedule daily",
+        "Create pre-sleep routine",
+        "Optimize bedroom environment"
+      ],
+      level: "Moderate",
+      duration: "6 min read",
+      category: "health",
+      popularity: 78,
+      views: 1810,
+      dateAdded: "2024-11-14"
+    },
+    {
+      icon: Package,
+      title: "Stock Up on Favourite Beauty & Skincare Items When on Sale",
+      description: "Strategic purchasing for personal care essentials.",
+      items: [
+        "Track sale cycles of favorites",
+        "Buy 3-6 month supply",
+        "Check expiration dates carefully"
+      ],
+      level: "Easy",
+      duration: "4 min read",
+      category: "wealth",
+      popularity: 34,
+      views: 790,
+      dateAdded: "2024-11-15"
+    },
+    {
+      icon: Play,
+      title: "Swap TV for a Podcast",
+      description: "Transform passive entertainment into active learning.",
+      items: [
+        "Choose educational content",
+        "Listen while doing chores",
+        "Take notes on key insights"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "happiness",
+      popularity: 52,
+      views: 1210,
+      dateAdded: "2024-11-16"
+    },
+    {
+      icon: BookOpen,
+      title: "Take a Free Online Course",
+      description: "Skill development through accessible online education.",
+      items: [
+        "Coursera and edX offer certificates",
+        "Choose job-relevant skills",
+        "Set weekly learning schedule"
+      ],
+      level: "Moderate",
+      duration: "5 min read",
+      category: "wealth",
+      popularity: 58,
+      views: 1340,
+      dateAdded: "2024-11-17"
+    },
+    {
+      icon: Snowflake,
+      title: "Take Cold Showers",
+      description: "Cold exposure therapy for resilience and health benefits.",
+      items: [
+        "Start with 30 seconds cold",
+        "Gradually increase duration",
+        "Boosts metabolism and immunity"
+      ],
+      level: "Hard",
+      duration: "5 min read",
+      category: "health",
+      popularity: 45,
+      views: 1050,
+      dateAdded: "2024-11-18"
+    },
+    {
+      icon: Pill,
+      title: "Take Supplements for What You Are Deficient In",
+      description: "Targeted supplementation based on individual needs.",
+      items: [
+        "Get blood work done first",
+        "Focus on common deficiencies",
+        "Quality over quantity approach"
+      ],
+      level: "Moderate",
+      duration: "6 min read",
+      category: "health",
+      popularity: 49,
+      views: 1140,
+      dateAdded: "2024-11-19"
+    },
+    {
+      icon: Apple,
+      title: "The Power of Frozen Fruits & Vegetables",
+      description: "Nutrition and budget benefits of frozen produce.",
+      items: [
+        "Often more nutritious than fresh",
+        "No waste from spoilage",
+        "Available year-round"
+      ],
+      level: "Easy",
+      duration: "4 min read",
+      category: "wealth",
+      popularity: 41,
+      views: 950,
+      dateAdded: "2024-11-20"
+    },
+    {
+      icon: TrendingUp,
+      title: "Time In the Market vs Timing the Market",
+      description: "Investment strategy for long-term wealth building.",
+      items: [
+        "Consistent investing beats timing",
+        "Compound interest works over time",
+        "Dollar-cost averaging reduces risk"
+      ],
+      level: "Moderate",
+      duration: "7 min read",
+      category: "wealth",
+      popularity: 64,
+      views: 1480,
+      dateAdded: "2024-11-21"
+    },
+    {
+      icon: Zap,
+      title: "Turn Off Appliances at the Plug",
+      description: "Reduce phantom energy consumption and electricity bills.",
+      items: [
+        "Standby mode still uses power",
+        "Save 5-10% on electricity bills",
+        "Use smart power strips"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "wealth",
+      popularity: 37,
+      views: 860,
+      dateAdded: "2024-11-22"
+    },
+    {
+      icon: Brain,
+      title: "Understand What High Blood Sugar Does to Your Brain and Body",
+      description: "Education on glucose impact for better health choices.",
+      items: [
+        "Affects cognitive function significantly",
+        "Impacts energy levels throughout day",
+        "Learn blood sugar management techniques"
+      ],
+      level: "Moderate",
+      duration: "6 min read",
+      category: "health",
+      popularity: 55,
+      views: 1280,
+      dateAdded: "2024-11-23"
+    },
+    {
+      icon: Leaf,
+      title: "Use Saffron as an Antidepressant",
+      description: "Natural mood enhancement through spice supplementation.",
+      items: [
+        "Clinically proven mood benefits",
+        "Quality saffron supplement important",
+        "Consult healthcare provider first"
+      ],
+      level: "Moderate",
+      duration: "5 min read",
+      category: "health",
+      popularity: 38,
+      views: 890,
+      dateAdded: "2024-11-24"
+    },
+    {
+      icon: Leaf,
+      title: "Use Spices Instead of Salt for Seasoning",
+      description: "Flavor enhancement without sodium excess.",
+      items: [
+        "Herbs and spices add antioxidants",
+        "Reduces blood pressure naturally",
+        "Expands flavor palette significantly"
+      ],
+      level: "Easy",
+      duration: "4 min read",
+      category: "health",
+      popularity: 44,
+      views: 1020,
+      dateAdded: "2024-11-25"
+    },
+    {
+      icon: Activity,
+      title: "Use Spike Mat",
+      description: "Acupressure benefits for pain relief and relaxation.",
+      items: [
+        "Reduces muscle tension effectively",
+        "Improves circulation naturally",
+        "Start with light clothing layer"
+      ],
+      level: "Easy",
+      duration: "4 min read",
+      category: "health",
+      popularity: 33,
+      views: 770,
+      dateAdded: "2024-11-26"
+    },
+    {
+      icon: ShoppingBasket,
+      title: "Use the Too Good To Go App",
+      description: "Reduce food waste while saving money on meals.",
+      items: [
+        "Get surplus food at discount",
+        "Help reduce environmental impact",
+        "Discover new restaurants cheaply"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "wealth",
+      popularity: 42,
+      views: 980,
+      dateAdded: "2024-11-27"
+    },
+    {
+      icon: Calendar,
+      title: "Wait 30 Days Before Any Status Spend",
+      description: "Impulse control for non-essential purchases.",
+      items: [
+        "Write down what you want",
+        "Set calendar reminder for 30 days",
+        "Often desire fades naturally"
+      ],
+      level: "Moderate",
+      duration: "4 min read",
+      category: "wealth",
+      popularity: 54,
+      views: 1250,
+      dateAdded: "2024-11-28"
+    },
+    {
+      icon: Footprints,
+      title: "Walk Backwards",
+      description: "Unique exercise for balance, coordination and muscle activation.",
+      items: [
+        "Improves proprioception significantly",
+        "Uses different muscle patterns",
+        "Start slow in safe environment"
+      ],
+      level: "Moderate",
+      duration: "4 min read",
+      category: "health",
+      popularity: 29,
+      views: 680,
+      dateAdded: "2024-11-29"
+    },
+    {
+      icon: DollarSign,
+      title: "Why Implement a 30-Day Rule for Big Purchases",
+      description: "Decision framework for significant financial commitments.",
+      items: [
+        "Prevents impulse buying mistakes",
+        "Allows time for research",
+        "Often reveals you don't need item"
+      ],
+      level: "Easy",
+      duration: "4 min read",
+      category: "wealth",
+      popularity: 61,
+      views: 1420,
+      dateAdded: "2024-11-30"
+    },
+    {
+      icon: PenTool,
+      title: "Write Down 3 Things You Accomplished at the End of Each Day",
+      description: "Daily achievement recognition for improved self-worth.",
+      items: [
+        "Include small wins too",
+        "Focus on progress made",
+        "Builds positive mindset daily"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "happiness",
+      popularity: 58,
+      views: 1350,
+      dateAdded: "2024-12-01"
+    },
+    {
+      icon: Sun,
+      title: "Be More Japanese: Sit on the Floor More",
+      description: "Floor sitting benefits for posture and flexibility.",
+      items: [
+        "Improves hip mobility naturally",
+        "Strengthens core muscles",
+        "Encourages better posture"
+      ],
+      level: "Easy",
+      duration: "4 min read",
+      category: "health",
+      popularity: 36,
+      views: 840,
+      dateAdded: "2024-12-02"
     }
   ];
 
