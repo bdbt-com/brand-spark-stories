@@ -41,13 +41,13 @@ const About = () => {
                   <CollapsibleTrigger asChild>
                     <div className="relative">
                       {/* Enhanced Ripple Effect Rings - Ocean Blue with 50% Transparency */}
-                      <div className="absolute inset-0 -m-1">
+                      <div className="absolute inset-0" style={{ margin: '-2px' }}>
                         <div className="absolute inset-0 rounded-2xl border-4 border-blue-400/50 animate-ping" style={{ animationDuration: '2s', animationIterationCount: 'infinite' }}></div>
                       </div>
-                      <div className="absolute inset-0 -m-2">
+                      <div className="absolute inset-0" style={{ margin: '-4px' }}>
                         <div className="absolute inset-0 rounded-2xl border-4 border-blue-500/50 animate-ping" style={{ animationDuration: '2s', animationDelay: '0.7s', animationIterationCount: 'infinite' }}></div>
                       </div>
-                      <div className="absolute inset-0 -m-3">
+                      <div className="absolute inset-0" style={{ margin: '-6px' }}>
                         <div className="absolute inset-0 rounded-2xl border-4 border-blue-600/50 animate-ping" style={{ animationDuration: '2s', animationDelay: '1.4s', animationIterationCount: 'infinite' }}></div>
                       </div>
                       
