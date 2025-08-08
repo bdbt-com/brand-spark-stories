@@ -220,11 +220,20 @@ const About = () => {
                       animationDuration: '3s'
                     }}></div>
                        
-                       <Button variant="outline" size="lg" className="relative hover:scale-105 transition-transform text-lg h-16 px-12 py-6 bg-background/95 backdrop-blur-sm border-primary/30 rounded-xl">
-                         <BookOpen className="w-6 h-6 mr-3" />
-                         Read My Story
-                         <ChevronDown className={`w-5 h-5 ml-3 transition-transform ${isStoryOpen ? 'rotate-180' : ''}`} />
-                        </Button>
+                        <Button 
+                          variant="outline" 
+                          size="lg" 
+                          className="relative hover:scale-105 transition-transform text-lg h-16 px-12 py-6 bg-background/95 backdrop-blur-sm border-primary/30 rounded-xl"
+                          onClick={() => {
+                            setTimeout(() => {
+                              window.scrollTo({ top: 0, behavior: 'smooth' });
+                            }, 200);
+                          }}
+                        >
+                          <BookOpen className="w-6 h-6 mr-3" />
+                          Read My Story
+                          <ChevronDown className={`w-5 h-5 ml-3 transition-transform ${isStoryOpen ? 'rotate-180' : ''}`} />
+                         </Button>
                      </div>
                   </CollapsibleTrigger>
                 </Collapsible>
