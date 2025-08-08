@@ -12,6 +12,7 @@ import Podcast from "./pages/Podcast";
 import DailyWins from "./pages/DailyWins";
 import Partnership from "./pages/Partnership";
 import NotFound from "./pages/NotFound";
+import ScrollToTop from "./components/ScrollToTop";
 
 const queryClient = new QueryClient();
 
@@ -21,6 +22,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <ScrollToTop />
         <Navigation />
         <Routes>
           <Route path="/" element={<Home />} />

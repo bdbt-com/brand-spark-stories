@@ -183,7 +183,7 @@ const Home = () => {
           <button
             aria-label="Scroll to How BDBT Works"
             onClick={handleScrollToHow}
-            className="group absolute z-10 bottom-8 left-1/2 -translate-x-1/2"
+            className="group absolute z-10 bottom-16 left-1/2 -translate-x-1/2"
           >
             <div className="relative w-14 h-14">
               <div className="absolute inset-0 rounded-full border border-white/30 animate-ping" style={{ animationDuration: '2s', animationIterationCount: 'infinite' }}></div>
@@ -380,26 +380,28 @@ const Home = () => {
           </div>
 
           {/* How BDBT Works Trigger */}
-          <div className="flex justify-center mb-8" ref={howRef}>
-            <Collapsible open={isHowWorkOpen} onOpenChange={handleHowWorkOpenChange}>
-              <CollapsibleTrigger asChild>
-                <div className="relative" ref={howWorkTriggerRef}>
-                  <div className="absolute inset-0">
-                    <div className="absolute inset-0 rounded-xl border border-blue-400/50 animate-ping" style={{ animationDuration: '2s', animationIterationCount: 'infinite' }}></div>
+          <div className="flex justify-center mb-8" ref={howRef} id="how">
+            <Collapsible open={isHowWorkOpen} onOpenChange={handleHowWorkOpenChange} className="w-full">
+              <div className="flex justify-center">
+                <CollapsibleTrigger asChild>
+                  <div className="relative" ref={howWorkTriggerRef}>
+                    <div className="absolute inset-0">
+                      <div className="absolute inset-0 rounded-xl border border-blue-400/50 animate-ping" style={{ animationDuration: '2s', animationIterationCount: 'infinite' }}></div>
+                    </div>
+                    <div className="absolute inset-0" style={{ margin: '1px' }}>
+                      <div className="absolute inset-0 rounded-xl border border-blue-500/50 animate-ping" style={{ animationDuration: '2s', animationDelay: '0.7s', animationIterationCount: 'infinite' }}></div>
+                    </div>
+                    <div className="absolute inset-0" style={{ margin: '2px' }}>
+                      <div className="absolute inset-0 rounded-xl border border-blue-600/50 animate-ping" style={{ animationDuration: '2s', animationDelay: '1.4s', animationIterationCount: 'infinite' }}></div>
+                    </div>
+                    <div className="absolute inset-0 bg-blue-500/10 rounded-xl animate-pulse" style={{ animationDuration: '3s' }}></div>
+                    <Button variant="outline" size="lg" className="relative hover:scale-105 transition-transform h-14 md:h-16 px-8 md:px-10 text-lg md:text-xl bg-background/95 backdrop-blur-sm border-primary/30 rounded-xl">
+                      ⬤ How BDBT Works for you
+                      <ChevronDown className={`w-5 h-5 ml-3 transition-transform ${isHowWorkOpen ? 'rotate-180' : ''}`} />
+                    </Button>
                   </div>
-                  <div className="absolute inset-0" style={{ margin: '1px' }}>
-                    <div className="absolute inset-0 rounded-xl border border-blue-500/50 animate-ping" style={{ animationDuration: '2s', animationDelay: '0.7s', animationIterationCount: 'infinite' }}></div>
-                  </div>
-                  <div className="absolute inset-0" style={{ margin: '2px' }}>
-                    <div className="absolute inset-0 rounded-xl border border-blue-600/50 animate-ping" style={{ animationDuration: '2s', animationDelay: '1.4s', animationIterationCount: 'infinite' }}></div>
-                  </div>
-                  <div className="absolute inset-0 bg-blue-500/10 rounded-xl animate-pulse" style={{ animationDuration: '3s' }}></div>
-                  <Button variant="outline" size="lg" className="relative hover:scale-105 transition-transform h-14 md:h-16 px-8 md:px-10 text-lg md:text-xl bg-background/95 backdrop-blur-sm border-primary/30 rounded-xl">
-                    ⬤ How BDBT Works for you
-                    <ChevronDown className={`w-5 h-5 ml-3 transition-transform ${isHowWorkOpen ? 'rotate-180' : ''}`} />
-                  </Button>
-                </div>
-              </CollapsibleTrigger>
+                </CollapsibleTrigger>
+              </div>
 
               <CollapsibleContent>
                 <div className="relative mt-8 max-w-4xl mx-auto lg:px-32">
@@ -434,6 +436,130 @@ const Home = () => {
                     <CardContent className="p-8 lg:p-12">
                       <article className="prose prose-lg max-w-none text-muted-foreground">
                         <h2 className="text-3xl font-bold text-foreground mb-6">How BDBT Works for You</h2>
+
+                        {/* Guided Path Chevrons */}
+                        <section aria-label="Guided BDBT Path" className="my-8">
+                          <div className="flex flex-col items-center">
+                            {/* Step: Home Page */}
+                            <Link to="/" className="group" aria-label="Go to Home Page">
+                              <div className="relative w-14 h-14">
+                                <div className="absolute inset-0 rounded-full border border-primary/30 animate-ping" style={{ animationDuration: '2s', animationIterationCount: 'infinite' }}></div>
+                                <div className="absolute inset-0" style={{ margin: '2px' }}>
+                                  <div className="absolute inset-0 rounded-full border border-primary/40 animate-ping" style={{ animationDuration: '2s', animationDelay: '0.6s', animationIterationCount: 'infinite' }}></div>
+                                </div>
+                                <div className="absolute inset-0" style={{ margin: '4px' }}>
+                                  <div className="absolute inset-0 rounded-full border border-primary/50 animate-ping" style={{ animationDuration: '2s', animationDelay: '1.2s', animationIterationCount: 'infinite' }}></div>
+                                </div>
+                                <div className="absolute inset-0 bg-primary/10 rounded-full animate-pulse" style={{ animationDuration: '3s' }}></div>
+                                <div className="relative w-14 h-14 rounded-full bg-primary/10 backdrop-blur border border-primary/30 flex items-center justify-center hover-scale">
+                                  <ChevronDown className="w-6 h-6 text-primary" />
+                                </div>
+                              </div>
+                            </Link>
+                            <span className="mt-2 text-sm font-medium text-foreground/80">Home Page</span>
+
+                            <ChevronDown className="w-5 h-5 text-muted-foreground my-2" />
+
+                            {/* Step: Why BDBT Works for You */}
+                            <button type="button" onClick={() => { setIsHowWorkOpen(true); handleScrollToHow(); }} className="group" aria-label="Scroll to Why BDBT Works for You">
+                              <div className="relative w-14 h-14">
+                                <div className="absolute inset-0 rounded-full border border-primary/30 animate-ping" style={{ animationDuration: '2s', animationIterationCount: 'infinite' }}></div>
+                                <div className="absolute inset-0" style={{ margin: '2px' }}>
+                                  <div className="absolute inset-0 rounded-full border border-primary/40 animate-ping" style={{ animationDuration: '2s', animationDelay: '0.6s', animationIterationCount: 'infinite' }}></div>
+                                </div>
+                                <div className="absolute inset-0" style={{ margin: '4px' }}>
+                                  <div className="absolute inset-0 rounded-full border border-primary/50 animate-ping" style={{ animationDuration: '2s', animationDelay: '1.2s', animationIterationCount: 'infinite' }}></div>
+                                </div>
+                                <div className="absolute inset-0 bg-primary/10 rounded-full animate-pulse" style={{ animationDuration: '3s' }}></div>
+                                <div className="relative w-14 h-14 rounded-full bg-primary/10 backdrop-blur border border-primary/30 flex items-center justify-center hover-scale">
+                                  <ChevronDown className="w-6 h-6 text-primary" />
+                                </div>
+                              </div>
+                            </button>
+                            <span className="mt-2 text-sm font-medium text-foreground/80">Why BDBT Works for You</span>
+
+                            <ChevronDown className="w-5 h-5 text-muted-foreground my-2" />
+
+                            {/* Step: Read My Story */}
+                            <Link to="/about" className="group" aria-label="Read My Story">
+                              <div className="relative w-14 h-14">
+                                <div className="absolute inset-0 rounded-full border border-accent-light/40 animate-ping" style={{ animationDuration: '2s', animationIterationCount: 'infinite' }}></div>
+                                <div className="absolute inset-0" style={{ margin: '2px' }}>
+                                  <div className="absolute inset-0 rounded-full border border-accent-light/50 animate-ping" style={{ animationDuration: '2s', animationDelay: '0.6s', animationIterationCount: 'infinite' }}></div>
+                                </div>
+                                <div className="absolute inset-0" style={{ margin: '4px' }}>
+                                  <div className="absolute inset-0 rounded-full border border-accent-light/60 animate-ping" style={{ animationDuration: '2s', animationDelay: '1.2s', animationIterationCount: 'infinite' }}></div>
+                                </div>
+                                <div className="absolute inset-0 bg-accent-light/10 rounded-full animate-pulse" style={{ animationDuration: '3s' }}></div>
+                                <div className="relative w-14 h-14 rounded-full bg-accent-light/10 backdrop-blur border border-accent-light/40 flex items-center justify-center hover-scale">
+                                  <ChevronDown className="w-6 h-6 text-accent-light" />
+                                </div>
+                              </div>
+                            </Link>
+                            <span className="mt-2 text-sm font-medium text-foreground/80">Read My Story</span>
+
+                            <ChevronDown className="w-5 h-5 text-muted-foreground my-2" />
+
+                            {/* Step: Blueprint */}
+                            <Link to="/blueprint" className="group" aria-label="Download and Read the Blueprint">
+                              <div className="relative w-14 h-14">
+                                <div className="absolute inset-0 rounded-full border border-primary/30 animate-ping" style={{ animationDuration: '2s', animationIterationCount: 'infinite' }}></div>
+                                <div className="absolute inset-0" style={{ margin: '2px' }}>
+                                  <div className="absolute inset-0 rounded-full border border-primary/40 animate-ping" style={{ animationDuration: '2s', animationDelay: '0.6s', animationIterationCount: 'infinite' }}></div>
+                                </div>
+                                <div className="absolute inset-0" style={{ margin: '4px' }}>
+                                  <div className="absolute inset-0 rounded-full border border-primary/50 animate-ping" style={{ animationDuration: '2s', animationDelay: '1.2s', animationIterationCount: 'infinite' }}></div>
+                                </div>
+                                <div className="absolute inset-0 bg-primary/10 rounded-full animate-pulse" style={{ animationDuration: '3s' }}></div>
+                                <div className="relative w-14 h-14 rounded-full bg-primary/10 backdrop-blur border border-primary/30 flex items-center justify-center hover-scale">
+                                  <ChevronDown className="w-6 h-6 text-primary" />
+                                </div>
+                              </div>
+                            </Link>
+                            <span className="mt-2 text-sm font-medium text-foreground/80">Download and Read the Blueprint</span>
+
+                            <ChevronDown className="w-5 h-5 text-muted-foreground my-2" />
+
+                            {/* Step: Tips */}
+                            <Link to="/tips" className="group" aria-label="View the Tips Page">
+                              <div className="relative w-14 h-14">
+                                <div className="absolute inset-0 rounded-full border border-primary/30 animate-ping" style={{ animationDuration: '2s', animationIterationCount: 'infinite' }}></div>
+                                <div className="absolute inset-0" style={{ margin: '2px' }}>
+                                  <div className="absolute inset-0 rounded-full border border-primary/40 animate-ping" style={{ animationDuration: '2s', animationDelay: '0.6s', animationIterationCount: 'infinite' }}></div>
+                                </div>
+                                <div className="absolute inset-0" style={{ margin: '4px' }}>
+                                  <div className="absolute inset-0 rounded-full border border-primary/50 animate-ping" style={{ animationDuration: '2s', animationDelay: '1.2s', animationIterationCount: 'infinite' }}></div>
+                                </div>
+                                <div className="absolute inset-0 bg-primary/10 rounded-full animate-pulse" style={{ animationDuration: '3s' }}></div>
+                                <div className="relative w-14 h-14 rounded-full bg-primary/10 backdrop-blur border border-primary/30 flex items-center justify-center hover-scale">
+                                  <ChevronDown className="w-6 h-6 text-primary" />
+                                </div>
+                              </div>
+                            </Link>
+                            <span className="mt-2 text-sm font-medium text-foreground/80">View the Tips Page</span>
+
+                            <ChevronDown className="w-5 h-5 text-muted-foreground my-2" />
+
+                            {/* Step: Daily Wins */}
+                            <Link to="/daily-wins" className="group" aria-label="Add to the Daily Wins Page">
+                              <div className="relative w-14 h-14">
+                                <div className="absolute inset-0 rounded-full border border-primary/30 animate-ping" style={{ animationDuration: '2s', animationIterationCount: 'infinite' }}></div>
+                                <div className="absolute inset-0" style={{ margin: '2px' }}>
+                                  <div className="absolute inset-0 rounded-full border border-primary/40 animate-ping" style={{ animationDuration: '2s', animationDelay: '0.6s', animationIterationCount: 'infinite' }}></div>
+                                </div>
+                                <div className="absolute inset-0" style={{ margin: '4px' }}>
+                                  <div className="absolute inset-0 rounded-full border border-primary/50 animate-ping" style={{ animationDuration: '2s', animationDelay: '1.2s', animationIterationCount: 'infinite' }}></div>
+                                </div>
+                                <div className="absolute inset-0 bg-primary/10 rounded-full animate-pulse" style={{ animationDuration: '3s' }}></div>
+                                <div className="relative w-14 h-14 rounded-full bg-primary/10 backdrop-blur border border-primary/30 flex items-center justify-center hover-scale">
+                                  <ChevronDown className="w-6 h-6 text-primary" />
+                                </div>
+                              </div>
+                            </Link>
+                            <span className="mt-2 text-sm font-medium text-foreground/80">Add to the Daily Wins Page</span>
+                          </div>
+                        </section>
+
                         {/* Mobile Thought Bubbles */}
                         <div className="lg:hidden flex flex-wrap gap-2 mb-6">
                           {[
