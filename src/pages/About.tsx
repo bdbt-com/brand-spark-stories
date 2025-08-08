@@ -12,7 +12,7 @@ const About = () => {
       {/* The Problem Section */}
       <section id="problem" className="py-32 bg-background">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-20">
+          <div className="text-center">
             <h2 className="text-4xl lg:text-6xl font-bold mb-8 text-foreground tracking-tight">
               The Problem
             </h2>
@@ -20,11 +20,11 @@ const About = () => {
               We live in a world obsessed with doing more
             </p>
           </div>
-          <div className="mt-8 flex justify-center">
+          <div className="my-16 flex justify-center">
             <ChevronRipple to="/about#problem-1" label="Why change fails?" size="sm" showLabel={false} />
           </div>
           
-          <div className="space-y-32">
+          <div className="space-y-0">
             {/* First statement - Center aligned */}
             <div id="problem-1" className="text-center max-w-4xl mx-auto">
               <h3 className="text-4xl lg:text-5xl font-bold leading-tight text-foreground mb-6">
@@ -34,7 +34,7 @@ const About = () => {
                 More workouts. More goals. More hustle. Yet most people feel stuck, drained, and uncertain.
               </p>
             </div>
-            <div className="mt-8 flex justify-center">
+            <div className="my-16 flex justify-center">
               <ChevronRipple to="/about#problem-2" label="One tip at a time?" size="sm" showLabel={false} />
             </div>
 
@@ -47,7 +47,7 @@ const About = () => {
                 A budgeting app here. A gym membership there. A meditation streak that lasts three days.
               </p>
             </div>
-            <div className="mt-8 flex justify-center">
+            <div className="my-16 flex justify-center">
               <ChevronRipple to="/about#problem-3" label="Why tips fail" size="sm" showLabel={false} />
             </div>
 
@@ -63,7 +63,7 @@ const About = () => {
                 But because the old model is broken.
               </p>
             </div>
-            <div className="mt-8 flex justify-center">
+            <div className="my-16 flex justify-center">
               <ChevronRipple to="/about#problem-4" label="Modern life pressures" size="sm" showLabel={false} />
             </div>
 
