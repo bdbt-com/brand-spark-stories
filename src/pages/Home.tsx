@@ -5,6 +5,7 @@ import { ArrowRight, Droplets, Activity, Moon, DollarSign, Heart, Smile, Target,
 import { Link } from "react-router-dom";
 import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "@/components/ui/carousel";
 import { useEffect, useState } from "react";
+import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "@/components/ui/collapsible";
 
 const Home = () => {
   const images = [
@@ -25,6 +26,7 @@ const Home = () => {
   ];
   const [embla, setEmbla] = useState<CarouselApi | null>(null);
   const [filteredImages, setFilteredImages] = useState<string[]>([]);
+  const [isHowOpen, setIsHowOpen] = useState(false);
 
   const isPhotoLike = (src: string): Promise<boolean> =>
     new Promise((resolve) => {
@@ -101,11 +103,13 @@ const Home = () => {
                 Big Daddy's Big Tips teaches simple daily habits that silently transform your health, wealth, and happiness simultaneously. We turn overwhelming life changes into achievable daily steps.
               </p>
               <div className="flex flex-wrap gap-4">
-                <Button variant="accent" size="lg" asChild className="hover:scale-105 transition-transform duration-200">
-                  <Link to="/blueprint">
-                    ⬤ Start Your Daily Wins <ArrowRight className="w-5 h-5" />
-                  </Link>
-                </Button>
+                <Collapsible open={isHowOpen} onOpenChange={setIsHowOpen}>
+                  <CollapsibleTrigger asChild>
+                    <Button variant="accent" size="lg" className="hover:scale-105 transition-transform duration-200">
+                      ⬤ How BDBT Works for you <ArrowRight className="w-5 h-5" />
+                    </Button>
+                  </CollapsibleTrigger>
+                </Collapsible>
                 <div className="relative">
                   <div className="absolute inset-0">
                     <div className="absolute inset-0 rounded-xl border border-accent-light/40 animate-ping transform scale-50" style={{
@@ -162,6 +166,137 @@ const Home = () => {
           </div>
         </div>
       </section>
+
+      {/* How BDBT Works - Collapsible Content */}
+      <Collapsible open={isHowOpen} onOpenChange={setIsHowOpen}>
+        <CollapsibleContent>
+          <div className="py-12 bg-gradient-subtle border-t">
+            <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+              <Card className="bg-background/95 backdrop-blur-sm border-primary/20 shadow-strong">
+                <CardContent className="p-8 lg:p-12">
+                  <article className="prose prose-lg max-w-none text-muted-foreground">
+                    <h2 className="text-3xl font-bold text-foreground mb-6">How BDBT Works for You</h2>
+                    <h3 className="text-2xl font-semibold text-foreground mt-10 mb-4">Limiting beliefs stopping people from adopting BDBT</h3>
+                    <div className="space-y-6">
+                      <div>
+                        <p className="font-semibold text-foreground">Belief:</p>
+                        <p>“This is just another self-help system.”</p>
+                        <p className="font-semibold text-foreground mt-2">Experience:</p>
+                        <p>Tried courses that didn’t stick.</p>
+                        <p className="font-semibold text-foreground mt-2">Story they're telling themselves:</p>
+                        <p>“It’s just more fluff. I’ve heard it all before.”</p>
+                      </div>
+                      <div>
+                        <p className="font-semibold text-foreground">Belief:</p>
+                        <p>“I already know what to do.”</p>
+                        <p className="font-semibold text-foreground mt-2">Experience:</p>
+                        <p>Consumed info but didn’t apply it.</p>
+                        <p className="font-semibold text-foreground mt-2">Story they're telling themselves:</p>
+                        <p>“It’s my fault. I don’t need a system. I just need more willpower.”</p>
+                      </div>
+                      <div>
+                        <p className="font-semibold text-foreground">Belief:</p>
+                        <p>“Small habits don’t matter.”</p>
+                        <p className="font-semibold text-foreground mt-2">Experience:</p>
+                        <p>Tried habits but saw no big change.</p>
+                        <p className="font-semibold text-foreground mt-2">Story they're telling themselves:</p>
+                        <p>“Tiny changes don’t add up to anything meaningful.”</p>
+                      </div>
+                      <div>
+                        <p className="font-semibold text-foreground">Belief:</p>
+                        <p>“I’m too busy.”</p>
+                        <p className="font-semibold text-foreground mt-2">Experience:</p>
+                        <p>Overloaded schedule, past failures.</p>
+                        <p className="font-semibold text-foreground mt-2">Story they're telling themselves:</p>
+                        <p>“There’s no space for more. I’ll just burn out.”</p>
+                      </div>
+                      <div>
+                        <p className="font-semibold text-foreground">Belief:</p>
+                        <p>“I always fail.”</p>
+                        <p className="font-semibold text-foreground mt-2">Experience:</p>
+                        <p>Repeated broken promises to self.</p>
+                        <p className="font-semibold text-foreground mt-2">Story they're telling themselves:</p>
+                        <p>“Why bother? I’ll just quit again.”</p>
+                      </div>
+                      <div>
+                        <p className="font-semibold text-foreground">Belief:</p>
+                        <p>“People like me don’t change.”</p>
+                        <p className="font-semibold text-foreground mt-2">Experience:</p>
+                        <p>Feels stuck, sees others succeed.</p>
+                        <p className="font-semibold text-foreground mt-2">Story they're telling themselves:</p>
+                        <p>“It’s too late for me. This works for them, not me.”</p>
+                      </div>
+                      <div>
+                        <p className="font-semibold text-foreground">Belief:</p>
+                        <p>“My environment will derail me.”</p>
+                        <p className="font-semibold text-foreground mt-2">Experience:</p>
+                        <p>Family/friends discourage progress.</p>
+                        <p className="font-semibold text-foreground mt-2">Story they're telling themselves:</p>
+                        <p>“What’s the point? I’ll get dragged back down.”</p>
+                      </div>
+                      <div>
+                        <p className="font-semibold text-foreground">Belief:</p>
+                        <p>“My loved ones won’t change.”</p>
+                        <p className="font-semibold text-foreground mt-2">Experience:</p>
+                        <p>Tried helping others to no avail.</p>
+                        <p className="font-semibold text-foreground mt-2">Story they're telling themselves:</p>
+                        <p>“If they won’t change, why should I? I’ll just stay where I am.”</p>
+                      </div>
+                      <div>
+                        <p className="font-semibold text-foreground">Belief:</p>
+                        <p>“I’ll start when life calms down.”</p>
+                        <p className="font-semibold text-foreground mt-2">Experience:</p>
+                        <p>Life always interrupts change.</p>
+                        <p className="font-semibold text-foreground mt-2">Story they're telling themselves:</p>
+                        <p>“Now isn’t the time, it’s too hectic to start anything new.”</p>
+                      </div>
+                    </div>
+
+                    <div className="space-y-10 mt-12">
+                      <div>
+                        <h3 className="text-2xl font-semibold text-foreground">False Belief #1: “This is just another self-help system.”</h3>
+                        <p className="mt-3">I used to think the same thing. I’d tried courses, books, spreadsheets, planners, and every time I got the same result: a short buzz, then nothing. What changed for me wasn’t finding more advice. It was realising that the power wasn’t in the information, it was in how you apply it. One evening, after weeks of just doing five minutes of movement in the morning and a 10-minute wind-down routine at night, I realised I wasn’t stressed. The kids were calm. I was calm. Nothing in my life had been overhauled, but everything was working better. That’s when I realised: this isn’t self-help. This is life design. And it works because it’s stacked, not scattered.</p>
+                      </div>
+                      <div>
+                        <h3 className="text-2xl font-semibold text-foreground">False Belief #2: “I already know what to do, I just need to do it.”</h3>
+                        <p className="mt-3">For years, I told myself I had all the answers. I’d read the books, listened to the podcasts, taken the notes. I didn’t need a system, I needed more willpower. Until one day, I looked at my notes and thought, “If knowing was enough, I’d be thriving by now.” That’s when it clicked: the problem wasn’t knowledge. It was integration. I had all the right pieces, but no structure to make them work together. That’s what BDBT gave me, a way to link it all together. The shift came not from more effort, but from better design.</p>
+                      </div>
+                      <div>
+                        <h3 className="text-2xl font-semibold text-foreground">False Belief #3: “Small habits won’t make a big enough difference.”</h3>
+                        <p className="mt-3">I used to chase big results, big transformations, big declarations, big overhauls. But they never lasted. What finally changed everything was going small. I didn’t try to change my diet, routine, mindset, finances all at once. I started with a 5-minute morning movement, a 2-minute budget ritual, and a 5-minute evening reflection. That’s it. And over time, I saw the ripple: I was calmer, sharper, saving money, moving more. The small things became the big change. That’s when I realised, it’s not about how much you do. It’s about where the ripples go.</p>
+                      </div>
+                      <div>
+                        <h3 className="text-2xl font-semibold text-foreground">False Belief #4: “I’m too busy to add anything new to my day.”</h3>
+                        <p className="mt-3">When I became a single dad 50% of the week, with a business to run the other 50%, I genuinely believed there was no room for anything. But the truth was, my time was leaking through the cracks, endless scrolling, takeaways, decision fatigue, disorganised evenings. I didn’t need more time, I needed more structure. Just five minutes of the right habit gave me time back. I got calmer, more present, more productive and the chaos slowed down. That’s when I realised: busyness isn’t the enemy. Drift is.</p>
+                      </div>
+                      <div>
+                        <h3 className="text-2xl font-semibold text-foreground">False Belief #5: “I’ve failed too many times, this won’t stick either.”</h3>
+                        <p className="mt-3">I’ve started and quit more habits than I can count. What changed wasn’t that I suddenly became more disciplined, it was that I finally stopped relying on motivation. I built habits that could survive bad days. Even if I only hit 70%, I kept moving forward. That was the difference: not perfection, but momentum. One month in, I realised this was sticking because it wasn’t designed for a perfect version of me. It was designed for the real me. The one with kids, work, mess, and stress.</p>
+                      </div>
+                      <div>
+                        <h3 className="text-2xl font-semibold text-foreground">False Belief #6: “People like me don’t change their whole life with a few tips.”</h3>
+                        <p className="mt-3">I’m not a superhuman biohacker. I’m not an influencer. I’m just a guy who had to figure out how to stay sane and strong while raising two kids, running a business, and trying not to burn out. I didn’t “overhaul” anything. I just started stacking little wins. A few minutes a day. A few small decisions. And over time, they added up to a completely different direction. That’s when I realised people like me don’t change everything overnight. But we can change the trajectory. And that’s what really matters.</p>
+                      </div>
+                      <div>
+                        <h3 className="text-2xl font-semibold text-foreground">False Belief #7: “My friends or family will pull me off track anyway.”</h3>
+                        <p className="mt-3">When I started building my system, I worried I’d get derailed by everything around me, social invites, the kids' routines, other people’s chaos. But what I found was that I became the anchor. When I stuck to my simple habits, not perfectly, but consistently, the people around me actually adjusted. I wasn’t preaching, I was just showing up better. And slowly, that had more impact than anything I’d said. That’s when I realised: the strongest ripple comes from living it, not talking about it.</p>
+                      </div>
+                      <div>
+                        <h3 className="text-2xl font-semibold text-foreground">False Belief #8: “Nobody around me will change, so what’s the point?”</h3>
+                        <p className="mt-3">Watching people you love drift is hard. I’ve seen it in my own family  and no matter how much I care, they don’t always want to hear it from me. That’s painful. But what keeps me going is the belief that if I can be the voice someone else’s loved one listens to, then I’ve done my job. I might not reach my family directly, but someone else might. And in return, I might be the person your family finally hears. That’s what this movement is about. Ripples reaching where we can’t.</p>
+                      </div>
+                      <div>
+                        <h3 className="text-2xl font-semibold text-foreground">False Belief #9: “I’ll start when life calms down.”</h3>
+                        <p className="mt-3">I used to think the same. “I’ll start when work slows down. When the kids are older. When things feel more manageable.” But that perfect moment never came. The truth is, life never calms down. And once I realised that, I stopped waiting. I started anyway, with 5 minutes a day. That’s all I could give, and that’s all I needed. A few weeks in, things didn’t feel calmer but I did. I realised I didn’t need a better life to start. I just needed a better system to start in the life I already had.</p>
+                      </div>
+                    </div>
+                  </article>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </CollapsibleContent>
+      </Collapsible>
 
       {/* The Vessel, Ripples, Journey Section */}
       <section className="py-20 bg-gradient-subtle">
