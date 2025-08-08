@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, ArrowDown } from "lucide-react";
 
 interface ChevronRippleProps {
   to: string;
@@ -7,6 +7,7 @@ interface ChevronRippleProps {
   color?: "primary" | "accent" | "white";
   size?: "sm" | "md";
   showLabel?: boolean;
+  variant?: "ripple" | "minimal";
 }
 
 const colorClasses: Record<NonNullable<ChevronRippleProps["color"]>, {
@@ -19,7 +20,7 @@ const colorClasses: Record<NonNullable<ChevronRippleProps["color"]>, {
   white: { ring: "border-white/30", inner: "bg-white/10 border-white/30", text: "text-white" },
 };
 
-export default function ChevronRipple({ to, label, color = "primary", size = "md", showLabel = true }: ChevronRippleProps) {
+export default function ChevronRipple({ to, label, color = "primary", size = "md", showLabel = true, variant = "ripple" }: ChevronRippleProps) {
   const c = colorClasses[color];
   const sizeClass = size === "sm" ? "w-12 h-12" : "w-14 h-14";
   const iconSizeClass = size === "sm" ? "w-4 h-4" : "w-6 h-6";
@@ -27,16 +28,20 @@ export default function ChevronRipple({ to, label, color = "primary", size = "md
     <div className="flex flex-col items-center">
       <Link to={to} aria-label={label} className="group">
         <div className={`relative ${sizeClass}`}>
-          <div className={`absolute inset-0 rounded-full ${c.ring} animate-ping`} style={{ animationDuration: "2s", animationIterationCount: "infinite" }} />
+          <div className={`absolute inset-0 rounded-full ${c.ring} animate-ping`} style={{ animationDuration: "2s", animationIterationCount: "infinite", display: variant === "minimal" ? "none" : undefined }} />
           <div className="absolute inset-0" style={{ margin: "2px" }}>
-            <div className={`absolute inset-0 rounded-full ${c.ring} animate-ping`} style={{ animationDuration: "2s", animationDelay: "0.6s", animationIterationCount: "infinite" }} />
+            <div className={`absolute inset-0 rounded-full ${c.ring} animate-ping`} style={{ animationDuration: "2s", animationDelay: "0.6s", animationIterationCount: "infinite", display: variant === "minimal" ? "none" : undefined }} />
           </div>
           <div className="absolute inset-0" style={{ margin: "4px" }}>
-            <div className={`absolute inset-0 rounded-full ${c.ring} animate-ping`} style={{ animationDuration: "2s", animationDelay: "1.2s", animationIterationCount: "infinite" }} />
+            <div className={`absolute inset-0 rounded-full ${c.ring} animate-ping`} style={{ animationDuration: "2s", animationDelay: "1.2s", animationIterationCount: "infinite", display: variant === "minimal" ? "none" : undefined }} />
           </div>
-          <div className={`absolute inset-0 ${c.inner} rounded-full animate-pulse`} style={{ animationDuration: "3s" }} />
-          <div className={`relative ${sizeClass} rounded-full backdrop-blur border ${c.inner.split(" ").pop()} flex items-center justify-center hover-scale`}>
-            <ChevronDown className={`${iconSizeClass} ${c.text} transition-transform group-hover:translate-y-0.5`} />
+          <div className={variant === "minimal" ? "absolute inset-0 bg-muted rounded-full shadow-soft" : `absolute inset-0 ${c.inner} rounded-full animate-pulse`} style={{ animationDuration: variant === "minimal" ? undefined : "3s" }} />
+          <div className={(variant === "minimal" ? `relative ${sizeClass} rounded-full bg-muted border border-border shadow-soft` : `relative ${sizeClass} rounded-full backdrop-blur border ${c.inner.split(" ").pop()}`) + " flex items-center justify-center hover-scale"}>
+            {variant === "minimal" ? (
+              <ArrowDown className={`${iconSizeClass} text-foreground/80 transition-transform group-hover:translate-y-0.5`} />
+            ) : (
+              <ChevronDown className={`${iconSizeClass} ${c.text} transition-transform group-hover:translate-y-0.5`} />
+            )}
           </div>
         </div>
       </Link>

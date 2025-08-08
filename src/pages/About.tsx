@@ -20,8 +20,8 @@ const About = () => {
               We live in a world obsessed with doing more
             </p>
           </div>
-          <div className="my-16 flex justify-center">
-            <ChevronRipple to="/about#problem-1" label="Why change fails?" size="sm" showLabel={false} />
+          <div className="my-28 flex justify-center">
+            <ChevronRipple to="/about#problem-1" label="Why change fails?" size="sm" showLabel={false} variant="minimal" />
           </div>
           
           <div className="space-y-0">
@@ -34,8 +34,8 @@ const About = () => {
                 More workouts. More goals. More hustle. Yet most people feel stuck, drained, and uncertain.
               </p>
             </div>
-            <div className="my-16 flex justify-center">
-              <ChevronRipple to="/about#problem-2" label="One tip at a time?" size="sm" showLabel={false} />
+            <div className="my-28 flex justify-center">
+              <ChevronRipple to="/about#problem-2" label="One tip at a time?" size="sm" showLabel={false} variant="minimal" />
             </div>
 
             {/* Second statement - Center aligned */}
@@ -47,8 +47,8 @@ const About = () => {
                 A budgeting app here. A gym membership there. A meditation streak that lasts three days.
               </p>
             </div>
-            <div className="my-16 flex justify-center">
-              <ChevronRipple to="/about#problem-3" label="Why tips fail" size="sm" showLabel={false} />
+            <div className="my-28 flex justify-center">
+              <ChevronRipple to="/about#problem-3" label="Why tips fail" size="sm" showLabel={false} variant="minimal" />
             </div>
 
             {/* Third statement - Center aligned with emphasis */}
@@ -63,8 +63,8 @@ const About = () => {
                 But because the old model is broken.
               </p>
             </div>
-            <div className="my-16 flex justify-center">
-              <ChevronRipple to="/about#problem-4" label="Modern life pressures" size="sm" showLabel={false} />
+            <div className="my-28 flex justify-center">
+              <ChevronRipple to="/about#problem-4" label="Modern life pressures" size="sm" showLabel={false} variant="minimal" />
             </div>
 
             {/* Fourth statement - Center aligned */}
