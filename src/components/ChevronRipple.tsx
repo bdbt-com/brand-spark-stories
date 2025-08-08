@@ -8,6 +8,7 @@ interface ChevronRippleProps {
   size?: "sm" | "md";
   showLabel?: boolean;
   variant?: "ripple" | "minimal";
+  onClick?: () => void;
 }
 
 const colorClasses: Record<NonNullable<ChevronRippleProps["color"]>, {
@@ -20,13 +21,13 @@ const colorClasses: Record<NonNullable<ChevronRippleProps["color"]>, {
   white: { ring: "border-white/30", inner: "bg-white/10 border-white/30", text: "text-white" },
 };
 
-export default function ChevronRipple({ to, label, color = "primary", size = "md", showLabel = true, variant = "ripple" }: ChevronRippleProps) {
+export default function ChevronRipple({ to, label, color = "primary", size = "md", showLabel = true, variant = "ripple", onClick }: ChevronRippleProps) {
   const c = colorClasses[color];
   const sizeClass = size === "sm" ? "w-12 h-12" : "w-14 h-14";
   const iconSizeClass = size === "sm" ? "w-4 h-4" : "w-6 h-6";
   return (
     <div className="flex flex-col items-center">
-      <Link to={to} aria-label={label} className="group">
+      <div onClick={onClick} className="group cursor-pointer">
         <div className={`relative ${sizeClass}`}>
           <div className={`absolute inset-0 rounded-full ${c.ring} animate-ping`} style={{ animationDuration: "2s", animationIterationCount: "infinite", display: variant === "minimal" ? "none" : undefined }} />
           <div className="absolute inset-0" style={{ margin: "2px" }}>
@@ -44,7 +45,7 @@ export default function ChevronRipple({ to, label, color = "primary", size = "md
             )}
           </div>
         </div>
-      </Link>
+      </div>
       {showLabel && (
         <span className="mt-2 text-sm font-medium text-foreground/80 text-center">{label}</span>
       )}

@@ -6,6 +6,35 @@ import { Clock, Heart, Award, Users2, Quote, BookOpen, Target, Star, TrendingUp,
 import { Link } from "react-router-dom";
 import ChevronRipple from "@/components/ChevronRipple";
 import { useState } from "react";
+
+const smoothScrollToNext = (currentElement: HTMLElement, nextId: string) => {
+  // First, scroll current element to center
+  const viewportHeight = window.innerHeight;
+  const elementRect = currentElement.getBoundingClientRect();
+  const elementCenter = elementRect.top + elementRect.height / 2;
+  const targetScroll = window.scrollY + elementCenter - viewportHeight / 2;
+  
+  // Smooth scroll to center current element
+  window.scrollTo({
+    top: targetScroll,
+    behavior: 'smooth'
+  });
+  
+  // After a brief pause, scroll to next element
+  setTimeout(() => {
+    const nextElement = document.getElementById(nextId);
+    if (nextElement) {
+      const nextRect = nextElement.getBoundingClientRect();
+      const nextCenter = nextRect.top + nextRect.height / 2;
+      const nextTargetScroll = window.scrollY + nextCenter - viewportHeight / 2;
+      
+      window.scrollTo({
+        top: nextTargetScroll,
+        behavior: 'smooth'
+      });
+    }
+  }, 800);
+};
 const About = () => {
   const [isStoryOpen, setIsStoryOpen] = useState(false);
   return <div className="min-h-screen">
@@ -20,8 +49,18 @@ const About = () => {
               We live in a world obsessed with doing more
             </p>
           </div>
-          <div className="my-64 flex justify-center">
-            <ChevronRipple to="/about#problem-1" label="Why change fails?" size="sm" showLabel={false} variant="minimal" />
+          <div className="my-64 flex justify-center" id="arrow-1">
+            <ChevronRipple 
+              to="/about#problem-1" 
+              label="Why change fails?" 
+              size="sm" 
+              showLabel={false} 
+              variant="minimal"
+              onClick={() => {
+                const currentArrow = document.getElementById('arrow-1');
+                if (currentArrow) smoothScrollToNext(currentArrow, 'problem-1');
+              }}
+            />
           </div>
           
           <div className="">
@@ -34,8 +73,18 @@ const About = () => {
                 More workouts. More goals. More hustle. Yet most people feel stuck, drained, and uncertain.
               </p>
             </div>
-            <div className="my-64 flex justify-center">
-              <ChevronRipple to="/about#problem-2" label="One tip at a time?" size="sm" showLabel={false} variant="minimal" />
+            <div className="my-64 flex justify-center" id="arrow-2">
+              <ChevronRipple 
+                to="/about#problem-2" 
+                label="One tip at a time?" 
+                size="sm" 
+                showLabel={false} 
+                variant="minimal"
+                onClick={() => {
+                  const currentArrow = document.getElementById('arrow-2');
+                  if (currentArrow) smoothScrollToNext(currentArrow, 'problem-2');
+                }}
+              />
             </div>
 
             {/* Second statement - Center aligned */}
@@ -47,8 +96,18 @@ const About = () => {
                 A budgeting app here. A gym membership there. A meditation streak that lasts three days.
               </p>
             </div>
-            <div className="my-64 flex justify-center">
-              <ChevronRipple to="/about#problem-3" label="Why tips fail" size="sm" showLabel={false} variant="minimal" />
+            <div className="my-64 flex justify-center" id="arrow-3">
+              <ChevronRipple 
+                to="/about#problem-3" 
+                label="Why tips fail" 
+                size="sm" 
+                showLabel={false} 
+                variant="minimal"
+                onClick={() => {
+                  const currentArrow = document.getElementById('arrow-3');
+                  if (currentArrow) smoothScrollToNext(currentArrow, 'problem-3');
+                }}
+              />
             </div>
 
             {/* Third statement - Center aligned with emphasis */}
@@ -63,8 +122,18 @@ const About = () => {
                 But because the old model is broken.
               </p>
             </div>
-            <div className="my-64 flex justify-center">
-              <ChevronRipple to="/about#problem-4" label="Modern life pressures" size="sm" showLabel={false} variant="minimal" />
+            <div className="my-64 flex justify-center" id="arrow-4">
+              <ChevronRipple 
+                to="/about#problem-4" 
+                label="Modern life pressures" 
+                size="sm" 
+                showLabel={false} 
+                variant="minimal"
+                onClick={() => {
+                  const currentArrow = document.getElementById('arrow-4');
+                  if (currentArrow) smoothScrollToNext(currentArrow, 'story');
+                }}
+              />
             </div>
 
             {/* Fourth statement - Center aligned */}
