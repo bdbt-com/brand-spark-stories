@@ -10,7 +10,7 @@ const About = () => {
   const [isStoryOpen, setIsStoryOpen] = useState(false);
   return <div className="min-h-screen">
       {/* The Problem Section */}
-      <section id="problem" className="py-32 bg-background">
+      <section id="problem" className="pt-32 pb-80 lg:pt-40 lg:pb-96 bg-background">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h2 className="text-4xl lg:text-6xl font-bold mb-8 text-foreground tracking-tight">
