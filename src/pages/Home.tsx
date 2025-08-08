@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { ArrowRight, Droplets, Activity, Moon, DollarSign, Heart, Smile, Target, Zap, ChevronDown } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "@/components/ui/carousel";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "@/components/ui/collapsible";
 
 const Home = () => {
@@ -28,6 +28,10 @@ const Home = () => {
   const [filteredImages, setFilteredImages] = useState<string[]>([]);
   const [isHowOpen, setIsHowOpen] = useState(false);
   const [isHowWorkOpen, setIsHowWorkOpen] = useState(false);
+  const howRef = useRef<HTMLDivElement>(null);
+  const handleScrollToHow = () => {
+    howRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+  };
 
   const isPhotoLike = (src: string): Promise<boolean> =>
     new Promise((resolve) => {
@@ -157,10 +161,30 @@ const Home = () => {
                   </CarouselContent>
                 </Carousel>
               </div>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+          {/* Bottom Chevron Scroll to How BDBT Works */}
+          <button
+            aria-label="Scroll to How BDBT Works"
+            onClick={handleScrollToHow}
+            className="group absolute z-10 -bottom-6 left-1/2 -translate-x-1/2"
+          >
+            <div className="relative w-14 h-14">
+              <div className="absolute inset-0 rounded-full border border-white/30 animate-ping" style={{ animationDuration: '2s', animationIterationCount: 'infinite' }}></div>
+              <div className="absolute inset-0" style={{ margin: '2px' }}>
+                <div className="absolute inset-0 rounded-full border border-white/40 animate-ping" style={{ animationDuration: '2s', animationDelay: '0.6s', animationIterationCount: 'infinite' }}></div>
+              </div>
+              <div className="absolute inset-0" style={{ margin: '4px' }}>
+                <div className="absolute inset-0 rounded-full border border-white/50 animate-ping" style={{ animationDuration: '2s', animationDelay: '1.2s', animationIterationCount: 'infinite' }}></div>
+              </div>
+              <div className="absolute inset-0 bg-white/10 rounded-full animate-pulse" style={{ animationDuration: '3s' }}></div>
+              <div className="relative w-14 h-14 rounded-full bg-white/15 backdrop-blur border border-white/30 flex items-center justify-center hover-scale">
+                <ChevronDown className="w-6 h-6 text-white transition-transform group-hover:translate-y-0.5" />
+              </div>
+            </div>
+          </button>
+        </section>
 
       {/* How BDBT Works - Collapsible Content */}
       <Collapsible open={isHowOpen} onOpenChange={setIsHowOpen}>
@@ -341,7 +365,7 @@ const Home = () => {
           </div>
 
           {/* How BDBT Works Trigger */}
-          <div className="flex justify-center mb-8">
+          <div className="flex justify-center mb-8" ref={howRef}>
             <Collapsible open={isHowWorkOpen} onOpenChange={setIsHowWorkOpen}>
               <CollapsibleTrigger asChild>
                 <div className="relative">
