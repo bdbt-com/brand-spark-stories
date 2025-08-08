@@ -44,33 +44,29 @@ const Home = () => {
       setTimeout(() => {
         const contentElement = howContentRef.current;
         if (contentElement) {
-          const rect = contentElement.getBoundingClientRect();
-          const centerY = rect.top + rect.height / 2;
-          const viewportCenter = window.innerHeight / 2;
-          const scrollTarget = window.scrollY + centerY - viewportCenter;
-          
-          window.scrollTo({
-            top: scrollTarget,
-            behavior: 'smooth'
+          contentElement.scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'center' 
           });
         }
-      }, 300);
+      }, 200);
     }
   };
 
   const howWorkTriggerRef = useRef<HTMLDivElement>(null);
   const handleHowWorkOpenChange = (open: boolean) => {
-    const el = howWorkTriggerRef.current;
-    const beforeTop = el ? el.getBoundingClientRect().top : null;
     setIsHowWorkOpen(open);
-    if (beforeTop !== null) {
-      requestAnimationFrame(() => {
-        const afterTop = el ? el.getBoundingClientRect().top : beforeTop;
-        const delta = afterTop - beforeTop;
-        if (Math.abs(delta) > 1) {
-          window.scrollBy({ top: delta, behavior: "auto" });
+    if (open) {
+      // Wait for content to expand, then scroll to center it
+      setTimeout(() => {
+        const contentElement = howWorkContentRef.current;
+        if (contentElement) {
+          contentElement.scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'center' 
+          });
         }
-      });
+      }, 200);
     }
   };
   const isPhotoLike = (src: string): Promise<boolean> =>
