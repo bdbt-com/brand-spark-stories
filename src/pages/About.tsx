@@ -225,9 +225,19 @@ const About = () => {
                           size="lg" 
                           className="relative hover:scale-105 transition-transform text-lg h-16 px-12 py-6 bg-background/95 backdrop-blur-sm border-primary/30 rounded-xl"
                           onClick={() => {
-                            setTimeout(() => {
-                              window.scrollTo({ top: 0, behavior: 'smooth' });
-                            }, 200);
+                            setIsStoryOpen(!isStoryOpen);
+                            if (!isStoryOpen) {
+                              // Wait for content to expand, then scroll to show the top of the story content
+                              setTimeout(() => {
+                                const storyContent = document.querySelector('[data-state="open"] .max-w-7xl');
+                                if (storyContent) {
+                                  storyContent.scrollIntoView({ 
+                                    behavior: 'smooth', 
+                                    block: 'start' 
+                                  });
+                                }
+                              }, 200);
+                            }
                           }}
                         >
                           <BookOpen className="w-6 h-6 mr-3" />
