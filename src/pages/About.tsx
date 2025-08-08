@@ -21,7 +21,7 @@ const About = () => {
             </p>
           </div>
           <div className="mt-8 flex justify-center">
-            <ChevronRipple to="/about#problem-1" label="Why change fails?" />
+            <ChevronRipple to="/about#problem-1" label="Why change fails?" size="sm" showLabel={false} />
           </div>
           
           <div className="space-y-32">
@@ -35,7 +35,7 @@ const About = () => {
               </p>
             </div>
             <div className="mt-8 flex justify-center">
-              <ChevronRipple to="/about#problem-2" label="One tip at a time?" />
+              <ChevronRipple to="/about#problem-2" label="One tip at a time?" size="sm" showLabel={false} />
             </div>
 
             {/* Second statement - Center aligned */}
@@ -48,7 +48,7 @@ const About = () => {
               </p>
             </div>
             <div className="mt-8 flex justify-center">
-              <ChevronRipple to="/about#problem-3" label="Why tips fail" />
+              <ChevronRipple to="/about#problem-3" label="Why tips fail" size="sm" showLabel={false} />
             </div>
 
             {/* Third statement - Center aligned with emphasis */}
@@ -64,7 +64,7 @@ const About = () => {
               </p>
             </div>
             <div className="mt-8 flex justify-center">
-              <ChevronRipple to="/about#problem-4" label="Modern life pressures" />
+              <ChevronRipple to="/about#problem-4" label="Modern life pressures" size="sm" showLabel={false} />
             </div>
 
             {/* Fourth statement - Center aligned */}
