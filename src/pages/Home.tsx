@@ -363,15 +363,32 @@ const Home = () => {
               </CollapsibleTrigger>
 
               <CollapsibleContent>
-                <div className="relative mt-8">
-                  {/* Thought Bubbles - Desktop */}
-                  <div className="hidden lg:block">
-                    <div className="absolute -top-6 left-4 bg-primary/10 text-foreground border border-primary/20 rounded-2xl shadow-strong px-3 py-2 text-sm">“I’m too busy.”</div>
-                    <div className="absolute -top-4 right-8 bg-accent/10 text-foreground border border-accent/20 rounded-2xl shadow-strong px-3 py-2 text-sm">“I always fail.”</div>
-                    <div className="absolute top-20 -left-6 bg-muted/70 text-foreground border border-muted-foreground/20 rounded-2xl shadow-strong px-3 py-2 text-sm">“Small habits don’t matter.”</div>
-                    <div className="absolute top-1/2 -right-10 bg-primary/10 text-foreground border border-primary/20 rounded-2xl shadow-strong px-3 py-2 text-sm">“People like me don’t change.”</div>
-                    <div className="absolute bottom-10 left-2 bg-accent/10 text-foreground border border-accent/20 rounded-2xl shadow-strong px-3 py-2 text-sm">“My environment will derail me.”</div>
-                    <div className="absolute -bottom-6 right-6 bg-muted/70 text-foreground border border-muted-foreground/20 rounded-2xl shadow-strong px-3 py-2 text-sm">“I’ll start when life calms down.”</div>
+                <div className="relative mt-8 max-w-4xl mx-auto lg:px-32">
+                  {/* Thought Bubbles - Desktop pinned outside like About photos */}
+                  {/* Left pinned stack */}
+                  <div className="hidden lg:block absolute left-0 top-0 w-[320px] space-y-4 z-10" style={{ left: '-110px' }}>
+                    <div className="w-[320px] bg-gradient-primary/10 border-2 border-primary/30 rounded-2xl shadow-strong animate-fade-in p-4 transform rotate-2 text-foreground/90" style={{ animationDelay: '400ms', marginTop: '0px' }}>
+                      “I’m too busy.”
+                    </div>
+                    <div className="w-[320px] bg-gradient-primary/10 border-2 border-primary/30 rounded-2xl shadow-strong animate-fade-in p-4 transform -rotate-1 text-foreground/90" style={{ animationDelay: '1200ms', marginTop: '420px' }}>
+                      “Small habits don’t matter.”
+                    </div>
+                    <div className="w-[320px] bg-gradient-primary/10 border-2 border-primary/30 rounded-2xl shadow-strong animate-fade-in p-4 transform rotate-1 text-foreground/90" style={{ animationDelay: '2000ms', marginTop: '420px' }}>
+                      “My environment will derail me.”
+                    </div>
+                  </div>
+
+                  {/* Right pinned stack */}
+                  <div className="hidden lg:block absolute right-0 top-0 w-[320px] space-y-4 z-10" style={{ right: '-110px' }}>
+                    <div className="w-[320px] bg-gradient-primary/10 border-2 border-primary/30 rounded-2xl shadow-strong animate-fade-in p-4 transform -rotate-2 text-foreground/90" style={{ animationDelay: '800ms', marginTop: '210px' }}>
+                      “I always fail.”
+                    </div>
+                    <div className="w-[320px] bg-gradient-primary/10 border-2 border-primary/30 rounded-2xl shadow-strong animate-fade-in p-4 transform rotate-1 text-foreground/90" style={{ animationDelay: '1600ms', marginTop: '420px' }}>
+                      “People like me don’t change.”
+                    </div>
+                    <div className="w-[320px] bg-gradient-primary/10 border-2 border-primary/30 rounded-2xl shadow-strong animate-fade-in p-4 transform -rotate-1 text-foreground/90" style={{ animationDelay: '2400ms', marginTop: '420px' }}>
+                      “I’ll start when life calms down.”
+                    </div>
                   </div>
 
                   <Card className="bg-background/95 backdrop-blur-sm border-primary/20 shadow-strong">
