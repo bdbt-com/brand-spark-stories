@@ -168,7 +168,7 @@ const Home = () => {
           <button
             aria-label="Scroll to How BDBT Works"
             onClick={handleScrollToHow}
-            className="group absolute z-10 -bottom-6 left-1/2 -translate-x-1/2"
+            className="group absolute z-10 bottom-8 left-1/2 -translate-x-1/2"
           >
             <div className="relative w-14 h-14">
               <div className="absolute inset-0 rounded-full border border-white/30 animate-ping" style={{ animationDuration: '2s', animationIterationCount: 'infinite' }}></div>
@@ -389,29 +389,29 @@ const Home = () => {
               <CollapsibleContent>
                 <div className="relative mt-8 max-w-4xl mx-auto lg:px-32">
                   {/* Thought Bubbles - Desktop pinned outside like About photos */}
-                  {/* Left pinned stack */}
-                  <div className="hidden lg:block absolute left-0 top-0 w-[320px] space-y-4 z-10" style={{ left: '-110px' }}>
-                    <div className="w-[320px] bg-gradient-primary/10 border-2 border-primary/30 rounded-2xl shadow-strong animate-fade-in p-4 transform rotate-2 text-foreground/90" style={{ animationDelay: '400ms', marginTop: '0px' }}>
-                      “I’m too busy.”
+                  {/* Left pinned stack - fills container height for percentage positioning */}
+                  <div className="hidden lg:block absolute left-0 top-0 bottom-0 w-[360px] z-10" style={{ left: '-160px' }}>
+                    <div className="absolute w-[360px] bg-gradient-primary/10 border-2 border-primary/30 rounded-2xl shadow-strong animate-fade-in p-5 transform rotate-2 scale-95 text-foreground/90" style={{ animationDelay: '400ms', top: '5%' }}>
+                      I'm too busy.
                     </div>
-                    <div className="w-[320px] bg-gradient-primary/10 border-2 border-primary/30 rounded-2xl shadow-strong animate-fade-in p-4 transform -rotate-1 text-foreground/90" style={{ animationDelay: '1200ms', marginTop: '420px' }}>
-                      “Small habits don’t matter.”
+                    <div className="absolute w-[360px] bg-gradient-primary/10 border-2 border-primary/30 rounded-2xl shadow-strong animate-fade-in p-5 transform -rotate-1 scale-100 text-foreground/90" style={{ animationDelay: '1200ms', top: '45%' }}>
+                      Small habits don't matter.
                     </div>
-                    <div className="w-[320px] bg-gradient-primary/10 border-2 border-primary/30 rounded-2xl shadow-strong animate-fade-in p-4 transform rotate-1 text-foreground/90" style={{ animationDelay: '2000ms', marginTop: '420px' }}>
-                      “My environment will derail me.”
+                    <div className="absolute w-[360px] bg-gradient-primary/10 border-2 border-primary/30 rounded-2xl shadow-strong animate-fade-in p-5 transform rotate-1 scale-105 text-foreground/90" style={{ animationDelay: '2000ms', top: '85%' }}>
+                      My environment will derail me.
                     </div>
                   </div>
 
-                  {/* Right pinned stack */}
-                  <div className="hidden lg:block absolute right-0 top-0 w-[320px] space-y-4 z-10" style={{ right: '-110px' }}>
-                    <div className="w-[320px] bg-gradient-primary/10 border-2 border-primary/30 rounded-2xl shadow-strong animate-fade-in p-4 transform -rotate-2 text-foreground/90" style={{ animationDelay: '800ms', marginTop: '210px' }}>
-                      “I always fail.”
+                  {/* Right pinned stack - fills container height for percentage positioning */}
+                  <div className="hidden lg:block absolute right-0 top-0 bottom-0 w-[360px] z-10" style={{ right: '-160px' }}>
+                    <div className="absolute w-[360px] bg-gradient-primary/10 border-2 border-primary/30 rounded-2xl shadow-strong animate-fade-in p-5 transform -rotate-2 scale-95 text-foreground/90" style={{ animationDelay: '800ms', top: '20%' }}>
+                      I always fail.
                     </div>
-                    <div className="w-[320px] bg-gradient-primary/10 border-2 border-primary/30 rounded-2xl shadow-strong animate-fade-in p-4 transform rotate-1 text-foreground/90" style={{ animationDelay: '1600ms', marginTop: '420px' }}>
-                      “People like me don’t change.”
+                    <div className="absolute w-[360px] bg-gradient-primary/10 border-2 border-primary/30 rounded-2xl shadow-strong animate-fade-in p-5 transform rotate-1 scale-100 text-foreground/90" style={{ animationDelay: '1600ms', top: '60%' }}>
+                      People like me don't change.
                     </div>
-                    <div className="w-[320px] bg-gradient-primary/10 border-2 border-primary/30 rounded-2xl shadow-strong animate-fade-in p-4 transform -rotate-1 text-foreground/90" style={{ animationDelay: '2400ms', marginTop: '420px' }}>
-                      “I’ll start when life calms down.”
+                    <div className="absolute w-[360px] bg-gradient-primary/10 border-2 border-primary/30 rounded-2xl shadow-strong animate-fade-in p-5 transform -rotate-1 scale-105 text-foreground/90" style={{ animationDelay: '2400ms', top: '95%' }}>
+                      I'll start when life calms down.
                     </div>
                   </div>
 
