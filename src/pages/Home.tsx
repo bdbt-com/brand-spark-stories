@@ -148,7 +148,17 @@ const Home = () => {
                   </div>
                   <div className="absolute inset-0 bg-accent-light/10 rounded-xl animate-pulse transform scale-50" style={{ animationDuration: '3s' }}></div>
                   <Button variant="secondary" size="lg" asChild className="relative hover:scale-105 transition-transform duration-200 rounded-xl h-14 md:h-16 px-8 md:px-10 text-lg md:text-xl">
-                    <Link to="/about" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+                    <Link 
+                      to="/about#story" 
+                      onClick={() => {
+                        setTimeout(() => {
+                          const storyElement = document.getElementById('story');
+                          if (storyElement) {
+                            storyElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                          }
+                        }, 100);
+                      }}
+                    >
                       📖 Read My Story <ArrowRight className="w-5 h-5" />
                     </Link>
                   </Button>
@@ -482,7 +492,19 @@ const Home = () => {
                             <ChevronDown className="w-5 h-5 text-muted-foreground my-2" />
 
                             {/* Step: Read My Story */}
-                            <Link to="/about" className="group" aria-label="Read My Story">
+                            <Link 
+                              to="/about#story" 
+                              className="group" 
+                              aria-label="Read My Story"
+                              onClick={() => {
+                                setTimeout(() => {
+                                  const storyElement = document.getElementById('story');
+                                  if (storyElement) {
+                                    storyElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                  }
+                                }, 100);
+                              }}
+                            >
                               <div className="relative w-14 h-14">
                                 <div className="absolute inset-0 rounded-full border border-accent-light/40 animate-ping" style={{ animationDuration: '2s', animationIterationCount: 'infinite' }}></div>
                                 <div className="absolute inset-0" style={{ margin: '2px' }}>
@@ -617,7 +639,19 @@ const Home = () => {
                     </CardContent>
                   </Card>
                   <div className="flex justify-center mt-10 mb-4">
-                    <ChevronRipple to="/about" label="Read My Story" color="accent" />
+                    <ChevronRipple 
+                      to="/about#story" 
+                      label="Read My Story" 
+                      color="accent"
+                      onClick={() => {
+                        setTimeout(() => {
+                          const storyElement = document.getElementById('story');
+                          if (storyElement) {
+                            storyElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                          }
+                        }, 100);
+                      }}
+                    />
                   </div>
                 </div>
               </CollapsibleContent>
