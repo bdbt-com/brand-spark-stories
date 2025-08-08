@@ -9,8 +9,78 @@ import { useState } from "react";
 const About = () => {
   const [isStoryOpen, setIsStoryOpen] = useState(false);
   return <div className="min-h-screen">
+      {/* The Problem Section */}
+      <section id="problem" className="py-32 bg-background">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-20">
+            <h2 className="text-4xl lg:text-6xl font-bold mb-8 text-foreground tracking-tight">
+              The Problem
+            </h2>
+            <p className="text-xl text-muted-foreground font-light max-w-2xl mx-auto">
+              We live in a world obsessed with doing more
+            </p>
+          </div>
+          
+          <div className="space-y-32">
+            {/* First statement - Center aligned */}
+            <div className="text-center max-w-4xl mx-auto">
+              <h3 className="text-4xl lg:text-5xl font-bold leading-tight text-foreground mb-6">
+                Why do traditional approaches fail to create lasting change?
+              </h3>
+              <p className="text-xl text-muted-foreground font-light">
+                More workouts. More goals. More hustle. Yet most people feel stuck, drained, and uncertain.
+              </p>
+            </div>
+
+            {/* Second statement - Center aligned */}
+            <div className="text-center max-w-4xl mx-auto">
+              <h3 className="text-4xl lg:text-5xl font-bold leading-tight text-foreground mb-6">
+                We're told to fix our lives one isolated tip at a time.
+              </h3>
+              <p className="text-xl text-muted-foreground font-light">
+                A budgeting app here. A gym membership there. A meditation streak that lasts three days.
+              </p>
+            </div>
+
+            {/* Third statement - Center aligned with emphasis */}
+            <div className="text-center max-w-4xl mx-auto">
+              <h3 className="text-4xl lg:text-5xl font-bold leading-tight text-foreground mb-6">
+                But nothing sticks.
+              </h3>
+              <p className="text-xl text-muted-foreground font-light mb-4">
+                Not because people are lazy. Not because they're broken.
+              </p>
+              <p className="text-xl text-foreground font-semibold">
+                But because the old model is broken.
+              </p>
+            </div>
+
+            {/* Fourth statement - Center aligned */}
+            <div className="text-center max-w-4xl mx-auto">
+              <h3 className="text-4xl lg:text-5xl font-bold leading-tight text-foreground mb-6">
+                Meanwhile, modern life pushes us further behind.
+              </h3>
+              <p className="text-xl text-muted-foreground font-light">
+                Sit more. Scroll more. Consume more. With every new demand, we feel more overwhelmed.
+              </p>
+            </div>
+            {/* Down Arrow to next section */}
+            <div className="mt-12 flex justify-center">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="rounded-full w-12 h-12 bg-primary/10 hover:bg-primary/20 text-primary shadow-soft"
+                onClick={() => document.getElementById('story')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+                aria-label="Scroll to Read My Story"
+              >
+                <ArrowDown className="w-6 h-6" />
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
       {/* Hero Section - Owner Story */}
-      <section className="py-20 lg:py-32 bg-gradient-to-br from-background via-muted/30 to-primary/5 relative overflow-hidden">
+      <section id="story" className="py-20 lg:py-32 bg-gradient-to-br from-background via-muted/30 to-primary/5 relative overflow-hidden">
         <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -466,76 +536,6 @@ const About = () => {
         </div>
       </section>
 
-      {/* The Problem Section */}
-      <section id="problem" className="py-32 bg-background">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-20">
-            <h2 className="text-4xl lg:text-6xl font-bold mb-8 text-foreground tracking-tight">
-              The Problem
-            </h2>
-            <p className="text-xl text-muted-foreground font-light max-w-2xl mx-auto">
-              We live in a world obsessed with doing more
-            </p>
-          </div>
-          
-          <div className="space-y-32">
-            {/* First statement - Center aligned */}
-            <div className="text-center max-w-4xl mx-auto">
-              <h3 className="text-4xl lg:text-5xl font-bold leading-tight text-foreground mb-6">
-                Why do traditional approaches fail to create lasting change?
-              </h3>
-              <p className="text-xl text-muted-foreground font-light">
-                More workouts. More goals. More hustle. Yet most people feel stuck, drained, and uncertain.
-              </p>
-            </div>
-
-            {/* Second statement - Center aligned */}
-            <div className="text-center max-w-4xl mx-auto">
-              <h3 className="text-4xl lg:text-5xl font-bold leading-tight text-foreground mb-6">
-                We're told to fix our lives one isolated tip at a time.
-              </h3>
-              <p className="text-xl text-muted-foreground font-light">
-                A budgeting app here. A gym membership there. A meditation streak that lasts three days.
-              </p>
-            </div>
-
-            {/* Third statement - Center aligned with emphasis */}
-            <div className="text-center max-w-4xl mx-auto">
-              <h3 className="text-4xl lg:text-5xl font-bold leading-tight text-foreground mb-6">
-                But nothing sticks.
-              </h3>
-              <p className="text-xl text-muted-foreground font-light mb-4">
-                Not because people are lazy. Not because they're broken.
-              </p>
-              <p className="text-xl text-foreground font-semibold">
-                But because the old model is broken.
-              </p>
-            </div>
-
-            {/* Fourth statement - Center aligned */}
-            <div className="text-center max-w-4xl mx-auto">
-              <h3 className="text-4xl lg:text-5xl font-bold leading-tight text-foreground mb-6">
-                Meanwhile, modern life pushes us further behind.
-              </h3>
-              <p className="text-xl text-muted-foreground font-light">
-                Sit more. Scroll more. Consume more. With every new demand, we feel more overwhelmed.
-              </p>
-            </div>
-            {/* Down Arrow to next section */}
-            <div className="mt-12 flex justify-center">
-              <Button
-                variant="ghost"
-                size="icon"
-                className="rounded-full w-12 h-12 bg-primary/10 hover:bg-primary/20 text-primary shadow-soft"
-                onClick={() => document.getElementById('why-habit-driven-lifestyles-work')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
-                aria-label="Scroll to next section"
-              >
-                <ArrowDown className="w-6 h-6" />
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* The Truth Section */}
       <section id="why-habit-driven-lifestyles-work" className="py-20 bg-gradient-subtle">
