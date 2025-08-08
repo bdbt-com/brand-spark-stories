@@ -10,7 +10,7 @@ const About = () => {
   const [isStoryOpen, setIsStoryOpen] = useState(false);
   return <div className="min-h-screen">
       {/* The Problem Section */}
-      <section id="problem" className="pt-32 pb-80 lg:pt-40 lg:pb-96 bg-background">
+      <section id="problem" className="py-32 bg-background">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-32">
             <h2 className="text-4xl lg:text-6xl font-bold mb-8 text-foreground tracking-tight">
@@ -24,9 +24,9 @@ const About = () => {
             <ChevronRipple to="/about#problem-1" label="Why change fails?" size="sm" showLabel={false} variant="minimal" />
           </div>
           
-          <div className="space-y-0">
+          <div className="">
             {/* First statement - Center aligned */}
-            <div id="problem-1" className="text-center max-w-4xl mx-auto">
+            <div id="problem-1" className="text-center max-w-4xl mx-auto mt-32">
               <h3 className="text-4xl lg:text-5xl font-bold leading-tight text-foreground mb-8">
                 Why do traditional approaches fail to create lasting change?
               </h3>
@@ -39,7 +39,7 @@ const About = () => {
             </div>
 
             {/* Second statement - Center aligned */}
-            <div id="problem-2" className="text-center max-w-4xl mx-auto">
+            <div id="problem-2" className="text-center max-w-4xl mx-auto mt-32">
               <h3 className="text-4xl lg:text-5xl font-bold leading-tight text-foreground mb-8">
                 We're told to fix our lives one isolated tip at a time.
               </h3>
