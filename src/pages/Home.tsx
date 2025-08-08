@@ -40,13 +40,13 @@ const Home = () => {
   const handleHowOpenChange = (open: boolean) => {
     setIsHowOpen(open);
     if (open) {
-      // Wait for content to expand, then scroll to center it
+      // Wait for content to expand, then scroll to show the top of the content
       setTimeout(() => {
         const contentElement = howContentRef.current;
         if (contentElement) {
           contentElement.scrollIntoView({ 
             behavior: 'smooth', 
-            block: 'center' 
+            block: 'start' 
           });
         }
       }, 200);
@@ -57,13 +57,13 @@ const Home = () => {
   const handleHowWorkOpenChange = (open: boolean) => {
     setIsHowWorkOpen(open);
     if (open) {
-      // Wait for content to expand, then scroll to center it
+      // Wait for content to expand, then scroll to show the top of the content
       setTimeout(() => {
         const contentElement = howWorkContentRef.current;
         if (contentElement) {
           contentElement.scrollIntoView({ 
             behavior: 'smooth', 
-            block: 'center' 
+            block: 'start' 
           });
         }
       }, 200);

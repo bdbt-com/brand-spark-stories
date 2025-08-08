@@ -131,7 +131,7 @@ const About = () => {
                 variant="minimal"
                 onClick={() => {
                   const currentArrow = document.getElementById('arrow-4');
-                  if (currentArrow) smoothScrollToNext(currentArrow, 'story');
+                  if (currentArrow) smoothScrollToNext(currentArrow, 'problem-4');
                 }}
               />
             </div>
