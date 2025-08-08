@@ -33,6 +33,21 @@ const Home = () => {
     howRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
   };
 
+  const howWorkTriggerRef = useRef<HTMLDivElement>(null);
+  const handleHowWorkOpenChange = (open: boolean) => {
+    const el = howWorkTriggerRef.current;
+    const beforeTop = el ? el.getBoundingClientRect().top : null;
+    setIsHowWorkOpen(open);
+    if (beforeTop !== null) {
+      requestAnimationFrame(() => {
+        const afterTop = el ? el.getBoundingClientRect().top : beforeTop;
+        const delta = afterTop - beforeTop;
+        if (Math.abs(delta) > 1) {
+          window.scrollBy({ top: delta, behavior: "auto" });
+        }
+      });
+    }
+  };
   const isPhotoLike = (src: string): Promise<boolean> =>
     new Promise((resolve) => {
       const img = new Image();
@@ -366,9 +381,9 @@ const Home = () => {
 
           {/* How BDBT Works Trigger */}
           <div className="flex justify-center mb-8" ref={howRef}>
-            <Collapsible open={isHowWorkOpen} onOpenChange={setIsHowWorkOpen}>
+            <Collapsible open={isHowWorkOpen} onOpenChange={handleHowWorkOpenChange}>
               <CollapsibleTrigger asChild>
-                <div className="relative">
+                <div className="relative" ref={howWorkTriggerRef}>
                   <div className="absolute inset-0">
                     <div className="absolute inset-0 rounded-xl border border-blue-400/50 animate-ping" style={{ animationDuration: '2s', animationIterationCount: 'infinite' }}></div>
                   </div>
@@ -474,6 +489,25 @@ const Home = () => {
                       </article>
                     </CardContent>
                   </Card>
+                  <div className="flex justify-center mt-10 mb-4">
+                    <div className="relative">
+                      <div className="absolute inset-0">
+                        <div className="absolute inset-0 rounded-xl border border-accent-light/40 animate-ping transform scale-50" style={{ animationDuration: '2s', animationIterationCount: 'infinite' }}></div>
+                      </div>
+                      <div className="absolute inset-0" style={{ margin: '1px' }}>
+                        <div className="absolute inset-0 rounded-xl border border-accent-light/50 animate-ping transform scale-50" style={{ animationDuration: '2s', animationDelay: '0.7s', animationIterationCount: 'infinite' }}></div>
+                      </div>
+                      <div className="absolute inset-0" style={{ margin: '2px' }}>
+                        <div className="absolute inset-0 rounded-xl border border-accent-light/60 animate-ping transform scale-50" style={{ animationDuration: '2s', animationDelay: '1.4s', animationIterationCount: 'infinite' }}></div>
+                      </div>
+                      <div className="absolute inset-0 bg-accent-light/10 rounded-xl animate-pulse transform scale-50" style={{ animationDuration: '3s' }}></div>
+                      <Button variant="secondary" size="lg" asChild className="relative hover:scale-105 transition-transform duration-200 rounded-xl h-14 md:h-16 px-8 md:px-10 text-lg md:text-xl">
+                        <Link to="/about" aria-label="Read more: How BDBT worked for me">
+                          How BDBT worked for me <ArrowRight className="w-5 h-5" />
+                        </Link>
+                      </Button>
+                    </div>
+                  </div>
                 </div>
               </CollapsibleContent>
             </Collapsible>
