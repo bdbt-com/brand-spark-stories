@@ -668,12 +668,8 @@ const Home = () => {
                       label="Read My Story" 
                       color="accent"
                       onClick={() => {
-                        setTimeout(() => {
-                          const storyElement = document.getElementById('story');
-                          if (storyElement) {
-                            storyElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                          }
-                        }, 100);
+                        // Navigate to About page first, then scroll to story
+                        window.location.href = '/about#story';
                       }}
                     />
                   </div>
