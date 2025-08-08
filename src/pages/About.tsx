@@ -27,7 +27,7 @@ const About = () => {
           <div className="space-y-0">
             {/* First statement - Center aligned */}
             <div id="problem-1" className="text-center max-w-4xl mx-auto">
-              <h3 className="text-4xl lg:text-5xl font-bold leading-tight text-foreground mb-6">
+              <h3 className="text-4xl lg:text-5xl font-bold leading-tight text-foreground mb-8">
                 Why do traditional approaches fail to create lasting change?
               </h3>
               <p className="text-xl text-muted-foreground font-light">
@@ -40,7 +40,7 @@ const About = () => {
 
             {/* Second statement - Center aligned */}
             <div id="problem-2" className="text-center max-w-4xl mx-auto">
-              <h3 className="text-4xl lg:text-5xl font-bold leading-tight text-foreground mb-6">
+              <h3 className="text-4xl lg:text-5xl font-bold leading-tight text-foreground mb-8">
                 We're told to fix our lives one isolated tip at a time.
               </h3>
               <p className="text-xl text-muted-foreground font-light">
@@ -53,7 +53,7 @@ const About = () => {
 
             {/* Third statement - Center aligned with emphasis */}
             <div id="problem-3" className="text-center max-w-4xl mx-auto">
-              <h3 className="text-4xl lg:text-5xl font-bold leading-tight text-foreground mb-6">
+              <h3 className="text-4xl lg:text-5xl font-bold leading-tight text-foreground mb-8">
                 But nothing sticks.
               </h3>
               <p className="text-xl text-muted-foreground font-light mb-4">
@@ -69,7 +69,7 @@ const About = () => {
 
             {/* Fourth statement - Center aligned */}
             <div id="problem-4" className="text-center max-w-4xl mx-auto">
-              <h3 className="text-4xl lg:text-5xl font-bold leading-tight text-foreground mb-6">
+              <h3 className="text-4xl lg:text-5xl font-bold leading-tight text-foreground mb-8">
                 Meanwhile, modern life pushes us further behind.
               </h3>
               <p className="text-xl text-muted-foreground font-light">
