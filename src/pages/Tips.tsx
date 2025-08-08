@@ -2,6 +2,7 @@ import { useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import TipCard from "@/components/TipCard";
+import ChevronRipple from "@/components/ChevronRipple";
 import { 
   Heart,
   DollarSign,
