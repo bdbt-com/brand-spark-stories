@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import ChevronRipple from "@/components/ChevronRipple";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -311,6 +312,9 @@ const DailyWins = () => {
               <Link to="/partnership">Submit Your Win</Link>
             </Button>
           </div>
+        </div>
+        <div className="flex justify-center my-12">
+          <ChevronRipple to="/podcast" label="Watch the Latest Podcast" />
         </div>
       </div>
     </div>

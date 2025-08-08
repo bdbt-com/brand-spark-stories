@@ -2074,6 +2074,9 @@ const Tips = () => {
             </Button>
           </div>
         )}
+        <div className="flex justify-center my-12">
+          <ChevronRipple to="/daily-wins" label="Add to the Daily Wins Page" />
+        </div>
       </div>
     </div>
   );

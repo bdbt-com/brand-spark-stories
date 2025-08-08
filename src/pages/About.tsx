@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Clock, Heart, Award, Users2, Quote, BookOpen, Target, Star, TrendingUp, Zap, AlertTriangle, CheckCircle, ArrowRight, ArrowDown, BarChart3, Brain, Lightbulb, ChevronDown, User } from "lucide-react";
 import { Link } from "react-router-dom";
+import ChevronRipple from "@/components/ChevronRipple";
 import { useState } from "react";
 const About = () => {
   const [isStoryOpen, setIsStoryOpen] = useState(false);
@@ -451,6 +452,9 @@ const About = () => {
                             <ArrowRight className="w-5 h-5 ml-2" />
                           </Link>
                         </Button>
+                        <div className="flex justify-center mt-8">
+                          <ChevronRipple to="/blueprint" label="Download and Read the Blueprint" />
+                        </div>
                       </div>
                     </div>
                   </CardContent>

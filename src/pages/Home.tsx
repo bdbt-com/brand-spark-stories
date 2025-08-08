@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "@/components/ui/carousel";
 import { useEffect, useState, useRef } from "react";
 import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "@/components/ui/collapsible";
+import ChevronRipple from "@/components/ChevronRipple";
 
 const Home = () => {
   const images = [
@@ -147,7 +148,7 @@ const Home = () => {
                   </div>
                   <div className="absolute inset-0 bg-accent-light/10 rounded-xl animate-pulse transform scale-50" style={{ animationDuration: '3s' }}></div>
                   <Button variant="secondary" size="lg" asChild className="relative hover:scale-105 transition-transform duration-200 rounded-xl h-14 md:h-16 px-8 md:px-10 text-lg md:text-xl">
-                    <Link to="/about">
+                    <Link to="/about" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
                       📖 Read My Story <ArrowRight className="w-5 h-5" />
                     </Link>
                   </Button>
@@ -438,7 +439,7 @@ const Home = () => {
                         <h2 className="text-3xl font-bold text-foreground mb-6">How BDBT Works for You</h2>
 
                         {/* Guided Path Chevrons */}
-                        <section aria-label="Guided BDBT Path" className="my-8">
+                        <section aria-label="Guided BDBT Path" className="my-8 hidden">
                           <div className="flex flex-col items-center">
                             {/* Step: Home Page */}
                             <Link to="/" className="group" aria-label="Go to Home Page">
@@ -616,23 +617,7 @@ const Home = () => {
                     </CardContent>
                   </Card>
                   <div className="flex justify-center mt-10 mb-4">
-                    <div className="relative">
-                      <div className="absolute inset-0">
-                        <div className="absolute inset-0 rounded-xl border border-accent-light/40 animate-ping transform scale-50" style={{ animationDuration: '2s', animationIterationCount: 'infinite' }}></div>
-                      </div>
-                      <div className="absolute inset-0" style={{ margin: '1px' }}>
-                        <div className="absolute inset-0 rounded-xl border border-accent-light/50 animate-ping transform scale-50" style={{ animationDuration: '2s', animationDelay: '0.7s', animationIterationCount: 'infinite' }}></div>
-                      </div>
-                      <div className="absolute inset-0" style={{ margin: '2px' }}>
-                        <div className="absolute inset-0 rounded-xl border border-accent-light/60 animate-ping transform scale-50" style={{ animationDuration: '2s', animationDelay: '1.4s', animationIterationCount: 'infinite' }}></div>
-                      </div>
-                      <div className="absolute inset-0 bg-accent-light/10 rounded-xl animate-pulse transform scale-50" style={{ animationDuration: '3s' }}></div>
-                      <Button variant="secondary" size="lg" asChild className="relative hover:scale-105 transition-transform duration-200 rounded-xl h-14 md:h-16 px-8 md:px-10 text-lg md:text-xl">
-                        <Link to="/about" aria-label="Read more: How BDBT worked for me">
-                          How BDBT worked for me <ArrowRight className="w-5 h-5" />
-                        </Link>
-                      </Button>
-                    </div>
+                    <ChevronRipple to="/about" label="Read My Story" color="accent" />
                   </div>
                 </div>
               </CollapsibleContent>
