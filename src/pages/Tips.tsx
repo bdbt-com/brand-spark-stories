@@ -1972,6 +1972,10 @@ const Tips = () => {
             Transform your life with our comprehensive collection of proven strategies, actionable frameworks, 
             and practical guides. All completely free for our community.
           </p>
+          <div className="mt-8 flex justify-center gap-10 animate-fade-in" style={{ animationDelay: "120ms" }}>
+            <ChevronRipple to="/daily-wins" label="Add to the Daily Wins Page" />
+            <ChevronRipple to="/podcast" label="Go to Podcast" color="accent" />
+          </div>
         </div>
 
         {/* Filters and Sorting */}
@@ -2075,9 +2079,6 @@ const Tips = () => {
             </Button>
           </div>
         )}
-        <div className="flex justify-center my-12">
-          <ChevronRipple to="/daily-wins" label="Add to the Daily Wins Page" />
-        </div>
       </div>
     </div>
   );
