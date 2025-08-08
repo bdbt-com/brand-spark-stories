@@ -25,9 +25,18 @@ export default function ChevronRipple({ to, label, color = "primary", size = "md
   const c = colorClasses[color];
   const sizeClass = size === "sm" ? "w-12 h-12" : "w-14 h-14";
   const iconSizeClass = size === "sm" ? "w-4 h-4" : "w-6 h-6";
+  const handleClick = () => {
+    if (onClick) {
+      onClick();
+    } else {
+      // Default behavior - navigate to the link
+      window.location.href = to;
+    }
+  };
+
   return (
     <div className="flex flex-col items-center">
-      <div onClick={onClick} className="group cursor-pointer">
+      <div onClick={handleClick} className="group cursor-pointer">
         <div className={`relative ${sizeClass}`}>
           <div className={`absolute inset-0 rounded-full ${c.ring} animate-ping`} style={{ animationDuration: "2s", animationIterationCount: "infinite", display: variant === "minimal" ? "none" : undefined }} />
           <div className="absolute inset-0" style={{ margin: "2px" }}>
