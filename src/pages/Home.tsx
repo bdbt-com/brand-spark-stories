@@ -30,8 +30,32 @@ const Home = () => {
   const [isHowOpen, setIsHowOpen] = useState(false);
   const [isHowWorkOpen, setIsHowWorkOpen] = useState(false);
   const howRef = useRef<HTMLDivElement>(null);
+  const howWorkContentRef = useRef<HTMLDivElement>(null);
+  const howContentRef = useRef<HTMLDivElement>(null);
+  
   const handleScrollToHow = () => {
     howRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+  };
+
+  const handleHowOpenChange = (open: boolean) => {
+    setIsHowOpen(open);
+    if (open) {
+      // Wait for content to expand, then scroll to center it
+      setTimeout(() => {
+        const contentElement = howContentRef.current;
+        if (contentElement) {
+          const rect = contentElement.getBoundingClientRect();
+          const centerY = rect.top + rect.height / 2;
+          const viewportCenter = window.innerHeight / 2;
+          const scrollTarget = window.scrollY + centerY - viewportCenter;
+          
+          window.scrollTo({
+            top: scrollTarget,
+            behavior: 'smooth'
+          });
+        }
+      }, 300);
+    }
   };
 
   const howWorkTriggerRef = useRef<HTMLDivElement>(null);
@@ -213,8 +237,8 @@ const Home = () => {
         </section>
 
       {/* How BDBT Works - Collapsible Content */}
-      <Collapsible open={isHowOpen} onOpenChange={setIsHowOpen}>
-        <CollapsibleContent>
+      <Collapsible open={isHowOpen} onOpenChange={handleHowOpenChange}>
+        <CollapsibleContent ref={howContentRef}>
           <div className="py-12 bg-gradient-subtle border-t">
             <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
               <Card className="bg-background/95 backdrop-blur-sm border-primary/20 shadow-strong">
@@ -414,7 +438,7 @@ const Home = () => {
                 </CollapsibleTrigger>
               </div>
 
-              <CollapsibleContent>
+              <CollapsibleContent ref={howWorkContentRef}>
                 <div className="relative mt-8 max-w-4xl mx-auto lg:px-32">
                   {/* Thought Bubbles - Desktop pinned outside like About photos */}
                   {/* Left pinned stack - fills container height for percentage positioning */}
