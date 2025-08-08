@@ -68,7 +68,7 @@ const About = () => {
             </div>
 
             {/* Fourth statement - Center aligned */}
-            <div id="problem-4" className="text-center max-w-4xl mx-auto">
+            <div id="problem-4" className="text-center max-w-4xl mx-auto mt-32">
               <h3 className="text-4xl lg:text-5xl font-bold leading-tight text-foreground mb-8">
                 Meanwhile, modern life pushes us further behind.
               </h3>
@@ -77,7 +77,7 @@ const About = () => {
               </p>
             </div>
             {/* Down Arrow to next section */}
-            <div className="mt-12 flex justify-center">
+            <div className="my-64 flex justify-center">
               <Button
                 variant="ghost"
                 size="icon"
