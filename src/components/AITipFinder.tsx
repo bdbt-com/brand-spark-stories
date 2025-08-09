@@ -113,7 +113,7 @@ const AITipFinder = ({ tips, onTipHighlight }: AITipFinderProps) => {
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2 text-lg font-semibold shrink-0">
             <Brain className="w-5 h-5 text-primary" />
-            AI TIP Finder
+            Find your custom solution
           </div>
           
           <div className="flex-1 flex gap-2">
