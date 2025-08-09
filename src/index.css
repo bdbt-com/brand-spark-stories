@@ -7,13 +7,13 @@
 @layer base {
   :root {
     --background: 30 15% 94%;
-    --foreground: 215 25% 27%;
+    --foreground: 0 0% 0%;
 
     --card: 30 15% 94%;
-    --card-foreground: 215 25% 27%;
+    --card-foreground: 0 0% 0%;
 
     --popover: 30 15% 94%;
-    --popover-foreground: 215 25% 27%;
+    --popover-foreground: 0 0% 0%;
 
     --primary: 215 25% 27%;
     --primary-foreground: 30 15% 94%;
@@ -21,15 +21,15 @@
     --primary-light: 30 15% 88%;
 
     --secondary: 15 12% 85%;
-    --secondary-foreground: 215 25% 27%;
+    --secondary-foreground: 0 0% 0%;
 
     --muted: 15 12% 85%;
-    --muted-foreground: 15 12% 55%;
+    --muted-foreground: 0 0% 0%;
 
-    --accent: 12 35% 57%;
+    --accent: 215 25% 27%;
     --accent-foreground: 30 15% 94%;
-    --accent-light: 12 35% 67%;
-    --accent-lighter: 12 35% 85%;
+    --accent-light: 215 25% 40%;
+    --accent-lighter: 215 25% 85%;
 
     --success: 160 25% 45%;
     --success-foreground: 30 15% 94%;
@@ -46,6 +46,8 @@
     --border: 30 12% 82%;
     --input: 30 12% 82%;
     --ring: 215 25% 27%;
+    
+    --nav-background: 15 12% 45%;
 
     /* Enhanced spacing tokens */
     --spacing-xs: 0.25rem;
@@ -72,8 +74,8 @@
 
     /* Enhanced gradients */
     --gradient-primary: linear-gradient(135deg, hsl(215 25% 27%) 0%, hsl(215 25% 45%) 100%);
-    --gradient-accent: linear-gradient(135deg, hsl(12 35% 57%) 0%, hsl(12 35% 67%) 100%);
-    --gradient-hero: linear-gradient(135deg, hsl(215 25% 27%) 0%, hsl(12 35% 57%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(215 25% 27%) 0%, hsl(215 25% 40%) 100%);
+    --gradient-hero: linear-gradient(135deg, hsl(215 25% 27%) 0%, hsl(215 25% 40%) 100%);
     --gradient-subtle: linear-gradient(180deg, hsl(30 15% 94%) 0%, hsl(15 12% 90%) 100%);
     --gradient-card: linear-gradient(145deg, hsl(30 15% 94%) 0%, hsl(30 12% 88%) 100%);
 
@@ -83,7 +85,7 @@
     --shadow-soft: 0 4px 6px -1px hsl(215 25% 27% / 0.1), 0 2px 4px -2px hsl(215 25% 27% / 0.1);
     --shadow-medium: 0 10px 15px -3px hsl(215 25% 27% / 0.1), 0 4px 6px -4px hsl(215 25% 27% / 0.1);
     --shadow-strong: 0 20px 25px -5px hsl(215 25% 27% / 0.1), 0 8px 10px -6px hsl(215 25% 27% / 0.1);
-    --shadow-accent: 0 10px 25px -3px hsl(12 35% 57% / 0.3), 0 4px 6px -4px hsl(12 35% 57% / 0.15);
+    --shadow-accent: 0 10px 25px -3px hsl(215 25% 27% / 0.3), 0 4px 6px -4px hsl(215 25% 27% / 0.15);
     --shadow-glow: 0 0 20px hsl(12 35% 67% / 0.4);
 
     /* Enhanced animations */
