@@ -280,20 +280,15 @@ const Tips = () => {
 
           {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in" style={{ animationDelay: "100ms" }}>
-            <ChevronRipple to="/daily-wins" label="Add to the Daily Wins Page" />
-            <ChevronRipple to="/podcast" label="Go to Podcast" color="accent" />
+            <ChevronRipple to="/daily-wins" label="Add to the Daily Wins Page" color="white" />
+            <ChevronRipple to="/podcast" label="Go to Podcast" color="white" />
           </div>
         </div>
 
       </section>
 
-      {/* AI Tip Finder */}
-      <div className="animate-fade-in" style={{ animationDelay: "150ms" }}>
-        <AITipFinder tips={tipCategories} onTipHighlight={handleTipHighlight} />
-      </div>
-
       {/* Filters and Sorting */}
-      <div className="mb-12 animate-fade-in" style={{ animationDelay: "200ms" }}>
+      <div className="py-8 bg-background/50 animate-fade-in" style={{ animationDelay: "150ms" }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col lg:flex-row gap-6 items-center justify-between">
             {/* Sort Options */}
@@ -313,6 +308,11 @@ const Tips = () => {
             </div>
           </div>
         </div>
+      </div>
+
+      {/* AI Tip Finder */}
+      <div className="animate-fade-in" style={{ animationDelay: "200ms" }}>
+        <AITipFinder tips={tipCategories} onTipHighlight={handleTipHighlight} />
       </div>
 
       {/* Tips Grid */}
