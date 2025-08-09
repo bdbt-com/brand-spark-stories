@@ -62,14 +62,6 @@ const TipCard = ({ tip, index }: TipCardProps) => {
               <div className="w-14 h-14 bg-gradient-primary rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-soft group-hover:shadow-medium">
                 <tip.icon className="w-7 h-7 text-white" />
               </div>
-              <div className="flex flex-col gap-2 items-center">
-                <Badge className={`${getCategoryColor(tip.category)} text-xs font-semibold tracking-wide`} variant="outline">
-                  {tip.category.charAt(0).toUpperCase() + tip.category.slice(1)}
-                </Badge>
-                <Badge className={`${getLevelColor(tip.level)} text-xs font-semibold tracking-wide`} variant="outline">
-                  {tip.level}
-                </Badge>
-              </div>
             </div>
             <div className="flex flex-col items-center h-auto min-h-[60px]">
               <CardTitle className="text-lg leading-tight group-hover:text-primary transition-colors text-center break-words font-semibold">
