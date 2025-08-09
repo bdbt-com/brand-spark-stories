@@ -18,7 +18,7 @@ const colorClasses: Record<NonNullable<ChevronRippleProps["color"]>, {
 }> = {
   primary: { ring: "border-primary/30", inner: "bg-primary/10 border-primary/30", text: "text-primary" },
   accent: { ring: "border-accent-light/40", inner: "bg-accent-light/10 border-accent-light/40", text: "text-accent-light" },
-  white: { ring: "border-white/30", inner: "bg-white/10 border-white/30", text: "text-white" },
+  white: { ring: "border-white/30", inner: "bg-slate-200/40 border-white/30", text: "text-white" },
 };
 
 export default function ChevronRipple({ to, label, color = "primary", size = "md", showLabel = true, variant = "ripple", onClick }: ChevronRippleProps) {
