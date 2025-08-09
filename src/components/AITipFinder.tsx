@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { Brain, Search, Lightbulb, Target, Loader2 } from "lucide-react";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { Brain, Search, Lightbulb, Target, Loader2, ChevronDown, ChevronUp } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 interface TipRecommendation {
@@ -26,6 +26,7 @@ const AITipFinder = ({ tips }: AITipFinderProps) => {
   const [userInput, setUserInput] = useState("");
   const [recommendations, setRecommendations] = useState<TipRecommendation[]>([]);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const { toast } = useToast();
 
   const analyzeAndRecommend = async () => {
@@ -78,6 +79,7 @@ const AITipFinder = ({ tips }: AITipFinderProps) => {
       .slice(0, 6);
 
       setRecommendations(scored);
+      setIsOpen(true);
       
       if (scored.length === 0) {
         toast({
@@ -97,107 +99,105 @@ const AITipFinder = ({ tips }: AITipFinderProps) => {
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
+    if (e.key === 'Enter') {
       e.preventDefault();
       analyzeAndRecommend();
     }
   };
 
   return (
-    <Card className="mb-12 border-primary/20 bg-gradient-to-br from-background to-muted/30 shadow-lg">
-      <CardHeader className="text-center">
-        <CardTitle className="flex items-center justify-center gap-3 text-2xl">
-          <Brain className="w-7 h-7 text-primary" />
-          AI Tip Finder
-        </CardTitle>
-        <CardDescription className="text-base max-w-2xl mx-auto">
-          Describe what you're trying to achieve or a challenge you're facing, and I'll recommend 
-          the most relevant tips from our catalog just for you.
-        </CardDescription>
-      </CardHeader>
-      
-      <CardContent>
-        <div className="space-y-4">
-          <div className="relative">
-            <Textarea
-              placeholder="e.g., 'I want to save more money but keep overspending' or 'I need motivation to exercise consistently'"
+    <div className="mb-8 max-w-4xl mx-auto">
+      {/* Compact Header and Input */}
+      <div className="bg-background/95 backdrop-blur-sm border border-primary/20 rounded-lg p-4 shadow-sm">
+        <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 text-lg font-semibold shrink-0">
+            <Brain className="w-5 h-5 text-primary" />
+            AI TIP Finder
+          </div>
+          
+          <div className="flex-1 flex gap-2">
+            <Input
+              placeholder="Describe your goal or challenge..."
               value={userInput}
               onChange={(e) => setUserInput(e.target.value)}
               onKeyPress={handleKeyPress}
-              className="min-h-[100px] text-base resize-none pr-12"
-              maxLength={500}
+              className="flex-1"
             />
-            <div className="absolute bottom-3 right-3 text-xs text-muted-foreground">
-              {userInput.length}/500
-            </div>
+            <Button 
+              onClick={analyzeAndRecommend}
+              disabled={isAnalyzing || !userInput.trim()}
+              size="sm"
+              className="gap-2 shrink-0"
+            >
+              {isAnalyzing ? (
+                <Loader2 className="w-4 h-4 animate-spin" />
+              ) : (
+                <Search className="w-4 h-4" />
+              )}
+              {isAnalyzing ? "Analyzing..." : "Find Tips"}
+            </Button>
           </div>
-          
-          <Button 
-            onClick={analyzeAndRecommend}
-            disabled={isAnalyzing || !userInput.trim()}
-            className="w-full h-12 text-base gap-3"
-            size="lg"
-          >
-            {isAnalyzing ? (
-              <>
-                <Loader2 className="w-5 h-5 animate-spin" />
-                Analyzing your needs...
-              </>
-            ) : (
-              <>
-                <Search className="w-5 h-5" />
-                Find My Perfect Tips
-              </>
-            )}
-          </Button>
         </div>
+      </div>
 
-        {/* Recommendations */}
-        {recommendations.length > 0 && (
-          <div className="mt-8 space-y-4">
-            <div className="flex items-center gap-2 mb-4">
-              <Target className="w-5 h-5 text-primary" />
-              <h3 className="text-lg font-semibold">Recommended for You</h3>
-            </div>
-            
-            <div className="grid gap-3">
-              {recommendations.map((rec, index) => (
-                <div 
-                  key={index}
-                  className="p-4 rounded-lg border bg-card hover:shadow-md transition-shadow cursor-pointer"
-                  onClick={() => {
-                    const element = document.querySelector(`[data-tip-title="${rec.title}"]`);
-                    if (element) {
-                      element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    }
-                  }}
-                >
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="flex-1">
-                      <h4 className="font-medium mb-1">{rec.title}</h4>
-                      <p className="text-sm text-muted-foreground mb-2">{rec.reason}</p>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Badge variant="secondary" className="text-xs">
-                        {rec.category}
-                      </Badge>
-                      <div className="flex items-center gap-1">
-                        <Lightbulb className="w-3 h-3 text-primary" />
-                        <span className="text-xs font-medium">{rec.relevanceScore}</span>
+      {/* Collapsible Results Dropdown */}
+      {recommendations.length > 0 && (
+        <Collapsible open={isOpen} onOpenChange={setIsOpen}>
+          <CollapsibleTrigger asChild>
+            <Button 
+              variant="outline" 
+              className="w-full mt-2 justify-between bg-background/95 backdrop-blur-sm border-primary/20 hover:bg-muted/50"
+            >
+              <div className="flex items-center gap-2">
+                <Target className="w-4 h-4 text-primary" />
+                <span>Found {recommendations.length} personalized recommendations</span>
+              </div>
+              {isOpen ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+            </Button>
+          </CollapsibleTrigger>
+          
+          <CollapsibleContent className="mt-2">
+            <div className="bg-background/95 backdrop-blur-sm border border-primary/20 rounded-lg shadow-lg z-50 max-h-96 overflow-y-auto">
+              <div className="p-4 space-y-3">
+                {recommendations.map((rec, index) => (
+                  <div 
+                    key={index}
+                    className="p-3 rounded-md border bg-card/50 hover:bg-muted/50 transition-colors cursor-pointer"
+                    onClick={() => {
+                      const element = document.querySelector(`[data-tip-title="${rec.title}"]`);
+                      if (element) {
+                        element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        setIsOpen(false);
+                      }
+                    }}
+                  >
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="flex-1">
+                        <h4 className="font-medium text-sm mb-1">{rec.title}</h4>
+                        <p className="text-xs text-muted-foreground">{rec.reason}</p>
+                      </div>
+                      <div className="flex items-center gap-2 shrink-0">
+                        <Badge variant="secondary" className="text-xs">
+                          {rec.category}
+                        </Badge>
+                        <div className="flex items-center gap-1">
+                          <Lightbulb className="w-3 h-3 text-primary" />
+                          <span className="text-xs font-medium">{rec.relevanceScore}</span>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))}
+                
+                <p className="text-xs text-muted-foreground text-center pt-2 border-t">
+                  Click any recommendation to jump to that tip below ↓
+                </p>
+              </div>
             </div>
-            
-            <p className="text-sm text-muted-foreground text-center mt-4">
-              Click any recommendation to jump to that tip below ↓
-            </p>
-          </div>
-        )}
-      </CardContent>
-    </Card>
+          </CollapsibleContent>
+        </Collapsible>
+      )}
+    </div>
   );
 };
 
