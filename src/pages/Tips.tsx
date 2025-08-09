@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import TipCard from "@/components/TipCard";
 import ChevronRipple from "@/components/ChevronRipple";
+import AITipFinder from "@/components/AITipFinder";
 import { 
   Heart,
   DollarSign,
@@ -1978,6 +1979,11 @@ const Tips = () => {
           </div>
         </div>
 
+        {/* AI Tip Finder */}
+        <div className="animate-fade-in" style={{ animationDelay: "150ms" }}>
+          <AITipFinder tips={tipCategories} />
+        </div>
+
         {/* Filters and Sorting */}
         <div className="mb-12 animate-fade-in" style={{ animationDelay: "200ms" }}>
           <div className="flex flex-col lg:flex-row gap-6 items-center justify-between">
@@ -2059,7 +2065,9 @@ const Tips = () => {
               className="animate-fade-in hover-lift h-full flex"
               style={{ animationDelay: `${400 + index * 100}ms` }}
             >
-              <TipCard tip={tip} index={index} />
+               <div data-tip-title={tip.title}>
+                 <TipCard tip={tip} index={index} />
+               </div>
             </div>
           ))}
         </div>
