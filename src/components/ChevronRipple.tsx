@@ -56,7 +56,7 @@ export default function ChevronRipple({ to, label, color = "primary", size = "md
         </div>
       </div>
       {showLabel && (
-        <span className={`mt-3 text-base font-semibold text-center max-w-32 ${
+        <span className={`mt-3 text-base font-semibold text-center max-w-32 min-h-[3rem] flex items-center justify-center ${
           color === "white" ? "text-white text-shadow-sm" : "text-foreground/80"
         }`} style={color === "white" ? { textShadow: "0 1px 3px rgba(0,0,0,0.5)" } : {}}>
           {label}
