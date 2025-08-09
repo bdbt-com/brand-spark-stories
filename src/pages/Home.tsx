@@ -770,7 +770,7 @@ const Home = () => {
       <section className="py-20 bg-primary text-primary-foreground">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold mb-6">
+            <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-outline-white-thin">
               Strong Vessel, Smoother Journey
             </h2>
             <p className="text-xl text-primary-foreground/90 max-w-3xl mx-auto">
