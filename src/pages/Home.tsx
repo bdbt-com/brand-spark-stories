@@ -137,10 +137,10 @@ const Home = () => {
                 ✨ Transform Your Life Daily
               </Badge>
               <h1 className="text-5xl lg:text-7xl font-bold mb-6 leading-tight">
-                <span className="block text-cream drop-shadow-[0_0_18px_hsl(var(--primary-glow)/0.65)]">Small Daily Steps.</span>
-                <span className="block text-accent-light">Big Life Change.</span>
+                <span className="block text-cream drop-shadow-[0_0_18px_hsl(var(--primary-glow)/0.65)] text-outline-white-thin">Small Daily Steps.</span>
+                <span className="block text-accent-light text-outline-white-thin">Big Life Change.</span>
               </h1>
-              <p className="text-xl lg:text-2xl mb-8 text-white/90 leading-relaxed">
+              <p className="text-xl lg:text-2xl mb-8 text-white/90 leading-relaxed text-outline-white-thin">
                 Big Daddy's Big Tips teaches simple daily habits that silently transform your health, wealth, and happiness simultaneously. We turn overwhelming life changes into achievable daily steps.
               </p>
               <div className="flex flex-wrap gap-4 justify-center">
