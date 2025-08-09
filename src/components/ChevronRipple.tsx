@@ -23,8 +23,8 @@ const colorClasses: Record<NonNullable<ChevronRippleProps["color"]>, {
 
 export default function ChevronRipple({ to, label, color = "primary", size = "md", showLabel = true, variant = "ripple", onClick }: ChevronRippleProps) {
   const c = colorClasses[color];
-  const sizeClass = size === "sm" ? "w-12 h-12" : "w-14 h-14";
-  const iconSizeClass = size === "sm" ? "w-4 h-4" : "w-6 h-6";
+  const sizeClass = size === "sm" ? "w-14 h-14" : "w-16 h-16";
+  const iconSizeClass = size === "sm" ? "w-5 h-5" : "w-7 h-7";
   const handleClick = () => {
     if (onClick) {
       onClick();
@@ -56,9 +56,9 @@ export default function ChevronRipple({ to, label, color = "primary", size = "md
         </div>
       </div>
       {showLabel && (
-        <span className={`mt-2 text-sm font-medium text-center ${
-          color === "white" ? "text-white" : "text-foreground/80"
-        }`}>
+        <span className={`mt-3 text-base font-semibold text-center max-w-32 ${
+          color === "white" ? "text-white text-shadow-sm" : "text-foreground/80"
+        }`} style={color === "white" ? { textShadow: "0 1px 3px rgba(0,0,0,0.5)" } : {}}>
           {label}
         </span>
       )}

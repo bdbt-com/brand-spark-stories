@@ -271,10 +271,13 @@ const Tips = () => {
             <p className="text-lg lg:text-xl mb-6 text-white/90 leading-relaxed max-w-3xl mx-auto">
               Simple daily habits that silently transform your health, wealth, and happiness simultaneously.
             </p>
+            <p className="text-white/70 text-sm mb-8">
+              📖 {tipCategories.length} Powerful Guides Available
+            </p>
           </div>
 
           {/* Action Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in" style={{ animationDelay: "100ms" }}>
+          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center animate-fade-in" style={{ animationDelay: "100ms" }}>
             <ChevronRipple to="/daily-wins" label="Add to the Daily Wins Page" color="white" />
             <ChevronRipple to="/podcast" label="Go to Podcast" color="white" />
           </div>
