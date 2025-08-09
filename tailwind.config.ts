@@ -46,6 +46,7 @@ export default {
 					foreground: 'hsl(var(--accent-foreground))',
 					light: 'hsl(var(--accent-light))'
 				},
+				cream: 'hsl(var(--cream))',
 				pattern: {
 					light: 'hsl(var(--pattern-light))',
 					dark: 'hsl(var(--pattern-dark))'

@@ -31,6 +31,8 @@
     --accent-light: 215 25% 40%;
     --accent-lighter: 215 25% 85%;
 
+    --cream: 45 20% 88%;
+
     --success: 160 25% 45%;
     --success-foreground: 30 15% 94%;
     --success-light: 160 25% 85%;
@@ -138,6 +140,8 @@
     --accent-foreground: 30 15% 85%;
     --accent-light: 12 35% 75%;
     --accent-lighter: 15 12% 30%;
+
+    --cream: 45 20% 85%;
 
     --success: 160 25% 55%;
     --success-foreground: 30 15% 85%;
