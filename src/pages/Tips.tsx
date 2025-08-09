@@ -57,7 +57,6 @@ import {
 
 const Tips = () => {
   const [sortBy, setSortBy] = useState("newest");
-  const [categoryFilter, setCategoryFilter] = useState("all");
   const [highlightedTip, setHighlightedTip] = useState<string | null>(null);
 
   const tipCategories = [
@@ -72,7 +71,7 @@ const Tips = () => {
       ],
       level: "Easy",
       duration: "5 min read",
-      category: "all",
+      category: "fitness",
       popularity: 45,
       views: 1200,
       dateAdded: "2024-01-15"
@@ -88,7 +87,7 @@ const Tips = () => {
       ],
       level: "Easy",
       duration: "6 min read",
-      category: "all",
+      category: "health",
       popularity: 52,
       views: 980,
       dateAdded: "2024-01-20"
@@ -104,7 +103,7 @@ const Tips = () => {
       ],
       level: "Moderate",
       duration: "6 min read",
-      category: "all",
+      category: "fitness",
       popularity: 38,
       views: 750,
       dateAdded: "2024-02-01"
@@ -120,7 +119,7 @@ const Tips = () => {
       ],
       level: "Easy",
       duration: "5 min read",
-      category: "all",
+      category: "productivity",
       popularity: 63,
       views: 1450,
       dateAdded: "2024-02-10"
@@ -136,7 +135,7 @@ const Tips = () => {
       ],
       level: "Easy",
       duration: "6 min read",
-      category: "all",
+      category: "health",
       popularity: 41,
       views: 890,
       dateAdded: "2024-02-15"
@@ -152,7 +151,7 @@ const Tips = () => {
       ],
       level: "Easy",
       duration: "4 min read",
-      category: "all",
+      category: "mindfulness",
       popularity: 59,
       views: 1320,
       dateAdded: "2024-02-20"
@@ -168,7 +167,7 @@ const Tips = () => {
       ],
       level: "Moderate",
       duration: "6 min read",
-      category: "all",
+      category: "finance",
       popularity: 72,
       views: 1650,
       dateAdded: "2024-03-01"
@@ -184,7 +183,7 @@ const Tips = () => {
       ],
       level: "Easy",
       duration: "5 min read",
-      category: "all",
+      category: "wellness",
       popularity: 33,
       views: 890,
       dateAdded: "2024-03-05"
@@ -200,7 +199,7 @@ const Tips = () => {
       ],
       level: "Easy",
       duration: "5 min read",
-      category: "all",
+      category: "social",
       popularity: 47,
       views: 1120,
       dateAdded: "2024-03-10"
@@ -216,24 +215,20 @@ const Tips = () => {
       ],
       level: "Easy",
       duration: "5 min read",
-      category: "all",
+      category: "lifestyle",
       popularity: 35,
       views: 780,
       dateAdded: "2024-03-15"
     }
   ];
 
-  // Filter and sort tips
-  const filteredTips = useMemo(() => {
-    return tipCategories.filter(tip => {
-      if (categoryFilter === "all") return true;
-      // Since we removed categories, all tips now show for any filter
-      return true;
-    });
-  }, [categoryFilter]);
+  // Sort tips
+  const sortedTips = useMemo(() => {
+    return [...tipCategories];
+  }, []);
 
-  const filteredAndSortedTips = useMemo(() => {
-    let sorted = [...filteredTips];
+  const sortedAndFilteredTips = useMemo(() => {
+    let sorted = [...sortedTips];
     
     switch (sortBy) {
       case "newest":
@@ -253,7 +248,7 @@ const Tips = () => {
     }
     
     return sorted;
-  }, [filteredTips, sortBy]);
+  }, [sortedTips, sortBy]);
 
   const handleTipHighlight = (tipTitle: string) => {
     setHighlightedTip(tipTitle);
@@ -319,7 +314,7 @@ const Tips = () => {
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredAndSortedTips.map((tip, index) => (
+            {sortedAndFilteredTips.map((tip, index) => (
               <div
                 key={tip.title}
                 className={`animate-fade-in ${
@@ -337,18 +332,11 @@ const Tips = () => {
           </div>
 
           {/* Empty State */}
-          {filteredAndSortedTips.length === 0 && (
+          {sortedAndFilteredTips.length === 0 && (
             <div className="text-center py-12 animate-fade-in">
               <p className="text-muted-foreground text-lg mb-4">
-                No guides found for the selected category.
+                No guides found.
               </p>
-              <Button 
-                variant="outline" 
-                onClick={() => setCategoryFilter("all")}
-                className="hover:scale-105 transition-transform duration-200"
-              >
-                View All Categories
-              </Button>
             </div>
           )}
         </div>
