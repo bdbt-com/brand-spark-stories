@@ -262,19 +262,19 @@ const Tips = () => {
 
   return (
     <div className="min-h-screen bg-gradient-subtle">
-      {/* Hero Section */}
-      <section className="py-20 bg-gradient-hero text-white">
+      {/* Smaller Hero Section */}
+      <section className="py-12 bg-gradient-hero text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="animate-fade-in">
-            <Badge className="bg-white/20 text-white border-white/30 mb-6">
+            <Badge className="bg-white/20 text-white border-white/30 mb-4">
               📚 Life-Changing Guides
             </Badge>
-            <h1 className="text-5xl lg:text-7xl font-bold mb-6 leading-tight">
+            <h1 className="text-3xl lg:text-4xl font-bold mb-4 leading-tight">
               <span className="block text-gradient-primary">Big Daddy's</span>
               <span className="block text-white">Big Tips</span>
             </h1>
-            <p className="text-xl lg:text-2xl mb-8 text-white/90 leading-relaxed max-w-4xl mx-auto">
-              Simple daily habits that silently transform your health, wealth, and happiness simultaneously. Each tip works across all three areas of your life.
+            <p className="text-lg lg:text-xl mb-6 text-white/90 leading-relaxed max-w-3xl mx-auto">
+              Simple daily habits that silently transform your health, wealth, and happiness simultaneously.
             </p>
           </div>
 

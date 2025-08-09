@@ -153,18 +153,28 @@ const DailyWins = () => {
   };
 
   return (
-    <div className="min-h-screen py-20 relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <h1 className="text-4xl lg:text-5xl font-bold mb-6 text-foreground">
-            Daily Wins Wall
-          </h1>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Celebrate the incredible achievements of our community members. Every win, big or small, 
-            inspires others to push forward and reach their goals.
-          </p>
+    <div className="min-h-screen">
+      {/* Big Blue Header */}
+      <section className="py-20 bg-gradient-hero text-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="animate-fade-in">
+            <Badge className="bg-white/20 text-white border-white/30 mb-6">
+              🏆 Community Success
+            </Badge>
+            <h1 className="text-5xl lg:text-7xl font-bold mb-6 leading-tight">
+              <span className="block text-gradient-primary">Daily Wins</span>
+              <span className="block text-white">Wall</span>
+            </h1>
+            <p className="text-xl lg:text-2xl mb-8 text-white/90 leading-relaxed max-w-4xl mx-auto">
+              Celebrate the incredible achievements of our community members. Every win, big or small, 
+              inspires others to push forward and reach their goals.
+            </p>
+          </div>
         </div>
+      </section>
+
+      <div className="py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Rotating Wins Carousel */}
         <div className="relative mb-20">
@@ -313,8 +323,6 @@ const DailyWins = () => {
             </Button>
           </div>
         </div>
-        <div className="flex justify-center my-12">
-          <ChevronRipple to="/podcast" label="Watch the Latest Podcast" />
         </div>
       </div>
     </div>
