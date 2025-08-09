@@ -57,6 +57,7 @@ import {
 const Tips = () => {
   const [sortBy, setSortBy] = useState("newest");
   const [categoryFilter, setCategoryFilter] = useState("all");
+  const [highlightedTip, setHighlightedTip] = useState<string | null>(null);
 
   const tipCategories = [
     {
@@ -1961,6 +1962,13 @@ const Tips = () => {
     }
   }, [categoryFilter, sortBy]);
 
+  const handleTipHighlight = (tipTitle: string) => {
+    setHighlightedTip(tipTitle);
+    setTimeout(() => {
+      setHighlightedTip(null);
+    }, 3000);
+  };
+
   return (
     <div className="min-h-screen py-20 relative bg-gradient-to-b from-background to-muted/30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -1981,7 +1989,7 @@ const Tips = () => {
 
         {/* AI Tip Finder */}
         <div className="animate-fade-in" style={{ animationDelay: "150ms" }}>
-          <AITipFinder tips={tipCategories} />
+          <AITipFinder tips={tipCategories} onTipHighlight={handleTipHighlight} />
         </div>
 
         {/* Filters and Sorting */}
@@ -2062,10 +2070,14 @@ const Tips = () => {
           {filteredAndSortedTips.map((tip, index) => (
             <div 
               key={index}
-              className="animate-fade-in hover-lift h-full flex"
+              className={`animate-fade-in hover-lift h-full flex transition-all duration-300 ${
+                highlightedTip === tip.title 
+                  ? 'shadow-[0_0_0_4px_rgba(59,130,246,0.5)] rounded-lg' 
+                  : ''
+              }`}
               style={{ animationDelay: `${400 + index * 100}ms` }}
             >
-               <div data-tip-title={tip.title}>
+               <div data-tip-title={tip.title} className="w-full">
                  <TipCard tip={tip} index={index} />
                </div>
             </div>

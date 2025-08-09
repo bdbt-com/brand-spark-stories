@@ -20,9 +20,10 @@ interface AITipFinderProps {
     category: string;
     items: string[];
   }>;
+  onTipHighlight: (tipTitle: string) => void;
 }
 
-const AITipFinder = ({ tips }: AITipFinderProps) => {
+const AITipFinder = ({ tips, onTipHighlight }: AITipFinderProps) => {
   const [userInput, setUserInput] = useState("");
   const [recommendations, setRecommendations] = useState<TipRecommendation[]>([]);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
@@ -166,6 +167,7 @@ const AITipFinder = ({ tips }: AITipFinderProps) => {
                     onClick={() => {
                       const element = document.querySelector(`[data-tip-title="${rec.title}"]`);
                       if (element) {
+                        onTipHighlight(rec.title);
                         element.scrollIntoView({ behavior: 'smooth', block: 'center' });
                         setIsOpen(false);
                       }
