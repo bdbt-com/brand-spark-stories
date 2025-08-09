@@ -285,32 +285,22 @@ const Tips = () => {
           </div>
         </div>
 
-        {/* AI Tip Finder */}
-        <div className="animate-fade-in" style={{ animationDelay: "150ms" }}>
-          <AITipFinder tips={tipCategories} onTipHighlight={handleTipHighlight} />
-        </div>
+      </section>
 
-        {/* Filters and Sorting */}
-        <div className="mb-12 animate-fade-in" style={{ animationDelay: "200ms" }}>
+      {/* AI Tip Finder */}
+      <div className="animate-fade-in" style={{ animationDelay: "150ms" }}>
+        <AITipFinder tips={tipCategories} onTipHighlight={handleTipHighlight} />
+      </div>
+
+      {/* Filters and Sorting */}
+      <div className="mb-12 animate-fade-in" style={{ animationDelay: "200ms" }}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col lg:flex-row gap-6 items-center justify-between">
-            {/* Category Filter Tabs */}
-            <div className="flex flex-wrap gap-2 justify-center lg:justify-start">
-              <Button
-                variant={categoryFilter === "all" ? "default" : "outline"}
-                size="sm"
-                onClick={() => setCategoryFilter("all")}
-                className="gap-2 transition-all duration-200 hover:scale-105"
-              >
-                <SlidersHorizontal className="w-4 h-4" />
-                All Tips
-              </Button>
-            </div>
-
             {/* Sort Options */}
             <div className="flex items-center gap-4">
               <Filter className="w-4 h-4 text-muted-foreground" />
               <Select value={sortBy} onValueChange={setSortBy}>
-                <SelectTrigger className="w-48 bg-white/10 border-white/20">
+                <SelectTrigger className="w-48">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -323,7 +313,7 @@ const Tips = () => {
             </div>
           </div>
         </div>
-      </section>
+      </div>
 
       {/* Tips Grid */}
       <section className="py-20">
