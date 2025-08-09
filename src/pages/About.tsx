@@ -6,20 +6,19 @@ import { Clock, Heart, Award, Users2, Quote, BookOpen, Target, Star, TrendingUp,
 import { Link } from "react-router-dom";
 import ChevronRipple from "@/components/ChevronRipple";
 import { useState } from "react";
-
 const smoothScrollToNext = (currentElement: HTMLElement, nextId: string) => {
   // First, scroll current element to center
   const viewportHeight = window.innerHeight;
   const elementRect = currentElement.getBoundingClientRect();
   const elementCenter = elementRect.top + elementRect.height / 2;
   const targetScroll = window.scrollY + elementCenter - viewportHeight / 2;
-  
+
   // Smooth scroll to center current element
   window.scrollTo({
     top: targetScroll,
     behavior: 'smooth'
   });
-  
+
   // After a brief pause, scroll to next element
   setTimeout(() => {
     const nextElement = document.getElementById(nextId);
@@ -27,7 +26,6 @@ const smoothScrollToNext = (currentElement: HTMLElement, nextId: string) => {
       const nextRect = nextElement.getBoundingClientRect();
       const nextCenter = nextRect.top + nextRect.height / 2;
       const nextTargetScroll = window.scrollY + nextCenter - viewportHeight / 2;
-      
       window.scrollTo({
         top: nextTargetScroll,
         behavior: 'smooth'
@@ -50,17 +48,10 @@ const About = () => {
             </p>
           </div>
           <div className="my-64 flex justify-center" id="arrow-1">
-            <ChevronRipple 
-              to="/about#problem-1" 
-              label="Why change fails?" 
-              size="sm" 
-              showLabel={false} 
-              variant="minimal"
-              onClick={() => {
-                const currentArrow = document.getElementById('arrow-1');
-                if (currentArrow) smoothScrollToNext(currentArrow, 'problem-1');
-              }}
-            />
+            <ChevronRipple to="/about#problem-1" label="Why change fails?" size="sm" showLabel={false} variant="minimal" onClick={() => {
+            const currentArrow = document.getElementById('arrow-1');
+            if (currentArrow) smoothScrollToNext(currentArrow, 'problem-1');
+          }} />
           </div>
           
           <div className="">
@@ -74,17 +65,10 @@ const About = () => {
               </p>
             </div>
             <div className="my-64 flex justify-center" id="arrow-2">
-              <ChevronRipple 
-                to="/about#problem-2" 
-                label="One tip at a time?" 
-                size="sm" 
-                showLabel={false} 
-                variant="minimal"
-                onClick={() => {
-                  const currentArrow = document.getElementById('arrow-2');
-                  if (currentArrow) smoothScrollToNext(currentArrow, 'problem-2');
-                }}
-              />
+              <ChevronRipple to="/about#problem-2" label="One tip at a time?" size="sm" showLabel={false} variant="minimal" onClick={() => {
+              const currentArrow = document.getElementById('arrow-2');
+              if (currentArrow) smoothScrollToNext(currentArrow, 'problem-2');
+            }} />
             </div>
 
             {/* Second statement - Center aligned */}
@@ -97,17 +81,10 @@ const About = () => {
               </p>
             </div>
             <div className="my-64 flex justify-center" id="arrow-3">
-              <ChevronRipple 
-                to="/about#problem-3" 
-                label="Why tips fail" 
-                size="sm" 
-                showLabel={false} 
-                variant="minimal"
-                onClick={() => {
-                  const currentArrow = document.getElementById('arrow-3');
-                  if (currentArrow) smoothScrollToNext(currentArrow, 'problem-3');
-                }}
-              />
+              <ChevronRipple to="/about#problem-3" label="Why tips fail" size="sm" showLabel={false} variant="minimal" onClick={() => {
+              const currentArrow = document.getElementById('arrow-3');
+              if (currentArrow) smoothScrollToNext(currentArrow, 'problem-3');
+            }} />
             </div>
 
             {/* Third statement - Center aligned with emphasis */}
@@ -123,17 +100,10 @@ const About = () => {
               </p>
             </div>
             <div className="my-64 flex justify-center" id="arrow-4">
-              <ChevronRipple 
-                to="/about#problem-4" 
-                label="Modern life pressures" 
-                size="sm" 
-                showLabel={false} 
-                variant="minimal"
-                onClick={() => {
-                  const currentArrow = document.getElementById('arrow-4');
-                  if (currentArrow) smoothScrollToNext(currentArrow, 'problem-4');
-                }}
-              />
+              <ChevronRipple to="/about#problem-4" label="Modern life pressures" size="sm" showLabel={false} variant="minimal" onClick={() => {
+              const currentArrow = document.getElementById('arrow-4');
+              if (currentArrow) smoothScrollToNext(currentArrow, 'problem-4');
+            }} />
             </div>
 
             {/* Fourth statement - Center aligned */}
@@ -147,13 +117,10 @@ const About = () => {
             </div>
             {/* Down Arrow to next section */}
             <div className="my-64 flex justify-center">
-              <Button
-                variant="ghost"
-                size="icon"
-                className="rounded-full w-12 h-12 bg-primary/10 hover:bg-primary/20 text-primary shadow-soft"
-                onClick={() => document.getElementById('story')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
-                aria-label="Scroll to Read My Story"
-              >
+              <Button variant="ghost" size="icon" className="rounded-full w-12 h-12 bg-primary/10 hover:bg-primary/20 text-primary shadow-soft" onClick={() => document.getElementById('story')?.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            })} aria-label="Scroll to Read My Story">
                 <ArrowDown className="w-6 h-6" />
               </Button>
             </div>
@@ -220,26 +187,21 @@ const About = () => {
                       animationDuration: '3s'
                     }}></div>
                        
-                        <Button 
-                          variant="outline" 
-                          size="lg" 
-                          className="relative hover:scale-105 transition-transform text-lg h-16 px-12 py-6 bg-background/95 backdrop-blur-sm border-primary/30 rounded-xl"
-                          onClick={() => {
-                            setIsStoryOpen(!isStoryOpen);
-                            if (!isStoryOpen) {
-                              // Wait for content to expand, then scroll to show the top of the story content
-                              setTimeout(() => {
-                                const storyContent = document.querySelector('[data-state="open"] .max-w-7xl');
-                                if (storyContent) {
-                                  storyContent.scrollIntoView({ 
-                                    behavior: 'smooth', 
-                                    block: 'start' 
-                                  });
-                                }
-                              }, 200);
-                            }
-                          }}
-                        >
+                        <Button variant="outline" size="lg" className="relative hover:scale-105 transition-transform text-lg h-16 px-12 py-6 bg-background/95 backdrop-blur-sm border-primary/30 rounded-xl" onClick={() => {
+                      setIsStoryOpen(!isStoryOpen);
+                      if (!isStoryOpen) {
+                        // Wait for content to expand, then scroll to show the top of the story content
+                        setTimeout(() => {
+                          const storyContent = document.querySelector('[data-state="open"] .max-w-7xl');
+                          if (storyContent) {
+                            storyContent.scrollIntoView({
+                              behavior: 'smooth',
+                              block: 'start'
+                            });
+                          }
+                        }, 200);
+                      }
+                    }}>
                           <BookOpen className="w-6 h-6 mr-3" />
                           Read My Story
                           <ChevronDown className={`w-5 h-5 ml-3 transition-transform ${isStoryOpen ? 'rotate-180' : ''}`} />
@@ -306,12 +268,7 @@ const About = () => {
                    </div>
                    
                    {/* Photo 9 - Position 9/10 - Ocean Sunset Contemplation */}
-                   <div className="w-[400px] h-[400px] bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform rotate-2" style={{
-                  animationDelay: "3300ms",
-                  marginTop: "1350px"
-                }}>
-                     <img src="/lovable-uploads/2e4d322c-a647-4622-b44d-912958bfa401.png" alt="Big Daddy contemplating by ocean at sunset - Deep reflection" className="w-full h-full object-cover rounded-xl" />
-                   </div>
+                   
                   </div>
 
                  {/* Pinned Photos - Right Side - EVEN POSITIONS (2,4,6,8,10) */}
@@ -351,12 +308,7 @@ const About = () => {
                    </div>
                    
                    {/* Photo 10 - Position 10/10 - Looking Forward */}
-                   <div className="w-[400px] h-[400px] bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform -rotate-1" style={{
-                  animationDelay: "3600ms",
-                  marginTop: "1350px"
-                }}>
-                     <img src="/lovable-uploads/091ea38c-18d1-4a6c-b3d0-b2e9e92d382d.png" alt="Big Daddy looking ahead - Vision for the future" className="w-full h-full object-cover rounded-xl" />
-                   </div>
+                   
                  </div>
 
                 {/* Main Story Content */}
