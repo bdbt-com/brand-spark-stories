@@ -85,18 +85,28 @@ const Partnership = () => {
   ];
 
   return (
-    <div className="min-h-screen py-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <h1 className="text-4xl lg:text-5xl font-bold mb-6 text-foreground">
-            Partnership & Collaboration
-          </h1>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Let's create something amazing together. We're always looking for strategic partners 
-            who share our vision of empowering people to achieve their dreams.
-          </p>
+    <div className="min-h-screen bg-gradient-subtle">
+      {/* Big Blue Header */}
+      <section className="py-20 bg-gradient-hero text-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="animate-fade-in">
+            <Badge className="bg-white/20 text-white border-white/30 mb-6">
+              🤝 Business Growth
+            </Badge>
+            <h1 className="text-5xl lg:text-7xl font-bold mb-6 leading-tight">
+              <span className="block text-gradient-primary">Partnership &</span>
+              <span className="block text-white">Collaboration</span>
+            </h1>
+            <p className="text-xl lg:text-2xl mb-8 text-white/90 leading-relaxed max-w-4xl mx-auto">
+              Let's create something amazing together. We're always looking for strategic partners 
+              who share our vision of empowering people to achieve their dreams.
+            </p>
+          </div>
         </div>
+      </section>
+
+      <div className="py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Partnership Types */}
         <div className="mb-20">
@@ -348,6 +358,7 @@ const Partnership = () => {
               </CardContent>
             </Card>
           </div>
+        </div>
         </div>
       </div>
     </div>

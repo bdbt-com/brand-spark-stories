@@ -56,7 +56,11 @@ export default function ChevronRipple({ to, label, color = "primary", size = "md
         </div>
       </div>
       {showLabel && (
-        <span className="mt-2 text-sm font-medium text-foreground/80 text-center">{label}</span>
+        <span className={`mt-2 text-sm font-medium text-center ${
+          color === "white" ? "text-white" : "text-foreground/80"
+        }`}>
+          {label}
+        </span>
       )}
     </div>
   );
