@@ -29,7 +29,7 @@ const Navigation = () => {
               <img 
                 src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
                 alt="BDBT Logo" 
-                className="h-12 w-full object-cover"
+                className="h-16 w-full object-cover"
               />
             </Link>
             
