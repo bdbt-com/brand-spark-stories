@@ -27,9 +27,9 @@ const Navigation = () => {
           <div className="flex items-center space-x-4">
             <Link to="/" className="flex items-center space-x-3 hover:opacity-80 transition-all duration-200 hover:scale-105 focus-enhanced">
               <img 
-                src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png"
+                src="/src/assets/bdbt-logo-white.png"
                 alt="BDBT Logo" 
-                className="h-12 w-full object-cover"
+                className="h-12 w-auto object-contain filter drop-shadow-sm"
               />
             </Link>
             
