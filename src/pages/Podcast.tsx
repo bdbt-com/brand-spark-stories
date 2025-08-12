@@ -248,9 +248,6 @@ const Podcast = () => {
                             Play Now
                           </Button>
                         </div>
-                        <Badge className={`absolute top-4 left-4 ${getTypeColor(episode.type)}`}>
-                          {episode.type}
-                        </Badge>
                       </div>
                       <div className="p-8 lg:p-12 flex flex-col justify-center">
                         <h3 className="text-2xl lg:text-3xl font-bold mb-4 text-foreground">
@@ -318,14 +315,6 @@ const Podcast = () => {
                         <Play className="w-4 h-4" />
                       </Button>
                     </div>
-                    <Badge className={`absolute top-3 left-3 ${getTypeColor(episode.type)}`}>
-                      {episode.type}
-                    </Badge>
-                    {episode.featured && (
-                      <Badge className="absolute top-3 right-3 bg-success text-success-foreground">
-                        Featured
-                      </Badge>
-                    )}
                   </div>
                   <CardContent className="p-6">
                     <h3 className="font-semibold mb-2 text-foreground group-hover:text-primary transition-colors line-clamp-2">
@@ -361,7 +350,7 @@ const Podcast = () => {
           </div>
 
           {/* CTA Section */}
-          <div className="mt-20 text-center bg-[hsl(35_45%_75%)] text-black rounded-2xl p-12">
+          <div className="mt-20 text-center bg-[hsl(35_45%_75%)] text-white rounded-2xl p-12">
             <h2 className="text-3xl font-bold mb-4 text-white">
               Never Miss an Episode
             </h2>

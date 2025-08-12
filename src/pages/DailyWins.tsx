@@ -46,7 +46,7 @@ const DailyWins = () => {
         initials: "MC",
         level: "Premium"
       },
-      content: "Finally organized my entire workspace using the minimalist approach. My productivity has increased dramatically and I feel so much calmer starting each day.",
+      content: "Implemented a 10-minute morning routine that includes gratitude journaling and light stretching. This simple change has completely transformed how I approach each day.",
       date: "4 hours ago",
       likes: 89,
       comments: 23,
@@ -60,7 +60,7 @@ const DailyWins = () => {
         initials: "ER",
         level: "Community"
       },
-      content: "Started drinking only water for two weeks now and my energy levels are through the roof! No more afternoon crashes and my skin is noticeably clearer.",
+      content: "Started doing five push-ups every time I enter my home office. After three weeks, I can now do 30 push-ups easily and feel stronger throughout the day.",
       date: "6 hours ago",
       likes: 156,
       comments: 31,
@@ -74,7 +74,7 @@ const DailyWins = () => {
         initials: "DT",
         level: "Gold Member"
       },
-      content: "Established a consistent bedtime routine for the past month. I now fall asleep faster and wake up naturally feeling refreshed instead of hitting snooze.",
+      content: "Started tracking expenses using the envelope method. In just one month, I've saved $200 without feeling deprived and finally understand where my money goes.",
       date: "8 hours ago",
       likes: 72,
       comments: 18,
@@ -88,7 +88,7 @@ const DailyWins = () => {
         initials: "JP",
         level: "Premium"
       },
-      content: "Successfully meal prepped for three weeks in a row! Saving money, eating healthier, and having more time during busy weekdays. This habit is a game-changer.",
+      content: "Committed to reading for 15 minutes before checking my phone each morning. The mental clarity and reduced anxiety have improved every aspect of my day.",
       date: "12 hours ago",
       likes: 198,
       comments: 45,
