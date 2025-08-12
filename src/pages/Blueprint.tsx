@@ -224,7 +224,7 @@ const Blueprint = () => {
             </CardContent>
           </Card>
           
-          <Card className="group hover:shadow-strong transition-all duration-300 hover:-translate-y-2 relative overflow-hidden bg-gradient-subtle border-2 border-primary/20">
+          <Card className="group hover:shadow-strong transition-all duration-300 hover:-translate-y-2 relative overflow-hidden bg-gradient-subtle border-2 border-primary/20 hover:border-warning/30">
             <CardHeader className="pb-4">
               <div className="flex items-center justify-between mb-4">
                 <div className="w-16 h-16 bg-gradient-primary rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">

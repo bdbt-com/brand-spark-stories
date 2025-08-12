@@ -291,21 +291,21 @@ const Home = () => {
                       <h4 className="text-xl font-semibold text-primary mb-4 text-center">What You Get</h4>
                       <div className="grid md:grid-cols-3 gap-6">
                         <div className="text-center">
-                          <div className="w-16 h-16 bg-warning rounded-xl flex items-center justify-center mx-auto mb-3">
+                          <div className="w-16 h-16 bg-warning rounded-xl flex items-center justify-center mx-auto mb-3 hover:scale-110 transition-transform duration-300">
                             <Target className="w-8 h-8 text-primary" />
                           </div>
                           <h5 className="font-semibold text-primary mb-2">Foundation Blueprint</h5>
                           <p className="text-sm text-muted-foreground">Your personal habit stacking reference point</p>
                         </div>
                         <div className="text-center">
-                          <div className="w-16 h-16 bg-warning rounded-xl flex items-center justify-center mx-auto mb-3">
+                          <div className="w-16 h-16 bg-warning rounded-xl flex items-center justify-center mx-auto mb-3 hover:scale-110 transition-transform duration-300">
                             <Zap className="w-8 h-8 text-primary" />
                           </div>
                           <h5 className="font-semibold text-primary mb-2">118 Daily Tips</h5>
                           <p className="text-sm text-muted-foreground">Tested strategies for health, wealth & happiness</p>
                         </div>
                         <div className="text-center">
-                          <div className="w-16 h-16 bg-warning rounded-xl flex items-center justify-center mx-auto mb-3">
+                          <div className="w-16 h-16 bg-warning rounded-xl flex items-center justify-center mx-auto mb-3 hover:scale-110 transition-transform duration-300">
                             <Heart className="w-8 h-8 text-primary" />
                           </div>
                           <h5 className="font-semibold text-primary mb-2">Progress Tracking</h5>

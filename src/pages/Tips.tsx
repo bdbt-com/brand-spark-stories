@@ -1040,7 +1040,7 @@ const Tips = () => {
             <div className="flex items-center gap-4">
               <Filter className="w-4 h-4 text-muted-foreground" />
               <Select value={sortBy} onValueChange={setSortBy}>
-                <SelectTrigger className="w-48">
+                <SelectTrigger className="w-48 border-warning/30 focus:border-warning">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>

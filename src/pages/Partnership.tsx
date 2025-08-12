@@ -120,7 +120,7 @@ const Partnership = () => {
                 className="group hover:shadow-medium transition-all duration-300 hover:-translate-y-2"
               >
                 <CardHeader>
-                  <div className="w-16 h-16 bg-gradient-primary rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                  <div className="w-16 h-16 bg-gradient-primary rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 border-2 border-warning/20">
                     <type.icon className="w-8 h-8 text-white" />
                   </div>
                   <CardTitle className="text-xl group-hover:text-primary transition-colors">
@@ -347,7 +347,7 @@ const Partnership = () => {
             <Card className="bg-gradient-primary text-white">
               <CardContent className="p-6 text-center">
                 <h3 className="text-xl font-bold mb-3">
-                  Ready to Grow Together?
+                  Ready to Partner With Us?
                 </h3>
                 <p className="text-white/90 mb-4">
                   Join our partner network and start building something amazing.

@@ -289,10 +289,6 @@ const DailyWins = () => {
 
         {/* CTA Section */}
         <div className="text-center bg-warning/10 border border-warning/20 rounded-2xl p-12">
-          <div className="inline-flex items-center gap-2 px-6 py-3 bg-warning/20 rounded-full border border-warning/30 mb-6">
-            <Trophy className="w-5 h-5 text-primary" />
-            <span className="text-primary font-medium">Share Your Success</span>
-          </div>
           <h2 className="text-2xl lg:text-3xl font-bold mb-4 text-primary">
             Ready to Start Your Own Success Story?
           </h2>
