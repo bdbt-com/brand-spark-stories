@@ -10,20 +10,15 @@ import ChevronRipple from "@/components/ChevronRipple";
 
 const Home = () => {
   const images = [
-    "/lovable-uploads/091ea38c-18d1-4a6c-b3d0-b2e9e92d382d.png",
-    "/lovable-uploads/106caa66-a28a-4871-b4da-391b59d6c6ee.png",
-    "/lovable-uploads/11966bbc-71f9-40df-ac7d-d99bead4b5d3.png",
-    "/lovable-uploads/2e4d322c-a647-4622-b44d-912958bfa401.png",
-    "/lovable-uploads/429221d1-d6c7-4743-9918-18a35e4a4eb2.png",
-    "/lovable-uploads/59a1a8dd-ab26-431d-b9c6-9da3f2f01f38.png",
-    "/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png",
-    "/lovable-uploads/5e8aba04-f6cc-44a2-9bcc-eaf2424e3976.png",
-    "/lovable-uploads/639b2e42-bb5e-4e0f-a150-3c447b0ca4d2.png",
-    "/lovable-uploads/711d369c-9d1d-4efb-9800-98349c1c7a48.png",
-    "/lovable-uploads/7208834d-dbba-4fc6-8da5-2f81f4e3796f.png",
-    "/lovable-uploads/8c209669-d4f3-4beb-9184-98693514ffca.png",
-    "/lovable-uploads/bb15285e-dc4c-46ae-93a2-3c27d8cad778.png",
-    "/lovable-uploads/dd8771a0-3f95-4ef7-838b-c6e40d9f78c4.png",
+    "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png", // Sunset silhouette on rocks
+    "/lovable-uploads/8d06c526-bd08-42b7-9a4e-09be508119c7.png", // Podcast recording setup
+    "/lovable-uploads/b362cf10-f3b4-4ab1-aeb3-30ab18058ace.png", // Man with dog outdoors
+    "/lovable-uploads/4fd0818e-20c3-4941-9c54-6915db50a7c0.png", // Meditation with mirror
+    "/lovable-uploads/661d98ce-15f1-4542-b8c0-bab549b78a55.png", // Man in bathroom mirror
+    "/lovable-uploads/33ba01bc-045c-4c44-ac70-c61c05093bdc.png", // Silhouette by pool
+    "/lovable-uploads/2678016c-a3fa-4e29-bf3d-3ebe92201186.png", // Person exercising outdoors
+    "/lovable-uploads/2f4d6184-a8de-43f0-a345-4ed910c90522.png", // Man on phone in modern setting
+    "/lovable-uploads/7db6bd1f-c12f-45f2-a1d1-505f38c743a1.png", // Man outdoors smiling
   ];
   const [embla, setEmbla] = useState<CarouselApi | null>(null);
   const [filteredImages, setFilteredImages] = useState<string[]>([]);
@@ -162,12 +157,12 @@ const Home = () => {
                   <CarouselContent>
                     {(filteredImages.length ? filteredImages : images).map((src, idx) => (
                       <CarouselItem key={src}>
-                        <img
-                          src={src}
-                          alt={`Big Life Change inspiration image ${idx + 1}`}
-                          className="w-full h-[480px] object-cover rounded-xl"
-                          loading={idx === 0 ? "eager" : "lazy"}
-                        />
+                         <img
+                           src={src}
+                           alt={`Big Life Change inspiration image ${idx + 1}`}
+                           className="w-full aspect-square object-cover rounded-xl"
+                           loading={idx === 0 ? "eager" : "lazy"}
+                         />
                       </CarouselItem>
                     ))}
                   </CarouselContent>
