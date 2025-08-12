@@ -286,21 +286,24 @@ const DailyWins = () => {
           </Button>
         </div>
 
+
         {/* CTA Section */}
-        <div className="text-center bg-gradient-hero text-white rounded-2xl p-12 relative overflow-hidden">
-          <div className="relative z-10">
-            <Trophy className="w-16 h-16 mx-auto mb-6 text-accent-light" />
-            <h2 className="text-3xl font-bold mb-4">
-              Share Your Win Today!
-            </h2>
-            <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-              Every achievement deserves celebration. Share your progress, inspire others, 
-              and become part of our success story.
-            </p>
-            <Button variant="accent" size="lg" asChild>
-              <Link to="/partnership">Submit Your Win</Link>
-            </Button>
+        <div className="text-center bg-warning/10 border border-warning/20 rounded-2xl p-12">
+          <div className="inline-flex items-center gap-2 px-6 py-3 bg-warning/20 rounded-full border border-warning/30 mb-6">
+            <Trophy className="w-5 h-5 text-primary" />
+            <span className="text-primary font-medium">Share Your Success</span>
           </div>
+          <h2 className="text-2xl lg:text-3xl font-bold mb-4 text-primary">
+            Ready to Start Your Own Success Story?
+          </h2>
+          <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
+            Get the same system these people used to transform their lives through simple daily habits.
+          </p>
+          <Button variant="hero" size="lg" asChild>
+            <Link to="/blueprint">
+              Get Your Foundation Blueprint Here <ArrowRight className="w-5 h-5 ml-2" />
+            </Link>
+          </Button>
         </div>
       </div>
     </div>

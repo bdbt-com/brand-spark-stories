@@ -53,7 +53,7 @@ const Home = () => {
     }
   };
 
-  const howWorkTriggerRef = useRef<HTMLDivElement>(null);
+  const howWorkTriggerRef = useRef<HTMLButtonElement>(null);
   const handleHowWorkOpenChange = (open: boolean) => {
     setIsHowWorkOpen(open);
     if (open) {
@@ -239,12 +239,104 @@ const Home = () => {
             ))}
           </div>
 
+          {/* CTA with Pale Orange Accent */}
           <div className="text-center">
+            <div className="inline-flex items-center gap-2 px-6 py-3 bg-warning/20 rounded-full border border-warning/30 mb-8">
+              <Target className="w-5 h-5 text-primary" />
+              <span className="text-primary font-medium">Complete Success System</span>
+            </div>
             <Button variant="outline" size="lg" asChild>
               <Link to="/blueprint">
                 Get Your Foundation Blueprint Here <ArrowRight className="w-5 h-5 ml-2" />
               </Link>
             </Button>
+          </div>
+
+          {/* How BDBT Works for You Collapsible Section */}
+          <div className="text-center">
+            <Collapsible open={isHowWorkOpen} onOpenChange={handleHowWorkOpenChange}>
+              <CollapsibleTrigger asChild>
+                <Button variant="outline" size="lg" ref={howWorkTriggerRef} className="group">
+                  How BDBT Works for You 
+                  <ChevronDown className={`w-5 h-5 ml-2 transition-transform duration-200 ${isHowWorkOpen ? 'rotate-180' : ''}`} />
+                </Button>
+              </CollapsibleTrigger>
+              <CollapsibleContent ref={howWorkContentRef} className="mt-8">
+                <div className="max-w-4xl mx-auto">
+                  <div className="bg-warning/20 border border-warning/30 rounded-2xl p-8 text-left space-y-6">
+                    <div className="grid md:grid-cols-2 gap-8">
+                      <div>
+                        <h4 className="text-xl font-semibold text-primary mb-4">The Problem</h4>
+                        <ul className="space-y-3 text-muted-foreground">
+                          <li className="flex items-start">
+                            <span className="w-2 h-2 bg-primary rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                            Most self-improvement advice is overwhelming and hard to stick with
+                          </li>
+                          <li className="flex items-start">
+                            <span className="w-2 h-2 bg-primary rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                            People try to change too much at once and end up changing nothing
+                          </li>
+                          <li className="flex items-start">
+                            <span className="w-2 h-2 bg-primary rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                            Without a system, motivation fades and old habits return
+                          </li>
+                        </ul>
+                      </div>
+                      <div>
+                        <h4 className="text-xl font-semibold text-primary mb-4">The BDBT Solution</h4>
+                        <ul className="space-y-3 text-muted-foreground">
+                          <li className="flex items-start">
+                            <span className="w-2 h-2 bg-success rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                            Simple, tested strategies that take 5 minutes or less
+                          </li>
+                          <li className="flex items-start">
+                            <span className="w-2 h-2 bg-success rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                            Habit stacking: Connect new habits to existing routines
+                          </li>
+                          <li className="flex items-start">
+                            <span className="w-2 h-2 bg-success rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                            Track progress to build momentum that works even when motivation doesn't
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div className="border-t border-warning/20 pt-6">
+                      <h4 className="text-xl font-semibold text-primary mb-4 text-center">What You Get</h4>
+                      <div className="grid md:grid-cols-3 gap-6">
+                        <div className="text-center">
+                          <div className="w-16 h-16 bg-warning rounded-xl flex items-center justify-center mx-auto mb-3">
+                            <Target className="w-8 h-8 text-primary" />
+                          </div>
+                          <h5 className="font-semibold text-primary mb-2">Foundation Blueprint</h5>
+                          <p className="text-sm text-muted-foreground">Your personal habit stacking reference point</p>
+                        </div>
+                        <div className="text-center">
+                          <div className="w-16 h-16 bg-warning rounded-xl flex items-center justify-center mx-auto mb-3">
+                            <Zap className="w-8 h-8 text-primary" />
+                          </div>
+                          <h5 className="font-semibold text-primary mb-2">118 Daily Tips</h5>
+                          <p className="text-sm text-muted-foreground">Tested strategies for health, wealth & happiness</p>
+                        </div>
+                        <div className="text-center">
+                          <div className="w-16 h-16 bg-warning rounded-xl flex items-center justify-center mx-auto mb-3">
+                            <Heart className="w-8 h-8 text-primary" />
+                          </div>
+                          <h5 className="font-semibold text-primary mb-2">Progress Tracking</h5>
+                          <p className="text-sm text-muted-foreground">Document your journey and celebrate wins</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="text-center pt-4 border-t border-warning/20">
+                      <Button variant="outline" size="lg" asChild>
+                        <Link to="/about">
+                          Learn More About Our Story <ArrowRight className="w-5 h-5 ml-2" />
+                        </Link>
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </CollapsibleContent>
+            </Collapsible>
           </div>
         </div>
       </section>
@@ -315,6 +407,10 @@ const Home = () => {
           </div>
           
           <div className="text-center">
+            <div className="inline-flex items-center gap-2 px-6 py-3 bg-warning/20 rounded-full border border-warning/30 mb-8">
+              <Zap className="w-5 h-5 text-primary" />
+              <span className="text-primary font-medium">118 Proven Strategies</span>
+            </div>
             <Button variant="outline" size="lg" asChild>
               <Link to="/tips">
                 View All Tips <ArrowRight className="w-5 h-5 ml-2" />

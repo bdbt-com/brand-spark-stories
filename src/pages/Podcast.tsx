@@ -350,7 +350,7 @@ const Podcast = () => {
           </div>
 
           {/* CTA Section */}
-          <div className="mt-20 text-center bg-[hsl(35_45%_75%)] text-white rounded-2xl p-12">
+          <div className="mt-20 text-center bg-warning text-primary rounded-2xl p-12">
             <h2 className="text-3xl font-bold mb-4 text-white">
               Never Miss an Episode
             </h2>
