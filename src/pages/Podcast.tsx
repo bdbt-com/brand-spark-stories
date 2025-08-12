@@ -207,7 +207,13 @@ const Podcast = () => {
           {/* Featured Carousel */}
           <div className="mb-20">
             <div className="flex items-center justify-between mb-8">
-              <h2 className="text-2xl lg:text-3xl font-bold text-foreground">Featured Episodes</h2>
+              <div>
+                <div className="inline-flex items-center gap-2 px-4 py-2 bg-warning/20 rounded-full border border-warning/30 mb-4">
+                  <Play className="w-4 h-4 text-primary" />
+                  <span className="text-primary font-medium text-sm">Weekly Insights</span>
+                </div>
+                <h2 className="text-2xl lg:text-3xl font-bold text-foreground">Featured Episodes</h2>
+              </div>
               <div className="flex gap-2">
                 <Button 
                   variant="outline" 

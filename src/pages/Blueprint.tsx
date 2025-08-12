@@ -100,13 +100,17 @@ const Blueprint = () => {
       <div className="container mx-auto px-4">
         <div className="max-w-2xl mx-auto">
           <div className="text-center mb-8">
+            <div className="inline-flex items-center gap-2 px-6 py-3 bg-warning/20 rounded-full border border-warning/30 mb-6">
+              <Target className="w-5 h-5 text-primary" />
+              <span className="text-primary font-medium">Your Foundation</span>
+            </div>
             <h2 className="text-xl font-semibold text-primary mb-4">Your Habit Stacking Reference Point</h2>
             <h1 className="text-3xl font-bold text-primary">The Source Blueprint</h1>
           </div>
 
           {/* Email capture form - visible above document */}
           <Card className="mb-8 border-2 border-primary/20 bg-background">
-            <CardContent className="space-y-6 pt-6">
+            <CardContent className="space-y-4 pt-4 pb-4">
               {isSubmitted ? (
                 <div className="text-center py-8 animate-scale-in">
                   <div className="w-20 h-20 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-4 animate-pulse">
@@ -132,7 +136,7 @@ const Blueprint = () => {
                     </p>
                   </div>
                   
-                  <form onSubmit={handleEmailSubmit} className="space-y-5">
+                  <form onSubmit={handleEmailSubmit} className="space-y-4">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div className="space-y-2">
                         <Label htmlFor="firstName" className="text-sm font-medium">

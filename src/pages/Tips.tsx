@@ -1012,6 +1012,10 @@ const Tips = () => {
               📚 Life-Changing Guides
             </Badge>
             <h1 className="text-3xl lg:text-4xl font-bold mb-4 leading-tight">
+              <div className="inline-flex items-center gap-2 px-6 py-3 bg-warning/20 rounded-full border border-warning/30 mb-6">
+                <Target className="w-5 h-5 text-white" />
+                <span className="text-white font-medium">118 Proven Strategies</span>
+              </div>
               <span className="block text-gradient-primary">Big Daddy's</span>
               <span className="block text-white">Big Tips</span>
             </h1>

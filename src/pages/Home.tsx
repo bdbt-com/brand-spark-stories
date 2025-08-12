@@ -134,7 +134,7 @@ const Home = () => {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="animate-fade-in">
               <h1 className="text-4xl lg:text-6xl font-bold mb-6 leading-tight">
-                <span className="block text-primary">Small Daily Steps.</span>
+                <span className="block text-white">Small Daily Steps.</span>
                 <span className="block text-[hsl(35_45%_75%)]">Big Life Change.</span>
               </h1>
               <p className="text-base lg:text-lg mb-8 text-white/90 leading-relaxed">
@@ -332,6 +332,55 @@ const Home = () => {
                           Learn More About Our Story <ArrowRight className="w-5 h-5 ml-2" />
                         </Link>
                       </Button>
+                    </div>
+
+                    {/* 9 Thought Patterns BDBT Breaks */}
+                    <div className="mt-8 pt-8 border-t border-warning/20">
+                      <h4 className="text-xl font-semibold text-primary mb-6 text-center">9 Thought Patterns BDBT Breaks</h4>
+                      <div className="grid md:grid-cols-3 gap-4">
+                        <div className="space-y-3">
+                          <div className="flex items-start">
+                            <span className="w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-0.5 flex-shrink-0">1</span>
+                            <span className="text-sm text-muted-foreground">"I need to change everything at once"</span>
+                          </div>
+                          <div className="flex items-start">
+                            <span className="w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-0.5 flex-shrink-0">2</span>
+                            <span className="text-sm text-muted-foreground">"If I can't do it perfectly, I shouldn't do it"</span>
+                          </div>
+                          <div className="flex items-start">
+                            <span className="w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-0.5 flex-shrink-0">3</span>
+                            <span className="text-sm text-muted-foreground">"I don't have enough time"</span>
+                          </div>
+                        </div>
+                        <div className="space-y-3">
+                          <div className="flex items-start">
+                            <span className="w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-0.5 flex-shrink-0">4</span>
+                            <span className="text-sm text-muted-foreground">"I've tried before and failed"</span>
+                          </div>
+                          <div className="flex items-start">
+                            <span className="w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-0.5 flex-shrink-0">5</span>
+                            <span className="text-sm text-muted-foreground">"I need motivation to start"</span>
+                          </div>
+                          <div className="flex items-start">
+                            <span className="w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-0.5 flex-shrink-0">6</span>
+                            <span className="text-sm text-muted-foreground">"Small actions don't matter"</span>
+                          </div>
+                        </div>
+                        <div className="space-y-3">
+                          <div className="flex items-start">
+                            <span className="w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-0.5 flex-shrink-0">7</span>
+                            <span className="text-sm text-muted-foreground">"I'm too old/young to change"</span>
+                          </div>
+                          <div className="flex items-start">
+                            <span className="w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-0.5 flex-shrink-0">8</span>
+                            <span className="text-sm text-muted-foreground">"I'll start tomorrow/Monday/next month"</span>
+                          </div>
+                          <div className="flex items-start">
+                            <span className="w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-0.5 flex-shrink-0">9</span>
+                            <span className="text-sm text-muted-foreground">"This won't work for my situation"</span>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
