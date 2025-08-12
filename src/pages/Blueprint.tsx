@@ -9,7 +9,7 @@ import { BookOpen, Clock, Users, Download, CheckCircle, Target, Zap, Loader2, Ma
 import { useToast } from "@/hooks/use-toast";
 
 const Blueprint = () => {
-  const [showEmailForm, setShowEmailForm] = useState(false);
+  const [showEmailForm, setShowEmailForm] = useState(true);
   const [firstName, setFirstName] = useState("");
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -47,9 +47,6 @@ const Blueprint = () => {
     }
   };
 
-  const handleDownloadClick = () => {
-    setShowEmailForm(true);
-  };
 
   const handleEmailSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -106,6 +103,126 @@ const Blueprint = () => {
             <h2 className="text-xl font-semibold text-primary mb-4">Your Habit Stacking Reference Point</h2>
             <h1 className="text-3xl font-bold text-primary">The Source Blueprint</h1>
           </div>
+
+          {/* Email capture form - visible above document */}
+          <Card className="mb-8 border-2 border-primary/20 bg-background">
+            <CardContent className="space-y-6 pt-6">
+              {isSubmitted ? (
+                <div className="text-center py-8 animate-scale-in">
+                  <div className="w-20 h-20 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-4 animate-pulse">
+                    <CheckCircle className="w-10 h-10 text-green-600 dark:text-green-400" />
+                  </div>
+                  <h4 className="text-xl font-semibold text-foreground mb-2">
+                    Blueprint Sent Successfully! 🎉
+                  </h4>
+                  <p className="text-muted-foreground mb-4">
+                    Check your email - your blueprint should arrive within minutes.
+                  </p>
+                  <div className="flex items-center justify-center text-sm text-muted-foreground">
+                    <Mail className="w-4 h-4 mr-2" />
+                    Sent to: {email}
+                  </div>
+                </div>
+              ) : (
+                <>
+                  <div className="text-center space-y-2">
+                    <h4 className="text-xl font-semibold text-foreground">Get Your Free Blueprint</h4>
+                    <p className="text-sm text-muted-foreground">
+                      Join thousands who've transformed their lives with this system
+                    </p>
+                  </div>
+                  
+                  <form onSubmit={handleEmailSubmit} className="space-y-5">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="firstName" className="text-sm font-medium">
+                          First Name *
+                        </Label>
+                        <Input
+                          id="firstName"
+                          type="text"
+                          value={firstName}
+                          onChange={(e) => handleInputChange("firstName", e.target.value)}
+                          placeholder="Enter your first name"
+                          disabled={isLoading}
+                          className={`mt-1 transition-all duration-200 ${
+                            fieldErrors.firstName 
+                              ? "border-red-500 focus:border-red-500 focus:ring-red-200" 
+                              : "focus:border-primary focus:ring-primary/20"
+                          }`}
+                          onBlur={() => {
+                            const error = validateFirstName(firstName);
+                            setFieldErrors(prev => ({ ...prev, firstName: error || undefined }));
+                          }}
+                        />
+                        {fieldErrors.firstName && (
+                          <p className="text-xs text-red-500 animate-fade-in flex items-center">
+                            <span className="w-1 h-1 bg-red-500 rounded-full mr-2"></span>
+                            {fieldErrors.firstName}
+                          </p>
+                        )}
+                      </div>
+
+                      <div className="space-y-2">
+                        <Label htmlFor="email" className="text-sm font-medium">
+                          Email Address *
+                        </Label>
+                        <Input
+                          id="email"
+                          type="email"
+                          value={email}
+                          onChange={(e) => handleInputChange("email", e.target.value)}
+                          placeholder="Enter your email address"
+                          disabled={isLoading}
+                          className={`mt-1 transition-all duration-200 ${
+                            fieldErrors.email 
+                              ? "border-red-500 focus:border-red-500 focus:ring-red-200" 
+                              : "focus:border-primary focus:ring-primary/20"
+                          }`}
+                          onBlur={() => {
+                            const error = validateEmail(email);
+                            setFieldErrors(prev => ({ ...prev, email: error || undefined }));
+                          }}
+                        />
+                        {fieldErrors.email && (
+                          <p className="text-xs text-red-500 animate-fade-in flex items-center">
+                            <span className="w-1 h-1 bg-red-500 rounded-full mr-2"></span>
+                            {fieldErrors.email}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+
+                    <Button 
+                      type="submit" 
+                      variant="hero" 
+                      size="lg" 
+                      className="w-full transition-all duration-200 hover:scale-[1.02] hover:shadow-lg"
+                      disabled={isLoading || !firstName.trim() || !email.trim()}
+                    >
+                      {isLoading ? (
+                        <>
+                          <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                          Sending Blueprint...
+                        </>
+                      ) : (
+                        <>
+                          Download Free Guide
+                          <Download className="w-4 h-4 ml-2 group-hover:translate-y-0.5 transition-transform" />
+                        </>
+                      )}
+                    </Button>
+                  </form>
+
+                  <div className="text-center">
+                    <p className="text-sm text-muted-foreground">
+                      📧 Instant delivery • 🚫 No spam, ever • 🔒 Privacy protected
+                    </p>
+                  </div>
+                </>
+              )}
+            </CardContent>
+          </Card>
           
           <Card className="group hover:shadow-strong transition-all duration-300 hover:-translate-y-2 relative overflow-hidden bg-gradient-subtle border-2 border-primary/20">
             <CardHeader className="pb-4">
@@ -119,178 +236,40 @@ const Blueprint = () => {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
-              {showEmailForm ? (
-                <div className="space-y-6 animate-fade-in">
-                  {isSubmitted ? (
-                    <div className="text-center py-8 animate-scale-in">
-                      <div className="w-20 h-20 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-4 animate-pulse">
-                        <CheckCircle className="w-10 h-10 text-green-600 dark:text-green-400" />
-                      </div>
-                      <h4 className="text-xl font-semibold text-foreground mb-2">
-                        Blueprint Sent Successfully! 🎉
-                      </h4>
-                      <p className="text-muted-foreground mb-4">
-                        Check your email - your blueprint should arrive within minutes.
-                      </p>
-                      <div className="flex items-center justify-center text-sm text-muted-foreground">
-                        <Mail className="w-4 h-4 mr-2" />
-                        Sent to: {email}
-                      </div>
-                    </div>
-                  ) : (
-                    <>
-                      <div className="text-center space-y-2">
-                        <h4 className="text-xl font-semibold text-foreground">Get Your Free Blueprint</h4>
-                        <p className="text-sm text-muted-foreground">
-                          Join thousands who've transformed their lives with this system
-                        </p>
-                      </div>
-                      
-                      <form onSubmit={handleEmailSubmit} className="space-y-5">
-                        <div className="space-y-2">
-                          <Label htmlFor="firstName" className="text-sm font-medium">
-                            First Name *
-                          </Label>
-                          <Input
-                            id="firstName"
-                            type="text"
-                            value={firstName}
-                            onChange={(e) => handleInputChange("firstName", e.target.value)}
-                            placeholder="Enter your first name"
-                            disabled={isLoading}
-                            className={`mt-1 transition-all duration-200 ${
-                              fieldErrors.firstName 
-                                ? "border-red-500 focus:border-red-500 focus:ring-red-200" 
-                                : "focus:border-primary focus:ring-primary/20"
-                            }`}
-                            onBlur={() => {
-                              const error = validateFirstName(firstName);
-                              setFieldErrors(prev => ({ ...prev, firstName: error || undefined }));
-                            }}
-                          />
-                          {fieldErrors.firstName && (
-                            <p className="text-xs text-red-500 animate-fade-in flex items-center">
-                              <span className="w-1 h-1 bg-red-500 rounded-full mr-2"></span>
-                              {fieldErrors.firstName}
-                            </p>
-                          )}
-                        </div>
-
-                        <div className="space-y-2">
-                          <Label htmlFor="email" className="text-sm font-medium">
-                            Email Address *
-                          </Label>
-                          <Input
-                            id="email"
-                            type="email"
-                            value={email}
-                            onChange={(e) => handleInputChange("email", e.target.value)}
-                            placeholder="Enter your email address"
-                            disabled={isLoading}
-                            className={`mt-1 transition-all duration-200 ${
-                              fieldErrors.email 
-                                ? "border-red-500 focus:border-red-500 focus:ring-red-200" 
-                                : "focus:border-primary focus:ring-primary/20"
-                            }`}
-                            onBlur={() => {
-                              const error = validateEmail(email);
-                              setFieldErrors(prev => ({ ...prev, email: error || undefined }));
-                            }}
-                          />
-                          {fieldErrors.email && (
-                            <p className="text-xs text-red-500 animate-fade-in flex items-center">
-                              <span className="w-1 h-1 bg-red-500 rounded-full mr-2"></span>
-                              {fieldErrors.email}
-                            </p>
-                          )}
-                        </div>
-
-                        <Button 
-                          type="submit" 
-                          variant="hero" 
-                          size="lg" 
-                          className="w-full transition-all duration-200 hover:scale-[1.02] hover:shadow-lg"
-                          disabled={isLoading}
-                        >
-                          {isLoading ? (
-                            <>
-                              <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                              Sending Blueprint...
-                            </>
-                          ) : (
-                            <>
-                              Send Me The Blueprint
-                              <Download className="w-4 h-4 ml-2 group-hover:translate-y-0.5 transition-transform" />
-                            </>
-                          )}
-                        </Button>
-                      </form>
-
-                      <div className="text-center space-y-2">
-                        <p className="text-sm text-muted-foreground">
-                          📧 Instant delivery • 🚫 No spam, ever • 🔒 Privacy protected
-                        </p>
-                        <button
-                          type="button"
-                          onClick={() => setShowEmailForm(false)}
-                          className="text-xs text-muted-foreground hover:text-foreground transition-colors underline"
-                          disabled={isLoading}
-                        >
-                          ← Go back to preview
-                        </button>
-                      </div>
-                    </>
-                  )}
-                </div>
-              ) : (
-                <>
-                  <div className="space-y-4 text-center">
-                    <ul className="space-y-2 max-w-md mx-auto text-left">
-                      <li className="text-sm text-muted-foreground flex items-start">
-                        <CheckCircle className="w-4 h-4 mr-3 mt-0.5 text-primary flex-shrink-0" />
-                        The BDBT Foundation blueprint will help you spot your daily drifts
-                      </li>
-                      <li className="text-sm text-muted-foreground flex items-start">
-                        <CheckCircle className="w-4 h-4 mr-3 mt-0.5 text-primary flex-shrink-0" />
-                        It will give you suggestions for Daily Wins, you can use it to track your habits, and document every step of your Journey
-                      </li>
-                      <li className="text-sm text-muted-foreground flex items-start">
-                        <CheckCircle className="w-4 h-4 mr-3 mt-0.5 text-primary flex-shrink-0" />
-                        It is your Ultimate Reference Point for Implementing the BDBT System into your life
-                      </li>
-                    </ul>
-                  </div>
-                  
-                  <div className="space-y-3">
-                    <p className="text-sm font-medium text-foreground text-center">Key Takeaways:</p>
-                    <ul className="space-y-2 max-w-md mx-auto">
-                      <li className="text-sm text-muted-foreground flex items-start">
-                        <CheckCircle className="w-4 h-4 mr-3 mt-0.5 text-primary flex-shrink-0" />
-                        Momentum {'>'}Motivation
-                      </li>
-                      <li className="text-sm text-muted-foreground flex items-start">
-                        <CheckCircle className="w-4 h-4 mr-3 mt-0.5 text-primary flex-shrink-0" />
-                        A System that works even when your Motivation Doesn't
-                      </li>
-                      <li className="text-sm text-muted-foreground flex items-start">
-                        <CheckCircle className="w-4 h-4 mr-3 mt-0.5 text-primary flex-shrink-0" />
-                        Once Applied to your unique lifestyle, Benefit from the positive changes you Experience Daily
-                      </li>
-                    </ul>
-                  </div>
-
-                  <div className="flex justify-center pt-4 border-t border-border">
-                    <Button 
-                      size="lg" 
-                      variant="hero" 
-                      className="group-hover:shadow-strong"
-                      onClick={handleDownloadClick}
-                    >
-                      Download Free Guide <Download className="w-4 h-4 ml-2" />
-                    </Button>
-                  </div>
-                </>
-              )}
+              <div className="space-y-4 text-center">
+                <ul className="space-y-2 max-w-md mx-auto text-left">
+                  <li className="text-sm text-muted-foreground flex items-start">
+                    <CheckCircle className="w-4 h-4 mr-3 mt-0.5 text-primary flex-shrink-0" />
+                    The BDBT Foundation blueprint will help you spot your daily drifts
+                  </li>
+                  <li className="text-sm text-muted-foreground flex items-start">
+                    <CheckCircle className="w-4 h-4 mr-3 mt-0.5 text-primary flex-shrink-0" />
+                    It will give you suggestions for Daily Wins, you can use it to track your habits, and document every step of your Journey
+                  </li>
+                  <li className="text-sm text-muted-foreground flex items-start">
+                    <CheckCircle className="w-4 h-4 mr-3 mt-0.5 text-primary flex-shrink-0" />
+                    It is your Ultimate Reference Point for Implementing the BDBT System into your life
+                  </li>
+                </ul>
+              </div>
+              
+              <div className="space-y-3">
+                <p className="text-sm font-medium text-foreground text-center">Key Takeaways:</p>
+                <ul className="space-y-2 max-w-md mx-auto">
+                  <li className="text-sm text-muted-foreground flex items-start">
+                    <CheckCircle className="w-4 h-4 mr-3 mt-0.5 text-primary flex-shrink-0" />
+                    Momentum {'>'}Motivation
+                  </li>
+                  <li className="text-sm text-muted-foreground flex items-start">
+                    <CheckCircle className="w-4 h-4 mr-3 mt-0.5 text-primary flex-shrink-0" />
+                    A System that works even when your Motivation Doesn't
+                  </li>
+                  <li className="text-sm text-muted-foreground flex items-start">
+                    <CheckCircle className="w-4 h-4 mr-3 mt-0.5 text-primary flex-shrink-0" />
+                    Once Applied to your unique lifestyle, Benefit from the positive changes you Experience Daily
+                  </li>
+                </ul>
+              </div>
             </CardContent>
           </Card>
           <div className="flex justify-center mt-12">
