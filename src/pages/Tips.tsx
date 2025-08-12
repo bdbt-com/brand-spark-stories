@@ -421,7 +421,6 @@ const Tips = () => {
       views: 1480,
       dateAdded: "2024-06-01"
     },
-    // Adding many more tips to reach 117 total
     {
       icon: ArrowUp,
       title: "Take the Stairs Instead of Elevators",
@@ -582,7 +581,6 @@ const Tips = () => {
       views: 1560,
       dateAdded: "2024-07-20"
     },
-    // Adding 87 more tips to reach 117 total
     {
       icon: Bus,
       title: "Use Public Transport for Reading Time",
@@ -711,7 +709,6 @@ const Tips = () => {
       views: 950,
       dateAdded: "2024-09-01"
     },
-    // Continue adding many more tips to reach 117
     {
       icon: Monitor,
       title: "Use a Blue Light Filter After 8pm",
@@ -904,7 +901,6 @@ const Tips = () => {
       views: 1380,
       dateAdded: "2024-11-01"
     },
-    // Adding 65 more tips to reach exactly 117 total
     { icon: Clock, title: "Set a 'No Phone' Hour Before Bed", description: "Create sacred wind-down time for better sleep and mental peace.", items: ["Health: Improves sleep quality by reducing blue light and mental stimulation", "Wealth: Prevents late-night impulse purchases and subscription sign-ups", "Happiness: Creates peaceful transition time and reduces anxiety"], level: "Easy", duration: "3 min read", category: "wellness", popularity: 65, views: 1450, dateAdded: "2024-11-05" },
     { icon: Timer, title: "Use the Pomodoro Technique for Focused Work", description: "25-minute focused work blocks for enhanced productivity and mental clarity.", items: ["Health: Prevents mental fatigue through regular break intervals", "Wealth: Increased focus leads to higher quality work and opportunities", "Happiness: Sense of accomplishment from completed focused sessions"], level: "Easy", duration: "4 min read", category: "productivity", popularity: 58, views: 1320, dateAdded: "2024-11-10" },
     { icon: Target, title: "Choose Three Priorities Each Morning", description: "Daily focus practice for intentional living and reduced overwhelm.", items: ["Health: Reduces stress by creating clear direction and boundaries", "Wealth: Focuses energy on high-impact activities for better results", "Happiness: Sense of control and accomplishment from intentional choices"], level: "Easy", duration: "3 min read", category: "productivity", popularity: 62, views: 1400, dateAdded: "2024-11-15" },
@@ -970,33 +966,20 @@ const Tips = () => {
     { icon: ShoppingBasket, title: "Shop with a List and Stick to It", description: "Mindful consumption for budget and health control.", items: ["Health: Planned shopping leads to better nutrition choices", "Wealth: List shopping prevents impulse purchases and overspending", "Happiness: Intentional purchasing reduces buyer's remorse"], level: "Easy", duration: "3 min read", category: "shopping", popularity: 58, views: 1290, dateAdded: "2025-09-15" }
   ];
 
-  // Sort tips
-  const sortedTips = useMemo(() => {
-    return [...tipCategories];
-  }, []);
-
   const sortedAndFilteredTips = useMemo(() => {
-    let sorted = [...sortedTips];
+    let tips = [...tipCategories];
     
     switch (sortBy) {
+      case "popularity":
+        return tips.sort((a, b) => b.popularity - a.popularity);
       case "newest":
-        sorted.sort((a, b) => new Date(b.dateAdded).getTime() - new Date(a.dateAdded).getTime());
-        break;
+        return tips.sort((a, b) => new Date(b.dateAdded).getTime() - new Date(a.dateAdded).getTime());
       case "oldest":
-        sorted.sort((a, b) => new Date(a.dateAdded).getTime() - new Date(b.dateAdded).getTime());
-        break;
-      case "popular":
-        sorted.sort((a, b) => b.popularity - a.popularity);
-        break;
-      case "views":
-        sorted.sort((a, b) => b.views - a.views);
-        break;
+        return tips.sort((a, b) => new Date(a.dateAdded).getTime() - new Date(b.dateAdded).getTime());
       default:
-        break;
+        return tips;
     }
-    
-    return sorted;
-  }, [sortedTips, sortBy]);
+  }, [sortBy]);
 
   const handleTipHighlight = (tipTitle: string) => {
     setHighlightedTip(tipTitle);
@@ -1005,7 +988,7 @@ const Tips = () => {
 
   return (
     <div className="min-h-screen bg-gradient-subtle">
-      {/* Smaller Hero Section */}
+      {/* Hero Section */}
       <section className="py-12 bg-gradient-hero text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="animate-fade-in">
@@ -1020,41 +1003,47 @@ const Tips = () => {
               📖 {tipCategories.length} Powerful Guides Available
             </p>
           </div>
-
-          {/* Action Buttons */}
-          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center animate-fade-in" style={{ animationDelay: "100ms" }}>
-            <ChevronRipple to="/daily-wins" label="Add to the Daily Wins Page" color="white" />
-            <ChevronRipple to="/podcast" label="Go to Podcast" color="white" />
-          </div>
         </div>
-
       </section>
 
-      {/* Filters and Sorting */}
-      <div className="py-8 bg-background/50 animate-fade-in" style={{ animationDelay: "150ms" }}>
+      {/* Blue segment with pale orange background and white text */}
+      <section className="py-12 bg-orange-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl font-bold mb-4 text-white" style={{color: 'white'}}>
+            Strong vessel, smoother journey
+          </h2>
+          <p className="text-lg text-white max-w-3xl mx-auto" style={{color: 'white'}}>
+            Build the daily habits that become the foundation for lasting transformation in every area of your life.
+          </p>
+          <div className="mt-8">
+            <Button variant="accent" size="lg" asChild>
+              <Link to="/blueprint">Get Your Foundation Blueprint</Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      <div className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col lg:flex-row gap-6 items-center justify-between">
-            {/* Sort Options */}
-            <div className="flex items-center gap-4">
-              <Filter className="w-4 h-4 text-muted-foreground" />
+          {/* Filter Controls */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center mb-12">
+            <div className="flex items-center gap-3">
+              <SlidersHorizontal className="w-5 h-5 text-muted-foreground" />
+              <span className="font-medium text-foreground">Sort by:</span>
               <Select value={sortBy} onValueChange={setSortBy}>
-                <SelectTrigger className="w-48 border-warning/30 focus:border-warning">
+                <SelectTrigger className="w-[140px]">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="newest">Newest First</SelectItem>
-                  <SelectItem value="oldest">Oldest First</SelectItem>
-                  <SelectItem value="popular">Most Popular</SelectItem>
-                  <SelectItem value="views">Most Viewed</SelectItem>
+                  <SelectItem value="newest">Newest</SelectItem>
+                  <SelectItem value="oldest">Oldest</SelectItem>
+                  <SelectItem value="popularity">Popularity</SelectItem>
                 </SelectContent>
               </Select>
             </div>
+          </div>
         </div>
-
-        </div>
-
       </div>
-    </div>
 
       {/* AI Tip Finder */}
       <div className="animate-fade-in" style={{ animationDelay: "200ms" }}>
@@ -1075,9 +1064,9 @@ const Tips = () => {
                 }`}
                 style={{ animationDelay: `${400 + index * 100}ms` }}
               >
-                 <div data-tip-title={tip.title} className="w-full">
-                   <TipCard tip={tip} index={index} />
-                 </div>
+                <div data-tip-title={tip.title} className="w-full">
+                  <TipCard tip={tip} index={index} />
+                </div>
               </div>
             ))}
           </div>
@@ -1092,21 +1081,6 @@ const Tips = () => {
           )}
         </div>
       </section>
-
-      {/* CTA Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
-        <div className="text-center bg-warning text-primary rounded-2xl p-12 border-4 border-warning/40">
-          <h2 className="text-3xl font-bold mb-4 text-white">
-            Want More Life-Changing Strategies?
-          </h2>
-          <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-            Get the complete BDBT system with your personalized blueprint and start implementing these tips today.
-          </p>
-          <Button variant="accent" size="lg" asChild>
-            <Link to="/blueprint">Download Your Blueprint</Link>
-          </Button>
-        </div>
-      </div>
     </div>
   );
 };

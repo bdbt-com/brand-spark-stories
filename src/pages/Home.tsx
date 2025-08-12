@@ -523,13 +523,6 @@ const Home = () => {
       {/* CTA Section */}
       <section className="py-16 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center bg-warning text-primary rounded-2xl p-12 border-4 border-warning/40">
-            <Button variant="accent" size="lg" asChild>
-              <Link to="/blueprint">
-                Get Your Foundation Blueprint <ArrowRight className="w-5 h-5 ml-2" />
-              </Link>
-            </Button>
-          </div>
         </div>
       </section>
 
