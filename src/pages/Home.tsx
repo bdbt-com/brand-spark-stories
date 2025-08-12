@@ -563,14 +563,9 @@ const Home = () => {
                   <Trophy className="w-8 h-8 text-white" />
                 </div>
                 <h3 className="text-2xl font-semibold text-success mb-4">Daily Wins</h3>
-                <p className="text-muted-foreground mb-6 leading-relaxed">
+                <p className="text-muted-foreground leading-relaxed">
                   Celebrate and track your daily victories. Every small win builds momentum toward your bigger goals.
                 </p>
-                <Button variant="outline" size="lg" asChild className="border-success/30 text-success hover:bg-success hover:text-white">
-                  <Link to="/daily-wins">
-                    View Daily Wins <ArrowRight className="w-5 h-5 ml-2" />
-                  </Link>
-                </Button>
               </CardContent>
             </Card>
 
@@ -581,14 +576,9 @@ const Home = () => {
                   <AlertTriangle className="w-8 h-8 text-white" />
                 </div>
                 <h3 className="text-2xl font-semibold text-destructive mb-4">Daily Drifts</h3>
-                <p className="text-muted-foreground mb-6 leading-relaxed">
+                <p className="text-muted-foreground leading-relaxed">
                   Identify the small habits that are slowly pulling you away from your goals before they compound.
                 </p>
-                <Button variant="outline" size="lg" asChild className="border-destructive/30 text-destructive hover:bg-destructive hover:text-white">
-                  <Link to="/tips">
-                    Spot Your Drifts <ArrowRight className="w-5 h-5 ml-2" />
-                  </Link>
-                </Button>
               </CardContent>
             </Card>
           </div>
