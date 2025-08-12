@@ -110,9 +110,9 @@ const Partnership = () => {
 
         {/* Partnership Types */}
         <div className="mb-20">
-          <h2 className="text-3xl font-bold text-center mb-12 text-foreground">
-            Partnership Opportunities
-          </h2>
+            <h2 className="text-3xl font-bold text-center mb-12 text-primary">
+              Partnership Opportunities
+            </h2>
           <div className="grid md:grid-cols-2 gap-8">
             {partnershipTypes.map((type, index) => (
               <Card 
@@ -154,7 +154,7 @@ const Partnership = () => {
         {/* Benefits Section */}
         <div className="mb-20 bg-gradient-subtle rounded-2xl p-12">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4 text-foreground">
+            <h2 className="text-3xl font-bold mb-4 text-primary">
               Why Partner With Us?
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -175,7 +175,7 @@ const Partnership = () => {
         {/* Contact Form */}
         <div className="grid lg:grid-cols-2 gap-16 items-start">
           <div>
-            <h2 className="text-3xl font-bold mb-6 text-foreground">
+            <h2 className="text-3xl font-bold mb-6 text-primary">
               Let's Start the Conversation
             </h2>
             <p className="text-lg text-muted-foreground mb-8 leading-relaxed">

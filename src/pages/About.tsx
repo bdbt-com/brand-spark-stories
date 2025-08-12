@@ -40,7 +40,7 @@ const About = () => {
       <section id="problem" className="py-32 bg-background">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-32">
-            <h2 className="text-4xl lg:text-6xl font-bold mb-8 text-foreground tracking-tight">
+            <h2 className="text-4xl lg:text-6xl font-bold mb-8 text-primary tracking-tight">
               The Problem
             </h2>
             <p className="text-xl text-muted-foreground font-light max-w-2xl mx-auto">
@@ -57,7 +57,7 @@ const About = () => {
           <div className="">
             {/* First statement - Center aligned */}
             <div id="problem-1" className="text-center max-w-4xl mx-auto mt-32">
-              <h3 className="text-4xl lg:text-5xl font-bold leading-tight text-foreground mb-8">
+              <h3 className="text-4xl lg:text-5xl font-bold leading-tight text-primary mb-8">
                 Why do traditional approaches fail to create lasting change?
               </h3>
               <p className="text-xl text-muted-foreground font-light">
@@ -73,7 +73,7 @@ const About = () => {
 
             {/* Second statement - Center aligned */}
             <div id="problem-2" className="text-center max-w-4xl mx-auto mt-32">
-              <h3 className="text-4xl lg:text-5xl font-bold leading-tight text-foreground mb-8">
+              <h3 className="text-4xl lg:text-5xl font-bold leading-tight text-primary mb-8">
                 We're told to fix our lives one isolated tip at a time.
               </h3>
               <p className="text-xl text-muted-foreground font-light">
@@ -89,7 +89,7 @@ const About = () => {
 
             {/* Third statement - Center aligned with emphasis */}
             <div id="problem-3" className="text-center max-w-4xl mx-auto">
-              <h3 className="text-4xl lg:text-5xl font-bold leading-tight text-foreground mb-8">
+              <h3 className="text-4xl lg:text-5xl font-bold leading-tight text-primary mb-8">
                 But nothing sticks.
               </h3>
               <p className="text-xl text-muted-foreground font-light mb-4">
@@ -108,7 +108,7 @@ const About = () => {
 
             {/* Fourth statement - Center aligned */}
             <div id="problem-4" className="text-center max-w-4xl mx-auto mt-32">
-              <h3 className="text-4xl lg:text-5xl font-bold leading-tight text-foreground mb-8">
+              <h3 className="text-4xl lg:text-5xl font-bold leading-tight text-primary mb-8">
                 Meanwhile, modern life pushes us further behind.
               </h3>
               <p className="text-xl text-muted-foreground font-light">
@@ -139,7 +139,7 @@ const About = () => {
                   Meet Big Daddy
                 </Badge>
                 <h1 className="text-5xl lg:text-6xl font-bold leading-tight">
-                  <span className="block text-foreground">The Story Behind</span>
+                  <span className="block text-primary">The Story Behind</span>
                   <span className="block text-gradient">The System</span>
                 </h1>
               </div>
