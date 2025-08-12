@@ -91,25 +91,8 @@ const TipCard = ({ tip, index }: TipCardProps) => {
               </ul>
             </div>
             
-            {/* Stats and Button Section - Fixed to bottom */}
+            {/* Button Section - Fixed to bottom */}
             <div className="mt-auto space-y-4">
-              <div className="flex items-center justify-between pt-4 border-t border-border/30">
-                <div className="flex items-center gap-3 text-xs text-muted-foreground">
-                  <span className="flex items-center gap-1 bg-secondary/50 px-2 py-1 rounded-full">
-                    <Clock className="w-3 h-3" />
-                    {tip.duration}
-                  </span>
-                  <span className="flex items-center gap-1 bg-secondary/50 px-2 py-1 rounded-full">
-                    <Eye className="w-3 h-3" />
-                    {tip.views}
-                  </span>
-                  <span className="flex items-center gap-1 bg-secondary/50 px-2 py-1 rounded-full">
-                    <TrendingUp className="w-3 h-3" />
-                    {tip.popularity}%
-                  </span>
-                </div>
-              </div>
-
               <Button 
                 size="default" 
                 variant="accent" 
