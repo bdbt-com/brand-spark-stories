@@ -321,50 +321,110 @@ const Home = () => {
                       </Button>
                     </div>
 
-                    {/* 9 Thought Patterns BDBT Breaks */}
+                    {/* 9 Limiting Beliefs BDBT Breaks */}
                     <div className="mt-8 pt-8 border-t border-warning/20">
-                      <h4 className="text-xl font-semibold text-primary mb-6 text-center">9 Thought Patterns BDBT Breaks</h4>
-                      <div className="grid md:grid-cols-3 gap-4">
-                        <div className="space-y-3">
-                          <div className="flex items-start">
-                            <span className="w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-0.5 flex-shrink-0">1</span>
-                            <span className="text-sm text-muted-foreground">"I need to change everything at once"</span>
-                          </div>
-                          <div className="flex items-start">
-                            <span className="w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-0.5 flex-shrink-0">2</span>
-                            <span className="text-sm text-muted-foreground">"If I can't do it perfectly, I shouldn't do it"</span>
-                          </div>
-                          <div className="flex items-start">
-                            <span className="w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-0.5 flex-shrink-0">3</span>
-                            <span className="text-sm text-muted-foreground">"I don't have enough time"</span>
-                          </div>
-                        </div>
-                        <div className="space-y-3">
-                          <div className="flex items-start">
-                            <span className="w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-0.5 flex-shrink-0">4</span>
-                            <span className="text-sm text-muted-foreground">"I've tried before and failed"</span>
-                          </div>
-                          <div className="flex items-start">
-                            <span className="w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-0.5 flex-shrink-0">5</span>
-                            <span className="text-sm text-muted-foreground">"I need motivation to start"</span>
-                          </div>
-                          <div className="flex items-start">
-                            <span className="w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-0.5 flex-shrink-0">6</span>
-                            <span className="text-sm text-muted-foreground">"Small actions don't matter"</span>
-                          </div>
-                        </div>
-                        <div className="space-y-3">
-                          <div className="flex items-start">
-                            <span className="w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-0.5 flex-shrink-0">7</span>
-                            <span className="text-sm text-muted-foreground">"I'm too old/young to change"</span>
-                          </div>
-                          <div className="flex items-start">
-                            <span className="w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-0.5 flex-shrink-0">8</span>
-                            <span className="text-sm text-muted-foreground">"I'll start tomorrow/Monday/next month"</span>
-                          </div>
-                          <div className="flex items-start">
-                            <span className="w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-0.5 flex-shrink-0">9</span>
-                            <span className="text-sm text-muted-foreground">"This won't work for my situation"</span>
+                      <h4 className="text-xl font-semibold text-primary mb-6 text-center">9 Limiting Beliefs BDBT Breaks</h4>
+                      <div className="space-y-6">
+                        <div className="grid md:grid-cols-1 gap-4">
+                          <div className="space-y-4">
+                            <div className="p-4 bg-background/50 rounded-lg border border-warning/20">
+                              <div className="flex items-start mb-2">
+                                <span className="w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-0.5 flex-shrink-0">1</span>
+                                <div>
+                                  <h5 className="font-semibold text-primary mb-1">"This is just another self-help system."</h5>
+                                  <p className="text-sm text-muted-foreground italic mb-2">Experience: Tried courses that didn't stick.</p>
+                                  <p className="text-sm text-muted-foreground">Story: "It's just more fluff. I've heard it all before."</p>
+                                </div>
+                              </div>
+                            </div>
+                            
+                            <div className="p-4 bg-background/50 rounded-lg border border-warning/20">
+                              <div className="flex items-start mb-2">
+                                <span className="w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-0.5 flex-shrink-0">2</span>
+                                <div>
+                                  <h5 className="font-semibold text-primary mb-1">"I already know what to do."</h5>
+                                  <p className="text-sm text-muted-foreground italic mb-2">Experience: Consumed info but didn't apply it.</p>
+                                  <p className="text-sm text-muted-foreground">Story: "It's my fault. I don't need a system. I just need more willpower."</p>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div className="p-4 bg-background/50 rounded-lg border border-warning/20">
+                              <div className="flex items-start mb-2">
+                                <span className="w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-0.5 flex-shrink-0">3</span>
+                                <div>
+                                  <h5 className="font-semibold text-primary mb-1">"Small habits don't matter."</h5>
+                                  <p className="text-sm text-muted-foreground italic mb-2">Experience: Tried habits but saw no big change.</p>
+                                  <p className="text-sm text-muted-foreground">Story: "Tiny changes don't add up to anything meaningful."</p>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div className="p-4 bg-background/50 rounded-lg border border-warning/20">
+                              <div className="flex items-start mb-2">
+                                <span className="w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-0.5 flex-shrink-0">4</span>
+                                <div>
+                                  <h5 className="font-semibold text-primary mb-1">"I'm too busy."</h5>
+                                  <p className="text-sm text-muted-foreground italic mb-2">Experience: Overloaded schedule, past failures.</p>
+                                  <p className="text-sm text-muted-foreground">Story: "There's no space for more. I'll just burn out."</p>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div className="p-4 bg-background/50 rounded-lg border border-warning/20">
+                              <div className="flex items-start mb-2">
+                                <span className="w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-0.5 flex-shrink-0">5</span>
+                                <div>
+                                  <h5 className="font-semibold text-primary mb-1">"I always fail."</h5>
+                                  <p className="text-sm text-muted-foreground italic mb-2">Experience: Repeated broken promises to self.</p>
+                                  <p className="text-sm text-muted-foreground">Story: "Why bother? I'll just quit again."</p>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div className="p-4 bg-background/50 rounded-lg border border-warning/20">
+                              <div className="flex items-start mb-2">
+                                <span className="w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-0.5 flex-shrink-0">6</span>
+                                <div>
+                                  <h5 className="font-semibold text-primary mb-1">"People like me don't change."</h5>
+                                  <p className="text-sm text-muted-foreground italic mb-2">Experience: Feels stuck, sees others succeed.</p>
+                                  <p className="text-sm text-muted-foreground">Story: "It's too late for me. This works for them, not me."</p>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div className="p-4 bg-background/50 rounded-lg border border-warning/20">
+                              <div className="flex items-start mb-2">
+                                <span className="w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-0.5 flex-shrink-0">7</span>
+                                <div>
+                                  <h5 className="font-semibold text-primary mb-1">"My environment will derail me."</h5>
+                                  <p className="text-sm text-muted-foreground italic mb-2">Experience: Family/friends discourage progress.</p>
+                                  <p className="text-sm text-muted-foreground">Story: "What's the point? I'll get dragged back down."</p>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div className="p-4 bg-background/50 rounded-lg border border-warning/20">
+                              <div className="flex items-start mb-2">
+                                <span className="w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-0.5 flex-shrink-0">8</span>
+                                <div>
+                                  <h5 className="font-semibold text-primary mb-1">"My loved ones won't change."</h5>
+                                  <p className="text-sm text-muted-foreground italic mb-2">Experience: Tried helping others to no avail.</p>
+                                  <p className="text-sm text-muted-foreground">Story: "If they won't change, why should I? I'll just stay where I am."</p>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div className="p-4 bg-background/50 rounded-lg border border-warning/20">
+                              <div className="flex items-start mb-2">
+                                <span className="w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-0.5 flex-shrink-0">9</span>
+                                <div>
+                                  <h5 className="font-semibold text-primary mb-1">"I'll start when life calms down."</h5>
+                                  <p className="text-sm text-muted-foreground italic mb-2">Experience: Life always interrupts change.</p>
+                                  <p className="text-sm text-muted-foreground">Story: "Now isn't the time, it's too hectic to start anything new."</p>
+                                </div>
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>

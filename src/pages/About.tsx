@@ -134,10 +134,6 @@ const About = () => {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="animate-fade-in space-y-8">
               <div className="space-y-4">
-                <Badge className="bg-gradient-primary text-primary-foreground">
-                  <User className="w-4 h-4 mr-2" />
-                  Meet Big Daddy
-                </Badge>
                 <h1 className="text-5xl lg:text-6xl font-bold leading-tight">
                   <span className="block text-primary">The Story Behind</span>
                   <span className="block text-gradient">The System</span>
@@ -593,10 +589,6 @@ const About = () => {
       <section id="why-habit-driven-lifestyles-work" className="py-20 bg-gradient-subtle">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <Badge className="bg-primary/10 text-primary border-primary/20 mb-4">
-              <Lightbulb className="w-4 h-4 mr-2" />
-              The Truth
-            </Badge>
             <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-foreground">
               Life Isn't Lived in Silos
             </h2>
@@ -653,9 +645,6 @@ const About = () => {
             <Card className="bg-destructive/5 border-destructive/20">
               <CardContent className="p-8">
                 <div className="text-center mb-6">
-                  <Badge className="bg-destructive/10 text-destructive border-destructive/20">
-                    ❌ The Old Way
-                  </Badge>
                   <h3 className="text-2xl font-bold text-destructive mt-4">What Doesn't Work</h3>
                 </div>
                 <div className="space-y-4">
@@ -671,9 +660,6 @@ const About = () => {
             <Card className="bg-primary/5 border-primary/20">
               <CardContent className="p-8">
                 <div className="text-center mb-6">
-                  <Badge className="bg-primary/10 text-primary border-primary/20">
-                    ✅ The BDBT Way
-                  </Badge>
                   <h3 className="text-2xl font-bold text-primary mt-4">What Actually Works</h3>
                 </div>
                 <div className="space-y-4">
@@ -733,9 +719,6 @@ const About = () => {
       <section className="py-20 bg-muted/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <Badge className="bg-accent/10 text-accent border-accent/20 mb-4">
-              🚀 The New Opportunity
-            </Badge>
             <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-foreground">
               Welcome to Habit-Driven Lifestyle Design
             </h2>
@@ -791,9 +774,6 @@ const About = () => {
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <Badge className="bg-success/10 text-success border-success/20 mb-4">
-              🏆 Proven Results
-            </Badge>
             <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-foreground">
               The Numbers Don't Lie
             </h2>
@@ -834,9 +814,6 @@ const About = () => {
       <section className="py-20 bg-gradient-subtle">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <Badge className="bg-muted/50 text-muted-foreground mb-4">
-              🤝 Meet the Team
-            </Badge>
             <h2 className="text-3xl lg:text-4xl font-bold mb-6 text-foreground">
               The People Behind the Mission
             </h2>

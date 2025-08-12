@@ -90,9 +90,6 @@ const Partnership = () => {
       <section className="py-20 bg-gradient-hero text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="animate-fade-in">
-            <Badge className="bg-white/20 text-white border-white/30 mb-6">
-              🤝 Business Growth
-            </Badge>
             <h1 className="text-5xl lg:text-7xl font-bold mb-6 leading-tight">
               <span className="block text-gradient-primary">Partnership &</span>
               <span className="block text-white">Collaboration</span>

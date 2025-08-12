@@ -1008,9 +1008,6 @@ const Tips = () => {
       <section className="py-12 bg-gradient-hero text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="animate-fade-in">
-            <Badge className="bg-white/20 text-white border-white/30 mb-4">
-              📚 Life-Changing Guides
-            </Badge>
             <h1 className="text-3xl lg:text-4xl font-bold mb-4 leading-tight">
               <span className="block text-gradient-primary">Big Daddy's</span>
               <span className="block text-white">Big Tips</span>
