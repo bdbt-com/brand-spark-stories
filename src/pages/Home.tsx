@@ -239,19 +239,6 @@ const Home = () => {
             ))}
           </div>
 
-          {/* CTA with Pale Orange Accent */}
-          <div className="text-center">
-            <div className="inline-flex items-center gap-2 px-6 py-3 bg-warning/20 rounded-full border border-warning/30 mb-8">
-              <Target className="w-5 h-5 text-primary" />
-              <span className="text-primary font-medium">Complete Success System</span>
-            </div>
-            <Button variant="outline" size="lg" asChild>
-              <Link to="/blueprint">
-                Get Your Foundation Blueprint Here <ArrowRight className="w-5 h-5 ml-2" />
-              </Link>
-            </Button>
-          </div>
-
           {/* How BDBT Works for You Collapsible Section */}
           <div className="text-center">
             <Collapsible open={isHowWorkOpen} onOpenChange={handleHowWorkOpenChange}>
@@ -390,6 +377,19 @@ const Home = () => {
         </div>
       </section>
 
+      {/* Second CTA Section */}
+      <section className="py-16 bg-background">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <Button variant="outline" size="lg" asChild>
+              <Link to="/blueprint">
+                Get Your Foundation Blueprint Here <ArrowRight className="w-5 h-5 ml-2" />
+              </Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+
       {/* Strong vessel, smoother journey section */}
       <section className="py-20 bg-primary text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -456,10 +456,6 @@ const Home = () => {
           </div>
           
           <div className="text-center">
-            <div className="inline-flex items-center gap-2 px-6 py-3 bg-warning/20 rounded-full border border-warning/30 mb-8">
-              <Zap className="w-5 h-5 text-primary" />
-              <span className="text-primary font-medium">118 Proven Strategies</span>
-            </div>
             <Button variant="outline" size="lg" asChild>
               <Link to="/tips">
                 View All Tips <ArrowRight className="w-5 h-5 ml-2" />

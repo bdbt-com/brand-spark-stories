@@ -100,10 +100,6 @@ const Blueprint = () => {
       <div className="container mx-auto px-4">
         <div className="max-w-2xl mx-auto">
           <div className="text-center mb-8">
-            <div className="inline-flex items-center gap-2 px-6 py-3 bg-warning/20 rounded-full border border-warning/30 mb-6">
-              <Target className="w-5 h-5 text-primary" />
-              <span className="text-primary font-medium">Your Foundation</span>
-            </div>
             <h2 className="text-xl font-semibold text-primary mb-4">Your Habit Stacking Reference Point</h2>
             <h1 className="text-3xl font-bold text-primary">The Source Blueprint</h1>
           </div>

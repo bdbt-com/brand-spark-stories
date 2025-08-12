@@ -40,10 +40,6 @@ const About = () => {
       <section id="problem" className="py-32 bg-background">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-32">
-            <div className="inline-flex items-center gap-2 px-6 py-3 bg-warning/20 rounded-full border border-warning/30 mb-6">
-              <AlertTriangle className="w-5 h-5 text-primary" />
-              <span className="text-primary font-medium">The Challenge We Face</span>
-            </div>
             <h2 className="text-4xl lg:text-6xl font-bold mb-8 text-primary tracking-tight">
               The Problem
             </h2>
