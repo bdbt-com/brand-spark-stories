@@ -1010,7 +1010,7 @@ const Tips = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="animate-fade-in">
             <h1 className="text-3xl lg:text-4xl font-bold mb-4 leading-tight">
-              <span className="block text-gradient-primary">Big Daddy's</span>
+              <span className="block text-white">Big Daddy's</span>
               <span className="block text-white">Big Tips</span>
             </h1>
             <p className="text-lg lg:text-xl mb-6 text-white/90 leading-relaxed max-w-3xl mx-auto">
@@ -1051,18 +1051,8 @@ const Tips = () => {
             </div>
         </div>
 
-        {/* CTA Section */}
-        <div className="mt-20 text-center bg-warning text-primary rounded-2xl p-12 border-4 border-warning/40">
-          <h2 className="text-3xl font-bold mb-4 text-white">
-            Want More Life-Changing Strategies?
-          </h2>
-          <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-            Get the complete BDBT system with your personalized blueprint and start implementing these tips today.
-          </p>
-          <Button variant="accent" size="lg" asChild>
-            <Link to="/blueprint">Download Your Blueprint</Link>
-          </Button>
         </div>
+
       </div>
     </div>
 
@@ -1102,6 +1092,21 @@ const Tips = () => {
           )}
         </div>
       </section>
+
+      {/* CTA Section */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
+        <div className="text-center bg-warning text-primary rounded-2xl p-12 border-4 border-warning/40">
+          <h2 className="text-3xl font-bold mb-4 text-white">
+            Want More Life-Changing Strategies?
+          </h2>
+          <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+            Get the complete BDBT system with your personalized blueprint and start implementing these tips today.
+          </p>
+          <Button variant="accent" size="lg" asChild>
+            <Link to="/blueprint">Download Your Blueprint</Link>
+          </Button>
+        </div>
+      </div>
     </div>
   );
 };
