@@ -32,8 +32,7 @@ const DailyWins = () => {
         initials: "SJ",
         level: "Gold Member"
       },
-      content: "Just closed my first $10K client after implementing the sales strategies from the community! This proves that consistent action really pays off. Thank you to everyone who supported me on this journey! 🎉",
-      category: "Business",
+      content: "Completed my morning meditation streak for 30 days straight! The mental clarity and reduced stress levels have transformed my daily productivity and relationships.",
       date: "2 hours ago",
       likes: 47,
       comments: 12,
@@ -47,8 +46,7 @@ const DailyWins = () => {
         initials: "MC",
         level: "Premium"
       },
-      content: "Completed my first marathon today! 26.2 miles of pure determination. The mental strategies I learned here helped me push through when my body wanted to quit. Mind over matter! 🏃‍♂️",
-      category: "Health",
+      content: "Finally organized my entire workspace using the minimalist approach. My productivity has increased dramatically and I feel so much calmer starting each day.",
       date: "4 hours ago",
       likes: 89,
       comments: 23,
@@ -62,8 +60,7 @@ const DailyWins = () => {
         initials: "ER",
         level: "Community"
       },
-      content: "Finally launched my online course after months of preparation! Already got 50 pre-orders in the first 24 hours. The power of building an audience first is incredible. Thanks for all the guidance! 📚",
-      category: "Business",
+      content: "Started drinking only water for two weeks now and my energy levels are through the roof! No more afternoon crashes and my skin is noticeably clearer.",
       date: "6 hours ago",
       likes: 156,
       comments: 31,
@@ -77,8 +74,7 @@ const DailyWins = () => {
         initials: "DT",
         level: "Gold Member"
       },
-      content: "Broke my personal deadlift record today - 405 lbs! Been following the progressive overload principles and staying consistent with my nutrition. Small improvements add up to big results! 💪",
-      category: "Fitness",
+      content: "Established a consistent bedtime routine for the past month. I now fall asleep faster and wake up naturally feeling refreshed instead of hitting snooze.",
       date: "8 hours ago",
       likes: 72,
       comments: 18,
@@ -92,8 +88,7 @@ const DailyWins = () => {
         initials: "JP",
         level: "Premium"
       },
-      content: "Got promoted to Senior Manager today! The leadership skills I developed through this community made all the difference. Special thanks to everyone who helped me practice my presentation skills! 🎯",
-      category: "Career",
+      content: "Successfully meal prepped for three weeks in a row! Saving money, eating healthier, and having more time during busy weekdays. This habit is a game-changer.",
       date: "12 hours ago",
       likes: 198,
       comments: 45,
@@ -157,12 +152,11 @@ const DailyWins = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
-          <h1 className="text-4xl lg:text-5xl font-bold mb-6 text-foreground">
+          <h1 className="text-4xl lg:text-5xl font-bold mb-6 text-primary">
             Daily Wins Wall
           </h1>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Celebrate the incredible achievements of our community members. Every win, big or small, 
-            inspires others to push forward and reach their goals.
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed mb-4">
+            Any Wins Across Any Area of Your Life? We want to Hear about it. Excited to see the visible ripple effect in your life? We want to hear about it!
           </p>
         </div>
 
@@ -196,7 +190,6 @@ const DailyWins = () => {
               style={{ transform: `translateX(-${currentSlide * 100}%)` }}
             >
               {wins.map((win) => {
-                const CategoryIcon = getCategoryIcon(win.category);
                 return (
                   <div key={win.id} className="w-full flex-shrink-0">
                     <Card className="border-0 shadow-none bg-transparent">
@@ -222,10 +215,6 @@ const DailyWins = () => {
                                 Featured
                               </Badge>
                             )}
-                            <Badge className={getCategoryColor(win.category)}>
-                              <CategoryIcon className="w-4 h-4 mr-1" />
-                              {win.category}
-                            </Badge>
                           </div>
                         </div>
                       </CardHeader>

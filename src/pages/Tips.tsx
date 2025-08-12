@@ -33,7 +33,7 @@ const Tips = () => {
       duration: "5 min read",
       category: "fitness",
       popularity: 45,
-      views: 1200,
+      views: 0,
       dateAdded: "2024-01-15"
     },
     {
@@ -49,7 +49,7 @@ const Tips = () => {
       duration: "6 min read",
       category: "health",
       popularity: 52,
-      views: 980,
+      views: 0,
       dateAdded: "2024-01-20"
     },
     {
@@ -65,7 +65,7 @@ const Tips = () => {
       duration: "6 min read",
       category: "fitness",
       popularity: 38,
-      views: 750,
+      views: 0,
       dateAdded: "2024-02-01"
     },
     {

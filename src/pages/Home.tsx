@@ -133,53 +133,19 @@ const Home = () => {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="animate-fade-in">
-              <Badge className="bg-white/20 text-white border-white/30 mb-6">
-                ✨ Transform Your Life Daily
-              </Badge>
-              <h1 className="text-5xl lg:text-7xl font-bold mb-6 leading-tight">
-                <span className="block text-cream drop-shadow-[0_0_18px_hsl(var(--primary-glow)/0.65)] text-outline-white-thin">Small Daily Steps.</span>
-                <span className="block text-accent-light text-outline-white-thin">Big Life Change.</span>
+            <h1 className="text-5xl lg:text-7xl font-bold mb-6 leading-tight">
+                <span className="block text-primary">Small Daily Steps.</span>
+                <span className="block text-[hsl(35_45%_75%)]">Big Life Change.</span>
               </h1>
-              <p className="text-xl lg:text-2xl mb-8 text-white/90 leading-relaxed text-outline-white-thin">
+              <p className="text-lg lg:text-xl mb-8 text-white/90 leading-relaxed">
                 Big Daddy's Big Tips teaches simple daily habits that silently transform your health, wealth, and happiness simultaneously. We turn overwhelming life changes into achievable daily steps.
               </p>
               <div className="flex flex-wrap gap-4 justify-center">
                 {/* Read My Story - enlarged and centered */}
                 <div className="relative">
-                  <div className="absolute inset-0">
-                    <div className="absolute inset-0 rounded-xl border border-accent-light/40 animate-ping transform scale-50" style={{
-                      animationDuration: '2s',
-                      animationIterationCount: 'infinite'
-                    }}></div>
-                  </div>
-                  <div className="absolute inset-0" style={{ margin: '1px' }}>
-                    <div className="absolute inset-0 rounded-xl border border-accent-light/50 animate-ping transform scale-50" style={{
-                      animationDuration: '2s',
-                      animationDelay: '0.7s',
-                      animationIterationCount: 'infinite'
-                    }}></div>
-                  </div>
-                  <div className="absolute inset-0" style={{ margin: '2px' }}>
-                    <div className="absolute inset-0 rounded-xl border border-accent-light/60 animate-ping transform scale-50" style={{
-                      animationDuration: '2s',
-                      animationDelay: '1.4s',
-                      animationIterationCount: 'infinite'
-                    }}></div>
-                  </div>
-                  <div className="absolute inset-0 bg-accent-light/10 rounded-xl animate-pulse transform scale-50" style={{ animationDuration: '3s' }}></div>
                   <Button variant="secondary" size="lg" asChild className="relative hover:scale-105 transition-transform duration-200 rounded-xl h-14 md:h-16 px-8 md:px-10 text-lg md:text-xl">
-                    <Link 
-                      to="/about#story" 
-                      onClick={() => {
-                        setTimeout(() => {
-                          const storyElement = document.getElementById('story');
-                          if (storyElement) {
-                            storyElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                          }
-                        }, 100);
-                      }}
-                    >
-                      📖 Read My Story <ArrowRight className="w-5 h-5" />
+                    <Link to="/blueprint">
+                      Get Your Foundation Blueprint Here <ArrowRight className="w-5 h-5" />
                     </Link>
                   </Button>
                 </div>
@@ -240,8 +206,8 @@ const Home = () => {
               <Card className="bg-background/95 backdrop-blur-sm border-primary/20 shadow-strong">
                 <CardContent className="p-8 lg:p-12">
                   <article className="prose prose-lg max-w-none text-muted-foreground">
-                    <h2 className="text-3xl font-bold text-foreground mb-6">How BDBT Works for You</h2>
-                    <h3 className="text-2xl font-semibold text-foreground mt-10 mb-4">Limiting beliefs stopping people from adopting BDBT</h3>
+                    <h2 className="text-3xl font-bold text-primary mb-6">How BDBT Works for You</h2>
+                    <h3 className="text-2xl font-semibold text-primary mt-10 mb-4">Limiting beliefs stopping people from adopting BDBT</h3>
                     <div className="space-y-6">
                       <div>
                         <p className="font-semibold text-foreground">Belief:</p>

@@ -98,8 +98,9 @@ const Navigation = () => {
               variant="accent" 
               size="sm" 
               className="ml-4 hover-scale shadow-soft"
+              asChild
             >
-              Get Started
+              <Link to="/blueprint">Get Your Foundation Blueprint Here</Link>
             </Button>
           </div>
 
@@ -149,8 +150,9 @@ const Navigation = () => {
                   variant="accent" 
                   size="default" 
                   className="w-full hover-scale-sm shadow-soft"
+                  asChild
                 >
-                  Get Started
+                  <Link to="/blueprint">Get Your Foundation Blueprint Here</Link>
                 </Button>
               </div>
             </div>

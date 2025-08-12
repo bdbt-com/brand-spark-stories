@@ -148,9 +148,6 @@ const Podcast = () => {
       <section className="py-12 bg-gradient-hero text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="animate-fade-in">
-            <Badge className="bg-white/20 text-white border-white/30 mb-4">
-              🎧 Media Content
-            </Badge>
             <h1 className="text-3xl lg:text-4xl font-bold mb-4 leading-tight">
               <span className="block text-gradient-primary">Podcast &</span>
               <span className="block text-white">Video Catalogue</span>
@@ -256,9 +253,6 @@ const Podcast = () => {
                         </Badge>
                       </div>
                       <div className="p-8 lg:p-12 flex flex-col justify-center">
-                        <Badge className="w-fit mb-4 bg-success text-success-foreground">
-                          Featured
-                        </Badge>
                         <h3 className="text-2xl lg:text-3xl font-bold mb-4 text-foreground">
                           {episode.title}
                         </h3>
@@ -267,16 +261,8 @@ const Podcast = () => {
                         </p>
                         <div className="flex items-center gap-6 text-sm text-muted-foreground mb-6">
                           <span className="flex items-center">
-                            <Clock className="w-4 h-4 mr-1" />
-                            {episode.duration}
-                          </span>
-                          <span className="flex items-center">
                             <Calendar className="w-4 h-4 mr-1" />
                             {new Date(episode.date).toLocaleDateString()}
-                          </span>
-                          <span className="flex items-center">
-                            <Users className="w-4 h-4 mr-1" />
-                            {episode.views} views
                           </span>
                         </div>
                         <div className="flex gap-3">
@@ -350,10 +336,9 @@ const Podcast = () => {
                     </p>
                     <div className="flex items-center justify-between text-xs text-muted-foreground mb-4">
                       <span className="flex items-center">
-                        <Clock className="w-3 h-3 mr-1" />
-                        {episode.duration}
+                        <Calendar className="w-3 h-3 mr-1" />
+                        {new Date(episode.date).toLocaleDateString()}
                       </span>
-                      <span>{episode.views} views</span>
                     </div>
                     <div className="flex items-center justify-between">
                       <Button variant="ghost" size="sm" className="text-primary hover:text-primary">
@@ -376,8 +361,8 @@ const Podcast = () => {
           </div>
 
           {/* CTA Section */}
-          <div className="mt-20 text-center bg-gradient-hero text-white rounded-2xl p-12">
-            <h2 className="text-3xl font-bold mb-4">
+          <div className="mt-20 text-center bg-[hsl(35_45%_75%)] text-black rounded-2xl p-12">
+            <h2 className="text-3xl font-bold mb-4 text-white">
               Never Miss an Episode
             </h2>
             <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
