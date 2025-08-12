@@ -693,8 +693,8 @@ const About = () => {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="text-center mb-16">
             <Quote className="w-16 h-16 mx-auto mb-8 opacity-50" />
-            <h2 className="text-4xl lg:text-5xl font-bold mb-8">The BDBT Philosophy</h2>
-            <blockquote className="text-2xl lg:text-3xl font-bold leading-relaxed mb-8">
+            <h2 className="text-4xl lg:text-5xl font-bold mb-8 text-white">The BDBT Philosophy</h2>
+            <blockquote className="text-2xl lg:text-3xl font-bold leading-relaxed mb-8 text-white">
               "We believe in habits that create ripple effects. Small daily actions that spark powerful momentum across your entire life."
             </blockquote>
           </div>
