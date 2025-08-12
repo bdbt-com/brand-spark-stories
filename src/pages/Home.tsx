@@ -19,6 +19,11 @@ const Home = () => {
     "/lovable-uploads/2678016c-a3fa-4e29-bf3d-3ebe92201186.png", // Person exercising outdoors
     "/lovable-uploads/2f4d6184-a8de-43f0-a345-4ed910c90522.png", // Man on phone in modern setting
     "/lovable-uploads/7db6bd1f-c12f-45f2-a1d1-505f38c743a1.png", // Man outdoors smiling
+    "/lovable-uploads/8db636d1-94ff-432a-a4b1-6ca278173f2f.png", // Man in shoe store
+    "/lovable-uploads/a886c4a9-0d09-442e-8348-25bd795ad7d0.png", // Man in home theater
+    "/lovable-uploads/347bc4c8-a5fc-40c4-a30c-1d91b5bd5761.png", // Man on beach at sunset
+    "/lovable-uploads/fa5ff878-34d6-44b6-a517-f055a1627aab.png", // Man smiling in car
+    "/lovable-uploads/75853635-930c-4fa5-9403-d0b58c6db83b.png", // Person meditating in gazebo
   ];
   const [embla, setEmbla] = useState<CarouselApi | null>(null);
   const [filteredImages, setFilteredImages] = useState<string[]>([]);
