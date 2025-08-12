@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ArrowRight, Droplets, Activity, Moon, DollarSign, Heart, Smile, Target, Zap, ChevronDown } from "lucide-react";
+import { ArrowRight, Droplets, Activity, Moon, DollarSign, Heart, Smile, Target, Zap, ChevronDown, Trophy, AlertTriangle } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "@/components/ui/carousel";
 import { useEffect, useState, useRef } from "react";
@@ -465,6 +465,49 @@ const Home = () => {
                 Get Your Free Starter Kit Here <ArrowRight className="w-5 h-5 ml-2" />
               </Link>
             </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Daily Wins and Daily Drifts Boxes */}
+      <section className="py-20 bg-background">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid md:grid-cols-2 gap-8 mb-16">
+            {/* Daily Wins Box - Green */}
+            <Card className="group hover:shadow-medium transition-all duration-300 hover:-translate-y-2 bg-success/10 border-success/20">
+              <CardContent className="p-8 text-center">
+                <div className="w-16 h-16 bg-success rounded-xl flex items-center justify-center mb-6 mx-auto group-hover:scale-110 transition-transform duration-300">
+                  <Trophy className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="text-2xl font-semibold text-success mb-4">Daily Wins</h3>
+                <p className="text-muted-foreground mb-6 leading-relaxed">
+                  Celebrate and track your daily victories. Every small win builds momentum toward your bigger goals.
+                </p>
+                <Button variant="outline" size="lg" asChild className="border-success/30 text-success hover:bg-success hover:text-white">
+                  <Link to="/daily-wins">
+                    View Daily Wins <ArrowRight className="w-5 h-5 ml-2" />
+                  </Link>
+                </Button>
+              </CardContent>
+            </Card>
+
+            {/* Daily Drifts Box - Red */}
+            <Card className="group hover:shadow-medium transition-all duration-300 hover:-translate-y-2 bg-destructive/10 border-destructive/20">
+              <CardContent className="p-8 text-center">
+                <div className="w-16 h-16 bg-destructive rounded-xl flex items-center justify-center mb-6 mx-auto group-hover:scale-110 transition-transform duration-300">
+                  <AlertTriangle className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="text-2xl font-semibold text-destructive mb-4">Daily Drifts</h3>
+                <p className="text-muted-foreground mb-6 leading-relaxed">
+                  Identify the small habits that are slowly pulling you away from your goals before they compound.
+                </p>
+                <Button variant="outline" size="lg" asChild className="border-destructive/30 text-destructive hover:bg-destructive hover:text-white">
+                  <Link to="/tips">
+                    Spot Your Drifts <ArrowRight className="w-5 h-5 ml-2" />
+                  </Link>
+                </Button>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
