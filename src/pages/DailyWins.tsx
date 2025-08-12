@@ -153,7 +153,7 @@ const DailyWins = () => {
       <section className="py-12 bg-gradient-hero text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="animate-fade-in">
-            <h1 className="text-4xl lg:text-5xl font-bold mb-6 leading-tight">
+            <h1 className="text-3xl lg:text-4xl font-bold mb-6 leading-tight">
               <span className="block text-white">Daily Wins</span>
               <span className="block text-[hsl(35_45%_75%)]">Wall</span>
             </h1>

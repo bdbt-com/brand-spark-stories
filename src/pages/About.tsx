@@ -134,7 +134,7 @@ const About = () => {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="animate-fade-in space-y-8">
               <div className="space-y-4">
-                <h1 className="text-5xl lg:text-6xl font-bold leading-tight">
+                <h1 className="text-3xl lg:text-4xl font-bold leading-tight">
                   <span className="block text-white">The Story Behind</span>
                   <span className="block text-[hsl(35_45%_75%)]">The System</span>
                 </h1>
