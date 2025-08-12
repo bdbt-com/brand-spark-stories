@@ -526,8 +526,8 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Strong vessel, smoother journey section */}
-      <section className="py-20 bg-primary text-white">
+      {/* Strong vessel section - now orange */}
+      <section className="py-20 bg-warning text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl lg:text-4xl font-bold mb-8 text-white">
             Strong vessel, smoother journey
@@ -538,7 +538,7 @@ const Home = () => {
           <div className="flex flex-wrap gap-4 justify-center">
             <Button variant="accent" size="lg" asChild>
               <Link to="/blueprint">
-                Get Your Free Starter Kit Here <ArrowRight className="w-5 h-5 ml-2" />
+                Get Your Foundation Blueprint <ArrowRight className="w-5 h-5 ml-2" />
               </Link>
             </Button>
           </div>

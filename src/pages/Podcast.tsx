@@ -149,8 +149,8 @@ const Podcast = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="animate-fade-in">
             <h1 className="text-3xl lg:text-4xl font-bold mb-4 leading-tight">
-              <span className="block text-gradient-primary">Podcast &</span>
-              <span className="block text-white">Video Catalogue</span>
+              <span className="block text-white">Podcast &</span>
+              <span className="block text-[hsl(35_45%_75%)]">Video Catalogue</span>
             </h1>
             <p className="text-lg lg:text-xl mb-6 text-white/90 leading-relaxed max-w-3xl mx-auto">
               Actionable insights, inspiring stories, and proven strategies to accelerate your success.

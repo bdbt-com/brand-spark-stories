@@ -148,17 +148,24 @@ const DailyWins = () => {
   };
 
   return (
-    <div className="min-h-screen py-20 relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <h1 className="text-4xl lg:text-5xl font-bold mb-6 text-primary">
-            Daily Wins Wall
-          </h1>
-          <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed mb-4">
-            Any Wins Across Any Area of Your Life? We want to Hear about it. Excited to see the visible ripple effect in your life? We want to hear about it!
-          </p>
+    <div className="min-h-screen">
+      {/* Hero Section */}
+      <section className="py-12 bg-gradient-hero text-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="animate-fade-in">
+            <h1 className="text-4xl lg:text-5xl font-bold mb-6 leading-tight">
+              <span className="block text-white">Daily Wins</span>
+              <span className="block text-[hsl(35_45%_75%)]">Wall</span>
+            </h1>
+            <p className="text-lg text-white/90 max-w-3xl mx-auto leading-relaxed mb-4">
+              Any Wins Across Any Area of Your Life? We want to Hear about it. Excited to see the visible ripple effect in your life? We want to hear about it!
+            </p>
+          </div>
         </div>
+      </section>
+
+      <div className="py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Rotating Wins Carousel */}
         <div className="relative mb-20">
@@ -300,6 +307,7 @@ const DailyWins = () => {
               Get Your Foundation Blueprint Here <ArrowRight className="w-5 h-5 ml-2" />
             </Link>
           </Button>
+        </div>
         </div>
       </div>
     </div>

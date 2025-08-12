@@ -92,8 +92,8 @@ const Partnership = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="animate-fade-in">
             <h1 className="text-5xl lg:text-7xl font-bold mb-6 leading-tight">
-              <span className="block text-gradient-primary">Partnership &</span>
-              <span className="block text-white">Collaboration</span>
+              <span className="block text-white">Partnership &</span>
+              <span className="block text-[hsl(35_45%_75%)]">Collaboration</span>
             </h1>
             <p className="text-xl lg:text-2xl mb-8 text-white/90 leading-relaxed max-w-4xl mx-auto">
               Let's create something amazing together. We're always looking for strategic partners 

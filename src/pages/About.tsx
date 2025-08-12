@@ -135,8 +135,8 @@ const About = () => {
             <div className="animate-fade-in space-y-8">
               <div className="space-y-4">
                 <h1 className="text-5xl lg:text-6xl font-bold leading-tight">
-                  <span className="block text-primary">The Story Behind</span>
-                  <span className="block text-gradient">The System</span>
+                  <span className="block text-white">The Story Behind</span>
+                  <span className="block text-[hsl(35_45%_75%)]">The System</span>
                 </h1>
               </div>
               <div className="space-y-6">

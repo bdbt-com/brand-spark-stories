@@ -287,9 +287,6 @@ const Blueprint = () => {
             </Button>
           </div>
           
-          <div className="flex justify-center mt-12">
-            <ChevronRipple to="/tips" label="View the Tips Page" />
-          </div>
         </div>
       </div>
     </div>
