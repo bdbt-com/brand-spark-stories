@@ -520,13 +520,19 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Second CTA Section */}
+      {/* CTA Section */}
       <section className="py-16 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <Button variant="outline" size="lg" asChild>
+          <div className="text-center bg-warning text-primary rounded-2xl p-12 border-4 border-warning/40">
+            <h2 className="text-3xl font-bold mb-4 text-white">
+              Ready to Transform Your Life?
+            </h2>
+            <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+              Get your free blueprint and start building the life you've always wanted.
+            </p>
+            <Button variant="accent" size="lg" asChild>
               <Link to="/blueprint">
-                Get Your Foundation Blueprint Here <ArrowRight className="w-5 h-5 ml-2" />
+                Get Your Foundation Blueprint <ArrowRight className="w-5 h-5 ml-2" />
               </Link>
             </Button>
           </div>

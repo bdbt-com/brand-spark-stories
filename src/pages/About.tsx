@@ -623,9 +623,22 @@ const About = () => {
                   </div>
                 </CardContent>
               </Card>
-            </div>
-          </div>
         </div>
+
+        {/* CTA Section */}
+        <div className="mt-20 text-center bg-warning text-primary rounded-2xl p-12 border-4 border-warning/40">
+          <h2 className="text-3xl font-bold mb-4 text-white">
+            Ready to Start Your Journey?
+          </h2>
+          <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+            Join thousands who've discovered the power of the BDBT system and transformed their lives.
+          </p>
+          <Button variant="accent" size="lg" asChild>
+            <Link to="/blueprint">Get Your Blueprint Now</Link>
+          </Button>
+        </div>
+      </div>
+    </div>
       </section>
 
       {/* Old Way vs BDBT Way */}

@@ -19,6 +19,7 @@ import {
   Target,
   DollarSign
 } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Partnership = () => {
   const [formData, setFormData] = useState({
@@ -355,6 +356,19 @@ const Partnership = () => {
               </CardContent>
             </Card>
           </div>
+        </div>
+
+        {/* CTA Section */}
+        <div className="mt-20 text-center bg-warning text-primary rounded-2xl p-12 border-4 border-warning/40">
+          <h2 className="text-3xl font-bold mb-4 text-white">
+            Let's Build Something Amazing Together
+          </h2>
+          <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+            Ready to partner with us? Fill out the form above or reach out directly to start the conversation.
+          </p>
+          <Button variant="accent" size="lg" asChild>
+            <Link to="/about">Learn Our Story</Link>
+          </Button>
         </div>
         </div>
       </div>

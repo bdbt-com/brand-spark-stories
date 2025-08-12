@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import ChevronRipple from "@/components/ChevronRipple";
 import { BookOpen, Clock, Users, Download, CheckCircle, Target, Zap, Loader2, Mail } from "lucide-react";
+import { Link } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 
 const Blueprint = () => {
@@ -272,6 +273,20 @@ const Blueprint = () => {
               </div>
             </CardContent>
           </Card>
+          
+          {/* CTA Section */}
+          <div className="mt-20 text-center bg-warning text-primary rounded-2xl p-12 border-4 border-warning/40">
+            <h2 className="text-3xl font-bold mb-4 text-white">
+              Start Building Your Foundation Today
+            </h2>
+            <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+              With your blueprint in hand, explore our complete tip library to maximize your transformation.
+            </p>
+            <Button variant="accent" size="lg" asChild>
+              <Link to="/tips">Explore All Tips</Link>
+            </Button>
+          </div>
+          
           <div className="flex justify-center mt-12">
             <ChevronRipple to="/tips" label="View the Tips Page" />
           </div>

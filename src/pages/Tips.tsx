@@ -14,6 +14,7 @@ import {
   PenTool, Brain, Clock, Timer, Target, Lightbulb, Home, Utensils, Bed,
   Camera, Music, Gift, Star, Gamepad2, ThumbsUp, CheckCircle, Award, Trophy
 } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Tips = () => {
   const [sortBy, setSortBy] = useState("newest");
@@ -1048,9 +1049,22 @@ const Tips = () => {
                 </SelectContent>
               </Select>
             </div>
-          </div>
+        </div>
+
+        {/* CTA Section */}
+        <div className="mt-20 text-center bg-warning text-primary rounded-2xl p-12 border-4 border-warning/40">
+          <h2 className="text-3xl font-bold mb-4 text-white">
+            Want More Life-Changing Strategies?
+          </h2>
+          <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+            Get the complete BDBT system with your personalized blueprint and start implementing these tips today.
+          </p>
+          <Button variant="accent" size="lg" asChild>
+            <Link to="/blueprint">Download Your Blueprint</Link>
+          </Button>
         </div>
       </div>
+    </div>
 
       {/* AI Tip Finder */}
       <div className="animate-fade-in" style={{ animationDelay: "200ms" }}>
