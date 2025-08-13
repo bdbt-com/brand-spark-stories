@@ -33,6 +33,47 @@ const smoothScrollToNext = (currentElement: HTMLElement, nextId: string) => {
     }
   }, 800);
 };
+
+const autoProgressThroughSentences = () => {
+  const sentences = ['problem-1', 'problem-2', 'problem-3', 'problem-4'];
+  let currentIndex = 0;
+
+  const scrollToSentence = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      const viewportHeight = window.innerHeight;
+      const elementRect = element.getBoundingClientRect();
+      const elementCenter = elementRect.top + elementRect.height / 2;
+      const targetScroll = window.scrollY + elementCenter - viewportHeight / 2;
+      
+      window.scrollTo({
+        top: targetScroll,
+        behavior: 'smooth'
+      });
+    }
+  };
+
+  const progressNext = () => {
+    if (currentIndex < sentences.length) {
+      scrollToSentence(sentences[currentIndex]);
+      currentIndex++;
+      
+      if (currentIndex < sentences.length) {
+        setTimeout(progressNext, 3500);
+      } else {
+        // After all sentences, scroll to story section
+        setTimeout(() => {
+          document.getElementById('story')?.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }, 3500);
+      }
+    }
+  };
+
+  progressNext();
+};
 const About = () => {
   const [isStoryOpen, setIsStoryOpen] = useState(false);
   return <div className="min-h-screen">
@@ -49,8 +90,7 @@ const About = () => {
           </div>
           <div className="my-64 flex justify-center" id="arrow-1">
             <ChevronRipple to="/about#problem-1" label="Why change fails?" size="sm" showLabel={false} variant="minimal" onClick={() => {
-            const currentArrow = document.getElementById('arrow-1');
-            if (currentArrow) smoothScrollToNext(currentArrow, 'problem-1');
+            autoProgressThroughSentences();
           }} />
           </div>
           
