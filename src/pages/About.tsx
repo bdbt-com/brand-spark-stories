@@ -5,7 +5,7 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/component
 import { Clock, Heart, Award, Users2, Quote, BookOpen, Target, Star, TrendingUp, Zap, AlertTriangle, CheckCircle, ArrowRight, ArrowDown, BarChart3, Brain, Lightbulb, ChevronDown, User } from "lucide-react";
 import { Link } from "react-router-dom";
 import ChevronRipple from "@/components/ChevronRipple";
-import { useState, useRef } from "react";
+import { useState } from "react";
 const smoothScrollToNext = (currentElement: HTMLElement, nextId: string) => {
   // First, scroll current element to center
   const viewportHeight = window.innerHeight;
@@ -33,43 +33,6 @@ const smoothScrollToNext = (currentElement: HTMLElement, nextId: string) => {
     }
   }, 800);
 };
-
-const autoProgressThroughSections = () => {
-  const sections = ['problem-1', 'problem-2', 'problem-3', 'problem-4'];
-  let currentIndex = 0;
-
-  const progressToNext = () => {
-    if (currentIndex >= sections.length) {
-      // After all sections, scroll to story
-      setTimeout(() => {
-        document.getElementById('story')?.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start'
-        });
-      }, 3500);
-      return;
-    }
-
-    const currentSection = document.getElementById(sections[currentIndex]);
-    if (currentSection) {
-      const viewportHeight = window.innerHeight;
-      const sectionRect = currentSection.getBoundingClientRect();
-      const sectionCenter = sectionRect.top + sectionRect.height / 2;
-      const targetScroll = window.scrollY + sectionCenter - viewportHeight / 2;
-
-      window.scrollTo({
-        top: targetScroll,
-        behavior: 'smooth'
-      });
-
-      currentIndex++;
-      setTimeout(progressToNext, 3500); // 3.5 second delay
-    }
-  };
-
-  // Start the progression
-  progressToNext();
-};
 const About = () => {
   const [isStoryOpen, setIsStoryOpen] = useState(false);
   return <div className="min-h-screen">
@@ -85,8 +48,9 @@ const About = () => {
             </p>
           </div>
           <div className="my-64 flex justify-center" id="arrow-1">
-            <ChevronRipple to="/about#problem-1" label="Start Auto-Journey" size="sm" showLabel={false} variant="minimal" onClick={() => {
-            autoProgressThroughSections();
+            <ChevronRipple to="/about#problem-1" label="Why change fails?" size="sm" showLabel={false} variant="minimal" onClick={() => {
+            const currentArrow = document.getElementById('arrow-1');
+            if (currentArrow) smoothScrollToNext(currentArrow, 'problem-1');
           }} />
           </div>
           
@@ -100,6 +64,13 @@ const About = () => {
                 More workouts. More goals. More hustle. Yet most people feel stuck, drained, and uncertain.
               </p>
             </div>
+            <div className="my-64 flex justify-center" id="arrow-2">
+              <ChevronRipple to="/about#problem-2" label="One tip at a time?" size="sm" showLabel={false} variant="minimal" onClick={() => {
+              const currentArrow = document.getElementById('arrow-2');
+              if (currentArrow) smoothScrollToNext(currentArrow, 'problem-2');
+            }} />
+            </div>
+
             {/* Second statement - Center aligned */}
             <div id="problem-2" className="text-center max-w-4xl mx-auto mt-32">
               <h3 className="text-4xl lg:text-5xl font-bold leading-tight text-primary mb-8">
@@ -108,6 +79,12 @@ const About = () => {
               <p className="text-xl text-muted-foreground font-light">
                 A budgeting app here. A gym membership there. A meditation streak that lasts three days.
               </p>
+            </div>
+            <div className="my-64 flex justify-center" id="arrow-3">
+              <ChevronRipple to="/about#problem-3" label="Why tips fail" size="sm" showLabel={false} variant="minimal" onClick={() => {
+              const currentArrow = document.getElementById('arrow-3');
+              if (currentArrow) smoothScrollToNext(currentArrow, 'problem-3');
+            }} />
             </div>
 
             {/* Third statement - Center aligned with emphasis */}
@@ -122,15 +99,11 @@ const About = () => {
                 But because the old model is broken.
               </p>
             </div>
-
-            {/* Fourth statement - Center aligned */}
-            <div id="problem-4" className="text-center max-w-4xl mx-auto mt-32">
-              <h3 className="text-4xl lg:text-5xl font-bold leading-tight text-primary mb-8">
-                Meanwhile, modern life pushes us further behind.
-              </h3>
-              <p className="text-xl text-muted-foreground font-light">
-                Sit more. Scroll more. Consume more. With every new demand, we feel more overwhelmed.
-              </p>
+            <div className="my-64 flex justify-center" id="arrow-4">
+              <ChevronRipple to="/about#problem-4" label="Modern life pressures" size="sm" showLabel={false} variant="minimal" onClick={() => {
+              const currentArrow = document.getElementById('arrow-4');
+              if (currentArrow) smoothScrollToNext(currentArrow, 'problem-4');
+            }} />
             </div>
 
             {/* Fourth statement - Center aligned */}
