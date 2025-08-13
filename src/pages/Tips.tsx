@@ -1738,7 +1738,7 @@ const Tips = () => {
               Simple daily habits that silently transform your health, wealth, and happiness simultaneously.
             </p>
             <p className="text-white/70 text-sm mb-8">
-              📖 118 Powerful Guides Available
+              📖 107 Powerful Guides Available
             </p>
           </div>
         </div>
