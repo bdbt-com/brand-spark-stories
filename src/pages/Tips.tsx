@@ -964,6 +964,918 @@ const Tips = () => {
       popularity: 56,
       views: 1260,
       dateAdded: "2024-11-20"
+    },
+    {
+      icon: Shield,
+      title: "Create Weekly Financial Check-ins",
+      description: "Schedule regular money meetings with yourself for financial awareness.",
+      items: [
+        "Health: Reduces financial stress that impacts physical wellbeing",
+        "Wealth: Catches overspending early before it becomes problematic",
+        "Happiness: Creates sense of control and financial confidence"
+      ],
+      level: "Easy",
+      duration: "4 min read",
+      category: "finance",
+      popularity: 54,
+      views: 1210,
+      dateAdded: "2024-11-21"
+    },
+    {
+      icon: Wind,
+      title: "Practice Deep Breathing for 2 Minutes Daily",
+      description: "Simple breathwork for stress reduction and mental clarity.",
+      items: [
+        "Health: Activates parasympathetic nervous system reducing stress",
+        "Wealth: Free stress management technique replacing expensive therapy",
+        "Happiness: Immediate mood improvement through increased oxygen flow"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "wellness",
+      popularity: 67,
+      views: 1540,
+      dateAdded: "2024-11-22"
+    },
+    {
+      icon: Lightbulb,
+      title: "Write Down 3 Ideas Every Day",
+      description: "Daily creativity practice to strengthen your innovation muscle.",
+      items: [
+        "Health: Keeps mind active and prevents cognitive decline",
+        "Wealth: Ideas can become income streams or cost-saving solutions",
+        "Happiness: Creative expression boosts mood and self-esteem"
+      ],
+      level: "Easy",
+      duration: "4 min read",
+      category: "creativity",
+      popularity: 48,
+      views: 1080,
+      dateAdded: "2024-11-23"
+    },
+    {
+      icon: Calendar,
+      title: "Schedule Important Tasks for Your Peak Energy Time",
+      description: "Time management based on your natural energy rhythms.",
+      items: [
+        "Health: Reduces stress by working with natural body rhythms",
+        "Wealth: Increases productivity leading to better career outcomes",
+        "Happiness: Less frustration from fighting your natural energy patterns"
+      ],
+      level: "Moderate",
+      duration: "5 min read",
+      category: "productivity",
+      popularity: 61,
+      views: 1380,
+      dateAdded: "2024-11-24"
+    },
+    {
+      icon: Users,
+      title: "Compliment One Person Daily",
+      description: "Build positive relationships through genuine appreciation.",
+      items: [
+        "Health: Releases oxytocin reducing stress and improving wellbeing",
+        "Wealth: Strengthens professional networks creating opportunities",
+        "Happiness: Spreads joy while boosting your own mood"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "social",
+      popularity: 71,
+      views: 1620,
+      dateAdded: "2024-11-25"
+    },
+    {
+      icon: Zap,
+      title: "Do One Push-up Every Hour",
+      description: "Micro-exercise breaks to maintain strength throughout the day.",
+      items: [
+        "Health: Builds functional strength without gym commitment",
+        "Wealth: Free exercise that requires no equipment or membership",
+        "Happiness: Regular movement boosts energy and mood"
+      ],
+      level: "Easy",
+      duration: "2 min read",
+      category: "fitness",
+      popularity: 56,
+      views: 1250,
+      dateAdded: "2024-11-26"
+    },
+    {
+      icon: Coffee,
+      title: "Replace One Coffee with Herbal Tea",
+      description: "Gentle caffeine reduction for better sleep and savings.",
+      items: [
+        "Health: Reduces caffeine dependency and improves sleep quality",
+        "Wealth: Herbal tea costs less than specialty coffee drinks",
+        "Happiness: Creates calming ritual without afternoon crashes"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "health",
+      popularity: 43,
+      views: 970,
+      dateAdded: "2024-11-27"
+    },
+    {
+      icon: BookOpen,
+      title: "Read for 15 Minutes Before Bed",
+      description: "Replace screen time with reading for better sleep and learning.",
+      items: [
+        "Health: Improves sleep quality by reducing blue light exposure",
+        "Wealth: Library books provide free education and entertainment",
+        "Happiness: Escapism and learning create satisfaction and calm"
+      ],
+      level: "Easy",
+      duration: "4 min read",
+      category: "learning",
+      popularity: 65,
+      views: 1480,
+      dateAdded: "2024-11-28"
+    },
+    {
+      icon: Sun,
+      title: "Take Vitamin D Supplements in Winter",
+      description: "Combat seasonal deficiency for mood and immune support.",
+      items: [
+        "Health: Supports immune system and bone health during dark months",
+        "Wealth: Prevents illness costs and maintains productivity",
+        "Happiness: Reduces seasonal depression and mood swings"
+      ],
+      level: "Easy",
+      duration: "4 min read",
+      category: "health",
+      popularity: 58,
+      views: 1320,
+      dateAdded: "2024-11-29"
+    },
+    {
+      icon: Target,
+      title: "Set One Tiny Goal Each Morning",
+      description: "Micro-goal setting for consistent daily wins and momentum.",
+      items: [
+        "Health: Creates positive habit loops reinforcing healthy behaviors",
+        "Wealth: Small consistent actions compound into major results",
+        "Happiness: Daily wins build confidence and motivation"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "productivity",
+      popularity: 62,
+      views: 1410,
+      dateAdded: "2024-11-30"
+    },
+    {
+      icon: Heart,
+      title: "Hug Someone You Care About Daily",
+      description: "Physical affection for oxytocin release and connection.",
+      items: [
+        "Health: Releases oxytocin reducing stress and boosting immunity",
+        "Wealth: Free therapy that strengthens support systems",
+        "Happiness: Physical touch releases feel-good hormones naturally"
+      ],
+      level: "Easy",
+      duration: "2 min read",
+      category: "wellness",
+      popularity: 69,
+      views: 1580,
+      dateAdded: "2024-12-01"
+    },
+    {
+      icon: Droplets,
+      title: "Drink a Glass of Water Upon Waking",
+      description: "Start hydration immediately to kickstart metabolism.",
+      items: [
+        "Health: Kickstarts metabolism and flushes out toxins",
+        "Wealth: Replaces expensive morning beverages with free hydration",
+        "Happiness: Provides energy boost and mental clarity"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "health",
+      popularity: 72,
+      views: 1650,
+      dateAdded: "2024-12-02"
+    },
+    {
+      icon: Clock,
+      title: "Use a Timer for All Tasks",
+      description: "Time-boxing technique for focus and productivity.",
+      items: [
+        "Health: Prevents overwork and encourages regular breaks",
+        "Wealth: Increases hourly productivity improving earning potential",
+        "Happiness: Reduces procrastination stress and creates accomplishment"
+      ],
+      level: "Easy",
+      duration: "4 min read",
+      category: "productivity",
+      popularity: 59,
+      views: 1340,
+      dateAdded: "2024-12-03"
+    },
+    {
+      icon: Smile,
+      title: "Practice Smiling at Yourself in the Mirror",
+      description: "Self-compassion technique for improved mood and confidence.",
+      items: [
+        "Health: Releases endorphins and reduces stress hormones",
+        "Wealth: Builds confidence that leads to better opportunities",
+        "Happiness: Self-compassion practice improves overall wellbeing"
+      ],
+      level: "Easy",
+      duration: "2 min read",
+      category: "mindfulness",
+      popularity: 51,
+      views: 1150,
+      dateAdded: "2024-12-04"
+    },
+    {
+      icon: Trees,
+      title: "Plant Something Small",
+      description: "Gardening for mental health and environmental connection.",
+      items: [
+        "Health: Gardening provides gentle exercise and stress relief",
+        "Wealth: Growing food saves money on grocery purchases",
+        "Happiness: Nurturing growth creates purpose and satisfaction"
+      ],
+      level: "Easy",
+      duration: "5 min read",
+      category: "wellness",
+      popularity: 44,
+      views: 990,
+      dateAdded: "2024-12-05"
+    },
+    {
+      icon: Activity,
+      title: "Track Your Steps Daily",
+      description: "Movement awareness for increased daily activity.",
+      items: [
+        "Health: Encourages more movement throughout the day",
+        "Wealth: Free fitness tracking using phone apps",
+        "Happiness: Gamification makes exercise more enjoyable"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "fitness",
+      popularity: 64,
+      views: 1450,
+      dateAdded: "2024-12-06"
+    },
+    {
+      icon: Gift,
+      title: "Give Away One Item Daily",
+      description: "Decluttering practice for minimalism and generosity.",
+      items: [
+        "Health: Reduces clutter stress and creates calming environment",
+        "Wealth: Decluttering reveals forgotten valuable items",
+        "Happiness: Generosity releases feel-good chemicals naturally"
+      ],
+      level: "Easy",
+      duration: "4 min read",
+      category: "lifestyle",
+      popularity: 47,
+      views: 1060,
+      dateAdded: "2024-12-07"
+    },
+    {
+      icon: Star,
+      title: "Write Down One Win Each Evening",
+      description: "Gratitude practice focusing on daily accomplishments.",
+      items: [
+        "Health: Positive focus reduces stress and improves sleep",
+        "Wealth: Recognizing progress motivates continued financial growth",
+        "Happiness: Celebrating wins builds confidence and optimism"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "mindfulness",
+      popularity: 66,
+      views: 1510,
+      dateAdded: "2024-12-08"
+    },
+    {
+      icon: Camera,
+      title: "Take One Photo of Something Beautiful Daily",
+      description: "Mindfulness practice through photography and appreciation.",
+      items: [
+        "Health: Encourages outdoor exploration and movement",
+        "Wealth: Free entertainment that replaces expensive hobbies",
+        "Happiness: Beauty appreciation rewires brain for positivity"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "creativity",
+      popularity: 53,
+      views: 1200,
+      dateAdded: "2024-12-09"
+    },
+    {
+      icon: Music,
+      title: "Listen to Uplifting Music in the Morning",
+      description: "Mood enhancement through strategic music selection.",
+      items: [
+        "Health: Positive music reduces cortisol and boosts immunity",
+        "Wealth: Free mood enhancement that improves productivity",
+        "Happiness: Music releases dopamine creating natural high"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "wellness",
+      popularity: 57,
+      views: 1290,
+      dateAdded: "2024-12-10"
+    },
+    {
+      icon: Bed,
+      title: "Make Your Bed Every Morning",
+      description: "First win of the day for momentum and discipline.",
+      items: [
+        "Health: Creates structure that supports other healthy habits",
+        "Wealth: Discipline in small things builds wealth-building habits",
+        "Happiness: Immediate accomplishment starts day with success"
+      ],
+      level: "Easy",
+      duration: "2 min read",
+      category: "productivity",
+      popularity: 68,
+      views: 1560,
+      dateAdded: "2024-12-11"
+    },
+    {
+      icon: Utensils,
+      title: "Eat Without Distractions Once Daily",
+      description: "Mindful eating for better digestion and satisfaction.",
+      items: [
+        "Health: Improves digestion and prevents overeating",
+        "Wealth: Mindful eating reduces food waste and costs",
+        "Happiness: Present moment awareness increases meal satisfaction"
+      ],
+      level: "Easy",
+      duration: "4 min read",
+      category: "mindfulness",
+      popularity: 55,
+      views: 1240,
+      dateAdded: "2024-12-12"
+    },
+    {
+      icon: Home,
+      title: "Declutter One Small Area Daily",
+      description: "Micro-organizing for gradual home transformation.",
+      items: [
+        "Health: Organized space reduces stress and improves focus",
+        "Wealth: Finds forgotten items and prevents duplicate purchases",
+        "Happiness: Clean space creates mental clarity and calm"
+      ],
+      level: "Easy",
+      duration: "4 min read",
+      category: "lifestyle",
+      popularity: 60,
+      views: 1370,
+      dateAdded: "2024-12-13"
+    },
+    {
+      icon: Brain,
+      title: "Learn One New Word Daily",
+      description: "Vocabulary expansion for cognitive enhancement.",
+      items: [
+        "Health: Keeps brain active and builds cognitive reserve",
+        "Wealth: Better communication skills improve career prospects",
+        "Happiness: Learning creates sense of growth and accomplishment"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "learning",
+      popularity: 46,
+      views: 1040,
+      dateAdded: "2024-12-14"
+    },
+    {
+      icon: PenTool,
+      title: "Write Three Things You're Grateful For",
+      description: "Classic gratitude practice for perspective and happiness.",
+      items: [
+        "Health: Gratitude practice reduces inflammation and improves immunity",
+        "Wealth: Appreciation mindset reduces impulse spending",
+        "Happiness: Focusing on positives rewires brain for optimism"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "mindfulness",
+      popularity: 74,
+      views: 1690,
+      dateAdded: "2024-12-15"
+    },
+    {
+      icon: Timer,
+      title: "Take a 2-Minute Movement Break Every Hour",
+      description: "Regular movement breaks for physical and mental health.",
+      items: [
+        "Health: Breaks up sedentary time reducing health risks",
+        "Wealth: Prevents repetitive strain injuries and medical costs",
+        "Happiness: Movement releases endorphins improving mood"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "wellness",
+      popularity: 63,
+      views: 1430,
+      dateAdded: "2024-12-16"
+    },
+    {
+      icon: Eye,
+      title: "Practice the 20-20-20 Rule for Eye Health",
+      description: "Screen break technique to prevent digital eye strain.",
+      items: [
+        "Health: Prevents eye strain and maintains long-term vision health",
+        "Wealth: Avoids costly vision problems from excessive screen time",
+        "Happiness: Regular breaks improve focus and reduce frustration"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "health",
+      popularity: 58,
+      views: 1310,
+      dateAdded: "2024-12-17"
+    },
+    {
+      icon: Gamepad2,
+      title: "Limit Gaming to 1 Hour on Weekdays",
+      description: "Gaming moderation for balanced lifestyle and productivity.",
+      items: [
+        "Health: Prevents sedentary behavior and sleep disruption",
+        "Wealth: More time for income-generating activities",
+        "Happiness: Moderation prevents gaming addiction and guilt"
+      ],
+      level: "Moderate",
+      duration: "4 min read",
+      category: "digital",
+      popularity: 42,
+      views: 950,
+      dateAdded: "2024-12-18"
+    },
+    {
+      icon: ThumbsUp,
+      title: "Give One Genuine Compliment Daily",
+      description: "Spread positivity while building social connections.",
+      items: [
+        "Health: Positive interactions reduce stress and boost wellbeing",
+        "Wealth: Strong relationships create professional opportunities",
+        "Happiness: Making others happy increases your own joy"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "social",
+      popularity: 67,
+      views: 1530,
+      dateAdded: "2024-12-19"
+    },
+    {
+      icon: CheckCircle,
+      title: "Complete One Unfinished Task Weekly",
+      description: "Systematic approach to clearing mental clutter.",
+      items: [
+        "Health: Reduces stress from mental load of unfinished tasks",
+        "Wealth: Completing tasks often reveals savings or opportunities",
+        "Happiness: Closure brings satisfaction and mental freedom"
+      ],
+      level: "Easy",
+      duration: "4 min read",
+      category: "productivity",
+      popularity: 54,
+      views: 1220,
+      dateAdded: "2024-12-20"
+    },
+    {
+      icon: Award,
+      title: "Celebrate Small Wins Immediately",
+      description: "Positive reinforcement for sustained motivation.",
+      items: [
+        "Health: Celebrating releases dopamine strengthening positive habits",
+        "Wealth: Acknowledging progress motivates continued financial discipline",
+        "Happiness: Regular celebration creates optimistic mindset"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "mindfulness",
+      popularity: 61,
+      views: 1390,
+      dateAdded: "2024-12-21"
+    },
+    {
+      icon: Leaf,
+      title: "Spend 5 Minutes with Plants Daily",
+      description: "Green therapy for stress reduction and air quality.",
+      items: [
+        "Health: Plants improve air quality and reduce stress hormones",
+        "Wealth: Indoor plants cost less than air purifiers",
+        "Happiness: Caring for living things releases nurturing hormones"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "wellness",
+      popularity: 49,
+      views: 1110,
+      dateAdded: "2024-12-22"
+    },
+    {
+      icon: Pill,
+      title: "Take a High-Quality Multivitamin Daily",
+      description: "Nutritional insurance for optimal health and energy.",
+      items: [
+        "Health: Fills nutritional gaps supporting overall wellbeing",
+        "Wealth: Prevents deficiency-related health issues and costs",
+        "Happiness: Optimal nutrition supports stable mood and energy"
+      ],
+      level: "Easy",
+      duration: "4 min read",
+      category: "health",
+      popularity: 56,
+      views: 1270,
+      dateAdded: "2024-12-23"
+    },
+    {
+      icon: Bus,
+      title: "Use Public Transport Once Weekly",
+      description: "Sustainable transportation for savings and mindfulness.",
+      items: [
+        "Health: Walking to stops adds movement to your routine",
+        "Wealth: Reduces fuel costs and vehicle wear significantly",
+        "Happiness: Reading or relaxing time during commute"
+      ],
+      level: "Easy",
+      duration: "4 min read",
+      category: "lifestyle",
+      popularity: 38,
+      views: 860,
+      dateAdded: "2024-12-24"
+    },
+    {
+      icon: Minus,
+      title: "Remove One Negative Influence Weekly",
+      description: "Environmental optimization for mental health.",
+      items: [
+        "Health: Reduces stress from toxic relationships or content",
+        "Wealth: Eliminates financial drains from negative influences",
+        "Happiness: Creates space for positive influences to flourish"
+      ],
+      level: "Moderate",
+      duration: "5 min read",
+      category: "lifestyle",
+      popularity: 65,
+      views: 1480,
+      dateAdded: "2024-12-25"
+    },
+    {
+      icon: Apple,
+      title: "Replace One Snack with Fruit Daily",
+      description: "Gradual nutrition improvement through simple swaps.",
+      items: [
+        "Health: Increases fiber and nutrients while reducing processed foods",
+        "Wealth: Whole fruits often cost less than packaged snacks",
+        "Happiness: Natural sugars provide stable energy without crashes"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "health",
+      popularity: 59,
+      views: 1340,
+      dateAdded: "2024-12-26"
+    },
+    {
+      icon: RotateCcw,
+      title: "Do One Task Differently Each Day",
+      description: "Novelty practice for cognitive flexibility and creativity.",
+      items: [
+        "Health: Novel experiences create new neural pathways",
+        "Wealth: Creative thinking leads to innovative solutions",
+        "Happiness: Variety prevents routine from becoming stale"
+      ],
+      level: "Easy",
+      duration: "4 min read",
+      category: "creativity",
+      popularity: 45,
+      views: 1020,
+      dateAdded: "2024-12-27"
+    },
+    {
+      icon: Snowflake,
+      title: "Take Cold Showers 2x Per Week",
+      description: "Cold therapy for resilience and metabolism boost.",
+      items: [
+        "Health: Boosts metabolism and strengthens immune system",
+        "Wealth: Reduces hot water costs while improving health",
+        "Happiness: Cold exposure releases endorphins and builds mental toughness"
+      ],
+      level: "Moderate",
+      duration: "5 min read",
+      category: "wellness",
+      popularity: 52,
+      views: 1180,
+      dateAdded: "2024-12-28"
+    },
+    {
+      icon: ArrowDown,
+      title: "Sit on the Floor for 10 Minutes Daily",
+      description: "Floor sitting for hip mobility and posture improvement.",
+      items: [
+        "Health: Improves hip flexibility and core strength naturally",
+        "Wealth: Free mobility exercise requiring no equipment",
+        "Happiness: Ground connection provides mental grounding and calm"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "fitness",
+      popularity: 41,
+      views: 930,
+      dateAdded: "2024-12-29"
+    },
+    {
+      icon: Play,
+      title: "Listen to Educational Podcasts During Commute",
+      description: "Transform travel time into learning opportunities.",
+      items: [
+        "Health: Mental stimulation during otherwise passive time",
+        "Wealth: Free education that can lead to career advancement",
+        "Happiness: Learning creates sense of growth and purpose"
+      ],
+      level: "Easy",
+      duration: "4 min read",
+      category: "learning",
+      popularity: 63,
+      views: 1440,
+      dateAdded: "2024-12-30"
+    },
+    {
+      icon: Footprints,
+      title: "Walk in Silence for 10 Minutes Daily",
+      description: "Walking meditation for mindfulness and clarity.",
+      items: [
+        "Health: Combines physical exercise with stress reduction",
+        "Wealth: Free meditation that doesn't require apps or classes",
+        "Happiness: Quiet time reduces mental chatter and anxiety"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "mindfulness",
+      popularity: 57,
+      views: 1300,
+      dateAdded: "2024-12-31"
+    },
+    {
+      icon: ArrowUp,
+      title: "Stand During Phone Calls",
+      description: "Add movement to necessary daily activities.",
+      items: [
+        "Health: Reduces sedentary time and improves posture",
+        "Wealth: Better vocal projection can improve professional presence",
+        "Happiness: Movement during calls increases energy and alertness"
+      ],
+      level: "Easy",
+      duration: "2 min read",
+      category: "wellness",
+      popularity: 48,
+      views: 1090,
+      dateAdded: "2025-01-01"
+    },
+    {
+      icon: Zap,
+      title: "Do 10 Jumping Jacks Before Meals",
+      description: "Pre-meal activation for metabolism and mindfulness.",
+      items: [
+        "Health: Activates metabolism before eating improving digestion",
+        "Wealth: Free exercise that requires no equipment or time",
+        "Happiness: Movement releases endorphins before nourishment"
+      ],
+      level: "Easy",
+      duration: "2 min read",
+      category: "fitness",
+      popularity: 50,
+      views: 1130,
+      dateAdded: "2025-01-02"
+    },
+    {
+      icon: Car,
+      title: "Park Further Away From Destinations",
+      description: "Automatic exercise integration through parking strategy.",
+      items: [
+        "Health: Adds steps and light exercise to necessary trips",
+        "Wealth: Often finds free parking further from popular areas",
+        "Happiness: Walking provides transition time and fresh air"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "fitness",
+      popularity: 55,
+      views: 1250,
+      dateAdded: "2025-01-03"
+    },
+    {
+      icon: Bike,
+      title: "Stretch for 5 Minutes Every Morning",
+      description: "Morning mobility routine for flexibility and energy.",
+      items: [
+        "Health: Improves flexibility and reduces injury risk",
+        "Wealth: Prevents costly physical therapy and medical bills",
+        "Happiness: Movement creates energy and positive start to day"
+      ],
+      level: "Easy",
+      duration: "4 min read",
+      category: "wellness",
+      popularity: 66,
+      views: 1500,
+      dateAdded: "2025-01-04"
+    },
+    {
+      icon: Calendar,
+      title: "Plan Tomorrow Before Bed",
+      description: "Evening planning for stress-free mornings and clarity.",
+      items: [
+        "Health: Reduces morning stress by eliminating decision fatigue",
+        "Wealth: Better planning leads to more productive days",
+        "Happiness: Clear plan creates confidence and reduces anxiety"
+      ],
+      level: "Easy",
+      duration: "4 min read",
+      category: "productivity",
+      popularity: 62,
+      views: 1410,
+      dateAdded: "2025-01-05"
+    },
+    {
+      icon: Monitor,
+      title: "Use Night Mode on All Devices After 8PM",
+      description: "Blue light reduction for better sleep and eye health.",
+      items: [
+        "Health: Reduces blue light exposure improving sleep quality",
+        "Wealth: Prevents sleep-related health issues and costs",
+        "Happiness: Better sleep improves mood and cognitive function"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "digital",
+      popularity: 69,
+      views: 1570,
+      dateAdded: "2025-01-06"
+    },
+    {
+      icon: Activity,
+      title: "Check Your Posture Every Hour",
+      description: "Postural awareness for spinal health and confidence.",
+      items: [
+        "Health: Prevents back pain and improves spinal alignment",
+        "Wealth: Good posture projects confidence improving opportunities",
+        "Happiness: Upright posture naturally improves mood and energy"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "health",
+      popularity: 58,
+      views: 1320,
+      dateAdded: "2025-01-07"
+    },
+    {
+      icon: Droplets,
+      title: "Drink Green Smoothies 3x Per Week",
+      description: "Nutrient-dense drink for easy vegetable consumption.",
+      items: [
+        "Health: Increases vegetable intake in easily digestible form",
+        "Wealth: Prevents expensive supplement needs through whole foods",
+        "Happiness: Nutrient density supports stable mood and energy"
+      ],
+      level: "Easy",
+      duration: "4 min read",
+      category: "health",
+      popularity: 54,
+      views: 1230,
+      dateAdded: "2025-01-08"
+    },
+    {
+      icon: Package,
+      title: "Prepare Healthy Snacks on Sundays",
+      description: "Meal prep for convenient healthy choices all week.",
+      items: [
+        "Health: Ensures healthy options are always available",
+        "Wealth: Bulk preparation saves money on individual portions",
+        "Happiness: Reduces daily decision fatigue about food choices"
+      ],
+      level: "Easy",
+      duration: "5 min read",
+      category: "health",
+      popularity: 60,
+      views: 1360,
+      dateAdded: "2025-01-09"
+    },
+    {
+      icon: RefreshCw,
+      title: "Review and Adjust Goals Monthly",
+      description: "Regular goal maintenance for continued relevance and progress.",
+      items: [
+        "Health: Keeps health goals realistic and motivating",
+        "Wealth: Adjusts financial targets based on changing circumstances",
+        "Happiness: Ensures goals still align with values and desires"
+      ],
+      level: "Moderate",
+      duration: "6 min read",
+      category: "productivity",
+      popularity: 56,
+      views: 1280,
+      dateAdded: "2025-01-10"
+    },
+    {
+      icon: Moon,
+      title: "Create a Consistent Bedtime Routine",
+      description: "Sleep ritual for better rest and recovery.",
+      items: [
+        "Health: Consistent routine improves sleep quality significantly",
+        "Wealth: Better sleep improves productivity and decision-making",
+        "Happiness: Quality rest supports emotional regulation and mood"
+      ],
+      level: "Easy",
+      duration: "5 min read",
+      category: "wellness",
+      popularity: 71,
+      views: 1610,
+      dateAdded: "2025-01-11"
+    },
+    {
+      icon: EyeOff,
+      title: "Practice Digital Sunset One Day Per Week",
+      description: "Weekly digital detox for mental health and presence.",
+      items: [
+        "Health: Reduces screen-related eye strain and mental fatigue",
+        "Wealth: Prevents impulse online purchases during detox",
+        "Happiness: Increases presence and real-world connection"
+      ],
+      level: "Moderate",
+      duration: "5 min read",
+      category: "digital",
+      popularity: 63,
+      views: 1430,
+      dateAdded: "2025-01-12"
+    },
+    {
+      icon: Waves,
+      title: "Practice Box Breathing When Stressed",
+      description: "4-4-4-4 breathing technique for immediate stress relief.",
+      items: [
+        "Health: Activates parasympathetic nervous system reducing stress",
+        "Wealth: Free stress management preventing stress-related spending",
+        "Happiness: Immediate calm and clarity during difficult moments"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "wellness",
+      popularity: 68,
+      views: 1550,
+      dateAdded: "2025-01-13"
+    },
+    {
+      icon: Truck,
+      title: "Buy Generic Brands for Non-Essential Items",
+      description: "Smart shopping for significant savings without sacrifice.",
+      items: [
+        "Health: Generic medicines have same active ingredients",
+        "Wealth: Can save 20-40% on household and personal items",
+        "Happiness: Financial savings reduce money stress significantly"
+      ],
+      level: "Easy",
+      duration: "4 min read",
+      category: "finance",
+      popularity: 64,
+      views: 1460,
+      dateAdded: "2025-01-14"
+    },
+    {
+      icon: Map,
+      title: "Explore Your Local Library Monthly",
+      description: "Free community resource for learning and entertainment.",
+      items: [
+        "Health: Walking to library adds movement to routine",
+        "Wealth: Free books, movies, and events replace paid entertainment",
+        "Happiness: Discovery and learning create excitement and growth"
+      ],
+      level: "Easy",
+      duration: "4 min read",
+      category: "learning",
+      popularity: 47,
+      views: 1070,
+      dateAdded: "2025-01-15"
+    },
+    {
+      icon: ShoppingBasket,
+      title: "Shop with a List and Stick to It",
+      description: "Disciplined shopping for budget control and efficiency.",
+      items: [
+        "Health: Planned shopping leads to healthier food choices",
+        "Wealth: Prevents impulse purchases saving significant money",
+        "Happiness: Organized shopping reduces stress and decision fatigue"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "finance",
+      popularity: 67,
+      views: 1520,
+      dateAdded: "2025-01-16"
     }
   ];
 
