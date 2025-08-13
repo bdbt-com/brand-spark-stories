@@ -1876,6 +1876,54 @@ const Tips = () => {
       popularity: 67,
       views: 1520,
       dateAdded: "2025-01-16"
+    },
+    {
+      icon: Trophy,
+      title: "Set Micro-Goals for Massive Wins",
+      description: "Break down overwhelming objectives into tiny, actionable steps.",
+      items: [
+        "Health: 5-minute workouts lead to consistent fitness habits",
+        "Wealth: Save $1 daily instead of trying to save $365 monthly",
+        "Happiness: Small wins build momentum and confidence daily"
+      ],
+      level: "Easy",
+      duration: "4 min read",
+      category: "productivity",
+      popularity: 58,
+      views: 0,
+      dateAdded: "2024-12-01"
+    },
+    {
+      icon: Award,
+      title: "Practice the 5-Second Rule",
+      description: "Beat procrastination by acting within 5 seconds of having an idea.",
+      items: [
+        "Health: Exercise immediately when you think about it",
+        "Wealth: Make investment decisions quickly before fear sets in",
+        "Happiness: Act on positive impulses before talking yourself out"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "productivity",
+      popularity: 62,
+      views: 0,
+      dateAdded: "2024-12-02"
+    },
+    {
+      icon: CheckCircle,
+      title: "Complete One Important Task Before Checking Phone",
+      description: "Morning productivity ritual that sets the tone for your entire day.",
+      items: [
+        "Health: Exercise or healthy breakfast before digital distractions",
+        "Wealth: Handle finances or work before social media temptation",
+        "Happiness: Accomplish something meaningful before reactive mode"
+      ],
+      level: "Easy",
+      duration: "4 min read",
+      category: "productivity",
+      popularity: 67,
+      views: 0,
+      dateAdded: "2024-12-03"
     }
   ];
 
