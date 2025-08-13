@@ -152,7 +152,7 @@ const Tips = () => {
     },
     {
       icon: Trees,
-      title: "50 ways to incorporate nature into your daily life",
+      title: "50 Ways to Incorporate Nature into Your Daily Life",
       description: "Simple methods to connect with nature every day.",
       items: [
         "Health: Nature exposure reduces stress hormones and blood pressure",
@@ -232,7 +232,7 @@ const Tips = () => {
     },
     {
       icon: Utensils,
-      title: "Be More Japanese Eat Until 80% Full",
+      title: "Be More Japanese: Eat Until 80% Full",
       description: "Ancient wisdom for portion control and digestive health.",
       items: [
         "Health: Improves digestion and prevents overeating",
@@ -248,7 +248,7 @@ const Tips = () => {
     },
     {
       icon: Target,
-      title: "Be More Japanese Find Your Strong Sense of Life Purpose",
+      title: "Be More Japanese: Find Your Strong Sense of Life Purpose",
       description: "Discover your ikigai for meaningful and fulfilling living.",
       items: [
         "Health: Purpose-driven life reduces stress and improves longevity",
@@ -296,7 +296,7 @@ const Tips = () => {
     },
     {
       icon: Wind,
-      title: "Breath Deeply for 60 Seconds, Twice a Day",
+      title: "Breathe Deeply for 60 Seconds, Twice a Day",
       description: "Simple breathing practice for stress relief and focus.",
       items: [
         "Health: Activates parasympathetic nervous system for relaxation",
@@ -344,7 +344,7 @@ const Tips = () => {
     },
     {
       icon: Package,
-      title: "Buy GenericStore-Brand Products Instead of Big Name Brands",
+      title: "Buy Generic/Store-Brand Products Instead of Big Name Brands",
       description: "Smart shopping strategy for identical quality at lower cost.",
       items: [
         "Health: Same ingredients and quality standards as name brands",
@@ -360,7 +360,7 @@ const Tips = () => {
     },
     {
       icon: Gamepad2,
-      title: "Buy UsedSecond-Hand Video Games",
+      title: "Buy Used/Second-Hand Video Games",
       description: "Gaming on a budget without sacrificing entertainment value.",
       items: [
         "Health: Same entertainment benefits at reduced financial stress",
@@ -376,7 +376,7 @@ const Tips = () => {
     },
     {
       icon: Briefcase,
-      title: "Capitalise on the Benefits Offered by Your Employer",
+      title: "Capitalize on the Benefits Offered by Your Employer",
       description: "Maximize workplace benefits for health and wealth building.",
       items: [
         "Health: Utilize health insurance, gym memberships, and wellness programs",
@@ -632,7 +632,7 @@ const Tips = () => {
     },
     {
       icon: Droplets,
-      title: "Drink one extra glass of water daily",
+      title: "Drink One Extra Glass of Water Daily",
       description: "Simple hydration improvement for immediate health benefits.",
       items: [
         "Health: Improves skin health and supports organ function",
