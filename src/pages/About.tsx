@@ -647,154 +647,11 @@ const About = () => {
       </section>
 
 
-      {/* The Truth Section */}
-      <section id="why-habit-driven-lifestyles-work" className="py-20 bg-gradient-subtle">
+      {/* The New Opportunity */}
+      <section id="welcome-to-habit-driven-lifestyle-design" className="py-20 bg-gradient-subtle">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-primary/80">
-              Life Isn't Lived in Silos
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              Your health affects your wealth. Your wealth affects your happiness. Your happiness affects your health.
-            </p>
-          </div>
-
-          <div className="max-w-4xl mx-auto">
-            <div className="space-y-8">
-              <div className="prose prose-lg text-muted-foreground">
-                <p className="leading-relaxed text-lg">
-                  Trying to fix one without the others creates imbalance. Trying to fix everything at once creates overwhelm.
-                </p>
-                <p className="leading-relaxed text-lg font-semibold text-primary">
-                  That's where BDBT comes in.
-                </p>
-                <p className="leading-relaxed text-lg">
-                  BDBT is the first and only system that helps you build health, wealth, and happiness simultaneously, 
-                  through daily habits that create ripple effects across your entire life.
-                </p>
-              </div>
-              
-              <Card className="bg-primary/5 border-primary/20">
-                <CardContent className="p-6">
-                  <h3 className="text-xl font-bold text-primary mb-4">The BDBT Difference:</h3>
-                  <div className="space-y-3">
-                    {["One stacked system that improves all three together", "Works even when your motivation doesn't", "Clear steps that turn overwhelm into action", "1% daily improvement mindset"].map((benefit, index) => <div key={index} className="flex items-start gap-3">
-                        <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                        <span className="text-muted-foreground">{benefit}</span>
-                      </div>)}
-                  </div>
-                </CardContent>
-              </Card>
-        </div>
-
-        {/* CTA Section */}
-        <div className="mt-20 text-center bg-warning text-primary rounded-2xl p-12 border-4 border-warning/40">
-          <h2 className="text-3xl font-bold mb-4 text-white">
-            Ready to Start Your Journey?
-          </h2>
-          <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-            Join thousands who've discovered the power of the BDBT system and transformed their lives.
-          </p>
-          <Button variant="accent" size="lg" asChild>
-            <Link to="/blueprint">Get Your Blueprint Now</Link>
-          </Button>
-        </div>
-      </div>
-    </div>
-      </section>
-
-      {/* Old Way vs BDBT Way */}
-      <section className="py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-foreground">
-              Why Habit-Driven Lifestyle Design™ Works
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Compare the old approach with the BDBT system that creates lasting change
-            </p>
-          </div>
-          
-          <div className="grid lg:grid-cols-2 gap-8">
-            {/* Old Way Column */}
-            <Card className="bg-destructive/5 border-destructive/20">
-              <CardContent className="p-8">
-                <div className="text-center mb-6">
-                  <h3 className="text-2xl font-bold text-destructive mt-4">What Doesn't Work</h3>
-                </div>
-                <div className="space-y-4">
-                  {["Separate goals for health, wealth, and happiness", "Relying on motivation or willpower", "Isolated tips from different experts", "Overhauling everything on January 1st", "All or nothing thinking", "Quick hacks with no staying power", "One-size-fits-all plans", "Starting strong, burning out fast"].map((item, index) => <div key={index} className="flex items-start gap-3">
-                      <AlertTriangle className="w-5 h-5 text-destructive mt-0.5 flex-shrink-0" />
-                      <span className="text-muted-foreground">{item}</span>
-                    </div>)}
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* BDBT Way Column */}
-            <Card className="bg-primary/5 border-primary/20">
-              <CardContent className="p-8">
-                <div className="text-center mb-6">
-                  <h3 className="text-2xl font-bold text-primary mt-4">What Actually Works</h3>
-                </div>
-                <div className="space-y-4">
-                  {["One stacked system that improves all three together", "A structure that works even when motivation doesn't", "Simplified information and achievable progress", "Tiny daily shifts that build a life you love", "1% daily improvement mindset", "Long-term identity change through ripple habits", "A flexible framework that fits around your life", "Small daily steps. Big life changes"].map((item, index) => <div key={index} className="flex items-start gap-3">
-                      <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                      <span className="text-muted-foreground">{item}</span>
-                    </div>)}
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* BDBT Philosophy */}
-      <section className="py-20 bg-gradient-primary text-primary-foreground relative overflow-hidden">
-        <div className="absolute inset-0 bg-black/10"></div>
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div className="text-center mb-16">
-            <Quote className="w-16 h-16 mx-auto mb-8 opacity-50" />
-            <h2 className="text-4xl lg:text-5xl font-bold mb-8 text-white">The BDBT Philosophy</h2>
-            <blockquote className="text-2xl lg:text-3xl font-bold leading-relaxed mb-8 text-white">
-              "We believe in habits that create ripple effects. Small daily actions that spark powerful momentum across your entire life."
-            </blockquote>
-          </div>
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[{
-            icon: Target,
-            belief: "In stacking micro-wins, not chasing macro-perfection."
-          }, {
-            icon: Clock,
-            belief: "That 10 minutes can change your entire day. The ripple can then change your entire life."
-          }, {
-            icon: Brain,
-            belief: "That your environment beats your willpower."
-          }, {
-            icon: Zap,
-            belief: "That you don't need more motivation, you need a system that works even when you don't."
-          }, {
-            icon: Heart,
-            belief: "That real change happens when your habits serve your values."
-          }, {
-            icon: Star,
-            belief: "That you don't need another goal. You need an achievable daily win that creates ripple effects."
-          }].map((item, index) => <Card key={index} className="bg-white/10 border-white/20 backdrop-blur-sm">
-                <CardContent className="p-6 text-center">
-                  <item.icon className="w-12 h-12 mx-auto mb-4 text-white" />
-                  <p className="text-white/90 leading-relaxed">{item.belief}</p>
-                </CardContent>
-              </Card>)}
-          </div>
-        </div>
-      </section>
-
-      {/* The New Opportunity */}
-      <section className="py-20 bg-muted/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-foreground">
               Welcome to Habit-Driven Lifestyle Design
             </h2>
             <p className="text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
@@ -842,6 +699,149 @@ const About = () => {
               </CardContent>
             </Card>
           </div>
+
+        {/* CTA Section */}
+        <div className="mt-20 text-center bg-warning text-primary rounded-2xl p-12 border-4 border-warning/40">
+          <h2 className="text-3xl font-bold mb-4 text-white">
+            Ready to Start Your Journey?
+          </h2>
+          <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+            Join thousands who've discovered the power of the BDBT system and transformed their lives.
+          </p>
+          <Button variant="accent" size="lg" asChild>
+            <Link to="/blueprint">Get Your Blueprint Now</Link>
+          </Button>
+        </div>
+        </div>
+      </section>
+
+      {/* Old Way vs BDBT Way */}
+      <section className="py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-primary/80">
+              Why Habit-Driven Lifestyle Design™ Works
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Compare the old approach with the BDBT system that creates lasting change
+            </p>
+          </div>
+          
+          <div className="grid lg:grid-cols-2 gap-8">
+            {/* Old Way Column */}
+            <Card className="bg-destructive/5 border-destructive/20">
+              <CardContent className="p-8">
+                <div className="text-center mb-6">
+                  <h3 className="text-2xl font-bold text-destructive mt-4">What Doesn't Work</h3>
+                </div>
+                <div className="space-y-4">
+                  {["Separate goals for health, wealth, and happiness", "Relying on motivation or willpower", "Isolated tips from different experts", "Overhauling everything on January 1st", "All or nothing thinking", "Quick hacks with no staying power", "One-size-fits-all plans", "Starting strong, burning out fast"].map((item, index) => <div key={index} className="flex items-start gap-3">
+                      <AlertTriangle className="w-5 h-5 text-destructive mt-0.5 flex-shrink-0" />
+                      <span className="text-muted-foreground">{item}</span>
+                    </div>)}
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* BDBT Way Column */}
+            <Card className="bg-primary/5 border-primary/20">
+              <CardContent className="p-8">
+                <div className="text-center mb-6">
+                  <h3 className="text-2xl font-bold text-primary mt-4">What Actually Works</h3>
+                </div>
+                <div className="space-y-4">
+                  {["One stacked system that improves all three together", "A structure that works even when motivation doesn't", "Simplified information and achievable progress", "Tiny daily shifts that build a life you love", "1% daily improvement mindset", "Long-term identity change through ripple habits", "A flexible framework that fits around your life", "Small daily steps. Big life changes"].map((item, index) => <div key={index} className="flex items-start gap-3">
+                      <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                      <span className="text-muted-foreground">{item}</span>
+                    </div>)}
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* BDBT Philosophy */}
+      <section className="py-20 bg-gradient-primary text-primary-foreground relative overflow-hidden">
+        <div className="absolute inset-0 bg-black/10"></div>
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+          <div className="text-center mb-16">
+            <Quote className="w-16 h-16 mx-auto mb-8 opacity-50" />
+            <h2 className="text-4xl lg:text-5xl font-bold mb-8 text-primary/80">The BDBT Philosophy</h2>
+            <blockquote className="text-2xl lg:text-3xl font-bold leading-relaxed mb-8 text-white">
+              "We believe in habits that create ripple effects. Small daily actions that spark powerful momentum across your entire life."
+            </blockquote>
+          </div>
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[{
+            icon: Target,
+            belief: "In stacking micro-wins, not chasing macro-perfection."
+          }, {
+            icon: Clock,
+            belief: "That 10 minutes can change your entire day. The ripple can then change your entire life."
+          }, {
+            icon: Brain,
+            belief: "That your environment beats your willpower."
+          }, {
+            icon: Zap,
+            belief: "That you don't need more motivation, you need a system that works even when you don't."
+          }, {
+            icon: Heart,
+            belief: "That real change happens when your habits serve your values."
+          }, {
+            icon: Star,
+            belief: "That you don't need another goal. You need an achievable daily win that creates ripple effects."
+          }].map((item, index) => <Card key={index} className="bg-white/10 border-white/20 backdrop-blur-sm">
+                <CardContent className="p-6 text-center">
+                  <item.icon className="w-12 h-12 mx-auto mb-4 text-white" />
+                  <p className="text-white/90 leading-relaxed">{item.belief}</p>
+                </CardContent>
+              </Card>)}
+          </div>
+        </div>
+      </section>
+
+      {/* The Truth Section */}
+      <section className="py-20 bg-muted/30">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-primary/80">
+              Life Isn't Lived in Silos
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+              Your health affects your wealth. Your wealth affects your happiness. Your happiness affects your health.
+            </p>
+          </div>
+
+          <div className="max-w-4xl mx-auto">
+            <div className="space-y-8">
+              <div className="prose prose-lg text-muted-foreground">
+                <p className="leading-relaxed text-lg">
+                  Trying to fix one without the others creates imbalance. Trying to fix everything at once creates overwhelm.
+                </p>
+                <p className="leading-relaxed text-lg font-semibold text-primary">
+                  That's where BDBT comes in.
+                </p>
+                <p className="leading-relaxed text-lg">
+                  BDBT is the first and only system that helps you build health, wealth, and happiness simultaneously, 
+                  through daily habits that create ripple effects across your entire life.
+                </p>
+              </div>
+              
+              <Card className="bg-primary/5 border-primary/20">
+                <CardContent className="p-6">
+                  <h3 className="text-xl font-bold text-primary mb-4">The BDBT Difference:</h3>
+                  <div className="space-y-3">
+                    {["One stacked system that improves all three together", "Works even when your motivation doesn't", "Clear steps that turn overwhelm into action", "1% daily improvement mindset"].map((benefit, index) => <div key={index} className="flex items-start gap-3">
+                        <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                        <span className="text-muted-foreground">{benefit}</span>
+                      </div>)}
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -849,7 +849,7 @@ const About = () => {
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-foreground">
+            <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-primary/80">
               The Numbers Don't Lie
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
@@ -889,7 +889,7 @@ const About = () => {
       <section className="py-20 bg-gradient-subtle">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold mb-6 text-foreground">
+            <h2 className="text-3xl lg:text-4xl font-bold mb-6 text-primary/80">
               The People Behind the Mission
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
