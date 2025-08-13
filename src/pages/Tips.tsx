@@ -1924,6 +1924,806 @@ const Tips = () => {
       popularity: 67,
       views: 0,
       dateAdded: "2024-12-03"
+    },
+    {
+      icon: ThumbsUp,
+      title: "Give Compliments More Freely",
+      description: "Spread positivity that comes back multiplied in relationships.",
+      items: [
+        "Health: Positive interactions boost immune system and longevity",
+        "Wealth: Better relationships create more opportunities and referrals",
+        "Happiness: Making others feel good creates reciprocal joy"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "social",
+      popularity: 45,
+      views: 0,
+      dateAdded: "2024-12-04"
+    },
+    {
+      icon: Gamepad2,
+      title: "Turn Waiting Time Into Learning Time",
+      description: "Transform dead time into growth opportunities with mobile learning.",
+      items: [
+        "Health: Learn about nutrition while waiting for appointments",
+        "Wealth: Study investing during commutes or queues",
+        "Happiness: Acquire new skills that boost confidence and capability"
+      ],
+      level: "Easy",
+      duration: "4 min read",
+      category: "learning",
+      popularity: 53,
+      views: 0,
+      dateAdded: "2024-12-05"
+    },
+    {
+      icon: Star,
+      title: "Rate Your Energy Levels Hourly",
+      description: "Track energy patterns to optimize your daily schedule and habits.",
+      items: [
+        "Health: Identify when you need rest vs. stimulation",
+        "Wealth: Schedule important work during peak energy hours",
+        "Happiness: Align activities with natural energy rhythms"
+      ],
+      level: "Easy",
+      duration: "5 min read",
+      category: "wellness",
+      popularity: 41,
+      views: 0,
+      dateAdded: "2024-12-06"
+    },
+    {
+      icon: Gift,
+      title: "Buy Experiences Not Things",
+      description: "Invest in memories that appreciate in value over time.",
+      items: [
+        "Health: Adventures often involve physical activity and fresh air",
+        "Wealth: Experiences don't depreciate like material possessions",
+        "Happiness: Memories provide lasting joy and personal growth"
+      ],
+      level: "Easy",
+      duration: "5 min read",
+      category: "lifestyle",
+      popularity: 59,
+      views: 0,
+      dateAdded: "2024-12-07"
+    },
+    {
+      icon: Music,
+      title: "Create Mood-Based Playlists",
+      description: "Use music strategically to influence your emotional state and productivity.",
+      items: [
+        "Health: Calming music reduces stress and lowers blood pressure",
+        "Wealth: Focus music increases productivity and earning potential",
+        "Happiness: Happy music instantly improves mood and energy"
+      ],
+      level: "Easy",
+      duration: "4 min read",
+      category: "wellness",
+      popularity: 47,
+      views: 0,
+      dateAdded: "2024-12-08"
+    },
+    {
+      icon: Camera,
+      title: "Take One Photo Every Day",
+      description: "Document your life to appreciate moments and track personal growth.",
+      items: [
+        "Health: Encourages you to notice and seek beautiful moments",
+        "Wealth: Free hobby that creates lasting value and memories",
+        "Happiness: Daily documentation increases gratitude and awareness"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "mindfulness",
+      popularity: 38,
+      views: 0,
+      dateAdded: "2024-12-09"
+    },
+    {
+      icon: Bed,
+      title: "Make Your Bed Every Morning",
+      description: "Start each day with an immediate win and organized environment.",
+      items: [
+        "Health: Creates morning structure that improves sleep hygiene",
+        "Wealth: Builds discipline that transfers to financial habits",
+        "Happiness: Instant accomplishment that boosts confidence daily"
+      ],
+      level: "Easy",
+      duration: "2 min read",
+      category: "productivity",
+      popularity: 65,
+      views: 0,
+      dateAdded: "2024-12-10"
+    },
+    {
+      icon: Utensils,
+      title: "Eat Without Distractions",
+      description: "Mindful eating for better digestion and portion control.",
+      items: [
+        "Health: Improves digestion and helps recognize satiety signals",
+        "Wealth: Prevents overeating which reduces food costs",
+        "Happiness: Increases meal satisfaction and mindful awareness"
+      ],
+      level: "Easy",
+      duration: "4 min read",
+      category: "mindfulness",
+      popularity: 52,
+      views: 0,
+      dateAdded: "2024-12-11"
+    },
+    {
+      icon: Home,
+      title: "Declutter One Space Weekly",
+      description: "Systematic organization for mental clarity and functional living.",
+      items: [
+        "Health: Reduces stress from cluttered environments",
+        "Wealth: Discover forgotten items and prevent unnecessary purchases",
+        "Happiness: Organized spaces create calm and control feelings"
+      ],
+      level: "Easy",
+      duration: "5 min read",
+      category: "lifestyle",
+      popularity: 56,
+      views: 0,
+      dateAdded: "2024-12-12"
+    },
+    {
+      icon: Lightbulb,
+      title: "Write Down Ideas Immediately",
+      description: "Capture creative thoughts before they disappear forever.",
+      items: [
+        "Health: Reduces mental load from trying to remember everything",
+        "Wealth: Ideas are assets that can become income streams",
+        "Happiness: Creative expression and problem-solving boost satisfaction"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "creativity",
+      popularity: 49,
+      views: 0,
+      dateAdded: "2024-12-13"
+    },
+    {
+      icon: Target,
+      title: "Set One Priority Each Day",
+      description: "Focus on what matters most to achieve consistent progress.",
+      items: [
+        "Health: Prioritize one healthy habit to build sustainable routines",
+        "Wealth: Focus daily effort on highest-impact financial activities",
+        "Happiness: Accomplish important goals without overwhelming yourself"
+      ],
+      level: "Easy",
+      duration: "4 min read",
+      category: "productivity",
+      popularity: 61,
+      views: 0,
+      dateAdded: "2024-12-14"
+    },
+    {
+      icon: Timer,
+      title: "Use the Pomodoro Technique",
+      description: "25-minute focus blocks for sustained productivity and mental freshness.",
+      items: [
+        "Health: Regular breaks prevent mental fatigue and eye strain",
+        "Wealth: Increased productivity leads to better work outcomes",
+        "Happiness: Manageable work chunks reduce overwhelm and stress"
+      ],
+      level: "Easy",
+      duration: "5 min read",
+      category: "productivity",
+      popularity: 68,
+      views: 0,
+      dateAdded: "2024-12-15"
+    },
+    {
+      icon: Clock,
+      title: "Schedule Time for Spontaneity",
+      description: "Plan unplanned time to maintain life balance and creativity.",
+      items: [
+        "Health: Reduces rigidity stress and allows for adaptive self-care",
+        "Wealth: Spontaneous opportunities often lead to unexpected income",
+        "Happiness: Flexible time creates joy and prevents schedule burnout"
+      ],
+      level: "Easy",
+      duration: "4 min read",
+      category: "wellness",
+      popularity: 43,
+      views: 0,
+      dateAdded: "2024-12-16"
+    },
+    {
+      icon: Brain,
+      title: "Practice Mental Math Daily",
+      description: "Keep your brain sharp with regular mathematical challenges.",
+      items: [
+        "Health: Cognitive exercise prevents mental decline and aging",
+        "Wealth: Better number sense improves financial decision making",
+        "Happiness: Mental challenges create achievement and confidence"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "learning",
+      popularity: 36,
+      views: 0,
+      dateAdded: "2024-12-17"
+    },
+    {
+      icon: PenTool,
+      title: "Handwrite Important Notes",
+      description: "Use pen and paper for better memory retention and focus.",
+      items: [
+        "Health: Reduces screen time and improves hand-eye coordination",
+        "Wealth: Better note-taking leads to improved work performance",
+        "Happiness: Tactile experience is more satisfying than digital"
+      ],
+      level: "Easy",
+      duration: "4 min read",
+      category: "learning",
+      popularity: 44,
+      views: 0,
+      dateAdded: "2024-12-18"
+    },
+    {
+      icon: BookOpen,
+      title: "Read Before Bed Instead of Screens",
+      description: "Evening reading ritual for better sleep and continuous learning.",
+      items: [
+        "Health: Reduces blue light exposure that disrupts sleep cycles",
+        "Wealth: Knowledge acquisition that can improve career prospects",
+        "Happiness: Relaxing routine that ends the day positively"
+      ],
+      level: "Easy",
+      duration: "5 min read",
+      category: "wellness",
+      popularity: 57,
+      views: 0,
+      dateAdded: "2024-12-19"
+    },
+    {
+      icon: XCircle,
+      title: "Say No to Non-Essential Commitments",
+      description: "Protect your time and energy for what truly matters.",
+      items: [
+        "Health: Reduces stress and prevents burnout from overcommitment",
+        "Wealth: Focus time on high-value activities and opportunities",
+        "Happiness: More time for activities that bring genuine joy"
+      ],
+      level: "Moderate",
+      duration: "5 min read",
+      category: "productivity",
+      popularity: 63,
+      views: 0,
+      dateAdded: "2024-12-20"
+    },
+    {
+      icon: Users,
+      title: "Surround Yourself with Better People",
+      description: "Curate your social circle for mutual growth and positive influence.",
+      items: [
+        "Health: Positive relationships improve mental and physical health",
+        "Wealth: Network with ambitious people who create opportunities",
+        "Happiness: Supportive friends enhance life satisfaction significantly"
+      ],
+      level: "Moderate",
+      duration: "6 min read",
+      category: "social",
+      popularity: 71,
+      views: 0,
+      dateAdded: "2024-12-21"
+    },
+    {
+      icon: Leaf,
+      title: "Add Plants to Your Living Space",
+      description: "Natural air purification and mood enhancement for your home.",
+      items: [
+        "Health: Plants improve air quality and reduce stress hormones",
+        "Wealth: Low-cost home improvement that increases property value",
+        "Happiness: Nature indoors creates calming and beautiful environment"
+      ],
+      level: "Easy",
+      duration: "4 min read",
+      category: "lifestyle",
+      popularity: 48,
+      views: 0,
+      dateAdded: "2024-12-22"
+    },
+    {
+      icon: Pill,
+      title: "Take Vitamin D Supplements",
+      description: "Essential nutrient for immune health and mood regulation.",
+      items: [
+        "Health: Supports immune system and bone health significantly",
+        "Wealth: Prevents costly health issues from deficiency",
+        "Happiness: Adequate levels improve mood and energy naturally"
+      ],
+      level: "Easy",
+      duration: "4 min read",
+      category: "health",
+      popularity: 54,
+      views: 0,
+      dateAdded: "2024-12-23"
+    },
+    {
+      icon: Bus,
+      title: "Use Public Transport Instead of Driving",
+      description: "Save money while reducing stress and environmental impact.",
+      items: [
+        "Health: Walking to stations adds exercise to daily routine",
+        "Wealth: Significant savings on fuel, parking, and car maintenance",
+        "Happiness: Reading or relaxing time instead of traffic stress"
+      ],
+      level: "Easy",
+      duration: "5 min read",
+      category: "lifestyle",
+      popularity: 42,
+      views: 0,
+      dateAdded: "2024-12-24"
+    },
+    {
+      icon: Wind,
+      title: "Practice Deep Breathing Exercises",
+      description: "Simple breath work for instant stress relief and mental clarity.",
+      items: [
+        "Health: Activates parasympathetic nervous system for relaxation",
+        "Wealth: Better decision making under pressure improves outcomes",
+        "Happiness: Immediate stress relief and emotional regulation"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "wellness",
+      popularity: 59,
+      views: 0,
+      dateAdded: "2024-12-25"
+    },
+    {
+      icon: Minus,
+      title: "Minimize Decision Fatigue",
+      description: "Reduce daily choices to preserve mental energy for important decisions.",
+      items: [
+        "Health: Less stress from constant decision making",
+        "Wealth: Save decision energy for financial and career choices",
+        "Happiness: Simplified life creates more mental space for joy"
+      ],
+      level: "Moderate",
+      duration: "6 min read",
+      category: "productivity",
+      popularity: 55,
+      views: 0,
+      dateAdded: "2024-12-26"
+    },
+    {
+      icon: Apple,
+      title: "Eat Fruit Instead of Dessert",
+      description: "Natural sweetness that satisfies cravings while nourishing your body.",
+      items: [
+        "Health: Fiber and nutrients instead of empty calories and sugar",
+        "Wealth: Cheaper than processed desserts and restaurant sweets",
+        "Happiness: Natural energy without sugar crashes and guilt"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "health",
+      popularity: 46,
+      views: 0,
+      dateAdded: "2024-12-27"
+    },
+    {
+      icon: RotateCcw,
+      title: "Review Your Week Every Sunday",
+      description: "Weekly reflection for continuous improvement and goal alignment.",
+      items: [
+        "Health: Assess what health habits worked and need adjustment",
+        "Wealth: Review spending and progress toward financial goals",
+        "Happiness: Celebrate wins and learn from challenges weekly"
+      ],
+      level: "Easy",
+      duration: "5 min read",
+      category: "productivity",
+      popularity: 60,
+      views: 0,
+      dateAdded: "2024-12-28"
+    },
+    {
+      icon: Snowflake,
+      title: "Take Cold Showers",
+      description: "Cold therapy for improved circulation and mental resilience.",
+      items: [
+        "Health: Boosts circulation and strengthens immune system",
+        "Wealth: Builds mental toughness for difficult financial decisions",
+        "Happiness: Releases endorphins and creates sense of achievement"
+      ],
+      level: "Moderate",
+      duration: "5 min read",
+      category: "wellness",
+      popularity: 51,
+      views: 0,
+      dateAdded: "2024-12-29"
+    },
+    {
+      icon: ArrowDown,
+      title: "Reduce Sugar Intake Gradually",
+      description: "Systematic sugar reduction for sustained energy and health.",
+      items: [
+        "Health: Prevents energy crashes and reduces inflammation",
+        "Wealth: Saves money on expensive processed and sugary foods",
+        "Happiness: Stable mood without sugar-induced emotional swings"
+      ],
+      level: "Moderate",
+      duration: "6 min read",
+      category: "health",
+      popularity: 64,
+      views: 0,
+      dateAdded: "2024-12-30"
+    },
+    {
+      icon: Play,
+      title: "Schedule Regular Fun Activities",
+      description: "Intentional joy to maintain work-life balance and prevent burnout.",
+      items: [
+        "Health: Play reduces stress and supports mental health",
+        "Wealth: Prevents expensive burnout and maintains productivity",
+        "Happiness: Regular fun creates anticipation and life satisfaction"
+      ],
+      level: "Easy",
+      duration: "4 min read",
+      category: "wellness",
+      popularity: 66,
+      views: 0,
+      dateAdded: "2024-12-31"
+    },
+    {
+      icon: Trees,
+      title: "Plant a Tree or Garden",
+      description: "Long-term investment in environment and personal well-being.",
+      items: [
+        "Health: Gardening provides exercise and fresh air exposure",
+        "Wealth: Growing food reduces grocery bills significantly",
+        "Happiness: Nurturing life creates purpose and connection to nature"
+      ],
+      level: "Moderate",
+      duration: "6 min read",
+      category: "lifestyle",
+      popularity: 39,
+      views: 0,
+      dateAdded: "2025-01-01"
+    },
+    {
+      icon: Footprints,
+      title: "Take Walking Meetings",
+      description: "Combine business with exercise for creativity and health.",
+      items: [
+        "Health: Adds movement to sedentary work schedule",
+        "Wealth: Increased creativity leads to better business solutions",
+        "Happiness: Fresh air and movement improve mood and energy"
+      ],
+      level: "Easy",
+      duration: "4 min read",
+      category: "productivity",
+      popularity: 52,
+      views: 0,
+      dateAdded: "2025-01-02"
+    },
+    {
+      icon: ArrowUp,
+      title: "Stand More, Sit Less",
+      description: "Combat sedentary lifestyle with strategic standing breaks.",
+      items: [
+        "Health: Reduces back pain and improves posture significantly",
+        "Wealth: Standing desk alternatives cost less than medical bills",
+        "Happiness: Better energy levels and alertness throughout day"
+      ],
+      level: "Easy",
+      duration: "4 min read",
+      category: "health",
+      popularity: 58,
+      views: 0,
+      dateAdded: "2025-01-03"
+    },
+    {
+      icon: Zap,
+      title: "Batch Similar Tasks Together",
+      description: "Group related activities to minimize context switching and maximize flow.",
+      items: [
+        "Health: Reduces mental fatigue from constant task switching",
+        "Wealth: Increased efficiency leads to better work outcomes",
+        "Happiness: Flow states create satisfaction and sense of control"
+      ],
+      level: "Easy",
+      duration: "5 min read",
+      category: "productivity",
+      popularity: 63,
+      views: 0,
+      dateAdded: "2025-01-04"
+    },
+    {
+      icon: Car,
+      title: "Carpool or Share Rides",
+      description: "Social transportation that saves money and builds relationships.",
+      items: [
+        "Health: Less driving stress and more social interaction",
+        "Wealth: Split fuel costs and reduce vehicle wear significantly",
+        "Happiness: Shared experiences and conversations during travel"
+      ],
+      level: "Easy",
+      duration: "4 min read",
+      category: "social",
+      popularity: 35,
+      views: 0,
+      dateAdded: "2025-01-05"
+    },
+    {
+      icon: Bike,
+      title: "Bike to Work Once a Week",
+      description: "Weekly cycling commitment for fitness and environmental benefits.",
+      items: [
+        "Health: Cardiovascular exercise integrated into work routine",
+        "Wealth: Reduces transportation costs and parking fees",
+        "Happiness: Fresh air and exercise improve mood before work"
+      ],
+      level: "Easy",
+      duration: "4 min read",
+      category: "fitness",
+      popularity: 41,
+      views: 0,
+      dateAdded: "2025-01-06"
+    },
+    {
+      icon: Calendar,
+      title: "Block Time for Deep Work",
+      description: "Protected time slots for your most important and complex tasks.",
+      items: [
+        "Health: Reduces stress from rushed or incomplete work",
+        "Wealth: High-quality work leads to better career opportunities",
+        "Happiness: Accomplishing meaningful work creates satisfaction"
+      ],
+      level: "Moderate",
+      duration: "6 min read",
+      category: "productivity",
+      popularity: 69,
+      views: 0,
+      dateAdded: "2025-01-07"
+    },
+    {
+      icon: Monitor,
+      title: "Use Blue Light Filters",
+      description: "Protect your eyes and sleep quality from excessive screen exposure.",
+      items: [
+        "Health: Reduces eye strain and improves sleep quality",
+        "Wealth: Prevents costly vision problems from screen overuse",
+        "Happiness: Better sleep leads to improved mood and energy"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "health",
+      popularity: 47,
+      views: 0,
+      dateAdded: "2025-01-08"
+    },
+    {
+      icon: Sun,
+      title: "Get Sunlight Within First Hour of Waking",
+      description: "Morning light exposure for optimal circadian rhythm regulation.",
+      items: [
+        "Health: Regulates sleep-wake cycle and vitamin D production",
+        "Wealth: Free therapy that replaces expensive light treatment",
+        "Happiness: Natural mood boost and increased alertness"
+      ],
+      level: "Easy",
+      duration: "4 min read",
+      category: "wellness",
+      popularity: 62,
+      views: 0,
+      dateAdded: "2025-01-09"
+    },
+    {
+      icon: Activity,
+      title: "Track One Health Metric Daily",
+      description: "Simple biomarker monitoring for health awareness and motivation.",
+      items: [
+        "Health: Early detection of health changes and trends",
+        "Wealth: Prevents expensive medical issues through monitoring",
+        "Happiness: Control over health creates confidence and peace"
+      ],
+      level: "Easy",
+      duration: "4 min read",
+      category: "health",
+      popularity: 56,
+      views: 0,
+      dateAdded: "2025-01-10"
+    },
+    {
+      icon: Droplets,
+      title: "Drink Water Before Every Meal",
+      description: "Pre-meal hydration for better digestion and portion control.",
+      items: [
+        "Health: Improves digestion and helps control portion sizes",
+        "Wealth: Reduces overeating which saves money on food costs",
+        "Happiness: Better hydration improves energy and mental clarity"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "health",
+      popularity: 53,
+      views: 0,
+      dateAdded: "2025-01-11"
+    },
+    {
+      icon: Package,
+      title: "Prepare Healthy Snacks in Advance",
+      description: "Meal prep for nutritious choices when hunger strikes.",
+      items: [
+        "Health: Prevents impulse eating of processed junk food",
+        "Wealth: Saves money compared to buying expensive healthy snacks",
+        "Happiness: Reduces decision fatigue and guilt from poor choices"
+      ],
+      level: "Easy",
+      duration: "5 min read",
+      category: "health",
+      popularity: 49,
+      views: 0,
+      dateAdded: "2025-01-12"
+    },
+    {
+      icon: RefreshCw,
+      title: "Learn a New Word Every Day",
+      description: "Daily vocabulary expansion for better communication and thinking.",
+      items: [
+        "Health: Mental exercise that keeps brain active and engaged",
+        "Wealth: Better communication improves career and business prospects",
+        "Happiness: Learning creates sense of growth and accomplishment"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "learning",
+      popularity: 37,
+      views: 0,
+      dateAdded: "2025-01-13"
+    },
+    {
+      icon: Moon,
+      title: "Create an Evening Wind-Down Routine",
+      description: "Consistent pre-sleep ritual for better rest and recovery.",
+      items: [
+        "Health: Signals body to prepare for sleep and recovery",
+        "Wealth: Better sleep improves decision making and productivity",
+        "Happiness: Peaceful routine reduces anxiety and stress"
+      ],
+      level: "Easy",
+      duration: "5 min read",
+      category: "wellness",
+      popularity: 65,
+      views: 0,
+      dateAdded: "2025-01-14"
+    },
+    {
+      icon: EyeOff,
+      title: "Practice Digital Sunsets",
+      description: "End screen time at specific hour for better sleep and relationships.",
+      items: [
+        "Health: Reduces blue light exposure that disrupts sleep cycles",
+        "Wealth: Less late-night online shopping and subscription services",
+        "Happiness: More time for relationships and meaningful activities"
+      ],
+      level: "Moderate",
+      duration: "5 min read",
+      category: "digital",
+      popularity: 61,
+      views: 0,
+      dateAdded: "2025-01-15"
+    },
+    {
+      icon: Waves,
+      title: "Listen to Ocean Sounds for Relaxation",
+      description: "Natural soundscapes for stress relief and focus enhancement.",
+      items: [
+        "Health: Reduces cortisol levels and lowers blood pressure",
+        "Wealth: Free relaxation tool that replaces expensive therapies",
+        "Happiness: Creates calm environment that improves mood"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "wellness",
+      popularity: 44,
+      views: 0,
+      dateAdded: "2025-01-16"
+    },
+    {
+      icon: Truck,
+      title: "Buy Local Products When Possible",
+      description: "Support community while getting fresher products and building connections.",
+      items: [
+        "Health: Fresher food with higher nutritional value",
+        "Wealth: Builds local relationships that create opportunities",
+        "Happiness: Contributes to community and supports neighbors"
+      ],
+      level: "Easy",
+      duration: "4 min read",
+      category: "lifestyle",
+      popularity: 40,
+      views: 0,
+      dateAdded: "2025-01-17"
+    },
+    {
+      icon: Map,
+      title: "Explore Your Neighborhood on Foot",
+      description: "Rediscover your local area through walking exploration.",
+      items: [
+        "Health: Increases daily steps and provides fresh air",
+        "Wealth: Free entertainment that discovers local businesses",
+        "Happiness: Novel experiences close to home boost mood"
+      ],
+      level: "Easy",
+      duration: "4 min read",
+      category: "adventure",
+      popularity: 38,
+      views: 0,
+      dateAdded: "2025-01-18"
+    },
+    {
+      icon: ShoppingBasket,
+      title: "Shop with a List and Stick to It",
+      description: "Strategic shopping to avoid impulse purchases and food waste.",
+      items: [
+        "Health: Planned nutrition prevents impulse junk food purchases",
+        "Wealth: Reduces unnecessary spending and food waste significantly",
+        "Happiness: Less decision fatigue and post-shopping regret"
+      ],
+      level: "Easy",
+      duration: "4 min read",
+      category: "finance",
+      popularity: 57,
+      views: 0,
+      dateAdded: "2025-01-19"
+    },
+    {
+      icon: MessageCircle,
+      title: "Send Appreciation Messages Regularly",
+      description: "Express gratitude to strengthen relationships and spread positivity.",
+      items: [
+        "Health: Positive relationships improve mental and physical health",
+        "Wealth: Strong relationships create professional opportunities",
+        "Happiness: Expressing gratitude increases personal happiness levels"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "social",
+      popularity: 48,
+      views: 0,
+      dateAdded: "2025-01-20"
+    },
+    {
+      icon: Heart,
+      title: "Volunteer in Your Community",
+      description: "Give back while building connections and gaining perspective.",
+      items: [
+        "Health: Purpose and social connection improve mental health",
+        "Wealth: Networking opportunities and skill development",
+        "Happiness: Helping others creates deep satisfaction and meaning"
+      ],
+      level: "Moderate",
+      duration: "6 min read",
+      category: "social",
+      popularity: 43,
+      views: 0,
+      dateAdded: "2025-01-21"
+    },
+    {
+      icon: Shield,
+      title: "Review and Update Passwords Quarterly",
+      description: "Digital security maintenance for financial and personal protection.",
+      items: [
+        "Health: Reduces stress from potential security breaches",
+        "Wealth: Protects financial accounts from unauthorized access",
+        "Happiness: Peace of mind from knowing accounts are secure"
+      ],
+      level: "Easy",
+      duration: "5 min read",
+      category: "security",
+      popularity: 45,
+      views: 0,
+      dateAdded: "2025-01-22"
     }
   ];
 
