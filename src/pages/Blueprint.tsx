@@ -275,14 +275,14 @@ const Blueprint = () => {
           </Card>
           
           {/* CTA Section */}
-          <div className="mt-20 text-center bg-warning text-primary rounded-2xl p-12 border-4 border-warning/40">
-            <h2 className="text-3xl font-bold mb-4 text-white">
+          <div className="mt-20 text-center bg-warning text-primary rounded-2xl p-6 sm:p-12 border-4 border-warning/40">
+            <h2 className="text-2xl sm:text-3xl font-bold mb-4 text-white">
               Start Building Your Foundation Today
             </h2>
-            <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+            <p className="text-lg sm:text-xl text-white/90 mb-8 max-w-2xl mx-auto px-4">
               With your blueprint in hand, explore our complete tip library to maximize your transformation.
             </p>
-            <Button variant="accent" size="lg" asChild>
+            <Button variant="accent" size="lg" asChild className="w-full sm:w-auto">
               <Link to="/tips">Explore All Tips</Link>
             </Button>
           </div>

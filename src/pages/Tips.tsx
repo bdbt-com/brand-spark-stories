@@ -1802,14 +1802,14 @@ const Tips = () => {
           )}
 
           {/* CTA Section - Now at bottom of tips grid */}
-          <div className="mt-20 text-center bg-warning text-primary rounded-2xl p-12 border-4 border-warning/40">
-            <h2 className="text-3xl font-bold mb-4 text-white">
+          <div className="mt-20 text-center bg-warning text-primary rounded-2xl p-6 sm:p-12 border-4 border-warning/40">
+            <h2 className="text-2xl sm:text-3xl font-bold mb-4 text-white">
               Want More Life-Changing Strategies?
             </h2>
-            <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+            <p className="text-lg sm:text-xl text-white/90 mb-8 max-w-2xl mx-auto px-4">
               Get the complete BDBT system with your personalized blueprint and start implementing these tips today.
             </p>
-            <Button variant="accent" size="lg" asChild>
+            <Button variant="accent" size="lg" asChild className="w-full sm:w-auto">
               <Link to="/blueprint">Download Your Blueprint</Link>
             </Button>
           </div>

@@ -618,18 +618,20 @@ const About = () => {
                       </div>
 
                       <div className="text-center pt-8 border-t border-muted space-y-4">
-                        <Button variant="hero" size="lg" asChild className="hover:scale-105 transition-transform">
-                          <Link to="/blueprint">
-                            Get Started Now
-                            <ArrowRight className="w-5 h-5 ml-2" />
-                          </Link>
-                        </Button>
-                        <Button variant="outline" size="lg" asChild className="hover:scale-105 transition-transform ml-4">
-                          <Link to="/blueprint">
-                            Start Your Journey Now
-                            <ArrowRight className="w-5 h-5 ml-2" />
-                          </Link>
-                        </Button>
+                        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                          <Button variant="hero" size="lg" asChild className="hover:scale-105 transition-transform w-full sm:w-auto">
+                            <Link to="/blueprint">
+                              Get Started Now
+                              <ArrowRight className="w-5 h-5 ml-2" />
+                            </Link>
+                          </Button>
+                          <Button variant="outline" size="lg" asChild className="hover:scale-105 transition-transform w-full sm:w-auto">
+                            <Link to="/blueprint">
+                              Start Your Journey Now
+                              <ArrowRight className="w-5 h-5 ml-2" />
+                            </Link>
+                          </Button>
+                        </div>
                         <div className="flex justify-center mt-8">
                           <ChevronRipple to="/blueprint" label="Download and Read the Blueprint" />
                         </div>
