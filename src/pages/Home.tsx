@@ -190,36 +190,49 @@ const Home = () => {
         </button>
       </section>
 
-      {/* How BDBT Works Section */}
+      {/* The Vessels, The Ripples, & The Journey Section */}
       <section ref={howRef} className="py-20 bg-gradient-subtle">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-primary">
-              How BDBT Works for You
+              The Vessels, The Ripples, & The Journey
             </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              The simple system that transforms chaotic life changes into achievable daily steps.
-            </p>
+            <div className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              <ul className="space-y-2 text-left">
+                <li className="flex items-start">
+                  <span className="w-2 h-2 bg-primary rounded-full mt-3 mr-3 flex-shrink-0"></span>
+                  Prime your vessel
+                </li>
+                <li className="flex items-start">
+                  <span className="w-2 h-2 bg-primary rounded-full mt-3 mr-3 flex-shrink-0"></span>
+                  Make the right daily decisions
+                </li>
+                <li className="flex items-start">
+                  <span className="w-2 h-2 bg-primary rounded-full mt-3 mr-3 flex-shrink-0"></span>
+                  Create the right ripple effects to take you through the right journey in life
+                </li>
+              </ul>
+            </div>
           </div>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
             {[
               {
-                icon: Target,
-                title: "Spot Your Drifts",
-                description: "Identify the small, unconscious habits that are slowly pulling you away from your goals.",
+                icon: Droplets,
+                title: "What goes into your body",
+                description: "Simple hydration hacks that save money and transform your energy levels. Focus on pure water and mindful nutrition choices that fuel your daily transformation.",
                 color: "bg-primary/10 text-primary"
               },
               {
-                icon: Zap,
-                title: "Stack Your Wins",
-                description: "Build momentum by connecting new habits to existing routines for effortless integration.",
+                icon: Activity,
+                title: "How you move your body",
+                description: "Daily movement strategies that build strength and momentum. Small consistent actions that compound into major physical and mental breakthroughs.",
                 color: "bg-accent/10 text-accent"
               },
               {
-                icon: Heart,
-                title: "Track Your Journey",
-                description: "Document every step of your transformation and celebrate the compound effect of consistency.",
+                icon: Moon,
+                title: "How you rest your body",
+                description: "Recovery techniques and sleep optimization that allow your vessel to regenerate. Quality rest is the foundation of all other daily wins.",
                 color: "bg-success/10 text-success"
               }
             ].map((step, index) => (
