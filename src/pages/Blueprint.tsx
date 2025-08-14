@@ -127,7 +127,7 @@ const Blueprint = () => {
               ) : (
                 <>
                   <div className="text-center space-y-2">
-                    <h4 className="text-xl font-semibold text-foreground">Get Your Free Blueprint</h4>
+                    <h4 className="text-xl font-semibold text-foreground">Get your free copy of Big Daddy's Foundation Blueprint</h4>
                     <p className="text-sm text-muted-foreground">
                       Join thousands who've transformed their lives with this system
                     </p>
