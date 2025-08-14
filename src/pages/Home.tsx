@@ -338,13 +338,13 @@ const Home = () => {
                               <span className="w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-0.5 flex-shrink-0">1</span>
                               <div>
                                 <h5 className="font-semibold text-primary mb-1">"This is just another self-help system."</h5>
-                                <p className="text-sm text-muted-foreground italic mb-2">Experience: Tried courses that didn't stick.</p>
-                                <p className="text-sm text-muted-foreground">Story: "It's just more fluff. I've heard it all before."</p>
+                                <p className="text-sm text-muted-foreground italic mb-2">Past experience: Tried courses that didn't stick.</p>
+                                <p className="text-sm text-muted-foreground">The story you may now tell yourself: "It's just more fluff. I've heard it all before."</p>
                               </div>
                             </div>
                           </div>
                           <div className="pl-8">
-                            <h6 className="font-semibold text-primary mb-2">Epiphany Story:</h6>
+                            <h6 className="font-semibold text-primary mb-2">What I realised:</h6>
                             <p className="text-sm text-muted-foreground leading-relaxed">
                               I used to think the same thing. I'd tried courses, books, spreadsheets, planners, and every time I got the same result: a short buzz, then nothing. What changed for me wasn't finding more advice. It was realising that the power wasn't in the information, it was in how you apply it. One evening, after weeks of just doing five minutes of movement in the morning and a 10-minute wind-down routine at night, I realised I wasn't stressed. The kids were calm. I was calm. Nothing in my life had been overhauled, but everything was working better. That's when I realised: this isn't self-help. This is life design. And it works because it's stacked, not scattered.
                             </p>
@@ -358,13 +358,13 @@ const Home = () => {
                               <span className="w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-0.5 flex-shrink-0">2</span>
                               <div>
                                 <h5 className="font-semibold text-primary mb-1">"I already know what to do."</h5>
-                                <p className="text-sm text-muted-foreground italic mb-2">Experience: Consumed info but didn't apply it.</p>
-                                <p className="text-sm text-muted-foreground">Story: "It's my fault. I don't need a system. I just need more willpower."</p>
+                                <p className="text-sm text-muted-foreground italic mb-2">Past experience: Consumed info but didn't apply it.</p>
+                                <p className="text-sm text-muted-foreground">The story you may now tell yourself: "It's my fault. I don't need a system. I just need more willpower."</p>
                               </div>
                             </div>
                           </div>
                           <div className="pl-8">
-                            <h6 className="font-semibold text-primary mb-2">Epiphany Story:</h6>
+                            <h6 className="font-semibold text-primary mb-2">What I realised:</h6>
                             <p className="text-sm text-muted-foreground leading-relaxed">
                               For years, I told myself I had all the answers. I'd read the books, listened to the podcasts, taken the notes. I didn't need a system, I needed more willpower. Until one day, I looked at my notes and thought, "If knowing was enough, I'd be thriving by now." That's when it clicked: the problem wasn't knowledge. It was integration. I had all the right pieces, but no structure to make them work together. That's what BDBT gave me, a way to link it all together. The shift came not from more effort, but from better design.
                             </p>
@@ -378,13 +378,13 @@ const Home = () => {
                               <span className="w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-0.5 flex-shrink-0">3</span>
                               <div>
                                 <h5 className="font-semibold text-primary mb-1">"Small habits don't matter."</h5>
-                                <p className="text-sm text-muted-foreground italic mb-2">Experience: Tried habits but saw no big change.</p>
-                                <p className="text-sm text-muted-foreground">Story: "Tiny changes don't add up to anything meaningful."</p>
+                                <p className="text-sm text-muted-foreground italic mb-2">Past experience: Tried habits but saw no big change.</p>
+                                <p className="text-sm text-muted-foreground">The story you may now tell yourself: "Tiny changes don't add up to anything meaningful."</p>
                               </div>
                             </div>
                           </div>
                           <div className="pl-8">
-                            <h6 className="font-semibold text-primary mb-2">Epiphany Story:</h6>
+                            <h6 className="font-semibold text-primary mb-2">What I realised:</h6>
                             <p className="text-sm text-muted-foreground leading-relaxed">
                               I used to chase big results, big transformations, big declarations, big overhauls. But they never lasted. What finally changed everything was going small. I didn't try to change my diet, routine, mindset, finances all at once. I started with a 5-minute morning movement, a 2-minute budget ritual, and a 5-minute evening reflection. That's it. And over time, I saw the ripple: I was calmer, sharper, saving money, moving more. The small things became the big change. That's when I realised, it's not about how much you do. It's about where the ripples go.
                             </p>
@@ -398,13 +398,13 @@ const Home = () => {
                               <span className="w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-0.5 flex-shrink-0">4</span>
                               <div>
                                 <h5 className="font-semibold text-primary mb-1">"I'm too busy."</h5>
-                                <p className="text-sm text-muted-foreground italic mb-2">Experience: Overloaded schedule, past failures.</p>
-                                <p className="text-sm text-muted-foreground">Story: "There's no space for more. I'll just burn out."</p>
+                                <p className="text-sm text-muted-foreground italic mb-2">Past experience: Overloaded schedule, past failures.</p>
+                                <p className="text-sm text-muted-foreground">The story you may now tell yourself: "There's no space for more. I'll just burn out."</p>
                               </div>
                             </div>
                           </div>
                           <div className="pl-8">
-                            <h6 className="font-semibold text-primary mb-2">Epiphany Story:</h6>
+                            <h6 className="font-semibold text-primary mb-2">What I realised:</h6>
                             <p className="text-sm text-muted-foreground leading-relaxed">
                               When I became a single dad 50% of the week, with a business to run the other 50%, I genuinely believed there was no room for anything. But the truth was, my time was leaking through the cracks, endless scrolling, takeaways, decision fatigue, disorganised evenings. I didn't need more time, I needed more structure. Just five minutes of the right habit gave me time back. I got calmer, more present, more productive and the chaos slowed down. That's when I realised: busyness isn't the enemy. Drift is.
                             </p>
@@ -418,13 +418,13 @@ const Home = () => {
                               <span className="w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-0.5 flex-shrink-0">5</span>
                               <div>
                                 <h5 className="font-semibold text-primary mb-1">"I always fail."</h5>
-                                <p className="text-sm text-muted-foreground italic mb-2">Experience: Repeated broken promises to self.</p>
-                                <p className="text-sm text-muted-foreground">Story: "Why bother? I'll just quit again."</p>
+                                <p className="text-sm text-muted-foreground italic mb-2">Past experience: Repeated broken promises to self.</p>
+                                <p className="text-sm text-muted-foreground">The story you may now tell yourself: "Why bother? I'll just quit again."</p>
                               </div>
                             </div>
                           </div>
                           <div className="pl-8">
-                            <h6 className="font-semibold text-primary mb-2">Epiphany Story:</h6>
+                            <h6 className="font-semibold text-primary mb-2">What I realised:</h6>
                             <p className="text-sm text-muted-foreground leading-relaxed">
                               I've started and quit more habits than I can count. What changed wasn't that I suddenly became more disciplined, it was that I finally stopped relying on motivation. I built habits that could survive bad days. Even if I only hit 70%, I kept moving forward. That was the difference: not perfection, but momentum. One month in, I realised this was sticking because it wasn't designed for a perfect version of me. It was designed for the real me. The one with kids, work, mess, and stress.
                             </p>
@@ -438,13 +438,13 @@ const Home = () => {
                               <span className="w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-0.5 flex-shrink-0">6</span>
                               <div>
                                 <h5 className="font-semibold text-primary mb-1">"People like me don't change."</h5>
-                                <p className="text-sm text-muted-foreground italic mb-2">Experience: Feels stuck, sees others succeed.</p>
-                                <p className="text-sm text-muted-foreground">Story: "It's too late for me. This works for them, not me."</p>
+                                <p className="text-sm text-muted-foreground italic mb-2">Past experience: Feels stuck, sees others succeed.</p>
+                                <p className="text-sm text-muted-foreground">The story you may now tell yourself: "It's too late for me. This works for them, not me."</p>
                               </div>
                             </div>
                           </div>
                           <div className="pl-8">
-                            <h6 className="font-semibold text-primary mb-2">Epiphany Story:</h6>
+                            <h6 className="font-semibold text-primary mb-2">What I realised:</h6>
                             <p className="text-sm text-muted-foreground leading-relaxed">
                               I'm not a superhuman biohacker. I'm not an influencer. I'm just a guy who had to figure out how to stay sane and strong while raising two kids, running a business, and trying not to burn out. I didn't "overhaul" anything. I just started stacking little wins. A few minutes a day. A few small decisions. And over time, they added up to a completely different direction. That's when I realised people like me don't change everything overnight. But we can change the trajectory. And that's what really matters.
                             </p>
@@ -458,13 +458,13 @@ const Home = () => {
                               <span className="w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-0.5 flex-shrink-0">7</span>
                               <div>
                                 <h5 className="font-semibold text-primary mb-1">"My environment will derail me."</h5>
-                                <p className="text-sm text-muted-foreground italic mb-2">Experience: Family/friends discourage progress.</p>
-                                <p className="text-sm text-muted-foreground">Story: "What's the point? I'll get dragged back down."</p>
+                                <p className="text-sm text-muted-foreground italic mb-2">Past experience: Family/friends discourage progress.</p>
+                                <p className="text-sm text-muted-foreground">The story you may now tell yourself: "What's the point? I'll get dragged back down."</p>
                               </div>
                             </div>
                           </div>
                           <div className="pl-8">
-                            <h6 className="font-semibold text-primary mb-2">Epiphany Story:</h6>
+                            <h6 className="font-semibold text-primary mb-2">What I realised:</h6>
                             <p className="text-sm text-muted-foreground leading-relaxed">
                               When I started building my system, I worried I'd get derailed by everything around me, social invites, the kids' routines, other people's chaos. But what I found was that I became the anchor. When I stuck to my simple habits, not perfectly, but consistently, the people around me actually adjusted. I wasn't preaching, I was just showing up better. And slowly, that had more impact than anything I'd said. That's when I realised: the strongest ripple comes from living it, not talking about it.
                             </p>
@@ -478,13 +478,13 @@ const Home = () => {
                               <span className="w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-0.5 flex-shrink-0">8</span>
                               <div>
                                 <h5 className="font-semibold text-primary mb-1">"My loved ones won't change."</h5>
-                                <p className="text-sm text-muted-foreground italic mb-2">Experience: Tried helping others to no avail.</p>
-                                <p className="text-sm text-muted-foreground">Story: "If they won't change, why should I? I'll just stay where I am."</p>
+                                <p className="text-sm text-muted-foreground italic mb-2">Past experience: Tried helping others to no avail.</p>
+                                <p className="text-sm text-muted-foreground">The story you may now tell yourself: "If they won't change, why should I? I'll just stay where I am."</p>
                               </div>
                             </div>
                           </div>
                           <div className="pl-8">
-                            <h6 className="font-semibold text-primary mb-2">Epiphany Story:</h6>
+                            <h6 className="font-semibold text-primary mb-2">What I realised:</h6>
                             <p className="text-sm text-muted-foreground leading-relaxed">
                               Watching people you love drift is hard. I've seen it in my own family and no matter how much I care, they don't always want to hear it from me. That's painful. But what keeps me going is the belief that if I can be the voice someone else's loved one listens to, then I've done my job. I might not reach my family directly, but someone else might. And in return, I might be the person your family finally hears. That's what this movement is about. Ripples reaching where we can't.
                             </p>
@@ -498,13 +498,13 @@ const Home = () => {
                               <span className="w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-0.5 flex-shrink-0">9</span>
                               <div>
                                 <h5 className="font-semibold text-primary mb-1">"I'll start when life calms down."</h5>
-                                <p className="text-sm text-muted-foreground italic mb-2">Experience: Life always interrupts change.</p>
-                                <p className="text-sm text-muted-foreground">Story: "Now isn't the time, it's too hectic to start anything new."</p>
+                                <p className="text-sm text-muted-foreground italic mb-2">Past experience: Life always interrupts change.</p>
+                                <p className="text-sm text-muted-foreground">The story you may now tell yourself: "Now isn't the time, it's too hectic to start anything new."</p>
                               </div>
                             </div>
                           </div>
                           <div className="pl-8">
-                            <h6 className="font-semibold text-primary mb-2">Epiphany Story:</h6>
+                            <h6 className="font-semibold text-primary mb-2">What I realised:</h6>
                             <p className="text-sm text-muted-foreground leading-relaxed">
                               I used to think the same. "I'll start when work slows down. When the kids are older. When things feel more manageable." But that perfect moment never came. The truth is, life never calms down. And once I realised that, I stopped waiting. I started anyway, with 5 minutes a day. That's all I could give, and that's all I needed. A few weeks in, things didn't feel calmer but I did. I realised I didn't need a better life to start. I just needed a better system to start in the life I already had.
                             </p>
