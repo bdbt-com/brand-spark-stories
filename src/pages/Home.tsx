@@ -287,11 +287,11 @@ const Home = () => {
                         <ul className="space-y-3 text-muted-foreground">
                           <li className="flex items-start">
                             <span className="w-2 h-2 bg-success rounded-full mt-2 mr-3 flex-shrink-0"></span>
-                            Simple, tested strategies that take 5 minutes or less
+                            Simple, high impact habits that require minimal time and minimal effort
                           </li>
                           <li className="flex items-start">
                             <span className="w-2 h-2 bg-success rounded-full mt-2 mr-3 flex-shrink-0"></span>
-                            Habit stacking: Connect new habits to existing routines
+                            Habit stacking: layer new habits on top of things you already do on autopilot
                           </li>
                           <li className="flex items-start">
                             <span className="w-2 h-2 bg-success rounded-full mt-2 mr-3 flex-shrink-0"></span>
@@ -308,21 +308,21 @@ const Home = () => {
                             <Target className="w-8 h-8 text-primary" />
                           </div>
                           <h5 className="font-semibold text-primary mb-2">Foundation Blueprint</h5>
-                          <p className="text-sm text-muted-foreground">Your personal habit stacking reference point</p>
+                          <p className="text-sm text-muted-foreground">Your guide for spotting drifts, tracking wins and staying on course</p>
                         </div>
                         <div className="text-center">
                           <div className="w-16 h-16 bg-warning rounded-xl flex items-center justify-center mx-auto mb-3 hover:scale-110 transition-transform duration-300">
                             <Zap className="w-8 h-8 text-primary" />
                           </div>
                           <h5 className="font-semibold text-primary mb-2">Daily Tips</h5>
-                          <p className="text-sm text-muted-foreground">Tested strategies for health, wealth & happiness</p>
+                          <p className="text-sm text-muted-foreground">Small daily steps that quietly transform your health, wealth and happiness</p>
                         </div>
                         <div className="text-center">
                           <div className="w-16 h-16 bg-warning rounded-xl flex items-center justify-center mx-auto mb-3 hover:scale-110 transition-transform duration-300">
                             <Heart className="w-8 h-8 text-primary" />
                           </div>
-                          <h5 className="font-semibold text-primary mb-2">Progress Tracking</h5>
-                          <p className="text-sm text-muted-foreground">Document your journey and celebrate wins</p>
+                          <h5 className="font-semibold text-primary mb-2">BDBT Guidance</h5>
+                          <p className="text-sm text-muted-foreground">Daily podcasts, free guides and social posts explaining every tip</p>
                         </div>
                       </div>
                     </div>
