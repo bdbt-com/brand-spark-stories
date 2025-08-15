@@ -160,13 +160,6 @@ const TipsCarousel = () => {
                   <p className="text-muted-foreground mb-4 leading-relaxed flex-grow">
                     {tip.description}
                   </p>
-                  <div className="flex items-center justify-between text-sm text-muted-foreground mt-auto">
-                    <span className="inline-flex items-center">
-                      <CheckCircle className="w-3 h-3 mr-1 text-success" />
-                      {tip.level}
-                    </span>
-                    <span>{tip.duration}</span>
-                  </div>
                 </CardContent>
               </Card>
             </CarouselItem>
