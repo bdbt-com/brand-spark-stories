@@ -38,14 +38,22 @@ export default function ChevronRipple({ to, label, color = "primary", size = "md
     <div className="flex flex-col items-center">
       <div onClick={handleClick} className="group cursor-pointer">
         <div className={`relative ${sizeClass}`}>
-          <div className={`absolute inset-0 rounded-full ${c.ring} animate-ping`} style={{ animationDuration: "2s", animationIterationCount: "infinite", display: variant === "minimal" ? "none" : undefined }} />
-          <div className="absolute inset-0" style={{ margin: "2px" }}>
-            <div className={`absolute inset-0 rounded-full ${c.ring} animate-ping`} style={{ animationDuration: "2s", animationDelay: "0.6s", animationIterationCount: "infinite", display: variant === "minimal" ? "none" : undefined }} />
-          </div>
-          <div className="absolute inset-0" style={{ margin: "4px" }}>
-            <div className={`absolute inset-0 rounded-full ${c.ring} animate-ping`} style={{ animationDuration: "2s", animationDelay: "1.2s", animationIterationCount: "infinite", display: variant === "minimal" ? "none" : undefined }} />
-          </div>
-          <div className={variant === "minimal" ? "absolute inset-0 bg-muted rounded-full shadow-soft" : `absolute inset-0 ${c.inner} rounded-full animate-pulse`} style={{ animationDuration: variant === "minimal" ? undefined : "3s" }} />
+          {variant !== "minimal" && (
+            <>
+              <div className={`absolute inset-0 rounded-full ${c.ring} animate-ping`} style={{ animationDuration: "2s", animationIterationCount: "infinite" }} />
+              <div className="absolute inset-0" style={{ margin: "2px" }}>
+                <div className={`absolute inset-0 rounded-full ${c.ring} animate-ping`} style={{ animationDuration: "2s", animationDelay: "0.6s", animationIterationCount: "infinite" }} />
+              </div>
+              <div className="absolute inset-0" style={{ margin: "4px" }}>
+                <div className={`absolute inset-0 rounded-full ${c.ring} animate-ping`} style={{ animationDuration: "2s", animationDelay: "1.2s", animationIterationCount: "infinite" }} />
+              </div>
+            </>
+          )}
+          {variant === "minimal" ? (
+            <div className="absolute inset-0 bg-muted rounded-full shadow-soft" />
+          ) : (
+            <div className={`absolute inset-0 ${c.inner} rounded-full animate-pulse`} style={{ animationDuration: "3s" }} />
+          )}
           <div className={(variant === "minimal" ? `relative ${sizeClass} rounded-full bg-muted border border-border shadow-soft` : `relative ${sizeClass} rounded-full backdrop-blur border ${c.inner.split(" ").pop()}`) + " flex items-center justify-center hover-scale"}>
             {variant === "minimal" ? (
               <ArrowDown className={`${iconSizeClass} text-foreground/80 transition-transform group-hover:translate-y-0.5`} />
