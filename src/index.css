@@ -33,13 +33,13 @@
 
     --cream: 45 20% 88%;
 
-    --success: 160 25% 45%;
+    --success: 160 20% 65%;
     --success-foreground: 30 15% 94%;
-    --success-light: 160 25% 85%;
+    --success-light: 160 20% 85%;
 
-    --warning: 160 30% 35%;
+    --warning: 160 20% 65%;
     --warning-foreground: 30 15% 94%;
-    --warning-light: 160 30% 85%;
+    --warning-light: 160 20% 85%;
 
     --destructive: 12 35% 57%;
     --destructive-foreground: 30 15% 94%;
@@ -143,13 +143,13 @@
 
     --cream: 45 20% 85%;
 
-    --success: 160 25% 55%;
+    --success: 160 20% 65%;
     --success-foreground: 30 15% 85%;
     --success-light: 15 12% 30%;
 
-    --warning: 160 30% 45%;
+    --warning: 160 20% 65%;
     --warning-foreground: 30 15% 94%;
-    --warning-light: 160 30% 85%;
+    --warning-light: 160 20% 85%;
 
     --destructive: 12 35% 65%;
     --destructive-foreground: 30 15% 85%;
