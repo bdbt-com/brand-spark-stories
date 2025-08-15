@@ -20,6 +20,7 @@ const buttonVariants = cva(
         premium: "bg-gradient-card text-foreground border-2 border-primary/20 hover:border-primary/40 hover:shadow-medium transform hover:scale-[1.02] shadow-xs",
         success: "bg-success text-success-foreground hover:bg-success/90 shadow-sm hover:shadow-medium border border-success/20",
         warning: "bg-warning text-warning-foreground hover:bg-warning/90 shadow-sm hover:shadow-medium border border-warning/20",
+        "colored-bg": "bg-muted text-primary hover:bg-muted/80 shadow-sm hover:shadow-medium border border-muted/50",
       },
       size: {
         xs: "h-8 px-3 text-xs rounded-md",

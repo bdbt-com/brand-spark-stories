@@ -305,7 +305,7 @@ const DailyWins = () => {
           <p className="text-lg text-white/90 mb-8 max-w-2xl mx-auto">
             Get the same system these people used to transform their lives through simple daily habits.
           </p>
-          <Button variant="hero" size="lg" asChild>
+          <Button variant="colored-bg" size="lg" asChild>
             <Link to="/blueprint">
               Get Your Foundation Blueprint Here <ArrowRight className="w-5 h-5 ml-2" />
             </Link>

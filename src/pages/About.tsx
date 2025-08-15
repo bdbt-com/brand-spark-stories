@@ -661,7 +661,7 @@ const About = () => {
           <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
             Join thousands who've discovered the power of the BDBT system and transformed their lives.
           </p>
-          <Button variant="accent" size="lg" asChild>
+          <Button variant="colored-bg" size="lg" asChild>
             <Link to="/blueprint">Get Your Blueprint Now</Link>
           </Button>
         </div>

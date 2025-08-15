@@ -1806,7 +1806,7 @@ const Tips = () => {
             <p className="text-lg sm:text-xl text-white/90 mb-8 max-w-2xl mx-auto px-4">
               Get the complete BDBT system with your personalized blueprint and start implementing these tips today.
             </p>
-            <Button variant="accent" size="lg" asChild className="w-full sm:w-auto">
+            <Button variant="colored-bg" size="lg" asChild className="w-full sm:w-auto">
               <Link to="/blueprint">Download Your Blueprint</Link>
             </Button>
           </div>

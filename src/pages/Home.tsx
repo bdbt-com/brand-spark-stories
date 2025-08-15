@@ -549,7 +549,7 @@ const Home = () => {
             Build the daily habits that become the foundation for lasting transformation in every area of your life.
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
-            <Button variant="accent" size="lg" asChild>
+            <Button variant="colored-bg" size="lg" asChild>
               <Link to="/blueprint">
                 Get Your Foundation Blueprint <ArrowRight className="w-5 h-5 ml-2" />
               </Link>
