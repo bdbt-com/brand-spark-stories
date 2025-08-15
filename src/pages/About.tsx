@@ -176,7 +176,7 @@ const About = () => {
               <div className="space-y-4">
                 <h1 className="text-5xl lg:text-6xl font-bold leading-tight">
                   <span className="block text-primary">The Story Behind</span>
-                  <span className="block text-warning">The System</span>
+                  <span className="block text-destructive">The System</span>
                 </h1>
               </div>
               <div className="space-y-6">
