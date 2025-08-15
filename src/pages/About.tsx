@@ -89,29 +89,9 @@ const About = () => {
             </p>
           </div>
           <div className="my-64 flex justify-center" id="arrow-1">
-            <div className="relative">
-              {/* Subtle outer ripple rings */}
-              <div className="absolute inset-0 rounded-full border border-primary/20 animate-ping" style={{
-                animationDuration: '3s',
-                animationIterationCount: 'infinite',
-                transform: 'scale(1.3)'
-              }}></div>
-              <div className="absolute inset-0 rounded-full border border-primary/15 animate-ping" style={{
-                animationDuration: '3s',
-                animationDelay: '1s',
-                animationIterationCount: 'infinite',
-                transform: 'scale(1.6)'
-              }}></div>
-              <div className="absolute inset-0 rounded-full border border-primary/10 animate-ping" style={{
-                animationDuration: '3s',
-                animationDelay: '2s',
-                animationIterationCount: 'infinite',
-                transform: 'scale(1.9)'
-              }}></div>
-              <ChevronRipple to="/about#problem-1" label="Why change fails?" size="sm" showLabel={false} variant="minimal" onClick={() => {
-                autoProgressThroughSentences();
-              }} />
-            </div>
+            <ChevronRipple to="/about#problem-1" label="Why change fails?" size="sm" showLabel={false} variant="minimal" onClick={() => {
+              autoProgressThroughSentences();
+            }} />
           </div>
           
           <div className="">
