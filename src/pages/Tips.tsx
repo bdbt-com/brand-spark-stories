@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
@@ -15,11 +15,12 @@ import {
   Camera, Music, Gift, Star, Gamepad2, ThumbsUp, CheckCircle, Award, Trophy,
   Briefcase, Calculator
 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Tips = () => {
   const [sortBy, setSortBy] = useState("newest");
   const [highlightedTip, setHighlightedTip] = useState<string | null>(null);
+  const location = useLocation();
 
   const tipCategories = [
     {
@@ -1723,6 +1724,26 @@ const Tips = () => {
     setHighlightedTip(tipTitle);
     setTimeout(() => setHighlightedTip(null), 3000);
   };
+
+  // Handle navigation from carousel clicks
+  useEffect(() => {
+    const state = location.state as { highlightTip?: string } | null;
+    if (state?.highlightTip) {
+      // Wait for components to render, then find and scroll to the tip
+      setTimeout(() => {
+        const element = document.querySelector(`[data-tip-title="${state.highlightTip}"]`);
+        if (element) {
+          setHighlightedTip(state.highlightTip);
+          element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          // Clear the highlighting after 3 seconds
+          setTimeout(() => setHighlightedTip(null), 3000);
+        }
+      }, 500); // Small delay to ensure all components are rendered
+      
+      // Clear the navigation state to prevent repeat triggers
+      window.history.replaceState({}, document.title);
+    }
+  }, [location.state]);
 
   return (
     <div className="min-h-screen bg-gradient-subtle">

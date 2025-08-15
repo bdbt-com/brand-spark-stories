@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "@/components/ui/carousel";
+import { useNavigate } from "react-router-dom";
 import { 
   Dumbbell, Coffee, Utensils, Droplets, Activity, Moon, Sun, Zap, 
   Clock, Brain, Heart, Target, Lightbulb, Shield, CheckCircle
@@ -8,8 +9,9 @@ import {
 
 const TipsCarousel = () => {
   const [embla, setEmbla] = useState<CarouselApi | null>(null);
+  const navigate = useNavigate();
 
-  // Sample tips data from your Tips page
+  // Tips that exactly match the titles in the Tips page
   const tips = [
     {
       icon: Dumbbell,
@@ -20,8 +22,24 @@ const TipsCarousel = () => {
       category: "fitness"
     },
     {
+      icon: Dumbbell,
+      title: "30 Benefits of Greater Grip Strength",
+      description: "Discover how grip strength affects longevity and overall health.",
+      level: "Easy",
+      duration: "5 min read",
+      category: "fitness"
+    },
+    {
+      icon: Dumbbell,
+      title: "30 Benefits of Using an AB Roller",
+      description: "Core strengthening benefits of this simple exercise tool.",
+      level: "Moderate",
+      duration: "4 min read",
+      category: "fitness"
+    },
+    {
       icon: Coffee,
-      title: "30 Reasons to Drink Green Tea",
+      title: "30 Reasons to Drink Green Tea Instead of Water",
       description: "Positions green tea as a hydration-plus habit for daily wellness.",
       level: "Easy",
       duration: "6 min read",
@@ -36,76 +54,60 @@ const TipsCarousel = () => {
       category: "health"
     },
     {
-      icon: Droplets,
-      title: "Only Drink Water",
-      description: "Simple hydration hack that saves money and transforms your energy levels.",
+      icon: Utensils,
+      title: "30 Benefits of Drinking Decaf Coffee",
+      description: "Explore the health benefits of decaffeinated coffee.",
       level: "Easy",
-      duration: "3 min read",
+      duration: "5 min read",
+      category: "health"
+    },
+    {
+      icon: Droplets,
+      title: "30 Benefits of Only Drinking Water for 30 Days",
+      description: "Transform your health with this simple hydration challenge.",
+      level: "Easy",
+      duration: "6 min read",
       category: "health"
     },
     {
       icon: Activity,
-      title: "Track Your Heart Rate",
-      description: "Free health monitoring that gives you insights into your recovery and fitness.",
-      level: "Easy",
-      duration: "5 min read",
+      title: "30 Benefits of Building Your Physical Bank Account",
+      description: "Invest in your body's long-term health and vitality.",
+      level: "Moderate",
+      duration: "7 min read",
       category: "fitness"
     },
     {
       icon: Moon,
-      title: "Hide Your Phone at Night",
-      description: "Digital detox strategy that improves sleep quality and morning productivity.",
+      title: "30 Benefits of Sleeping the Same Time Every Day",
+      description: "Consistent sleep schedule for optimal health and energy.",
       level: "Easy",
-      duration: "4 min read",
-      category: "habits"
-    },
-    {
-      icon: Sun,
-      title: "Morning Sunlight Exposure",
-      description: "Natural circadian rhythm regulation for better energy and sleep.",
-      level: "Easy",
-      duration: "3 min read",
-      category: "health"
-    },
-    {
-      icon: Brain,
-      title: "5 Minute Meditation",
-      description: "Simple mindfulness practice for stress reduction and focus.",
-      level: "Easy",
-      duration: "4 min read",
-      category: "mental"
-    },
-    {
-      icon: Zap,
-      title: "Cold Shower Benefits",
-      description: "How cold exposure builds resilience and boosts metabolism.",
-      level: "Moderate",
       duration: "5 min read",
       category: "health"
     },
     {
-      icon: Clock,
-      title: "Time Blocking Method",
-      description: "Productivity technique that eliminates decision fatigue.",
+      icon: Sun,
+      title: "30 Benefits of Getting 10 Minutes of Morning Sunlight",
+      description: "Natural vitamin D and circadian rhythm regulation.",
+      level: "Easy",
+      duration: "4 min read",
+      category: "health"
+    },
+    {
+      icon: Brain,
+      title: "30 Benefits of Learning Something New Every Day",
+      description: "Keep your mind sharp with continuous learning.",
       level: "Easy",
       duration: "6 min read",
-      category: "productivity"
+      category: "mental"
     },
     {
       icon: Target,
-      title: "One Thing First",
-      description: "Focus strategy that maximizes impact with minimal effort.",
+      title: "30 Benefits of Writing Down Your Goals",
+      description: "Transform dreams into reality through written commitment.",
       level: "Easy",
-      duration: "3 min read",
+      duration: "5 min read",
       category: "productivity"
-    },
-    {
-      icon: Heart,
-      title: "Gratitude Practice",
-      description: "Daily appreciation exercise that rewires your brain for positivity.",
-      level: "Easy",
-      duration: "2 min read",
-      category: "mental"
     }
   ];
 
@@ -124,6 +126,11 @@ const TipsCarousel = () => {
     return () => clearInterval(autoPlay);
   }, [embla]);
 
+  // Handle tip card click
+  const handleTipClick = (tipTitle: string) => {
+    navigate('/tips', { state: { highlightTip: tipTitle } });
+  };
+
   return (
     <div className="mb-16">
       <Carousel
@@ -139,7 +146,10 @@ const TipsCarousel = () => {
         <CarouselContent className="-ml-4">
           {tips.map((tip, index) => (
             <CarouselItem key={index} className="pl-4 md:basis-1/2 lg:basis-1/3">
-              <Card className="group hover:shadow-medium transition-all duration-300 hover:-translate-y-2 h-full">
+              <Card 
+                className="group hover:shadow-medium transition-all duration-300 hover:-translate-y-2 h-full cursor-pointer"
+                onClick={() => handleTipClick(tip.title)}
+              >
                 <CardContent className="p-6 h-full flex flex-col">
                   <div className="w-12 h-12 bg-gradient-primary rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
                     <tip.icon className="w-6 h-6 text-white" />
