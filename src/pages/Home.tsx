@@ -314,7 +314,7 @@ const Home = () => {
                           <div className="w-16 h-16 bg-warning rounded-xl flex items-center justify-center mx-auto mb-3 hover:scale-110 transition-transform duration-300">
                             <Zap className="w-8 h-8 text-primary" />
                           </div>
-                          <h5 className="font-semibold text-primary mb-2">118 Daily Tips</h5>
+                          <h5 className="font-semibold text-primary mb-2">Daily Tips</h5>
                           <p className="text-sm text-muted-foreground">Tested strategies for health, wealth & happiness</p>
                         </div>
                         <div className="text-center">
@@ -599,7 +599,7 @@ const Home = () => {
               Your Daily Transformation Toolkit
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              117 tested strategies to transform your health, wealth, and happiness through small daily actions.
+              Tested strategies to transform your health, wealth, and happiness through small daily actions.
             </p>
           </div>
           
