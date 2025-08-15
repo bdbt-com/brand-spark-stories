@@ -234,7 +234,7 @@ const Home = () => {
                 icon: Moon,
                 title: "How you rest your body",
                 description: "Recovery techniques and sleep optimization that allow your vessel to regenerate. Quality rest is the foundation of all other daily wins.",
-                color: "bg-success/10 text-success"
+                color: "bg-accent/10 text-accent"
               }
             ].map((step, index) => (
               <Card key={index} className="group hover:shadow-medium transition-all duration-300 hover:-translate-y-2">
