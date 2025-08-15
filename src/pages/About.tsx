@@ -175,7 +175,7 @@ const About = () => {
             <div className="animate-fade-in space-y-8">
               <div className="space-y-4">
                 <h1 className="text-5xl lg:text-6xl font-bold leading-tight">
-                  <span className="block text-foreground">The Story Behind</span>
+                  <span className="block text-blue-800">The Story Behind</span>
                   <span className="block text-warning">The System</span>
                 </h1>
               </div>
