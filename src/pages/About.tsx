@@ -560,7 +560,7 @@ const About = () => {
                           I uncovered the two biggest problems keeping people stuck. Fragmented advice and societal pressure, and built a system to solve both. A system that helps others apply what they already know, stay true to their values, and reclaim their direction.
                         </p>
                         <p className="leading-relaxed mb-4">
-                          I live in alignment now. I honour my time. I serve others. And I build every day on purpose.
+                          I live in alignment now. I honour my time. I serve others.
                         </p>
                         <p className="leading-relaxed">
                           And part of my deepest transformation has been accepting that some people closest to me may never hear it from me. But if I can become the expert that your loved ones listen to, and help you help them, then maybe I'm exactly where I need to be.
