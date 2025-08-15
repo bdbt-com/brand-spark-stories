@@ -175,7 +175,7 @@ const About = () => {
             <div className="animate-fade-in space-y-8">
               <div className="space-y-4">
                 <h1 className="text-5xl lg:text-6xl font-bold leading-tight">
-                  <span className="block text-blue-800">The Story Behind</span>
+                  <span className="block text-primary">The Story Behind</span>
                   <span className="block text-warning">The System</span>
                 </h1>
               </div>
@@ -252,12 +252,6 @@ const About = () => {
           }}>
               <div className="relative">
                 <img src="/lovable-uploads/59a1a8dd-ab26-431d-b9c6-9da3f2f01f38.png" alt="Big Daddy - BDBT Founder" className="w-full h-96 lg:h-[500px] object-cover rounded-3xl shadow-strong border-4 border-white/20" />
-                <div className="absolute -bottom-6 -right-6 bg-gradient-primary p-6 rounded-2xl shadow-strong">
-                  <div className="text-white text-center">
-                    <div className="text-2xl font-bold">50K+</div>
-                    <div className="text-sm opacity-90">Lives Transformed</div>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
