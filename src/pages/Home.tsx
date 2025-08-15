@@ -141,10 +141,10 @@ const Home = () => {
               <p className="text-base lg:text-lg mb-8 text-white/90 leading-relaxed">
                 Big Daddy's Big Tips teaches simple daily habits that silently transform your health, wealth, and happiness simultaneously. We turn overwhelming life changes into achievable daily steps.
               </p>
-              <div className="flex flex-wrap gap-4 justify-center">
+              <div className="flex justify-center">
                 {/* Get Your Foundation Blueprint Here - enlarged and centered */}
-                <div className="relative">
-                  <Button variant="secondary" size="lg" asChild className="relative transition-transform duration-200 rounded-xl h-14 md:h-16 px-8 md:px-10 text-lg md:text-xl">
+                <div className="relative w-full max-w-md">
+                  <Button variant="secondary" size="lg" asChild className="relative transition-transform duration-200 rounded-xl h-14 md:h-16 px-8 md:px-10 text-lg md:text-xl w-full">
                     <Link to="/blueprint">
                       Get Your Foundation Blueprint Here <ArrowRight className="w-5 h-5" />
                     </Link>
@@ -549,8 +549,8 @@ const Home = () => {
           <p className="text-xl text-white/90 max-w-3xl mx-auto mb-12">
             Build the daily habits that become the foundation for lasting transformation in every area of your life.
           </p>
-          <div className="flex flex-wrap gap-4 justify-center">
-            <Button variant="colored-bg" size="lg" asChild>
+          <div className="flex justify-center">
+            <Button variant="colored-bg" size="lg" asChild className="w-full sm:w-auto max-w-sm">
               <Link to="/blueprint">
                 Get Your Foundation Blueprint <ArrowRight className="w-5 h-5 ml-2" />
               </Link>
@@ -607,8 +607,8 @@ const Home = () => {
           <TipsCarousel />
           
           
-          <div className="text-center">
-            <Button variant="outline" size="lg" asChild>
+          <div className="flex justify-center">
+            <Button variant="outline" size="lg" asChild className="w-full sm:w-auto max-w-sm">
               <Link to="/tips">
                 View All Tips <ArrowRight className="w-5 h-5 ml-2" />
               </Link>

@@ -286,9 +286,11 @@ const Blueprint = () => {
             <p className="text-lg sm:text-xl text-white/90 mb-8 max-w-2xl mx-auto px-4">
               With your blueprint in hand, explore our complete tip library to maximize your transformation.
             </p>
-            <Button variant="colored-bg" size="lg" asChild className="w-full sm:w-auto">
-              <Link to="/tips">Explore All Tips</Link>
-            </Button>
+            <div className="flex justify-center">
+              <Button variant="colored-bg" size="lg" asChild className="w-full sm:w-auto max-w-sm">
+                <Link to="/tips">Explore All Tips</Link>
+              </Button>
+            </div>
           </div>
           
         </div>
