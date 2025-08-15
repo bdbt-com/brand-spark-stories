@@ -327,7 +327,7 @@ const About = () => {
                           Then came the separation. My partner and I separated, and I became a co-parent to our two incredible children who we look after 50:50. That was the moment everything changed.
                         </p>
                         <p className="leading-relaxed mb-4">
-                          Now I had two jobs: raising two young kids half the week as a single dad, and running a company the other half as a managing director. And through all of it, I was trying to stay true to the kind of life I said I believed in. A life built on health, wealth, and happiness. The pressure was real and I knew if I didn't find a better system, one that worked with real life, not just in theory then I would burn out.
+                          Now I had two jobs: raising two young kids half the week as a single dad, and running a company the other half as a managing director. And through all of it, I was trying to stay true to the kind of life I said I believed in. A life built on health, wealth, and happiness. The pressure was real and I knew if I didn't find a better system, one that worked with real life, not just in theory, then I would burn out.
                         </p>
                         <p className="leading-relaxed mb-4">
                           That's when Big Daddy's Big Tips was born. It's what they call me. They look up to me. And I realised I didn't just want to survive this phase of life. I wanted to build something that would inspire them. Something they could be proud of. A life they could look at and say, "My dad did it differently."
