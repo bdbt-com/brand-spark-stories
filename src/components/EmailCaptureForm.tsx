@@ -189,9 +189,6 @@ const EmailCaptureForm = ({ title, onClose, compact = true }: EmailCaptureFormPr
         </Button>
       </form>
 
-      <p className={`text-muted-foreground text-center ${compact ? 'text-xs' : 'text-sm'}`}>
-        📧 Instant delivery • 🚫 No spam, ever • 🔒 Privacy protected
-      </p>
     </div>
   );
 };

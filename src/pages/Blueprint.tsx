@@ -215,11 +215,6 @@ const Blueprint = () => {
                     </Button>
                   </form>
 
-                  <div className="text-center">
-                    <p className="text-sm text-muted-foreground">
-                      📧 Instant delivery • 🚫 No spam, ever • 🔒 Privacy protected
-                    </p>
-                  </div>
                 </>
               )}
             </CardContent>
