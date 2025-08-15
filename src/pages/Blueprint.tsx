@@ -233,15 +233,23 @@ const Blueprint = () => {
                 <ul className="space-y-2 max-w-md mx-auto text-left">
                   <li className="text-sm text-muted-foreground flex items-start">
                     <CheckCircle className="w-4 h-4 mr-3 mt-0.5 text-primary flex-shrink-0" />
-                    The BDBT Foundation blueprint will help you spot your daily drifts
+                    Spot your Daily Drifts
                   </li>
                   <li className="text-sm text-muted-foreground flex items-start">
                     <CheckCircle className="w-4 h-4 mr-3 mt-0.5 text-primary flex-shrink-0" />
-                    It will give you suggestions for Daily Wins, you can use it to track your habits, and document every step of your Journey
+                    Find suggestions for Daily Wins
                   </li>
                   <li className="text-sm text-muted-foreground flex items-start">
                     <CheckCircle className="w-4 h-4 mr-3 mt-0.5 text-primary flex-shrink-0" />
-                    It is your Ultimate Reference Point for Implementing the BDBT System into your life
+                    Track your new habits
+                  </li>
+                  <li className="text-sm text-muted-foreground flex items-start">
+                    <CheckCircle className="w-4 h-4 mr-3 mt-0.5 text-primary flex-shrink-0" />
+                    Document your journey
+                  </li>
+                  <li className="text-sm text-muted-foreground flex items-start">
+                    <CheckCircle className="w-4 h-4 mr-3 mt-0.5 text-primary flex-shrink-0" />
+                    Your ultimate reference point for your BDBT journey
                   </li>
                 </ul>
               </div>
@@ -251,15 +259,19 @@ const Blueprint = () => {
                 <ul className="space-y-2 max-w-md mx-auto">
                   <li className="text-sm text-muted-foreground flex items-start">
                     <CheckCircle className="w-4 h-4 mr-3 mt-0.5 text-primary flex-shrink-0" />
-                    Momentum {'>'}Motivation
+                    Momentum &gt; motivation
                   </li>
                   <li className="text-sm text-muted-foreground flex items-start">
                     <CheckCircle className="w-4 h-4 mr-3 mt-0.5 text-primary flex-shrink-0" />
-                    A System that works even when your Motivation Doesn't
+                    A system that works even when your motivation doesn't
                   </li>
                   <li className="text-sm text-muted-foreground flex items-start">
                     <CheckCircle className="w-4 h-4 mr-3 mt-0.5 text-primary flex-shrink-0" />
-                    Once Applied to your unique lifestyle, Benefit from the positive changes you Experience Daily
+                    Apply to your unique life
+                  </li>
+                  <li className="text-sm text-muted-foreground flex items-start">
+                    <CheckCircle className="w-4 h-4 mr-3 mt-0.5 text-primary flex-shrink-0" />
+                    Benefit from the positive ripple effects
                   </li>
                 </ul>
               </div>
