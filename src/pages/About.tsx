@@ -390,7 +390,7 @@ const About = () => {
                           I didn't want to add more noise. I wanted to create a system that helped people apply what they already knew, in a way that created sustainable, stacked wins across health, wealth, and happiness, without overhauling or overwhelming their life.
                         </p>
                         <p className="leading-relaxed">
-                          I started building what I couldn't find; a way to link everyday habits together so that doing one thing better improved everything else too. That's what became my Stacked Habit Design. A way of changing very little, but multiplying the positive impact of your daily decisions.
+                          I started building what I couldn't find; a way to link everyday habits together so that doing one thing better improved everything else too. That's what became my Habit-Driven Lifestyle Design. A way of changing very little, but multiplying the positive impact of your daily decisions.
                         </p>
                       </div>
 
@@ -479,7 +479,7 @@ const About = () => {
                       <div className="mb-12">
                         <h2 className="text-3xl font-bold text-primary mb-6">The New Opportunity</h2>
                         <p className="leading-relaxed mb-4">
-                          I created Big Daddy's Big Tips; a complete system built around stacked habit design.
+                          I created Big Daddy's Big Tips; a complete system built around habit-driven lifestyle design.
                         </p>
                         <p className="leading-relaxed mb-4">
                           It helps people go from stuck to free. From surviving to thriving. From standing still, or sliding backwards, to building real, forward momentum.
@@ -496,7 +496,7 @@ const About = () => {
                       <div className="mb-12">
                         <h2 className="text-3xl font-bold text-primary mb-6">The Strategy</h2>
                         <p className="leading-relaxed mb-4">
-                          The BDBT system is built around Stacked Habit Design. A method of applying small, simple habits that ripple across your entire life.
+                          The BDBT system is built around Habit-Driven Lifestyle Design. A method of applying small, simple habits that ripple across your entire life.
                         </p>
                         <p className="leading-relaxed mb-4">It combines:</p>
                         <ul className="list-disc pl-6 mb-4 space-y-2">
