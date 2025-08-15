@@ -237,7 +237,7 @@ const About = () => {
                   animationDelay: "500ms",
                   marginTop: "0px"
                 }}>
-                     <img src="/lovable-uploads/5e8aba04-f6cc-44a2-9bcc-eaf2424e3976.png" alt="Big Daddy at work - Building the system" className="w-full h-full object-cover rounded-xl" />
+                     <img src="/lovable-uploads/8d06c526-bd08-42b7-9a4e-09be508119c7.png" alt="BDBT journey image 2 - Podcast recording setup" className="w-full h-full object-cover rounded-xl" />
                    </div>
                    
                    {/* Photo 3 - Position 3/10 - Dog & Family Life */}
@@ -245,7 +245,7 @@ const About = () => {
                   animationDelay: "1200ms",
                   marginTop: "1350px"
                 }}>
-                     <img src="/lovable-uploads/bb15285e-dc4c-46ae-93a2-3c27d8cad778.png" alt="Big Daddy with family dog - Life balance" className="w-full h-full object-cover rounded-xl" />
+                     <img src="/lovable-uploads/4fd0818e-20c3-4941-9c54-6915db50a7c0.png" alt="BDBT journey image 4 - Meditation with mirror" className="w-full h-full object-cover rounded-xl" />
                    </div>
                    
                    {/* Photo 5 - Position 5/10 - Success & Wealth */}
@@ -253,7 +253,7 @@ const About = () => {
                   animationDelay: "1900ms",
                   marginTop: "1350px"
                 }}>
-                     <img src="/lovable-uploads/429221d1-d6c7-4743-9918-18a35e4a4eb2.png" alt="Big Daddy and success - Financial freedom" className="w-full h-full object-cover rounded-xl" />
+                     <img src="/lovable-uploads/33ba01bc-045c-4c44-ac70-c61c05093bdc.png" alt="BDBT journey image 6 - Silhouette by pool" className="w-full h-full object-cover rounded-xl" />
                    </div>
                    
                    {/* Photo 7 - Position 7/10 - Coastal Business Life */}
@@ -261,10 +261,16 @@ const About = () => {
                   animationDelay: "2600ms",
                   marginTop: "1350px"
                 }}>
-                     <img src="/lovable-uploads/8c209669-d4f3-4beb-9184-98693514ffca.png" alt="Big Daddy on coastal call - Business success" className="w-full h-full object-cover rounded-xl" />
+                     <img src="/lovable-uploads/2f4d6184-a8de-43f0-a345-4ed910c90522.png" alt="BDBT journey image 8 - Man on phone in modern setting" className="w-full h-full object-cover rounded-xl" />
                    </div>
                    
-                   {/* Photo 9 - Position 9/10 - Ocean Sunset Contemplation */}
+                    {/* Photo 9 - Position 9/10 - Man in shoe store */}
+                    <div className="w-[400px] h-[400px] bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform rotate-2" style={{
+                   animationDelay: "3200ms",
+                   marginTop: "1350px"
+                 }}>
+                     <img src="/lovable-uploads/8db636d1-94ff-432a-a4b1-6ca278173f2f.png" alt="BDBT journey image 10 - Man in shoe store" className="w-full h-full object-cover rounded-xl" />
+                   </div>
                    
                   </div>
 
@@ -277,7 +283,7 @@ const About = () => {
                   animationDelay: "800ms",
                   marginTop: "675px"
                 }}>
-                     <img src="/lovable-uploads/106caa66-a28a-4871-b4da-391b59d6c6ee.png" alt="Big Daddy climbing stairs - The journey upward" className="w-full h-full object-cover rounded-xl" />
+                     <img src="/lovable-uploads/b362cf10-f3b4-4ab1-aeb3-30ab18058ace.png" alt="BDBT journey image 3 - Man with dog outdoors" className="w-full h-full object-cover rounded-xl" />
                    </div>
                    
                    {/* Photo 4 - Position 4/10 - Freedom & Success */}
@@ -285,7 +291,7 @@ const About = () => {
                   animationDelay: "1500ms",
                   marginTop: "1350px"
                 }}>
-                     <img src="/lovable-uploads/11966bbc-71f9-40df-ac7d-d99bead4b5d3.png" alt="Big Daddy in nature - Freedom and success" className="w-full h-full object-cover rounded-xl" />
+                     <img src="/lovable-uploads/661d98ce-15f1-4542-b8c0-bab549b78a55.png" alt="BDBT journey image 5 - Man in bathroom mirror" className="w-full h-full object-cover rounded-xl" />
                    </div>
                    
                    {/* Photo 6 - Position 6/10 - Lifestyle Achievement */}
@@ -293,7 +299,7 @@ const About = () => {
                   animationDelay: "2200ms",
                   marginTop: "1350px"
                 }}>
-                     <img src="/lovable-uploads/639b2e42-bb5e-4e0f-a150-3c447b0ca4d2.png" alt="Big Daddy relaxing - Lifestyle achievement" className="w-full h-full object-cover rounded-xl" />
+                     <img src="/lovable-uploads/2678016c-a3fa-4e29-bf3d-3ebe92201186.png" alt="BDBT journey image 7 - Person exercising outdoors" className="w-full h-full object-cover rounded-xl" />
                    </div>
                    
                    {/* Photo 8 - Position 8/10 - Original Sunset Transformation */}
@@ -301,12 +307,18 @@ const About = () => {
                   animationDelay: "2900ms",
                   marginTop: "1350px"
                 }}>
-                     <img src="/lovable-uploads/7208834d-dbba-4fc6-8da5-2f81f4e3796f.png" alt="Big Daddy at sunset - Transformation complete" className="w-full h-full object-cover rounded-xl" />
+                     <img src="/lovable-uploads/7db6bd1f-c12f-45f2-a1d1-505f38c743a1.png" alt="BDBT journey image 9 - Man outdoors smiling" className="w-full h-full object-cover rounded-xl" />
                    </div>
                    
-                   {/* Photo 10 - Position 10/10 - Looking Forward */}
+                    {/* Photo 10 - Position 10/10 - Man in home theater */}
+                    <div className="w-[400px] h-[400px] bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform -rotate-1" style={{
+                   animationDelay: "3500ms",
+                   marginTop: "1350px"
+                 }}>
+                     <img src="/lovable-uploads/a886c4a9-0d09-442e-8348-25bd795ad7d0.png" alt="BDBT journey image 11 - Man in home theater" className="w-full h-full object-cover rounded-xl" />
+                   </div>
                    
-                 </div>
+                  </div>
 
                 {/* Main Story Content */}
                 <div className="max-w-4xl mx-auto lg:px-32">
@@ -356,7 +368,7 @@ const About = () => {
 
                       {/* What I had tried in the past */}
                       <div className="mb-12">
-                        <h2 className="text-3xl font-bold text-primary mb-6">What I had tried in the past</h2>
+                        <h2 className="text-3xl font-bold text-primary mb-6">What I Had Tried in The Past</h2>
                         <p className="leading-relaxed mb-4">
                           I tried a lot of different things including fitness routines, budgeting apps, morning routines, self-help books, mindfulness challenges. And while each one had value, they all focused on solving one part of the problem.
                         </p>
@@ -384,7 +396,7 @@ const About = () => {
 
                       {/* The villain keeping people from success */}
                       <div className="mb-12">
-                        <h2 className="text-3xl font-bold text-primary mb-6">The villain keeping people from success?</h2>
+                        <h2 className="text-3xl font-bold text-primary mb-6">The Villain Keeping People From Success</h2>
                         <p className="leading-relaxed mb-4">
                           The villain isn't just one thing. It's two forces working against you every single day.
                         </p>
@@ -406,7 +418,7 @@ const About = () => {
 
                       {/* What happens if you don't succeed */}
                       <div className="mb-12">
-                        <h2 className="text-3xl font-bold text-primary mb-6">What happens if you don't succeed on this journey?</h2>
+                        <h2 className="text-3xl font-bold text-primary mb-6">What Happens if You Don't Succeed on This Journey</h2>
                         <p className="leading-relaxed mb-4">
                           You stay in survival mode. You keep trying to "balance" everything. Your work, kids, money, health, happiness, and you burn out in the process.
                         </p>
