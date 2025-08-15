@@ -191,39 +191,7 @@ const About = () => {
               <div className="flex justify-center mt-12">
                 <Collapsible open={isStoryOpen} onOpenChange={setIsStoryOpen}>
                   <CollapsibleTrigger asChild>
-                    <div className="relative">
-                       {/* Enhanced Ripple Effect Rings - Ocean Blue with 50% Transparency - Smaller */}
-                       <div className="absolute inset-0">
-                         <div className="absolute inset-0 rounded-xl border border-blue-400/50 animate-ping" style={{
-                        animationDuration: '2s',
-                        animationIterationCount: 'infinite'
-                      }}></div>
-                       </div>
-                       <div className="absolute inset-0" style={{
-                      margin: '1px'
-                    }}>
-                         <div className="absolute inset-0 rounded-xl border border-blue-500/50 animate-ping" style={{
-                        animationDuration: '2s',
-                        animationDelay: '0.7s',
-                        animationIterationCount: 'infinite'
-                      }}></div>
-                       </div>
-                       <div className="absolute inset-0" style={{
-                      margin: '2px'
-                    }}>
-                         <div className="absolute inset-0 rounded-xl border border-blue-600/50 animate-ping" style={{
-                        animationDuration: '2s',
-                        animationDelay: '1.4s',
-                        animationIterationCount: 'infinite'
-                      }}></div>
-                       </div>
-                       
-                       {/* Enhanced Glow Effect - Ocean Blue with Reduced Size */}
-                       <div className="absolute inset-0 bg-blue-500/10 rounded-xl animate-pulse" style={{
-                      animationDuration: '3s'
-                    }}></div>
-                       
-                        <Button variant="outline" size="lg" className="relative hover:scale-105 transition-transform text-lg h-16 px-12 py-6 bg-background/95 backdrop-blur-sm border-primary/30 rounded-xl" onClick={() => {
+                    <Button variant="outline" size="lg" className="relative hover:scale-105 transition-transform text-lg h-16 px-12 py-6 bg-background/95 backdrop-blur-sm border-primary/30 rounded-xl" onClick={() => {
                       setIsStoryOpen(!isStoryOpen);
                       if (!isStoryOpen) {
                         // Wait for content to expand, then scroll to show the top of the story content
@@ -238,11 +206,10 @@ const About = () => {
                         }, 200);
                       }
                     }}>
-                          <BookOpen className="w-6 h-6 mr-3" />
-                          Read My Story
-                          <ChevronDown className={`w-5 h-5 ml-3 transition-transform ${isStoryOpen ? 'rotate-180' : ''}`} />
-                         </Button>
-                     </div>
+                      <BookOpen className="w-6 h-6 mr-3" />
+                      Read My Story
+                      <ChevronDown className={`w-5 h-5 ml-3 transition-transform ${isStoryOpen ? 'rotate-180' : ''}`} />
+                    </Button>
                   </CollapsibleTrigger>
                 </Collapsible>
               </div>
