@@ -1802,7 +1802,7 @@ const Tips = () => {
           )}
 
           {/* CTA Section - Now at bottom of tips grid */}
-          <div className="mt-20 text-center bg-warning text-primary rounded-2xl p-6 sm:p-12 border-4 border-warning/40">
+          <div className="mt-20 text-center bg-warning text-white rounded-2xl p-6 sm:p-12 border-4 border-warning/40">
             <h2 className="text-2xl sm:text-3xl font-bold mb-4 text-white">
               Want More Life-Changing Strategies?
             </h2>

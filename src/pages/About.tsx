@@ -654,7 +654,7 @@ const About = () => {
           </div>
 
         {/* CTA Section */}
-        <div className="mt-20 text-center bg-warning text-primary rounded-2xl p-12 border-4 border-warning/40">
+        <div className="mt-20 text-center bg-warning text-white rounded-2xl p-12 border-4 border-warning/40">
           <h2 className="text-3xl font-bold mb-4 text-white">
             Ready to Start Your Journey?
           </h2>

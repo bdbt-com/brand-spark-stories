@@ -295,7 +295,7 @@ const DailyWins = () => {
 
 
         {/* CTA Section */}
-        <div className="text-center bg-warning text-primary rounded-2xl p-12 border-4 border-warning/40">
+        <div className="text-center bg-warning text-white rounded-2xl p-12 border-4 border-warning/40">
           <h2 className="text-2xl lg:text-3xl font-bold mb-4 text-white">
             Ready to Start Your Own Success Story?
           </h2>
