@@ -604,7 +604,7 @@ const About = () => {
       <section id="welcome-to-habit-driven-lifestyle-design" className="py-20 bg-gradient-subtle">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-primary/80">
+            <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-primary">
               Welcome to Habit-Driven Lifestyle Design
             </h2>
             <p className="text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
@@ -672,7 +672,7 @@ const About = () => {
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-primary/80">
+            <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-primary">
               Why Habit-Driven Lifestyle Design™ Works
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
@@ -720,7 +720,7 @@ const About = () => {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="text-center mb-16">
             <Quote className="w-16 h-16 mx-auto mb-8 opacity-50" />
-            <h2 className="text-4xl lg:text-5xl font-bold mb-8 text-primary/80">The BDBT Philosophy</h2>
+            <h2 className="text-4xl lg:text-5xl font-bold mb-8 text-white">The BDBT Philosophy</h2>
             <blockquote className="text-2xl lg:text-3xl font-bold leading-relaxed mb-8 text-white">
               "We believe in habits that create ripple effects. Small daily actions that spark powerful momentum across your entire life."
             </blockquote>
@@ -802,7 +802,7 @@ const About = () => {
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-primary/80">
+            <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-primary">
               The Numbers Don't Lie
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
@@ -842,7 +842,7 @@ const About = () => {
       <section className="py-20 bg-gradient-subtle">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold mb-6 text-primary/80">
+            <h2 className="text-3xl lg:text-4xl font-bold mb-6 text-primary">
               The People Behind the Mission
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
