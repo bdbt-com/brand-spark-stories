@@ -158,7 +158,10 @@ const DailyWins = () => {
               <span className="block text-[hsl(35_45%_75%)]">Wall</span>
             </h1>
             <p className="text-lg text-white/90 max-w-3xl mx-auto leading-relaxed mb-4">
-              Any Wins Across Any Area of Your Life? We want to Hear about it. Excited to see the visible ripple effect in your life? We want to hear about it!
+              Daily wins across any area of your life? We want to hear about it!
+            </p>
+            <p className="text-lg text-white/90 max-w-3xl mx-auto leading-relaxed mb-4">
+              Feeling the ripple effects in action? We want to hear about it!
             </p>
           </div>
         </div>
