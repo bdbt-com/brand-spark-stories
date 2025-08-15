@@ -101,7 +101,7 @@ const Blueprint = () => {
       <div className="container mx-auto px-4">
         <div className="max-w-2xl mx-auto">
           <div className="text-center mb-8">
-            <h2 className="text-xl font-semibold text-primary mb-4">Your Habit Stacking Reference Point</h2>
+            
             <h1 className="text-3xl font-bold text-primary">The Source Blueprint</h1>
           </div>
 
@@ -128,9 +128,6 @@ const Blueprint = () => {
                 <>
                   <div className="text-center space-y-2">
                     <h4 className="text-xl font-semibold text-foreground">Get your free copy of Big Daddy's Foundation Blueprint</h4>
-                    <p className="text-sm text-muted-foreground">
-                      Join thousands who've transformed their lives with this system
-                    </p>
                   </div>
                   
                   <form onSubmit={handleEmailSubmit} className="space-y-4">
@@ -208,7 +205,7 @@ const Blueprint = () => {
                         </>
                       ) : (
                         <>
-                          Download Free Guide
+                          Download Foundation Blueprint
                           <Download className="w-4 h-4 ml-2 group-hover:translate-y-0.5 transition-transform" />
                         </>
                       )}
