@@ -3,6 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ArrowRight, Droplets, Activity, Moon, DollarSign, Heart, Smile, Target, Zap, ChevronDown, Trophy, AlertTriangle } from "lucide-react";
 import { Link } from "react-router-dom";
+import TipsCarousel from "@/components/TipsCarousel";
 import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "@/components/ui/carousel";
 import { useEffect, useState, useRef } from "react";
 import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "@/components/ui/collapsible";
@@ -603,39 +604,8 @@ const Home = () => {
             </p>
           </div>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-            {[
-              {
-                icon: Droplets,
-                title: "Only Drink Water",
-                description: "Simple hydration hack that saves money and transforms your energy levels."
-              },
-              {
-                icon: Activity,
-                title: "Track Your Heart Rate",
-                description: "Free health monitoring that gives you insights into your recovery and fitness."
-              },
-              {
-                icon: Moon,
-                title: "Hide Your Phone at Night",
-                description: "Digital detox strategy that improves sleep quality and morning productivity."
-              }
-            ].map((tip, index) => (
-              <Card key={index} className="group hover:shadow-medium transition-all duration-300 hover:-translate-y-2">
-                <CardContent className="p-6">
-                  <div className="w-12 h-12 bg-gradient-primary rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                    <tip.icon className="w-6 h-6 text-white" />
-                  </div>
-                  <h3 className="text-xl font-semibold text-primary mb-2 group-hover:text-primary transition-colors">
-                    {tip.title}
-                  </h3>
-                  <p className="text-muted-foreground mb-4 leading-relaxed">
-                    {tip.description}
-                  </p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+          <TipsCarousel />
+          
           
           <div className="text-center">
             <Button variant="outline" size="lg" asChild>
