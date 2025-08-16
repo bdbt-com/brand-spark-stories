@@ -207,7 +207,7 @@
 
   /* Enhanced typography scale */
   h1, h2, h3, h4, h5, h6 {
-    @apply font-semibold text-foreground;
+    @apply font-semibold text-primary;
     line-height: var(--line-height-tight);
     letter-spacing: -0.025em;
   }
@@ -221,7 +221,7 @@
 
   p {
     line-height: var(--line-height-relaxed);
-    color: hsl(var(--foreground));
+    color: hsl(var(--primary));
   }
 
   /* Focus styles */

@@ -198,7 +198,7 @@ const Home = () => {
             <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-primary">
               The Vessels, The Ripples, & The Journey
             </h2>
-            <div className="text-xl text-muted-foreground max-w-3xl mx-auto">
+            <div className="text-xl text-primary max-w-3xl mx-auto">
               <ul className="space-y-2 text-left">
                 <li className="flex items-start">
                   <span className="w-2 h-2 bg-primary rounded-full mt-3 mr-3 flex-shrink-0"></span>
@@ -245,7 +245,7 @@ const Home = () => {
                   <h3 className="text-xl font-semibold text-primary mb-2 group-hover:text-primary transition-colors">
                     {step.title}
                   </h3>
-                  <p className="text-muted-foreground leading-relaxed">
+                  <p className="text-primary leading-relaxed">
                     {step.description}
                   </p>
                 </CardContent>
@@ -268,7 +268,7 @@ const Home = () => {
                     <div className="grid md:grid-cols-2 gap-8">
                       <div>
                         <h4 className="text-xl font-semibold text-primary mb-4">The Problem</h4>
-                        <ul className="space-y-3 text-muted-foreground">
+                        <ul className="space-y-3 text-primary">
                           <li className="flex items-start">
                             <span className="w-2 h-2 bg-primary rounded-full mt-2 mr-3 flex-shrink-0"></span>
                             Most self-improvement advice is overwhelming and hard to stick with
@@ -285,7 +285,7 @@ const Home = () => {
                       </div>
                       <div>
                         <h4 className="text-xl font-semibold text-primary mb-4">The BDBT Solution</h4>
-                        <ul className="space-y-3 text-muted-foreground">
+                        <ul className="space-y-3 text-primary">
                           <li className="flex items-start">
                             <span className="w-2 h-2 bg-success rounded-full mt-2 mr-3 flex-shrink-0"></span>
                             Simple, high impact habits that require minimal time and minimal effort
@@ -309,21 +309,21 @@ const Home = () => {
                             <Target className="w-8 h-8 text-primary" />
                           </div>
                           <h5 className="font-semibold text-primary mb-2">Foundation Blueprint</h5>
-                          <p className="text-sm text-muted-foreground">Your guide for spotting drifts, tracking wins and staying on course</p>
+                          <p className="text-sm text-primary">Your guide for spotting drifts, tracking wins and staying on course</p>
                         </div>
                         <div className="text-center">
                           <div className="w-16 h-16 bg-warning rounded-xl flex items-center justify-center mx-auto mb-3 hover:scale-110 transition-transform duration-300">
                             <Zap className="w-8 h-8 text-primary" />
                           </div>
                           <h5 className="font-semibold text-primary mb-2">Daily Tips</h5>
-                          <p className="text-sm text-muted-foreground">Small daily steps that quietly transform your health, wealth and happiness</p>
+                          <p className="text-sm text-primary">Small daily steps that quietly transform your health, wealth and happiness</p>
                         </div>
                         <div className="text-center">
                           <div className="w-16 h-16 bg-warning rounded-xl flex items-center justify-center mx-auto mb-3 hover:scale-110 transition-transform duration-300">
                             <Heart className="w-8 h-8 text-primary" />
                           </div>
                           <h5 className="font-semibold text-primary mb-2">BDBT Guidance</h5>
-                          <p className="text-sm text-muted-foreground">Daily podcasts, free guides and social posts explaining every tip</p>
+                          <p className="text-sm text-primary">Daily podcasts, free guides and social posts explaining every tip</p>
                         </div>
                       </div>
                     </div>

@@ -168,22 +168,22 @@ const About = () => {
         </div>
       </section>
       {/* Hero Section - Owner Story */}
-      <section id="story" className="py-20 lg:py-32 bg-gradient-to-br from-background via-muted/30 to-primary/5 relative overflow-hidden">
+      <section id="story" className="py-20 lg:py-32 bg-primary relative overflow-hidden">
         <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="animate-fade-in space-y-8">
               <div className="space-y-4">
                 <h1 className="text-5xl lg:text-6xl font-bold leading-tight">
-                  <span className="block text-primary">The Story Behind</span>
+                  <span className="block text-white">The Story Behind</span>
                   <span className="block text-[hsl(35_45%_75%)]">The System</span>
                 </h1>
               </div>
               <div className="space-y-6">
-                <p className="text-xl text-primary leading-relaxed">
+                <p className="text-xl text-white leading-relaxed">
                   How one dad turned daily overwhelm into a life-changing ripple effect.
                 </p>
-                <p className="text-xl text-primary leading-relaxed">
+                <p className="text-xl text-white leading-relaxed">
                   From financial services to single parenting, discover the real story behind 
                   Big Daddy's Big Tips and why I'm sharing it with you.
                 </p>
