@@ -210,6 +210,7 @@
     @apply font-semibold text-primary;
     line-height: var(--line-height-tight);
     letter-spacing: -0.025em;
+    color: hsl(var(--primary)) !important;
   }
 
   h1 { font-size: var(--font-size-4xl); }
@@ -221,7 +222,7 @@
 
   p {
     line-height: var(--line-height-relaxed);
-    color: hsl(var(--primary));
+    color: hsl(var(--primary)) !important;
   }
 
   /* Focus styles */
