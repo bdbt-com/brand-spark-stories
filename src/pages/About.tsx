@@ -84,7 +84,7 @@ const About = () => {
             <h2 className="text-4xl lg:text-6xl font-bold mb-8 text-primary tracking-tight">
               The Problem
             </h2>
-            <p className="text-xl text-muted-foreground font-light max-w-2xl mx-auto">
+            <p className="text-xl text-primary font-light max-w-2xl mx-auto">
               We live in a world obsessed with doing more
             </p>
           </div>
@@ -100,7 +100,7 @@ const About = () => {
               <h3 className="text-4xl lg:text-5xl font-bold leading-tight text-primary mb-8">
                 Why do traditional approaches fail to create lasting change?
               </h3>
-              <p className="text-xl text-muted-foreground font-light">
+              <p className="text-xl text-primary font-light">
                 More workouts. More goals. More hustle. Yet most people feel stuck, drained, and uncertain.
               </p>
             </div>
@@ -116,7 +116,7 @@ const About = () => {
               <h3 className="text-4xl lg:text-5xl font-bold leading-tight text-primary mb-8">
                 We're told to fix our lives one isolated tip at a time.
               </h3>
-              <p className="text-xl text-muted-foreground font-light">
+              <p className="text-xl text-primary font-light">
                 A budgeting app here. A gym membership there. A meditation streak that lasts three days.
               </p>
             </div>
@@ -132,7 +132,7 @@ const About = () => {
               <h3 className="text-4xl lg:text-5xl font-bold leading-tight text-primary mb-8">
                 But nothing sticks.
               </h3>
-              <p className="text-xl text-muted-foreground font-light mb-4">
+              <p className="text-xl text-primary font-light mb-4">
                 Not because people are lazy. Not because they're broken.
               </p>
               <p className="text-xl text-foreground font-semibold">
@@ -151,7 +151,7 @@ const About = () => {
               <h3 className="text-4xl lg:text-5xl font-bold leading-tight text-primary mb-8">
                 Meanwhile, modern life pushes us further behind.
               </h3>
-              <p className="text-xl text-muted-foreground font-light">
+              <p className="text-xl text-primary font-light">
                 Sit more. Scroll more. Consume more. With every new demand, we feel more overwhelmed.
               </p>
             </div>
@@ -180,10 +180,10 @@ const About = () => {
                 </h1>
               </div>
               <div className="space-y-6">
-                <p className="text-xl text-muted-foreground leading-relaxed">
+                <p className="text-xl text-primary leading-relaxed">
                   How one dad turned daily overwhelm into a life-changing ripple effect.
                 </p>
-                <p className="text-xl text-muted-foreground leading-relaxed">
+                <p className="text-xl text-primary leading-relaxed">
                   From financial services to single parenting, discover the real story behind 
                   Big Daddy's Big Tips and why I'm sharing it with you.
                 </p>
@@ -324,7 +324,7 @@ const About = () => {
                 <div className="max-w-4xl mx-auto lg:px-32">
                 <Card className="bg-background/95 backdrop-blur-sm border-primary/20 shadow-strong">
                   <CardContent className="p-8 lg:p-12">
-                    <div className="prose prose-lg max-w-none text-muted-foreground">
+                    <div className="prose prose-lg max-w-none text-primary">
                       
                       {/* The Backstory */}
                       <div className="mb-12">
@@ -607,7 +607,7 @@ const About = () => {
             <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-primary">
               Welcome to Habit-Driven Lifestyle Design
             </h2>
-            <p className="text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
+            <p className="text-xl text-primary max-w-4xl mx-auto leading-relaxed">
               A system that's simple enough to start today, smart enough to compound over time 
               and strong enough to rebuild your identity from the inside out.
             </p>
@@ -615,7 +615,7 @@ const About = () => {
 
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-8">
-              <div className="prose prose-lg text-muted-foreground">
+              <div className="prose prose-lg text-primary">
                 <p className="leading-relaxed text-lg">
                   You don't need another goal. You need an achievable daily win that creates a ripple effect across your entire life.
                 </p>
@@ -646,7 +646,7 @@ const About = () => {
                 <div className="space-y-4">
                   {["A system that works even when you don't feel motivated", "Daily habits that create ripple effects across all areas", "Clear, achievable steps instead of overwhelming goals", "A community of people on the same journey", "Tools to track and stack your wins"].map((benefit, index) => <div key={index} className="flex items-start gap-3">
                       <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                      <span className="text-muted-foreground">{benefit}</span>
+                      <span className="text-primary">{benefit}</span>
                     </div>)}
                 </div>
               </CardContent>
@@ -677,7 +677,7 @@ const About = () => {
             <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-primary">
               Why Habit-Driven Lifestyle Design™ Works
             </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+            <p className="text-xl text-primary max-w-3xl mx-auto">
               Compare the old approach with the BDBT system that creates lasting change
             </p>
           </div>
@@ -692,7 +692,7 @@ const About = () => {
                 <div className="space-y-4">
                   {["Separate goals for health, wealth, and happiness", "Relying on motivation or willpower", "Isolated tips from different experts", "Overhauling everything on January 1st", "All or nothing thinking", "Quick hacks with no staying power", "One-size-fits-all plans", "Starting strong, burning out fast"].map((item, index) => <div key={index} className="flex items-start gap-3">
                       <AlertTriangle className="w-5 h-5 text-destructive mt-0.5 flex-shrink-0" />
-                      <span className="text-muted-foreground">{item}</span>
+                      <span className="text-primary">{item}</span>
                     </div>)}
                 </div>
               </CardContent>
@@ -707,7 +707,7 @@ const About = () => {
                 <div className="space-y-4">
                   {["One stacked system that improves all three together", "A structure that works even when motivation doesn't", "Simplified information and achievable progress", "Tiny daily shifts that build a life you love", "1% daily improvement mindset", "Long-term identity change through ripple habits", "A flexible framework that fits around your life", "Small daily steps. Big life changes"].map((item, index) => <div key={index} className="flex items-start gap-3">
                       <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                      <span className="text-muted-foreground">{item}</span>
+                      <span className="text-primary">{item}</span>
                     </div>)}
                 </div>
               </CardContent>
@@ -764,14 +764,14 @@ const About = () => {
             <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-primary">
               Life Isn't Lived in Silos
             </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+            <p className="text-xl text-primary max-w-3xl mx-auto leading-relaxed">
               Your health affects your wealth. Your wealth affects your happiness. Your happiness affects your health.
             </p>
           </div>
 
           <div className="max-w-4xl mx-auto">
             <div className="space-y-8">
-              <div className="prose prose-lg text-muted-foreground">
+              <div className="prose prose-lg text-primary">
                 <p className="leading-relaxed text-lg">
                   Trying to fix one without the others creates imbalance. Trying to fix everything at once creates overwhelm.
                 </p>
@@ -790,7 +790,7 @@ const About = () => {
                   <div className="space-y-3">
                     {["One stacked system that improves all three together", "Works even when your motivation doesn't", "Clear steps that turn overwhelm into action", "1% daily improvement mindset"].map((benefit, index) => <div key={index} className="flex items-start gap-3">
                         <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                        <span className="text-muted-foreground">{benefit}</span>
+                        <span className="text-primary">{benefit}</span>
                       </div>)}
                   </div>
                 </CardContent>
