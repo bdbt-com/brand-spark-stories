@@ -74,7 +74,7 @@ const TipCard = ({ tip, index }: TipCardProps) => {
           <CardContent className="flex-1 flex flex-col p-6 pt-0">
             {/* Description Section */}
             <div className="mb-6 h-auto">
-              <p className="text-muted-foreground text-sm leading-relaxed">
+              <p className="text-primary text-sm leading-relaxed">
                 {tip.description}
               </p>
             </div>
@@ -83,7 +83,7 @@ const TipCard = ({ tip, index }: TipCardProps) => {
             <div className="mb-6 h-auto">
               <ul className="space-y-2">
                 {tip.items.map((item, itemIndex) => (
-                  <li key={itemIndex} className="text-sm text-muted-foreground flex items-start">
+                  <li key={itemIndex} className="text-sm text-primary flex items-start">
                     <span className="w-2 h-2 bg-gradient-primary rounded-full mt-1.5 mr-3 flex-shrink-0 shadow-xs"></span>
                     <span className="leading-relaxed">{item}</span>
                   </li>

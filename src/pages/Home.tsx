@@ -570,7 +570,7 @@ const Home = () => {
                   <Trophy className="w-8 h-8 text-white" />
                 </div>
                 <h3 className="text-2xl font-semibold text-success mb-4">Daily Wins</h3>
-                <p className="text-muted-foreground leading-relaxed">
+                <p className="text-primary leading-relaxed">
                   Celebrate and track your daily victories. Every small win builds momentum toward your bigger goals.
                 </p>
               </CardContent>
@@ -583,7 +583,7 @@ const Home = () => {
                   <AlertTriangle className="w-8 h-8 text-white" />
                 </div>
                 <h3 className="text-2xl font-semibold text-destructive mb-4">Daily Drifts</h3>
-                <p className="text-muted-foreground leading-relaxed">
+                <p className="text-primary leading-relaxed">
                   Identify the small habits that are slowly pulling you away from your goals before they compound.
                 </p>
               </CardContent>
@@ -599,7 +599,7 @@ const Home = () => {
             <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-primary">
               Your Daily Transformation Toolkit
             </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+            <p className="text-xl text-primary max-w-3xl mx-auto">
               Tested strategies to transform your health, wealth, and happiness through small daily actions.
             </p>
           </div>

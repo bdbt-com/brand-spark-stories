@@ -82,10 +82,10 @@ const EmailCaptureForm = ({ title, onClose, compact = true }: EmailCaptureFormPr
         <h4 className="text-lg font-semibold text-foreground mb-2">
           Guide Sent! 🎉
         </h4>
-        <p className="text-sm text-muted-foreground mb-3">
+        <p className="text-sm text-primary mb-3">
           Check your email - it should arrive within minutes.
         </p>
-        <div className="flex items-center justify-center text-xs text-muted-foreground">
+        <div className="flex items-center justify-center text-xs text-primary">
           <Mail className="w-3 h-3 mr-1" />
           Sent to: {email}
         </div>
@@ -110,7 +110,7 @@ const EmailCaptureForm = ({ title, onClose, compact = true }: EmailCaptureFormPr
       </div>
       
       {!compact && (
-        <p className="text-sm text-muted-foreground">
+        <p className="text-sm text-primary">
           Join thousands who've transformed their lives with our proven strategies
         </p>
       )}
