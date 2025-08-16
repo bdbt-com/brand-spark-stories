@@ -135,7 +135,7 @@ const About = () => {
               <p className="text-xl text-primary font-light mb-4">
                 Not because people are lazy. Not because they're broken.
               </p>
-              <p className="text-xl text-foreground font-semibold">
+              <p className="text-xl text-primary font-semibold">
                 But because the old model is broken.
               </p>
             </div>
@@ -353,13 +353,13 @@ const About = () => {
                       <div className="mb-12">
                         <h2 className="text-3xl font-bold text-primary mb-6">The Desire</h2>
                         <div className="mb-6">
-                          <h3 className="text-xl font-semibold text-foreground mb-3">External desire:</h3>
+                          <h3 className="text-xl font-semibold text-primary mb-3">External desire:</h3>
                           <p className="leading-relaxed">
                             I wanted to create more freedom and more energy. Not just for myself, but for people like me. Single parents. Tired professionals. Anyone juggling multiple roles and trying to keep it together without burning out. I didn't want sympathy. I just knew there were millions of people in the same boat and I believed I could build something that would actually help. A system rooted in daily action, real-life demands, and practical wins. Something that didn't just motivate, but mattered.
                           </p>
                         </div>
                         <div>
-                          <h3 className="text-xl font-semibold text-foreground mb-3">Internal desire:</h3>
+                          <h3 className="text-xl font-semibold text-primary mb-3">Internal desire:</h3>
                           <p className="leading-relaxed">
                             I wanted to be the kind of man my kids could look up to, not just Big Daddy in name, but in presence, in patience, in purpose. A role model not because I had all the answers, but because I built a better system and stuck with it. I wanted to live a life I could be proud of. One that reflected my values and made a real difference, both at home and in the world. And turn my own transformation into a path others could walk too.
                           </p>
