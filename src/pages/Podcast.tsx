@@ -207,7 +207,7 @@ const Podcast = () => {
           {/* Featured Carousel */}
           <div className="mb-20">
             <div className="flex items-center justify-between mb-8">
-              <h2 className="text-2xl lg:text-3xl font-bold text-foreground">Featured Episodes</h2>
+              <h2 className="text-2xl lg:text-3xl font-bold text-primary">Featured Episodes</h2>
               <div className="flex gap-2">
                 <Button 
                   variant="outline" 
@@ -250,13 +250,13 @@ const Podcast = () => {
                         </div>
                       </div>
                       <div className="p-8 lg:p-12 flex flex-col justify-center">
-                        <h3 className="text-2xl lg:text-3xl font-bold mb-4 text-foreground">
+                        <h3 className="text-2xl lg:text-3xl font-bold mb-4 text-primary">
                           {episode.title}
                         </h3>
-                        <p className="text-muted-foreground mb-6 leading-relaxed">
+                        <p className="text-primary mb-6 leading-relaxed">
                           {episode.description}
                         </p>
-                        <div className="flex items-center gap-6 text-sm text-muted-foreground mb-6">
+                        <div className="flex items-center gap-6 text-sm text-primary mb-6">
                           <span className="flex items-center">
                             <Calendar className="w-4 h-4 mr-1" />
                             {new Date(episode.date).toLocaleDateString()}
@@ -297,7 +297,7 @@ const Podcast = () => {
 
           {/* All Episodes Grid */}
           <div>
-            <h2 className="text-2xl lg:text-3xl font-bold mb-8 text-foreground">All Episodes</h2>
+            <h2 className="text-2xl lg:text-3xl font-bold mb-8 text-primary">All Episodes</h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {allEpisodes.map((episode) => (
                 <Card 
@@ -317,13 +317,13 @@ const Podcast = () => {
                     </div>
                   </div>
                   <CardContent className="p-6">
-                    <h3 className="font-semibold mb-2 text-foreground group-hover:text-primary transition-colors line-clamp-2">
+                    <h3 className="font-semibold mb-2 text-primary group-hover:text-primary transition-colors line-clamp-2">
                       {episode.title}
                     </h3>
-                    <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
+                    <p className="text-sm text-primary mb-4 line-clamp-2">
                       {episode.description}
                     </p>
-                    <div className="flex items-center justify-between text-xs text-muted-foreground mb-4">
+                    <div className="flex items-center justify-between text-xs text-primary mb-4">
                       <span className="flex items-center">
                         <Calendar className="w-3 h-3 mr-1" />
                         {new Date(episode.date).toLocaleDateString()}

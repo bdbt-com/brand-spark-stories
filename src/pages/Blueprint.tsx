@@ -109,17 +109,17 @@ const Blueprint = () => {
           <Card className="mb-8 border-2 border-primary/20 bg-background">
             <CardContent className="space-y-4 pt-4 pb-4">
               {isSubmitted ? (
-                <div className="text-center py-8 animate-scale-in">
+                  <div className="text-center py-8 animate-scale-in">
                   <div className="w-20 h-20 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-4 animate-pulse">
                     <CheckCircle className="w-10 h-10 text-green-600 dark:text-green-400" />
                   </div>
-                  <h4 className="text-xl font-semibold text-foreground mb-2">
+                  <h4 className="text-xl font-semibold text-primary mb-2">
                     Blueprint Sent Successfully! 🎉
                   </h4>
-                  <p className="text-muted-foreground mb-4">
+                  <p className="text-primary mb-4">
                     Check your email - your blueprint should arrive within minutes.
                   </p>
-                  <div className="flex items-center justify-center text-sm text-muted-foreground">
+                  <div className="flex items-center justify-center text-sm text-primary">
                     <Mail className="w-4 h-4 mr-2" />
                     Sent to: {email}
                   </div>
@@ -127,7 +127,7 @@ const Blueprint = () => {
               ) : (
                 <>
                   <div className="text-center space-y-2">
-                    <h4 className="text-xl font-semibold text-foreground">Get your free copy of Big Daddy's Foundation Blueprint</h4>
+                    <h4 className="text-xl font-semibold text-primary">Get your free copy of Big Daddy's Foundation Blueprint</h4>
                   </div>
                   
                   <form onSubmit={handleEmailSubmit} className="space-y-4">
@@ -231,23 +231,23 @@ const Blueprint = () => {
             <CardContent className="space-y-6">
               <div className="space-y-4 text-center">
                 <ul className="space-y-2 max-w-md mx-auto text-left">
-                  <li className="text-sm text-muted-foreground flex items-start">
+                  <li className="text-sm text-primary flex items-start">
                     <CheckCircle className="w-4 h-4 mr-3 mt-0.5 text-primary flex-shrink-0" />
                     Spot your Daily Drifts
                   </li>
-                  <li className="text-sm text-muted-foreground flex items-start">
+                  <li className="text-sm text-primary flex items-start">
                     <CheckCircle className="w-4 h-4 mr-3 mt-0.5 text-primary flex-shrink-0" />
                     Find suggestions for Daily Wins
                   </li>
-                  <li className="text-sm text-muted-foreground flex items-start">
+                  <li className="text-sm text-primary flex items-start">
                     <CheckCircle className="w-4 h-4 mr-3 mt-0.5 text-primary flex-shrink-0" />
                     Track your new habits
                   </li>
-                  <li className="text-sm text-muted-foreground flex items-start">
+                  <li className="text-sm text-primary flex items-start">
                     <CheckCircle className="w-4 h-4 mr-3 mt-0.5 text-primary flex-shrink-0" />
                     Document your journey
                   </li>
-                  <li className="text-sm text-muted-foreground flex items-start">
+                  <li className="text-sm text-primary flex items-start">
                     <CheckCircle className="w-4 h-4 mr-3 mt-0.5 text-primary flex-shrink-0" />
                     Your ultimate reference point for your BDBT journey
                   </li>
@@ -255,21 +255,21 @@ const Blueprint = () => {
               </div>
               
               <div className="space-y-3">
-                <p className="text-sm font-medium text-foreground text-center">Key Takeaways:</p>
+                <p className="text-sm font-medium text-primary text-center">Key Takeaways:</p>
                 <ul className="space-y-2 max-w-md mx-auto">
-                  <li className="text-sm text-muted-foreground flex items-start">
+                  <li className="text-sm text-primary flex items-start">
                     <CheckCircle className="w-4 h-4 mr-3 mt-0.5 text-primary flex-shrink-0" />
                     Momentum &gt; motivation
                   </li>
-                  <li className="text-sm text-muted-foreground flex items-start">
+                  <li className="text-sm text-primary flex items-start">
                     <CheckCircle className="w-4 h-4 mr-3 mt-0.5 text-primary flex-shrink-0" />
                     A system that works even when your motivation doesn't
                   </li>
-                  <li className="text-sm text-muted-foreground flex items-start">
+                  <li className="text-sm text-primary flex items-start">
                     <CheckCircle className="w-4 h-4 mr-3 mt-0.5 text-primary flex-shrink-0" />
                     Apply to your unique life
                   </li>
-                  <li className="text-sm text-muted-foreground flex items-start">
+                  <li className="text-sm text-primary flex items-start">
                     <CheckCircle className="w-4 h-4 mr-3 mt-0.5 text-primary flex-shrink-0" />
                     Benefit from the positive ripple effects
                   </li>
