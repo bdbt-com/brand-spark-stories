@@ -8,15 +8,19 @@ import ChevronRipple from "@/components/ChevronRipple";
 import { BookOpen, Clock, Users, Download, CheckCircle, Target, Zap, Loader2, Mail } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
-
 const Blueprint = () => {
   const [showEmailForm, setShowEmailForm] = useState(true);
   const [firstName, setFirstName] = useState("");
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [fieldErrors, setFieldErrors] = useState<{firstName?: string; email?: string}>({});
-  const { toast } = useToast();
+  const [fieldErrors, setFieldErrors] = useState<{
+    firstName?: string;
+    email?: string;
+  }>({});
+  const {
+    toast
+  } = useToast();
 
   // Validation functions
   const validateFirstName = (name: string) => {
@@ -24,38 +28,39 @@ const Blueprint = () => {
     if (name.trim().length < 2) return "First name must be at least 2 characters";
     return null;
   };
-
   const validateEmail = (email: string) => {
     if (!email.trim()) return "Email address is required";
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) return "Please enter a valid email address";
     return null;
   };
-
   const handleInputChange = (field: "firstName" | "email", value: string) => {
     if (field === "firstName") {
       setFirstName(value);
       if (fieldErrors.firstName) {
         const error = validateFirstName(value);
-        setFieldErrors(prev => ({ ...prev, firstName: error || undefined }));
+        setFieldErrors(prev => ({
+          ...prev,
+          firstName: error || undefined
+        }));
       }
     } else {
       setEmail(value);
       if (fieldErrors.email) {
         const error = validateEmail(value);
-        setFieldErrors(prev => ({ ...prev, email: error || undefined }));
+        setFieldErrors(prev => ({
+          ...prev,
+          email: error || undefined
+        }));
       }
     }
   };
-
-
   const handleEmailSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Validate all fields
     const firstNameError = validateFirstName(firstName);
     const emailError = validateEmail(email);
-    
     if (firstNameError || emailError) {
       setFieldErrors({
         firstName: firstNameError || undefined,
@@ -63,20 +68,17 @@ const Blueprint = () => {
       });
       return;
     }
-
     setIsLoading(true);
     setFieldErrors({});
-
     try {
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 2000));
-      
       setIsSubmitted(true);
       toast({
         title: "Success! 🎉",
-        description: "Your blueprint has been sent to your email!",
+        description: "Your blueprint has been sent to your email!"
       });
-      
+
       // Reset form after success animation
       setTimeout(() => {
         setFirstName("");
@@ -84,32 +86,30 @@ const Blueprint = () => {
         setShowEmailForm(false);
         setIsSubmitted(false);
       }, 3000);
-      
     } catch (error) {
       toast({
         title: "Oops! Something went wrong",
         description: "Please try again in a moment.",
-        variant: "destructive",
+        variant: "destructive"
       });
     } finally {
       setIsLoading(false);
     }
   };
-
-  return (
-    <div className="min-h-screen bg-gradient-to-b from-background to-muted/50 py-16">
+  return <div className="min-h-screen bg-gradient-to-b from-background to-muted/50 py-16">
       <div className="container mx-auto px-4">
         <div className="max-w-2xl mx-auto">
           <div className="text-center mb-8">
             
-            <h1 className="text-3xl font-bold text-primary">Get your free copy of The Blueprint here</h1>
+            <h1 className="text-3xl font-bold text-primary">Get your Free Copy of The Blueprint here:
+
+          </h1>
           </div>
 
           {/* Email capture form - visible above document */}
           <Card className="mb-8 border-2 border-primary/20 bg-background">
             <CardContent className="space-y-4 pt-4 pb-4">
-              {isSubmitted ? (
-                  <div className="text-center py-8 animate-scale-in">
+              {isSubmitted ? <div className="text-center py-8 animate-scale-in">
                   <div className="w-20 h-20 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-4 animate-pulse">
                     <CheckCircle className="w-10 h-10 text-green-600 dark:text-green-400" />
                   </div>
@@ -123,9 +123,7 @@ const Blueprint = () => {
                     <Mail className="w-4 h-4 mr-2" />
                     Sent to: {email}
                   </div>
-                </div>
-              ) : (
-                <>
+                </div> : <>
                   
                   <form onSubmit={handleEmailSubmit} className="space-y-4">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -133,84 +131,49 @@ const Blueprint = () => {
                         <Label htmlFor="firstName" className="text-sm font-medium">
                           First Name *
                         </Label>
-                        <Input
-                          id="firstName"
-                          type="text"
-                          value={firstName}
-                          onChange={(e) => handleInputChange("firstName", e.target.value)}
-                          placeholder="Enter your first name"
-                          disabled={isLoading}
-                          className={`mt-1 transition-all duration-200 ${
-                            fieldErrors.firstName 
-                              ? "border-red-500 focus:border-red-500 focus:ring-red-200" 
-                              : "focus:border-primary focus:ring-primary/20"
-                          }`}
-                          onBlur={() => {
-                            const error = validateFirstName(firstName);
-                            setFieldErrors(prev => ({ ...prev, firstName: error || undefined }));
-                          }}
-                        />
-                        {fieldErrors.firstName && (
-                          <p className="text-xs text-red-500 animate-fade-in flex items-center">
+                        <Input id="firstName" type="text" value={firstName} onChange={e => handleInputChange("firstName", e.target.value)} placeholder="Enter your first name" disabled={isLoading} className={`mt-1 transition-all duration-200 ${fieldErrors.firstName ? "border-red-500 focus:border-red-500 focus:ring-red-200" : "focus:border-primary focus:ring-primary/20"}`} onBlur={() => {
+                      const error = validateFirstName(firstName);
+                      setFieldErrors(prev => ({
+                        ...prev,
+                        firstName: error || undefined
+                      }));
+                    }} />
+                        {fieldErrors.firstName && <p className="text-xs text-red-500 animate-fade-in flex items-center">
                             <span className="w-1 h-1 bg-red-500 rounded-full mr-2"></span>
                             {fieldErrors.firstName}
-                          </p>
-                        )}
+                          </p>}
                       </div>
 
                       <div className="space-y-2">
                         <Label htmlFor="email" className="text-sm font-medium">
                           Email Address *
                         </Label>
-                        <Input
-                          id="email"
-                          type="email"
-                          value={email}
-                          onChange={(e) => handleInputChange("email", e.target.value)}
-                          placeholder="Enter your email address"
-                          disabled={isLoading}
-                          className={`mt-1 transition-all duration-200 ${
-                            fieldErrors.email 
-                              ? "border-red-500 focus:border-red-500 focus:ring-red-200" 
-                              : "focus:border-primary focus:ring-primary/20"
-                          }`}
-                          onBlur={() => {
-                            const error = validateEmail(email);
-                            setFieldErrors(prev => ({ ...prev, email: error || undefined }));
-                          }}
-                        />
-                        {fieldErrors.email && (
-                          <p className="text-xs text-red-500 animate-fade-in flex items-center">
+                        <Input id="email" type="email" value={email} onChange={e => handleInputChange("email", e.target.value)} placeholder="Enter your email address" disabled={isLoading} className={`mt-1 transition-all duration-200 ${fieldErrors.email ? "border-red-500 focus:border-red-500 focus:ring-red-200" : "focus:border-primary focus:ring-primary/20"}`} onBlur={() => {
+                      const error = validateEmail(email);
+                      setFieldErrors(prev => ({
+                        ...prev,
+                        email: error || undefined
+                      }));
+                    }} />
+                        {fieldErrors.email && <p className="text-xs text-red-500 animate-fade-in flex items-center">
                             <span className="w-1 h-1 bg-red-500 rounded-full mr-2"></span>
                             {fieldErrors.email}
-                          </p>
-                        )}
+                          </p>}
                       </div>
                     </div>
 
-                    <Button 
-                      type="submit" 
-                      variant="hero" 
-                      size="lg" 
-                      className="w-full transition-all duration-200 hover:scale-[1.02] hover:shadow-lg"
-                      disabled={isLoading || !firstName.trim() || !email.trim()}
-                    >
-                      {isLoading ? (
-                        <>
+                    <Button type="submit" variant="hero" size="lg" className="w-full transition-all duration-200 hover:scale-[1.02] hover:shadow-lg" disabled={isLoading || !firstName.trim() || !email.trim()}>
+                      {isLoading ? <>
                           <Loader2 className="w-4 h-4 mr-2 animate-spin" />
                           Sending Blueprint...
-                        </>
-                      ) : (
-                        <>
+                        </> : <>
                           Download Foundation Blueprint
                           <Download className="w-4 h-4 ml-2 group-hover:translate-y-0.5 transition-transform" />
-                        </>
-                      )}
+                        </>}
                     </Button>
                   </form>
 
-                </>
-              )}
+                </>}
             </CardContent>
           </Card>
           
@@ -292,8 +255,6 @@ const Blueprint = () => {
           
         </div>
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default Blueprint;
