@@ -76,6 +76,23 @@ const autoProgressThroughSentences = () => {
 };
 const About = () => {
   const [isStoryOpen, setIsStoryOpen] = useState(false);
+
+  // Handle scroll when story opens
+  const handleStoryToggle = (open: boolean) => {
+    setIsStoryOpen(open);
+    if (open) {
+      // Wait for content to expand, then scroll to show the story content
+      setTimeout(() => {
+        const storySection = document.getElementById('story-content');
+        if (storySection) {
+          storySection.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      }, 300);
+    }
+  };
   return <div className="min-h-screen">
       {/* The Problem Section */}
       <section id="problem" className="py-32 bg-background">
@@ -189,23 +206,9 @@ const About = () => {
                 </p>
               </div>
               <div className="flex justify-center mt-12">
-                <Collapsible open={isStoryOpen} onOpenChange={setIsStoryOpen}>
+                <Collapsible open={isStoryOpen} onOpenChange={handleStoryToggle}>
                   <CollapsibleTrigger asChild>
-                    <Button variant="outline" size="lg" className="relative hover:scale-105 transition-transform text-lg h-16 px-12 py-6 bg-background/95 backdrop-blur-sm border-primary/30 rounded-xl" onClick={() => {
-                      setIsStoryOpen(!isStoryOpen);
-                      if (!isStoryOpen) {
-                        // Wait for content to expand, then scroll to show the top of the story content
-                        setTimeout(() => {
-                          const storyContent = document.querySelector('[data-state="open"] .max-w-7xl');
-                          if (storyContent) {
-                            storyContent.scrollIntoView({
-                              behavior: 'smooth',
-                              block: 'start'
-                            });
-                          }
-                        }, 200);
-                      }
-                    }}>
+                    <Button variant="outline" size="lg" className="relative hover:scale-105 transition-transform text-lg h-16 px-12 py-6 bg-background/95 backdrop-blur-sm border-primary/30 rounded-xl">
                       <BookOpen className="w-6 h-6 mr-3" />
                       Read My Story
                       <ChevronDown className={`w-5 h-5 ml-3 transition-transform ${isStoryOpen ? 'rotate-180' : ''}`} />
@@ -224,8 +227,8 @@ const About = () => {
           </div>
           
           {/* Collapsible Story Content */}
-          <Collapsible open={isStoryOpen} onOpenChange={setIsStoryOpen}>
-            <CollapsibleContent className="mt-16">
+          <Collapsible open={isStoryOpen} onOpenChange={handleStoryToggle}>
+            <CollapsibleContent className="mt-16" id="story-content">
               <div className="max-w-7xl mx-auto relative">
                 
                  {/* Pinned Photos - Left Side - ODD POSITIONS (1,3,5,7,9) */}
