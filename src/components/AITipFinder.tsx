@@ -178,14 +178,9 @@ const AITipFinder = ({ tips, onTipHighlight }: AITipFinderProps) => {
                         <h4 className="font-medium text-sm mb-1">{rec.title}</h4>
                         <p className="text-xs text-muted-foreground">{rec.reason}</p>
                       </div>
-                      <div className="flex items-center gap-2 shrink-0">
-                        <Badge variant="secondary" className="text-xs">
-                          {rec.category}
-                        </Badge>
-                        <div className="flex items-center gap-1">
-                          <Lightbulb className="w-3 h-3 text-primary" />
-                          <span className="text-xs font-medium">{rec.relevanceScore}</span>
-                        </div>
+                      <div className="flex items-center gap-1 shrink-0">
+                        <Lightbulb className="w-3 h-3 text-primary" />
+                        <span className="text-xs font-medium">{rec.relevanceScore}</span>
                       </div>
                     </div>
                   </div>
