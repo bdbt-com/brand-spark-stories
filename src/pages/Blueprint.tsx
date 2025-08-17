@@ -126,9 +126,6 @@ const Blueprint = () => {
                 </div>
               ) : (
                 <>
-                  <div className="text-center space-y-2">
-                    <h4 className="text-xl font-semibold text-primary">The Source Blueprint</h4>
-                  </div>
                   
                   <form onSubmit={handleEmailSubmit} className="space-y-4">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
