@@ -153,7 +153,7 @@ const Tips = () => {
     },
     {
       icon: Trees,
-      title: "50 ways to incorporate nature into your daily life",
+      title: "50 Ways to Incorporate Nature into Your Daily Life",
       description: "Simple methods to connect with nature every day.",
       items: [
         "Health: Nature exposure reduces stress hormones and blood pressure",
@@ -633,7 +633,7 @@ const Tips = () => {
     },
     {
       icon: Droplets,
-      title: "Drink one extra glass of water daily",
+      title: "Drink One Extra Glass of Water Daily",
       description: "Simple hydration improvement for immediate health benefits.",
       items: [
         "Health: Improves skin health and supports organ function",
@@ -841,7 +841,7 @@ const Tips = () => {
     },
     {
       icon: Users,
-      title: "Join a community",
+      title: "Join a Community",
       description: "Social connection for support, learning, and belonging.",
       items: [
         "Health: Social connections boost immune system and longevity",
@@ -1209,7 +1209,7 @@ const Tips = () => {
     },
     {
       icon: Smile,
-      title: "Smile at yourself in the mirror every morning",
+      title: "Smile at Yourself in the Mirror Every Morning",
       description: "Self-love practice for positive day starting.",
       items: [
         "Health: Releases endorphins and reduces stress hormones",
@@ -1305,7 +1305,7 @@ const Tips = () => {
     },
     {
       icon: Activity,
-      title: "Stretch daily",
+      title: "Stretch Daily",
       description: "Flexibility maintenance for injury prevention and mobility.",
       items: [
         "Health: Maintains range of motion and prevents injury",
@@ -1321,7 +1321,7 @@ const Tips = () => {
     },
     {
       icon: Music,
-      title: "Swap tv for a podcast",
+      title: "Swap TV for a Podcast",
       description: "Educational entertainment for passive learning opportunities.",
       items: [
         "Health: Mental stimulation and learning while multitasking",
@@ -1689,7 +1689,7 @@ const Tips = () => {
     },
     {
       icon: ShoppingBasket,
-      title: "always use a shopping list",
+      title: "Always Use a Shopping List",
       description: "Organized shopping for budget control and efficiency.",
       items: [
         "Health: Ensures nutritious food purchases and meal planning",
@@ -1705,7 +1705,7 @@ const Tips = () => {
     },
     {
       icon: Bed,
-      title: "be more Japanese Sit on the Floor More",
+      title: "Be More Japanese Sit on the Floor More",
       description: "Floor sitting for flexibility and cultural mindfulness.",
       items: [
         "Health: Improves hip flexibility and core strength",

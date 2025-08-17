@@ -80,7 +80,7 @@ const TipsCarousel = () => {
     },
     {
       icon: Trees,
-      title: "50 ways to incorporate nature into your daily life",
+      title: "50 Ways to Incorporate Nature into Your Daily Life",
       description: "Simple methods to connect with nature every day.",
       level: "Easy",
       duration: "8 min read",
