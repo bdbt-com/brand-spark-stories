@@ -8,23 +8,34 @@ import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "@/com
 import { useEffect, useState, useRef } from "react";
 import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "@/components/ui/collapsible";
 import ChevronRipple from "@/components/ChevronRipple";
-
 const Home = () => {
-  const images = [
-    "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png", // Sunset silhouette on rocks
-    "/lovable-uploads/8d06c526-bd08-42b7-9a4e-09be508119c7.png", // Podcast recording setup
-    "/lovable-uploads/b362cf10-f3b4-4ab1-aeb3-30ab18058ace.png", // Man with dog outdoors
-    "/lovable-uploads/4fd0818e-20c3-4941-9c54-6915db50a7c0.png", // Meditation with mirror
-    "/lovable-uploads/661d98ce-15f1-4542-b8c0-bab549b78a55.png", // Man in bathroom mirror
-    "/lovable-uploads/33ba01bc-045c-4c44-ac70-c61c05093bdc.png", // Silhouette by pool
-    "/lovable-uploads/2678016c-a3fa-4e29-bf3d-3ebe92201186.png", // Person exercising outdoors
-    "/lovable-uploads/2f4d6184-a8de-43f0-a345-4ed910c90522.png", // Man on phone in modern setting
-    "/lovable-uploads/7db6bd1f-c12f-45f2-a1d1-505f38c743a1.png", // Man outdoors smiling
-    "/lovable-uploads/8db636d1-94ff-432a-a4b1-6ca278173f2f.png", // Man in shoe store
-    "/lovable-uploads/a886c4a9-0d09-442e-8348-25bd795ad7d0.png", // Man in home theater
-    "/lovable-uploads/347bc4c8-a5fc-40c4-a30c-1d91b5bd5761.png", // Man on beach at sunset
-    "/lovable-uploads/fa5ff878-34d6-44b6-a517-f055a1627aab.png", // Man smiling in car
-    "/lovable-uploads/75853635-930c-4fa5-9403-d0b58c6db83b.png", // Person meditating in gazebo
+  const images = ["/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png",
+  // Sunset silhouette on rocks
+  "/lovable-uploads/8d06c526-bd08-42b7-9a4e-09be508119c7.png",
+  // Podcast recording setup
+  "/lovable-uploads/b362cf10-f3b4-4ab1-aeb3-30ab18058ace.png",
+  // Man with dog outdoors
+  "/lovable-uploads/4fd0818e-20c3-4941-9c54-6915db50a7c0.png",
+  // Meditation with mirror
+  "/lovable-uploads/661d98ce-15f1-4542-b8c0-bab549b78a55.png",
+  // Man in bathroom mirror
+  "/lovable-uploads/33ba01bc-045c-4c44-ac70-c61c05093bdc.png",
+  // Silhouette by pool
+  "/lovable-uploads/2678016c-a3fa-4e29-bf3d-3ebe92201186.png",
+  // Person exercising outdoors
+  "/lovable-uploads/2f4d6184-a8de-43f0-a345-4ed910c90522.png",
+  // Man on phone in modern setting
+  "/lovable-uploads/7db6bd1f-c12f-45f2-a1d1-505f38c743a1.png",
+  // Man outdoors smiling
+  "/lovable-uploads/8db636d1-94ff-432a-a4b1-6ca278173f2f.png",
+  // Man in shoe store
+  "/lovable-uploads/a886c4a9-0d09-442e-8348-25bd795ad7d0.png",
+  // Man in home theater
+  "/lovable-uploads/347bc4c8-a5fc-40c4-a30c-1d91b5bd5761.png",
+  // Man on beach at sunset
+  "/lovable-uploads/fa5ff878-34d6-44b6-a517-f055a1627aab.png",
+  // Man smiling in car
+  "/lovable-uploads/75853635-930c-4fa5-9403-d0b58c6db83b.png" // Person meditating in gazebo
   ];
   const [embla, setEmbla] = useState<CarouselApi | null>(null);
   const [filteredImages, setFilteredImages] = useState<string[]>([]);
@@ -33,11 +44,12 @@ const Home = () => {
   const howRef = useRef<HTMLDivElement>(null);
   const howWorkContentRef = useRef<HTMLDivElement>(null);
   const howContentRef = useRef<HTMLDivElement>(null);
-  
   const handleScrollToHow = () => {
-    howRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+    howRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "center"
+    });
   };
-
   const handleHowOpenChange = (open: boolean) => {
     setIsHowOpen(open);
     if (open) {
@@ -45,15 +57,14 @@ const Home = () => {
       setTimeout(() => {
         const contentElement = howContentRef.current;
         if (contentElement) {
-          contentElement.scrollIntoView({ 
-            behavior: 'smooth', 
-            block: 'start' 
+          contentElement.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
           });
         }
       }, 200);
     }
   };
-
   const howWorkTriggerRef = useRef<HTMLButtonElement>(null);
   const handleHowWorkOpenChange = (open: boolean) => {
     setIsHowWorkOpen(open);
@@ -62,49 +73,49 @@ const Home = () => {
       setTimeout(() => {
         const contentElement = howWorkContentRef.current;
         if (contentElement) {
-          contentElement.scrollIntoView({ 
-            behavior: 'smooth', 
-            block: 'start' 
+          contentElement.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
           });
         }
       }, 200);
     }
   };
-  const isPhotoLike = (src: string): Promise<boolean> =>
-    new Promise((resolve) => {
-      const img = new Image();
-      img.onload = () => {
-        const size = 32;
-        const canvas = document.createElement("canvas");
-        canvas.width = size;
-        canvas.height = size;
-        const ctx = canvas.getContext("2d");
-        if (!ctx) return resolve(true);
-        ctx.drawImage(img, 0, 0, size, size);
-        const { data } = ctx.getImageData(0, 0, size, size);
-        let whiteish = 0;
-        const total = size * size;
-        for (let i = 0; i < total; i++) {
-          const r = data[i * 4];
-          const g = data[i * 4 + 1];
-          const b = data[i * 4 + 2];
-          const max = Math.max(r, g, b);
-          const min = Math.min(r, g, b);
-          const sat = max === 0 ? 0 : (1 - min / max) * 100;
-          const bright = (r + g + b) / 3;
-          if (bright > 245 && sat < 10) whiteish++;
-        }
-        const ratio = whiteish / total;
-        resolve(ratio < 0.6);
-      };
-      img.onerror = () => resolve(true);
-      img.src = src;
-    });
-
+  const isPhotoLike = (src: string): Promise<boolean> => new Promise(resolve => {
+    const img = new Image();
+    img.onload = () => {
+      const size = 32;
+      const canvas = document.createElement("canvas");
+      canvas.width = size;
+      canvas.height = size;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) return resolve(true);
+      ctx.drawImage(img, 0, 0, size, size);
+      const {
+        data
+      } = ctx.getImageData(0, 0, size, size);
+      let whiteish = 0;
+      const total = size * size;
+      for (let i = 0; i < total; i++) {
+        const r = data[i * 4];
+        const g = data[i * 4 + 1];
+        const b = data[i * 4 + 2];
+        const max = Math.max(r, g, b);
+        const min = Math.min(r, g, b);
+        const sat = max === 0 ? 0 : (1 - min / max) * 100;
+        const bright = (r + g + b) / 3;
+        if (bright > 245 && sat < 10) whiteish++;
+      }
+      const ratio = whiteish / total;
+      resolve(ratio < 0.6);
+    };
+    img.onerror = () => resolve(true);
+    img.src = src;
+  });
   useEffect(() => {
     let cancelled = false;
     const run = async () => {
-      const keep = await Promise.all(images.map((s) => isPhotoLike(s)));
+      const keep = await Promise.all(images.map(s => isPhotoLike(s)));
       const next = images.filter((_, i) => keep[i]);
       if (!cancelled) setFilteredImages(next);
     };
@@ -113,7 +124,6 @@ const Home = () => {
       cancelled = true;
     };
   }, []);
-
   useEffect(() => {
     if (!embla) return;
     const id = setInterval(() => {
@@ -125,9 +135,7 @@ const Home = () => {
     }, 5500);
     return () => clearInterval(id);
   }, [embla]);
-
-  return (
-    <div className="min-h-screen">
+  return <div className="min-h-screen">
       {/* Hero Section */}
       <section className="relative bg-gradient-hero text-white py-24 lg:py-32 overflow-hidden">
         <div className="absolute inset-0 bg-black/20"></div>
@@ -154,23 +162,13 @@ const Home = () => {
             </div>
             <div className="animate-float">
               <div className="bg-white/10 backdrop-blur-md rounded-2xl p-8 shadow-strong">
-                <Carousel
-                  setApi={setEmbla}
-                  opts={{ loop: true }}
-                  className="w-full"
-                  aria-label="Daily success journey image carousel"
-                >
+                <Carousel setApi={setEmbla} opts={{
+                loop: true
+              }} className="w-full" aria-label="Daily success journey image carousel">
                   <CarouselContent>
-                    {(filteredImages.length ? filteredImages : images).map((src, idx) => (
-                      <CarouselItem key={src}>
-                         <img
-                           src={src}
-                           alt={`Big Life Change inspiration image ${idx + 1}`}
-                           className="w-full aspect-square object-cover rounded-xl"
-                           loading={idx === 0 ? "eager" : "lazy"}
-                         />
-                      </CarouselItem>
-                    ))}
+                    {(filteredImages.length ? filteredImages : images).map((src, idx) => <CarouselItem key={src}>
+                         <img src={src} alt={`Big Life Change inspiration image ${idx + 1}`} className="w-full aspect-square object-cover rounded-xl" loading={idx === 0 ? "eager" : "lazy"} />
+                      </CarouselItem>)}
                   </CarouselContent>
                 </Carousel>
               </div>
@@ -178,11 +176,7 @@ const Home = () => {
           </div>
         </div>
         {/* Bottom Chevron Scroll to How BDBT Works */}
-        <button
-          aria-label="Scroll to How BDBT Works"
-          onClick={handleScrollToHow}
-          className="group absolute z-10 bottom-16 left-1/2 -translate-x-1/2"
-        >
+        <button aria-label="Scroll to How BDBT Works" onClick={handleScrollToHow} className="group absolute z-10 bottom-16 left-1/2 -translate-x-1/2">
           <div className="relative w-14 h-14">
             <div className="relative w-14 h-14 rounded-full bg-white/15 backdrop-blur border border-white/30 flex items-center justify-center">
               <ChevronDown className="w-6 h-6 text-white transition-transform group-hover:translate-y-0.5" />
@@ -217,27 +211,22 @@ const Home = () => {
           </div>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-            {[
-              {
-                icon: Droplets,
-                title: "What goes into your body",
-                description: "Simple hydration hacks that save money and transform your energy levels. Focus on pure water and mindful nutrition choices that fuel your daily transformation.",
-                color: "bg-primary/10 text-primary"
-              },
-              {
-                icon: Activity,
-                title: "How you move your body",
-                description: "Daily movement strategies that build strength and momentum. Small consistent actions that compound into major physical and mental breakthroughs.",
-                color: "bg-accent/10 text-accent"
-              },
-              {
-                icon: Moon,
-                title: "How you rest your body",
-                description: "Recovery techniques and sleep optimization that allow your vessel to regenerate. Quality rest is the foundation of all other daily wins.",
-                color: "bg-accent/10 text-accent"
-              }
-            ].map((step, index) => (
-              <Card key={index} className="group hover:shadow-medium transition-all duration-300 hover:-translate-y-2">
+            {[{
+            icon: Droplets,
+            title: "What goes into your body",
+            description: "Simple hydration hacks that save money and transform your energy levels. Focus on pure water and mindful nutrition choices that fuel your daily transformation.",
+            color: "bg-primary/10 text-primary"
+          }, {
+            icon: Activity,
+            title: "How you move your body",
+            description: "Daily movement strategies that build strength and momentum. Small consistent actions that compound into major physical and mental breakthroughs.",
+            color: "bg-accent/10 text-accent"
+          }, {
+            icon: Moon,
+            title: "How you rest your body",
+            description: "Recovery techniques and sleep optimization that allow your vessel to regenerate. Quality rest is the foundation of all other daily wins.",
+            color: "bg-accent/10 text-accent"
+          }].map((step, index) => <Card key={index} className="group hover:shadow-medium transition-all duration-300 hover:-translate-y-2">
                 <CardContent className="p-6 text-center">
                   <div className={`w-16 h-16 ${step.color} rounded-xl flex items-center justify-center mb-4 mx-auto group-hover:scale-110 transition-transform duration-300`}>
                     <step.icon className="w-8 h-8" />
@@ -249,8 +238,7 @@ const Home = () => {
                     {step.description}
                   </p>
                 </CardContent>
-              </Card>
-            ))}
+              </Card>)}
           </div>
 
           {/* How BDBT Works for You Collapsible Section */}
@@ -599,9 +587,7 @@ const Home = () => {
             <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-primary">
               Your Daily Transformation Toolkit
             </h2>
-            <p className="text-xl text-primary max-w-3xl mx-auto">
-              Tested strategies to transform your health, wealth, and happiness through small daily actions.
-            </p>
+            <p className="text-xl text-primary max-w-3xl mx-auto">Tested strategies that Quietly transform your health, wealth, and happiness through small daily actions.</p>
           </div>
           
           <TipsCarousel />
@@ -616,8 +602,6 @@ const Home = () => {
           </div>
         </div>
       </section>
-    </div>
-  );
+    </div>;
 };
-
 export default Home;
