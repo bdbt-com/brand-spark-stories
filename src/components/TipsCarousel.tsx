@@ -4,7 +4,8 @@ import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "@/com
 import { useNavigate } from "react-router-dom";
 import { 
   Dumbbell, Coffee, Utensils, Droplets, Activity, Moon, Sun, Zap, 
-  Clock, Brain, Heart, Target, Lightbulb, Shield, CheckCircle
+  Clock, Brain, Heart, Target, Lightbulb, Shield, CheckCircle,
+  BarChart3, Footprints, Trees, ArrowUp
 } from "lucide-react";
 
 const TipsCarousel = () => {
@@ -54,60 +55,60 @@ const TipsCarousel = () => {
       category: "health"
     },
     {
-      icon: Utensils,
-      title: "30 Benefits of Drinking Decaf Coffee",
-      description: "Explore the health benefits of decaffeinated coffee.",
-      level: "Easy",
-      duration: "5 min read",
-      category: "health"
-    },
-    {
-      icon: Droplets,
-      title: "30 Benefits of Only Drinking Water for 30 Days",
-      description: "Transform your health with this simple hydration challenge.",
-      level: "Easy",
-      duration: "6 min read",
-      category: "health"
-    },
-    {
-      icon: Activity,
-      title: "30 Benefits of Building Your Physical Bank Account",
-      description: "Invest in your body's long-term health and vitality.",
+      icon: Brain,
+      title: "30 Ways to Reduce Decision Fatigue in Everyday Life",
+      description: "Streamline daily choices to preserve mental energy.",
       level: "Moderate",
       duration: "7 min read",
-      category: "fitness"
+      category: "productivity"
     },
     {
-      icon: Moon,
-      title: "30 Benefits of Sleeping the Same Time Every Day",
-      description: "Consistent sleep schedule for optimal health and energy.",
-      level: "Easy",
-      duration: "5 min read",
-      category: "health"
-    },
-    {
-      icon: Sun,
-      title: "30 Benefits of Getting 10 Minutes of Morning Sunlight",
-      description: "Natural vitamin D and circadian rhythm regulation.",
-      level: "Easy",
-      duration: "4 min read",
-      category: "health"
-    },
-    {
-      icon: Brain,
-      title: "30 Benefits of Learning Something New Every Day",
-      description: "Keep your mind sharp with continuous learning.",
-      level: "Easy",
-      duration: "6 min read",
-      category: "mental"
-    },
-    {
-      icon: Target,
-      title: "30 Benefits of Writing Down Your Goals",
-      description: "Transform dreams into reality through written commitment.",
+      icon: BarChart3,
+      title: "30 Ways to Track Your Habit Progress",
+      description: "Thirty low-tech and high-tech tracking options to keep momentum.",
       level: "Easy",
       duration: "5 min read",
       category: "productivity"
+    },
+    {
+      icon: Footprints,
+      title: "50 Ways to Walk More in a Day",
+      description: "Practical strategies to increase daily step count effortlessly.",
+      level: "Easy",
+      duration: "8 min read",
+      category: "fitness"
+    },
+    {
+      icon: Trees,
+      title: "50 ways to incorporate nature into your daily life",
+      description: "Simple methods to connect with nature every day.",
+      level: "Easy",
+      duration: "8 min read",
+      category: "wellness"
+    },
+    {
+      icon: Activity,
+      title: "Add 5-Minute Mobility Routine to Your Day",
+      description: "Quick daily movements to maintain flexibility and joint health.",
+      level: "Easy",
+      duration: "3 min read",
+      category: "fitness"
+    },
+    {
+      icon: Droplets,
+      title: "Add Lemon to Water for a Vitamin C Boost",
+      description: "Simple way to enhance hydration with nutritional benefits.",
+      level: "Easy",
+      duration: "2 min read",
+      category: "health"
+    },
+    {
+      icon: ArrowUp,
+      title: "Always Take the Stairs",
+      description: "Simple daily exercise that builds strength and endurance.",
+      level: "Easy",
+      duration: "2 min read",
+      category: "fitness"
     }
   ];
 

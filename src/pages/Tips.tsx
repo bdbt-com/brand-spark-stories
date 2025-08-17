@@ -153,7 +153,7 @@ const Tips = () => {
     },
     {
       icon: Trees,
-      title: "50 Ways to Incorporate Nature into Your Daily Life",
+      title: "50 ways to incorporate nature into your daily life",
       description: "Simple methods to connect with nature every day.",
       items: [
         "Health: Nature exposure reduces stress hormones and blood pressure",
@@ -233,7 +233,7 @@ const Tips = () => {
     },
     {
       icon: Utensils,
-      title: "Be More Japanese: Eat Until 80% Full",
+      title: "Be More Japanese Eat Until 80% Full",
       description: "Ancient wisdom for portion control and digestive health.",
       items: [
         "Health: Improves digestion and prevents overeating",
@@ -249,7 +249,7 @@ const Tips = () => {
     },
     {
       icon: Target,
-      title: "Be More Japanese: Find Your Strong Sense of Life Purpose",
+      title: "Be More Japanese Find Your Strong Sense of Life Purpose",
       description: "Discover your ikigai for meaningful and fulfilling living.",
       items: [
         "Health: Purpose-driven life reduces stress and improves longevity",
@@ -297,7 +297,7 @@ const Tips = () => {
     },
     {
       icon: Wind,
-      title: "Breathe Deeply for 60 Seconds, Twice a Day",
+      title: "Breath Deeply for 60 Seconds, Twice a Day",
       description: "Simple breathing practice for stress relief and focus.",
       items: [
         "Health: Activates parasympathetic nervous system for relaxation",
@@ -345,7 +345,7 @@ const Tips = () => {
     },
     {
       icon: Package,
-      title: "Buy Generic/Store-Brand Products Instead of Big Name Brands",
+      title: "Buy GenericStore-Brand Products Instead of Big Name Brands",
       description: "Smart shopping strategy for identical quality at lower cost.",
       items: [
         "Health: Same ingredients and quality standards as name brands",
@@ -361,7 +361,7 @@ const Tips = () => {
     },
     {
       icon: Gamepad2,
-      title: "Buy Used/Second-Hand Video Games",
+      title: "Buy UsedSecond-Hand Video Games",
       description: "Gaming on a budget without sacrificing entertainment value.",
       items: [
         "Health: Same entertainment benefits at reduced financial stress",
@@ -377,7 +377,7 @@ const Tips = () => {
     },
     {
       icon: Briefcase,
-      title: "Capitalize on the Benefits Offered by Your Employer",
+      title: "Capitalise on the Benefits Offered by Your Employer",
       description: "Maximize workplace benefits for health and wealth building.",
       items: [
         "Health: Utilize health insurance, gym memberships, and wellness programs",
@@ -633,7 +633,7 @@ const Tips = () => {
     },
     {
       icon: Droplets,
-      title: "Drink One Extra Glass of Water Daily",
+      title: "Drink one extra glass of water daily",
       description: "Simple hydration improvement for immediate health benefits.",
       items: [
         "Health: Improves skin health and supports organ function",
@@ -713,7 +713,7 @@ const Tips = () => {
     },
     {
       icon: Wind,
-      title: "Get Your Lungs In While Vacuuming",
+      title: "Get Your Lungs In While Vacuuming (1)",
       description: "Combine household chores with breathing exercises.",
       items: [
         "Health: Deep breathing improves oxygen delivery to muscles",
@@ -841,7 +841,7 @@ const Tips = () => {
     },
     {
       icon: Users,
-      title: "Join a Community",
+      title: "Join a community",
       description: "Social connection for support, learning, and belonging.",
       items: [
         "Health: Social connections boost immune system and longevity",
@@ -1209,7 +1209,7 @@ const Tips = () => {
     },
     {
       icon: Smile,
-      title: "Smile at Yourself in the Mirror Every Morning",
+      title: "Smile at yourself in the mirror every morning",
       description: "Self-love practice for positive day starting.",
       items: [
         "Health: Releases endorphins and reduces stress hormones",
@@ -1225,7 +1225,7 @@ const Tips = () => {
     },
     {
       icon: Activity,
-      title: "Spend Time in Zone 2 Each Week",
+      title: "Spend Time in Zone 2 Each Week (1)",
       description: "Aerobic base building for metabolic health and endurance.",
       items: [
         "Health: Improves fat burning and cardiovascular efficiency",
@@ -1241,6 +1241,22 @@ const Tips = () => {
     },
     {
       icon: Activity,
+      title: "Spend Time in Zone 2 Each Week",
+      description: "Aerobic base building for metabolic health and endurance.",
+      items: [
+        "Health: Improves fat burning and cardiovascular efficiency",
+        "Wealth: Low-intensity exercise requires minimal equipment",
+        "Happiness: Sustainable exercise that feels good"
+      ],
+      level: "Moderate",
+      duration: "5 min read",
+      category: "fitness",
+      popularity: 47,
+      views: 0,
+      dateAdded: "2024-03-19"
+    },
+    {
+      icon: Activity,
       title: "Start Your Day with Movement",
       description: "Morning exercise for energy and metabolic benefits.",
       items: [
@@ -1253,7 +1269,7 @@ const Tips = () => {
       category: "fitness",
       popularity: 61,
       views: 0,
-      dateAdded: "2024-03-19"
+      dateAdded: "2024-03-20"
     },
     {
       icon: Bed,
@@ -1269,7 +1285,7 @@ const Tips = () => {
       category: "wellness",
       popularity: 73,
       views: 0,
-      dateAdded: "2024-03-20"
+      dateAdded: "2024-03-21"
     },
     {
       icon: ShoppingBasket,
@@ -1285,11 +1301,11 @@ const Tips = () => {
       category: "finance",
       popularity: 35,
       views: 0,
-      dateAdded: "2024-03-21"
+      dateAdded: "2024-03-22"
     },
     {
       icon: Activity,
-      title: "Stretch Daily",
+      title: "Stretch daily",
       description: "Flexibility maintenance for injury prevention and mobility.",
       items: [
         "Health: Maintains range of motion and prevents injury",
@@ -1301,11 +1317,11 @@ const Tips = () => {
       category: "fitness",
       popularity: 54,
       views: 0,
-      dateAdded: "2024-03-22"
+      dateAdded: "2024-03-23"
     },
     {
       icon: Music,
-      title: "Swap TV for a Podcast",
+      title: "Swap tv for a podcast",
       description: "Educational entertainment for passive learning opportunities.",
       items: [
         "Health: Mental stimulation and learning while multitasking",
@@ -1317,7 +1333,7 @@ const Tips = () => {
       category: "learning",
       popularity: 48,
       views: 0,
-      dateAdded: "2024-03-23"
+      dateAdded: "2024-03-24"
     },
     {
       icon: BookOpen,
@@ -1333,11 +1349,11 @@ const Tips = () => {
       category: "learning",
       popularity: 52,
       views: 0,
-      dateAdded: "2024-03-24"
+      dateAdded: "2024-03-25"
     },
     {
       icon: Footprints,
-      title: "Take a Short Walk After Meals",
+      title: "Take a Short Walk After Meals (1)",
       description: "Post-meal movement for improved digestion and glucose control.",
       items: [
         "Health: Improves blood sugar control and aids digestion",
@@ -1349,7 +1365,7 @@ const Tips = () => {
       category: "health",
       popularity: 49,
       views: 0,
-      dateAdded: "2024-03-25"
+      dateAdded: "2024-03-26"
     },
     {
       icon: Snowflake,
@@ -1365,7 +1381,7 @@ const Tips = () => {
       category: "wellness",
       popularity: 56,
       views: 0,
-      dateAdded: "2024-03-26"
+      dateAdded: "2024-03-27"
     },
     {
       icon: Pill,
@@ -1381,7 +1397,7 @@ const Tips = () => {
       category: "health",
       popularity: 43,
       views: 0,
-      dateAdded: "2024-03-27"
+      dateAdded: "2024-03-28"
     },
     {
       icon: Apple,
@@ -1397,7 +1413,7 @@ const Tips = () => {
       category: "health",
       popularity: 38,
       views: 0,
-      dateAdded: "2024-03-28"
+      dateAdded: "2024-03-29"
     },
     {
       icon: TrendingUp,
@@ -1413,7 +1429,7 @@ const Tips = () => {
       category: "finance",
       popularity: 68,
       views: 0,
-      dateAdded: "2024-03-29"
+      dateAdded: "2024-03-30"
     },
     {
       icon: Utensils,
@@ -1429,7 +1445,7 @@ const Tips = () => {
       category: "health",
       popularity: 51,
       views: 0,
-      dateAdded: "2024-03-30"
+      dateAdded: "2024-03-31"
     },
     {
       icon: Leaf,
@@ -1445,7 +1461,7 @@ const Tips = () => {
       category: "wellness",
       popularity: 55,
       views: 0,
-      dateAdded: "2024-03-31"
+      dateAdded: "2024-04-01"
     },
     {
       icon: Pill,
@@ -1461,7 +1477,7 @@ const Tips = () => {
       category: "finance",
       popularity: 41,
       views: 0,
-      dateAdded: "2024-04-01"
+      dateAdded: "2024-04-02"
     },
     {
       icon: Zap,
@@ -1477,7 +1493,7 @@ const Tips = () => {
       category: "finance",
       popularity: 33,
       views: 0,
-      dateAdded: "2024-04-02"
+      dateAdded: "2024-04-03"
     },
     {
       icon: Brain,
@@ -1493,7 +1509,7 @@ const Tips = () => {
       category: "health",
       popularity: 47,
       views: 0,
-      dateAdded: "2024-04-03"
+      dateAdded: "2024-04-04"
     },
     {
       icon: Bus,
@@ -1509,7 +1525,7 @@ const Tips = () => {
       category: "fitness",
       popularity: 42,
       views: 0,
-      dateAdded: "2024-04-04"
+      dateAdded: "2024-04-05"
     },
     {
       icon: Leaf,
@@ -1525,7 +1541,7 @@ const Tips = () => {
       category: "wellness",
       popularity: 39,
       views: 0,
-      dateAdded: "2024-04-05"
+      dateAdded: "2024-04-06"
     },
     {
       icon: Utensils,
@@ -1541,7 +1557,7 @@ const Tips = () => {
       category: "health",
       popularity: 36,
       views: 0,
-      dateAdded: "2024-04-06"
+      dateAdded: "2024-04-07"
     },
     {
       icon: Activity,
@@ -1557,7 +1573,7 @@ const Tips = () => {
       category: "wellness",
       popularity: 31,
       views: 0,
-      dateAdded: "2024-04-07"
+      dateAdded: "2024-04-08"
     },
     {
       icon: Monitor,
@@ -1573,7 +1589,7 @@ const Tips = () => {
       category: "health",
       popularity: 44,
       views: 0,
-      dateAdded: "2024-04-08"
+      dateAdded: "2024-04-09"
     },
     {
       icon: ShoppingBasket,
@@ -1589,7 +1605,7 @@ const Tips = () => {
       category: "finance",
       popularity: 42,
       views: 0,
-      dateAdded: "2024-04-09"
+      dateAdded: "2024-04-10"
     },
     {
       icon: Clock,
@@ -1605,7 +1621,7 @@ const Tips = () => {
       category: "finance",
       popularity: 58,
       views: 0,
-      dateAdded: "2024-04-10"
+      dateAdded: "2024-04-11"
     },
     {
       icon: RotateCcw,
@@ -1621,11 +1637,11 @@ const Tips = () => {
       category: "fitness",
       popularity: 28,
       views: 0,
-      dateAdded: "2024-04-11"
+      dateAdded: "2024-04-12"
     },
     {
       icon: ArrowUp,
-      title: "When You Reach the Top of the Stairs, Go Back Down and Up Again",
+      title: "When You Reach the Top of the Stairs, Go Back Down and Up Again (1)",
       description: "Stair climbing multiplication for increased exercise benefit.",
       items: [
         "Health: Doubles the cardiovascular and strength benefits",
@@ -1637,7 +1653,7 @@ const Tips = () => {
       category: "fitness",
       popularity: 33,
       views: 0,
-      dateAdded: "2024-04-12"
+      dateAdded: "2024-04-13"
     },
     {
       icon: Timer,
@@ -1653,7 +1669,7 @@ const Tips = () => {
       category: "finance",
       popularity: 62,
       views: 0,
-      dateAdded: "2024-04-13"
+      dateAdded: "2024-04-14"
     },
     {
       icon: PenTool,
@@ -1669,11 +1685,11 @@ const Tips = () => {
       category: "mindfulness",
       popularity: 55,
       views: 0,
-      dateAdded: "2024-04-14"
+      dateAdded: "2024-04-15"
     },
     {
       icon: ShoppingBasket,
-      title: "Always Use a Shopping List",
+      title: "always use a shopping list",
       description: "Organized shopping for budget control and efficiency.",
       items: [
         "Health: Ensures nutritious food purchases and meal planning",
@@ -1685,11 +1701,11 @@ const Tips = () => {
       category: "productivity",
       popularity: 47,
       views: 0,
-      dateAdded: "2024-04-15"
+      dateAdded: "2024-04-16"
     },
     {
       icon: Bed,
-      title: "Be More Japanese: Sit on the Floor More",
+      title: "be more Japanese Sit on the Floor More",
       description: "Floor sitting for flexibility and cultural mindfulness.",
       items: [
         "Health: Improves hip flexibility and core strength",
@@ -1701,7 +1717,7 @@ const Tips = () => {
       category: "wellness",
       popularity: 34,
       views: 0,
-      dateAdded: "2024-04-16"
+      dateAdded: "2024-04-17"
     }
   ];
 
