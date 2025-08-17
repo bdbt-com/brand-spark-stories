@@ -102,7 +102,7 @@ const Blueprint = () => {
         <div className="max-w-2xl mx-auto">
           <div className="text-center mb-8">
             
-            <h1 className="text-3xl font-bold text-primary">The Source Blueprint</h1>
+            <h1 className="text-3xl font-bold text-primary">Get your free copy of The Blueprint here</h1>
           </div>
 
           {/* Email capture form - visible above document */}
@@ -127,7 +127,7 @@ const Blueprint = () => {
               ) : (
                 <>
                   <div className="text-center space-y-2">
-                    <h4 className="text-xl font-semibold text-primary">Get your free copy of Big Daddy's Foundation Blueprint</h4>
+                    <h4 className="text-xl font-semibold text-primary">The Source Blueprint</h4>
                   </div>
                   
                   <form onSubmit={handleEmailSubmit} className="space-y-4">
