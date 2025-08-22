@@ -713,7 +713,7 @@ const Tips = () => {
     },
     {
       icon: Wind,
-      title: "Get Your Lungs In While Vacuuming (1)",
+      title: "Get Your Lungs In While Vacuuming",
       description: "Combine household chores with breathing exercises.",
       items: [
         "Health: Deep breathing improves oxygen delivery to muscles",
@@ -1225,22 +1225,6 @@ const Tips = () => {
     },
     {
       icon: Activity,
-      title: "Spend Time in Zone 2 Each Week (1)",
-      description: "Aerobic base building for metabolic health and endurance.",
-      items: [
-        "Health: Improves fat burning and cardiovascular efficiency",
-        "Wealth: Low-intensity exercise requires minimal equipment",
-        "Happiness: Sustainable exercise that feels good"
-      ],
-      level: "Moderate",
-      duration: "5 min read",
-      category: "fitness",
-      popularity: 47,
-      views: 0,
-      dateAdded: "2024-03-18"
-    },
-    {
-      icon: Activity,
       title: "Spend Time in Zone 2 Each Week",
       description: "Aerobic base building for metabolic health and endurance.",
       items: [
@@ -1353,7 +1337,7 @@ const Tips = () => {
     },
     {
       icon: Footprints,
-      title: "Take a Short Walk After Meals (1)",
+      title: "Take a Short Walk After Meals",
       description: "Post-meal movement for improved digestion and glucose control.",
       items: [
         "Health: Improves blood sugar control and aids digestion",
@@ -1641,7 +1625,7 @@ const Tips = () => {
     },
     {
       icon: ArrowUp,
-      title: "When You Reach the Top of the Stairs, Go Back Down and Up Again (1)",
+      title: "When You Reach the Top of the Stairs, Go Back Down and Up Again",
       description: "Stair climbing multiplication for increased exercise benefit.",
       items: [
         "Health: Doubles the cardiovascular and strength benefits",
