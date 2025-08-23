@@ -288,20 +288,23 @@ const ThumbnailTemplate = () => {
                 {/* Content Container */}
                 <div className="h-full relative flex flex-col">
                   
-                  {/* Upper 2/3 - Text Content (within safe area) */}
+                  {/* Top Left - Podcast Info */}
+                  <div className="absolute top-8 left-8 z-10">
+                    <h2 className="text-2xl xl:text-3xl 2xl:text-4xl font-bold text-white mb-2">
+                      Daily Wins Podcast
+                    </h2>
+                    <p className="text-white/90 text-lg xl:text-xl" style={{ color: 'hsl(35, 45%, 75%)' }}>
+                      Your daily dose of motivation and success tips
+                    </p>
+                  </div>
+
+                  {/* Center - Main Branding */}
                   <div className="flex-1 flex items-center justify-center">
                     <div className="text-center z-10">
-                      <h1 className="text-4xl xl:text-5xl 2xl:text-6xl font-bold leading-tight mb-4">
-                        <span className="text-white block">
-                          Daily Wins
-                        </span>
-                        <span className="block" style={{ color: 'hsl(35, 45%, 75%)' }}>
-                          Podcast
-                        </span>
+                      <h1 className="text-5xl xl:text-6xl 2xl:text-7xl font-bold leading-tight">
+                        <span className="text-white">BigDaddy's</span>
+                        <span style={{ color: 'hsl(35, 45%, 75%)' }}>BigTips</span>
                       </h1>
-                      <p className="text-white/90 text-xl xl:text-2xl font-medium">
-                        Your daily dose of motivation and success tips
-                      </p>
                     </div>
                   </div>
 
