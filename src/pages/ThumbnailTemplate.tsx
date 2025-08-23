@@ -291,9 +291,6 @@ const ThumbnailTemplate = () => {
                         Podcast
                       </span>
                     </h1>
-                    <h2 className="text-3xl xl:text-4xl font-bold leading-tight mb-3">
-                      <span className="text-white">@BigDaddy's</span><span style={{ color: 'hsl(35, 45%, 75%)' }}>BigTips</span>
-                    </h2>
                     <p className="text-white/90 text-xl font-medium mb-8">
                       <span className="block">Your daily dose of</span>
                       <span className="block">motivation and success tips</span>
@@ -303,6 +300,13 @@ const ThumbnailTemplate = () => {
                         <span className="text-white font-medium text-sm">New Episodes Daily</span>
                       </div>
                     </div>
+                  </div>
+
+                  {/* Center Top Brand Name - Above images */}
+                  <div className="absolute top-16 left-1/2 transform -translate-x-1/2 z-30">
+                    <h1 className="text-4xl xl:text-5xl font-bold text-center leading-tight whitespace-nowrap">
+                      <span className="text-white">@BigDaddy's</span><span style={{ color: 'hsl(35, 45%, 75%)' }}>BigTips</span>
+                    </h1>
                   </div>
 
                   {/* Image Carousel underneath text */}
