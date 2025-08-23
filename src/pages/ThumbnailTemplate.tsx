@@ -77,7 +77,7 @@ const ThumbnailTemplate = () => {
               </div>
             </div>
             
-            <div className="absolute bottom-8 right-8">
+            <div className="absolute bottom-8 left-8">
               <img 
                 src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
                 alt="BDBT Logo"
@@ -116,7 +116,7 @@ const ThumbnailTemplate = () => {
               </div>
             </div>
             
-            <div className="absolute bottom-8 right-8">
+            <div className="absolute bottom-8 left-8">
               <img 
                 src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
                 alt="BDBT Logo"
@@ -155,7 +155,7 @@ const ThumbnailTemplate = () => {
               </div>
             </div>
             
-            <div className="absolute bottom-8 right-8">
+            <div className="absolute bottom-8 left-8">
               <img 
                 src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
                 alt="BDBT Logo"
@@ -194,7 +194,7 @@ const ThumbnailTemplate = () => {
               </div>
             </div>
             
-            <div className="absolute bottom-8 right-8">
+            <div className="absolute bottom-8 left-8">
               <img 
                 src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
                 alt="BDBT Logo"
@@ -233,7 +233,7 @@ const ThumbnailTemplate = () => {
               </div>
             </div>
             
-            <div className="absolute bottom-8 right-8">
+            <div className="absolute bottom-8 left-8">
               <img 
                 src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
                 alt="BDBT Logo"
