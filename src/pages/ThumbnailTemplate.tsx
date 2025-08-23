@@ -278,11 +278,11 @@ const ThumbnailTemplate = () => {
           <div className="flex justify-center mb-8">
             <div className="w-full max-w-6xl">
               {/* YouTube Banner Template - 2560x1440 aspect ratio scaled down */}
-              <div className="w-full h-[400px] relative overflow-hidden rounded-2xl bg-gradient-to-r from-primary via-primary/90 to-primary/80 shadow-2xl border border-white/30">
+              <div className="w-full h-[400px] relative overflow-hidden rounded-2xl bg-gradient-to-r from-primary via-primary/90 to-primary/80 shadow-2xl border-4 border-white/60">
                 <div className="h-full flex flex-col p-12 relative">
                   
                   {/* Left Side Content */}
-                  <div className="flex-1 z-10">
+                  <div className="flex-1 z-20 relative">
                     <h1 className="text-5xl xl:text-6xl font-bold leading-tight mb-4">
                       <span className="text-white block">
                         Daily Wins
@@ -301,8 +301,35 @@ const ThumbnailTemplate = () => {
                     </div>
                   </div>
 
+                  {/* Image Carousel underneath text */}
+                  <div className="absolute bottom-16 left-12 right-12 z-10">
+                    <div className="flex gap-4 justify-center">
+                      <div className="w-48 h-32 rounded-lg overflow-hidden border-2 border-white/20 shadow-lg">
+                        <img 
+                          src="/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+                          alt="Featured Image 1"
+                          className="w-full h-full object-cover opacity-80"
+                        />
+                      </div>
+                      <div className="w-48 h-32 rounded-lg overflow-hidden border-2 border-white/20 shadow-lg">
+                        <img 
+                          src="/lovable-uploads/5e8aba04-f6cc-44a2-9bcc-eaf2424e3976.png"
+                          alt="Featured Image 2"
+                          className="w-full h-full object-cover opacity-80"
+                        />
+                      </div>
+                      <div className="w-48 h-32 rounded-lg overflow-hidden border-2 border-white/20 shadow-lg">
+                        <img 
+                          src="/lovable-uploads/429221d1-d6c7-4743-9918-18a35e4a4eb2.png"
+                          alt="Featured Image 3"
+                          className="w-full h-full object-cover opacity-80"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
                   {/* Central Lower Logo */}
-                  <div className="flex justify-center items-end pb-4">
+                  <div className="flex justify-center items-end pb-4 z-20 relative">
                     <img 
                       src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
                       alt="BDBT Logo"
@@ -314,32 +341,6 @@ const ThumbnailTemplate = () => {
             </div>
           </div>
 
-          {/* Image Carousel */}
-          <div className="flex justify-center mb-8">
-            <div className="flex gap-6 max-w-4xl">
-              <div className="w-64 h-48 rounded-xl overflow-hidden border-2 border-white/20 shadow-lg hover:scale-105 transition-transform">
-                <img 
-                  src="/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
-                  alt="Featured Image 1"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="w-64 h-48 rounded-xl overflow-hidden border-2 border-white/20 shadow-lg hover:scale-105 transition-transform">
-                <img 
-                  src="/lovable-uploads/5e8aba04-f6cc-44a2-9bcc-eaf2424e3976.png"
-                  alt="Featured Image 2"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="w-64 h-48 rounded-xl overflow-hidden border-2 border-white/20 shadow-lg hover:scale-105 transition-transform">
-                <img 
-                  src="/lovable-uploads/429221d1-d6c7-4743-9918-18a35e4a4eb2.png"
-                  alt="Featured Image 3"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            </div>
-          </div>
 
           {/* Banner Customization Controls */}
           <div className="flex justify-center gap-4">
