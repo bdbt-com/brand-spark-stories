@@ -103,14 +103,14 @@ const Thumbnail = () => {
                 <span className="block text-[hsl(35_45%_75%)]">Big Life Change.</span>
               </h1>
             </div>
-            <div className="animate-float">
-              <div className="bg-white/10 backdrop-blur-md rounded-2xl p-8 shadow-strong">
+            <div className="animate-float w-full h-full flex items-center justify-center">
+              <div className="bg-white/10 backdrop-blur-md rounded-3xl p-4 shadow-strong w-full h-full max-w-none">
                 <Carousel setApi={setEmbla} opts={{
                 loop: true
-              }} className="w-full" aria-label="Daily success journey image carousel">
-                  <CarouselContent>
-                    {(filteredImages.length ? filteredImages : images).map((src, idx) => <CarouselItem key={src}>
-                         <img src={src} alt={`Big Life Change inspiration image ${idx + 1}`} className="w-full aspect-square object-cover rounded-xl" loading={idx === 0 ? "eager" : "lazy"} />
+              }} className="w-full h-full" aria-label="Daily success journey image carousel">
+                  <CarouselContent className="h-full">
+                    {(filteredImages.length ? filteredImages : images).map((src, idx) => <CarouselItem key={src} className="h-full">
+                         <img src={src} alt={`Big Life Change inspiration image ${idx + 1}`} className="w-full h-full aspect-square object-cover rounded-2xl" loading={idx === 0 ? "eager" : "lazy"} />
                       </CarouselItem>)}
                   </CarouselContent>
                 </Carousel>
