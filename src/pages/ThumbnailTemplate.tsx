@@ -72,8 +72,8 @@ const ThumbnailTemplate = () => {
               </div>
               
               {/* Text Section - Overlaid in Upper Third */}
-              <div className="absolute left-16 top-32 max-w-md z-10">
-                <h1 className="text-6xl xl:text-7xl font-bold leading-tight mb-6">
+              <div className="absolute left-16 top-24 max-w-md z-10">
+                <h1 className="text-5xl xl:text-6xl font-bold leading-tight mb-6">
                   <span className="text-white block mb-2">
                     {currentTemplate.title.split(' ').slice(0, -2).join(' ')}
                   </span>
@@ -81,7 +81,7 @@ const ThumbnailTemplate = () => {
                     {currentTemplate.title.split(' ').slice(-2).join(' ')}
                   </span>
                 </h1>
-                <p className="text-white/80 text-2xl font-medium">
+                <p className="text-white/80 text-xl font-medium">
                   {currentTemplate.subtitle}
                 </p>
               </div>
