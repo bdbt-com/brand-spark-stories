@@ -95,7 +95,7 @@ const Thumbnail = () => {
       {/* Hero Section */}
       <section className="relative bg-gradient-hero text-white py-24 lg:py-32 overflow-hidden">
         <div className="absolute inset-0 bg-black/20"></div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pr-24 lg:pr-32">
           <div className="grid lg:grid-cols-6 gap-8 items-center h-full">
             <div className="animate-fade-in lg:col-span-2">
               <h1 className="text-4xl lg:text-6xl font-bold mb-6 leading-tight">
