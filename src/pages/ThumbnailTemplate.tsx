@@ -62,8 +62,8 @@ const ThumbnailTemplate = () => {
                 </div>
               </div>
               
-              <div className="absolute left-8 top-8 max-w-2xl z-10">
-                <h1 className="text-7xl xl:text-8xl font-bold leading-tight mb-6">
+              <div className="absolute left-8 top-16 max-w-4xl z-10">
+                <h1 className="text-9xl xl:text-[12rem] font-bold leading-tight mb-6">
                   <span className="text-white block mb-2">
                     The Benefits of Parking Further Away
                   </span>
@@ -71,19 +71,19 @@ const ThumbnailTemplate = () => {
                     from your Destination
                   </span>
                 </h1>
-                <p className="text-white/80 text-2xl font-medium">
+                <p className="text-white/80 text-4xl font-medium">
                   Daily Wins Podcast
                 </p>
               </div>
             </div>
             
-            <div className="absolute bottom-8 left-8">
-              <img 
-                src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
-                alt="BDBT Logo"
-                className="h-16 opacity-90"
-              />
-            </div>
+              <div className="absolute bottom-4 left-4">
+                <img 
+                  src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
+                  alt="BDBT Logo"
+                  className="h-16 opacity-90"
+                />
+              </div>
           </div>
         )}
 
@@ -101,8 +101,8 @@ const ThumbnailTemplate = () => {
                 </div>
               </div>
               
-              <div className="absolute left-8 top-8 max-w-2xl z-10">
-                <h1 className="text-7xl xl:text-8xl font-bold leading-tight mb-6">
+              <div className="absolute left-8 top-16 max-w-4xl z-10">
+                <h1 className="text-9xl xl:text-[12rem] font-bold leading-tight mb-6">
                   <span className="text-white block mb-2">
                     The Benefits of making use
                   </span>
@@ -110,19 +110,19 @@ const ThumbnailTemplate = () => {
                     of your Dead Time
                   </span>
                 </h1>
-                <p className="text-white/80 text-2xl font-medium">
+                <p className="text-white/80 text-4xl font-medium">
                   Daily Wins Podcast
                 </p>
               </div>
             </div>
             
-            <div className="absolute bottom-8 left-8">
-              <img 
-                src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
-                alt="BDBT Logo"
-                className="h-16 opacity-90"
-              />
-            </div>
+              <div className="absolute bottom-4 left-4">
+                <img 
+                  src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
+                  alt="BDBT Logo"
+                  className="h-16 opacity-90"
+                />
+              </div>
           </div>
         )}
 
@@ -140,8 +140,8 @@ const ThumbnailTemplate = () => {
                 </div>
               </div>
               
-              <div className="absolute left-8 top-8 max-w-2xl z-10">
-                <h1 className="text-7xl xl:text-8xl font-bold leading-tight mb-6">
+              <div className="absolute left-8 top-16 max-w-4xl z-10">
+                <h1 className="text-9xl xl:text-[12rem] font-bold leading-tight mb-6">
                   <span className="text-white block mb-2">
                     Your Quarterly Financial
                   </span>
@@ -149,19 +149,19 @@ const ThumbnailTemplate = () => {
                     Health Check
                   </span>
                 </h1>
-                <p className="text-white/80 text-2xl font-medium">
+                <p className="text-white/80 text-4xl font-medium">
                   Daily Wins Podcast
                 </p>
               </div>
             </div>
             
-            <div className="absolute bottom-8 left-8">
-              <img 
-                src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
-                alt="BDBT Logo"
-                className="h-16 opacity-90"
-              />
-            </div>
+              <div className="absolute bottom-4 left-4">
+                <img 
+                  src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
+                  alt="BDBT Logo"
+                  className="h-16 opacity-90"
+                />
+              </div>
           </div>
         )}
 
@@ -179,28 +179,28 @@ const ThumbnailTemplate = () => {
                 </div>
               </div>
               
-              <div className="absolute left-8 top-8 max-w-2xl z-10">
-                <h1 className="text-7xl xl:text-8xl font-bold leading-tight mb-6 text-center">
+              <div className="absolute left-8 top-16 max-w-4xl z-10">
+                <h1 className="text-9xl xl:text-[12rem] font-bold leading-tight mb-6 text-center">
                   <span className="text-white block mb-2">
-                    The Necessity of
+                    The Necessity
                   </span>
                   <span className="block" style={{ color: 'hsl(35, 45%, 75%)' }}>
-                    Staying Hydrated
+                    of Staying Hydrated
                   </span>
                 </h1>
-                <p className="text-white/80 text-2xl font-medium">
+                <p className="text-white/80 text-4xl font-medium">
                   Daily Wins Podcast
                 </p>
               </div>
             </div>
             
-            <div className="absolute bottom-8 left-8">
-              <img 
-                src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
-                alt="BDBT Logo"
-                className="h-16 opacity-90"
-              />
-            </div>
+              <div className="absolute bottom-4 left-4">
+                <img 
+                  src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
+                  alt="BDBT Logo"
+                  className="h-16 opacity-90"
+                />
+              </div>
           </div>
         )}
 
@@ -218,8 +218,8 @@ const ThumbnailTemplate = () => {
                 </div>
               </div>
               
-              <div className="absolute left-8 top-8 max-w-2xl z-10">
-                <h1 className="text-7xl xl:text-8xl font-bold leading-tight mb-6">
+              <div className="absolute left-8 top-16 max-w-4xl z-10">
+                <h1 className="text-9xl xl:text-[12rem] font-bold leading-tight mb-6">
                   <span className="text-white block mb-2">
                     The Benefits of Buying Healthy
                   </span>
@@ -227,19 +227,19 @@ const ThumbnailTemplate = () => {
                     Snacks in Bulk
                   </span>
                 </h1>
-                <p className="text-white/80 text-2xl font-medium">
+                <p className="text-white/80 text-4xl font-medium">
                   Daily Wins Podcast
                 </p>
               </div>
             </div>
             
-            <div className="absolute bottom-8 left-8">
-              <img 
-                src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
-                alt="BDBT Logo"
-                className="h-16 opacity-90"
-              />
-            </div>
+              <div className="absolute bottom-4 left-4">
+                <img 
+                  src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
+                  alt="BDBT Logo"
+                  className="h-16 opacity-90"
+                />
+              </div>
           </div>
         )}
 
