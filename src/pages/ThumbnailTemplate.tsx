@@ -71,8 +71,8 @@ const ThumbnailTemplate = () => {
                 </div>
               </div>
               
-              {/* Text Section - Overlaid on Left */}
-              <div className="absolute left-16 top-1/2 transform -translate-y-1/2 max-w-md z-10">
+              {/* Text Section - Overlaid in Upper Third */}
+              <div className="absolute left-16 top-32 max-w-md z-10">
                 <h1 className="text-6xl xl:text-7xl font-bold leading-tight mb-6">
                   <span className="text-white block mb-2">
                     {currentTemplate.title.split(' ').slice(0, -2).join(' ')}
