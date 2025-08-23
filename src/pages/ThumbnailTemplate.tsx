@@ -59,9 +59,18 @@ const ThumbnailTemplate = () => {
           
           {/* Single Focus Layout */}
           {currentTemplate.layout === 'single' && (
-            <div className="h-full flex items-center justify-between p-16">
-              {/* Text Section */}
-              <div className="flex-1 pr-12">
+            <div className="h-full relative flex items-center justify-center p-16">
+              {/* Image Section - Full Width */}
+              <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden">
+                <img 
+                  src={currentTemplate.image} 
+                  alt="Podcast thumbnail"
+                  className="w-full h-full object-cover border-4 border-white/20"
+                />
+              </div>
+              
+              {/* Text Section - Overlaid */}
+              <div className="absolute left-16 top-1/2 transform -translate-y-1/2 max-w-md">
                 <h1 className="text-6xl xl:text-7xl font-bold leading-tight mb-6">
                   <span className="text-white block mb-2">
                     {currentTemplate.title.split(' ').slice(0, -2).join(' ')}
@@ -73,17 +82,6 @@ const ThumbnailTemplate = () => {
                 <p className="text-white/80 text-2xl font-medium">
                   {currentTemplate.subtitle}
                 </p>
-              </div>
-              
-              {/* Image Section */}
-              <div className="flex-1 flex justify-center">
-                <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden">
-                  <img 
-                    src={currentTemplate.image} 
-                    alt="Podcast thumbnail"
-                    className="w-full h-full object-cover border-4 border-white/20"
-                  />
-                </div>
               </div>
             </div>
           )}
