@@ -72,8 +72,8 @@ const ThumbnailTemplate = () => {
                   </div>
                 </div>
                 
-                <div className="absolute left-8 top-16 bottom-24 right-[40%] pr-4 z-10 flex flex-col justify-center">
-                  <h1 className="text-4xl xl:text-5xl 2xl:text-6xl font-bold leading-tight mb-6">
+                <div className="absolute left-8 top-16 bottom-24 right-[45%] pr-4 z-10 flex flex-col justify-center">
+                  <h1 className="text-5xl xl:text-6xl 2xl:text-7xl font-bold leading-tight mb-6">
                     <span className="text-white block mb-2">
                       The Benefits of Parking Further Away
                     </span>
@@ -112,8 +112,8 @@ const ThumbnailTemplate = () => {
                   </div>
                 </div>
                 
-                <div className="absolute left-8 top-16 bottom-24 right-[40%] pr-4 z-10 flex flex-col justify-center">
-                  <h1 className="text-4xl xl:text-5xl 2xl:text-6xl font-bold leading-tight mb-6">
+                <div className="absolute left-8 top-16 bottom-24 right-[45%] pr-4 z-10 flex flex-col justify-center">
+                  <h1 className="text-5xl xl:text-6xl 2xl:text-7xl font-bold leading-tight mb-6">
                     <span className="text-white block mb-2">
                       The Benefits of making use
                     </span>
@@ -152,8 +152,8 @@ const ThumbnailTemplate = () => {
                   </div>
                 </div>
                 
-                <div className="absolute left-8 top-16 bottom-24 right-[40%] pr-4 z-10 flex flex-col justify-center">
-                  <h1 className="text-4xl xl:text-5xl 2xl:text-6xl font-bold leading-tight mb-6">
+                <div className="absolute left-8 top-16 bottom-24 right-[45%] pr-4 z-10 flex flex-col justify-center">
+                  <h1 className="text-5xl xl:text-6xl 2xl:text-7xl font-bold leading-tight mb-6">
                     <span className="text-white block mb-2">
                       Your Quarterly Financial
                     </span>
@@ -192,8 +192,8 @@ const ThumbnailTemplate = () => {
                   </div>
                 </div>
                 
-                <div className="absolute left-8 top-16 bottom-24 right-[40%] pr-4 z-10 flex flex-col justify-center">
-                  <h1 className="text-4xl xl:text-5xl 2xl:text-6xl font-bold leading-tight mb-6">
+                <div className="absolute left-8 top-16 bottom-24 right-[45%] pr-4 z-10 flex flex-col justify-center">
+                  <h1 className="text-5xl xl:text-6xl 2xl:text-7xl font-bold leading-tight mb-6">
                     <span className="text-white block mb-2">
                       The Necessity
                     </span>
@@ -232,8 +232,8 @@ const ThumbnailTemplate = () => {
                   </div>
                 </div>
                 
-                <div className="absolute left-8 top-16 bottom-24 right-[40%] pr-4 z-10 flex flex-col justify-center">
-                  <h1 className="text-4xl xl:text-5xl 2xl:text-6xl font-bold leading-tight mb-6">
+                <div className="absolute left-8 top-16 bottom-24 right-[45%] pr-4 z-10 flex flex-col justify-center">
+                  <h1 className="text-5xl xl:text-6xl 2xl:text-7xl font-bold leading-tight mb-6">
                     <span className="text-white block mb-2">
                       The Benefits of Buying Healthy
                     </span>
