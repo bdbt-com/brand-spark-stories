@@ -302,23 +302,34 @@ const ThumbnailTemplate = () => {
                     </div>
                   </div>
 
-                  {/* Decorative smaller images - snowflake pattern */}
-                  <div className="absolute left-8 bottom-32 w-12 h-8 rounded opacity-60 overflow-hidden border border-white/20 z-10">
+                  {/* Ripple effect from Daily Wins text */}
+                  <div className="absolute left-32 top-20 z-5">
+                    <div className="w-32 h-32 border border-white/10 rounded-full animate-pulse"></div>
+                  </div>
+                  <div className="absolute left-24 top-12 z-5">
+                    <div className="w-48 h-48 border border-white/8 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+                  </div>
+                  <div className="absolute left-16 top-4 z-5">
+                    <div className="w-64 h-64 border border-white/6 rounded-full animate-pulse" style={{ animationDelay: '1s' }}></div>
+                  </div>
+
+                  {/* Decorative smaller images - spread in upper third */}
+                  <div className="absolute right-20 top-8 w-12 h-8 rounded opacity-60 overflow-hidden border border-white/20 z-10">
                     <img src="/lovable-uploads/2678016c-a3fa-4e29-bf3d-3ebe92201186.png" alt="" className="w-full h-full object-cover" />
                   </div>
-                  <div className="absolute left-32 bottom-48 w-10 h-7 rounded opacity-50 overflow-hidden border border-white/20 z-10">
+                  <div className="absolute right-48 top-20 w-10 h-7 rounded opacity-50 overflow-hidden border border-white/20 z-10">
                     <img src="/lovable-uploads/4fd0818e-20c3-4941-9c54-6915db50a7c0.png" alt="" className="w-full h-full object-cover" />
                   </div>
-                  <div className="absolute left-16 bottom-56 w-8 h-6 rounded opacity-70 overflow-hidden border border-white/20 z-10">
+                  <div className="absolute right-80 top-12 w-8 h-6 rounded opacity-70 overflow-hidden border border-white/20 z-10">
                     <img src="/lovable-uploads/639b2e42-bb5e-4e0f-a150-3c447b0ca4d2.png" alt="" className="w-full h-full object-cover" />
                   </div>
-                  <div className="absolute left-48 bottom-40 w-14 h-9 rounded opacity-55 overflow-hidden border border-white/20 z-10">
+                  <div className="absolute right-32 top-32 w-14 h-9 rounded opacity-55 overflow-hidden border border-white/20 z-10">
                     <img src="/lovable-uploads/711d369c-9d1d-4efb-9800-98349c1c7a48.png" alt="" className="w-full h-full object-cover" />
                   </div>
-                  <div className="absolute left-6 bottom-44 w-9 h-6 rounded opacity-65 overflow-hidden border border-white/20 z-10">
+                  <div className="absolute right-64 top-6 w-9 h-6 rounded opacity-65 overflow-hidden border border-white/20 z-10">
                     <img src="/lovable-uploads/7208834d-dbba-4fc6-8da5-2f81f4e3796f.png" alt="" className="w-full h-full object-cover" />
                   </div>
-                  <div className="absolute left-40 bottom-28 w-11 h-8 rounded opacity-60 overflow-hidden border border-white/20 z-10">
+                  <div className="absolute right-12 top-24 w-11 h-8 rounded opacity-60 overflow-hidden border border-white/20 z-10">
                     <img src="/lovable-uploads/8c209669-d4f3-4beb-9184-98693514ffca.png" alt="" className="w-full h-full object-cover" />
                   </div>
 
