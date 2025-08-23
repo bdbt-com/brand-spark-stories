@@ -66,20 +66,21 @@ const ThumbnailTemplate = () => {
       }));
 
       const canvas = await html2canvas(element, {
-        backgroundColor: '#ffffff',
-        scale: 2,
+        backgroundColor: null,
+        scale: 1,
         useCORS: true,
         allowTaint: false,
-        width: 1280,
-        height: 720,
-        logging: true
+        width: element.offsetWidth,
+        height: element.offsetHeight,
+        logging: false,
+        removeContainer: false
       });
       
       console.log('Canvas created successfully:', canvas.width, 'x', canvas.height);
       
-      const dataURL = canvas.toDataURL('image/jpeg', 0.95);
+      const dataURL = canvas.toDataURL('image/png', 1.0);
       const link = document.createElement('a');
-      link.download = `${filename}.jpg`;
+      link.download = `${filename}.png`;
       link.href = dataURL;
       document.body.appendChild(link);
       link.click();
