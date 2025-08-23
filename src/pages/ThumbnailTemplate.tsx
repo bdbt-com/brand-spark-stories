@@ -10,7 +10,7 @@ const ThumbnailTemplate = () => {
       layout: "single",
       title: "Building Habits That Stick",
       subtitle: "Daily Wins Podcast",
-      image: "/lovable-uploads/347bc4c8-a5fc-40c4-a30c-1d91b5bd5761.png"
+      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
     },
     {
       id: 1,
@@ -18,7 +18,7 @@ const ThumbnailTemplate = () => {
       layout: "dual",
       title: "Mindset vs Action",
       subtitle: "Daily Wins Podcast", 
-      image1: "/lovable-uploads/347bc4c8-a5fc-40c4-a30c-1d91b5bd5761.png",
+      image1: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png",
       image2: "/lovable-uploads/2678016c-a3fa-4e29-bf3d-3ebe92201186.png"
     },
     {
@@ -27,7 +27,7 @@ const ThumbnailTemplate = () => {
       layout: "guest",
       title: "From Broke to Breakthrough",
       subtitle: "with Sarah Johnson",
-      hostImage: "/lovable-uploads/347bc4c8-a5fc-40c4-a30c-1d91b5bd5761.png",
+      hostImage: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png",
       guestImage: "/lovable-uploads/2678016c-a3fa-4e29-bf3d-3ebe92201186.png"
     }
   ];
@@ -77,7 +77,7 @@ const ThumbnailTemplate = () => {
               
               {/* Image Section */}
               <div className="flex-1 flex justify-center">
-                <div className="w-80 h-80 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 shadow-xl overflow-hidden">
+                <div className="w-[480px] h-[480px] bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 shadow-xl overflow-hidden">
                   <img 
                     src={currentTemplate.image} 
                     alt="Podcast thumbnail"
