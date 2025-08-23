@@ -11,6 +11,7 @@ import Blueprint from "./pages/Blueprint";
 import Podcast from "./pages/Podcast";
 import DailyWins from "./pages/DailyWins";
 import Partnership from "./pages/Partnership";
+import Thumbnail from "./pages/Thumbnail";
 import NotFound from "./pages/NotFound";
 import ScrollToTop from "./components/ScrollToTop";
 
@@ -32,6 +33,7 @@ const App = () => (
           <Route path="/podcast" element={<Podcast />} />
           <Route path="/daily-wins" element={<DailyWins />} />
           <Route path="/partnership" element={<Partnership />} />
+          <Route path="/thumbnail" element={<Thumbnail />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
