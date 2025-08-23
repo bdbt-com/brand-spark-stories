@@ -97,13 +97,13 @@ const Thumbnail = () => {
         <div className="absolute inset-0 bg-black/20"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pr-24 lg:pr-32">
           <div className="grid lg:grid-cols-6 gap-8 items-center h-full">
-            <div className="animate-fade-in lg:col-span-2">
+            <div className="animate-fade-in lg:col-span-3">
               <h1 className="text-4xl lg:text-6xl font-bold mb-6 leading-tight">
                 <span className="block text-white">Small Daily Steps.</span>
                 <span className="block text-[hsl(35_45%_75%)]">Big Life Change.</span>
               </h1>
             </div>
-            <div className="animate-float lg:col-span-4 h-[800px]">
+            <div className="animate-float lg:col-span-3 lg:ml-8 h-[800px]">
               <div className="bg-white/10 backdrop-blur-md rounded-3xl p-2 shadow-strong w-full h-full">
                 <Carousel setApi={setEmbla} opts={{
                 loop: true
