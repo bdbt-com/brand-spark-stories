@@ -295,38 +295,39 @@ const ThumbnailTemplate = () => {
                       <span className="block">Your daily dose of</span>
                       <span className="block">motivation and success tips</span>
                     </p>
-                    <div className="flex items-center gap-4 mt-8">
+                    <div className="flex items-center gap-4 mt-12">
                       <div className="bg-white/10 backdrop-blur-md rounded-lg px-4 py-2 border border-white/20">
-                        <span className="text-white font-medium text-sm">New Episodes Weekly</span>
+                        <span className="text-white font-medium text-sm">New Episodes Daily</span>
                       </div>
                     </div>
                   </div>
 
-                  {/* Center Text - BigDaddy'sBigTips */}
-                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-30">
-                    <h1 className="text-5xl xl:text-6xl font-bold text-center leading-tight whitespace-nowrap">
-                      <span className="text-white">@BigDaddy's</span><span style={{ color: 'hsl(35, 45%, 75%)' }}>BigTips</span>
+                  {/* Center Text - BigDaddy'sBigTips - Above image tops */}
+                  <div className="absolute bottom-36 left-1/2 transform -translate-x-1/2 z-30">
+                    <h1 className="text-5xl xl:text-6xl font-bold text-center leading-tight">
+                      <span className="text-white block">@BigDaddy'sBig</span>
+                      <span className="block" style={{ color: 'hsl(35, 45%, 75%)' }}>Tips</span>
                     </h1>
                   </div>
 
                   {/* Image Carousel underneath text */}
-                  <div className="absolute bottom-16 left-12 right-12 z-10">
-                    <div className="flex gap-4 justify-center">
-                      <div className="w-48 h-32 rounded-lg overflow-hidden border-2 border-white/20 shadow-lg">
+                  <div className="absolute bottom-8 left-12 right-12 z-10">
+                    <div className="flex gap-8 justify-center">
+                      <div className="w-56 h-40 rounded-lg overflow-hidden border-2 border-white/20 shadow-lg">
                         <img 
                           src="/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
                           alt="Sunset landscape"
                           className="w-full h-full object-cover opacity-80"
                         />
                       </div>
-                      <div className="w-48 h-32 rounded-lg overflow-hidden border-2 border-white/20 shadow-lg">
+                      <div className="w-56 h-40 rounded-lg overflow-hidden border-2 border-white/20 shadow-lg">
                         <img 
                           src="/lovable-uploads/8d06c526-bd08-42b7-9a4e-09be508119c7.png"
                           alt="Featured Image 2"
                           className="w-full h-full object-cover opacity-80"
                         />
                       </div>
-                      <div className="w-48 h-32 rounded-lg overflow-hidden border-2 border-white/20 shadow-lg">
+                      <div className="w-56 h-40 rounded-lg overflow-hidden border-2 border-white/20 shadow-lg">
                         <img 
                           src="/lovable-uploads/75853635-930c-4fa5-9403-d0b58c6db83b.png"
                           alt="Featured Image 3"
