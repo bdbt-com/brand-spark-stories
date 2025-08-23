@@ -51,17 +51,19 @@ const ThumbnailTemplate = () => {
     
     try {
       const canvas = await html2canvas(element, {
-        backgroundColor: '#ffffff',
-        scale: 2,
+        backgroundColor: null,
+        scale: 1,
         useCORS: true,
         allowTaint: true,
-        width: 1280,
-        height: 720
+        foreignObjectRendering: true,
+        logging: false,
+        imageTimeout: 0,
+        removeContainer: true
       });
       
       const link = document.createElement('a');
       link.download = `${filename}.jpg`;
-      link.href = canvas.toDataURL('image/jpeg', 0.9);
+      link.href = canvas.toDataURL('image/jpeg', 1.0);
       link.click();
     } catch (error) {
       console.error('Export failed:', error);
