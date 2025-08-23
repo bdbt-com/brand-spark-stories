@@ -180,7 +180,7 @@ const ThumbnailTemplate = () => {
               </div>
               
               <div className="absolute left-8 top-8 max-w-2xl z-10">
-                <h1 className="text-7xl xl:text-8xl font-bold leading-tight mb-6">
+                <h1 className="text-7xl xl:text-8xl font-bold leading-tight mb-6 text-center">
                   <span className="text-white block mb-2">
                     The Necessity of
                   </span>
