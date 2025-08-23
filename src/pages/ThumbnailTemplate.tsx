@@ -77,7 +77,7 @@ const ThumbnailTemplate = () => {
               
               {/* Image Section */}
               <div className="flex-1 flex justify-center">
-                <div className="w-[480px] h-[480px] bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 shadow-xl overflow-hidden">
+                <div className="w-[600px] h-[600px] bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 shadow-xl overflow-hidden">
                   <img 
                     src={currentTemplate.image} 
                     alt="Podcast thumbnail"
@@ -165,27 +165,17 @@ const ThumbnailTemplate = () => {
             </div>
           )}
 
-          {/* Brand Logo/Watermark */}
+          {/* BDBT Logo */}
           <div className="absolute bottom-8 right-8">
             <img 
               src="/src/assets/bdbt-logo-white.png" 
               alt="BDBT Logo"
-              className="h-12 opacity-80"
+              className="h-16 opacity-90"
             />
           </div>
         </div>
       </div>
 
-      {/* Instructions */}
-      <div className="fixed bottom-4 left-4 bg-black/50 backdrop-blur-md rounded-lg p-4 text-white text-sm max-w-xs">
-        <p className="font-medium mb-2">Screenshot Tips:</p>
-        <ul className="space-y-1 text-xs opacity-80">
-          <li>• Use browser's screenshot tool</li>
-          <li>• Crop to the rounded container</li>
-          <li>• Export at high resolution</li>
-          <li>• Switch templates with buttons above</li>
-        </ul>
-      </div>
     </div>
   );
 };
