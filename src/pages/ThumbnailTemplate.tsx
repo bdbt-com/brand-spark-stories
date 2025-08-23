@@ -56,48 +56,203 @@ const ThumbnailTemplate = () => {
     <div className="min-h-screen bg-gradient-to-br from-primary via-primary/90 to-primary/80">
       {/* Thumbnail Container - Fixed 16:9 aspect ratio */}
       <div className="flex items-center justify-center min-h-screen p-8">
-        <div className="w-[1280px] h-[720px] relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl">
-          
-          {/* Single Focus Layout */}
-          <div className="h-full flex items-center p-16 relative">
-            {/* Image Section - Right Side with Equal Spacing */}
-            <div className="absolute right-16 top-16 bottom-16 flex items-center">
-              <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden">
-                <img 
-                  src={currentTemplate.image} 
-                  alt="Podcast thumbnail"
-                  className="w-full h-full object-cover border-4 border-white/20"
-                />
+        
+        {/* Template 1 - Parking Benefits */}
+        {currentTemplateIndex === 0 && (
+          <div key="template-0" className="w-[1280px] h-[720px] relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in">
+            <div className="h-full flex items-center p-16 relative">
+              <div className="absolute right-16 top-16 bottom-16 flex items-center">
+                <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden">
+                  <img 
+                    src={templates[0].image} 
+                    alt="Podcast thumbnail"
+                    className="w-full h-full object-cover border-4 border-white/20"
+                  />
+                </div>
+              </div>
+              
+              <div className="absolute left-8 top-8 max-w-md z-10">
+                <h1 className="text-5xl xl:text-6xl font-bold leading-tight mb-6">
+                  <span className="text-white block mb-2">
+                    The Benefits of Parking Further Away
+                  </span>
+                  <span className="block" style={{ color: 'hsl(35, 45%, 75%)' }}>
+                    from your Destination
+                  </span>
+                </h1>
+                <p className="text-white/80 text-xl font-medium">
+                  Daily Wins Podcast
+                </p>
               </div>
             </div>
             
-            {/* Text Section - Top Left Overlapping Image */}
-            <div className="absolute left-8 top-8 max-w-md z-10">
-              <h1 className="text-5xl xl:text-6xl font-bold leading-tight mb-6">
-                <span className="text-white block mb-2">
-                  {currentTemplate.title.split(' ').slice(0, -2).join(' ')}
-                </span>
-                <span className="block" style={{ color: 'hsl(35, 45%, 75%)' }}>
-                  {currentTemplate.title.split(' ').slice(-2).join(' ')}
-                </span>
-              </h1>
-              <p className="text-white/80 text-xl font-medium">
-                {currentTemplate.subtitle}
-              </p>
+            <div className="absolute bottom-8 right-8">
+              <img 
+                src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
+                alt="BDBT Logo"
+                className="h-16 opacity-90"
+              />
             </div>
           </div>
+        )}
 
-          {/* BDBT Logo */}
-          <div className="absolute bottom-8 right-8">
-            <img 
-              src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
-              alt="BDBT Logo"
-              className="h-16 opacity-90"
-            />
+        {/* Template 2 - Dead Time */}
+        {currentTemplateIndex === 1 && (
+          <div key="template-1" className="w-[1280px] h-[720px] relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in">
+            <div className="h-full flex items-center p-16 relative">
+              <div className="absolute right-16 top-16 bottom-16 flex items-center">
+                <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden">
+                  <img 
+                    src={templates[1].image} 
+                    alt="Podcast thumbnail"
+                    className="w-full h-full object-cover border-4 border-white/20"
+                  />
+                </div>
+              </div>
+              
+              <div className="absolute left-8 top-8 max-w-md z-10">
+                <h1 className="text-5xl xl:text-6xl font-bold leading-tight mb-6">
+                  <span className="text-white block mb-2">
+                    The Benefits of making use
+                  </span>
+                  <span className="block" style={{ color: 'hsl(35, 45%, 75%)' }}>
+                    of your Dead Time
+                  </span>
+                </h1>
+                <p className="text-white/80 text-xl font-medium">
+                  Daily Wins Podcast
+                </p>
+              </div>
+            </div>
+            
+            <div className="absolute bottom-8 right-8">
+              <img 
+                src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
+                alt="BDBT Logo"
+                className="h-16 opacity-90"
+              />
+            </div>
           </div>
-        </div>
-      </div>
+        )}
 
+        {/* Template 3 - Financial Health */}
+        {currentTemplateIndex === 2 && (
+          <div key="template-2" className="w-[1280px] h-[720px] relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in">
+            <div className="h-full flex items-center p-16 relative">
+              <div className="absolute right-16 top-16 bottom-16 flex items-center">
+                <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden">
+                  <img 
+                    src={templates[2].image} 
+                    alt="Podcast thumbnail"
+                    className="w-full h-full object-cover border-4 border-white/20"
+                  />
+                </div>
+              </div>
+              
+              <div className="absolute left-8 top-8 max-w-md z-10">
+                <h1 className="text-5xl xl:text-6xl font-bold leading-tight mb-6">
+                  <span className="text-white block mb-2">
+                    Your Quarterly Financial
+                  </span>
+                  <span className="block" style={{ color: 'hsl(35, 45%, 75%)' }}>
+                    Health Check
+                  </span>
+                </h1>
+                <p className="text-white/80 text-xl font-medium">
+                  Daily Wins Podcast
+                </p>
+              </div>
+            </div>
+            
+            <div className="absolute bottom-8 right-8">
+              <img 
+                src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
+                alt="BDBT Logo"
+                className="h-16 opacity-90"
+              />
+            </div>
+          </div>
+        )}
+
+        {/* Template 4 - Hydration */}
+        {currentTemplateIndex === 3 && (
+          <div key="template-3" className="w-[1280px] h-[720px] relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in">
+            <div className="h-full flex items-center p-16 relative">
+              <div className="absolute right-16 top-16 bottom-16 flex items-center">
+                <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden">
+                  <img 
+                    src={templates[3].image} 
+                    alt="Podcast thumbnail"
+                    className="w-full h-full object-cover border-4 border-white/20"
+                  />
+                </div>
+              </div>
+              
+              <div className="absolute left-8 top-8 max-w-md z-10">
+                <h1 className="text-5xl xl:text-6xl font-bold leading-tight mb-6">
+                  <span className="text-white block mb-2">
+                    The Necessity of
+                  </span>
+                  <span className="block" style={{ color: 'hsl(35, 45%, 75%)' }}>
+                    Staying Hydrated
+                  </span>
+                </h1>
+                <p className="text-white/80 text-xl font-medium">
+                  Daily Wins Podcast
+                </p>
+              </div>
+            </div>
+            
+            <div className="absolute bottom-8 right-8">
+              <img 
+                src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
+                alt="BDBT Logo"
+                className="h-16 opacity-90"
+              />
+            </div>
+          </div>
+        )}
+
+        {/* Template 5 - Healthy Snacks */}
+        {currentTemplateIndex === 4 && (
+          <div key="template-4" className="w-[1280px] h-[720px] relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in">
+            <div className="h-full flex items-center p-16 relative">
+              <div className="absolute right-16 top-16 bottom-16 flex items-center">
+                <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden">
+                  <img 
+                    src={templates[4].image} 
+                    alt="Podcast thumbnail"
+                    className="w-full h-full object-cover border-4 border-white/20"
+                  />
+                </div>
+              </div>
+              
+              <div className="absolute left-8 top-8 max-w-md z-10">
+                <h1 className="text-5xl xl:text-6xl font-bold leading-tight mb-6">
+                  <span className="text-white block mb-2">
+                    The Benefits of Buying Healthy
+                  </span>
+                  <span className="block" style={{ color: 'hsl(35, 45%, 75%)' }}>
+                    Snacks in Bulk
+                  </span>
+                </h1>
+                <p className="text-white/80 text-xl font-medium">
+                  Daily Wins Podcast
+                </p>
+              </div>
+            </div>
+            
+            <div className="absolute bottom-8 right-8">
+              <img 
+                src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
+                alt="BDBT Logo"
+                className="h-16 opacity-90"
+              />
+            </div>
+          </div>
+        )}
+
+      </div>
     </div>
   );
 };
