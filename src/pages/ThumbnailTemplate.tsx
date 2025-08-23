@@ -69,7 +69,7 @@ const ThumbnailTemplate = () => {
                 </div>
               </div>
               
-              <div className="absolute left-8 top-8 bottom-1/4 right-2/5 pr-8 z-10 flex flex-col justify-center">
+              <div className="absolute left-8 top-4 bottom-1/6 right-[45%] pr-8 z-10 flex flex-col justify-center">
                 <h1 className="text-5xl xl:text-6xl 2xl:text-7xl font-bold leading-tight mb-6">
                   <span className="text-white block mb-2">
                     The Benefits of Parking Further Away
@@ -108,7 +108,7 @@ const ThumbnailTemplate = () => {
                 </div>
               </div>
               
-              <div className="absolute left-8 top-8 bottom-1/4 right-2/5 pr-8 z-10 flex flex-col justify-center">
+              <div className="absolute left-8 top-4 bottom-1/6 right-[45%] pr-8 z-10 flex flex-col justify-center">
                 <h1 className="text-5xl xl:text-6xl 2xl:text-7xl font-bold leading-tight mb-6">
                   <span className="text-white block mb-2">
                     The Benefits of making use
@@ -147,7 +147,7 @@ const ThumbnailTemplate = () => {
                 </div>
               </div>
               
-              <div className="absolute left-8 top-8 bottom-1/4 right-2/5 pr-8 z-10 flex flex-col justify-center">
+              <div className="absolute left-8 top-4 bottom-1/6 right-[45%] pr-8 z-10 flex flex-col justify-center">
                 <h1 className="text-5xl xl:text-6xl 2xl:text-7xl font-bold leading-tight mb-6">
                   <span className="text-white block mb-2">
                     Your Quarterly Financial
@@ -186,7 +186,7 @@ const ThumbnailTemplate = () => {
                 </div>
               </div>
               
-              <div className="absolute left-8 top-8 bottom-1/4 right-2/5 pr-8 z-10 flex flex-col justify-center">
+              <div className="absolute left-8 top-4 bottom-1/6 right-[45%] pr-8 z-10 flex flex-col justify-center">
                 <h1 className="text-5xl xl:text-6xl 2xl:text-7xl font-bold leading-tight mb-6 text-center">
                   <span className="text-white block mb-2">
                     The Necessity
@@ -225,7 +225,7 @@ const ThumbnailTemplate = () => {
                 </div>
               </div>
               
-              <div className="absolute left-8 top-8 bottom-1/4 right-2/5 pr-8 z-10 flex flex-col justify-center">
+              <div className="absolute left-8 top-4 bottom-1/6 right-[45%] pr-8 z-10 flex flex-col justify-center">
                 <h1 className="text-5xl xl:text-6xl 2xl:text-7xl font-bold leading-tight mb-6">
                   <span className="text-white block mb-2">
                     The Benefits of Buying Healthy
