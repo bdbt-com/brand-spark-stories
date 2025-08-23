@@ -96,15 +96,15 @@ const Thumbnail = () => {
       <section className="relative bg-gradient-hero text-white py-24 lg:py-32 overflow-hidden">
         <div className="absolute inset-0 bg-black/20"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="animate-fade-in">
+          <div className="grid lg:grid-cols-5 gap-12 items-center h-full">
+            <div className="animate-fade-in lg:col-span-2">
               <h1 className="text-4xl lg:text-6xl font-bold mb-6 leading-tight">
                 <span className="block text-white">Small Daily Steps.</span>
                 <span className="block text-[hsl(35_45%_75%)]">Big Life Change.</span>
               </h1>
             </div>
-            <div className="animate-float w-full h-full flex items-center justify-center">
-              <div className="bg-white/10 backdrop-blur-md rounded-3xl p-4 shadow-strong w-full h-full max-w-none">
+            <div className="animate-float lg:col-span-3 h-[600px]">
+              <div className="bg-white/10 backdrop-blur-md rounded-3xl p-4 shadow-strong w-full h-full">
                 <Carousel setApi={setEmbla} opts={{
                 loop: true
               }} className="w-full h-full" aria-label="Daily success journey image carousel">
