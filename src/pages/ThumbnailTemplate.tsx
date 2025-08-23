@@ -487,11 +487,8 @@ const ThumbnailTemplate = () => {
 
                   {/* Center Top Brand Name - Moved to center middle */}
                   <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-30">
-                     <h1 className="text-7xl xl:text-8xl font-black text-center leading-tight whitespace-nowrap mb-6">
-                       <span className="text-white font-black">@BigDaddy's</span><span className="font-black" style={{ color: 'hsl(35, 45%, 75%)' }}>BigTips</span>
-                     </h1>
                     {/* Social Media Icons */}
-                    <div className="flex justify-center items-center gap-8 mt-4">
+                    <div className="flex justify-center items-center gap-8 mb-6">
                       <div className="p-3 rounded-full bg-white/10 backdrop-blur-md border border-white/20">
                         <Instagram className="w-6 h-6 text-white" />
                       </div>
@@ -507,6 +504,9 @@ const ThumbnailTemplate = () => {
                          </svg>
                        </div>
                     </div>
+                     <h1 className="text-7xl xl:text-8xl font-black text-center leading-tight whitespace-nowrap">
+                       <span className="text-white font-black">@BigDaddy's</span><span className="font-black" style={{ color: 'hsl(35, 45%, 75%)' }}>BigTips</span>
+                     </h1>
                   </div>
 
                   {/* Additional decorative images - spread across left side (35% larger, no adjacent duplicates) */}
