@@ -70,7 +70,7 @@ const ThumbnailTemplate = () => {
               </div>
               
               <div className="absolute left-8 top-8 bottom-1/3 right-1/2 pr-8 z-10 flex flex-col justify-center">
-                <h1 className="text-7xl xl:text-8xl 2xl:text-9xl font-bold leading-tight mb-6">
+                <h1 className="text-5xl xl:text-6xl 2xl:text-7xl font-bold leading-tight mb-6">
                   <span className="text-white block mb-2">
                     The Benefits of Parking Further Away
                   </span>
@@ -78,7 +78,7 @@ const ThumbnailTemplate = () => {
                     from your Destination
                   </span>
                 </h1>
-                <p className="text-white/80 text-3xl font-medium">
+                <p className="text-white/80 text-2xl font-medium">
                   Daily Wins Podcast
                 </p>
               </div>
@@ -109,7 +109,7 @@ const ThumbnailTemplate = () => {
               </div>
               
               <div className="absolute left-8 top-8 bottom-1/3 right-1/2 pr-8 z-10 flex flex-col justify-center">
-                <h1 className="text-7xl xl:text-8xl 2xl:text-9xl font-bold leading-tight mb-6">
+                <h1 className="text-5xl xl:text-6xl 2xl:text-7xl font-bold leading-tight mb-6">
                   <span className="text-white block mb-2">
                     The Benefits of making use
                   </span>
@@ -117,7 +117,7 @@ const ThumbnailTemplate = () => {
                     of your Dead Time
                   </span>
                 </h1>
-                <p className="text-white/80 text-3xl font-medium">
+                <p className="text-white/80 text-2xl font-medium">
                   Daily Wins Podcast
                 </p>
               </div>
@@ -148,7 +148,7 @@ const ThumbnailTemplate = () => {
               </div>
               
               <div className="absolute left-8 top-8 bottom-1/3 right-1/2 pr-8 z-10 flex flex-col justify-center">
-                <h1 className="text-7xl xl:text-8xl 2xl:text-9xl font-bold leading-tight mb-6">
+                <h1 className="text-5xl xl:text-6xl 2xl:text-7xl font-bold leading-tight mb-6">
                   <span className="text-white block mb-2">
                     Your Quarterly Financial
                   </span>
@@ -156,7 +156,7 @@ const ThumbnailTemplate = () => {
                     Health Check
                   </span>
                 </h1>
-                <p className="text-white/80 text-3xl font-medium">
+                <p className="text-white/80 text-2xl font-medium">
                   Daily Wins Podcast
                 </p>
               </div>
@@ -187,7 +187,7 @@ const ThumbnailTemplate = () => {
               </div>
               
               <div className="absolute left-8 top-8 bottom-1/3 right-1/2 pr-8 z-10 flex flex-col justify-center">
-                <h1 className="text-7xl xl:text-8xl 2xl:text-9xl font-bold leading-tight mb-6 text-center">
+                <h1 className="text-5xl xl:text-6xl 2xl:text-7xl font-bold leading-tight mb-6 text-center">
                   <span className="text-white block mb-2">
                     The Necessity
                   </span>
@@ -195,7 +195,7 @@ const ThumbnailTemplate = () => {
                     of Staying Hydrated
                   </span>
                 </h1>
-                <p className="text-white/80 text-3xl font-medium">
+                <p className="text-white/80 text-2xl font-medium">
                   Daily Wins Podcast
                 </p>
               </div>
@@ -226,7 +226,7 @@ const ThumbnailTemplate = () => {
               </div>
               
               <div className="absolute left-8 top-8 bottom-1/3 right-1/2 pr-8 z-10 flex flex-col justify-center">
-                <h1 className="text-7xl xl:text-8xl 2xl:text-9xl font-bold leading-tight mb-6">
+                <h1 className="text-5xl xl:text-6xl 2xl:text-7xl font-bold leading-tight mb-6">
                   <span className="text-white block mb-2">
                     The Benefits of Buying Healthy
                   </span>
@@ -234,7 +234,7 @@ const ThumbnailTemplate = () => {
                     Snacks in Bulk
                   </span>
                 </h1>
-                <p className="text-white/80 text-3xl font-medium">
+                <p className="text-white/80 text-2xl font-medium">
                   Daily Wins Podcast
                 </p>
               </div>
