@@ -1,7 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const ThumbnailTemplate = () => {
   const [selectedTemplate, setSelectedTemplate] = useState(0);
+  const [currentTitleIndex, setCurrentTitleIndex] = useState(0);
+
+  const carouselTitles = [
+    "The Benefits of Parking Further Away from your Destination",
+    "The Benefits of making use of your Dead Time", 
+    "Your Quarterly Financial Health Check",
+    "The Necessity of Staying Hydrated",
+    "The Benefits of Buying Healthy Snacks in Bulk"
+  ];
 
   const templates = [
     {
@@ -31,6 +40,15 @@ const ThumbnailTemplate = () => {
       guestImage: "/lovable-uploads/2678016c-a3fa-4e29-bf3d-3ebe92201186.png"
     }
   ];
+
+  // Auto-rotate carousel titles every 3 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTitleIndex((prev) => (prev + 1) % carouselTitles.length);
+    }, 3000);
+    
+    return () => clearInterval(interval);
+  }, [carouselTitles.length]);
 
   const currentTemplate = templates[selectedTemplate];
 
@@ -84,6 +102,18 @@ const ThumbnailTemplate = () => {
                 <p className="text-white/80 text-2xl font-medium">
                   {currentTemplate.subtitle}
                 </p>
+                
+                {/* Rotating Carousel Title */}
+                <div className="absolute top-24 left-80 max-w-2xl z-20">
+                  <h2 className="text-4xl xl:text-5xl font-bold leading-tight transition-all duration-500 animate-fade-in">
+                    <span className="text-white block mb-1">
+                      {carouselTitles[currentTitleIndex].split(' ').slice(0, -3).join(' ')}
+                    </span>
+                    <span className="block" style={{ color: 'hsl(35, 45%, 75%)' }}>
+                      {carouselTitles[currentTitleIndex].split(' ').slice(-3).join(' ')}
+                    </span>
+                  </h2>
+                </div>
               </div>
             </div>
           )}
