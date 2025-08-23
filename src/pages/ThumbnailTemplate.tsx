@@ -53,17 +53,24 @@ const ThumbnailTemplate = () => {
           <div key="template-0" className="w-[1280px] h-[720px] relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in">
             <div className="h-full flex items-center p-16 relative">
               <div className="absolute right-16 top-16 bottom-16 flex items-center">
-                <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden">
+                <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
                   <img 
                     src={templates[0].image} 
                     alt="Podcast thumbnail"
                     className="w-full h-full object-cover border-4 border-white/20"
                   />
+                  <div className="absolute bottom-4 left-4">
+                    <img 
+                      src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
+                      alt="BDBT Logo"
+                      className="h-16 opacity-90"
+                    />
+                  </div>
                 </div>
               </div>
               
-              <div className="absolute left-8 top-16 max-w-4xl z-10">
-                <h1 className="text-9xl xl:text-[12rem] font-bold leading-tight mb-6">
+              <div className="absolute left-8 top-8 max-w-2xl z-10">
+                <h1 className="text-8xl xl:text-9xl font-bold leading-tight mb-6">
                   <span className="text-white block mb-2">
                     The Benefits of Parking Further Away
                   </span>
@@ -71,19 +78,12 @@ const ThumbnailTemplate = () => {
                     from your Destination
                   </span>
                 </h1>
-                <p className="text-white/80 text-4xl font-medium">
+                <p className="text-white/80 text-3xl font-medium">
                   Daily Wins Podcast
                 </p>
               </div>
             </div>
             
-              <div className="absolute bottom-4 left-4">
-                <img 
-                  src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
-                  alt="BDBT Logo"
-                  className="h-16 opacity-90"
-                />
-              </div>
           </div>
         )}
 
@@ -92,17 +92,24 @@ const ThumbnailTemplate = () => {
           <div key="template-1" className="w-[1280px] h-[720px] relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in">
             <div className="h-full flex items-center p-16 relative">
               <div className="absolute right-16 top-16 bottom-16 flex items-center">
-                <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden">
+                <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
                   <img 
                     src={templates[1].image} 
                     alt="Podcast thumbnail"
                     className="w-full h-full object-cover border-4 border-white/20"
                   />
+                  <div className="absolute bottom-4 left-4">
+                    <img 
+                      src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
+                      alt="BDBT Logo"
+                      className="h-16 opacity-90"
+                    />
+                  </div>
                 </div>
               </div>
               
-              <div className="absolute left-8 top-16 max-w-4xl z-10">
-                <h1 className="text-9xl xl:text-[12rem] font-bold leading-tight mb-6">
+              <div className="absolute left-8 top-8 max-w-2xl z-10">
+                <h1 className="text-8xl xl:text-9xl font-bold leading-tight mb-6">
                   <span className="text-white block mb-2">
                     The Benefits of making use
                   </span>
@@ -110,19 +117,12 @@ const ThumbnailTemplate = () => {
                     of your Dead Time
                   </span>
                 </h1>
-                <p className="text-white/80 text-4xl font-medium">
+                <p className="text-white/80 text-3xl font-medium">
                   Daily Wins Podcast
                 </p>
               </div>
             </div>
             
-              <div className="absolute bottom-4 left-4">
-                <img 
-                  src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
-                  alt="BDBT Logo"
-                  className="h-16 opacity-90"
-                />
-              </div>
           </div>
         )}
 
@@ -131,17 +131,24 @@ const ThumbnailTemplate = () => {
           <div key="template-2" className="w-[1280px] h-[720px] relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in">
             <div className="h-full flex items-center p-16 relative">
               <div className="absolute right-16 top-16 bottom-16 flex items-center">
-                <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden">
+                <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
                   <img 
                     src={templates[2].image} 
                     alt="Podcast thumbnail"
                     className="w-full h-full object-cover border-4 border-white/20"
                   />
+                  <div className="absolute bottom-4 left-4">
+                    <img 
+                      src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
+                      alt="BDBT Logo"
+                      className="h-16 opacity-90"
+                    />
+                  </div>
                 </div>
               </div>
               
-              <div className="absolute left-8 top-16 max-w-4xl z-10">
-                <h1 className="text-9xl xl:text-[12rem] font-bold leading-tight mb-6">
+              <div className="absolute left-8 top-8 max-w-2xl z-10">
+                <h1 className="text-8xl xl:text-9xl font-bold leading-tight mb-6">
                   <span className="text-white block mb-2">
                     Your Quarterly Financial
                   </span>
@@ -149,19 +156,12 @@ const ThumbnailTemplate = () => {
                     Health Check
                   </span>
                 </h1>
-                <p className="text-white/80 text-4xl font-medium">
+                <p className="text-white/80 text-3xl font-medium">
                   Daily Wins Podcast
                 </p>
               </div>
             </div>
             
-              <div className="absolute bottom-4 left-4">
-                <img 
-                  src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
-                  alt="BDBT Logo"
-                  className="h-16 opacity-90"
-                />
-              </div>
           </div>
         )}
 
@@ -170,17 +170,24 @@ const ThumbnailTemplate = () => {
           <div key="template-3" className="w-[1280px] h-[720px] relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in">
             <div className="h-full flex items-center p-16 relative">
               <div className="absolute right-16 top-16 bottom-16 flex items-center">
-                <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden">
+                <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
                   <img 
                     src={templates[3].image} 
                     alt="Podcast thumbnail"
                     className="w-full h-full object-cover border-4 border-white/20"
                   />
+                  <div className="absolute bottom-4 left-4">
+                    <img 
+                      src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
+                      alt="BDBT Logo"
+                      className="h-16 opacity-90"
+                    />
+                  </div>
                 </div>
               </div>
               
-              <div className="absolute left-8 top-16 max-w-4xl z-10">
-                <h1 className="text-9xl xl:text-[12rem] font-bold leading-tight mb-6 text-center">
+              <div className="absolute left-8 top-8 max-w-2xl z-10">
+                <h1 className="text-8xl xl:text-9xl font-bold leading-tight mb-6 text-center">
                   <span className="text-white block mb-2">
                     The Necessity
                   </span>
@@ -188,19 +195,12 @@ const ThumbnailTemplate = () => {
                     of Staying Hydrated
                   </span>
                 </h1>
-                <p className="text-white/80 text-4xl font-medium">
+                <p className="text-white/80 text-3xl font-medium">
                   Daily Wins Podcast
                 </p>
               </div>
             </div>
             
-              <div className="absolute bottom-4 left-4">
-                <img 
-                  src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
-                  alt="BDBT Logo"
-                  className="h-16 opacity-90"
-                />
-              </div>
           </div>
         )}
 
@@ -209,17 +209,24 @@ const ThumbnailTemplate = () => {
           <div key="template-4" className="w-[1280px] h-[720px] relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in">
             <div className="h-full flex items-center p-16 relative">
               <div className="absolute right-16 top-16 bottom-16 flex items-center">
-                <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden">
+                <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
                   <img 
                     src={templates[4].image} 
                     alt="Podcast thumbnail"
                     className="w-full h-full object-cover border-4 border-white/20"
                   />
+                  <div className="absolute bottom-4 left-4">
+                    <img 
+                      src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
+                      alt="BDBT Logo"
+                      className="h-16 opacity-90"
+                    />
+                  </div>
                 </div>
               </div>
               
-              <div className="absolute left-8 top-16 max-w-4xl z-10">
-                <h1 className="text-9xl xl:text-[12rem] font-bold leading-tight mb-6">
+              <div className="absolute left-8 top-8 max-w-2xl z-10">
+                <h1 className="text-8xl xl:text-9xl font-bold leading-tight mb-6">
                   <span className="text-white block mb-2">
                     The Benefits of Buying Healthy
                   </span>
@@ -227,19 +234,12 @@ const ThumbnailTemplate = () => {
                     Snacks in Bulk
                   </span>
                 </h1>
-                <p className="text-white/80 text-4xl font-medium">
+                <p className="text-white/80 text-3xl font-medium">
                   Daily Wins Podcast
                 </p>
               </div>
             </div>
             
-              <div className="absolute bottom-4 left-4">
-                <img 
-                  src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
-                  alt="BDBT Logo"
-                  className="h-16 opacity-90"
-                />
-              </div>
           </div>
         )}
 
