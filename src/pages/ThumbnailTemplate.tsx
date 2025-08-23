@@ -304,7 +304,7 @@ const ThumbnailTemplate = () => {
 
                   {/* Center Top Brand Name - Above images */}
                   <div className="absolute top-16 left-1/2 transform -translate-x-1/2 z-30">
-                    <h1 className="text-4xl xl:text-5xl font-bold text-center leading-tight whitespace-nowrap">
+                    <h1 className="text-6xl xl:text-7xl font-bold text-center leading-tight whitespace-nowrap">
                       <span className="text-white">@BigDaddy's</span><span style={{ color: 'hsl(35, 45%, 75%)' }}>BigTips</span>
                     </h1>
                   </div>
@@ -336,12 +336,12 @@ const ThumbnailTemplate = () => {
                     </div>
                   </div>
 
-                  {/* BDBT Logo overlapping on images */}
-                  <div className="absolute bottom-20 left-1/2 transform -translate-x-1/2 z-30">
+                  {/* BDBT Logo central in banner */}
+                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-30">
                     <img 
                       src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
                       alt="BDBT Logo"
-                      className="h-20 opacity-90"
+                      className="h-14"
                     />
                   </div>
                 </div>
