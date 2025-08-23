@@ -278,7 +278,7 @@ const ThumbnailTemplate = () => {
           <div className="flex justify-center mb-8">
             <div className="w-full max-w-6xl">
               {/* YouTube Banner Template - 2560x1440 aspect ratio scaled down */}
-              <div className="w-full h-[400px] relative overflow-hidden rounded-2xl bg-gradient-to-r from-primary via-primary/90 to-primary/80 shadow-2xl border-2 border-white/20">
+              <div className="w-full h-[400px] relative overflow-hidden rounded-2xl bg-gradient-to-r from-primary via-primary/90 to-primary/80 shadow-2xl border border-white/30">
                 <div className="h-full flex items-center justify-between p-12 relative">
                   
                   {/* Left Side Content */}
