@@ -353,12 +353,53 @@ const ThumbnailTemplate = () => {
                     <div className="w-10 h-10 border border-white/8 rounded-full animate-pulse absolute -top-4 -left-4" style={{ animationDelay: '1.7s' }}></div>
                   </div>
                   
-                  {/* Additional scattered raindrops */}
-                  <div className="absolute top-5 left-1/6 w-2 h-2 border border-white/35 rounded-full animate-pulse z-5" style={{ animationDelay: '2.2s' }}></div>
-                  <div className="absolute top-15 right-1/6 w-3 h-3 border border-white/30 rounded-full animate-pulse z-5" style={{ animationDelay: '0.7s' }}></div>
-                  <div className="absolute top-9 left-1/2 w-2 h-2 border border-white/40 rounded-full animate-pulse z-5" style={{ animationDelay: '1.6s' }}></div>
-                  <div className="absolute top-17 right-2/5 w-3 h-3 border border-white/25 rounded-full animate-pulse z-5" style={{ animationDelay: '0.5s' }}></div>
-                  <div className="absolute top-3 left-3/5 w-2 h-2 border border-white/32 rounded-full animate-pulse z-5" style={{ animationDelay: '2.1s' }}></div>
+                   {/* Additional scattered raindrops */}
+                   <div className="absolute top-5 left-1/6 w-2 h-2 border border-white/35 rounded-full animate-pulse z-5" style={{ animationDelay: '2.2s' }}></div>
+                   <div className="absolute top-15 right-1/6 w-3 h-3 border border-white/30 rounded-full animate-pulse z-5" style={{ animationDelay: '0.7s' }}></div>
+                   <div className="absolute top-9 left-1/2 w-2 h-2 border border-white/40 rounded-full animate-pulse z-5" style={{ animationDelay: '1.6s' }}></div>
+                   <div className="absolute top-17 right-2/5 w-3 h-3 border border-white/25 rounded-full animate-pulse z-5" style={{ animationDelay: '0.5s' }}></div>
+                   <div className="absolute top-3 left-3/5 w-2 h-2 border border-white/32 rounded-full animate-pulse z-5" style={{ animationDelay: '2.1s' }}></div>
+
+                   {/* More raindrops around "Daily Wins Podcast" text area */}
+                   {/* Left side of text */}
+                   <div className="absolute top-24 left-16 z-5">
+                     <div className="w-2 h-2 border border-white/35 rounded-full animate-pulse" style={{ animationDelay: '0.8s' }}></div>
+                     <div className="w-5 h-5 border border-white/20 rounded-full animate-pulse absolute -top-1.5 -left-1.5" style={{ animationDelay: '1.0s' }}></div>
+                   </div>
+                   <div className="absolute top-36 left-12 w-3 h-3 border border-white/30 rounded-full animate-pulse z-5" style={{ animationDelay: '1.4s' }}></div>
+                   <div className="absolute top-30 left-20 z-5">
+                     <div className="w-2 h-2 border border-white/40 rounded-full animate-pulse" style={{ animationDelay: '2.1s' }}></div>
+                     <div className="w-4 h-4 border border-white/25 rounded-full animate-pulse absolute -top-1 -left-1" style={{ animationDelay: '2.3s' }}></div>
+                     <div className="w-6 h-6 border border-white/15 rounded-full animate-pulse absolute -top-2 -left-2" style={{ animationDelay: '2.5s' }}></div>
+                   </div>
+                   <div className="absolute top-42 left-8 w-2 h-2 border border-white/35 rounded-full animate-pulse z-5" style={{ animationDelay: '1.7s' }}></div>
+                   
+                   {/* Right side of text */}
+                   <div className="absolute top-26 right-16 z-5">
+                     <div className="w-3 h-3 border border-white/35 rounded-full animate-pulse" style={{ animationDelay: '1.2s' }}></div>
+                     <div className="w-6 h-6 border border-white/22 rounded-full animate-pulse absolute -top-1.5 -left-1.5" style={{ animationDelay: '1.4s' }}></div>
+                   </div>
+                   <div className="absolute top-38 right-12 w-2 h-2 border border-white/40 rounded-full animate-pulse z-5" style={{ animationDelay: '0.9s' }}></div>
+                   <div className="absolute top-32 right-20 z-5">
+                     <div className="w-2 h-2 border border-white/30 rounded-full animate-pulse" style={{ animationDelay: '1.8s' }}></div>
+                     <div className="w-5 h-5 border border-white/18 rounded-full animate-pulse absolute -top-1.5 -left-1.5" style={{ animationDelay: '2.0s' }}></div>
+                   </div>
+                   <div className="absolute top-44 right-8 w-3 h-3 border border-white/28 rounded-full animate-pulse z-5" style={{ animationDelay: '1.5s' }}></div>
+                   
+                   {/* Below text area */}
+                   <div className="absolute top-52 left-24 z-5">
+                     <div className="w-2 h-2 border border-white/35 rounded-full animate-pulse" style={{ animationDelay: '2.2s' }}></div>
+                     <div className="w-4 h-4 border border-white/22 rounded-full animate-pulse absolute -top-1 -left-1" style={{ animationDelay: '2.4s' }}></div>
+                   </div>
+                   <div className="absolute top-48 left-32 w-3 h-3 border border-white/25 rounded-full animate-pulse z-5" style={{ animationDelay: '1.1s' }}></div>
+                   <div className="absolute top-56 left-16 w-2 h-2 border border-white/40 rounded-full animate-pulse z-5" style={{ animationDelay: '1.9s' }}></div>
+                   <div className="absolute top-50 right-24 z-5">
+                     <div className="w-3 h-3 border border-white/30 rounded-full animate-pulse" style={{ animationDelay: '0.6s' }}></div>
+                     <div className="w-6 h-6 border border-white/20 rounded-full animate-pulse absolute -top-1.5 -left-1.5" style={{ animationDelay: '0.8s' }}></div>
+                     <div className="w-9 h-9 border border-white/12 rounded-full animate-pulse absolute -top-3 -left-3" style={{ animationDelay: '1.0s' }}></div>
+                   </div>
+                   <div className="absolute top-54 right-32 w-2 h-2 border border-white/35 rounded-full animate-pulse z-5" style={{ animationDelay: '1.6s' }}></div>
+                   <div className="absolute top-46 right-16 w-3 h-3 border border-white/28 rounded-full animate-pulse z-5" style={{ animationDelay: '2.0s' }}></div>
 
                   {/* Decorative smaller images - spread across right side (35% larger, no adjacent duplicates) */}
                    <div className="absolute right-12 top-20 w-16 h-11 rounded opacity-60 overflow-hidden border border-white/20 z-10">
