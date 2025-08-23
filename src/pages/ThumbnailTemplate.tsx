@@ -268,10 +268,10 @@ const ThumbnailTemplate = () => {
         <div className="container mx-auto px-8 py-16">
           {/* Banner Preview Container */}
           <div className="flex justify-center mb-8">
-            <div className="w-full max-w-6xl">
-              {/* YouTube Banner Template - 2560x1440 aspect ratio scaled down */}
-              <div className="w-full h-[400px] relative overflow-hidden rounded-2xl bg-gradient-to-r from-primary via-primary/90 to-primary/80 shadow-2xl border-8 border-white/80">
-                <div className="h-full flex flex-col p-12 relative">
+            <div className="w-full max-w-none">
+              {/* YouTube Banner Template - Optimized 2560x1440 dimensions */}
+              <div className="w-[1280px] h-[720px] relative overflow-hidden bg-gradient-to-r from-primary via-primary/90 to-primary/80 shadow-2xl mx-auto">
+                <div className="h-full flex flex-col p-16 relative">
                   
                   {/* Left Side Content */}
                   <div className="flex-1 z-20 relative">
@@ -327,9 +327,9 @@ const ThumbnailTemplate = () => {
 
                   {/* Center Top Brand Name - Above images */}
                   <div className="absolute top-16 left-1/2 transform -translate-x-1/2 z-30">
-                    <h1 className="text-5xl xl:text-6xl font-bold text-center leading-tight whitespace-nowrap mb-4">
-                      <span className="text-white">@BigDaddy's</span><span style={{ color: 'hsl(35, 45%, 75%)' }}>BigTips</span>
-                    </h1>
+                     <h1 className="text-5xl xl:text-6xl font-black text-center leading-tight whitespace-nowrap mb-4">
+                       <span className="text-white font-black">@BigDaddy's</span><span className="font-black" style={{ color: 'hsl(35, 45%, 75%)' }}>BigTips</span>
+                     </h1>
                     {/* Social Media Icons */}
                     <div className="flex justify-center items-center gap-6 mt-2">
                       <div className="p-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20">
