@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 
 const ThumbnailTemplate = () => {
-  const [currentTitleIndex, setCurrentTitleIndex] = useState(0);
+  const [currentTemplateIndex, setCurrentTemplateIndex] = useState(0);
 
-  const carouselTemplates = [
+  const templates = [
     {
       id: 0,
       name: "Parking Benefits",
-      layout: "single",
       title: "The Benefits of Parking Further Away from your Destination",
       subtitle: "Daily Wins Podcast",
       image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
@@ -15,7 +14,6 @@ const ThumbnailTemplate = () => {
     {
       id: 1,
       name: "Dead Time",
-      layout: "single",
       title: "The Benefits of making use of your Dead Time",
       subtitle: "Daily Wins Podcast",
       image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
@@ -23,7 +21,6 @@ const ThumbnailTemplate = () => {
     {
       id: 2,
       name: "Financial Health",
-      layout: "single",
       title: "Your Quarterly Financial Health Check",
       subtitle: "Daily Wins Podcast",
       image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
@@ -31,7 +28,6 @@ const ThumbnailTemplate = () => {
     {
       id: 3,
       name: "Hydration",
-      layout: "single",
       title: "The Necessity of Staying Hydrated",
       subtitle: "Daily Wins Podcast",
       image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
@@ -39,23 +35,22 @@ const ThumbnailTemplate = () => {
     {
       id: 4,
       name: "Healthy Snacks",
-      layout: "single",
       title: "The Benefits of Buying Healthy Snacks in Bulk",
       subtitle: "Daily Wins Podcast",
       image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
     }
   ];
 
-  // Auto-rotate carousel templates every 4 seconds
+  // Auto-rotate entire templates every 4 seconds
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentTitleIndex((prev) => (prev + 1) % carouselTemplates.length);
+      setCurrentTemplateIndex((prev) => (prev + 1) % templates.length);
     }, 4000);
     
     return () => clearInterval(interval);
-  }, [carouselTemplates.length]);
+  }, [templates.length]);
 
-  const currentTemplate = carouselTemplates[currentTitleIndex];
+  const currentTemplate = templates[currentTemplateIndex];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary via-primary/90 to-primary/80">
@@ -76,9 +71,9 @@ const ThumbnailTemplate = () => {
               </div>
             </div>
             
-            {/* Text Section - Overlaid in Upper Third */}
-            <div className="absolute left-16 top-24 max-w-md z-10">
-              <h1 className="text-6xl xl:text-7xl font-bold leading-tight mb-6">
+            {/* Text Section - Top Left Overlapping Image */}
+            <div className="absolute left-8 top-8 max-w-md z-10">
+              <h1 className="text-5xl xl:text-6xl font-bold leading-tight mb-6">
                 <span className="text-white block mb-2">
                   {currentTemplate.title.split(' ').slice(0, -2).join(' ')}
                 </span>
@@ -86,7 +81,7 @@ const ThumbnailTemplate = () => {
                   {currentTemplate.title.split(' ').slice(-2).join(' ')}
                 </span>
               </h1>
-              <p className="text-white/80 text-2xl font-medium">
+              <p className="text-white/80 text-xl font-medium">
                 {currentTemplate.subtitle}
               </p>
             </div>
