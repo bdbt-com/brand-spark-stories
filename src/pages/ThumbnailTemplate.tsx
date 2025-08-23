@@ -59,9 +59,9 @@ const ThumbnailTemplate = () => {
           
           {/* Single Focus Layout */}
           {currentTemplate.layout === 'single' && (
-            <div className="h-full flex items-center justify-between p-16 relative">
-              {/* Image Section - Back to Right Side */}
-              <div className="flex-1 flex justify-center">
+            <div className="h-full flex items-center p-16 relative">
+              {/* Image Section - Right Side with Equal Spacing */}
+              <div className="absolute right-16 top-16 bottom-16 flex items-center">
                 <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden">
                   <img 
                     src={currentTemplate.image} 
