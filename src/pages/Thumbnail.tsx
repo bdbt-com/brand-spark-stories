@@ -104,13 +104,13 @@ const Thumbnail = () => {
               </h1>
             </div>
             <div className="animate-float">
-              <div className="bg-white/10 backdrop-blur-md rounded-3xl p-12 shadow-strong max-w-2xl">
+              <div className="bg-white/10 backdrop-blur-md rounded-2xl p-8 shadow-strong">
                 <Carousel setApi={setEmbla} opts={{
                 loop: true
               }} className="w-full" aria-label="Daily success journey image carousel">
                   <CarouselContent>
                     {(filteredImages.length ? filteredImages : images).map((src, idx) => <CarouselItem key={src}>
-                         <img src={src} alt={`Big Life Change inspiration image ${idx + 1}`} className="w-full aspect-[4/3] object-cover rounded-2xl" loading={idx === 0 ? "eager" : "lazy"} />
+                         <img src={src} alt={`Big Life Change inspiration image ${idx + 1}`} className="w-full aspect-square object-cover rounded-xl" loading={idx === 0 ? "eager" : "lazy"} />
                       </CarouselItem>)}
                   </CarouselContent>
                 </Carousel>
