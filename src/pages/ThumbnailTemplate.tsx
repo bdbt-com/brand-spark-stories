@@ -41,15 +41,6 @@ const ThumbnailTemplate = () => {
     }
   ];
 
-  // Auto-rotate entire templates every 4 seconds
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentTemplateIndex((prev) => (prev + 1) % templates.length);
-    }, 4000);
-    
-    return () => clearInterval(interval);
-  }, [templates.length]);
-
   const currentTemplate = templates[currentTemplateIndex];
 
   return (
@@ -252,6 +243,23 @@ const ThumbnailTemplate = () => {
           </div>
         )}
 
+      </div>
+
+      {/* Control Buttons */}
+      <div className="flex justify-center gap-4 pb-16">
+        {templates.map((template, index) => (
+          <button
+            key={template.id}
+            onClick={() => setCurrentTemplateIndex(index)}
+            className={`px-6 py-3 rounded-lg text-sm font-medium transition-all ${
+              currentTemplateIndex === index
+                ? 'bg-white text-primary shadow-lg'
+                : 'bg-white/20 text-white hover:bg-white/30 hover:scale-105'
+            }`}
+          >
+            {template.name}
+          </button>
+        ))}
       </div>
     </div>
   );
