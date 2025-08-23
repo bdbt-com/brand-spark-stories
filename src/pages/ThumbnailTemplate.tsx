@@ -278,7 +278,7 @@ const ThumbnailTemplate = () => {
           <div className="flex justify-center mb-8">
             <div className="w-full max-w-6xl">
               {/* YouTube Banner Template - 2560x1440 aspect ratio scaled down */}
-              <div className="w-full h-[400px] relative overflow-hidden rounded-2xl bg-gradient-to-r from-primary via-primary/90 to-primary/80 shadow-2xl border-4 border-white/60">
+              <div className="w-full h-[400px] relative overflow-hidden rounded-2xl bg-gradient-to-r from-primary via-primary/90 to-primary/80 shadow-2xl border-8 border-white/80">
                 <div className="h-full flex flex-col p-12 relative">
                   
                   {/* Left Side Content */}
@@ -291,6 +291,9 @@ const ThumbnailTemplate = () => {
                         Podcast
                       </span>
                     </h1>
+                    <h2 className="text-3xl xl:text-4xl font-bold leading-tight mb-3">
+                      <span className="text-white">@BigDaddy's</span><span style={{ color: 'hsl(35, 45%, 75%)' }}>BigTips</span>
+                    </h2>
                     <p className="text-white/90 text-xl font-medium mb-8">
                       <span className="block">Your daily dose of</span>
                       <span className="block">motivation and success tips</span>
@@ -302,32 +305,24 @@ const ThumbnailTemplate = () => {
                     </div>
                   </div>
 
-                  {/* Center Text - BigDaddy'sBigTips - Above image tops */}
-                  <div className="absolute bottom-36 left-1/2 transform -translate-x-1/2 z-30">
-                    <h1 className="text-5xl xl:text-6xl font-bold text-center leading-tight">
-                      <span className="text-white block">@BigDaddy'sBig</span>
-                      <span className="block" style={{ color: 'hsl(35, 45%, 75%)' }}>Tips</span>
-                    </h1>
-                  </div>
-
                   {/* Image Carousel underneath text */}
                   <div className="absolute bottom-8 left-12 right-12 z-10">
-                    <div className="flex gap-8 justify-center">
-                      <div className="w-56 h-40 rounded-lg overflow-hidden border-2 border-white/20 shadow-lg">
+                    <div className="flex gap-10 justify-center">
+                      <div className="w-72 h-48 rounded-lg overflow-hidden border-2 border-white/20 shadow-lg">
                         <img 
                           src="/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
                           alt="Sunset landscape"
                           className="w-full h-full object-cover opacity-80"
                         />
                       </div>
-                      <div className="w-56 h-40 rounded-lg overflow-hidden border-2 border-white/20 shadow-lg">
+                      <div className="w-72 h-48 rounded-lg overflow-hidden border-2 border-white/20 shadow-lg">
                         <img 
                           src="/lovable-uploads/8d06c526-bd08-42b7-9a4e-09be508119c7.png"
                           alt="Featured Image 2"
                           className="w-full h-full object-cover opacity-80"
                         />
                       </div>
-                      <div className="w-56 h-40 rounded-lg overflow-hidden border-2 border-white/20 shadow-lg">
+                      <div className="w-72 h-48 rounded-lg overflow-hidden border-2 border-white/20 shadow-lg">
                         <img 
                           src="/lovable-uploads/75853635-930c-4fa5-9403-d0b58c6db83b.png"
                           alt="Featured Image 3"
@@ -337,12 +332,12 @@ const ThumbnailTemplate = () => {
                     </div>
                   </div>
 
-                  {/* Central Lower Logo */}
-                  <div className="flex justify-center items-end pb-4 z-20 relative">
+                  {/* BDBT Logo overlapping on images */}
+                  <div className="absolute bottom-20 left-1/2 transform -translate-x-1/2 z-30">
                     <img 
                       src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
                       alt="BDBT Logo"
-                      className="h-16 opacity-90"
+                      className="h-20 opacity-90"
                     />
                   </div>
                 </div>
