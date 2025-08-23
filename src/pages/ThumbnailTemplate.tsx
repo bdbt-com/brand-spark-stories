@@ -304,7 +304,7 @@ const ThumbnailTemplate = () => {
 
                   {/* Center Top Brand Name - Above images */}
                   <div className="absolute top-16 left-1/2 transform -translate-x-1/2 z-30">
-                    <h1 className="text-6xl xl:text-7xl font-bold text-center leading-tight whitespace-nowrap">
+                    <h1 className="text-5xl xl:text-6xl font-bold text-center leading-tight whitespace-nowrap">
                       <span className="text-white">@BigDaddy's</span><span style={{ color: 'hsl(35, 45%, 75%)' }}>BigTips</span>
                     </h1>
                   </div>
