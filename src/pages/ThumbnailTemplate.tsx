@@ -168,7 +168,7 @@ const ThumbnailTemplate = () => {
           {/* BDBT Logo */}
           <div className="absolute bottom-8 right-8">
             <img 
-              src="/src/assets/bdbt-logo-transparent.png" 
+              src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
               alt="BDBT Logo"
               className="h-16 opacity-90"
             />
