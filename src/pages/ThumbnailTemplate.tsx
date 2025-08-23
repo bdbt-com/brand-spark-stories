@@ -276,45 +276,46 @@ const ThumbnailTemplate = () => {
 
           {/* Banner Preview Container */}
           <div className="flex justify-center mb-8">
-            <div className="w-full max-w-6xl">
-              {/* YouTube Banner Template - 2560x1440 aspect ratio scaled down */}
-              <div className="w-full h-[400px] relative overflow-hidden rounded-2xl bg-gradient-to-r from-primary via-primary/90 to-primary/80 shadow-2xl border-2 border-white/20">
-                <div className="h-full flex items-center justify-between p-12 relative">
+            <div className="w-full max-w-7xl">
+              {/* YouTube Banner Template - 2560x1440 aspect ratio (scaled to fit screen) */}
+              <div className="w-full aspect-[2560/1440] relative overflow-hidden rounded-2xl bg-gradient-to-r from-primary via-primary/90 to-primary/80 shadow-2xl border-2 border-white/20">
+                
+                {/* Safe Area Guide (visible for reference - 1546x423 centered) */}
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                  <div className="w-[60.39%] h-[29.38%] border-2 border-yellow-400/30 rounded-lg"></div>
+                </div>
+
+                {/* Content Container */}
+                <div className="h-full relative flex flex-col">
                   
-                  {/* Left Side Content */}
-                  <div className="flex-1 z-10">
-                    <h1 className="text-5xl xl:text-6xl font-bold leading-tight mb-4">
-                      <span className="text-white block">
-                        Daily Wins
-                      </span>
-                      <span className="block" style={{ color: 'hsl(35, 45%, 75%)' }}>
-                        Podcast
-                      </span>
-                    </h1>
-                    <p className="text-white/90 text-2xl font-medium mb-6">
-                      Your daily dose of motivation and success tips
-                    </p>
-                    <div className="flex items-center gap-4">
-                      <div className="bg-white/10 backdrop-blur-md rounded-lg px-6 py-3 border border-white/20">
-                        <span className="text-white font-medium">New Episodes Weekly</span>
-                      </div>
+                  {/* Upper 2/3 - Text Content (within safe area) */}
+                  <div className="flex-1 flex items-center justify-center">
+                    <div className="text-center z-10">
+                      <h1 className="text-4xl xl:text-5xl 2xl:text-6xl font-bold leading-tight mb-4">
+                        <span className="text-white block">
+                          Daily Wins
+                        </span>
+                        <span className="block" style={{ color: 'hsl(35, 45%, 75%)' }}>
+                          Podcast
+                        </span>
+                      </h1>
+                      <p className="text-white/90 text-xl xl:text-2xl font-medium">
+                        Your daily dose of motivation and success tips
+                      </p>
                     </div>
                   </div>
 
-                  {/* Right Side Logo */}
-                  <div className="flex items-center justify-center">
-                    <div className="w-64 h-64 bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative flex items-center justify-center">
+                  {/* Lower 1/3 - BDBT Logo (centered) */}
+                  <div className="h-1/3 flex items-center justify-center pb-8">
+                    <div className="flex items-center justify-center">
                       <img 
                         src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
                         alt="BDBT Logo"
-                        className="h-32 opacity-90"
+                        className="h-24 xl:h-32 2xl:h-40 opacity-90"
                       />
                     </div>
                   </div>
 
-                  {/* Decorative Elements */}
-                  <div className="absolute top-6 right-6 w-20 h-20 bg-white/5 rounded-full border border-white/10"></div>
-                  <div className="absolute bottom-6 left-1/3 w-16 h-16 bg-white/5 rounded-full border border-white/10"></div>
                 </div>
               </div>
             </div>
