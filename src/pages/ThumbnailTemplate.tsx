@@ -266,15 +266,6 @@ const ThumbnailTemplate = () => {
       {/* YouTube Banner Art Section */}
       <div className="border-t border-white/20 bg-gradient-to-br from-primary/95 via-primary/90 to-primary/85">
         <div className="container mx-auto px-8 py-16">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl xl:text-5xl font-bold text-white mb-4">
-              YouTube Banner Art
-            </h2>
-            <p className="text-white/80 text-xl max-w-2xl mx-auto">
-              Create stunning channel banners that match your brand identity
-            </p>
-          </div>
-
           {/* Banner Preview Container */}
           <div className="flex justify-center mb-8">
             <div className="w-full max-w-6xl">
@@ -419,18 +410,6 @@ const ThumbnailTemplate = () => {
           </div>
 
 
-          {/* Banner Customization Controls */}
-          <div className="flex justify-center gap-4">
-            <button className="px-8 py-4 bg-white/10 backdrop-blur-md text-white rounded-lg border border-white/20 hover:bg-white/20 transition-all font-medium">
-              Edit Text
-            </button>
-            <button className="px-8 py-4 bg-white/10 backdrop-blur-md text-white rounded-lg border border-white/20 hover:bg-white/20 transition-all font-medium">
-              Change Colors
-            </button>
-            <button className="px-8 py-4 bg-white text-primary rounded-lg shadow-lg hover:scale-105 transition-all font-medium">
-              Download Banner
-            </button>
-          </div>
         </div>
       </div>
     </div>
