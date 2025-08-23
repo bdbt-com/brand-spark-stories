@@ -47,26 +47,48 @@ const ThumbnailTemplate = () => {
 
   const exportAsJPEG = async (elementId: string, filename: string) => {
     const element = document.getElementById(elementId);
-    if (!element) return;
+    if (!element) {
+      console.error('Element not found:', elementId);
+      return;
+    }
+    
+    console.log('Starting export for element:', elementId);
     
     try {
+      // Wait for images to load
+      const images = element.querySelectorAll('img');
+      await Promise.all(Array.from(images).map(img => {
+        if (img.complete) return Promise.resolve();
+        return new Promise(resolve => {
+          img.onload = () => resolve(void 0);
+          img.onerror = () => resolve(void 0);
+        });
+      }));
+
       const canvas = await html2canvas(element, {
-        backgroundColor: null,
-        scale: 1,
+        backgroundColor: '#ffffff',
+        scale: 2,
         useCORS: true,
-        allowTaint: true,
-        foreignObjectRendering: true,
-        logging: false,
-        imageTimeout: 0,
-        removeContainer: true
+        allowTaint: false,
+        width: 1280,
+        height: 720,
+        logging: true
       });
       
+      console.log('Canvas created successfully:', canvas.width, 'x', canvas.height);
+      
+      const dataURL = canvas.toDataURL('image/jpeg', 0.95);
       const link = document.createElement('a');
       link.download = `${filename}.jpg`;
-      link.href = canvas.toDataURL('image/jpeg', 1.0);
+      link.href = dataURL;
+      document.body.appendChild(link);
       link.click();
+      document.body.removeChild(link);
+      
+      console.log('Download triggered successfully');
     } catch (error) {
       console.error('Export failed:', error);
+      alert(`Export failed: ${error.message}`);
     }
   };
 
