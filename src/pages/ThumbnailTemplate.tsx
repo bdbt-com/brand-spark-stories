@@ -77,11 +77,11 @@ const ThumbnailTemplate = () => {
               
               {/* Image Section */}
               <div className="flex-1 flex justify-center">
-                <div className="w-[600px] h-[600px] bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 shadow-xl overflow-hidden">
+                <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden">
                   <img 
                     src={currentTemplate.image} 
                     alt="Podcast thumbnail"
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover border-4 border-white/20"
                   />
                 </div>
               </div>
