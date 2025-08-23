@@ -291,10 +291,11 @@ const ThumbnailTemplate = () => {
                         Podcast
                       </span>
                     </h1>
-                    <p className="text-white/90 text-xl font-medium mb-4">
-                      Your daily dose of motivation and success tips
+                    <p className="text-white/90 text-xl font-medium mb-8">
+                      <span className="block">Your daily dose of</span>
+                      <span className="block">motivation and success tips</span>
                     </p>
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-4 mt-8">
                       <div className="bg-white/10 backdrop-blur-md rounded-lg px-4 py-2 border border-white/20">
                         <span className="text-white font-medium text-sm">New Episodes Weekly</span>
                       </div>
@@ -303,9 +304,8 @@ const ThumbnailTemplate = () => {
 
                   {/* Center Text - BigDaddy'sBigTips */}
                   <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-30">
-                    <h1 className="text-6xl xl:text-7xl font-bold text-center leading-tight">
-                      <span className="text-white">@BigDaddy's</span>
-                      <span className="block" style={{ color: 'hsl(35, 45%, 75%)' }}>BigTips</span>
+                    <h1 className="text-5xl xl:text-6xl font-bold text-center leading-tight whitespace-nowrap">
+                      <span className="text-white">@BigDaddy's</span><span style={{ color: 'hsl(35, 45%, 75%)' }}>BigTips</span>
                     </h1>
                   </div>
 
