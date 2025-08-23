@@ -283,7 +283,7 @@ const ThumbnailTemplate = () => {
                   
                   {/* Left Side Content */}
                   <div className="flex-1 z-20 relative">
-                    <h1 className="text-5xl xl:text-6xl font-bold leading-tight mb-4">
+                    <h1 className="text-4xl xl:text-5xl font-bold leading-tight mb-3">
                       <span className="text-white block">
                         Daily Wins
                       </span>
@@ -291,14 +291,22 @@ const ThumbnailTemplate = () => {
                         Podcast
                       </span>
                     </h1>
-                    <p className="text-white/90 text-2xl font-medium mb-6">
+                    <p className="text-white/90 text-xl font-medium mb-4">
                       Your daily dose of motivation and success tips
                     </p>
                     <div className="flex items-center gap-4">
-                      <div className="bg-white/10 backdrop-blur-md rounded-lg px-6 py-3 border border-white/20">
-                        <span className="text-white font-medium">New Episodes Weekly</span>
+                      <div className="bg-white/10 backdrop-blur-md rounded-lg px-4 py-2 border border-white/20">
+                        <span className="text-white font-medium text-sm">New Episodes Weekly</span>
                       </div>
                     </div>
+                  </div>
+
+                  {/* Center Text - BigDaddy'sBigTips */}
+                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-30">
+                    <h1 className="text-6xl xl:text-7xl font-bold text-center leading-tight">
+                      <span className="text-white">@BigDaddy's</span>
+                      <span className="block" style={{ color: 'hsl(35, 45%, 75%)' }}>BigTips</span>
+                    </h1>
                   </div>
 
                   {/* Image Carousel underneath text */}
@@ -307,20 +315,20 @@ const ThumbnailTemplate = () => {
                       <div className="w-48 h-32 rounded-lg overflow-hidden border-2 border-white/20 shadow-lg">
                         <img 
                           src="/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
-                          alt="Featured Image 1"
+                          alt="Sunset landscape"
                           className="w-full h-full object-cover opacity-80"
                         />
                       </div>
                       <div className="w-48 h-32 rounded-lg overflow-hidden border-2 border-white/20 shadow-lg">
                         <img 
-                          src="/lovable-uploads/5e8aba04-f6cc-44a2-9bcc-eaf2424e3976.png"
+                          src="/lovable-uploads/8d06c526-bd08-42b7-9a4e-09be508119c7.png"
                           alt="Featured Image 2"
                           className="w-full h-full object-cover opacity-80"
                         />
                       </div>
                       <div className="w-48 h-32 rounded-lg overflow-hidden border-2 border-white/20 shadow-lg">
                         <img 
-                          src="/lovable-uploads/429221d1-d6c7-4743-9918-18a35e4a4eb2.png"
+                          src="/lovable-uploads/75853635-930c-4fa5-9403-d0b58c6db83b.png"
                           alt="Featured Image 3"
                           className="w-full h-full object-cover opacity-80"
                         />
