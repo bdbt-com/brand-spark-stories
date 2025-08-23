@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Instagram, Youtube, Facebook, Download } from 'lucide-react';
-import html2canvas from 'html2canvas';
+import { Instagram, Youtube, Facebook } from 'lucide-react';
 
 const ThumbnailTemplate = () => {
   const [currentTemplateIndex, setCurrentTemplateIndex] = useState(0);
@@ -43,54 +42,8 @@ const ThumbnailTemplate = () => {
     }
   ];
 
-  const currentTemplate = templates[currentTemplateIndex];
+  
 
-  const exportAsJPEG = async (elementId: string, filename: string) => {
-    const element = document.getElementById(elementId);
-    if (!element) {
-      console.error('Element not found:', elementId);
-      return;
-    }
-    
-    console.log('Starting export for element:', elementId);
-    
-    try {
-      // Wait for images to load
-      const images = element.querySelectorAll('img');
-      await Promise.all(Array.from(images).map(img => {
-        if (img.complete) return Promise.resolve();
-        return new Promise(resolve => {
-          img.onload = () => resolve(void 0);
-          img.onerror = () => resolve(void 0);
-        });
-      }));
-
-      const canvas = await html2canvas(element, {
-        backgroundColor: '#ffffff',
-        scale: 2,
-        useCORS: true,
-        allowTaint: false,
-        width: 1280,
-        height: 720,
-        logging: true
-      });
-      
-      console.log('Canvas created successfully:', canvas.width, 'x', canvas.height);
-      
-      const dataURL = canvas.toDataURL('image/jpeg', 0.95);
-      const link = document.createElement('a');
-      link.download = `${filename}.jpg`;
-      link.href = dataURL;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      
-      console.log('Download triggered successfully');
-    } catch (error) {
-      console.error('Export failed:', error);
-      alert(`Export failed: ${error.message}`);
-    }
-  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary via-primary/90 to-primary/80">
@@ -134,13 +87,6 @@ const ThumbnailTemplate = () => {
                 </div>
               </div>
             </div>
-            <button
-              onClick={() => exportAsJPEG('thumbnail-0', 'parking-benefits-thumbnail')}
-              className="absolute -bottom-12 right-0 px-4 py-2 bg-white text-primary rounded-lg hover:bg-white/90 transition-colors flex items-center gap-2 text-sm font-medium"
-            >
-              <Download className="w-4 h-4" />
-              Export Thumbnail
-            </button>
           </div>
         )}
 
@@ -181,13 +127,6 @@ const ThumbnailTemplate = () => {
                 </div>
               </div>
             </div>
-            <button
-              onClick={() => exportAsJPEG('thumbnail-1', 'dead-time-thumbnail')}
-              className="absolute -bottom-12 right-0 px-4 py-2 bg-white text-primary rounded-lg hover:bg-white/90 transition-colors flex items-center gap-2 text-sm font-medium"
-            >
-              <Download className="w-4 h-4" />
-              Export Thumbnail
-            </button>
           </div>
         )}
 
@@ -228,13 +167,6 @@ const ThumbnailTemplate = () => {
                 </div>
               </div>
             </div>
-            <button
-              onClick={() => exportAsJPEG('thumbnail-2', 'financial-health-thumbnail')}
-              className="absolute -bottom-12 right-0 px-4 py-2 bg-white text-primary rounded-lg hover:bg-white/90 transition-colors flex items-center gap-2 text-sm font-medium"
-            >
-              <Download className="w-4 h-4" />
-              Export Thumbnail
-            </button>
           </div>
         )}
 
@@ -275,13 +207,6 @@ const ThumbnailTemplate = () => {
                 </div>
               </div>
             </div>
-            <button
-              onClick={() => exportAsJPEG('thumbnail-3', 'hydration-thumbnail')}
-              className="absolute -bottom-12 right-0 px-4 py-2 bg-white text-primary rounded-lg hover:bg-white/90 transition-colors flex items-center gap-2 text-sm font-medium"
-            >
-              <Download className="w-4 h-4" />
-              Export Thumbnail
-            </button>
           </div>
         )}
 
@@ -322,13 +247,6 @@ const ThumbnailTemplate = () => {
                 </div>
               </div>
             </div>
-            <button
-              onClick={() => exportAsJPEG('thumbnail-4', 'healthy-snacks-thumbnail')}
-              className="absolute -bottom-12 right-0 px-4 py-2 bg-white text-primary rounded-lg hover:bg-white/90 transition-colors flex items-center gap-2 text-sm font-medium"
-            >
-              <Download className="w-4 h-4" />
-              Export Thumbnail
-            </button>
           </div>
         )}
 
@@ -590,13 +508,6 @@ const ThumbnailTemplate = () => {
                   </div>
                 </div>
               </div>
-              <button
-                onClick={() => exportAsJPEG('youtube-banner', 'youtube-banner')}
-                className="absolute -bottom-12 right-0 px-4 py-2 bg-white text-primary rounded-lg hover:bg-white/90 transition-colors flex items-center gap-2 text-sm font-medium"
-              >
-                <Download className="w-4 h-4" />
-                Export Banner
-              </button>
             </div>
           </div>
 
