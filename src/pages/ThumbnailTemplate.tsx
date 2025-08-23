@@ -261,6 +261,79 @@ const ThumbnailTemplate = () => {
           </button>
         ))}
       </div>
+
+      {/* YouTube Banner Art Section */}
+      <div className="border-t border-white/20 bg-gradient-to-br from-primary/95 via-primary/90 to-primary/85">
+        <div className="container mx-auto px-8 py-16">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl xl:text-5xl font-bold text-white mb-4">
+              YouTube Banner Art
+            </h2>
+            <p className="text-white/80 text-xl max-w-2xl mx-auto">
+              Create stunning channel banners that match your brand identity
+            </p>
+          </div>
+
+          {/* Banner Preview Container */}
+          <div className="flex justify-center mb-8">
+            <div className="w-full max-w-6xl">
+              {/* YouTube Banner Template - 2560x1440 aspect ratio scaled down */}
+              <div className="w-full h-[400px] relative overflow-hidden rounded-2xl bg-gradient-to-r from-primary via-primary/90 to-primary/80 shadow-2xl border-2 border-white/20">
+                <div className="h-full flex items-center justify-between p-12 relative">
+                  
+                  {/* Left Side Content */}
+                  <div className="flex-1 z-10">
+                    <h1 className="text-5xl xl:text-6xl font-bold leading-tight mb-4">
+                      <span className="text-white block">
+                        Daily Wins
+                      </span>
+                      <span className="block" style={{ color: 'hsl(35, 45%, 75%)' }}>
+                        Podcast
+                      </span>
+                    </h1>
+                    <p className="text-white/90 text-2xl font-medium mb-6">
+                      Your daily dose of motivation and success tips
+                    </p>
+                    <div className="flex items-center gap-4">
+                      <div className="bg-white/10 backdrop-blur-md rounded-lg px-6 py-3 border border-white/20">
+                        <span className="text-white font-medium">New Episodes Weekly</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Right Side Logo */}
+                  <div className="flex items-center justify-center">
+                    <div className="w-64 h-64 bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative flex items-center justify-center">
+                      <img 
+                        src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
+                        alt="BDBT Logo"
+                        className="h-32 opacity-90"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Decorative Elements */}
+                  <div className="absolute top-6 right-6 w-20 h-20 bg-white/5 rounded-full border border-white/10"></div>
+                  <div className="absolute bottom-6 left-1/3 w-16 h-16 bg-white/5 rounded-full border border-white/10"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Banner Customization Controls */}
+          <div className="flex justify-center gap-4">
+            <button className="px-8 py-4 bg-white/10 backdrop-blur-md text-white rounded-lg border border-white/20 hover:bg-white/20 transition-all font-medium">
+              Edit Text
+            </button>
+            <button className="px-8 py-4 bg-white/10 backdrop-blur-md text-white rounded-lg border border-white/20 hover:bg-white/20 transition-all font-medium">
+              Change Colors
+            </button>
+            <button className="px-8 py-4 bg-white text-primary rounded-lg shadow-lg hover:scale-105 transition-all font-medium">
+              Download Banner
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
