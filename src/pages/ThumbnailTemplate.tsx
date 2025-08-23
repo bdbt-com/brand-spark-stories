@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Instagram, Youtube, Facebook } from 'lucide-react';
+import { Instagram, Youtube, Facebook, Download } from 'lucide-react';
+import html2canvas from 'html2canvas';
 
 const ThumbnailTemplate = () => {
   const [currentTemplateIndex, setCurrentTemplateIndex] = useState(0);
@@ -44,6 +45,29 @@ const ThumbnailTemplate = () => {
 
   const currentTemplate = templates[currentTemplateIndex];
 
+  const exportAsJPEG = async (elementId: string, filename: string) => {
+    const element = document.getElementById(elementId);
+    if (!element) return;
+    
+    try {
+      const canvas = await html2canvas(element, {
+        backgroundColor: '#ffffff',
+        scale: 2,
+        useCORS: true,
+        allowTaint: true,
+        width: 1280,
+        height: 720
+      });
+      
+      const link = document.createElement('a');
+      link.download = `${filename}.jpg`;
+      link.href = canvas.toDataURL('image/jpeg', 0.9);
+      link.click();
+    } catch (error) {
+      console.error('Export failed:', error);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary via-primary/90 to-primary/80">
       {/* Thumbnail Container - Fixed 16:9 aspect ratio */}
@@ -51,196 +75,236 @@ const ThumbnailTemplate = () => {
         
         {/* Template 1 - Parking Benefits */}
         {currentTemplateIndex === 0 && (
-          <div key="template-0" className="w-[1280px] h-[720px] relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in">
-            <div className="h-full flex items-center p-16 relative">
-              <div className="absolute right-16 top-16 bottom-16 flex items-center">
-                <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
-                  <img 
-                    src={templates[0].image} 
-                    alt="Podcast thumbnail"
-                    className="w-full h-full object-cover border-4 border-white/20"
-                  />
-                  <div className="absolute bottom-4 left-4">
+          <div className="relative">
+            <div id="thumbnail-0" key="template-0" className="w-[1280px] h-[720px] relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in">
+              <div className="h-full flex items-center p-16 relative">
+                <div className="absolute right-16 top-16 bottom-16 flex items-center">
+                  <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
                     <img 
-                      src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
-                      alt="BDBT Logo"
-                      className="h-16 opacity-90"
+                      src={templates[0].image} 
+                      alt="Podcast thumbnail"
+                      className="w-full h-full object-cover border-4 border-white/20"
                     />
+                    <div className="absolute bottom-4 left-4">
+                      <img 
+                        src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
+                        alt="BDBT Logo"
+                        className="h-16 opacity-90"
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
-              
-              <div className="absolute left-8 top-16 bottom-24 right-[35%] pr-4 z-10 flex flex-col justify-center">
-                <h1 className="text-6xl xl:text-7xl 2xl:text-8xl font-bold leading-tight mb-6">
-                  <span className="text-white block mb-2">
-                    The Benefits of Parking Further Away
-                  </span>
-                  <span className="block" style={{ color: 'hsl(35, 45%, 75%)' }}>
-                    from your Destination
-                  </span>
-                </h1>
-                <p className="text-white/80 text-3xl font-medium">
-                  Daily Wins Podcast
-                </p>
+                
+                <div className="absolute left-8 top-16 bottom-24 right-[35%] pr-4 z-10 flex flex-col justify-center">
+                  <h1 className="text-6xl xl:text-7xl 2xl:text-8xl font-bold leading-tight mb-6">
+                    <span className="text-white block mb-2">
+                      The Benefits of Parking Further Away
+                    </span>
+                    <span className="block" style={{ color: 'hsl(35, 45%, 75%)' }}>
+                      from your Destination
+                    </span>
+                  </h1>
+                  <p className="text-white/80 text-3xl font-medium">
+                    Daily Wins Podcast
+                  </p>
+                </div>
               </div>
             </div>
-            
+            <button
+              onClick={() => exportAsJPEG('thumbnail-0', 'parking-benefits-thumbnail')}
+              className="absolute -bottom-12 right-0 px-4 py-2 bg-white text-primary rounded-lg hover:bg-white/90 transition-colors flex items-center gap-2 text-sm font-medium"
+            >
+              <Download className="w-4 h-4" />
+              Export Thumbnail
+            </button>
           </div>
         )}
 
         {/* Template 2 - Dead Time */}
         {currentTemplateIndex === 1 && (
-          <div key="template-1" className="w-[1280px] h-[720px] relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in">
-            <div className="h-full flex items-center p-16 relative">
-              <div className="absolute right-16 top-16 bottom-16 flex items-center">
-                <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
-                  <img 
-                    src={templates[1].image} 
-                    alt="Podcast thumbnail"
-                    className="w-full h-full object-cover border-4 border-white/20"
-                  />
-                  <div className="absolute bottom-4 left-4">
+          <div className="relative">
+            <div id="thumbnail-1" key="template-1" className="w-[1280px] h-[720px] relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in">
+              <div className="h-full flex items-center p-16 relative">
+                <div className="absolute right-16 top-16 bottom-16 flex items-center">
+                  <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
                     <img 
-                      src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
-                      alt="BDBT Logo"
-                      className="h-16 opacity-90"
+                      src={templates[1].image} 
+                      alt="Podcast thumbnail"
+                      className="w-full h-full object-cover border-4 border-white/20"
                     />
+                    <div className="absolute bottom-4 left-4">
+                      <img 
+                        src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
+                        alt="BDBT Logo"
+                        className="h-16 opacity-90"
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
-              
-              <div className="absolute left-8 top-16 bottom-24 right-[35%] pr-4 z-10 flex flex-col justify-center">
-                <h1 className="text-6xl xl:text-7xl 2xl:text-8xl font-bold leading-tight mb-6">
-                  <span className="text-white block mb-2">
-                    The Benefits of making use
-                  </span>
-                  <span className="block" style={{ color: 'hsl(35, 45%, 75%)' }}>
-                    of your Dead Time
-                  </span>
-                </h1>
-                <p className="text-white/80 text-3xl font-medium">
-                  Daily Wins Podcast
-                </p>
+                
+                <div className="absolute left-8 top-16 bottom-24 right-[35%] pr-4 z-10 flex flex-col justify-center">
+                  <h1 className="text-6xl xl:text-7xl 2xl:text-8xl font-bold leading-tight mb-6">
+                    <span className="text-white block mb-2">
+                      The Benefits of making use
+                    </span>
+                    <span className="block" style={{ color: 'hsl(35, 45%, 75%)' }}>
+                      of your Dead Time
+                    </span>
+                  </h1>
+                  <p className="text-white/80 text-3xl font-medium">
+                    Daily Wins Podcast
+                  </p>
+                </div>
               </div>
             </div>
-            
+            <button
+              onClick={() => exportAsJPEG('thumbnail-1', 'dead-time-thumbnail')}
+              className="absolute -bottom-12 right-0 px-4 py-2 bg-white text-primary rounded-lg hover:bg-white/90 transition-colors flex items-center gap-2 text-sm font-medium"
+            >
+              <Download className="w-4 h-4" />
+              Export Thumbnail
+            </button>
           </div>
         )}
 
         {/* Template 3 - Financial Health */}
         {currentTemplateIndex === 2 && (
-          <div key="template-2" className="w-[1280px] h-[720px] relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in">
-            <div className="h-full flex items-center p-16 relative">
-              <div className="absolute right-16 top-16 bottom-16 flex items-center">
-                <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
-                  <img 
-                    src={templates[2].image} 
-                    alt="Podcast thumbnail"
-                    className="w-full h-full object-cover border-4 border-white/20"
-                  />
-                  <div className="absolute bottom-4 left-4">
+          <div className="relative">
+            <div id="thumbnail-2" key="template-2" className="w-[1280px] h-[720px] relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in">
+              <div className="h-full flex items-center p-16 relative">
+                <div className="absolute right-16 top-16 bottom-16 flex items-center">
+                  <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
                     <img 
-                      src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
-                      alt="BDBT Logo"
-                      className="h-16 opacity-90"
+                      src={templates[2].image} 
+                      alt="Podcast thumbnail"
+                      className="w-full h-full object-cover border-4 border-white/20"
                     />
+                    <div className="absolute bottom-4 left-4">
+                      <img 
+                        src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
+                        alt="BDBT Logo"
+                        className="h-16 opacity-90"
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
-              
-              <div className="absolute left-8 top-16 bottom-24 right-[35%] pr-4 z-10 flex flex-col justify-center">
-                <h1 className="text-6xl xl:text-7xl 2xl:text-8xl font-bold leading-tight mb-6">
-                  <span className="text-white block mb-2">
-                    Your Quarterly Financial
-                  </span>
-                  <span className="block" style={{ color: 'hsl(35, 45%, 75%)' }}>
-                    Health Check
-                  </span>
-                </h1>
-                <p className="text-white/80 text-3xl font-medium">
-                  Daily Wins Podcast
-                </p>
+                
+                <div className="absolute left-8 top-16 bottom-24 right-[35%] pr-4 z-10 flex flex-col justify-center">
+                  <h1 className="text-6xl xl:text-7xl 2xl:text-8xl font-bold leading-tight mb-6">
+                    <span className="text-white block mb-2">
+                      Your Quarterly Financial
+                    </span>
+                    <span className="block" style={{ color: 'hsl(35, 45%, 75%)' }}>
+                      Health Check
+                    </span>
+                  </h1>
+                  <p className="text-white/80 text-3xl font-medium">
+                    Daily Wins Podcast
+                  </p>
+                </div>
               </div>
             </div>
-            
+            <button
+              onClick={() => exportAsJPEG('thumbnail-2', 'financial-health-thumbnail')}
+              className="absolute -bottom-12 right-0 px-4 py-2 bg-white text-primary rounded-lg hover:bg-white/90 transition-colors flex items-center gap-2 text-sm font-medium"
+            >
+              <Download className="w-4 h-4" />
+              Export Thumbnail
+            </button>
           </div>
         )}
 
         {/* Template 4 - Hydration */}
         {currentTemplateIndex === 3 && (
-          <div key="template-3" className="w-[1280px] h-[720px] relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in">
-            <div className="h-full flex items-center p-16 relative">
-              <div className="absolute right-16 top-16 bottom-16 flex items-center">
-                <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
-                  <img 
-                    src={templates[3].image} 
-                    alt="Podcast thumbnail"
-                    className="w-full h-full object-cover border-4 border-white/20"
-                  />
-                  <div className="absolute bottom-4 left-4">
+          <div className="relative">
+            <div id="thumbnail-3" key="template-3" className="w-[1280px] h-[720px] relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in">
+              <div className="h-full flex items-center p-16 relative">
+                <div className="absolute right-16 top-16 bottom-16 flex items-center">
+                  <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
                     <img 
-                      src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
-                      alt="BDBT Logo"
-                      className="h-16 opacity-90"
+                      src={templates[3].image} 
+                      alt="Podcast thumbnail"
+                      className="w-full h-full object-cover border-4 border-white/20"
                     />
+                    <div className="absolute bottom-4 left-4">
+                      <img 
+                        src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
+                        alt="BDBT Logo"
+                        className="h-16 opacity-90"
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
-              
-              <div className="absolute left-8 top-16 bottom-24 right-[35%] pr-4 z-10 flex flex-col justify-center">
-                <h1 className="text-6xl xl:text-7xl 2xl:text-8xl font-bold leading-tight mb-6">
-                  <span className="text-white block mb-2">
-                    The Necessity
-                  </span>
-                  <span className="block" style={{ color: 'hsl(35, 45%, 75%)' }}>
-                    of Staying Hydrated
-                  </span>
-                </h1>
-                <p className="text-white/80 text-3xl font-medium">
-                  Daily Wins Podcast
-                </p>
+                
+                <div className="absolute left-8 top-16 bottom-24 right-[35%] pr-4 z-10 flex flex-col justify-center">
+                  <h1 className="text-6xl xl:text-7xl 2xl:text-8xl font-bold leading-tight mb-6">
+                    <span className="text-white block mb-2">
+                      The Necessity
+                    </span>
+                    <span className="block" style={{ color: 'hsl(35, 45%, 75%)' }}>
+                      of Staying Hydrated
+                    </span>
+                  </h1>
+                  <p className="text-white/80 text-3xl font-medium">
+                    Daily Wins Podcast
+                  </p>
+                </div>
               </div>
             </div>
-            
+            <button
+              onClick={() => exportAsJPEG('thumbnail-3', 'hydration-thumbnail')}
+              className="absolute -bottom-12 right-0 px-4 py-2 bg-white text-primary rounded-lg hover:bg-white/90 transition-colors flex items-center gap-2 text-sm font-medium"
+            >
+              <Download className="w-4 h-4" />
+              Export Thumbnail
+            </button>
           </div>
         )}
 
         {/* Template 5 - Healthy Snacks */}
         {currentTemplateIndex === 4 && (
-          <div key="template-4" className="w-[1280px] h-[720px] relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in">
-            <div className="h-full flex items-center p-16 relative">
-              <div className="absolute right-16 top-16 bottom-16 flex items-center">
-                <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
-                  <img 
-                    src={templates[4].image} 
-                    alt="Podcast thumbnail"
-                    className="w-full h-full object-cover border-4 border-white/20"
-                  />
-                  <div className="absolute bottom-4 left-4">
+          <div className="relative">
+            <div id="thumbnail-4" key="template-4" className="w-[1280px] h-[720px] relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in">
+              <div className="h-full flex items-center p-16 relative">
+                <div className="absolute right-16 top-16 bottom-16 flex items-center">
+                  <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
                     <img 
-                      src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
-                      alt="BDBT Logo"
-                      className="h-16 opacity-90"
+                      src={templates[4].image} 
+                      alt="Podcast thumbnail"
+                      className="w-full h-full object-cover border-4 border-white/20"
                     />
+                    <div className="absolute bottom-4 left-4">
+                      <img 
+                        src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
+                        alt="BDBT Logo"
+                        className="h-16 opacity-90"
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
-              
-              <div className="absolute left-8 top-16 bottom-24 right-[35%] pr-4 z-10 flex flex-col justify-center">
-                <h1 className="text-6xl xl:text-7xl 2xl:text-8xl font-bold leading-tight mb-6">
-                  <span className="text-white block mb-2">
-                    The Benefits of Buying Healthy
-                  </span>
-                  <span className="block" style={{ color: 'hsl(35, 45%, 75%)' }}>
-                    Snacks in Bulk
-                  </span>
-                </h1>
-                <p className="text-white/80 text-3xl font-medium">
-                  Daily Wins Podcast
-                </p>
+                
+                <div className="absolute left-8 top-16 bottom-24 right-[35%] pr-4 z-10 flex flex-col justify-center">
+                  <h1 className="text-6xl xl:text-7xl 2xl:text-8xl font-bold leading-tight mb-6">
+                    <span className="text-white block mb-2">
+                      The Benefits of Buying Healthy
+                    </span>
+                    <span className="block" style={{ color: 'hsl(35, 45%, 75%)' }}>
+                      Snacks in Bulk
+                    </span>
+                  </h1>
+                  <p className="text-white/80 text-3xl font-medium">
+                    Daily Wins Podcast
+                  </p>
+                </div>
               </div>
             </div>
-            
+            <button
+              onClick={() => exportAsJPEG('thumbnail-4', 'healthy-snacks-thumbnail')}
+              className="absolute -bottom-12 right-0 px-4 py-2 bg-white text-primary rounded-lg hover:bg-white/90 transition-colors flex items-center gap-2 text-sm font-medium"
+            >
+              <Download className="w-4 h-4" />
+              Export Thumbnail
+            </button>
           </div>
         )}
 
@@ -268,9 +332,9 @@ const ThumbnailTemplate = () => {
         <div className="container mx-auto px-8 py-16">
           {/* Banner Preview Container */}
           <div className="flex justify-center mb-8">
-            <div className="w-full max-w-none">
+            <div className="w-full max-w-none relative">
               {/* YouTube Banner Template - Optimized 2560x1440 dimensions */}
-              <div className="w-[1280px] h-[720px] relative overflow-hidden bg-gradient-to-r from-primary via-primary/90 to-primary/80 shadow-2xl mx-auto">
+              <div id="youtube-banner" className="w-[1280px] h-[720px] relative overflow-hidden bg-gradient-to-r from-primary via-primary/90 to-primary/80 shadow-2xl mx-auto">
                 <div className="h-full flex flex-col p-16 relative">
                   
                   {/* Daily Wins Podcast - Top Center above brand name */}
@@ -502,9 +566,15 @@ const ThumbnailTemplate = () => {
                   </div>
                 </div>
               </div>
+              <button
+                onClick={() => exportAsJPEG('youtube-banner', 'youtube-banner')}
+                className="absolute -bottom-12 right-0 px-4 py-2 bg-white text-primary rounded-lg hover:bg-white/90 transition-colors flex items-center gap-2 text-sm font-medium"
+              >
+                <Download className="w-4 h-4" />
+                Export Banner
+              </button>
             </div>
           </div>
-
 
         </div>
       </div>
