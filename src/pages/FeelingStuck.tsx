@@ -197,6 +197,19 @@ const CollapsibleRow = ({
     </Collapsible>;
 };
 const FeelingStuck = () => {
+  const [openSections, setOpenSections] = useState<{ [key: string]: boolean }>({
+    health: false,
+    wealth: false,
+    happiness: false
+  });
+
+  const toggleSection = (section: string) => {
+    setOpenSections(prev => ({
+      ...prev,
+      [section]: !prev[section]
+    }));
+  };
+
   return <div className="min-h-screen bg-gradient-subtle">
       {/* Hero Section */}
       <section className="py-12 bg-gradient-hero text-white">
@@ -219,47 +232,74 @@ const FeelingStuck = () => {
 
           {/* Health Section */}
           <div className="mb-16">
-            <Card className="mb-8">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-3 text-2xl">
-                  <Heart className="w-8 h-8 text-red-500" />
-                  Health
-                </CardTitle>
-              </CardHeader>
-            </Card>
-            <div className="grid gap-4 md:gap-6">
-              {healthData.map((item, index) => <CollapsibleRow key={index} item={item} icon={Heart} iconColor="text-red-500" />)}
-            </div>
+            <Collapsible open={openSections.health} onOpenChange={() => toggleSection('health')}>
+              <CollapsibleTrigger asChild>
+                <Card className="mb-8 cursor-pointer hover:shadow-medium transition-all duration-300 border-2 hover:border-red-500/30">
+                  <CardHeader>
+                    <CardTitle className="flex items-center justify-between text-2xl">
+                      <div className="flex items-center gap-3">
+                        <Heart className="w-8 h-8 text-red-500" />
+                        Health
+                      </div>
+                      <ChevronDown className={`w-6 h-6 transition-transform text-red-500 ${openSections.health ? 'rotate-180' : ''}`} />
+                    </CardTitle>
+                  </CardHeader>
+                </Card>
+              </CollapsibleTrigger>
+              <CollapsibleContent>
+                <div className="grid gap-4 md:gap-6 animate-fade-in">
+                  {healthData.map((item, index) => <CollapsibleRow key={index} item={item} icon={Heart} iconColor="text-red-500" />)}
+                </div>
+              </CollapsibleContent>
+            </Collapsible>
           </div>
 
           {/* Wealth Section */}
           <div className="mb-16">
-            <Card className="mb-8">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-3 text-2xl">
-                  <DollarSign className="w-8 h-8 text-green-600" />
-                  Wealth
-                </CardTitle>
-              </CardHeader>
-            </Card>
-            <div className="grid gap-4 md:gap-6">
-              {wealthData.map((item, index) => <CollapsibleRow key={index} item={item} icon={DollarSign} iconColor="text-green-600" />)}
-            </div>
+            <Collapsible open={openSections.wealth} onOpenChange={() => toggleSection('wealth')}>
+              <CollapsibleTrigger asChild>
+                <Card className="mb-8 cursor-pointer hover:shadow-medium transition-all duration-300 border-2 hover:border-green-600/30">
+                  <CardHeader>
+                    <CardTitle className="flex items-center justify-between text-2xl">
+                      <div className="flex items-center gap-3">
+                        <DollarSign className="w-8 h-8 text-green-600" />
+                        Wealth
+                      </div>
+                      <ChevronDown className={`w-6 h-6 transition-transform text-green-600 ${openSections.wealth ? 'rotate-180' : ''}`} />
+                    </CardTitle>
+                  </CardHeader>
+                </Card>
+              </CollapsibleTrigger>
+              <CollapsibleContent>
+                <div className="grid gap-4 md:gap-6 animate-fade-in">
+                  {wealthData.map((item, index) => <CollapsibleRow key={index} item={item} icon={DollarSign} iconColor="text-green-600" />)}
+                </div>
+              </CollapsibleContent>
+            </Collapsible>
           </div>
 
           {/* Happiness Section */}
           <div className="mb-16">
-            <Card className="mb-8">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-3 text-2xl">
-                  <Smile className="w-8 h-8 text-yellow-500" />
-                  Happiness
-                </CardTitle>
-              </CardHeader>
-            </Card>
-            <div className="grid gap-4 md:gap-6">
-              {happinessData.map((item, index) => <CollapsibleRow key={index} item={item} icon={Smile} iconColor="text-yellow-500" />)}
-            </div>
+            <Collapsible open={openSections.happiness} onOpenChange={() => toggleSection('happiness')}>
+              <CollapsibleTrigger asChild>
+                <Card className="mb-8 cursor-pointer hover:shadow-medium transition-all duration-300 border-2 hover:border-yellow-500/30">
+                  <CardHeader>
+                    <CardTitle className="flex items-center justify-between text-2xl">
+                      <div className="flex items-center gap-3">
+                        <Smile className="w-8 h-8 text-yellow-500" />
+                        Happiness
+                      </div>
+                      <ChevronDown className={`w-6 h-6 transition-transform text-yellow-500 ${openSections.happiness ? 'rotate-180' : ''}`} />
+                    </CardTitle>
+                  </CardHeader>
+                </Card>
+              </CollapsibleTrigger>
+              <CollapsibleContent>
+                <div className="grid gap-4 md:gap-6 animate-fade-in">
+                  {happinessData.map((item, index) => <CollapsibleRow key={index} item={item} icon={Smile} iconColor="text-yellow-500" />)}
+                </div>
+              </CollapsibleContent>
+            </Collapsible>
           </div>
         </div>
       </section>
