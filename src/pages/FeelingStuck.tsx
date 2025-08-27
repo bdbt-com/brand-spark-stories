@@ -354,9 +354,6 @@ const FeelingStuck = () => {
               <p>
                 With Big Daddy's Big Tips, we break down these overwhelming problems into small, daily wins that ripple out across your health, wealth, and happiness.
               </p>
-              <p className="text-xl font-semibold text-primary">
-                You don't need to overhaul your entire life at once. You just need to start stacking the right habits.
-              </p>
             </div>
           </div>
 
@@ -366,6 +363,9 @@ const FeelingStuck = () => {
                 <CheckCircle className="w-8 h-8 text-green-400" />
                 Your Next Step
               </h3>
+              <p className="text-xl font-semibold text-white mb-6">
+                You don't need to overhaul your entire life at once. You just need to start stacking the right habits.
+              </p>
               <p className="text-lg mb-6">
                 Start your first daily win today.
               </p>
