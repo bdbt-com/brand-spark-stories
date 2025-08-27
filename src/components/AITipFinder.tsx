@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -29,6 +30,7 @@ const AITipFinder = ({ tips, onTipHighlight }: AITipFinderProps) => {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   const analyzeAndRecommend = async () => {
     if (!userInput.trim()) {
@@ -37,6 +39,12 @@ const AITipFinder = ({ tips, onTipHighlight }: AITipFinderProps) => {
         description: "Enter what you'd like help with to get personalized recommendations.",
         variant: "destructive"
       });
+      return;
+    }
+
+    // Check if user searched for "Thumbnail" - redirect to thumbnail page
+    if (userInput.toLowerCase().includes('thumbnail')) {
+      navigate('/thumbnail-template');
       return;
     }
 
