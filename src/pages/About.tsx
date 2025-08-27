@@ -235,95 +235,95 @@ const About = () => {
             <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
               
-              {/* Pinned Photos - Left Side - ODD POSITIONS (1,3,5,7,9) */}
-              <div className="hidden lg:block absolute left-0 top-0 w-[400px] space-y-4 z-10" style={{
-                left: '-120px'
-              }}>
-                {/* Photo 1 - Position 1/10 - Office/Workspace */}
-                <div className="w-[400px] h-[400px] bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform rotate-3" style={{
-                  animationDelay: "500ms",
-                  marginTop: "0px"
-                }}>
-                  <img src="/lovable-uploads/8d06c526-bd08-42b7-9a4e-09be508119c7.png" alt="BDBT journey image 2 - Podcast recording setup" className="w-full h-full object-cover rounded-xl" />
-                </div>
-                
-                {/* Photo 3 - Position 3/10 - Dog & Family Life */}
-                <div className="w-[400px] h-[400px] bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform -rotate-2" style={{
-                  animationDelay: "1200ms",
-                  marginTop: "1350px"
-                }}>
-                  <img src="/lovable-uploads/4fd0818e-20c3-4941-9c54-6915db50a7c0.png" alt="BDBT journey image 4 - Meditation with mirror" className="w-full h-full object-cover rounded-xl" />
-                </div>
-                
-                {/* Photo 5 - Position 5/10 - Success & Wealth */}
-                <div className="w-[400px] h-[400px] bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform rotate-1" style={{
-                  animationDelay: "1900ms",
-                  marginTop: "1350px"
-                }}>
-                  <img src="/lovable-uploads/33ba01bc-045c-4c44-ac70-c61c05093bdc.png" alt="BDBT journey image 6 - Silhouette by pool" className="w-full h-full object-cover rounded-xl" />
-                </div>
-                
-                {/* Photo 7 - Position 7/10 - Coastal Business Life */}
-                <div className="w-[400px] h-[400px] bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform -rotate-1" style={{
-                  animationDelay: "2600ms",
-                  marginTop: "1350px"
-                }}>
-                  <img src="/lovable-uploads/2f4d6184-a8de-43f0-a345-4ed910c90522.png" alt="BDBT journey image 8 - Man on phone in modern setting" className="w-full h-full object-cover rounded-xl" />
-                </div>
-                
-                {/* Photo 9 - Position 9/10 - Man in shoe store */}
-                <div className="w-[400px] h-[400px] bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform rotate-2" style={{
-                  animationDelay: "3200ms",
-                  marginTop: "1350px"
-                }}>
-                  <img src="/lovable-uploads/8db636d1-94ff-432a-a4b1-6ca278173f2f.png" alt="BDBT journey image 10 - Man in shoe store" className="w-full h-full object-cover rounded-xl" />
-                </div>
-              </div>
+               {/* Pinned Photos - Left Side - ODD POSITIONS (1,3,5,7,9) */}
+               <div className="hidden lg:block absolute left-0 top-0 w-[400px] space-y-8 z-10" style={{
+                 left: '-120px'
+               }}>
+                 {/* Photo 1 - Position 1/10 - Office/Workspace */}
+                 <div className="w-[400px] h-[400px] bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform rotate-3" style={{
+                   animationDelay: "500ms",
+                   marginTop: "0px"
+                 }}>
+                   <img src="/lovable-uploads/8d06c526-bd08-42b7-9a4e-09be508119c7.png" alt="BDBT journey image 2 - Podcast recording setup" className="w-full h-full object-cover rounded-xl" />
+                 </div>
+                 
+                 {/* Photo 3 - Position 3/10 - Dog & Family Life */}
+                 <div className="w-[400px] h-[400px] bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform -rotate-2" style={{
+                   animationDelay: "1200ms",
+                   marginTop: "200px"
+                 }}>
+                   <img src="/lovable-uploads/4fd0818e-20c3-4941-9c54-6915db50a7c0.png" alt="BDBT journey image 4 - Meditation with mirror" className="w-full h-full object-cover rounded-xl" />
+                 </div>
+                 
+                 {/* Photo 5 - Position 5/10 - Success & Wealth */}
+                 <div className="w-[400px] h-[400px] bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform rotate-1" style={{
+                   animationDelay: "1900ms",
+                   marginTop: "200px"
+                 }}>
+                   <img src="/lovable-uploads/33ba01bc-045c-4c44-ac70-c61c05093bdc.png" alt="BDBT journey image 6 - Silhouette by pool" className="w-full h-full object-cover rounded-xl" />
+                 </div>
+                 
+                 {/* Photo 7 - Position 7/10 - Coastal Business Life */}
+                 <div className="w-[400px] h-[400px] bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform -rotate-1" style={{
+                   animationDelay: "2600ms",
+                   marginTop: "200px"
+                 }}>
+                   <img src="/lovable-uploads/2f4d6184-a8de-43f0-a345-4ed910c90522.png" alt="BDBT journey image 8 - Man on phone in modern setting" className="w-full h-full object-cover rounded-xl" />
+                 </div>
+                 
+                 {/* Photo 9 - Position 9/10 - Man in shoe store */}
+                 <div className="w-[400px] h-[400px] bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform rotate-2" style={{
+                   animationDelay: "3200ms",
+                   marginTop: "200px"
+                 }}>
+                   <img src="/lovable-uploads/8db636d1-94ff-432a-a4b1-6ca278173f2f.png" alt="BDBT journey image 10 - Man in shoe store" className="w-full h-full object-cover rounded-xl" />
+                 </div>
+               </div>
 
-              {/* Pinned Photos - Right Side - EVEN POSITIONS (2,4,6,8,10) */}
-              <div className="hidden lg:block absolute right-0 top-0 w-[400px] space-y-4 z-10" style={{
-                right: '-120px'
-              }}>
-                {/* Photo 2 - Position 2/10 - The Journey Upward */}
-                <div className="w-[400px] h-[400px] bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform -rotate-1" style={{
-                  animationDelay: "800ms",
-                  marginTop: "675px"
-                }}>
-                  <img src="/lovable-uploads/b362cf10-f3b4-4ab1-aeb3-30ab18058ace.png" alt="BDBT journey image 3 - Man with dog outdoors" className="w-full h-full object-cover rounded-xl" />
-                </div>
-                
-                {/* Photo 4 - Position 4/10 - Freedom & Success */}
-                <div className="w-[400px] h-[400px] bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform rotate-2" style={{
-                  animationDelay: "1500ms",
-                  marginTop: "1350px"
-                }}>
-                  <img src="/lovable-uploads/661d98ce-15f1-4542-b8c0-bab549b78a55.png" alt="BDBT journey image 5 - Man in bathroom mirror" className="w-full h-full object-cover rounded-xl" />
-                </div>
-                
-                {/* Photo 6 - Position 6/10 - Lifestyle Achievement */}
-                <div className="w-[400px] h-[400px] bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform -rotate-2" style={{
-                  animationDelay: "2200ms",
-                  marginTop: "1350px"
-                }}>
-                  <img src="/lovable-uploads/2678016c-a3fa-4e29-bf3d-3ebe92201186.png" alt="BDBT journey image 7 - Person exercising outdoors" className="w-full h-full object-cover rounded-xl" />
-                </div>
-                
-                {/* Photo 8 - Position 8/10 - Original Sunset Transformation */}
-                <div className="w-[400px] h-[400px] bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform rotate-1" style={{
-                  animationDelay: "2900ms",
-                  marginTop: "1350px"
-                }}>
-                  <img src="/lovable-uploads/7db6bd1f-c12f-45f2-a1d1-505f38c743a1.png" alt="BDBT journey image 9 - Man outdoors smiling" className="w-full h-full object-cover rounded-xl" />
-                </div>
-                
-                {/* Photo 10 - Position 10/10 - Man in home theater */}
-                <div className="w-[400px] h-[400px] bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform -rotate-1" style={{
-                  animationDelay: "3500ms",
-                  marginTop: "1350px"
-                }}>
-                  <img src="/lovable-uploads/a886c4a9-0d09-442e-8348-25bd795ad7d0.png" alt="BDBT journey image 11 - Man in home theater" className="w-full h-full object-cover rounded-xl" />
-                </div>
-              </div>
+               {/* Pinned Photos - Right Side - EVEN POSITIONS (2,4,6,8,10) */}
+               <div className="hidden lg:block absolute right-0 top-0 w-[400px] space-y-8 z-10" style={{
+                 right: '-120px'
+               }}>
+                 {/* Photo 2 - Position 2/10 - The Journey Upward */}
+                 <div className="w-[400px] h-[400px] bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform -rotate-1" style={{
+                   animationDelay: "800ms",
+                   marginTop: "100px"
+                 }}>
+                   <img src="/lovable-uploads/b362cf10-f3b4-4ab1-aeb3-30ab18058ace.png" alt="BDBT journey image 3 - Man with dog outdoors" className="w-full h-full object-cover rounded-xl" />
+                 </div>
+                 
+                 {/* Photo 4 - Position 4/10 - Freedom & Success */}
+                 <div className="w-[400px] h-[400px] bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform rotate-2" style={{
+                   animationDelay: "1500ms",
+                   marginTop: "200px"
+                 }}>
+                   <img src="/lovable-uploads/661d98ce-15f1-4542-b8c0-bab549b78a55.png" alt="BDBT journey image 5 - Man in bathroom mirror" className="w-full h-full object-cover rounded-xl" />
+                 </div>
+                 
+                 {/* Photo 6 - Position 6/10 - Lifestyle Achievement */}
+                 <div className="w-[400px] h-[400px] bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform -rotate-2" style={{
+                   animationDelay: "2200ms",
+                   marginTop: "200px"
+                 }}>
+                   <img src="/lovable-uploads/2678016c-a3fa-4e29-bf3d-3ebe92201186.png" alt="BDBT journey image 7 - Person exercising outdoors" className="w-full h-full object-cover rounded-xl" />
+                 </div>
+                 
+                 {/* Photo 8 - Position 8/10 - Original Sunset Transformation */}
+                 <div className="w-[400px] h-[400px] bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform rotate-1" style={{
+                   animationDelay: "2900ms",
+                   marginTop: "200px"
+                 }}>
+                   <img src="/lovable-uploads/7db6bd1f-c12f-45f2-a1d1-505f38c743a1.png" alt="BDBT journey image 9 - Man outdoors smiling" className="w-full h-full object-cover rounded-xl" />
+                 </div>
+                 
+                 {/* Photo 10 - Position 10/10 - Man in home theater */}
+                 <div className="w-[400px] h-[400px] bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform -rotate-1" style={{
+                   animationDelay: "3500ms",
+                   marginTop: "200px"
+                 }}>
+                   <img src="/lovable-uploads/a886c4a9-0d09-442e-8348-25bd795ad7d0.png" alt="BDBT journey image 11 - Man in home theater" className="w-full h-full object-cover rounded-xl" />
+                 </div>
+               </div>
 
               {/* Main Story Content */}
               <div className="max-w-4xl mx-auto lg:px-32">
