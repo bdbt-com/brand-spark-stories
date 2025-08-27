@@ -358,18 +358,20 @@ const FeelingStuck = () => {
           </div>
 
           <Card className="bg-primary text-white shadow-strong">
-            <CardContent className="p-8">
-              <h3 className="text-2xl font-bold mb-4 flex items-center justify-center gap-3">
-                <CheckCircle className="w-8 h-8 text-green-400" />
+            <CardContent className="p-8 text-center">
+              <div className="flex justify-center mb-6">
+                <CheckCircle className="w-12 h-12 text-green-400" />
+              </div>
+              <h3 className="text-2xl font-bold mb-6">
                 Your Next Step
               </h3>
-              <p className="text-xl font-semibold text-white mb-6">
+              <p className="text-xl font-semibold text-white mb-6 leading-relaxed">
                 You don't need to overhaul your entire life at once. You just need to start stacking the right habits.
               </p>
-              <p className="text-lg mb-6">
+              <p className="text-lg mb-4 text-white/90">
                 Start your first daily win today.
               </p>
-              <p className="mb-8">
+              <p className="mb-8 text-white/90 leading-relaxed">
                 Download your free copy of the Big Daddy Foundation Blueprint and begin building ripple effects that move your life in the right direction.
               </p>
               <Button variant="outline" size="lg" className="bg-white text-primary hover:bg-gray-100 border-white font-semibold" asChild>
