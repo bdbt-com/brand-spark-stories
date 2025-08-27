@@ -183,46 +183,49 @@ const CollapsibleRow = ({ item, icon: Icon, iconColor }: { item: any, icon: any,
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="border border-border/50 rounded-lg overflow-hidden bg-gradient-card shadow-soft hover:shadow-medium transition-all duration-300">
-      <div className="p-4">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3 flex-1">
+    <Collapsible open={isOpen} onOpenChange={setIsOpen}>
+      <div className="border border-border/50 rounded-lg overflow-hidden bg-gradient-card shadow-soft hover:shadow-medium transition-all duration-300">
+        <div className="p-4">
+          {/* Always visible content */}
+          <div className="flex items-center gap-3 mb-3">
             <Icon className={`w-5 h-5 ${iconColor}`} />
-            <div className="flex-1">
-              <h4 className="font-semibold text-primary mb-1">{item.area}</h4>
-              <p className="text-sm text-muted-foreground leading-relaxed">{item.proof}</p>
-              <a 
-                href={item.url} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 text-xs text-primary hover:text-accent transition-colors mt-2"
-              >
-                View Source <ExternalLink className="w-3 h-3" />
-              </a>
-            </div>
+            <h4 className="font-semibold text-primary">{item.area}</h4>
           </div>
-          <Collapsible open={isOpen} onOpenChange={setIsOpen}>
-            <CollapsibleTrigger asChild>
-              <Button variant="ghost" size="sm" className="flex items-center gap-2">
-                False Belief
-                <ChevronDown className={`w-4 h-4 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
-              </Button>
-            </CollapsibleTrigger>
-          </Collapsible>
-        </div>
-        
-        <Collapsible open={isOpen} onOpenChange={setIsOpen}>
+          
+          <div className="mb-3">
+            <p className="text-sm text-muted-foreground leading-relaxed mb-2">{item.proof}</p>
+            <a 
+              href={item.url} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 text-xs text-primary hover:text-accent transition-colors"
+            >
+              View Source <ExternalLink className="w-3 h-3" />
+            </a>
+          </div>
+
+          {/* Collapsible trigger */}
+          <CollapsibleTrigger asChild>
+            <Button variant="ghost" size="sm" className="flex items-center gap-2 w-full justify-center border-t border-border/30 pt-3">
+              <span className="text-xs text-muted-foreground">
+                {isOpen ? 'Hide' : 'Show'} False Belief
+              </span>
+              <ChevronDown className={`w-4 h-4 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+            </Button>
+          </CollapsibleTrigger>
+          
+          {/* Collapsible content */}
           <CollapsibleContent>
-            <div className="mt-4 pt-4 border-t border-border/30">
-              <div className="bg-destructive/5 border border-destructive/20 rounded-lg p-4">
-                <h5 className="font-medium text-destructive mb-2">The False Belief:</h5>
+            <div className="mt-3 pt-3">
+              <div className="bg-destructive/5 border border-destructive/20 rounded-lg p-3">
+                <h5 className="font-medium text-destructive mb-2 text-sm">The False Belief:</h5>
                 <p className="text-sm text-destructive/80 italic">"{item.falsebelief}"</p>
               </div>
             </div>
           </CollapsibleContent>
-        </Collapsible>
+        </div>
       </div>
-    </div>
+    </Collapsible>
   );
 };
 
@@ -230,34 +233,40 @@ const FeelingStuck = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="py-20 lg:py-32 bg-primary relative overflow-hidden">
+      <section className="py-12 bg-primary relative overflow-hidden">
         <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div className="text-center animate-fade-in">
-            <h1 className="text-5xl lg:text-7xl font-bold leading-tight mb-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="animate-fade-in">
+            <h1 className="text-3xl lg:text-4xl font-bold mb-4 leading-tight">
               <span className="block text-white">Feeling Stuck?</span>
               <span className="block text-[hsl(35_45%_75%)]">You're Not Alone.</span>
             </h1>
-            <div className="max-w-4xl mx-auto space-y-6 text-white text-lg leading-relaxed">
-              <p>
-                Every decision you make creates a ripple effect.
-              </p>
-              <p>
-                That ripple will either take you forward into a life where you flourish, or hold you back in a cycle where you feel stuck.
-              </p>
-              <p>
-                Stuck looks different for everyone. For some it's constant tiredness, aches and pains, or struggling with sleep. For others it's money stress, debt, or never quite getting ahead. And for many, it's internal; a lack of purpose, strained relationships, or the sense that you're just going through the motions.
-              </p>
-              <p>
-                Whatever form "stuck" takes, it always feels heavy. It slows you down. It clouds your decisions. It convinces you that change is too big or too overwhelming.
-              </p>
-              <p className="text-xl font-semibold text-[hsl(35_45%_75%)]">
-                But here's the truth: you don't need a dramatic leap to escape feeling stuck.
-              </p>
-              <p className="text-xl font-semibold text-[hsl(35_45%_75%)]">
-                All you need is to start redirecting your ripple effects one small daily win at a time.
-              </p>
-            </div>
+            <p className="text-lg lg:text-xl mb-6 text-white/90 leading-relaxed max-w-3xl mx-auto">
+              Every decision creates a ripple effect. Start redirecting yours one small daily win at a time.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Introduction Section */}
+      <section className="py-16 bg-background">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="space-y-6 text-lg leading-relaxed text-primary mb-12">
+            <p>
+              Every decision you make creates a ripple effect. That ripple will either take you forward into a life where you flourish, or hold you back in a cycle where you feel stuck.
+            </p>
+            <p>
+              Stuck looks different for everyone. For some it's constant tiredness, aches and pains, or struggling with sleep. For others it's money stress, debt, or never quite getting ahead. And for many, it's internal; a lack of purpose, strained relationships, or the sense that you're just going through the motions.
+            </p>
+            <p>
+              Whatever form "stuck" takes, it always feels heavy. It slows you down. It clouds your decisions. It convinces you that change is too big or too overwhelming.
+            </p>
+            <p className="text-xl font-semibold text-primary">
+              But here's the truth: you don't need a dramatic leap to escape feeling stuck.
+            </p>
+            <p className="text-xl font-semibold text-primary">
+              All you need is to start redirecting your ripple effects one small daily win at a time.
+            </p>
           </div>
         </div>
       </section>
@@ -266,10 +275,10 @@ const FeelingStuck = () => {
       <section className="py-20 bg-background">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-primary">
+            <h2 className="text-3xl lg:text-4xl font-bold mb-6 text-primary">
               Where People Feel Stuck. And Why
             </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
               Below are the most common areas people get stuck, the false beliefs that keep them there, and the proof you're not alone.
             </p>
           </div>
