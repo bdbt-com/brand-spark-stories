@@ -197,17 +197,17 @@ const CollapsibleRow = ({
     </Collapsible>;
 };
 const FeelingStuck = () => {
-  return <div className="min-h-screen">
+  return <div className="min-h-screen bg-gradient-subtle">
       {/* Hero Section */}
-      <section className="py-8 bg-primary relative overflow-hidden">
-        <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
+      <section className="py-12 bg-gradient-hero text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="animate-fade-in">
-            <h1 className="text-3xl lg:text-4xl font-bold mb-6 text-white leading-tight">
-              Where People Feel Stuck And Why
+            <h1 className="text-3xl lg:text-4xl font-bold mb-4 leading-tight">
+              <span className="block text-white">Feeling</span>
+              <span className="block text-[hsl(35_45%_75%)]">Stuck</span>
             </h1>
-            <p className="text-lg text-white/90 leading-relaxed max-w-3xl mx-auto">
-              Below are the most common areas people get stuck, the false beliefs that keep them there, and the proof you're not alone.
+            <p className="text-lg lg:text-xl mb-6 text-white/90 leading-relaxed max-w-3xl mx-auto">
+              Where people feel stuck and why - the most common areas people get stuck, the false beliefs that keep them there, and the proof you're not alone.
             </p>
           </div>
         </div>
