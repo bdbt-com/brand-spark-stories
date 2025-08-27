@@ -344,7 +344,7 @@ const FeelingStuck = () => {
       <section className="py-20 bg-gradient-subtle">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="mb-12">
-            <h2 className="text-4xl lg:text-5xl font-bold mb-8 text-primary">
+            <h2 className="text-4xl lg:text-5xl font-bold mb-12 mt-8 text-primary">
               The Good News: Stuck is Not Permanent
             </h2>
             <div className="space-y-6 text-lg leading-relaxed">
