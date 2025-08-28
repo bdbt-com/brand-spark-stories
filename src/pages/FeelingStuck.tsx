@@ -226,6 +226,42 @@ const FeelingStuck = () => {
         </div>
       </section>
 
+      {/* Introduction Section */}
+      <section className="py-8 sm:py-12 lg:py-16 bg-background">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="space-y-6 sm:space-y-8 text-base sm:text-lg leading-relaxed text-primary">
+            <div className="text-center">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-6 sm:mb-8 text-primary">
+                Feeling Stuck? You're Not Alone
+              </h2>
+            </div>
+            
+            <div className="grid gap-4 sm:gap-6">
+              <p className="text-center">
+                Every decision you make creates a ripple effect. That ripple will either take you forward into a life where you flourish, or hold you back in a cycle where you feel stuck.
+              </p>
+              
+              <p>
+                Stuck looks different for everyone. For some it's constant tiredness, aches and pains, or struggling with sleep. For others it's money stress, debt, or never quite getting ahead. And for many, it's internal; a lack of purpose, strained relationships, or the sense that you're just going through the motions.
+              </p>
+              
+              <p>
+                Whatever form "stuck" takes, it always feels heavy. It slows you down. It clouds your decisions. It convinces you that change is too big or too overwhelming.
+              </p>
+              
+              <div className="bg-accent/10 border-l-4 border-accent p-4 sm:p-6 rounded-r-lg">
+                <p className="text-lg sm:text-xl font-semibold text-accent mb-3">
+                  But here's the truth: you don't need a dramatic leap to escape feeling stuck.
+                </p>
+                <p className="text-lg sm:text-xl font-semibold text-accent">
+                  All you need is to start redirecting your ripple effects one small daily win at a time.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Main Content Section */}
       <section className="py-8 sm:py-12 bg-background">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -300,42 +336,6 @@ const FeelingStuck = () => {
                 </div>
               </CollapsibleContent>
             </Collapsible>
-          </div>
-        </div>
-      </section>
-
-      {/* Introduction Section */}
-      <section className="py-8 sm:py-12 lg:py-16 bg-background">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="space-y-6 sm:space-y-8 text-base sm:text-lg leading-relaxed text-primary">
-            <div className="text-center">
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-6 sm:mb-8 text-primary">
-                Feeling Stuck? You're Not Alone
-              </h2>
-            </div>
-            
-            <div className="grid gap-4 sm:gap-6">
-              <p className="text-center">
-                Every decision you make creates a ripple effect. That ripple will either take you forward into a life where you flourish, or hold you back in a cycle where you feel stuck.
-              </p>
-              
-              <p>
-                Stuck looks different for everyone. For some it's constant tiredness, aches and pains, or struggling with sleep. For others it's money stress, debt, or never quite getting ahead. And for many, it's internal; a lack of purpose, strained relationships, or the sense that you're just going through the motions.
-              </p>
-              
-              <p>
-                Whatever form "stuck" takes, it always feels heavy. It slows you down. It clouds your decisions. It convinces you that change is too big or too overwhelming.
-              </p>
-              
-              <div className="bg-accent/10 border-l-4 border-accent p-4 sm:p-6 rounded-r-lg">
-                <p className="text-lg sm:text-xl font-semibold text-accent mb-3">
-                  But here's the truth: you don't need a dramatic leap to escape feeling stuck.
-                </p>
-                <p className="text-lg sm:text-xl font-semibold text-accent">
-                  All you need is to start redirecting your ripple effects one small daily win at a time.
-                </p>
-              </div>
-            </div>
           </div>
         </div>
       </section>
