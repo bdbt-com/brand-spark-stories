@@ -220,7 +220,7 @@ const FeelingStuck = () => {
               <span className="block text-[hsl(35_45%_75%)]">Stuck</span>
             </h1>
             <p className="text-base sm:text-lg lg:text-xl mb-6 sm:mb-8 text-white/90 leading-relaxed max-w-3xl mx-auto px-4">
-              Where people feel stuck and why - the most common areas people get stuck, the false beliefs that keep them there, and the proof you're not alone.
+              The most common areas people feel stuck in, the false beliefs keeping them there and the proof you're not alone.
             </p>
           </div>
         </div>
