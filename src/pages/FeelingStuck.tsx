@@ -349,7 +349,7 @@ const FeelingStuck = () => {
             </h2>
             <div className="space-y-4 sm:space-y-6 text-base sm:text-lg leading-relaxed">
               <p>
-                Every false belief you've just read is exactly that — a belief, not the truth. And every statistic proves you're not broken — you're human, living in a system designed to keep people stuck.
+                Every false belief you've just read is exactly that, a belief, not the truth. And every statistic proves you're not broken, you're human, living in a system designed to keep people stuck.
               </p>
               <p>
                 With Big Daddy's Big Tips, we break down these overwhelming problems into small, daily wins that ripple out across your health, wealth, and happiness.
