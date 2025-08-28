@@ -236,8 +236,8 @@ const FeelingStuck = () => {
               </h2>
             </div>
             
-            <div className="grid gap-4 sm:gap-6">
-              <p className="text-center">
+            <div className="grid gap-4 sm:gap-6 text-center">
+              <p>
                 Every decision you make creates a ripple effect. That ripple will either take you forward into a life where you flourish, or hold you back in a cycle where you feel stuck.
               </p>
               
