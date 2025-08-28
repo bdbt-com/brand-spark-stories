@@ -215,7 +215,7 @@ const FeelingStuck = () => {
       <section className="py-8 sm:py-12 bg-gradient-hero text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="animate-fade-in">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 leading-tight">
+            <h1 className="text-4xl lg:text-6xl font-bold mb-4 sm:mb-6 leading-tight">
               <span className="block text-white">Feeling</span>
               <span className="block text-[hsl(35_45%_75%)]">Stuck</span>
             </h1>
