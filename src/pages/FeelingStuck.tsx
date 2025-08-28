@@ -159,15 +159,15 @@ const CollapsibleRow = ({
   const [isOpen, setIsOpen] = useState(false);
   return <Collapsible open={isOpen} onOpenChange={setIsOpen}>
       <div className="border border-border/50 rounded-lg overflow-hidden bg-gradient-card shadow-soft hover:shadow-medium transition-all duration-300">
-        <div className="p-4">
+        <div className="p-3 sm:p-4">
           {/* Always visible content */}
-          <div className="flex items-center gap-3 mb-3">
-            <Icon className={`w-5 h-5 ${iconColor}`} />
-            <h4 className="font-semibold text-primary">{item.area}</h4>
+          <div className="flex items-center gap-2 sm:gap-3 mb-3">
+            <Icon className={`w-4 h-4 sm:w-5 sm:h-5 ${iconColor}`} />
+            <h4 className="font-semibold text-primary text-sm sm:text-base">{item.area}</h4>
           </div>
           
           <div className="mb-3">
-            <p className="text-sm text-muted-foreground leading-relaxed mb-2">{item.proof}</p>
+            <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed mb-2">{item.proof}</p>
             <a href={item.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-xs text-primary hover:text-accent transition-colors">
               View Source <ExternalLink className="w-3 h-3" />
             </a>
@@ -175,8 +175,8 @@ const CollapsibleRow = ({
 
           {/* Collapsible trigger */}
           <CollapsibleTrigger asChild>
-            <Button variant="ghost" size="sm" className="flex items-center gap-2 w-full justify-center border-t border-border/30 pt-3">
-              <span className="text-xs text-muted-foreground">
+            <Button variant="ghost" size="sm" className="flex items-center gap-2 w-full justify-center border-t border-border/30 pt-2 sm:pt-3 h-auto py-2 sm:py-3 min-h-[44px]">
+              <span className="text-xs sm:text-sm text-muted-foreground">
                 {isOpen ? 'Hide' : 'Show'} False Belief
               </span>
               <ChevronDown className={`w-4 h-4 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
@@ -185,10 +185,10 @@ const CollapsibleRow = ({
           
           {/* Collapsible content */}
           <CollapsibleContent>
-            <div className="mt-3 pt-3">
+            <div className="mt-2 sm:mt-3 pt-2 sm:pt-3">
               <div className="bg-destructive/5 border border-destructive/20 rounded-lg p-3">
-                <h5 className="font-medium text-destructive mb-2 text-sm">The False Belief:</h5>
-                <p className="text-sm text-destructive/80 italic">"{item.falsebelief}"</p>
+                <h5 className="font-medium text-destructive mb-2 text-xs sm:text-sm">The False Belief:</h5>
+                <p className="text-xs sm:text-sm text-destructive/80 italic">"{item.falsebelief}"</p>
               </div>
             </div>
           </CollapsibleContent>
@@ -212,14 +212,14 @@ const FeelingStuck = () => {
 
   return <div className="min-h-screen bg-gradient-subtle">
       {/* Hero Section */}
-      <section className="py-12 bg-gradient-hero text-white">
+      <section className="py-8 sm:py-12 bg-gradient-hero text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="animate-fade-in">
-            <h1 className="text-3xl lg:text-4xl font-bold mb-4 leading-tight">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 leading-tight">
               <span className="block text-white">Feeling</span>
               <span className="block text-[hsl(35_45%_75%)]">Stuck</span>
             </h1>
-            <p className="text-lg lg:text-xl mb-6 text-white/90 leading-relaxed max-w-3xl mx-auto">
+            <p className="text-base sm:text-lg lg:text-xl mb-6 sm:mb-8 text-white/90 leading-relaxed max-w-3xl mx-auto px-4">
               Where people feel stuck and why - the most common areas people get stuck, the false beliefs that keep them there, and the proof you're not alone.
             </p>
           </div>
@@ -227,27 +227,27 @@ const FeelingStuck = () => {
       </section>
 
       {/* Main Content Section */}
-      <section className="py-12 bg-background">
+      <section className="py-8 sm:py-12 bg-background">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
           {/* Health Section */}
-          <div className="mb-16">
+          <div className="mb-8 sm:mb-12 lg:mb-16">
             <Collapsible open={openSections.health} onOpenChange={() => toggleSection('health')}>
               <CollapsibleTrigger asChild>
-                <Card className="mb-8 cursor-pointer hover:shadow-medium transition-all duration-300 border-2 hover:border-red-500/30">
-                  <CardHeader>
-                    <CardTitle className="flex items-center justify-between text-2xl">
-                      <div className="flex items-center gap-3">
-                        <Heart className="w-8 h-8 text-red-500" />
+                <Card className="mb-4 sm:mb-6 lg:mb-8 cursor-pointer hover:shadow-medium transition-all duration-300 border-2 hover:border-red-500/30">
+                  <CardHeader className="p-4 sm:p-6">
+                    <CardTitle className="flex items-center justify-between text-xl sm:text-2xl">
+                      <div className="flex items-center gap-2 sm:gap-3">
+                        <Heart className="w-6 h-6 sm:w-8 sm:h-8 text-red-500" />
                         Health
                       </div>
-                      <ChevronDown className={`w-6 h-6 transition-transform text-red-500 ${openSections.health ? 'rotate-180' : ''}`} />
+                      <ChevronDown className={`w-5 h-5 sm:w-6 sm:h-6 transition-transform text-red-500 ${openSections.health ? 'rotate-180' : ''}`} />
                     </CardTitle>
                   </CardHeader>
                 </Card>
               </CollapsibleTrigger>
               <CollapsibleContent>
-                <div className="grid gap-4 md:gap-6 animate-fade-in">
+                <div className="grid gap-3 sm:gap-4 md:gap-6 animate-fade-in">
                   {healthData.map((item, index) => <CollapsibleRow key={index} item={item} icon={Heart} iconColor="text-red-500" />)}
                 </div>
               </CollapsibleContent>
@@ -255,23 +255,23 @@ const FeelingStuck = () => {
           </div>
 
           {/* Wealth Section */}
-          <div className="mb-16">
+          <div className="mb-8 sm:mb-12 lg:mb-16">
             <Collapsible open={openSections.wealth} onOpenChange={() => toggleSection('wealth')}>
               <CollapsibleTrigger asChild>
-                <Card className="mb-8 cursor-pointer hover:shadow-medium transition-all duration-300 border-2 hover:border-green-600/30">
-                  <CardHeader>
-                    <CardTitle className="flex items-center justify-between text-2xl">
-                      <div className="flex items-center gap-3">
-                        <DollarSign className="w-8 h-8 text-green-600" />
+                <Card className="mb-4 sm:mb-6 lg:mb-8 cursor-pointer hover:shadow-medium transition-all duration-300 border-2 hover:border-green-600/30">
+                  <CardHeader className="p-4 sm:p-6">
+                    <CardTitle className="flex items-center justify-between text-xl sm:text-2xl">
+                      <div className="flex items-center gap-2 sm:gap-3">
+                        <DollarSign className="w-6 h-6 sm:w-8 sm:h-8 text-green-600" />
                         Wealth
                       </div>
-                      <ChevronDown className={`w-6 h-6 transition-transform text-green-600 ${openSections.wealth ? 'rotate-180' : ''}`} />
+                      <ChevronDown className={`w-5 h-5 sm:w-6 sm:h-6 transition-transform text-green-600 ${openSections.wealth ? 'rotate-180' : ''}`} />
                     </CardTitle>
                   </CardHeader>
                 </Card>
               </CollapsibleTrigger>
               <CollapsibleContent>
-                <div className="grid gap-4 md:gap-6 animate-fade-in">
+                <div className="grid gap-3 sm:gap-4 md:gap-6 animate-fade-in">
                   {wealthData.map((item, index) => <CollapsibleRow key={index} item={item} icon={DollarSign} iconColor="text-green-600" />)}
                 </div>
               </CollapsibleContent>
@@ -279,23 +279,23 @@ const FeelingStuck = () => {
           </div>
 
           {/* Happiness Section */}
-          <div className="mb-16">
+          <div className="mb-8 sm:mb-12 lg:mb-16">
             <Collapsible open={openSections.happiness} onOpenChange={() => toggleSection('happiness')}>
               <CollapsibleTrigger asChild>
-                <Card className="mb-8 cursor-pointer hover:shadow-medium transition-all duration-300 border-2 hover:border-yellow-500/30">
-                  <CardHeader>
-                    <CardTitle className="flex items-center justify-between text-2xl">
-                      <div className="flex items-center gap-3">
-                        <Smile className="w-8 h-8 text-yellow-500" />
+                <Card className="mb-4 sm:mb-6 lg:mb-8 cursor-pointer hover:shadow-medium transition-all duration-300 border-2 hover:border-yellow-500/30">
+                  <CardHeader className="p-4 sm:p-6">
+                    <CardTitle className="flex items-center justify-between text-xl sm:text-2xl">
+                      <div className="flex items-center gap-2 sm:gap-3">
+                        <Smile className="w-6 h-6 sm:w-8 sm:h-8 text-yellow-500" />
                         Happiness
                       </div>
-                      <ChevronDown className={`w-6 h-6 transition-transform text-yellow-500 ${openSections.happiness ? 'rotate-180' : ''}`} />
+                      <ChevronDown className={`w-5 h-5 sm:w-6 sm:h-6 transition-transform text-yellow-500 ${openSections.happiness ? 'rotate-180' : ''}`} />
                     </CardTitle>
                   </CardHeader>
                 </Card>
               </CollapsibleTrigger>
               <CollapsibleContent>
-                <div className="grid gap-4 md:gap-6 animate-fade-in">
+                <div className="grid gap-3 sm:gap-4 md:gap-6 animate-fade-in">
                   {happinessData.map((item, index) => <CollapsibleRow key={index} item={item} icon={Smile} iconColor="text-yellow-500" />)}
                 </div>
               </CollapsibleContent>
@@ -305,16 +305,16 @@ const FeelingStuck = () => {
       </section>
 
       {/* Introduction Section */}
-      <section className="py-16 bg-background">
+      <section className="py-8 sm:py-12 lg:py-16 bg-background">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="space-y-8 text-lg leading-relaxed text-primary">
+          <div className="space-y-6 sm:space-y-8 text-base sm:text-lg leading-relaxed text-primary">
             <div className="text-center">
-              <h2 className="text-2xl lg:text-3xl font-bold mb-8 text-primary">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-6 sm:mb-8 text-primary">
                 Feeling Stuck? You're Not Alone
               </h2>
             </div>
             
-            <div className="grid gap-6">
+            <div className="grid gap-4 sm:gap-6">
               <p className="text-center">
                 Every decision you make creates a ripple effect. That ripple will either take you forward into a life where you flourish, or hold you back in a cycle where you feel stuck.
               </p>
@@ -327,11 +327,11 @@ const FeelingStuck = () => {
                 Whatever form "stuck" takes, it always feels heavy. It slows you down. It clouds your decisions. It convinces you that change is too big or too overwhelming.
               </p>
               
-              <div className="bg-accent/10 border-l-4 border-accent p-6 rounded-r-lg">
-                <p className="text-xl font-semibold text-accent mb-3">
+              <div className="bg-accent/10 border-l-4 border-accent p-4 sm:p-6 rounded-r-lg">
+                <p className="text-lg sm:text-xl font-semibold text-accent mb-3">
                   But here's the truth: you don't need a dramatic leap to escape feeling stuck.
                 </p>
-                <p className="text-xl font-semibold text-accent">
+                <p className="text-lg sm:text-xl font-semibold text-accent">
                   All you need is to start redirecting your ripple effects one small daily win at a time.
                 </p>
               </div>
@@ -341,13 +341,13 @@ const FeelingStuck = () => {
       </section>
 
       {/* The Good News Section */}
-      <section className="py-20 bg-gradient-subtle">
+      <section className="py-12 sm:py-16 lg:py-20 bg-gradient-subtle">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="mb-12">
-            <h2 className="text-4xl lg:text-5xl font-bold mb-12 mt-8 text-primary">
+          <div className="mb-8 sm:mb-12">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-8 sm:mb-12 mt-4 sm:mt-8 text-primary">
               The Good News: Stuck is Not Permanent
             </h2>
-            <div className="space-y-6 text-lg leading-relaxed">
+            <div className="space-y-4 sm:space-y-6 text-base sm:text-lg leading-relaxed">
               <p>
                 Every false belief you've just read is exactly that — a belief, not the truth. And every statistic proves you're not broken — you're human, living in a system designed to keep people stuck.
               </p>
@@ -358,17 +358,17 @@ const FeelingStuck = () => {
           </div>
 
           <Card className="bg-primary text-white shadow-strong">
-            <CardContent className="p-8 text-center">
-              <div className="flex justify-center mb-6">
-                <CheckCircle className="w-12 h-12 text-green-400" />
+            <CardContent className="p-6 sm:p-8 text-center">
+              <div className="flex justify-center mb-4 sm:mb-6">
+                <CheckCircle className="w-10 h-10 sm:w-12 sm:h-12 text-green-400" />
               </div>
-              <h3 className="text-2xl font-bold mb-6">
+              <h3 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">
                 Your Next Step
               </h3>
-              <p className="text-xl font-semibold text-white mb-6 leading-relaxed">
+              <p className="text-lg sm:text-xl font-semibold text-white mb-4 sm:mb-6 leading-relaxed">
                 You don't need to overhaul your entire life at once. You just need to start stacking the right habits.
               </p>
-              <p className="text-lg mb-4 text-white/90">
+              <p className="text-base sm:text-lg mb-4 text-white/90">
                 Start your first daily win today.
               </p>
               <p className="mb-8 text-white/90 leading-relaxed">
