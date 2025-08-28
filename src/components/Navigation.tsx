@@ -35,7 +35,7 @@ const Navigation = () => {
             </Link>
             
             {/* Social Media Icons - Desktop Only */}
-            <div className="hidden sm:flex items-center gap-2 border-l border-border pl-4 ml-4">
+            <div className="hidden sm:flex items-center gap-2 pl-2">
               <a 
                 href="https://instagram.com/BigDaddysBigTips" 
                 target="_blank" 
