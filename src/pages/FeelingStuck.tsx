@@ -263,7 +263,7 @@ const FeelingStuck = () => {
       </section>
 
       {/* Main Content Section */}
-      <section className="py-8 sm:py-12 bg-background">
+      <section className="py-12 sm:py-16 lg:py-20 bg-background">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
           {/* Health Section */}
