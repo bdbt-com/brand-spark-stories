@@ -214,7 +214,7 @@ const Home = () => {
             {[{
             icon: Droplets,
             title: "What goes into your body",
-            description: "Simple hydration hacks that save money and transform your energy levels. Focus on pure water and mindful nutrition choices that fuel your daily transformation.",
+            description: "It's not just food and drink. It's what you see and what you hear. The inputs you feed your body, mind, and environment shape your energy, focus, and finances. Choose better fuel and watch every area of life transform.",
             color: "bg-primary/10 text-primary"
           }, {
             icon: Activity,
