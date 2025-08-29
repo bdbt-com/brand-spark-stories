@@ -190,21 +190,21 @@ const Home = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-primary">
-              The Vessels, The Ripples, & The Journey
+              The Vessel, The Ripples, & The Journey
             </h2>
             <div className="text-xl text-primary max-w-3xl mx-auto">
               <ul className="space-y-2 text-left">
                 <li className="flex items-start">
                   <span className="w-2 h-2 bg-primary rounded-full mt-3 mr-3 flex-shrink-0"></span>
-                  Prime your vessel
+                  Your body is the vessel. Prime it to make good decisions.
                 </li>
                 <li className="flex items-start">
                   <span className="w-2 h-2 bg-primary rounded-full mt-3 mr-3 flex-shrink-0"></span>
-                  Make the right daily decisions
+                  Your daily decisions create your ripples. Stack the right ones daily.
                 </li>
                 <li className="flex items-start">
                   <span className="w-2 h-2 bg-primary rounded-full mt-3 mr-3 flex-shrink-0"></span>
-                  Create the right ripple effects to take you through the right journey in life
+                  Your ripples shape your journey. Small wins today create a transformed tomorrow.
                 </li>
               </ul>
             </div>
