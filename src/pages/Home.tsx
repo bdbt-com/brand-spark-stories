@@ -219,7 +219,7 @@ const Home = () => {
           }, {
             icon: Activity,
             title: "How you move your body",
-            description: "Daily movement strategies that build strength and momentum. Small consistent actions that compound into major physical and mental breakthroughs.",
+            description: "Strength, stamina, flexibility. Movement isn't one-dimensional. Small, consistent actions build a body that carries you further, a mind that thinks sharper, and a wallet that benefits from daily momentum.",
             color: "bg-accent/10 text-accent"
           }, {
             icon: Moon,
