@@ -224,7 +224,7 @@ const Home = () => {
           }, {
             icon: Moon,
             title: "How you rest your body",
-            description: "Recovery techniques and sleep optimization that allow your vessel to regenerate. Quality rest is the foundation of all other daily wins.",
+            description: "Rest isn't passive, it's the amplifier. Quality sleep and recovery unlock energy, clarity, and resilience, turning stacked habits into lasting breakthroughs. Quality rest is the foundation of all other daily wins.",
             color: "bg-accent/10 text-accent"
           }].map((step, index) => <Card key={index} className="group hover:shadow-medium transition-all duration-300 hover:-translate-y-2">
                 <CardContent className="p-6 text-center">
