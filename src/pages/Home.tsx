@@ -147,7 +147,7 @@ const Home = () => {
                 <span className="block text-[hsl(35_45%_75%)]">Big Life Change.</span>
               </h1>
               <p className="text-base lg:text-lg mb-8 text-white/90 leading-relaxed">
-                Big Daddy's Big Tips teaches simple daily habits that silently transform your health, wealth, and happiness simultaneously. We turn overwhelming life changes into achievable daily steps.
+                Big Daddy's Big Tips teaches simple daily habits that silently transform your health, wealth, and happiness simultaneously. Turning overwhelming life changes into achievable daily steps.
               </p>
               <div className="flex justify-center">
                 {/* Get Your Foundation Blueprint Here - enlarged and centered */}
