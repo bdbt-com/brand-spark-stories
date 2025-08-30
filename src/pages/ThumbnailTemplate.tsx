@@ -39,6 +39,34 @@ const ThumbnailTemplate = () => {
       title: "The Benefits of Buying Healthy Snacks in Bulk",
       subtitle: "Daily Wins Podcast",
       image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+    },
+    {
+      id: 5,
+      name: "Morning Self-Care",
+      title: "The Power of Smiling at Yourself",
+      subtitle: "in The Mirror Every Morning",
+      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+    },
+    {
+      id: 6,
+      name: "Daily Movement",
+      title: "The Benefits of Stretching",
+      subtitle: "Daily for Your Body",
+      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+    },
+    {
+      id: 7,
+      name: "Mindfulness",
+      title: "The Power of Meditating",
+      subtitle: "for 2 Minutes Daily",
+      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+    },
+    {
+      id: 8,
+      name: "Fitness Micro-Habits",
+      title: "The Benefits of 1 Minute",
+      subtitle: "of Squats a Day",
+      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
     }
   ];
 
@@ -239,6 +267,166 @@ const ThumbnailTemplate = () => {
                     </span>
                     <span className="block" style={{ color: 'hsl(35, 45%, 75%)' }}>
                       Snacks in Bulk
+                    </span>
+                  </h1>
+                  <p className="text-white/80 text-3xl font-medium">
+                    Daily Wins Podcast
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Template 6 - Morning Self-Care */}
+        {currentTemplateIndex === 5 && (
+          <div className="relative">
+            <div id="thumbnail-5" key="template-5" className="w-[1280px] h-[720px] relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in">
+              <div className="h-full flex items-center p-16 relative">
+                <div className="absolute right-16 top-16 bottom-16 flex items-center">
+                  <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
+                    <img 
+                      src={templates[5].image} 
+                      alt="Podcast thumbnail"
+                      className="w-full h-full object-cover border-4 border-white/20"
+                    />
+                    <div className="absolute bottom-4 left-4">
+                      <img 
+                        src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
+                        alt="BDBT Logo"
+                        className="h-16 opacity-90"
+                      />
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="absolute left-8 top-16 bottom-24 right-[35%] pr-4 z-10 flex flex-col justify-center">
+                  <h1 className="text-6xl xl:text-7xl 2xl:text-8xl font-bold leading-tight mb-6">
+                    <span className="text-white block mb-2">
+                      The Power of Smiling at Yourself
+                    </span>
+                    <span className="block" style={{ color: 'hsl(35, 45%, 75%)' }}>
+                      in The Mirror Every Morning
+                    </span>
+                  </h1>
+                  <p className="text-white/80 text-3xl font-medium">
+                    Daily Wins Podcast
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Template 7 - Daily Movement */}
+        {currentTemplateIndex === 6 && (
+          <div className="relative">
+            <div id="thumbnail-6" key="template-6" className="w-[1280px] h-[720px] relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in">
+              <div className="h-full flex items-center p-16 relative">
+                <div className="absolute right-16 top-16 bottom-16 flex items-center">
+                  <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
+                    <img 
+                      src={templates[6].image} 
+                      alt="Podcast thumbnail"
+                      className="w-full h-full object-cover border-4 border-white/20"
+                    />
+                    <div className="absolute bottom-4 left-4">
+                      <img 
+                        src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
+                        alt="BDBT Logo"
+                        className="h-16 opacity-90"
+                      />
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="absolute left-8 top-16 bottom-24 right-[35%] pr-4 z-10 flex flex-col justify-center">
+                  <h1 className="text-6xl xl:text-7xl 2xl:text-8xl font-bold leading-tight mb-6">
+                    <span className="text-white block mb-2">
+                      The Benefits of Stretching
+                    </span>
+                    <span className="block" style={{ color: 'hsl(35, 45%, 75%)' }}>
+                      Daily for Your Body
+                    </span>
+                  </h1>
+                  <p className="text-white/80 text-3xl font-medium">
+                    Daily Wins Podcast
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Template 8 - Mindfulness */}
+        {currentTemplateIndex === 7 && (
+          <div className="relative">
+            <div id="thumbnail-7" key="template-7" className="w-[1280px] h-[720px] relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in">
+              <div className="h-full flex items-center p-16 relative">
+                <div className="absolute right-16 top-16 bottom-16 flex items-center">
+                  <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
+                    <img 
+                      src={templates[7].image} 
+                      alt="Podcast thumbnail"
+                      className="w-full h-full object-cover border-4 border-white/20"
+                    />
+                    <div className="absolute bottom-4 left-4">
+                      <img 
+                        src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
+                        alt="BDBT Logo"
+                        className="h-16 opacity-90"
+                      />
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="absolute left-8 top-16 bottom-24 right-[35%] pr-4 z-10 flex flex-col justify-center">
+                  <h1 className="text-6xl xl:text-7xl 2xl:text-8xl font-bold leading-tight mb-6">
+                    <span className="text-white block mb-2">
+                      The Power of Meditating
+                    </span>
+                    <span className="block" style={{ color: 'hsl(35, 45%, 75%)' }}>
+                      for 2 Minutes Daily
+                    </span>
+                  </h1>
+                  <p className="text-white/80 text-3xl font-medium">
+                    Daily Wins Podcast
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Template 9 - Fitness Micro-Habits */}
+        {currentTemplateIndex === 8 && (
+          <div className="relative">
+            <div id="thumbnail-8" key="template-8" className="w-[1280px] h-[720px] relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in">
+              <div className="h-full flex items-center p-16 relative">
+                <div className="absolute right-16 top-16 bottom-16 flex items-center">
+                  <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
+                    <img 
+                      src={templates[8].image} 
+                      alt="Podcast thumbnail"
+                      className="w-full h-full object-cover border-4 border-white/20"
+                    />
+                    <div className="absolute bottom-4 left-4">
+                      <img 
+                        src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
+                        alt="BDBT Logo"
+                        className="h-16 opacity-90"
+                      />
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="absolute left-8 top-16 bottom-24 right-[35%] pr-4 z-10 flex flex-col justify-center">
+                  <h1 className="text-6xl xl:text-7xl 2xl:text-8xl font-bold leading-tight mb-6">
+                    <span className="text-white block mb-2">
+                      The Benefits of 1 Minute
+                    </span>
+                    <span className="block" style={{ color: 'hsl(35, 45%, 75%)' }}>
+                      of Squats a Day
                     </span>
                   </h1>
                   <p className="text-white/80 text-3xl font-medium">
