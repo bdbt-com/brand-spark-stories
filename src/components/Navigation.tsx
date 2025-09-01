@@ -2,9 +2,11 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Instagram, Youtube, Facebook } from "lucide-react";
+import logoWhite from "@/assets/bdbt-logo-white.png";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [logoError, setLogoError] = useState(false);
   const location = useLocation();
 
   const navItems = [
@@ -22,17 +24,28 @@ const Navigation = () => {
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    <nav className="border-b border-border/80 sticky top-0 z-50 transition-all duration-300" style={{ backgroundColor: 'hsl(var(--nav-background))' }}>
+    <nav className="border-b border-border/80 sticky top-0 z-50 transition-all duration-300 bg-background/95 backdrop-blur-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo and Social Icons */}
           <div className="flex items-center space-x-4">
             <Link to="/" className="flex items-center space-x-3 hover:opacity-80 transition-all duration-200 hover:scale-105 focus-enhanced">
-              <img 
-                src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png"
-                alt="BDBT Logo" 
-                className="h-10 w-auto object-contain"
-              />
+              <div className="relative">
+                {!logoError ? (
+                  <img 
+                    src={logoWhite}
+                    alt="BDBT Logo" 
+                    className="h-10 w-auto object-contain"
+                    onError={() => {
+                      console.log('Logo failed to load, showing fallback');
+                      setLogoError(true);
+                    }}
+                    onLoad={() => console.log('Logo loaded successfully')}
+                  />
+                ) : (
+                  <span className="text-lg font-bold text-primary">BDBT</span>
+                )}
+              </div>
             </Link>
             
             {/* Social Media Icons - Desktop Only */}
