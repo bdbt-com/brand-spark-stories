@@ -144,7 +144,7 @@ const Home = () => {
             <div className="animate-fade-in">
               <h1 className="text-4xl lg:text-6xl font-bold mb-6 leading-tight">
                 <span className="block text-white">Small Daily Steps.</span>
-                <span className="block text-[hsl(35_45%_75%)]">Big Life Change.</span>
+                <span className="block text-[hsl(35_45%_75%)]">Big Life Changes.</span>
               </h1>
               <p className="text-base lg:text-lg mb-8 text-white/90 leading-relaxed">
                 Big Daddy's Big Tips teaches simple daily habits that silently transform your health, wealth, and happiness simultaneously. Turning overwhelming life changes into achievable daily steps.
