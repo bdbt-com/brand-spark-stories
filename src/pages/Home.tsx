@@ -584,13 +584,21 @@ const Home = () => {
               Feeling Stuck?
             </h2>
             <p className="text-xl text-primary max-w-3xl mx-auto mb-8">
-              You're not alone. Many people feel trapped by limiting beliefs that keep them from creating the life they want. 
-              The good news? These beliefs can be broken with the right system and small daily actions.
+              You're smart enough to compound over time and strong enough to rebuild your identity from the inside out.
+            </p>
+            <p className="text-xl text-primary max-w-3xl mx-auto mb-8">
+              You don't need another goal. You need an achievable daily win that creates a ripple effect across your entire life.
+            </p>
+            <p className="text-xl text-primary max-w-3xl mx-auto mb-8">
+              If you feel stuck, scattered, or just know you're capable of more, this is your next step.
+            </p>
+            <p className="text-xl text-primary max-w-3xl mx-auto mb-12 font-semibold">
+              One habit today. A different life tomorrow. Let's build it together - one tip at a time.
             </p>
             <div className="flex justify-center">
               <Button variant="outline" size="lg" asChild className="w-full sm:w-auto max-w-sm">
-                <Link to="/feeling-stuck">
-                  Discover What's Holding You Back <ArrowRight className="w-5 h-5 ml-2" />
+                <Link to="/blueprint">
+                  Start Your Journey <ArrowRight className="w-5 h-5 ml-2" />
                 </Link>
               </Button>
             </div>
