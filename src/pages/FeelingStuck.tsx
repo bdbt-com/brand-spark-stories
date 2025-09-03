@@ -50,7 +50,7 @@ const healthData = [{
 }, {
   area: "Aches & Pains",
   falsebelief: "It's just part of getting older.",
-  proof: "Approximately 20% of adults globally suffer from chronic pain—about 1.5 billion people worldwide.",
+  proof: "chronic pain (about 1.5 billion people worldwide).",
   url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC3201926/"
 }];
 const wealthData = [{
@@ -61,7 +61,7 @@ const wealthData = [{
 }, {
   area: "Maximising Earning Potential",
   falsebelief: "I'm stuck in this career.",
-  proof: "77% of UK workers only focus on their main income stream",
+  proof: "77% of UK workers only focus on their main income stream.",
   url: "https://commonslibrary.parliament.uk/research-briefings/cbp-7584/"
 }, {
   area: "Impulse Spending",
@@ -81,7 +81,7 @@ const wealthData = [{
 }, {
   area: "Creating Additional Income",
   falsebelief: "Side hustles are only for entrepreneurs.",
-  proof: "77% of UK workers only focus on their main income stream",
+  proof: "77% of UK workers only focus on their main income stream.",
   url: "https://commonslibrary.parliament.uk/research-briefings/cbp-7584/"
 }, {
   area: "Saving",
@@ -242,7 +242,7 @@ const FeelingStuck = () => {
               </p>
               
               <p>
-                Stuck looks different for everyone. For some it's constant tiredness, aches and pains, or struggling with sleep. For others it's money stress, debt, or never quite getting ahead. And for many, it's internal; a lack of purpose, strained relationships, or the sense that you're just going through the motions.
+                Stuck looks different for everyone. For some it's constant tiredness, aches and pains, or struggling with sleep. For others it's money stress, debt, or never quite getting ahead. And for many, it's internal; stress, anxiety, a lack of purpose, strained relationships, or the sense that you're just going through the motions.
               </p>
               
               <p>
