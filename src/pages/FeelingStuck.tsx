@@ -66,7 +66,7 @@ const wealthData = [{
 }, {
   area: "Impulse Spending",
   falsebelief: "I deserve a treat.",
-  proof: "Brits make ~42 impulse purchases per year, spending ≈£944.",
+  proof: "Brits make approximately 42 impulse purchases per year, spending an average of £944.",
   url: "https://www.vanquis.com/take-control/impulse-spending-uk/"
 }, {
   area: "Debt",
@@ -102,7 +102,7 @@ const wealthData = [{
 const happinessData = [{
   area: "Purpose",
   falsebelief: "It's too late to change direction.",
-  proof: "91% report high stress—an indicator of lack of purpose.",
+  proof: "91% report high stress, an indicator of lack of purpose.",
   url: "https://mentalhealth-uk.org/burnout/"
 }, {
   area: "Fulfilment",
@@ -117,7 +117,7 @@ const happinessData = [{
 }, {
   area: "Contentment / Gratitude",
   falsebelief: "I'll be content when I have more.",
-  proof: "Only 47% of Americans are very satisfied with their lives—implying over half don't feel fully content.",
+  proof: "Only 47% of Americans are very satisfied with their lives, implying over half don't feel fully content.",
   url: "https://news.gallup.com/poll/610133/less-half-americans-satisfied-own-lives.aspx"
 }, {
   area: "Self-Worth / Esteem",
