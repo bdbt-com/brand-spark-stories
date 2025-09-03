@@ -545,7 +545,7 @@ const About = () => {
       </section>
 
       {/* BDBT Philosophy */}
-      <section className="py-20 bg-gradient-primary text-primary-foreground relative overflow-hidden">
+      <section className="py-12 bg-gradient-primary text-primary-foreground relative overflow-hidden">
         <div className="absolute inset-0 bg-black/10"></div>
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="text-center mb-16">
@@ -559,22 +559,22 @@ const About = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[{
             icon: Target,
-            belief: "In stacking micro-wins, not chasing macro-perfection."
+            belief: "Stacking micro-wins, not chasing macro-perfection."
           }, {
             icon: Clock,
-            belief: "That 10 minutes can change your entire day. The ripple can then change your entire life."
+            belief: "10 minutes can change your entire day. The ripple can then change your entire life."
           }, {
             icon: Brain,
-            belief: "That your environment beats your willpower."
+            belief: "Your environment beats your willpower."
           }, {
             icon: Zap,
-            belief: "That you don't need more motivation, you need a system that works even when you don't."
+            belief: "You don't need more motivation, you need a system that works even when you don't."
           }, {
             icon: Heart,
-            belief: "That real change happens when your habits serve your values."
+            belief: "Real change happens when your habits serve your values."
           }, {
             icon: Star,
-            belief: "That you don't need another goal. You need an achievable daily win that creates ripple effects."
+            belief: "You don't need another goal. You need an achievable daily win that creates ripple effects."
           }].map((item, index) => <Card key={index} className="bg-white/10 border-white/20 backdrop-blur-sm">
                 <CardContent className="p-6 text-center">
                   <item.icon className="w-12 h-12 mx-auto mb-4 text-white" />
@@ -586,7 +586,7 @@ const About = () => {
       </section>
 
       {/* The Truth Section */}
-      <section className="py-20 bg-muted/30">
+      <section className="py-12 bg-muted/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-primary">
@@ -621,6 +621,19 @@ const About = () => {
                         <span className="text-primary">{benefit}</span>
                       </div>)}
                   </div>
+                </CardContent>
+              </Card>
+            </div>
+            
+            {/* CTA Section */}
+            <div className="mt-12 text-center">
+              <Card className="bg-gradient-to-r from-primary/10 to-secondary/10 border-primary/20 max-w-md mx-auto">
+                <CardContent className="p-8">
+                  <h3 className="text-2xl font-bold text-primary mb-4">Get Your Free Foundation Blueprint</h3>
+                  <p className="text-primary/80 mb-6">Start building your life-changing habits today</p>
+                  <Button asChild size="lg" className="w-full">
+                    <Link to="/blueprint">Get Foundation Blueprint <ArrowRight className="w-5 h-5 ml-2" /></Link>
+                  </Button>
                 </CardContent>
               </Card>
             </div>
