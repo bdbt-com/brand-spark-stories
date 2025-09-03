@@ -107,7 +107,7 @@ const Blueprint = () => {
           </div>
 
           {/* Email capture form - visible above document */}
-          <Card className="mb-8 border-2 border-primary/20 bg-background">
+          <Card className="mb-16 border-2 border-primary/20 bg-background">
             <CardContent className="space-y-4 pt-4 pb-4">
               {isSubmitted ? <div className="text-center py-8 animate-scale-in">
                   <div className="w-20 h-20 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-4 animate-pulse">
@@ -205,7 +205,7 @@ const Blueprint = () => {
                   </li>
                   <li className="text-sm text-primary flex items-start">
                     <CheckCircle className="w-4 h-4 mr-3 mt-0.5 text-primary flex-shrink-0" />
-                    Document your journey
+                    Document your progress
                   </li>
                   <li className="text-sm text-primary flex items-start">
                     <CheckCircle className="w-4 h-4 mr-3 mt-0.5 text-primary flex-shrink-0" />
@@ -219,7 +219,7 @@ const Blueprint = () => {
                 <ul className="space-y-2 max-w-md mx-auto">
                   <li className="text-sm text-primary flex items-start">
                     <CheckCircle className="w-4 h-4 mr-3 mt-0.5 text-primary flex-shrink-0" />
-                    Momentum &gt; motivation
+                    Momentum is greater than motivation
                   </li>
                   <li className="text-sm text-primary flex items-start">
                     <CheckCircle className="w-4 h-4 mr-3 mt-0.5 text-primary flex-shrink-0" />
