@@ -147,9 +147,9 @@
     --success-foreground: 30 15% 85%;
     --success-light: 15 12% 30%;
 
-    --warning: 160 20% 65%;
-    --warning-foreground: 30 15% 94%;
-    --warning-light: 160 20% 85%;
+    --warning: 45 93% 47%;
+    --warning-foreground: 215 25% 15%;
+    --warning-light: 45 93% 85%;
 
     --destructive: 12 35% 65%;
     --destructive-foreground: 30 15% 85%;

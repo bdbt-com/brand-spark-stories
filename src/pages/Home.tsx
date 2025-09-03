@@ -293,21 +293,21 @@ const Home = () => {
                       <h4 className="text-xl font-semibold text-primary mb-4 text-center">What You Get</h4>
                       <div className="grid md:grid-cols-3 gap-6">
                         <div className="text-center">
-                          <div className="w-16 h-16 bg-warning rounded-xl flex items-center justify-center mx-auto mb-3 hover:scale-110 transition-transform duration-300">
+                          <div className="w-16 h-16 bg-primary/10 border-2 border-primary/20 rounded-xl flex items-center justify-center mx-auto mb-3 hover:scale-110 hover:bg-primary/20 hover:border-primary/30 transition-all duration-300">
                             <FileText className="w-8 h-8 text-primary" />
                           </div>
                           <h5 className="font-semibold text-primary mb-2">Foundation Blueprint</h5>
                           <p className="text-sm text-primary">Your guide for spotting drifts, tracking wins and staying on course</p>
                         </div>
                         <div className="text-center">
-                          <div className="w-16 h-16 bg-warning rounded-xl flex items-center justify-center mx-auto mb-3 hover:scale-110 transition-transform duration-300">
+                          <div className="w-16 h-16 bg-primary/10 border-2 border-primary/20 rounded-xl flex items-center justify-center mx-auto mb-3 hover:scale-110 hover:bg-primary/20 hover:border-primary/30 transition-all duration-300">
                             <Zap className="w-8 h-8 text-primary" />
                           </div>
                           <h5 className="font-semibold text-primary mb-2">Daily Tips</h5>
                           <p className="text-sm text-primary">Small daily steps that quietly transform your health, wealth and happiness</p>
                         </div>
                         <div className="text-center">
-                          <div className="w-16 h-16 bg-warning rounded-xl flex items-center justify-center mx-auto mb-3 hover:scale-110 transition-transform duration-300">
+                          <div className="w-16 h-16 bg-primary/10 border-2 border-primary/20 rounded-xl flex items-center justify-center mx-auto mb-3 hover:scale-110 hover:bg-primary/20 hover:border-primary/30 transition-all duration-300">
                             <Headphones className="w-8 h-8 text-primary" />
                           </div>
                           <h5 className="font-semibold text-primary mb-2">BDBT Guidance</h5>
