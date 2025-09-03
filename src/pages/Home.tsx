@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ArrowRight, Droplets, Activity, Moon, DollarSign, Heart, Smile, Target, Zap, ChevronDown, Trophy, AlertTriangle } from "lucide-react";
+import { ArrowRight, Droplets, Activity, Moon, DollarSign, Heart, Smile, Target, Zap, ChevronDown, Trophy, AlertTriangle, FileText, Headphones } from "lucide-react";
 import { Link } from "react-router-dom";
 import TipsCarousel from "@/components/TipsCarousel";
 import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "@/components/ui/carousel";
@@ -294,7 +294,7 @@ const Home = () => {
                       <div className="grid md:grid-cols-3 gap-6">
                         <div className="text-center">
                           <div className="w-16 h-16 bg-warning rounded-xl flex items-center justify-center mx-auto mb-3 hover:scale-110 transition-transform duration-300">
-                            <Target className="w-8 h-8 text-primary" />
+                            <FileText className="w-8 h-8 text-primary" />
                           </div>
                           <h5 className="font-semibold text-primary mb-2">Foundation Blueprint</h5>
                           <p className="text-sm text-primary">Your guide for spotting drifts, tracking wins and staying on course</p>
@@ -308,7 +308,7 @@ const Home = () => {
                         </div>
                         <div className="text-center">
                           <div className="w-16 h-16 bg-warning rounded-xl flex items-center justify-center mx-auto mb-3 hover:scale-110 transition-transform duration-300">
-                            <Heart className="w-8 h-8 text-primary" />
+                            <Headphones className="w-8 h-8 text-primary" />
                           </div>
                           <h5 className="font-semibold text-primary mb-2">BDBT Guidance</h5>
                           <p className="text-sm text-primary">Daily podcasts, free guides and social posts explaining every tip</p>
@@ -325,13 +325,9 @@ const Home = () => {
 
                     {/* 9 Limiting Beliefs BDBT Breaks - Complete Document */}
                     <div className="mt-8 pt-8 border-t border-warning/20">
-                      <h4 className="text-xl font-semibold text-primary mb-6 text-center">9 Limiting Beliefs BDBT Breaks</h4>
+                      <h4 className="text-xl font-semibold text-primary mb-6 text-center">9 Limiting Beliefs That BDBT Breaks</h4>
                       
                       <div className="space-y-8">
-                        {/* Matrix Introduction */}
-                        <div className="text-center mb-8">
-                          <h5 className="text-lg font-semibold text-primary mb-4">Matrix of False Beliefs, Experiences & Stories</h5>
-                        </div>
 
                         {/* Belief #1 */}
                         <div className="space-y-4">
@@ -559,7 +555,7 @@ const Home = () => {
                 </div>
                 <h3 className="text-2xl font-semibold text-success mb-4">Daily Wins</h3>
                 <p className="text-primary leading-relaxed">
-                  Celebrate and track your daily victories. Every small win builds momentum toward your bigger goals.
+                  Actions that invest in your future self. Tiny daily choices that create powerful ripple effects across your entire life. Celebrate and track these daily victories. Every small daily win builds momentum towards your bigger goals.
                 </p>
               </CardContent>
             </Card>
