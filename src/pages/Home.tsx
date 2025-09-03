@@ -435,7 +435,7 @@ const Home = () => {
                             <div className="flex items-start mb-2">
                               <span className="w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-0.5 flex-shrink-0">6</span>
                               <div>
-                                <h5 className="font-semibold text-primary mb-1">"People like me don't change."</h5>
+                                <h5 className="font-semibold text-primary mb-1">"I'm too old to change."</h5>
                                 <p className="text-sm text-muted-foreground italic mb-2">Past experience: Feels stuck, sees others succeed.</p>
                                 <p className="text-sm text-muted-foreground">The story you may now tell yourself: "It's too late for me. This works for them, not me."</p>
                               </div>
@@ -572,6 +572,28 @@ const Home = () => {
                 </p>
               </CardContent>
             </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Feeling Stuck Section */}
+      <section className="py-20 bg-gradient-subtle">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-primary">
+              Feeling Stuck?
+            </h2>
+            <p className="text-xl text-primary max-w-3xl mx-auto mb-8">
+              You're not alone. Many people feel trapped by limiting beliefs that keep them from creating the life they want. 
+              The good news? These beliefs can be broken with the right system and small daily actions.
+            </p>
+            <div className="flex justify-center">
+              <Button variant="outline" size="lg" asChild className="w-full sm:w-auto max-w-sm">
+                <Link to="/feeling-stuck">
+                  Discover What's Holding You Back <ArrowRight className="w-5 h-5 ml-2" />
+                </Link>
+              </Button>
+            </div>
           </div>
         </div>
       </section>
