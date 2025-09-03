@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Instagram, Youtube, Facebook } from "lucide-react";
-import logoWhite from "@/assets/bdbt-logo-white.png";
+import logoTransparent from "@/assets/bdbt-logo-transparent.png";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -33,7 +33,7 @@ const Navigation = () => {
               <div className="relative">
                 {!logoError ? (
                   <img 
-                    src={logoWhite}
+                    src={logoTransparent}
                     alt="BDBT Logo" 
                     className="h-10 w-auto object-contain"
                     onError={() => {
