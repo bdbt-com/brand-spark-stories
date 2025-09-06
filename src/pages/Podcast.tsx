@@ -18,6 +18,7 @@ import {
   Youtube,
   Facebook
 } from "lucide-react";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 
 const Podcast = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -367,6 +368,48 @@ const Podcast = () => {
               </Button>
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* Bottom Podcast Menu Carousel */}
+      <div className="fixed bottom-0 left-0 right-0 bg-card/95 backdrop-blur-md border-t border-border shadow-strong z-50">
+        <div className="max-w-7xl mx-auto px-4 py-4">
+          <Carousel
+            opts={{
+              align: "start",
+              loop: false,
+            }}
+            className="w-full"
+          >
+            <CarouselContent className="-ml-2 md:-ml-4">
+              {allEpisodes.map((episode, index) => (
+                <CarouselItem key={episode.id} className="pl-2 md:pl-4 basis-1/2 md:basis-1/3 lg:basis-1/4 xl:basis-1/5">
+                  <div className="text-center group cursor-pointer">
+                    <div className="relative mb-2">
+                      <img 
+                        src={episode.thumbnail} 
+                        alt={episode.title}
+                        className="w-full h-16 object-cover rounded-lg group-hover:scale-105 transition-transform duration-300"
+                      />
+                      <div className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg">
+                        <Play className="w-4 h-4 text-white" />
+                      </div>
+                    </div>
+                    <h4 className="text-xs font-medium text-primary line-clamp-2 mb-1 group-hover:text-accent transition-colors">
+                      {episode.title}
+                    </h4>
+                    <div className="flex items-center justify-center">
+                      <span className="text-xs text-muted-foreground bg-muted rounded-full px-2 py-1 min-w-6 h-6 flex items-center justify-center font-bold">
+                        {index + 1}
+                      </span>
+                    </div>
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="left-2" />
+            <CarouselNext className="right-2" />
+          </Carousel>
         </div>
       </div>
     </div>
