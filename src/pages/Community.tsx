@@ -21,7 +21,7 @@ const Community = () => {
 
       {/* Reality of Growth */}
       <section className="container mx-auto px-4 py-20">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-4xl mx-auto text-center">
           <div className="space-y-6 text-lg text-primary/80 leading-relaxed">
             <p>When you choose health over hangovers, people may make a jibe.</p>
             <p>When you eat the food that nourishes you, people may call you boring.</p>
@@ -37,8 +37,8 @@ const Community = () => {
 
       {/* Who is a Guide */}
       <section className="container mx-auto px-4 py-20 bg-muted/20">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl lg:text-5xl font-bold mb-12 text-primary text-center">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-4xl lg:text-5xl font-bold mb-12 text-primary">
             Who is a Baddy?
           </h2>
           <div className="space-y-6 text-lg text-primary/80 leading-relaxed">
@@ -56,8 +56,8 @@ const Community = () => {
 
       {/* Why Guide */}
       <section className="container mx-auto px-4 py-20">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl lg:text-5xl font-bold mb-12 text-primary text-center">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-4xl lg:text-5xl font-bold mb-12 text-primary">
             Why "Baddy"?
           </h2>
           <div className="space-y-8">
@@ -67,31 +67,31 @@ const Community = () => {
             
             <div className="grid gap-6">
               <Card className="p-6">
-                <CardContent className="p-0">
+                <CardContent className="p-0 text-center">
                   <p className="text-lg">Saying no to another round of drinks.</p>
                 </CardContent>
               </Card>
               
               <Card className="p-6">
-                <CardContent className="p-0">
+                <CardContent className="p-0 text-center">
                   <p className="text-lg">Eating a healthy meal instead of the status quo.</p>
                 </CardContent>
               </Card>
               
               <Card className="p-6">
-                <CardContent className="p-0">
+                <CardContent className="p-0 text-center">
                   <p className="text-lg">Choosing movement over staying still.</p>
                 </CardContent>
               </Card>
               
               <Card className="p-6">
-                <CardContent className="p-0">
+                <CardContent className="p-0 text-center">
                   <p className="text-lg">Choosing to save and invest instead of spending just to keep up.</p>
                 </CardContent>
               </Card>
             </div>
 
-            <div className="text-center mt-12">
+            <div className="mt-12">
               <p className="text-xl font-semibold text-primary mb-4">
                 But here's the truth. Those "boring" choices are what create freedom, energy, wealth, and happiness.
               </p>
@@ -152,14 +152,14 @@ const Community = () => {
 
       {/* The Guide Identity */}
       <section className="container mx-auto px-4 py-20">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl lg:text-5xl font-bold mb-12 text-primary text-center">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-4xl lg:text-5xl font-bold mb-12 text-primary">
             The Baddy Identity
           </h2>
           
           <div className="space-y-12">
             <Card className="p-8">
-              <CardContent className="p-0">
+              <CardContent className="p-0 text-center">
                 <Badge className="mb-4 text-lg px-4 py-2">Phase 1</Badge>
                 <p className="text-lg text-primary/80 leading-relaxed">
                   You choose differently. You break free from the drift and start stacking small wins. Identity shifts to "I'm not doing what everyone else is doing, and that's my strength."
@@ -168,7 +168,7 @@ const Community = () => {
             </Card>
             
             <Card className="p-8">
-              <CardContent className="p-0">
+              <CardContent className="p-0 text-center">
                 <Badge className="mb-4 text-lg px-4 py-2">Phase 2</Badge>
                 <p className="text-lg text-primary/80 leading-relaxed">
                   Your wins start to show. People notice the difference. Your choices influence your circle. Identity shifts to "I'm not just changing myself, I'm changing the people around me."
@@ -177,7 +177,7 @@ const Community = () => {
             </Card>
             
             <Card className="p-8">
-              <CardContent className="p-0">
+              <CardContent className="p-0 text-center">
                 <Badge className="mb-4 text-lg px-4 py-2">Phase 3</Badge>
                 <p className="text-lg text-primary/80 leading-relaxed">
                   You become the leader. The one others look up to. The proof that discipline beats drift. You build systems, mentor others, and show people how to design a lifestyle instead of chasing hacks. Identity shifts to "I create the environment where wins are the default, not the exception."
@@ -208,8 +208,8 @@ const Community = () => {
 
       {/* Personal Story */}
       <section className="container mx-auto px-4 py-20">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl lg:text-5xl font-bold mb-12 text-primary text-center">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-4xl lg:text-5xl font-bold mb-12 text-primary">
             I've Been There
           </h2>
           
@@ -242,23 +242,23 @@ const Community = () => {
               But that doesn't matter because your journey starts today.
             </p>
             
-            <div className="text-left max-w-2xl mx-auto space-y-4">
+            <div className="max-w-2xl mx-auto space-y-4 text-center">
               <p className="text-lg">Here's how:</p>
               <div className="space-y-4">
                 <Card className="p-6">
-                  <CardContent className="p-0">
+                  <CardContent className="p-0 text-center">
                     <p className="text-lg">Download the free Big Daddy's Foundation Blueprint.</p>
                   </CardContent>
                 </Card>
                 
                 <Card className="p-6">
-                  <CardContent className="p-0">
+                  <CardContent className="p-0 text-center">
                     <p className="text-lg">Claim your first Daily win.</p>
                   </CardContent>
                 </Card>
                 
                 <Card className="p-6">
-                  <CardContent className="p-0">
+                  <CardContent className="p-0 text-center">
                     <p className="text-lg">When it becomes automatic, layer in the next.</p>
                   </CardContent>
                 </Card>
