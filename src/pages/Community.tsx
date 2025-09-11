@@ -11,7 +11,7 @@ const Community = () => {
       <section className="container mx-auto px-4 py-20 text-center">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-5xl lg:text-7xl font-bold mb-8 text-primary">
-            Become a Guide
+            Become a Baddy
           </h1>
           <p className="text-xl lg:text-2xl text-primary/80 mb-8 leading-relaxed">
             The World Won't Always Clap For Your Wins
@@ -39,17 +39,17 @@ const Community = () => {
       <section className="container mx-auto px-4 py-20 bg-muted/20">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-4xl lg:text-5xl font-bold mb-12 text-primary text-center">
-            Who is a Guide?
+            Who is a Baddy?
           </h2>
           <div className="space-y-6 text-lg text-primary/80 leading-relaxed">
-            <p>A Guide is someone who dares to go against the grain. The one who says no when everyone else says yes.</p>
-            <p>A Guide is someone who chooses daily wins over daily drifts, even when it makes them the outsider.</p>
-            <p>A Guide is brave enough to be labelled the bad guy or the boring one, for making better choices. The one who chooses the "boring" healthy option, even when it's easier to give in.</p>
-            <p>A Guide is someone who rises above social pressure, peer pressure, and self-doubt because they know that every small win ripples into health, wealth, and happiness.</p>
-            <p className="font-semibold text-primary">Being a Guide is not about perfection.</p>
+            <p>A Baddy is someone who dares to go against the grain. The one who says no when everyone else says yes.</p>
+            <p>A Baddy is someone who chooses daily wins over daily drifts, even when it makes them the outsider.</p>
+            <p>A Baddy is brave enough to be labelled the bad guy or the boring one, for making better choices. The one who chooses the "boring" healthy option, even when it's easier to give in.</p>
+            <p>A Baddy is someone who rises above social pressure, peer pressure, and self-doubt because they know that every small win ripples into health, wealth, and happiness.</p>
+            <p className="font-semibold text-primary">Being a Baddy is not about perfection.</p>
             <p>It's about being courageous enough to stand out today so you (and the people you love) can live better tomorrow.</p>
-            <p>A Guide stacks daily wins for their health, wealth, and happiness while the world around them keeps drifting.</p>
-            <p>A Guide is someone who finds the courage to stay true to themself and BDBT is here to help give you that courage.</p>
+            <p>A Baddy stacks daily wins for their health, wealth, and happiness while the world around them keeps drifting.</p>
+            <p>A Baddy is someone who finds the courage to stay true to themself and BDBT is here to help give you that courage.</p>
           </div>
         </div>
       </section>
@@ -58,7 +58,7 @@ const Community = () => {
       <section className="container mx-auto px-4 py-20">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-4xl lg:text-5xl font-bold mb-12 text-primary text-center">
-            Why "Guide"?
+            Why "Baddy"?
           </h2>
           <div className="space-y-8">
             <p className="text-lg text-primary/80 leading-relaxed">
@@ -108,7 +108,7 @@ const Community = () => {
       <section className="container mx-auto px-4 py-20 bg-muted/20">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-4xl lg:text-5xl font-bold mb-12 text-primary">
-            The Guide Code
+            The Baddy Code
           </h2>
           
           <div className="grid gap-8 max-w-2xl mx-auto">
@@ -154,7 +154,7 @@ const Community = () => {
       <section className="container mx-auto px-4 py-20">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-4xl lg:text-5xl font-bold mb-12 text-primary text-center">
-            The Guide Identity
+            The Baddy Identity
           </h2>
           
           <div className="space-y-12">
@@ -192,7 +192,7 @@ const Community = () => {
       <section className="container mx-auto px-4 py-20 bg-muted/20">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-4xl lg:text-5xl font-bold mb-12 text-primary">
-            Why You Need to Be a Guide
+            Why You Need to Be a Baddy
           </h2>
           
           <div className="space-y-8 text-lg text-primary/80 leading-relaxed">
@@ -200,7 +200,7 @@ const Community = () => {
             <p>But drifts compound. They steal your energy, your money, your time, your happiness.</p>
             <p>Daily wins compound too. They give you freedom, confidence, health, wealth, and joy.</p>
             <p className="text-xl font-semibold text-primary">
-              The difference? Having the courage to be the Guide when it matters most.
+              The difference? Having the courage to be the Baddy when it matters most.
             </p>
           </div>
         </div>
@@ -267,11 +267,11 @@ const Community = () => {
 
             <div className="mt-12">
               <p className="text-xl font-semibold text-primary mb-8">
-                Because the moment you decide to be a Guide is the moment your life begins to shift.
+                Because the moment you decide to be a Baddy is the moment your life begins to shift.
               </p>
               
               <div className="space-y-4">
-                <p className="text-2xl font-bold text-primary">Become a Guide today.</p>
+                <p className="text-2xl font-bold text-primary">Become a Baddy today.</p>
                 <p className="text-2xl font-bold text-primary">Become the leader tomorrow.</p>
               </div>
               
