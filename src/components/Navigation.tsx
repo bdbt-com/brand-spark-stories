@@ -34,16 +34,18 @@ const Navigation = () => {
                 {!logoError ? (
                   <img 
                     src={logoTransparent}
-                    alt="BDBT Logo" 
-                    className="h-10 w-auto object-contain"
-                    onError={() => {
-                      console.log('Logo failed to load, showing fallback');
+                    alt="Big Daddy's Big Tips Logo" 
+                    className="h-12 w-auto object-contain filter brightness-0 dark:brightness-100"
+                    onError={(e) => {
+                      console.log('Logo failed to load:', e);
+                      console.log('Logo src:', logoTransparent);
                       setLogoError(true);
                     }}
-                    onLoad={() => console.log('Logo loaded successfully')}
+                    onLoad={() => console.log('BDBT Logo loaded successfully')}
+                    style={{ minWidth: '60px' }}
                   />
                 ) : (
-                  <span className="text-lg font-bold text-primary">BDBT</span>
+                  <span className="text-2xl font-bold text-primary">BDBT</span>
                 )}
               </div>
             </Link>
