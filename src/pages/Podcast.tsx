@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { 
   Play, 
   Clock, 
@@ -16,132 +17,69 @@ import {
   Share2,
   Instagram,
   Youtube,
-  Facebook
+  Facebook,
+  Loader2,
+  AlertCircle
 } from "lucide-react";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import { useYouTubeVideos } from "@/hooks/useYouTubeVideos";
+import { YouTubeApiKeyInput } from "@/components/YouTubeApiKeyInput";
 
 const Podcast = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [apiKey, setApiKey] = useState<string | null>(() => {
+    return sessionStorage.getItem('youtube_api_key') || import.meta.env.VITE_YOUTUBE_API_KEY || null;
+  });
 
-  const podcastEpisodes = [
-    {
-      id: 1,
-      title: "The Mindset Shift That Changed Everything",
-      description: "Discover the single most important mental shift that separates successful people from everyone else.",
-      thumbnail: "/api/placeholder/400/250",
-      duration: "42 min",
-      date: "2024-01-15",
-      views: "125K",
-      type: "Podcast",
-      featured: true
-    },
-    {
-      id: 2,
-      title: "Building Multiple Income Streams in 2024",
-      description: "A step-by-step guide to creating diverse revenue sources and achieving financial freedom.",
-      thumbnail: "/api/placeholder/400/250",
-      duration: "35 min",
-      date: "2024-01-12",
-      views: "98K",
-      type: "YouTube",
-      featured: true
-    },
-    {
-      id: 3,
-      title: "Morning Routines of Highly Successful People",
-      description: "Learn the morning habits that set the foundation for extraordinary days and long-term success.",
-      thumbnail: "/api/placeholder/400/250",
-      duration: "28 min",
-      date: "2024-01-10",
-      views: "156K",
-      type: "Podcast",
-      featured: true
-    },
-    {
-      id: 4,
-      title: "The Art of Productive Networking",
-      description: "Master the skills of building meaningful professional relationships that open doors.",
-      thumbnail: "/api/placeholder/400/250",
-      duration: "31 min",
-      date: "2024-01-08",
-      views: "87K",
-      type: "YouTube",
-      featured: true
-    },
-    {
-      id: 5,
-      title: "Overcoming Fear and Taking Action",
-      description: "Practical strategies to push through fear and take the bold actions your dreams require.",
-      thumbnail: "/api/placeholder/400/250",
-      duration: "39 min",
-      date: "2024-01-05",
-      views: "203K",
-      type: "Podcast",
-      featured: true
-    },
-    {
-      id: 6,
-      title: "Digital Marketing Secrets Revealed",
-      description: "Inside look at the marketing strategies that drive real results in today's digital landscape.",
-      thumbnail: "/api/placeholder/400/250",
-      duration: "44 min",
-      date: "2024-01-03",
-      views: "112K",
-      type: "YouTube",
-      featured: true
-    }
-  ];
+  const { videos, loading, error, refreshVideos } = useYouTubeVideos(50);
 
-  const allEpisodes = [
-    ...podcastEpisodes,
-    {
-      id: 7,
-      title: "Time Management Mastery",
-      description: "Transform your relationship with time and dramatically increase your productivity.",
-      thumbnail: "/api/placeholder/400/250",
-      duration: "33 min",
-      date: "2024-01-01",
-      views: "76K",
-      type: "Podcast",
-      featured: false
-    },
-    {
-      id: 8,
-      title: "Building Your Personal Brand",
-      description: "Create a powerful personal brand that attracts opportunities and opens doors.",
-      thumbnail: "/api/placeholder/400/250",
-      duration: "37 min",
-      date: "2023-12-29",
-      views: "94K",
-      type: "YouTube",
-      featured: false
-    },
-    {
-      id: 9,
-      title: "The Power of Consistency",
-      description: "Why small, consistent actions create compound results and lasting transformation.",
-      thumbnail: "/api/placeholder/400/250",
-      duration: "29 min",
-      date: "2023-12-27",
-      views: "145K",
-      type: "Podcast",
-      featured: false
-    }
-  ];
+  // Use real YouTube videos or show API key input
+  const featuredVideos = videos.slice(0, 6);
+  const allVideos = videos;
 
   const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % podcastEpisodes.length);
+    if (featuredVideos.length > 0) {
+      setCurrentSlide((prev) => (prev + 1) % featuredVideos.length);
+    }
   };
 
   const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + podcastEpisodes.length) % podcastEpisodes.length);
+    if (featuredVideos.length > 0) {
+      setCurrentSlide((prev) => (prev - 1 + featuredVideos.length) % featuredVideos.length);
+    }
   };
 
-  const getTypeColor = (type: string) => {
-    return type === "Podcast" 
-      ? "bg-primary text-primary-foreground" 
-      : "bg-accent text-accent-foreground";
+  const handleApiKeySet = (newApiKey: string) => {
+    setApiKey(newApiKey);
+    // Refresh the page to re-initialize the hook with the new API key
+    window.location.reload();
   };
+
+  const openVideo = (videoId: string) => {
+    window.open(`https://www.youtube.com/watch?v=${videoId}`, '_blank');
+  };
+
+  // Show API key input if no API key is configured
+  if (!apiKey) {
+    return (
+      <div className="min-h-screen bg-gradient-subtle">
+        <section className="py-12 bg-gradient-hero text-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 className="text-3xl lg:text-4xl font-bold mb-4 leading-tight">
+              <span className="block text-white">Podcast &</span>
+              <span className="block text-[hsl(35_45%_75%)]">Video Catalogue</span>
+            </h1>
+            <p className="text-lg lg:text-xl mb-6 text-white/90 leading-relaxed max-w-3xl mx-auto">
+              Connect your YouTube channel to automatically display your latest content.
+            </p>
+          </div>
+        </section>
+        <div className="py-20">
+          <YouTubeApiKeyInput onApiKeySet={handleApiKeySet} />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-subtle">
@@ -154,8 +92,27 @@ const Podcast = () => {
               <span className="block text-[hsl(35_45%_75%)]">Video Catalogue</span>
             </h1>
             <p className="text-lg lg:text-xl mb-6 text-white/90 leading-relaxed max-w-3xl mx-auto">
-              Actionable insights, inspiring stories, and proven strategies to accelerate your success.
+              Latest videos from Big Daddy's Big Tips - Updated automatically from YouTube.
             </p>
+            
+            {/* Status indicator */}
+            <div className="flex items-center justify-center gap-2 mb-4">
+              {loading ? (
+                <div className="flex items-center gap-2 text-white/80">
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                  <span className="text-sm">Loading latest videos...</span>
+                </div>
+              ) : error ? (
+                <div className="flex items-center gap-2 text-red-200">
+                  <AlertCircle className="w-4 h-4" />
+                  <span className="text-sm">Error loading videos</span>
+                </div>
+              ) : (
+                <div className="text-white/80 text-sm">
+                  {videos.length} videos loaded • Last updated: {new Date().toLocaleDateString()}
+                </div>
+              )}
+            </div>
           </div>
           
           {/* Social Media Icons */}
@@ -205,150 +162,242 @@ const Podcast = () => {
 
       <div className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Featured Carousel */}
-          <div className="mb-20">
-            <div className="flex items-center justify-between mb-8">
-              <h2 className="text-2xl lg:text-3xl font-bold text-primary">Featured Episodes</h2>
-              <div className="flex gap-2">
+          {/* Error State */}
+          {error && (
+            <Alert className="mb-8 border-destructive">
+              <AlertCircle className="h-4 w-4" />
+              <AlertDescription>
+                {error}
                 <Button 
                   variant="outline" 
-                  size="icon"
-                  onClick={prevSlide}
-                  className="hover:bg-primary hover:text-primary-foreground"
+                  size="sm" 
+                  onClick={refreshVideos}
+                  className="ml-2"
                 >
-                  <ArrowLeft className="w-4 h-4" />
+                  Retry
                 </Button>
-                <Button 
-                  variant="outline" 
-                  size="icon"
-                  onClick={nextSlide}
-                  className="hover:bg-primary hover:text-primary-foreground"
-                >
-                  <ArrowRight className="w-4 h-4" />
-                </Button>
-              </div>
-            </div>
+              </AlertDescription>
+            </Alert>
+          )}
 
-            <div className="relative overflow-hidden rounded-2xl shadow-strong">
-              <div 
-                className="flex transition-transform duration-500 ease-in-out"
-                style={{ transform: `translateX(-${currentSlide * 100}%)` }}
-              >
-                {podcastEpisodes.map((episode, index) => (
-                  <div key={episode.id} className="w-full flex-shrink-0">
-                    <div className="grid lg:grid-cols-2 gap-0 bg-card">
-                      <div className="relative group">
-                        <img 
-                          src={episode.thumbnail} 
-                          alt={episode.title}
-                          className="w-full h-96 object-cover"
-                        />
-                        <div className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                          <Button variant="accent" size="lg" className="animate-bounce">
-                            <Play className="w-6 h-6 mr-2" />
-                            Play Now
-                          </Button>
+          {/* Loading State */}
+          {loading && (
+            <div className="text-center py-20">
+              <Loader2 className="w-8 h-8 animate-spin mx-auto mb-4 text-primary" />
+              <p className="text-primary">Loading your latest videos...</p>
+            </div>
+          )}
+
+          {/* Featured Carousel */}
+          {!loading && featuredVideos.length > 0 && (
+            <div className="mb-20">
+              <div className="flex items-center justify-between mb-8">
+                <h2 className="text-2xl lg:text-3xl font-bold text-primary">Latest Videos</h2>
+                <div className="flex gap-2">
+                  <Button 
+                    variant="outline" 
+                    size="icon"
+                    onClick={prevSlide}
+                    className="hover:bg-primary hover:text-primary-foreground"
+                    disabled={featuredVideos.length === 0}
+                  >
+                    <ArrowLeft className="w-4 h-4" />
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    size="icon"
+                    onClick={nextSlide}
+                    className="hover:bg-primary hover:text-primary-foreground"
+                    disabled={featuredVideos.length === 0}
+                  >
+                    <ArrowRight className="w-4 h-4" />
+                  </Button>
+                </div>
+              </div>
+
+              <div className="relative overflow-hidden rounded-2xl shadow-strong">
+                <div 
+                  className="flex transition-transform duration-500 ease-in-out"
+                  style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+                >
+                  {featuredVideos.map((video) => (
+                    <div key={video.id} className="w-full flex-shrink-0">
+                      <div className="grid lg:grid-cols-2 gap-0 bg-card">
+                        <div className="relative group">
+                          <img 
+                            src={video.thumbnail} 
+                            alt={video.title}
+                            className="w-full h-96 object-cover"
+                          />
+                          <div className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <Button 
+                              variant="accent" 
+                              size="lg" 
+                              className="animate-bounce"
+                              onClick={() => openVideo(video.videoId)}
+                            >
+                              <Play className="w-6 h-6 mr-2" />
+                              Watch Now
+                            </Button>
+                          </div>
                         </div>
-                      </div>
-                      <div className="p-8 lg:p-12 flex flex-col justify-center">
-                        <h3 className="text-2xl lg:text-3xl font-bold mb-4 text-primary">
-                          {episode.title}
-                        </h3>
-                        <p className="text-primary mb-6 leading-relaxed">
-                          {episode.description}
-                        </p>
-                        <div className="flex items-center gap-6 text-sm text-primary mb-6">
-                          <span className="flex items-center">
-                            <Calendar className="w-4 h-4 mr-1" />
-                            {new Date(episode.date).toLocaleDateString()}
-                          </span>
-                        </div>
-                        <div className="flex gap-3">
-                          <Button variant="hero">
-                            <Play className="w-4 h-4 mr-2" />
-                            Watch Now
-                          </Button>
-                          <Button variant="outline">
-                            <Download className="w-4 h-4 mr-2" />
-                            Download
-                          </Button>
+                        <div className="p-8 lg:p-12 flex flex-col justify-center">
+                          <h3 className="text-2xl lg:text-3xl font-bold mb-4 text-primary line-clamp-2">
+                            {video.title}
+                          </h3>
+                          <p className="text-primary mb-6 leading-relaxed line-clamp-3">
+                            {video.description}
+                          </p>
+                          <div className="flex items-center gap-6 text-sm text-primary mb-6">
+                            <span className="flex items-center">
+                              <Calendar className="w-4 h-4 mr-1" />
+                              {new Date(video.publishedAt).toLocaleDateString()}
+                            </span>
+                            <span className="flex items-center">
+                              <Clock className="w-4 h-4 mr-1" />
+                              {video.duration}
+                            </span>
+                            <span className="flex items-center">
+                              <Users className="w-4 h-4 mr-1" />
+                              {video.viewCount} views
+                            </span>
+                          </div>
+                          <div className="flex gap-3">
+                            <Button 
+                              variant="hero"
+                              onClick={() => openVideo(video.videoId)}
+                            >
+                              <Play className="w-4 h-4 mr-2" />
+                              Watch on YouTube
+                            </Button>
+                            <Button 
+                              variant="outline"
+                              onClick={() => window.open(`https://www.youtube.com/watch?v=${video.videoId}`, '_blank')}
+                            >
+                              <ExternalLink className="w-4 h-4 mr-2" />
+                              Open
+                            </Button>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Carousel Indicators */}
+              {featuredVideos.length > 1 && (
+                <div className="flex justify-center mt-6 gap-2">
+                  {featuredVideos.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setCurrentSlide(index)}
+                      className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                        index === currentSlide 
+                          ? "bg-primary scale-110" 
+                          : "bg-muted hover:bg-muted-foreground/50"
+                      }`}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* All Videos Grid */}
+          {!loading && allVideos.length > 0 && (
+            <div>
+              <h2 className="text-2xl lg:text-3xl font-bold mb-8 text-primary">All Videos ({allVideos.length})</h2>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {allVideos.map((video) => (
+                  <Card 
+                    key={video.id}
+                    className="group hover:shadow-medium transition-all duration-300 hover:-translate-y-2 cursor-pointer overflow-hidden"
+                    onClick={() => openVideo(video.videoId)}
+                  >
+                    <div className="relative">
+                      <img 
+                        src={video.thumbnail} 
+                        alt={video.title}
+                        className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                      <div className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <Button variant="accent" size="sm">
+                          <Play className="w-4 h-4" />
+                        </Button>
+                      </div>
+                      <div className="absolute bottom-2 right-2 bg-black/70 text-white text-xs px-2 py-1 rounded">
+                        {video.duration}
+                      </div>
+                    </div>
+                    <CardContent className="p-6">
+                      <h3 className="font-semibold mb-2 text-primary group-hover:text-primary transition-colors line-clamp-2">
+                        {video.title}
+                      </h3>
+                      <p className="text-sm text-primary mb-4 line-clamp-2">
+                        {video.description}
+                      </p>
+                      <div className="flex items-center justify-between text-xs text-primary mb-4">
+                        <span className="flex items-center">
+                          <Calendar className="w-3 h-3 mr-1" />
+                          {new Date(video.publishedAt).toLocaleDateString()}
+                        </span>
+                        <span className="flex items-center">
+                          <Users className="w-3 h-3 mr-1" />
+                          {video.viewCount}
+                        </span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <Button 
+                          variant="ghost" 
+                          size="sm" 
+                          className="text-primary hover:text-primary"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            openVideo(video.videoId);
+                          }}
+                        >
+                          <ExternalLink className="w-4 h-4 mr-1" />
+                          Watch
+                        </Button>
+                        <div className="flex gap-1">
+                          <Button 
+                            variant="ghost" 
+                            size="icon" 
+                            className="w-8 h-8"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              navigator.share?.({
+                                title: video.title,
+                                url: `https://www.youtube.com/watch?v=${video.videoId}`
+                              });
+                            }}
+                          >
+                            <Share2 className="w-4 h-4" />
+                          </Button>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
                 ))}
               </div>
             </div>
+          )}
 
-            {/* Carousel Indicators */}
-            <div className="flex justify-center mt-6 gap-2">
-              {podcastEpisodes.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setCurrentSlide(index)}
-                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                    index === currentSlide 
-                      ? "bg-primary scale-110" 
-                      : "bg-muted hover:bg-muted-foreground/50"
-                  }`}
-                />
-              ))}
+          {/* Empty State */}
+          {!loading && !error && allVideos.length === 0 && (
+            <div className="text-center py-20">
+              <Youtube className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
+              <h3 className="text-xl font-semibold mb-2 text-primary">No videos found</h3>
+              <p className="text-muted-foreground mb-4">
+                Make sure your YouTube channel has public videos and the API key is correct.
+              </p>
+              <Button variant="outline" onClick={refreshVideos}>
+                <ArrowRight className="w-4 h-4 mr-2" />
+                Try Again
+              </Button>
             </div>
-          </div>
-
-          {/* All Episodes Grid */}
-          <div>
-            <h2 className="text-2xl lg:text-3xl font-bold mb-8 text-primary">All Episodes</h2>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {allEpisodes.map((episode) => (
-                <Card 
-                  key={episode.id}
-                  className="group hover:shadow-medium transition-all duration-300 hover:-translate-y-2 cursor-pointer overflow-hidden"
-                >
-                  <div className="relative">
-                    <img 
-                      src={episode.thumbnail} 
-                      alt={episode.title}
-                      className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                    <div className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <Button variant="accent" size="sm">
-                        <Play className="w-4 h-4" />
-                      </Button>
-                    </div>
-                  </div>
-                  <CardContent className="p-6">
-                    <h3 className="font-semibold mb-2 text-primary group-hover:text-primary transition-colors line-clamp-2">
-                      {episode.title}
-                    </h3>
-                    <p className="text-sm text-primary mb-4 line-clamp-2">
-                      {episode.description}
-                    </p>
-                    <div className="flex items-center justify-between text-xs text-primary mb-4">
-                      <span className="flex items-center">
-                        <Calendar className="w-3 h-3 mr-1" />
-                        {new Date(episode.date).toLocaleDateString()}
-                      </span>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <Button variant="ghost" size="sm" className="text-primary hover:text-primary">
-                        <ExternalLink className="w-4 h-4 mr-1" />
-                        Watch
-                      </Button>
-                      <div className="flex gap-1">
-                        <Button variant="ghost" size="icon" className="w-8 h-8">
-                          <Heart className="w-4 h-4" />
-                        </Button>
-                        <Button variant="ghost" size="icon" className="w-8 h-8">
-                          <Share2 className="w-4 h-4" />
-                        </Button>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
+          )}
 
           {/* CTA Section */}
           <div className="mt-20 text-center bg-warning text-white rounded-2xl p-12 border-4 border-warning/40">
@@ -371,47 +420,55 @@ const Podcast = () => {
         </div>
       </div>
 
-      {/* Bottom Podcast Menu Carousel */}
-      <div className="fixed bottom-0 left-0 right-0 bg-card/95 backdrop-blur-md border-t border-border shadow-strong z-50">
-        <div className="max-w-7xl mx-auto px-4 py-4">
-          <Carousel
-            opts={{
-              align: "start",
-              loop: false,
-            }}
-            className="w-full"
-          >
-            <CarouselContent className="-ml-2 md:-ml-4">
-              {allEpisodes.map((episode, index) => (
-                <CarouselItem key={episode.id} className="pl-2 md:pl-4 basis-1/2 md:basis-1/3 lg:basis-1/4 xl:basis-1/5">
-                  <div className="text-center group cursor-pointer">
-                    <div className="relative mb-2">
-                      <img 
-                        src={episode.thumbnail} 
-                        alt={episode.title}
-                        className="w-full h-16 object-cover rounded-lg group-hover:scale-105 transition-transform duration-300"
-                      />
-                      <div className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg">
-                        <Play className="w-4 h-4 text-white" />
+      {/* Bottom Video Menu Carousel */}
+      {!loading && allVideos.length > 0 && (
+        <div className="fixed bottom-0 left-0 right-0 bg-card/95 backdrop-blur-md border-t border-border shadow-strong z-50">
+          <div className="max-w-7xl mx-auto px-4 py-4">
+            <Carousel
+              opts={{
+                align: "start",
+                loop: false,
+              }}
+              className="w-full"
+            >
+              <CarouselContent className="-ml-2 md:-ml-4">
+                {allVideos.map((video, index) => (
+                  <CarouselItem key={video.id} className="pl-2 md:pl-4 basis-1/2 md:basis-1/3 lg:basis-1/4 xl:basis-1/5">
+                    <div 
+                      className="text-center group cursor-pointer"
+                      onClick={() => openVideo(video.videoId)}
+                    >
+                      <div className="relative mb-2">
+                        <img 
+                          src={video.thumbnail} 
+                          alt={video.title}
+                          className="w-full h-16 object-cover rounded-lg group-hover:scale-105 transition-transform duration-300"
+                        />
+                        <div className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg">
+                          <Play className="w-4 h-4 text-white" />
+                        </div>
+                        <div className="absolute bottom-1 right-1 bg-black/70 text-white text-xs px-1 py-0.5 rounded text-[10px]">
+                          {video.duration}
+                        </div>
+                      </div>
+                      <h4 className="text-xs font-medium text-primary line-clamp-2 mb-1 group-hover:text-accent transition-colors">
+                        {video.title}
+                      </h4>
+                      <div className="flex items-center justify-center">
+                        <span className="text-xs text-muted-foreground bg-muted rounded-full px-2 py-1 min-w-6 h-6 flex items-center justify-center font-bold">
+                          {index + 1}
+                        </span>
                       </div>
                     </div>
-                    <h4 className="text-xs font-medium text-primary line-clamp-2 mb-1 group-hover:text-accent transition-colors">
-                      {episode.title}
-                    </h4>
-                    <div className="flex items-center justify-center">
-                      <span className="text-xs text-muted-foreground bg-muted rounded-full px-2 py-1 min-w-6 h-6 flex items-center justify-center font-bold">
-                        {index + 1}
-                      </span>
-                    </div>
-                  </div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious className="left-2" />
-            <CarouselNext className="right-2" />
-          </Carousel>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="left-2" />
+              <CarouselNext className="right-2" />
+            </Carousel>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
