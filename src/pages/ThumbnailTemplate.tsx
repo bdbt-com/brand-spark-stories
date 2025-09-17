@@ -544,27 +544,17 @@ const ThumbnailTemplate = () => {
                     <div className="w-64 h-64 border border-white/6 rounded-full"></div>
                   </div>
 
-                  {/* Raindrop effect circles across top - varied sizes and ring patterns */}
-                  {/* Large raindrop with multiple rings */}
-                  <div className="absolute top-8 left-1/4 z-5">
-                    <div className="w-3 h-3 border border-white/30 rounded-full"></div>
-                    <div className="w-6 h-6 border border-white/20 rounded-full absolute -top-1.5 -left-1.5"></div>
-                    <div className="w-9 h-9 border border-white/10 rounded-full absolute -top-3 -left-3"></div>
+                  {/* Symmetrical "Daily Wins Podcast" text on both sides */}
+                  <div className="absolute top-16 left-8 z-20">
+                    <h2 className="text-4xl font-bold text-white/90 tracking-wide">
+                      Daily Wins Podcast
+                    </h2>
                   </div>
                   
-                  {/* Medium raindrop with two rings */}
-                  <div className="absolute top-12 left-1/3 z-5">
-                    <div className="w-4 h-4 border border-white/25 rounded-full"></div>
-                    <div className="w-7 h-7 border border-white/15 rounded-full absolute -top-1.5 -left-1.5"></div>
-                  </div>
-                  
-                  {/* Small single raindrop */}
-                  <div className="absolute top-6 right-1/4 w-3 h-3 border border-white/35 rounded-full z-5"></div>
-                  
-                  {/* Tiny raindrop with one ring */}
-                  <div className="absolute top-14 right-1/3 z-5">
-                    <div className="w-2 h-2 border border-white/40 rounded-full"></div>
-                    <div className="w-4 h-4 border border-white/20 rounded-full absolute -top-1 -left-1"></div>
+                  <div className="absolute top-16 right-8 z-20">
+                    <h2 className="text-4xl font-bold text-white/90 tracking-wide text-right">
+                      Daily Wins Podcast
+                    </h2>
                   </div>
                   
 
