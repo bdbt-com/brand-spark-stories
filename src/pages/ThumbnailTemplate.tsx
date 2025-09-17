@@ -673,7 +673,7 @@ const ThumbnailTemplate = () => {
                   </div>
 
                   {/* BDBT Logo - Half overlapping the middle image */}
-                  <div className="absolute bottom-76 left-1/2 transform -translate-x-1/2 z-30">
+                  <div className="absolute bottom-62 left-1/2 transform -translate-x-1/2 z-30">
                     <img 
                       src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
                       alt="BDBT Logo"
