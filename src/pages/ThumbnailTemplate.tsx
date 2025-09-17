@@ -665,14 +665,8 @@ const ThumbnailTemplate = () => {
                     </h1>
                   </div>
 
-                  {/* Social Media Icons - Left Side (Instagram and YouTube) */}
-                  <div className="absolute top-76 left-1/2 -translate-x-20 z-30 flex gap-3 items-center">
-                    <Instagram className="w-6 h-6 text-white" />
-                    <Youtube className="w-6 h-6 text-white" />
-                  </div>
-
-                  {/* BDBT Logo - Centered between the 4 social icons */}
-                  <div className="absolute top-75 left-1/2 transform -translate-x-1/2 z-30">
+                  {/* BDBT Logo - Centered above the text */}
+                  <div className="absolute top-77 left-1/2 transform -translate-x-1/2 z-30">
                     <img 
                       src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
                       alt="BDBT Logo"
@@ -680,8 +674,14 @@ const ThumbnailTemplate = () => {
                     />
                   </div>
 
+                  {/* Social Media Icons - Left Side (Instagram and YouTube) */}
+                  <div className="absolute top-80 left-1/2 -translate-x-20 z-30 flex gap-3 items-center">
+                    <Instagram className="w-6 h-6 text-white" />
+                    <Youtube className="w-6 h-6 text-white" />
+                  </div>
+
                   {/* Social Media Icons - Right Side (Facebook and Spotify) */}
-                  <div className="absolute top-76 left-1/2 translate-x-14 z-30 flex gap-3 items-center">
+                  <div className="absolute top-80 left-1/2 translate-x-14 z-30 flex gap-3 items-center">
                     <Facebook className="w-6 h-6 text-white" />
                     <Headphones className="w-6 h-6 text-white" />
                   </div>
