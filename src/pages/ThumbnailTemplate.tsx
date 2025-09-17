@@ -665,22 +665,22 @@ const ThumbnailTemplate = () => {
                     </h1>
                   </div>
 
-                  {/* Small BDBT Logo above @BigDaddysBigTips */}
+                  {/* BDBT Logo above @BigDaddysBigTips */}
                   <div className="absolute top-72 left-1/2 transform -translate-x-1/2 z-30">
                     <img 
-                      src="/bdbt-logo-white.png" 
-                      alt="BDBT Logo" 
-                      className="w-12 h-12 object-contain opacity-80"
+                      src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
+                      alt="BDBT Logo"
+                      className="h-12 object-contain opacity-80"
                     />
                   </div>
 
-                  {/* Social Media Icons - Left Side */}
-                  <div className="absolute top-80 left-1/2 -translate-x-32 z-30 flex gap-2">
+                  {/* Social Media Icons - Left Side (Instagram and YouTube) */}
+                  <div className="absolute top-80 left-1/2 -translate-x-20 z-30 flex gap-2">
                     <div className="w-6 h-6 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center p-3">
                       <Instagram className="w-6 h-6 text-white" />
                     </div>
                     <div className="w-6 h-6 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center p-3">
-                      <Facebook className="w-6 h-6 text-white" />
+                      <Youtube className="w-6 h-6 text-white" />
                     </div>
                   </div>
 
@@ -691,23 +691,14 @@ const ThumbnailTemplate = () => {
                     </h1>
                   </div>
 
-                  {/* Social Media Icons - Right Side */}
-                  <div className="absolute top-80 left-1/2 translate-x-32 z-30 flex gap-2">
+                  {/* Social Media Icons - Right Side (Facebook and Spotify) */}
+                  <div className="absolute top-80 left-1/2 translate-x-20 z-30 flex gap-2">
                     <div className="w-6 h-6 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center p-3">
-                      <Youtube className="w-6 h-6 text-white" />
+                      <Facebook className="w-6 h-6 text-white" />
                     </div>
                     <div className="w-6 h-6 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center p-3">
                       <Headphones className="w-6 h-6 text-white" />
                     </div>
-                  </div>
-
-                  {/* BDBT Logo - Half overlapping the middle image */}
-                  <div className="absolute bottom-56 left-1/2 transform -translate-x-1/2 z-30">
-                    <img 
-                      src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
-                      alt="BDBT Logo"
-                      className="h-16"
-                    />
                   </div>
 
                   {/* 3 Images at bottom */}
