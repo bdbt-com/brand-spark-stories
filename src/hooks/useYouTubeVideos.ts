@@ -19,7 +19,7 @@ interface UseYouTubeVideosReturn {
   refreshVideos: () => void;
 }
 
-const YOUTUBE_API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY;
+const YOUTUBE_API_KEY = sessionStorage.getItem('youtube_api_key') || import.meta.env.VITE_YOUTUBE_API_KEY || 'AIzaSyDdkk8BXLo7fysGJCyJMzyIN1cIJNaBboQ';
 const CHANNEL_ID = '@BigDaddysBigTips'; // Can be channel handle or ID
 
 export const useYouTubeVideos = (maxResults: number = 50): UseYouTubeVideosReturn => {
@@ -69,7 +69,7 @@ export const useYouTubeVideos = (maxResults: number = 50): UseYouTubeVideosRetur
       // Get video details (duration, view count, etc.)
       const videoIds = data.items.map((item: any) => item.id.videoId).join(',');
       const detailsResponse = await fetch(
-        `https://www.googleapis..com/youtube/v3/videos?part=contentDetails,statistics&id=${videoIds}&key=${YOUTUBE_API_KEY}`
+        `https://www.googleapis.com/youtube/v3/videos?part=contentDetails,statistics&id=${videoIds}&key=${YOUTUBE_API_KEY}`
       );
 
       const detailsData = await detailsResponse.json();
