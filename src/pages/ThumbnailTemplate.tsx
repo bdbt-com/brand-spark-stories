@@ -567,100 +567,7 @@ const ThumbnailTemplate = () => {
                     <div className="w-4 h-4 border border-white/20 rounded-full absolute -top-1 -left-1"></div>
                   </div>
                   
-                  {/* Medium raindrop with three rings */}
-                  <div className="absolute top-10 left-3/4 z-5">
-                    <div className="w-3 h-3 border border-white/35 rounded-full"></div>
-                    <div className="w-6 h-6 border border-white/22 rounded-full absolute -top-1.5 -left-1.5"></div>
-                    <div className="w-9 h-9 border border-white/12 rounded-full absolute -top-3 -left-3"></div>
-                  </div>
-                  
-                  {/* Large single raindrop */}
-                  <div className="absolute top-16 right-1/5 w-5 h-5 border border-white/25 rounded-full z-5"></div>
-                  
-                  {/* Small raindrop with two rings */}
-                  <div className="absolute top-4 left-1/5 z-5">
-                    <div className="w-2 h-2 border border-white/30 rounded-full"></div>
-                    <div className="w-5 h-5 border border-white/16 rounded-full absolute -top-1.5 -left-1.5"></div>
-                  </div>
-                  
-                  {/* Medium single raindrop */}
-                  <div className="absolute top-18 left-2/3 w-4 h-4 border border-white/28 rounded-full z-5"></div>
-                  
-                  {/* Large raindrop with four rings */}
-                  <div className="absolute top-7 right-2/3 z-5">
-                    <div className="w-2 h-2 border border-white/40 rounded-full"></div>
-                    <div className="w-4 h-4 border border-white/25 rounded-full absolute -top-1 -left-1"></div>
-                    <div className="w-7 h-7 border border-white/15 rounded-full absolute -top-2.5 -left-2.5"></div>
-                    <div className="w-10 h-10 border border-white/8 rounded-full absolute -top-4 -left-4"></div>
-                  </div>
-                  
-                  {/* Additional scattered raindrops */}
-                  <div className="absolute top-5 left-1/6 w-2 h-2 border border-white/35 rounded-full z-5"></div>
-                  <div className="absolute top-15 right-1/6 w-3 h-3 border border-white/30 rounded-full z-5"></div>
-                  <div className="absolute top-9 left-1/2 w-2 h-2 border border-white/40 rounded-full z-5"></div>
-                  <div className="absolute top-17 right-2/5 w-3 h-3 border border-white/25 rounded-full z-5"></div>
-                  <div className="absolute top-3 left-3/5 w-2 h-2 border border-white/32 rounded-full z-5"></div>
 
-                  {/* More raindrops around "Daily Wins Podcast" text area */}
-                  {/* Left side of text */}
-                  <div className="absolute top-24 left-16 z-5">
-                    <div className="w-2 h-2 border border-white/35 rounded-full"></div>
-                    <div className="w-5 h-5 border border-white/20 rounded-full absolute -top-1.5 -left-1.5"></div>
-                  </div>
-                  <div className="absolute top-36 left-12 w-3 h-3 border border-white/30 rounded-full z-5"></div>
-                  <div className="absolute top-30 left-20 z-5">
-                    <div className="w-2 h-2 border border-white/40 rounded-full"></div>
-                    <div className="w-4 h-4 border border-white/25 rounded-full absolute -top-1 -left-1"></div>
-                    <div className="w-6 h-6 border border-white/15 rounded-full absolute -top-2 -left-2"></div>
-                  </div>
-                  <div className="absolute top-42 left-8 w-2 h-2 border border-white/35 rounded-full z-5"></div>
-                  
-                  {/* Right side of text */}
-                  <div className="absolute top-26 right-16 z-5">
-                    <div className="w-3 h-3 border border-white/35 rounded-full"></div>
-                    <div className="w-6 h-6 border border-white/22 rounded-full absolute -top-1.5 -left-1.5"></div>
-                  </div>
-                  <div className="absolute top-38 right-12 w-2 h-2 border border-white/40 rounded-full z-5"></div>
-                  <div className="absolute top-32 right-20 z-5">
-                    <div className="w-2 h-2 border border-white/30 rounded-full"></div>
-                    <div className="w-5 h-5 border border-white/18 rounded-full absolute -top-1.5 -left-1.5"></div>
-                  </div>
-                  <div className="absolute top-44 right-8 w-3 h-3 border border-white/28 rounded-full z-5"></div>
-                  
-                  {/* Below text area */}
-                  <div className="absolute top-52 left-24 z-5">
-                    <div className="w-2 h-2 border border-white/35 rounded-full"></div>
-                    <div className="w-4 h-4 border border-white/22 rounded-full absolute -top-1 -left-1"></div>
-                  </div>
-                  <div className="absolute top-48 left-32 w-3 h-3 border border-white/25 rounded-full z-5"></div>
-                  <div className="absolute top-56 left-16 w-2 h-2 border border-white/40 rounded-full z-5"></div>
-                  <div className="absolute top-50 right-24 z-5">
-                    <div className="w-3 h-3 border border-white/30 rounded-full"></div>
-                    <div className="w-6 h-6 border border-white/20 rounded-full absolute -top-1.5 -left-1.5"></div>
-                    <div className="w-9 h-9 border border-white/12 rounded-full absolute -top-3 -left-3"></div>
-                  </div>
-                  <div className="absolute top-54 right-32 w-2 h-2 border border-white/35 rounded-full z-5"></div>
-                  <div className="absolute top-46 right-16 w-3 h-3 border border-white/28 rounded-full z-5"></div>
-
-                  {/* Decorative smaller images - spread across right side (35% larger, no adjacent duplicates) */}
-                   <div className="absolute right-12 top-20 w-16 h-11 rounded opacity-60 overflow-hidden border border-white/20 z-10">
-                     <img src="/lovable-uploads/2678016c-a3fa-4e29-bf3d-3ebe92201186.png" alt="" className="w-full h-full object-cover" />
-                   </div>
-                   <div className="absolute right-32 top-32 w-14 h-9 rounded opacity-50 overflow-hidden border border-white/20 z-10">
-                     <img src="/lovable-uploads/4fd0818e-20c3-4941-9c54-6915db50a7c0.png" alt="" className="w-full h-full object-cover" />
-                   </div>
-                   <div className="absolute right-20 top-50 w-15 h-11 rounded opacity-70 overflow-hidden border border-white/20 z-10">
-                     <img src="/lovable-uploads/639b2e42-bb5e-4e0f-a150-3c447b0ca4d2.png" alt="" className="w-full h-full object-cover" />
-                   </div>
-                   <div className="absolute right-40 top-64 w-18 h-12 rounded opacity-55 overflow-hidden border border-white/20 z-10">
-                     <img src="/lovable-uploads/711d369c-9d1d-4efb-9800-98349c1c7a48.png" alt="" className="w-full h-full object-cover" />
-                   </div>
-                   <div className="absolute right-8 top-72 w-14 h-9 rounded opacity-65 overflow-hidden border border-white/20 z-10">
-                     <img src="/lovable-uploads/7208834d-dbba-4fc6-8da5-2f81f4e3796f.png" alt="" className="w-full h-full object-cover" />
-                   </div>
-                   <div className="absolute right-24 top-84 w-16 h-11 rounded opacity-60 overflow-hidden border border-white/20 z-10">
-                     <img src="/lovable-uploads/8c209669-d4f3-4beb-9184-98693514ffca.png" alt="" className="w-full h-full object-cover" />
-                   </div>
 
                   {/* Center Top Brand Name - Moved to center middle */}
                   <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-30">
@@ -686,25 +593,6 @@ const ThumbnailTemplate = () => {
                      </h1>
                   </div>
 
-                  {/* Additional decorative images - spread across left side (35% larger, no adjacent duplicates) */}
-                   <div className="absolute left-12 top-84 w-16 h-11 rounded opacity-60 overflow-hidden border border-white/20 z-10">
-                     <img src="/lovable-uploads/a886c4a9-0d09-442e-8348-25bd795ad7d0.png" alt="" className="w-full h-full object-cover" />
-                   </div>
-                   <div className="absolute left-32 top-20 w-14 h-9 rounded opacity-50 overflow-hidden border border-white/20 z-10">
-                     <img src="/lovable-uploads/b362cf10-f3b4-4ab1-aeb3-30ab18058ace.png" alt="" className="w-full h-full object-cover" />
-                   </div>
-                   <div className="absolute left-20 top-36 w-15 h-11 rounded opacity-70 overflow-hidden border border-white/20 z-10">
-                     <img src="/lovable-uploads/bb15285e-dc4c-46ae-93a2-3c27d8cad778.png" alt="" className="w-full h-full object-cover" />
-                   </div>
-                   <div className="absolute left-8 top-52 w-18 h-12 rounded opacity-55 overflow-hidden border border-white/20 z-10">
-                     <img src="/lovable-uploads/dd8771a0-3f95-4ef7-838b-c6e40d9f78c4.png" alt="" className="w-full h-full object-cover" />
-                   </div>
-                   <div className="absolute left-40 top-28 w-14 h-9 rounded opacity-65 overflow-hidden border border-white/20 z-10">
-                     <img src="/lovable-uploads/fa5ff878-34d6-44b6-a517-f055a1627aab.png" alt="" className="w-full h-full object-cover" />
-                   </div>
-                   <div className="absolute left-24 top-72 w-16 h-11 rounded opacity-60 overflow-hidden border border-white/20 z-10">
-                     <img src="/lovable-uploads/091ea38c-18d1-4a6c-b3d0-b2e9e92d382d.png" alt="" className="w-full h-full object-cover" />
-                   </div>
 
                   {/* Image Carousel underneath text */}
                   <div className="absolute bottom-12 left-8 right-8 z-10">
