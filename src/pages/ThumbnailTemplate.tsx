@@ -561,10 +561,10 @@ const ThumbnailTemplate = () => {
                         alt="BDBT Logo"
                         className="h-12"
                       />
-                      {/* Channel Handle */}
-                      <h1 className="text-4xl xl:text-5xl font-black text-center leading-tight whitespace-nowrap">
-                        <span className="text-white font-black">@bigdaddys</span><span className="font-black" style={{ color: 'hsl(35, 45%, 75%)' }}>bigtips</span>
-                      </h1>
+                       {/* Channel Handle */}
+                       <h1 className="text-4xl xl:text-5xl font-black text-center leading-tight whitespace-nowrap">
+                         <span className="text-white font-black">@BigDaddy's</span><span className="font-black" style={{ color: 'hsl(35, 45%, 75%)' }}>BigTips</span>
+                       </h1>
                     </div>
                   </div>
 
