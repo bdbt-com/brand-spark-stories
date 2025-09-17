@@ -20,7 +20,7 @@ interface UseYouTubeVideosReturn {
 }
 
 const YOUTUBE_API_KEY = sessionStorage.getItem('youtube_api_key') || import.meta.env.VITE_YOUTUBE_API_KEY || 'AIzaSyDdkk8BXLo7fysGJCyJMzyIN1cIJNaBboQ';
-const CHANNEL_ID = '@BigDaddysBigTips'; // Can be channel handle or ID
+const CHANNEL_ID = '@bigdaddysbigtips'; // Can be channel handle or ID
 
 export const useYouTubeVideos = (maxResults: number = 50): UseYouTubeVideosReturn => {
   const [videos, setVideos] = useState<YouTubeVideo[]>([]);

@@ -71,27 +71,17 @@ const Podcast = () => {
               <span className="block text-[hsl(35_45%_75%)]">Video Catalogue</span>
             </h1>
             <p className="text-lg lg:text-xl mb-6 text-white/90 leading-relaxed max-w-3xl mx-auto">
-              Latest videos from Big Daddy's Big Tips - Updated automatically from YouTube.
+              Latest videos from Big Daddy's Big Tips.
             </p>
             
             {/* Status indicator */}
-            <div className="flex items-center justify-center gap-2 mb-4">
-              {loading ? (
-                <div className="flex items-center gap-2 text-white/80">
-                  <Loader2 className="w-4 h-4 animate-spin" />
-                  <span className="text-sm">Loading latest videos...</span>
-                </div>
-              ) : error ? (
-                <div className="flex items-center gap-2 text-red-200">
-                  <AlertCircle className="w-4 h-4" />
-                  <span className="text-sm">Error loading videos</span>
-                </div>
-              ) : (
+            {videos.length > 0 && (
+              <div className="flex items-center justify-center gap-2 mb-4">
                 <div className="text-white/80 text-sm">
-                  {videos.length} videos loaded • Last updated: {new Date().toLocaleDateString()}
+                  {videos.length} videos • Last updated: {new Date().toLocaleDateString()}
                 </div>
-              )}
-            </div>
+              </div>
+            )}
           </div>
           
           {/* Social Media Icons */}
@@ -142,11 +132,11 @@ const Podcast = () => {
       <div className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Error State */}
-          {error && (
+          {error && videos.length === 0 && (
             <Alert className="mb-8 border-destructive">
               <AlertCircle className="h-4 w-4" />
               <AlertDescription>
-                {error}
+                Unable to load videos at this time.
                 <Button 
                   variant="outline" 
                   size="sm" 
