@@ -572,11 +572,13 @@ const ThumbnailTemplate = () => {
                      </div>
                   </div>
 
-                  {/* Brand Name above logo */}
+                  {/* Brand Name above logo with chroma key background */}
                   <div className="absolute top-32 left-1/2 transform -translate-x-1/2 z-30">
-                      <h1 className="text-5xl xl:text-6xl font-black text-center leading-tight whitespace-nowrap">
-                        <span className="text-white font-black">@BigDaddy's</span><span className="font-black" style={{ color: 'hsl(35, 45%, 75%)' }}>BigTips</span>
-                      </h1>
+                      <div className="bg-green-500 px-8 py-4 rounded-lg">
+                        <h1 className="text-5xl xl:text-6xl font-black text-center leading-tight whitespace-nowrap">
+                          <span className="text-white font-black">@BigDaddy's</span><span className="font-black" style={{ color: 'hsl(35, 45%, 75%)' }}>BigTips</span>
+                        </h1>
+                      </div>
                    </div>
 
 
