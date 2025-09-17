@@ -552,9 +552,8 @@ const ThumbnailTemplate = () => {
                   
 
 
-                  {/* Center Top Brand Name - Moved higher up */}
-                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 -translate-y-24 z-30">
-                     {/* Social Media Icons */}
+                  {/* Social Media Icons at top */}
+                  <div className="absolute top-8 left-1/2 transform -translate-x-1/2 z-30">
                      <div className="flex justify-center items-center gap-8 mb-6">
                        <div className="p-3 rounded-full bg-white/10 backdrop-blur-md border border-white/20">
                          <Instagram className="w-6 h-6 text-white" />
@@ -571,6 +570,10 @@ const ThumbnailTemplate = () => {
                           </svg>
                         </div>
                      </div>
+                  </div>
+
+                  {/* Brand Name above logo */}
+                  <div className="absolute top-32 left-1/2 transform -translate-x-1/2 z-30">
                       <h1 className="text-5xl xl:text-6xl font-black text-center leading-tight whitespace-nowrap">
                         <span className="text-white font-black">@BigDaddy's</span><span className="font-black" style={{ color: 'hsl(35, 45%, 75%)' }}>BigTips</span>
                       </h1>
@@ -604,8 +607,8 @@ const ThumbnailTemplate = () => {
                     </div>
                   </div>
 
-                  {/* BDBT Logo top of central photos */}
-                  <div className="absolute bottom-80 left-1/2 transform -translate-x-1/2 z-30">
+                  {/* BDBT Logo riding top edge of central photos */}
+                  <div className="absolute bottom-76 left-1/2 transform -translate-x-1/2 z-30">
                     <img 
                       src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
                       alt="BDBT Logo"
