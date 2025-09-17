@@ -665,10 +665,10 @@ const ThumbnailTemplate = () => {
                     </h1>
                   </div>
 
-                  {/* @BigDaddy'sBigTips - Centered between podcast title and logo */}
-                  <div className="absolute top-56 left-1/2 transform -translate-x-1/2 z-30">
+                  {/* @BigDaddysBigTips - Centered between podcast title and images */}
+                  <div className="absolute top-80 left-1/2 transform -translate-x-1/2 z-30">
                     <h1 className="text-5xl xl:text-6xl font-black text-center leading-tight whitespace-nowrap">
-                      <span className="text-white font-black">@BigDaddy's</span><span className="font-black" style={{ color: 'hsl(35, 45%, 75%)' }}>BigTips</span>
+                      <span className="text-white font-black">@BigDaddys</span><span className="font-black" style={{ color: 'hsl(35, 45%, 75%)' }}>BigTips</span>
                     </h1>
                   </div>
 
