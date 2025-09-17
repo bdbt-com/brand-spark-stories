@@ -533,67 +533,28 @@ const ThumbnailTemplate = () => {
                     </div>
                   </div>
 
-                  {/* Symmetrical curved gradient dots for framing the middle text */}
-                  {/* Left side dots in curved pattern */}
-                  <div className="absolute top-1/2 left-1/4 transform -translate-y-1/2 z-5">
-                    <div className="w-2 h-2 bg-white/30 rounded-full"></div>
+                  {/* Ripple effect from Daily Wins text */}
+                  <div className="absolute left-32 top-20 z-5">
+                    <div className="w-32 h-32 border border-white/10 rounded-full"></div>
                   </div>
-                  <div className="absolute top-1/2 left-1/4 transform -translate-y-1/2 translate-x-6 -translate-y-8 z-5">
-                    <div className="w-3 h-3 bg-white/20 rounded-full"></div>
+                  <div className="absolute left-24 top-12 z-5">
+                    <div className="w-48 h-48 border border-white/8 rounded-full"></div>
                   </div>
-                  <div className="absolute top-1/2 left-1/4 transform -translate-y-1/2 translate-x-12 -translate-y-12 z-5">
-                    <div className="w-2.5 h-2.5 bg-white/25 rounded-full"></div>
+                  <div className="absolute left-16 top-4 z-5">
+                    <div className="w-64 h-64 border border-white/6 rounded-full"></div>
                   </div>
-                  <div className="absolute top-1/2 left-1/4 transform -translate-y-1/2 translate-x-18 -translate-y-14 z-5">
-                    <div className="w-2 h-2 bg-white/15 rounded-full"></div>
-                  </div>
-                  <div className="absolute top-1/2 left-1/4 transform -translate-y-1/2 translate-x-24 -translate-y-15 z-5">
-                    <div className="w-1.5 h-1.5 bg-white/10 rounded-full"></div>
-                  </div>
-                  
-                  {/* Lower curve on left */}
-                  <div className="absolute top-1/2 left-1/4 transform -translate-y-1/2 translate-x-6 translate-y-8 z-5">
-                    <div className="w-2.5 h-2.5 bg-white/25 rounded-full"></div>
-                  </div>
-                  <div className="absolute top-1/2 left-1/4 transform -translate-y-1/2 translate-x-12 translate-y-12 z-5">
-                    <div className="w-2 h-2 bg-white/20 rounded-full"></div>
-                  </div>
-                  <div className="absolute top-1/2 left-1/4 transform -translate-y-1/2 translate-x-18 translate-y-14 z-5">
-                    <div className="w-1.5 h-1.5 bg-white/15 rounded-full"></div>
-                  </div>
-                  <div className="absolute top-1/2 left-1/4 transform -translate-y-1/2 translate-x-24 translate-y-15 z-5">
-                    <div className="w-1 h-1 bg-white/10 rounded-full"></div>
+
+                  {/* Symmetrical "Daily Wins Podcast" text on both sides */}
+                  <div className="absolute top-16 left-8 z-20">
+                    <h2 className="text-4xl font-bold text-white/90 tracking-wide">
+                      Daily Wins Podcast
+                    </h2>
                   </div>
                   
-                  {/* Right side dots (mirrored curved pattern) */}
-                  <div className="absolute top-1/2 right-1/4 transform -translate-y-1/2 z-5">
-                    <div className="w-2 h-2 bg-white/30 rounded-full"></div>
-                  </div>
-                  <div className="absolute top-1/2 right-1/4 transform -translate-y-1/2 -translate-x-6 -translate-y-8 z-5">
-                    <div className="w-3 h-3 bg-white/20 rounded-full"></div>
-                  </div>
-                  <div className="absolute top-1/2 right-1/4 transform -translate-y-1/2 -translate-x-12 -translate-y-12 z-5">
-                    <div className="w-2.5 h-2.5 bg-white/25 rounded-full"></div>
-                  </div>
-                  <div className="absolute top-1/2 right-1/4 transform -translate-y-1/2 -translate-x-18 -translate-y-14 z-5">
-                    <div className="w-2 h-2 bg-white/15 rounded-full"></div>
-                  </div>
-                  <div className="absolute top-1/2 right-1/4 transform -translate-y-1/2 -translate-x-24 -translate-y-15 z-5">
-                    <div className="w-1.5 h-1.5 bg-white/10 rounded-full"></div>
-                  </div>
-                  
-                  {/* Lower curve on right */}
-                  <div className="absolute top-1/2 right-1/4 transform -translate-y-1/2 -translate-x-6 translate-y-8 z-5">
-                    <div className="w-2.5 h-2.5 bg-white/25 rounded-full"></div>
-                  </div>
-                  <div className="absolute top-1/2 right-1/4 transform -translate-y-1/2 -translate-x-12 translate-y-12 z-5">
-                    <div className="w-2 h-2 bg-white/20 rounded-full"></div>
-                  </div>
-                  <div className="absolute top-1/2 right-1/4 transform -translate-y-1/2 -translate-x-18 translate-y-14 z-5">
-                    <div className="w-1.5 h-1.5 bg-white/15 rounded-full"></div>
-                  </div>
-                  <div className="absolute top-1/2 right-1/4 transform -translate-y-1/2 -translate-x-24 translate-y-15 z-5">
-                    <div className="w-1 h-1 bg-white/10 rounded-full"></div>
+                  <div className="absolute top-16 right-8 z-20">
+                    <h2 className="text-4xl font-bold text-white/90 tracking-wide text-right">
+                      Daily Wins Podcast
+                    </h2>
                   </div>
                   
 
