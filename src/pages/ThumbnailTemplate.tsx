@@ -675,13 +675,13 @@ const ThumbnailTemplate = () => {
                   </div>
 
                   {/* Social Media Icons - Left Side (Instagram and YouTube) */}
-                  <div className="absolute top-80 left-1/2 -translate-x-20 z-30 flex gap-3 items-center">
+                  <div className="absolute top-78 left-1/2 -translate-x-20 z-30 flex gap-3 items-center">
                     <Instagram className="w-6 h-6 text-white" />
                     <Youtube className="w-6 h-6 text-white" />
                   </div>
 
                   {/* Social Media Icons - Right Side (Facebook and Spotify) */}
-                  <div className="absolute top-80 left-1/2 translate-x-14 z-30 flex gap-3 items-center">
+                  <div className="absolute top-78 left-1/2 translate-x-14 z-30 flex gap-3 items-center">
                     <Facebook className="w-6 h-6 text-white" />
                     <Headphones className="w-6 h-6 text-white" />
                   </div>
