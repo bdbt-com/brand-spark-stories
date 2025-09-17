@@ -672,8 +672,8 @@ const ThumbnailTemplate = () => {
                     </h1>
                   </div>
 
-                  {/* BDBT Logo - Above the 3 images in central position */}
-                  <div className="absolute top-64 left-1/2 transform -translate-x-1/2 z-30">
+                  {/* BDBT Logo - Half overlapping the middle image */}
+                  <div className="absolute bottom-80 left-1/2 transform -translate-x-1/2 z-30">
                     <img 
                       src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
                       alt="BDBT Logo"
