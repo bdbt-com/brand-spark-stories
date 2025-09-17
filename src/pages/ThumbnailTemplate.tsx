@@ -552,8 +552,8 @@ const ThumbnailTemplate = () => {
                   
 
 
-                  {/* Center Top Brand Name - Moved to center middle */}
-                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 -translate-y-12 z-30">
+                  {/* Center Top Brand Name - Moved higher up */}
+                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 -translate-y-24 z-30">
                      {/* Social Media Icons */}
                      <div className="flex justify-center items-center gap-8 mb-6">
                        <div className="p-3 rounded-full bg-white/10 backdrop-blur-md border border-white/20">
@@ -604,12 +604,12 @@ const ThumbnailTemplate = () => {
                     </div>
                   </div>
 
-                  {/* BDBT Logo bottom center */}
-                  <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-30">
+                  {/* BDBT Logo top of central photos */}
+                  <div className="absolute bottom-80 left-1/2 transform -translate-x-1/2 z-30">
                     <img 
                       src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
                       alt="BDBT Logo"
-                      className="h-14"
+                      className="h-12"
                     />
                   </div>
                 </div>
