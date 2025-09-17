@@ -59,27 +59,6 @@ const Podcast = () => {
     window.open(`https://www.youtube.com/watch?v=${videoId}`, '_blank');
   };
 
-  // Show API key input if no API key is configured
-  if (!apiKey) {
-    return (
-      <div className="min-h-screen bg-gradient-subtle">
-        <section className="py-12 bg-gradient-hero text-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h1 className="text-3xl lg:text-4xl font-bold mb-4 leading-tight">
-              <span className="block text-white">Podcast &</span>
-              <span className="block text-[hsl(35_45%_75%)]">Video Catalogue</span>
-            </h1>
-            <p className="text-lg lg:text-xl mb-6 text-white/90 leading-relaxed max-w-3xl mx-auto">
-              Connect your YouTube channel to automatically display your latest content.
-            </p>
-          </div>
-        </section>
-        <div className="py-20">
-          <YouTubeApiKeyInput onApiKeySet={handleApiKeySet} />
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-gradient-subtle">
