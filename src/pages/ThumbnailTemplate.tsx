@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Instagram, Youtube, Facebook } from 'lucide-react';
+import { Instagram, Youtube, Facebook, Headphones } from 'lucide-react';
 
 const ThumbnailTemplate = () => {
   const [currentTemplateIndex, setCurrentTemplateIndex] = useState(0);
@@ -668,19 +668,20 @@ const ThumbnailTemplate = () => {
                   {/* Small BDBT Logo above @BigDaddysBigTips */}
                   <div className="absolute top-72 left-1/2 transform -translate-x-1/2 z-30">
                     <img 
-                      src="/src/assets/bdbt-logo-white.png" 
+                      src="/bdbt-logo-white.png" 
                       alt="BDBT Logo" 
                       className="w-12 h-12 object-contain opacity-80"
                     />
                   </div>
 
                   {/* Social Media Icons - Left Side */}
-                  <div className="absolute top-80 left-32 z-30">
-                    <img 
-                      src="/social-icons-left.png" 
-                      alt="Instagram and Facebook" 
-                      className="w-16 h-16 object-contain"
-                    />
+                  <div className="absolute top-80 left-1/2 -translate-x-32 z-30 flex gap-2">
+                    <div className="w-6 h-6 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center p-3">
+                      <Instagram className="w-6 h-6 text-white" />
+                    </div>
+                    <div className="w-6 h-6 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center p-3">
+                      <Facebook className="w-6 h-6 text-white" />
+                    </div>
                   </div>
 
                   {/* @BigDaddysBigTips - Centered between podcast title and images */}
@@ -691,12 +692,13 @@ const ThumbnailTemplate = () => {
                   </div>
 
                   {/* Social Media Icons - Right Side */}
-                  <div className="absolute top-80 right-32 z-30">
-                    <img 
-                      src="/social-icons-right.png" 
-                      alt="YouTube and Spotify" 
-                      className="w-16 h-16 object-contain"
-                    />
+                  <div className="absolute top-80 left-1/2 translate-x-32 z-30 flex gap-2">
+                    <div className="w-6 h-6 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center p-3">
+                      <Youtube className="w-6 h-6 text-white" />
+                    </div>
+                    <div className="w-6 h-6 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center p-3">
+                      <Headphones className="w-6 h-6 text-white" />
+                    </div>
                   </div>
 
                   {/* BDBT Logo - Half overlapping the middle image */}
