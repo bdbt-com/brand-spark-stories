@@ -665,8 +665,14 @@ const ThumbnailTemplate = () => {
                     </h1>
                   </div>
 
-                  {/* BDBT Logo above @BigDaddysBigTips */}
-                  <div className="absolute top-74 left-1/2 transform -translate-x-1/2 z-30">
+                  {/* Social Media Icons - Left Side (Instagram and YouTube) */}
+                  <div className="absolute top-76 left-1/2 -translate-x-20 z-30 flex gap-3 items-center">
+                    <Instagram className="w-6 h-6 text-white" />
+                    <Youtube className="w-6 h-6 text-white" />
+                  </div>
+
+                  {/* BDBT Logo - Centered between the 4 social icons */}
+                  <div className="absolute top-75 left-1/2 transform -translate-x-1/2 z-30">
                     <img 
                       src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
                       alt="BDBT Logo"
@@ -674,23 +680,17 @@ const ThumbnailTemplate = () => {
                     />
                   </div>
 
-                  {/* Social Media Icons - Left Side (Instagram and YouTube) */}
-                  <div className="absolute top-78 left-1/2 -translate-x-20 z-30 flex gap-3 items-center">
-                    <Instagram className="w-6 h-6 text-white" />
-                    <Youtube className="w-6 h-6 text-white" />
+                  {/* Social Media Icons - Right Side (Facebook and Spotify) */}
+                  <div className="absolute top-76 left-1/2 translate-x-14 z-30 flex gap-3 items-center">
+                    <Facebook className="w-6 h-6 text-white" />
+                    <Headphones className="w-6 h-6 text-white" />
                   </div>
 
                   {/* @BigDaddysBigTips - Centered between podcast title and images */}
-                  <div className="absolute top-78 left-1/2 transform -translate-x-1/2 z-30">
+                  <div className="absolute top-80 left-1/2 transform -translate-x-1/2 z-30">
                     <h1 className="text-5xl xl:text-6xl font-black text-center leading-tight whitespace-nowrap">
                       <span className="text-white font-black">@BigDaddys</span><span className="font-black" style={{ color: 'hsl(35, 45%, 75%)' }}>BigTips</span>
                     </h1>
-                  </div>
-
-                  {/* Social Media Icons - Right Side (Facebook and Spotify) */}
-                  <div className="absolute top-78 left-1/2 translate-x-14 z-30 flex gap-3 items-center">
-                    <Facebook className="w-6 h-6 text-white" />
-                    <Headphones className="w-6 h-6 text-white" />
                   </div>
 
                   {/* 3 Images at bottom */}
