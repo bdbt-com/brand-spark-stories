@@ -622,6 +622,98 @@ const ThumbnailTemplate = () => {
 
         </div>
       </div>
+
+      {/* New Banner Art Template */}
+      <div className="border-t border-white/20 bg-gradient-to-br from-primary/95 via-primary/90 to-primary/85">
+        <div className="container mx-auto px-8 py-16">
+          {/* Banner Preview Container */}
+          <div className="flex justify-center mb-8">
+            <div className="w-full max-w-none relative">
+              {/* New Banner Template - Optimized 2560x1440 dimensions */}
+              <div id="new-banner" className="w-[1280px] h-[720px] relative overflow-hidden bg-gradient-to-r from-primary via-primary/90 to-primary/80 shadow-2xl mx-auto">
+                <div className="h-full flex flex-col p-16 relative">
+                  
+                  {/* Social Media Icons at very top */}
+                  <div className="absolute top-8 left-1/2 transform -translate-x-1/2 z-30">
+                    <div className="flex justify-center items-center gap-8 mb-6">
+                      <div className="p-3 rounded-full bg-white/10 backdrop-blur-md border border-white/20">
+                        <Instagram className="w-6 h-6 text-white" />
+                      </div>
+                      <div className="p-3 rounded-full bg-white/10 backdrop-blur-md border border-white/20">
+                        <Youtube className="w-6 h-6 text-white" />
+                      </div>
+                      <div className="p-3 rounded-full bg-white/10 backdrop-blur-md border border-white/20">
+                        <Facebook className="w-6 h-6 text-white" />
+                      </div>
+                      <div className="p-3 rounded-full bg-white/10 backdrop-blur-md border border-white/20">
+                        <svg className="w-6 h-6 text-white" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Daily Wins Podcast - Below icons */}
+                  <div className="absolute top-24 left-1/2 transform -translate-x-1/2 z-30 text-center">
+                    <h1 className="text-4xl font-bold leading-tight mb-4">
+                      <span className="text-white block">
+                        Daily Wins
+                      </span>
+                      <span className="block" style={{ color: 'hsl(35, 45%, 75%)' }}>
+                        Podcast
+                      </span>
+                    </h1>
+                  </div>
+
+                  {/* @BigDaddy'sBigTips - Below podcast title */}
+                  <div className="absolute top-44 left-1/2 transform -translate-x-1/2 z-30">
+                    <h1 className="text-5xl xl:text-6xl font-black text-center leading-tight whitespace-nowrap">
+                      <span className="text-white font-black">@BigDaddy's</span><span className="font-black" style={{ color: 'hsl(35, 45%, 75%)' }}>BigTips</span>
+                    </h1>
+                  </div>
+
+                  {/* BDBT Logo - Above the 3 images in central position */}
+                  <div className="absolute top-64 left-1/2 transform -translate-x-1/2 z-30">
+                    <img 
+                      src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
+                      alt="BDBT Logo"
+                      className="h-16"
+                    />
+                  </div>
+
+                  {/* 3 Images at bottom */}
+                  <div className="absolute bottom-12 left-8 right-8 z-10">
+                    <div className="flex gap-6 justify-between">
+                      <div className="w-96 h-64 rounded-lg overflow-hidden border-2 border-white/20 shadow-lg">
+                        <img 
+                          src="/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+                          alt="Featured Image 1"
+                          className="w-full h-full object-cover opacity-80"
+                        />
+                      </div>
+                      <div className="w-96 h-64 rounded-lg overflow-hidden border-2 border-white/20 shadow-lg">
+                        <img 
+                          src="/lovable-uploads/8d06c526-bd08-42b7-9a4e-09be508119c7.png"
+                          alt="Featured Image 2"
+                          className="w-full h-full object-cover opacity-80"
+                        />
+                      </div>
+                      <div className="w-96 h-64 rounded-lg overflow-hidden border-2 border-white/20 shadow-lg">
+                        <img 
+                          src="/lovable-uploads/75853635-930c-4fa5-9403-d0b58c6db83b.png"
+                          alt="Featured Image 3"
+                          className="w-full h-full object-cover opacity-80"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
