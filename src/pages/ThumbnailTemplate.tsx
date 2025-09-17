@@ -665,11 +665,38 @@ const ThumbnailTemplate = () => {
                     </h1>
                   </div>
 
+                  {/* Small BDBT Logo above @BigDaddysBigTips */}
+                  <div className="absolute top-72 left-1/2 transform -translate-x-1/2 z-30">
+                    <img 
+                      src="/src/assets/bdbt-logo-white.png" 
+                      alt="BDBT Logo" 
+                      className="w-12 h-12 object-contain opacity-80"
+                    />
+                  </div>
+
+                  {/* Social Media Icons - Left Side */}
+                  <div className="absolute top-80 left-32 z-30">
+                    <img 
+                      src="/social-icons-left.png" 
+                      alt="Instagram and Facebook" 
+                      className="w-16 h-16 object-contain"
+                    />
+                  </div>
+
                   {/* @BigDaddysBigTips - Centered between podcast title and images */}
                   <div className="absolute top-80 left-1/2 transform -translate-x-1/2 z-30">
                     <h1 className="text-5xl xl:text-6xl font-black text-center leading-tight whitespace-nowrap">
                       <span className="text-white font-black">@BigDaddys</span><span className="font-black" style={{ color: 'hsl(35, 45%, 75%)' }}>BigTips</span>
                     </h1>
+                  </div>
+
+                  {/* Social Media Icons - Right Side */}
+                  <div className="absolute top-80 right-32 z-30">
+                    <img 
+                      src="/social-icons-right.png" 
+                      alt="YouTube and Spotify" 
+                      className="w-16 h-16 object-contain"
+                    />
                   </div>
 
                   {/* BDBT Logo - Half overlapping the middle image */}
