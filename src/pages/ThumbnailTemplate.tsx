@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Instagram, Youtube, Facebook, Headphones } from 'lucide-react';
+import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from '@/components/ui/carousel';
 
 const ThumbnailTemplate = () => {
   const [currentTemplateIndex, setCurrentTemplateIndex] = useState(0);
@@ -73,6 +74,13 @@ const ThumbnailTemplate = () => {
       name: "Walking Phone Calls",
       title: "The Power of Walking",
       subtitle: "During Phone Calls",
+      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+    },
+    {
+      id: 10,
+      name: "Eating More Greens",
+      title: "The Secret to Eating More Greens",
+      subtitle: "Daily Wins Podcast",
       image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
     }
   ];
@@ -485,23 +493,77 @@ const ThumbnailTemplate = () => {
           </div>
         )}
 
+        {/* New Template - The Secret to Eating More Greens */}
+        {currentTemplateIndex === 10 && (
+          <div className="relative">
+            <div id="thumbnail-10" key="template-10" className="w-[1280px] h-[720px] relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in">
+              <div className="h-full flex items-center p-16 relative">
+                <div className="absolute right-16 top-16 bottom-16 flex items-center">
+                  <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
+                    <img 
+                      src={templates[10].image} 
+                      alt="Podcast thumbnail"
+                      className="w-full h-full object-cover border-4 border-white/20"
+                    />
+                    <div className="absolute bottom-4 left-4">
+                      <img 
+                        src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
+                        alt="BDBT Logo"
+                        className="h-16 opacity-90"
+                      />
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="absolute left-8 top-16 bottom-24 right-[35%] pr-4 z-10 flex flex-col justify-center">
+                  <h1 className="text-6xl xl:text-7xl 2xl:text-8xl font-bold leading-tight mb-6">
+                    <span className="text-white block mb-2">
+                      The Secret to Eating
+                    </span>
+                    <span className="block" style={{ color: 'hsl(35, 45%, 75%)' }}>
+                      More Greens
+                    </span>
+                  </h1>
+                  <p className="text-white/80 text-3xl font-medium">
+                    Daily Wins Podcast
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
       </div>
 
-      {/* Control Buttons */}
-      <div className="flex justify-center gap-4 pb-16">
-        {templates.map((template, index) => (
-          <button
-            key={template.id}
-            onClick={() => setCurrentTemplateIndex(index)}
-            className={`px-6 py-3 rounded-lg text-sm font-medium transition-all ${
-              currentTemplateIndex === index
-                ? 'bg-white text-primary shadow-lg'
-                : 'bg-white/20 text-white hover:bg-white/30 hover:scale-105'
-            }`}
-          >
-            {template.name}
-          </button>
-        ))}
+      {/* Template Selection Carousel */}
+      <div className="pb-16 px-8">
+        <h3 className="text-white text-xl font-semibold text-center mb-6">Choose a Template</h3>
+        <Carousel
+          opts={{
+            align: "center",
+            loop: true,
+          }}
+          className="w-full max-w-6xl mx-auto"
+        >
+          <CarouselContent className="-ml-2 md:-ml-4">
+            {templates.map((template, index) => (
+              <CarouselItem key={template.id} className="pl-2 md:pl-4 basis-1/3 md:basis-1/4 lg:basis-1/5">
+                <button
+                  onClick={() => setCurrentTemplateIndex(index)}
+                  className={`w-full px-4 py-3 rounded-lg text-sm font-medium transition-all ${
+                    currentTemplateIndex === index
+                      ? 'bg-white text-primary shadow-lg scale-105'
+                      : 'bg-white/20 text-white hover:bg-white/30 hover:scale-105'
+                  }`}
+                >
+                  {template.name}
+                </button>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious className="text-white border-white/30 hover:bg-white/20" />
+          <CarouselNext className="text-white border-white/30 hover:bg-white/20" />
+        </Carousel>
       </div>
 
       {/* YouTube Banner Art Section */}
