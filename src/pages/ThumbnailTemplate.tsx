@@ -100,13 +100,10 @@ const ThumbnailTemplate = () => {
               <div className="h-full flex items-center p-16 relative">
                 <div className="absolute right-16 top-16 bottom-16 flex items-center">
                   <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
-                    <div className="absolute top-4 left-4 bg-white text-black rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm z-10">
-                      1
-                    </div>
                     <img 
                       src={templates[0].image} 
                       alt="Podcast thumbnail"
-                      className="w-full h-full object-cover border-2 border-white"
+                      className="w-full h-full object-cover border-4 border-white/20"
                     />
                     <div className="absolute bottom-4 left-4">
                       <img 
@@ -143,13 +140,10 @@ const ThumbnailTemplate = () => {
               <div className="h-full flex items-center p-16 relative">
                 <div className="absolute right-16 top-16 bottom-16 flex items-center">
                   <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
-                    <div className="absolute top-4 left-4 bg-white text-black rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm z-10">
-                      2
-                    </div>
                     <img 
                       src={templates[1].image} 
                       alt="Podcast thumbnail"
-                      className="w-full h-full object-cover border-2 border-white"
+                      className="w-full h-full object-cover border-4 border-white/20"
                     />
                     <div className="absolute bottom-4 left-4">
                       <img 
@@ -186,13 +180,10 @@ const ThumbnailTemplate = () => {
               <div className="h-full flex items-center p-16 relative">
                 <div className="absolute right-16 top-16 bottom-16 flex items-center">
                   <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
-                    <div className="absolute top-4 left-4 bg-white text-black rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm z-10">
-                      3
-                    </div>
                     <img 
                       src={templates[2].image} 
                       alt="Podcast thumbnail"
-                      className="w-full h-full object-cover border-2 border-white"
+                      className="w-full h-full object-cover border-4 border-white/20"
                     />
                     <div className="absolute bottom-4 left-4">
                       <img 
@@ -229,13 +220,10 @@ const ThumbnailTemplate = () => {
               <div className="h-full flex items-center p-16 relative">
                 <div className="absolute right-16 top-16 bottom-16 flex items-center">
                   <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
-                    <div className="absolute top-4 left-4 bg-white text-black rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm z-10">
-                      4
-                    </div>
                     <img 
                       src={templates[3].image} 
                       alt="Podcast thumbnail"
-                      className="w-full h-full object-cover border-2 border-white"
+                      className="w-full h-full object-cover border-4 border-white/20"
                     />
                     <div className="absolute bottom-4 left-4">
                       <img 
@@ -272,13 +260,10 @@ const ThumbnailTemplate = () => {
               <div className="h-full flex items-center p-16 relative">
                 <div className="absolute right-16 top-16 bottom-16 flex items-center">
                   <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
-                    <div className="absolute top-4 left-4 bg-white text-black rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm z-10">
-                      5
-                    </div>
                     <img 
                       src={templates[4].image} 
                       alt="Podcast thumbnail"
-                      className="w-full h-full object-cover border-2 border-white"
+                      className="w-full h-full object-cover border-4 border-white/20"
                     />
                     <div className="absolute bottom-4 left-4">
                       <img 
@@ -315,13 +300,10 @@ const ThumbnailTemplate = () => {
               <div className="h-full flex items-center p-16 relative">
                 <div className="absolute right-16 top-16 bottom-16 flex items-center">
                   <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
-                    <div className="absolute top-4 left-4 bg-white text-black rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm z-10">
-                      6
-                    </div>
                     <img 
                       src={templates[5].image} 
                       alt="Podcast thumbnail"
-                      className="w-full h-full object-cover border-2 border-white"
+                      className="w-full h-full object-cover border-4 border-white/20"
                     />
                     <div className="absolute bottom-4 left-4">
                       <img 
@@ -358,13 +340,10 @@ const ThumbnailTemplate = () => {
               <div className="h-full flex items-center p-16 relative">
                 <div className="absolute right-16 top-16 bottom-16 flex items-center">
                   <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
-                    <div className="absolute top-4 left-4 bg-white text-black rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm z-10">
-                      7
-                    </div>
                     <img 
                       src={templates[6].image} 
                       alt="Podcast thumbnail"
-                      className="w-full h-full object-cover border-2 border-white"
+                      className="w-full h-full object-cover border-4 border-white/20"
                     />
                     <div className="absolute bottom-4 left-4">
                       <img 
@@ -401,13 +380,10 @@ const ThumbnailTemplate = () => {
               <div className="h-full flex items-center p-16 relative">
                 <div className="absolute right-16 top-16 bottom-16 flex items-center">
                   <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
-                    <div className="absolute top-4 left-4 bg-white text-black rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm z-10">
-                      8
-                    </div>
                     <img 
                       src={templates[7].image} 
                       alt="Podcast thumbnail"
-                      className="w-full h-full object-cover border-2 border-white"
+                      className="w-full h-full object-cover border-4 border-white/20"
                     />
                     <div className="absolute bottom-4 left-4">
                       <img 
@@ -444,13 +420,10 @@ const ThumbnailTemplate = () => {
               <div className="h-full flex items-center p-16 relative">
                 <div className="absolute right-16 top-16 bottom-16 flex items-center">
                   <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
-                    <div className="absolute top-4 left-4 bg-white text-black rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm z-10">
-                      9
-                    </div>
                     <img 
                       src={templates[8].image} 
                       alt="Podcast thumbnail"
-                      className="w-full h-full object-cover border-2 border-white"
+                      className="w-full h-full object-cover border-4 border-white/20"
                     />
                     <div className="absolute bottom-4 left-4">
                       <img 
@@ -487,13 +460,10 @@ const ThumbnailTemplate = () => {
               <div className="h-full flex items-center p-16 relative">
                 <div className="absolute right-16 top-16 bottom-16 flex items-center">
                   <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
-                    <div className="absolute top-4 left-4 bg-white text-black rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm z-10">
-                      10
-                    </div>
                     <img 
                       src={templates[9].image} 
                       alt="Podcast thumbnail"
-                      className="w-full h-full object-cover border-2 border-white"
+                      className="w-full h-full object-cover border-4 border-white/20"
                     />
                     <div className="absolute bottom-4 left-4">
                       <img 
@@ -530,13 +500,10 @@ const ThumbnailTemplate = () => {
               <div className="h-full flex items-center p-16 relative">
                 <div className="absolute right-16 top-16 bottom-16 flex items-center">
                   <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
-                    <div className="absolute top-4 left-4 bg-white text-black rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm z-10">
-                      11
-                    </div>
                     <img 
                       src={templates[10].image} 
                       alt="Podcast thumbnail"
-                      className="w-full h-full object-cover border-2 border-white"
+                      className="w-full h-full object-cover border-4 border-white/20"
                     />
                     <div className="absolute bottom-4 left-4">
                       <img 
