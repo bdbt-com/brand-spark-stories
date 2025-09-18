@@ -667,11 +667,11 @@ const ThumbnailTemplate = () => {
 
                   {/* BDBT Logo - Centered above the text */}
                   <div className="absolute top-77 left-1/2 transform -translate-x-1/2 z-30">
-                    <img 
-                      src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
-                      alt="BDBT Logo"
-                      className="h-8 object-contain opacity-80"
-                    />
+                  <img 
+                    src="/lovable-uploads/bdbt-logo-transparent.png" 
+                    alt="BDBT Logo" 
+                    className="h-8 object-contain opacity-80"
+                  />
                   </div>
 
                   {/* Social Media Icons - Left Side (Instagram and YouTube) */}
