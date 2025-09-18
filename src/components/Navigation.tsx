@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Instagram, Youtube, Facebook, Headphones } from "lucide-react";
+import { Menu, X, Instagram, Youtube, Facebook } from "lucide-react";
 import logoTransparent from "/lovable-uploads/bdbt-logo-transparent.png";
+import spotifyLogo from "@/assets/spotify-logo.png";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -59,7 +60,7 @@ const Navigation = () => {
                 className="p-1.5 rounded-full hover:bg-primary/10 transition-all duration-300 hover:scale-110"
                 aria-label="Listen on Spotify"
               >
-                <Headphones className="w-4 h-4 text-primary hover:text-primary transition-colors" />
+                <img src={spotifyLogo} alt="Spotify" className="w-4 h-4" />
               </a>
               <a 
                 href="https://instagram.com/BigDaddysBigTips" 

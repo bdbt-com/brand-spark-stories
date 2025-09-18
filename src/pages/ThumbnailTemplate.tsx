@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Instagram, Youtube, Facebook, Headphones } from 'lucide-react';
+import { Instagram, Youtube, Facebook } from 'lucide-react';
 import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from '@/components/ui/carousel';
+import spotifyLogo from "@/assets/spotify-logo.png";
 
 const ThumbnailTemplate = () => {
   const [currentTemplateIndex, setCurrentTemplateIndex] = useState(0);
@@ -745,7 +746,7 @@ const ThumbnailTemplate = () => {
                   {/* Social Media Icons - Right Side (Facebook and Spotify) */}
                   <div className="absolute top-78 left-1/2 translate-x-14 z-30 flex gap-3 items-center">
                     <Facebook className="w-6 h-6 text-white" />
-                    <Headphones className="w-6 h-6 text-white" />
+                    <img src={spotifyLogo} alt="Spotify" className="w-6 h-6" />
                   </div>
 
                   {/* @BigDaddysBigTips - Centered between podcast title and images */}

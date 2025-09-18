@@ -19,9 +19,9 @@ import {
   Youtube,
   Facebook,
   Loader2,
-  AlertCircle,
-  Headphones
+  AlertCircle
 } from "lucide-react";
+import spotifyLogo from "@/assets/spotify-logo.png";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { useYouTubeVideos } from "@/hooks/useYouTubeVideos";
 import { YouTubeApiKeyInput } from "@/components/YouTubeApiKeyInput";
@@ -96,7 +96,7 @@ const Podcast = () => {
                   rel="noopener noreferrer"
                   className="p-2 rounded-full bg-white/20 hover:bg-white/30 text-white transition-all duration-300 hover:scale-110"
                 >
-                  <Headphones className="w-5 h-5" />
+                  <img src={spotifyLogo} alt="Spotify" className="w-5 h-5" />
                 </a>
                 <a 
                   href="https://instagram.com/BigDaddysBigTips" 
