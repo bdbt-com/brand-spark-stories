@@ -96,7 +96,7 @@ const ThumbnailTemplate = () => {
         {/* Template 1 - Parking Benefits */}
         {currentTemplateIndex === 0 && (
           <div className="relative">
-            <div id="thumbnail-0" key="template-0" className="w-[1280px] h-[720px] relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in">
+            <div id="thumbnail-0" key="template-0" className="w-[1280px] h-[720px] relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
               <div className="h-full flex items-center p-16 relative">
                 <div className="absolute right-16 top-16 bottom-16 flex items-center">
                   <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
@@ -136,7 +136,7 @@ const ThumbnailTemplate = () => {
         {/* Template 2 - Dead Time */}
         {currentTemplateIndex === 1 && (
           <div className="relative">
-            <div id="thumbnail-1" key="template-1" className="w-[1280px] h-[720px] relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in">
+            <div id="thumbnail-1" key="template-1" className="w-[1280px] h-[720px] relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
               <div className="h-full flex items-center p-16 relative">
                 <div className="absolute right-16 top-16 bottom-16 flex items-center">
                   <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
@@ -176,7 +176,7 @@ const ThumbnailTemplate = () => {
         {/* Template 3 - Financial Health */}
         {currentTemplateIndex === 2 && (
           <div className="relative">
-            <div id="thumbnail-2" key="template-2" className="w-[1280px] h-[720px] relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in">
+            <div id="thumbnail-2" key="template-2" className="w-[1280px] h-[720px] relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
               <div className="h-full flex items-center p-16 relative">
                 <div className="absolute right-16 top-16 bottom-16 flex items-center">
                   <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
@@ -216,7 +216,7 @@ const ThumbnailTemplate = () => {
         {/* Template 4 - Hydration */}
         {currentTemplateIndex === 3 && (
           <div className="relative">
-            <div id="thumbnail-3" key="template-3" className="w-[1280px] h-[720px] relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in">
+            <div id="thumbnail-3" key="template-3" className="w-[1280px] h-[720px] relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
               <div className="h-full flex items-center p-16 relative">
                 <div className="absolute right-16 top-16 bottom-16 flex items-center">
                   <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
@@ -256,7 +256,7 @@ const ThumbnailTemplate = () => {
         {/* Template 5 - Healthy Snacks */}
         {currentTemplateIndex === 4 && (
           <div className="relative">
-            <div id="thumbnail-4" key="template-4" className="w-[1280px] h-[720px] relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in">
+            <div id="thumbnail-4" key="template-4" className="w-[1280px] h-[720px] relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
               <div className="h-full flex items-center p-16 relative">
                 <div className="absolute right-16 top-16 bottom-16 flex items-center">
                   <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
@@ -296,7 +296,7 @@ const ThumbnailTemplate = () => {
         {/* Template 6 - Morning Self-Care */}
         {currentTemplateIndex === 5 && (
           <div className="relative">
-            <div id="thumbnail-5" key="template-5" className="w-[1280px] h-[720px] relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in">
+            <div id="thumbnail-5" key="template-5" className="w-[1280px] h-[720px] relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
               <div className="h-full flex items-center p-16 relative">
                 <div className="absolute right-16 top-16 bottom-16 flex items-center">
                   <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
@@ -336,7 +336,7 @@ const ThumbnailTemplate = () => {
         {/* Template 7 - Daily Movement */}
         {currentTemplateIndex === 6 && (
           <div className="relative">
-            <div id="thumbnail-6" key="template-6" className="w-[1280px] h-[720px] relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in">
+            <div id="thumbnail-6" key="template-6" className="w-[1280px] h-[720px] relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
               <div className="h-full flex items-center p-16 relative">
                 <div className="absolute right-16 top-16 bottom-16 flex items-center">
                   <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
@@ -376,7 +376,7 @@ const ThumbnailTemplate = () => {
         {/* Template 8 - Mindfulness */}
         {currentTemplateIndex === 7 && (
           <div className="relative">
-            <div id="thumbnail-7" key="template-7" className="w-[1280px] h-[720px] relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in">
+            <div id="thumbnail-7" key="template-7" className="w-[1280px] h-[720px] relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
               <div className="h-full flex items-center p-16 relative">
                 <div className="absolute right-16 top-16 bottom-16 flex items-center">
                   <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
@@ -416,7 +416,7 @@ const ThumbnailTemplate = () => {
         {/* Template 9 - Fitness Micro-Habits */}
         {currentTemplateIndex === 8 && (
           <div className="relative">
-            <div id="thumbnail-8" key="template-8" className="w-[1280px] h-[720px] relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in">
+            <div id="thumbnail-8" key="template-8" className="w-[1280px] h-[720px] relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
               <div className="h-full flex items-center p-16 relative">
                 <div className="absolute right-16 top-16 bottom-16 flex items-center">
                   <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
@@ -456,7 +456,7 @@ const ThumbnailTemplate = () => {
         {/* Template 10 - Walking Phone Calls */}
         {currentTemplateIndex === 9 && (
           <div className="relative">
-            <div id="thumbnail-9" key="template-9" className="w-[1280px] h-[720px] relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in">
+            <div id="thumbnail-9" key="template-9" className="w-[1280px] h-[720px] relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
               <div className="h-full flex items-center p-16 relative">
                 <div className="absolute right-16 top-16 bottom-16 flex items-center">
                   <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
@@ -496,7 +496,7 @@ const ThumbnailTemplate = () => {
         {/* New Template - The Secret to Eating More Greens */}
         {currentTemplateIndex === 10 && (
           <div className="relative">
-            <div id="thumbnail-10" key="template-10" className="w-[1280px] h-[720px] relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in">
+            <div id="thumbnail-10" key="template-10" className="w-[1280px] h-[720px] relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
               <div className="h-full flex items-center p-16 relative">
                 <div className="absolute right-16 top-16 bottom-16 flex items-center">
                   <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
@@ -556,7 +556,7 @@ const ThumbnailTemplate = () => {
                       : 'bg-white/20 text-white hover:bg-white/30 hover:scale-105'
                   }`}
                 >
-                  {template.name}
+                  {index + 1}. {template.name}
                 </button>
               </CarouselItem>
             ))}
