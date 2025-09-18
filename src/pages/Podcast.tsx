@@ -19,7 +19,8 @@ import {
   Youtube,
   Facebook,
   Loader2,
-  AlertCircle
+  AlertCircle,
+  Headphones
 } from "lucide-react";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { useYouTubeVideos } from "@/hooks/useYouTubeVideos";
@@ -89,6 +90,14 @@ const Podcast = () => {
             <div className="flex items-center gap-4">
               <span className="text-sm text-white/80 font-medium">Follow @BigDaddysBigTips</span>
               <div className="flex gap-3">
+                <a 
+                  href="https://open.spotify.com/show/BigDaddysBigTips" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="p-2 rounded-full bg-white/20 hover:bg-white/30 text-white transition-all duration-300 hover:scale-110"
+                >
+                  <Headphones className="w-5 h-5" />
+                </a>
                 <a 
                   href="https://instagram.com/BigDaddysBigTips" 
                   target="_blank" 
