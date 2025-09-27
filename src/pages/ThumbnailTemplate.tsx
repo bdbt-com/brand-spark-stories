@@ -1371,7 +1371,8 @@ const ThumbnailTemplate = () => {
                 phrases[currentPhraseIndex].design === 'bold' ? 'font-extrabold' : 'font-black'
               }`}>
                 <span className="text-white">{phrases[currentPhraseIndex].whiteText}</span>
-                <span className="ml-3" style={{ color: 'hsl(35, 45%, 75%)' }}>
+                <span className={`ml-3 ${phrases[currentPhraseIndex].goldText === '?' ? 'text-white' : ''}`} 
+                      style={{ color: phrases[currentPhraseIndex].goldText === '?' ? 'white' : 'hsl(35, 45%, 75%)' }}>
                   {phrases[currentPhraseIndex].goldText}
                 </span>
               </h1>
