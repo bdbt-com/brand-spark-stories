@@ -160,92 +160,52 @@ const ThumbnailTemplate = () => {
   const phrases = [
     {
       id: 1,
-      name: "What is BDBT? - Large Centered",
+      name: "What is BDBT?",
       whiteText: "What is",
-      goldText: "BDBT?",
+      goldText: "BDBT",
+      questionMark: "?",
       design: "large",
       textSize: "text-6xl lg:text-8xl",
       layout: "centered"
     },
     {
       id: 2,
-      name: "How does it work? - Medium Emphasis",
+      name: "How does it work?",
       whiteText: "How does it",
-      goldText: "WORK?",
-      design: "medium",
-      textSize: "text-4xl lg:text-6xl",
-      layout: "centered"
-    },
-    {
-      id: 3,
-      name: "Why does it work? - Compact Bold",
-      whiteText: "Why does it",
-      goldText: "work?",
-      design: "compact",
-      textSize: "text-3xl lg:text-5xl",
-      layout: "centered"
-    },
-    {
-      id: 4,
-      name: "Where? - Ultra Minimal",
-      whiteText: "Where",
-      goldText: "?",
-      design: "minimal",
-      textSize: "text-5xl lg:text-7xl",
-      layout: "centered"
-    },
-    {
-      id: 5,
-      name: "When? - Split Typography",
-      whiteText: "When",
-      goldText: "?",
-      design: "split",
-      textSize: "text-4xl lg:text-6xl",
-      layout: "left"
-    },
-    {
-      id: 6,
-      name: "What is BDBT? - Compact Version",
-      whiteText: "What is",
-      goldText: "BDBT?",
-      design: "compact-alt",
-      textSize: "text-2xl lg:text-4xl",
-      layout: "left"
-    },
-    {
-      id: 7,
-      name: "How does it work? - Bold Statement",
-      whiteText: "HOW DOES IT",
-      goldText: "WORK?",
-      design: "bold",
-      textSize: "text-5xl lg:text-7xl",
-      layout: "centered"
-    },
-    {
-      id: 8,
-      name: "Why does it work? - Elegant",
-      whiteText: "Why does it",
-      goldText: "work?",
-      design: "elegant",
-      textSize: "text-3xl lg:text-5xl",
-      layout: "right"
-    },
-    {
-      id: 9,
-      name: "Where? - Bold Minimal",
-      whiteText: "WHERE",
-      goldText: "?",
-      design: "bold-minimal",
+      goldText: "work",
+      questionMark: "?",
+      design: "large",
       textSize: "text-6xl lg:text-8xl",
       layout: "centered"
     },
     {
-      id: 10,
-      name: "When? - Question Focus",
+      id: 3,
+      name: "Why does it work?",
+      whiteText: "Why does it",
+      goldText: "work",
+      questionMark: "?",
+      design: "large",
+      textSize: "text-6xl lg:text-8xl",
+      layout: "centered"
+    },
+    {
+      id: 4,
+      name: "Where?",
+      whiteText: "Where",
+      goldText: "",
+      questionMark: "?",
+      design: "large",
+      textSize: "text-6xl lg:text-8xl",
+      layout: "centered"
+    },
+    {
+      id: 5,
+      name: "When?",
       whiteText: "When",
-      goldText: "?",
-      design: "question",
-      textSize: "text-4xl lg:text-6xl",
+      goldText: "",
+      questionMark: "?",
+      design: "large",
+      textSize: "text-6xl lg:text-8xl",
       layout: "centered"
     }
   ];
@@ -1365,16 +1325,14 @@ const ThumbnailTemplate = () => {
             <div className={`${phrases[currentPhraseIndex].layout === 'centered' ? 'text-center' : 
               phrases[currentPhraseIndex].layout === 'left' ? 'text-left' : 'text-right'
             }`}>
-              <h1 className={`${phrases[currentPhraseIndex].textSize} font-black leading-tight ${
-                phrases[currentPhraseIndex].design === 'split' ? 'font-light' : 
-                phrases[currentPhraseIndex].design === 'elegant' ? 'font-medium' :
-                phrases[currentPhraseIndex].design === 'bold' ? 'font-extrabold' : 'font-black'
-              }`}>
+               <h1 className={`${phrases[currentPhraseIndex].textSize} font-black leading-tight font-black`}>
                 <span className="text-white">{phrases[currentPhraseIndex].whiteText}</span>
-                <span className={`ml-3 ${phrases[currentPhraseIndex].goldText === '?' ? 'text-white' : ''}`} 
-                      style={{ color: phrases[currentPhraseIndex].goldText === '?' ? 'white' : 'hsl(35, 45%, 75%)' }}>
-                  {phrases[currentPhraseIndex].goldText}
-                </span>
+                {phrases[currentPhraseIndex].goldText && (
+                  <span className="ml-3" style={{ color: 'hsl(35, 45%, 75%)' }}>
+                    {phrases[currentPhraseIndex].goldText}
+                  </span>
+                )}
+                <span className="text-white">{phrases[currentPhraseIndex].questionMark}</span>
               </h1>
             </div>
           </div>
@@ -1411,7 +1369,7 @@ const ThumbnailTemplate = () => {
                       {index + 1}. {phrase.name}
                     </div>
                     <div className="text-xs text-gray-500 truncate">
-                      {phrase.whiteText} {phrase.goldText}
+                      {phrase.whiteText} {phrase.goldText}{phrase.questionMark}
                     </div>
                   </button>
                 </CarouselItem>
