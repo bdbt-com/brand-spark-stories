@@ -160,43 +160,93 @@ const ThumbnailTemplate = () => {
   const phrases = [
     {
       id: 1,
-      name: "Transform Your Journey",
-      mainText: "Transform Your",
-      accentText: "Podcast Journey",
-      subtitle: "Discover powerful strategies that change everything",
-      subtext: "Join thousands of creators building their dream shows"
+      name: "What is BDBT? - Large Centered",
+      whiteText: "What is",
+      goldText: "BDBT?",
+      design: "large",
+      textSize: "text-6xl lg:text-8xl",
+      layout: "centered"
     },
     {
       id: 2,
-      name: "Level Up Content",
-      mainText: "Ready to level up your",
-      accentText: "CONTENT?",
-      subtitle: "The secret strategies top podcasters use",
-      subtext: "START TODAY"
+      name: "How does it work? - Medium Emphasis",
+      whiteText: "How does it",
+      goldText: "WORK?",
+      design: "medium",
+      textSize: "text-4xl lg:text-6xl",
+      layout: "centered"
     },
     {
       id: 3,
-      name: "Change Everything",
-      mainText: "The secret that",
-      accentText: "CHANGED EVERYTHING",
-      subtitle: "This simple strategy",
-      subtext: "DOUBLES YOUR ENGAGEMENT"
+      name: "Why does it work? - Compact Bold",
+      whiteText: "Why does it",
+      goldText: "work?",
+      design: "compact",
+      textSize: "text-3xl lg:text-5xl",
+      layout: "centered"
     },
     {
       id: 4,
-      name: "Build Your Empire",
-      mainText: "Build Your",
-      accentText: "PODCAST EMPIRE",
-      subtitle: "From zero to hero in 90 days",
-      subtext: "The blueprint that works"
+      name: "Where? - Ultra Minimal",
+      whiteText: "Where",
+      goldText: "?",
+      design: "minimal",
+      textSize: "text-5xl lg:text-7xl",
+      layout: "centered"
     },
     {
       id: 5,
-      name: "Unlock Success",
-      mainText: "Unlock",
-      accentText: "UNSTOPPABLE SUCCESS",
-      subtitle: "The methods they don't want you to know",
-      subtext: "Transform your show today"
+      name: "When? - Split Typography",
+      whiteText: "When",
+      goldText: "?",
+      design: "split",
+      textSize: "text-4xl lg:text-6xl",
+      layout: "left"
+    },
+    {
+      id: 6,
+      name: "What is BDBT? - Compact Version",
+      whiteText: "What is",
+      goldText: "BDBT?",
+      design: "compact-alt",
+      textSize: "text-2xl lg:text-4xl",
+      layout: "left"
+    },
+    {
+      id: 7,
+      name: "How does it work? - Bold Statement",
+      whiteText: "HOW DOES IT",
+      goldText: "WORK?",
+      design: "bold",
+      textSize: "text-5xl lg:text-7xl",
+      layout: "centered"
+    },
+    {
+      id: 8,
+      name: "Why does it work? - Elegant",
+      whiteText: "Why does it",
+      goldText: "work?",
+      design: "elegant",
+      textSize: "text-3xl lg:text-5xl",
+      layout: "right"
+    },
+    {
+      id: 9,
+      name: "Where? - Bold Minimal",
+      whiteText: "WHERE",
+      goldText: "?",
+      design: "bold-minimal",
+      textSize: "text-6xl lg:text-8xl",
+      layout: "centered"
+    },
+    {
+      id: 10,
+      name: "When? - Question Focus",
+      whiteText: "When",
+      goldText: "?",
+      design: "question",
+      textSize: "text-4xl lg:text-6xl",
+      layout: "centered"
     }
   ];
 
@@ -1308,22 +1358,24 @@ const ThumbnailTemplate = () => {
       <div className="w-full py-20 px-8" style={{ backgroundColor: '#00FF00' }}>
         <div className="max-w-4xl mx-auto text-center space-y-16">
           {/* Dynamic Phrase Content */}
-          <div className="space-y-4">
-            <h1 className="text-4xl lg:text-6xl font-black text-white leading-tight">
-              {phrases[currentPhraseIndex].mainText}
-            </h1>
-            <h1 className="text-4xl lg:text-6xl font-black leading-tight" style={{ color: 'hsl(35, 45%, 75%)' }}>
-              {phrases[currentPhraseIndex].accentText}
-            </h1>
-          </div>
-
-          <div className="space-y-6">
-            <p className="text-xl lg:text-2xl font-bold text-white">
-              {phrases[currentPhraseIndex].subtitle}
-            </p>
-            <p className="text-lg lg:text-xl text-white">
-              {phrases[currentPhraseIndex].subtext}
-            </p>
+          <div className={`flex items-center justify-center min-h-[200px] ${
+            phrases[currentPhraseIndex].layout === 'left' ? 'justify-start' : 
+            phrases[currentPhraseIndex].layout === 'right' ? 'justify-end' : 'justify-center'
+          }`}>
+            <div className={`${phrases[currentPhraseIndex].layout === 'centered' ? 'text-center' : 
+              phrases[currentPhraseIndex].layout === 'left' ? 'text-left' : 'text-right'
+            }`}>
+              <h1 className={`${phrases[currentPhraseIndex].textSize} font-black leading-tight ${
+                phrases[currentPhraseIndex].design === 'split' ? 'font-light' : 
+                phrases[currentPhraseIndex].design === 'elegant' ? 'font-medium' :
+                phrases[currentPhraseIndex].design === 'bold' ? 'font-extrabold' : 'font-black'
+              }`}>
+                <span className="text-white">{phrases[currentPhraseIndex].whiteText}</span>
+                <span className="ml-3" style={{ color: 'hsl(35, 45%, 75%)' }}>
+                  {phrases[currentPhraseIndex].goldText}
+                </span>
+              </h1>
+            </div>
           </div>
         </div>
       </div>
@@ -1358,7 +1410,7 @@ const ThumbnailTemplate = () => {
                       {index + 1}. {phrase.name}
                     </div>
                     <div className="text-xs text-gray-500 truncate">
-                      {phrase.mainText} {phrase.accentText}
+                      {phrase.whiteText} {phrase.goldText}
                     </div>
                   </button>
                 </CarouselItem>
