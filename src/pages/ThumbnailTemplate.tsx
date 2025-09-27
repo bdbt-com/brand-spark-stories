@@ -1092,6 +1092,31 @@ const ThumbnailTemplate = () => {
       </div>
 
 
+      {/* Chroma Key Green Section for Video Subtitles/Headings */}
+      <div className="w-full py-20 px-8 flex justify-center">
+        <div className="max-w-4xl mx-auto rounded-2xl shadow-2xl border-4 border-white/20 p-16" style={{ backgroundColor: '#00FF00' }}>
+          {/* Dynamic Phrase Content */}
+          <div className={`flex items-center justify-center min-h-[200px] ${
+            phrases[currentPhraseIndex].layout === 'left' ? 'justify-start' : 
+            phrases[currentPhraseIndex].layout === 'right' ? 'justify-end' : 'justify-center'
+          }`}>
+            <div className={`${phrases[currentPhraseIndex].layout === 'centered' ? 'text-center' : 
+              phrases[currentPhraseIndex].layout === 'left' ? 'text-left' : 'text-right'
+            }`}>
+               <h1 className={`${phrases[currentPhraseIndex].textSize} font-black leading-tight font-black`}>
+                <span className="text-white">{phrases[currentPhraseIndex].whiteText}</span>
+                {phrases[currentPhraseIndex].goldText && (
+                  <span className="ml-3" style={{ color: 'hsl(35, 45%, 75%)' }}>
+                    {phrases[currentPhraseIndex].goldText}
+                  </span>
+                )}
+                <span className="text-white">{phrases[currentPhraseIndex].questionMark}</span>
+              </h1>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* New Banner Art Template */}
       <div className="border-t border-white/20 bg-gradient-to-br from-primary/95 via-primary/90 to-primary/85">
         <div className="container mx-auto px-8 py-16">
@@ -1196,30 +1221,6 @@ const ThumbnailTemplate = () => {
         </div>
       </div>
 
-      {/* Chroma Key Green Section for Video Subtitles/Headings */}
-      <div className="w-full py-20 px-8 flex justify-center">
-        <div className="max-w-4xl mx-auto rounded-2xl shadow-2xl border-4 border-white/20 p-16" style={{ backgroundColor: '#00FF00' }}>
-          {/* Dynamic Phrase Content */}
-          <div className={`flex items-center justify-center min-h-[200px] ${
-            phrases[currentPhraseIndex].layout === 'left' ? 'justify-start' : 
-            phrases[currentPhraseIndex].layout === 'right' ? 'justify-end' : 'justify-center'
-          }`}>
-            <div className={`${phrases[currentPhraseIndex].layout === 'centered' ? 'text-center' : 
-              phrases[currentPhraseIndex].layout === 'left' ? 'text-left' : 'text-right'
-            }`}>
-               <h1 className={`${phrases[currentPhraseIndex].textSize} font-black leading-tight font-black`}>
-                <span className="text-white">{phrases[currentPhraseIndex].whiteText}</span>
-                {phrases[currentPhraseIndex].goldText && (
-                  <span className="ml-3" style={{ color: 'hsl(35, 45%, 75%)' }}>
-                    {phrases[currentPhraseIndex].goldText}
-                  </span>
-                )}
-                <span className="text-white">{phrases[currentPhraseIndex].questionMark}</span>
-              </h1>
-            </div>
-          </div>
-        </div>
-      </div>
 
       {/* Phrase Selection Carousel */}
       <div className="w-full bg-gray-50 py-8">
