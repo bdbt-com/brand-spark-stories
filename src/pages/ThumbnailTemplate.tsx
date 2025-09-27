@@ -5,6 +5,7 @@ import spotifyLogo from "@/assets/spotify-logo.png";
 
 const ThumbnailTemplate = () => {
   const [currentTemplateIndex, setCurrentTemplateIndex] = useState(0);
+  const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
 
   const templates = [
     {
@@ -153,6 +154,49 @@ const ThumbnailTemplate = () => {
       title: "Control your posture, Control your day",
       subtitle: "Daily Wins Podcast",
       image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+    }
+  ];
+
+  const phrases = [
+    {
+      id: 1,
+      name: "Transform Your Journey",
+      mainText: "Transform Your",
+      accentText: "Podcast Journey",
+      subtitle: "Discover powerful strategies that change everything",
+      subtext: "Join thousands of creators building their dream shows"
+    },
+    {
+      id: 2,
+      name: "Level Up Content",
+      mainText: "Ready to level up your",
+      accentText: "CONTENT?",
+      subtitle: "The secret strategies top podcasters use",
+      subtext: "START TODAY"
+    },
+    {
+      id: 3,
+      name: "Change Everything",
+      mainText: "The secret that",
+      accentText: "CHANGED EVERYTHING",
+      subtitle: "This simple strategy",
+      subtext: "DOUBLES YOUR ENGAGEMENT"
+    },
+    {
+      id: 4,
+      name: "Build Your Empire",
+      mainText: "Build Your",
+      accentText: "PODCAST EMPIRE",
+      subtitle: "From zero to hero in 90 days",
+      subtext: "The blueprint that works"
+    },
+    {
+      id: 5,
+      name: "Unlock Success",
+      mainText: "Unlock",
+      accentText: "UNSTOPPABLE SUCCESS",
+      subtitle: "The methods they don't want you to know",
+      subtext: "Transform your show today"
     }
   ];
 
@@ -1263,48 +1307,66 @@ const ThumbnailTemplate = () => {
       {/* Chroma Key Green Section for Video Subtitles/Headings */}
       <div className="w-full py-20 px-8" style={{ backgroundColor: '#00FF00' }}>
         <div className="max-w-4xl mx-auto text-center space-y-16">
-          {/* Main Heading Area */}
+          {/* Dynamic Phrase Content */}
           <div className="space-y-4">
             <h1 className="text-4xl lg:text-6xl font-black text-white leading-tight">
-              Transform Your
+              {phrases[currentPhraseIndex].mainText}
             </h1>
             <h1 className="text-4xl lg:text-6xl font-black leading-tight" style={{ color: 'hsl(35, 45%, 75%)' }}>
-              Podcast Journey
+              {phrases[currentPhraseIndex].accentText}
             </h1>
           </div>
 
-          {/* Subtitle Area */}
           <div className="space-y-6">
             <p className="text-xl lg:text-2xl font-bold text-white">
-              Discover powerful strategies that change everything
+              {phrases[currentPhraseIndex].subtitle}
             </p>
             <p className="text-lg lg:text-xl text-white">
-              Join thousands of creators building their dream shows
+              {phrases[currentPhraseIndex].subtext}
             </p>
           </div>
+        </div>
+      </div>
 
-          {/* Call-to-Action Text Area */}
-          <div className="space-y-4">
-            <p className="text-lg font-bold text-white">
-              Ready to level up your content?
-            </p>
-            <p className="text-2xl lg:text-3xl font-black" style={{ color: 'hsl(35, 45%, 75%)' }}>
-              START TODAY
-            </p>
+      {/* Phrase Selection Carousel */}
+      <div className="w-full bg-gray-50 py-8">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="text-center mb-8">
+            <h3 className="text-2xl font-bold text-gray-900 mb-2">Choose Your Video Phrase</h3>
+            <p className="text-gray-600">Select different subtitle combinations for your videos</p>
           </div>
-
-          {/* Additional Subtitle Variations */}
-          <div className="space-y-8">
-            <div className="space-y-2">
-              <p className="text-xl font-bold text-white">The secret that</p>
-              <p className="text-2xl lg:text-3xl font-black" style={{ color: 'hsl(35, 45%, 75%)' }}>CHANGED EVERYTHING</p>
-            </div>
-            
-            <div className="space-y-2">
-              <p className="text-lg text-white">This simple strategy</p>
-              <p className="text-xl lg:text-2xl font-bold text-white">DOUBLES YOUR ENGAGEMENT</p>
-            </div>
-          </div>
+          
+          <Carousel
+            opts={{
+              align: "start",
+              loop: true,
+            }}
+            className="w-full max-w-5xl mx-auto"
+          >
+            <CarouselContent className="-ml-2 md:-ml-4">
+              {phrases.map((phrase, index) => (
+                <CarouselItem key={phrase.id} className="pl-2 md:pl-4 basis-1/2 md:basis-1/3 lg:basis-1/4">
+                  <button
+                    onClick={() => setCurrentPhraseIndex(index)}
+                    className={`w-full p-4 rounded-lg text-left transition-all ${
+                      currentPhraseIndex === index
+                        ? 'bg-white text-primary shadow-md'
+                        : 'bg-white/20 text-gray-700 hover:bg-white/40'
+                    }`}
+                  >
+                    <div className="text-sm font-medium mb-1">
+                      {index + 1}. {phrase.name}
+                    </div>
+                    <div className="text-xs text-gray-500 truncate">
+                      {phrase.mainText} {phrase.accentText}
+                    </div>
+                  </button>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="text-primary border-primary hover:bg-primary hover:text-white" />
+            <CarouselNext className="text-primary border-primary hover:bg-primary hover:text-white" />
+          </Carousel>
         </div>
       </div>
     </div>
