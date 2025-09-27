@@ -1365,14 +1365,13 @@ const ThumbnailTemplate = () => {
             <div className={`${phrases[currentPhraseIndex].layout === 'centered' ? 'text-center' : 
               phrases[currentPhraseIndex].layout === 'left' ? 'text-left' : 'text-right'
             }`}>
-              <h1 className={`${phrases[currentPhraseIndex].textSize} font-black leading-tight ${
+              <h1 className={`font-inter ${phrases[currentPhraseIndex].textSize} font-black leading-tight ${
                 phrases[currentPhraseIndex].design === 'split' ? 'font-light' : 
                 phrases[currentPhraseIndex].design === 'elegant' ? 'font-medium' :
                 phrases[currentPhraseIndex].design === 'bold' ? 'font-extrabold' : 'font-black'
               }`}>
                 <span className="text-white">{phrases[currentPhraseIndex].whiteText}</span>
-                <span className={`ml-3 ${phrases[currentPhraseIndex].goldText === '?' ? 'text-white' : ''}`} 
-                      style={{ color: phrases[currentPhraseIndex].goldText === '?' ? 'white' : 'hsl(35, 45%, 75%)' }}>
+                <span className="ml-3 text-white">
                   {phrases[currentPhraseIndex].goldText}
                 </span>
               </h1>
