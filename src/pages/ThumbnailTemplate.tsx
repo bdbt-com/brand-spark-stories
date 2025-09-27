@@ -1259,6 +1259,54 @@ const ThumbnailTemplate = () => {
           </div>
         </div>
       </div>
+
+      {/* Chroma Key Green Section for Video Subtitles/Headings */}
+      <div className="w-full py-20 px-8" style={{ backgroundColor: '#00FF00' }}>
+        <div className="max-w-4xl mx-auto text-center space-y-16">
+          {/* Main Heading Area */}
+          <div className="space-y-4">
+            <h1 className="text-4xl lg:text-6xl font-black text-white leading-tight">
+              Transform Your
+            </h1>
+            <h1 className="text-4xl lg:text-6xl font-black leading-tight" style={{ color: 'hsl(35, 45%, 75%)' }}>
+              Podcast Journey
+            </h1>
+          </div>
+
+          {/* Subtitle Area */}
+          <div className="space-y-6">
+            <p className="text-xl lg:text-2xl font-bold text-white">
+              Discover powerful strategies that change everything
+            </p>
+            <p className="text-lg lg:text-xl text-white">
+              Join thousands of creators building their dream shows
+            </p>
+          </div>
+
+          {/* Call-to-Action Text Area */}
+          <div className="space-y-4">
+            <p className="text-lg font-bold text-white">
+              Ready to level up your content?
+            </p>
+            <p className="text-2xl lg:text-3xl font-black" style={{ color: 'hsl(35, 45%, 75%)' }}>
+              START TODAY
+            </p>
+          </div>
+
+          {/* Additional Subtitle Variations */}
+          <div className="space-y-8">
+            <div className="space-y-2">
+              <p className="text-xl font-bold text-white">The secret that</p>
+              <p className="text-2xl lg:text-3xl font-black" style={{ color: 'hsl(35, 45%, 75%)' }}>CHANGED EVERYTHING</p>
+            </div>
+            
+            <div className="space-y-2">
+              <p className="text-lg text-white">This simple strategy</p>
+              <p className="text-xl lg:text-2xl font-bold text-white">DOUBLES YOUR ENGAGEMENT</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
