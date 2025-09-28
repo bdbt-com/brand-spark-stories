@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Instagram, Youtube, Facebook } from 'lucide-react';
 import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from '@/components/ui/carousel';
+import { Card, CardContent } from '@/components/ui/card';
 import spotifyLogo from "@/assets/spotify-logo.png";
 
 const ThumbnailTemplate = () => {
@@ -1117,6 +1118,55 @@ const ThumbnailTemplate = () => {
         </div>
       </div>
 
+      {/* Phrase Selection Carousel */}
+      <div className="w-full bg-gray-50 py-8">
+        <div className="container mx-auto px-8">
+          <h3 className="text-2xl font-bold text-center mb-6 text-gray-800">Choose Your Phrase</h3>
+          <Carousel
+            opts={{
+              align: "start",
+              loop: true,
+            }}
+            className="w-full max-w-5xl mx-auto"
+          >
+            <CarouselContent className="-ml-4">
+              {phrases.map((phrase, index) => (
+                <CarouselItem key={index} className="pl-4 basis-1/1 md:basis-1/2 lg:basis-1/3">
+                  <Card 
+                    className={`cursor-pointer transition-all duration-200 ${
+                      index === currentPhraseIndex 
+                        ? 'ring-2 ring-primary shadow-lg' 
+                        : 'hover:shadow-md'
+                    }`}
+                    onClick={() => setCurrentPhraseIndex(index)}
+                  >
+                    <CardContent className="p-6">
+                      <div className="aspect-video bg-gradient-to-br from-gray-100 to-gray-200 rounded-lg mb-4 flex items-center justify-center">
+                        <div className="text-center">
+                          <div className="text-sm font-medium text-gray-600 mb-2">Preview:</div>
+                          <div className={`${phrase.textSize === 'text-6xl' ? 'text-lg' : 'text-base'} font-black leading-tight`}>
+                            <span className="text-gray-800">{phrase.whiteText}</span>
+                            {phrase.goldText && (
+                              <span className="ml-1 text-yellow-600">{phrase.goldText}</span>
+                            )}
+                            <span className="text-gray-800">{phrase.questionMark}</span>
+                          </div>
+                        </div>
+                      </div>
+                      <h4 className="font-semibold text-gray-800 text-center">
+                        {phrase.whiteText}{phrase.goldText && ` ${phrase.goldText}`}{phrase.questionMark}
+                      </h4>
+                    </CardContent>
+                  </Card>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="left-0" />
+            <CarouselNext className="right-0" />
+          </Carousel>
+        </div>
+      </div>
+
       {/* New Banner Art Template */}
       <div className="border-t border-white/20 bg-gradient-to-br from-primary/95 via-primary/90 to-primary/85">
         <div className="container mx-auto px-8 py-16">
@@ -1221,48 +1271,6 @@ const ThumbnailTemplate = () => {
         </div>
       </div>
 
-
-      {/* Phrase Selection Carousel */}
-      <div className="w-full bg-gray-50 py-8">
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="text-center mb-8">
-            <h3 className="text-2xl font-bold text-gray-900 mb-2">Choose Your Video Phrase</h3>
-            <p className="text-gray-600">Select different subtitle combinations for your videos</p>
-          </div>
-          
-          <Carousel
-            opts={{
-              align: "start",
-              loop: true,
-            }}
-            className="w-full max-w-5xl mx-auto"
-          >
-            <CarouselContent className="-ml-2 md:-ml-4">
-              {phrases.map((phrase, index) => (
-                <CarouselItem key={phrase.id} className="pl-2 md:pl-4 basis-1/2 md:basis-1/3 lg:basis-1/4">
-                  <button
-                    onClick={() => setCurrentPhraseIndex(index)}
-                    className={`w-full p-4 rounded-lg text-left transition-all ${
-                      currentPhraseIndex === index
-                        ? 'bg-white text-primary shadow-md'
-                        : 'bg-white/20 text-gray-700 hover:bg-white/40'
-                    }`}
-                  >
-                    <div className="text-sm font-medium mb-1">
-                      {index + 1}. {phrase.name}
-                    </div>
-                    <div className="text-xs text-gray-500 truncate">
-                      {phrase.whiteText} {phrase.goldText}{phrase.questionMark}
-                    </div>
-                  </button>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious className="text-primary border-primary hover:bg-primary hover:text-white" />
-            <CarouselNext className="text-primary border-primary hover:bg-primary hover:text-white" />
-          </Carousel>
-        </div>
-      </div>
     </div>
   );
 };
