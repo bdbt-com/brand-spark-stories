@@ -3,6 +3,7 @@ import { Instagram, Youtube, Facebook } from 'lucide-react';
 import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from '@/components/ui/carousel';
 import { Card, CardContent } from '@/components/ui/card';
 import spotifyLogo from "@/assets/spotify-logo.png";
+import tikTokBg from "@/assets/tiktok-background.png";
 
 const ThumbnailTemplate = () => {
   const [currentTemplateIndex, setCurrentTemplateIndex] = useState(0);
@@ -159,6 +160,156 @@ const ThumbnailTemplate = () => {
     }
   ];
 
+  const tikTokTemplates = [
+    {
+      id: 0,
+      name: "TikTok Template 1",
+      title: "This Mindset Shift Changed Everything",
+      subtitle: "",
+      image: ""
+    },
+    {
+      id: 1,
+      name: "TikTok Template 2", 
+      title: "Why Your Habits Are Failing You",
+      subtitle: "",
+      image: ""
+    },
+    {
+      id: 2,
+      name: "TikTok Template 3",
+      title: "Self-Doubt is Your Secret Weapon", 
+      subtitle: "",
+      image: ""
+    },
+    {
+      id: 3,
+      name: "TikTok Template 4",
+      title: "The Connection Most People Miss",
+      subtitle: "", 
+      image: ""
+    },
+    {
+      id: 4,
+      name: "TikTok Template 5",
+      title: "Your Values Are Making You Broke",
+      subtitle: "",
+      image: ""
+    },
+    {
+      id: 5,
+      name: "TikTok Template 6",
+      title: "Habits That Actually Stick",
+      subtitle: "",
+      image: ""
+    },
+    {
+      id: 6,
+      name: "TikTok Template 7",
+      title: "Why Vulnerability = Power",
+      subtitle: "",
+      image: ""
+    },
+    {
+      id: 7,
+      name: "TikTok Template 8",
+      title: "Break This Mental Prison",
+      subtitle: "",
+      image: ""
+    },
+    {
+      id: 8,
+      name: "TikTok Template 9",
+      title: "The Communication Hack No One Talks About",
+      subtitle: "",
+      image: ""
+    },
+    {
+      id: 9,
+      name: "TikTok Template 10",
+      title: "Bounce Back From Anything",
+      subtitle: "",
+      image: ""
+    },
+    {
+      id: 10,
+      name: "TikTok Template 11",
+      title: "Set Boundaries Like a Boss",
+      subtitle: "",
+      image: ""
+    },
+    {
+      id: 11,
+      name: "TikTok Template 12",
+      title: "Lead With Your Heart",
+      subtitle: "",
+      image: ""
+    },
+    {
+      id: 12,
+      name: "TikTok Template 13",
+      title: "Money Mindset That Actually Works",
+      subtitle: "",
+      image: ""
+    },
+    {
+      id: 13,
+      name: "TikTok Template 14",
+      title: "Gratitude Changed My Life",
+      subtitle: "",
+      image: ""
+    },
+    {
+      id: 14,
+      name: "TikTok Template 15",
+      title: "Your Phone is Destroying You",
+      subtitle: "",
+      image: ""
+    },
+    {
+      id: 15,
+      name: "TikTok Template 16",
+      title: "Master Your Emotions",
+      subtitle: "",
+      image: ""
+    },
+    {
+      id: 16,
+      name: "TikTok Template 17",
+      title: "Find Your True Self",
+      subtitle: "",
+      image: ""
+    },
+    {
+      id: 17,
+      name: "TikTok Template 18",
+      title: "Think Different, Win Different",
+      subtitle: "",
+      image: ""
+    },
+    {
+      id: 18,
+      name: "TikTok Template 19",
+      title: "Work Smarter, Not Harder",
+      subtitle: "",
+      image: ""
+    },
+    {
+      id: 19,
+      name: "TikTok Template 20",
+      title: "Stay Motivated Forever",
+      subtitle: "",
+      image: ""
+    },
+    {
+      id: 20,
+      name: "TikTok Template 21",
+      title: "Build Your Tribe",
+      subtitle: "",
+      image: ""
+    }
+  ];
+
   const phrases = [
     {
       id: 1,
@@ -212,6 +363,59 @@ const ThumbnailTemplate = () => {
     }
   ];
 
+  const tikTokPhrases = [
+    {
+      id: 1,
+      name: "Stop Limiting Yourself",
+      whiteText: "STOP",
+      goldText: "LIMITING YOURSELF",
+      questionMark: "",
+      design: "large",
+      textSize: "text-4xl lg:text-6xl",
+      layout: "centered"
+    },
+    {
+      id: 2,
+      name: "This is Your Sign",
+      whiteText: "THIS IS",
+      goldText: "YOUR SIGN",
+      questionMark: "",
+      design: "large",
+      textSize: "text-4xl lg:text-6xl",
+      layout: "centered"
+    },
+    {
+      id: 3,
+      name: "Normalize Self Love",
+      whiteText: "NORMALIZE",
+      goldText: "SELF LOVE",
+      questionMark: "",
+      design: "large",
+      textSize: "text-4xl lg:text-6xl",
+      layout: "centered"
+    },
+    {
+      id: 4,
+      name: "Plot Twist",
+      whiteText: "PLOT TWIST",
+      goldText: "YOU WIN",
+      questionMark: "",
+      design: "large",
+      textSize: "text-4xl lg:text-6xl",
+      layout: "centered"
+    },
+    {
+      id: 5,
+      name: "Level Up",
+      whiteText: "LEVEL UP",
+      goldText: "YOUR LIFE",
+      questionMark: "",
+      design: "large",
+      textSize: "text-4xl lg:text-6xl",
+      layout: "centered"
+    }
+  ];
+
   
 
 
@@ -221,7 +425,10 @@ const ThumbnailTemplate = () => {
       <div className="flex justify-center pt-8 pb-4">
         <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-1">
           <button
-            onClick={() => setMode('youtube')}
+            onClick={() => {
+              setMode('youtube');
+              setCurrentTemplateIndex(0);
+            }}
             className={`px-6 py-3 rounded-lg text-sm font-medium transition-all ${
               mode === 'youtube'
                 ? 'bg-white text-primary shadow-md'
@@ -231,7 +438,10 @@ const ThumbnailTemplate = () => {
             YouTube (16:9)
           </button>
           <button
-            onClick={() => setMode('instagram')}
+            onClick={() => {
+              setMode('instagram');
+              setCurrentTemplateIndex(0);
+            }}
             className={`px-6 py-3 rounded-lg text-sm font-medium transition-all ${
               mode === 'instagram'
                 ? 'bg-white text-primary shadow-md'
@@ -285,48 +495,43 @@ const ThumbnailTemplate = () => {
                 </div>
               </div>
             ) : (
-              <div id="thumbnail-0-portrait" key="template-0-instagram" className="w-[540px] h-[960px] relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
+              <div id="thumbnail-0-portrait" key="template-0-instagram" className="w-[540px] h-[960px] relative overflow-hidden rounded-3xl shadow-2xl animate-fade-in border-2 border-white">
+                {/* Background Image - Full Background */}
+                <img 
+                  src={tikTokBg} 
+                  alt="TikTok Background" 
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+                {/* Dark overlay for text readability */}
+                <div className="absolute inset-0 bg-black/30 rounded-3xl"></div>
+                
                 <div className="h-full flex flex-col p-8 relative">
-                  {/* BDBT Logo - Centered at top */}
-                  <div className="absolute top-8 left-1/2 transform -translate-x-1/2 z-30">
+                  {/* Title text in center area */}
+                  <div className="absolute top-1/2 left-8 right-8 transform -translate-y-1/2 text-center z-10">
+                    <h1 className="text-3xl xl:text-4xl font-bold leading-tight mb-4" style={{ textShadow: '3px 3px 6px rgba(0,0,0,0.9)' }}>
+                      <span className="text-white">
+                        {tikTokTemplates[0].title}
+                      </span>
+                    </h1>
+                  </div>
+
+                  {/* Bottom BDBT Logo with strong outline - kept visible */}
+                  <div className="absolute bottom-16 left-1/2 transform -translate-x-1/2 z-30">
                     <img 
                       src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
                       alt="BDBT Logo"
-                      className="h-12 opacity-90"
+                      className="h-16 opacity-90"
+                      style={{ 
+                        filter: 'drop-shadow(0 0 8px rgba(255,255,255,1)) drop-shadow(0 0 4px rgba(255,255,255,0.8)) drop-shadow(2px 2px 4px rgba(0,0,0,0.8))',
+                      }}
                     />
                   </div>
-
-                  {/* Background Image - Centered */}
-                  <div className="absolute top-20 left-8 right-8 h-80 flex items-center">
-                    <div className="w-full h-full bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
-                      <img 
-                        src={templates[0].image} 
-                        alt="Podcast thumbnail"
-                        className="w-full h-full object-cover border-4 border-white/20"
-                      />
-                    </div>
-                  </div>
                   
-                  {/* Title - Below image */}
-                  <div className="absolute top-[420px] left-8 right-8 z-10 text-center">
-                    <h1 className="text-3xl xl:text-4xl font-bold leading-tight mb-4">
-                      <span className="text-white block mb-2">
-                        The Benefits of Parking Further Away
-                      </span>
-                      <span className="block" style={{ color: 'hsl(35, 45%, 75%)' }}>
-                        from your Destination
-                      </span>
-                    </h1>
-                    <p className="text-white/80 text-xl font-medium">
-                      Daily Wins Podcast
-                    </p>
-                  </div>
-
                   {/* Social Media Icons - Bottom */}
                   <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-30">
                     <div className="flex gap-4 items-center">
-                      <Instagram className="w-8 h-8 text-white" />
-                      <Youtube className="w-8 h-8 text-white" />
+                      <Instagram className="w-6 h-6 text-white" style={{ filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.8))' }} />
+                      <Youtube className="w-6 h-6 text-white" style={{ filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.8))' }} />
                     </div>
                   </div>
                 </div>
@@ -374,48 +579,43 @@ const ThumbnailTemplate = () => {
                 </div>
               </div>
             ) : (
-              <div id="thumbnail-1-portrait" key="template-1-instagram" className="w-[540px] h-[960px] relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
+              <div id="thumbnail-1-portrait" key="template-1-instagram" className="w-[540px] h-[960px] relative overflow-hidden rounded-3xl shadow-2xl animate-fade-in border-2 border-white">
+                {/* Background Image - Full Background */}
+                <img 
+                  src={tikTokBg} 
+                  alt="TikTok Background" 
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+                {/* Dark overlay for text readability */}
+                <div className="absolute inset-0 bg-black/30 rounded-3xl"></div>
+                
                 <div className="h-full flex flex-col p-8 relative">
-                  {/* BDBT Logo - Centered at top */}
-                  <div className="absolute top-8 left-1/2 transform -translate-x-1/2 z-30">
+                  {/* Title text in center area */}
+                  <div className="absolute top-1/2 left-8 right-8 transform -translate-y-1/2 text-center z-10">
+                    <h1 className="text-3xl xl:text-4xl font-bold leading-tight mb-4" style={{ textShadow: '3px 3px 6px rgba(0,0,0,0.9)' }}>
+                      <span className="text-white">
+                        {tikTokTemplates[1].title}
+                      </span>
+                    </h1>
+                  </div>
+
+                  {/* Bottom BDBT Logo with strong outline - kept visible */}
+                  <div className="absolute bottom-16 left-1/2 transform -translate-x-1/2 z-30">
                     <img 
                       src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
                       alt="BDBT Logo"
-                      className="h-12 opacity-90"
+                      className="h-16 opacity-90"
+                      style={{ 
+                        filter: 'drop-shadow(0 0 8px rgba(255,255,255,1)) drop-shadow(0 0 4px rgba(255,255,255,0.8)) drop-shadow(2px 2px 4px rgba(0,0,0,0.8))',
+                      }}
                     />
                   </div>
-
-                  {/* Background Image - Centered */}
-                  <div className="absolute top-20 left-8 right-8 h-80 flex items-center">
-                    <div className="w-full h-full bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
-                      <img 
-                        src={templates[1].image} 
-                        alt="Podcast thumbnail"
-                        className="w-full h-full object-cover border-4 border-white/20"
-                      />
-                    </div>
-                  </div>
                   
-                  {/* Title - Below image */}
-                  <div className="absolute top-[420px] left-8 right-8 z-10 text-center">
-                    <h1 className="text-3xl xl:text-4xl font-bold leading-tight mb-4">
-                      <span className="text-white block mb-2">
-                        The Benefits of making use
-                      </span>
-                      <span className="block" style={{ color: 'hsl(35, 45%, 75%)' }}>
-                        of your Dead Time
-                      </span>
-                    </h1>
-                    <p className="text-white/80 text-xl font-medium">
-                      Daily Wins Podcast
-                    </p>
-                  </div>
-
                   {/* Social Media Icons - Bottom */}
                   <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-30">
                     <div className="flex gap-4 items-center">
-                      <Instagram className="w-8 h-8 text-white" />
-                      <Youtube className="w-8 h-8 text-white" />
+                      <Instagram className="w-6 h-6 text-white" style={{ filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.8))' }} />
+                      <Youtube className="w-6 h-6 text-white" style={{ filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.8))' }} />
                     </div>
                   </div>
                 </div>
