@@ -1095,7 +1095,7 @@ const ThumbnailTemplate = () => {
 
       {/* Chroma Key Green Section for Video Subtitles/Headings */}
       <div className="w-full py-20 px-8 flex justify-center">
-        <div className="max-w-4xl mx-auto rounded-2xl shadow-2xl border-4 border-white/20 p-16" style={{ backgroundColor: '#00FF00' }}>
+        <div className="max-w-4xl mx-auto rounded-2xl shadow-2xl border-4 border-white/20 p-16 bg-gradient-to-br from-primary via-primary/90 to-primary/80">
           {/* Dynamic Phrase Content */}
           <div className={`flex items-center justify-center min-h-[200px] ${
             phrases[currentPhraseIndex].layout === 'left' ? 'justify-start' : 
