@@ -166,148 +166,22 @@ const ThumbnailTemplate = () => {
   const tikTokTemplates = [
     {
       id: 0,
-      name: "TikTok Template 1",
-      title: "This Mindset Shift Changed Everything",
+      name: "Stop Limiting Yourself",
+      title: "STOP LIMITING YOURSELF",
       subtitle: "",
       image: ""
     },
     {
       id: 1,
-      name: "TikTok Template 2", 
-      title: "Why Your Habits Are Failing You",
+      name: "This is Your Sign", 
+      title: "THIS IS YOUR SIGN",
       subtitle: "",
       image: ""
     },
     {
       id: 2,
-      name: "TikTok Template 3",
-      title: "Self-Doubt is Your Secret Weapon", 
-      subtitle: "",
-      image: ""
-    },
-    {
-      id: 3,
-      name: "TikTok Template 4",
-      title: "The Connection Most People Miss",
-      subtitle: "", 
-      image: ""
-    },
-    {
-      id: 4,
-      name: "TikTok Template 5",
-      title: "Your Values Are Making You Broke",
-      subtitle: "",
-      image: ""
-    },
-    {
-      id: 5,
-      name: "TikTok Template 6",
-      title: "Habits That Actually Stick",
-      subtitle: "",
-      image: ""
-    },
-    {
-      id: 6,
-      name: "TikTok Template 7",
-      title: "Why Vulnerability = Power",
-      subtitle: "",
-      image: ""
-    },
-    {
-      id: 7,
-      name: "TikTok Template 8",
-      title: "Break This Mental Prison",
-      subtitle: "",
-      image: ""
-    },
-    {
-      id: 8,
-      name: "TikTok Template 9",
-      title: "The Communication Hack No One Talks About",
-      subtitle: "",
-      image: ""
-    },
-    {
-      id: 9,
-      name: "TikTok Template 10",
-      title: "Bounce Back From Anything",
-      subtitle: "",
-      image: ""
-    },
-    {
-      id: 10,
-      name: "TikTok Template 11",
-      title: "Set Boundaries Like a Boss",
-      subtitle: "",
-      image: ""
-    },
-    {
-      id: 11,
-      name: "TikTok Template 12",
-      title: "Lead With Your Heart",
-      subtitle: "",
-      image: ""
-    },
-    {
-      id: 12,
-      name: "TikTok Template 13",
-      title: "Money Mindset That Actually Works",
-      subtitle: "",
-      image: ""
-    },
-    {
-      id: 13,
-      name: "TikTok Template 14",
-      title: "Gratitude Changed My Life",
-      subtitle: "",
-      image: ""
-    },
-    {
-      id: 14,
-      name: "TikTok Template 15",
-      title: "Your Phone is Destroying You",
-      subtitle: "",
-      image: ""
-    },
-    {
-      id: 15,
-      name: "TikTok Template 16",
-      title: "Master Your Emotions",
-      subtitle: "",
-      image: ""
-    },
-    {
-      id: 16,
-      name: "TikTok Template 17",
-      title: "Find Your True Self",
-      subtitle: "",
-      image: ""
-    },
-    {
-      id: 17,
-      name: "TikTok Template 18",
-      title: "Think Different, Win Different",
-      subtitle: "",
-      image: ""
-    },
-    {
-      id: 18,
-      name: "TikTok Template 19",
-      title: "Work Smarter, Not Harder",
-      subtitle: "",
-      image: ""
-    },
-    {
-      id: 19,
-      name: "TikTok Template 20",
-      title: "Stay Motivated Forever",
-      subtitle: "",
-      image: ""
-    },
-    {
-      id: 20,
-      name: "TikTok Template 21",
-      title: "Build Your Tribe",
+      name: "Normalize Self Love",
+      title: "NORMALIZE SELF LOVE",
       subtitle: "",
       image: ""
     }
@@ -528,7 +402,7 @@ const ThumbnailTemplate = () => {
                 <div className="h-full flex flex-col p-8 relative">
                   {/* Title text positioned above the logo */}
                   <div className="absolute top-[30%] left-8 right-8 transform -translate-y-1/2 text-center z-10">
-                    <h1 className="text-3xl xl:text-4xl font-bold leading-tight mb-4" style={{ textShadow: '3px 3px 6px rgba(0,0,0,0.9)' }}>
+                    <h1 className="text-4xl xl:text-5xl font-bold leading-tight mb-4" style={{ textShadow: '3px 3px 6px rgba(0,0,0,0.9)' }}>
                       <span className="text-white">
                         This Mindset Shift
                       </span>
@@ -615,7 +489,7 @@ const ThumbnailTemplate = () => {
                 <div className="h-full flex flex-col p-8 relative">
                   {/* Title text positioned above the logo */}
                   <div className="absolute top-[30%] left-8 right-8 transform -translate-y-1/2 text-center z-10">
-                    <h1 className="text-3xl xl:text-4xl font-bold leading-tight mb-4" style={{ textShadow: '3px 3px 6px rgba(0,0,0,0.9)' }}>
+                    <h1 className="text-4xl xl:text-5xl font-bold leading-tight mb-4" style={{ textShadow: '3px 3px 6px rgba(0,0,0,0.9)' }}>
                       <span className="text-white">
                         Why Your Habits Are
                       </span>
@@ -666,7 +540,7 @@ const ThumbnailTemplate = () => {
               <div className="h-full flex flex-col p-8 relative">
                 {/* Title text positioned above the logo */}
                 <div className="absolute top-[30%] left-8 right-8 transform -translate-y-1/2 text-center z-10">
-                  <h1 className="text-3xl xl:text-4xl font-bold leading-tight mb-4" style={{ textShadow: '3px 3px 6px rgba(0,0,0,0.9)' }}>
+                  <h1 className="text-4xl xl:text-5xl font-bold leading-tight mb-4" style={{ textShadow: '3px 3px 6px rgba(0,0,0,0.9)' }}>
                     {tikTokTemplates[currentTemplateIndex] && tikTokTemplates[currentTemplateIndex].title.split(' ').length <= 4 ? (
                       <span className="text-white">
                         {tikTokTemplates[currentTemplateIndex].title}
