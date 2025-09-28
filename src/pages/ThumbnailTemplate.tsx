@@ -166,22 +166,22 @@ const ThumbnailTemplate = () => {
   const tikTokTemplates = [
     {
       id: 0,
-      name: "Stop Limiting Yourself",
-      title: "STOP LIMITING YOURSELF",
+      name: "The Modern World is Designed to Keep You Stuck",
+      title: "The Modern World is Designed to Keep You Stuck",
       subtitle: "",
       image: ""
     },
     {
       id: 1,
-      name: "This is Your Sign", 
-      title: "THIS IS YOUR SIGN",
+      name: "Every Choice is a Daily Win or a Daily Drift", 
+      title: "Every Choice is a Daily Win or a Daily Drift",
       subtitle: "",
       image: ""
     },
     {
       id: 2,
-      name: "Normalize Self Love",
-      title: "NORMALIZE SELF LOVE",
+      name: "BDBT Explained",
+      title: "BDBT Explained",
       subtitle: "",
       image: ""
     }
