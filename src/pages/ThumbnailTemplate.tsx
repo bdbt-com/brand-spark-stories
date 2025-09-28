@@ -498,12 +498,20 @@ const ThumbnailTemplate = () => {
                   {/* Title text positioned above the logo */}
                   <div className="absolute top-[30%] left-8 right-8 transform -translate-y-1/2 text-center z-10">
                     <h1 className="text-4xl xl:text-5xl font-bold leading-tight mb-4" style={{ textShadow: '3px 3px 6px rgba(0,0,0,0.9)' }}>
-                      <span className="text-white">
-                        Why Your Habits Are
-                      </span>
-                      <span className="block mt-1" style={{ color: 'hsl(35, 45%, 75%)' }}>
-                        Failing You
-                      </span>
+                      {tikTokTemplates[currentTemplateIndex] && tikTokTemplates[currentTemplateIndex].title.split(' ').length <= 4 ? (
+                        <span className="text-white">
+                          {tikTokTemplates[currentTemplateIndex].title}
+                        </span>
+                      ) : (
+                        <>
+                          <span className="text-white block">
+                            {tikTokTemplates[currentTemplateIndex]?.title.split(' ').slice(0, Math.ceil(tikTokTemplates[currentTemplateIndex].title.split(' ').length / 2)).join(' ')}
+                          </span>
+                          <span className="block mt-1" style={{ color: 'hsl(35, 45%, 75%)' }}>
+                            {tikTokTemplates[currentTemplateIndex]?.title.split(' ').slice(Math.ceil(tikTokTemplates[currentTemplateIndex].title.split(' ').length / 2)).join(' ')}
+                          </span>
+                        </>
+                      )}
                     </h1>
                   </div>
 
