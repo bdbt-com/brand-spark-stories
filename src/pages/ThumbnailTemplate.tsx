@@ -6,8 +6,11 @@ import spotifyLogo from "@/assets/spotify-logo.png";
 import tikTokBg from "@/assets/tiktok-background.png";
 
 const ThumbnailTemplate = () => {
-  const [currentTemplateIndex, setCurrentTemplateIndex] = useState(0);
-  const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
+  // Separate state management for YouTube and TikTok modes
+  const [youTubeTemplateIndex, setYouTubeTemplateIndex] = useState(0);
+  const [tikTokTemplateIndex, setTikTokTemplateIndex] = useState(0);
+  const [youTubePhraseIndex, setYouTubePhraseIndex] = useState(0);
+  const [tikTokPhraseIndex, setTikTokPhraseIndex] = useState(0);
   const [mode, setMode] = useState<'youtube' | 'instagram'>('youtube');
 
   const templates = [
@@ -416,6 +419,29 @@ const ThumbnailTemplate = () => {
     }
   ];
 
+  // Helper functions to get current indices and arrays based on mode
+  const currentTemplateIndex = mode === 'youtube' ? youTubeTemplateIndex : tikTokTemplateIndex;
+  const currentPhraseIndex = mode === 'youtube' ? youTubePhraseIndex : tikTokPhraseIndex;
+  const currentTemplates = mode === 'youtube' ? templates : tikTokTemplates;
+  const currentPhrases = mode === 'youtube' ? phrases : tikTokPhrases;
+  
+  // Handler functions for template and phrase selection
+  const handleTemplateSelect = (index: number) => {
+    if (mode === 'youtube') {
+      setYouTubeTemplateIndex(index);
+    } else {
+      setTikTokTemplateIndex(index);
+    }
+  };
+  
+  const handlePhraseSelect = (index: number) => {
+    if (mode === 'youtube') {
+      setYouTubePhraseIndex(index);
+    } else {
+      setTikTokPhraseIndex(index);
+    }
+  };
+
   
 
 
@@ -425,10 +451,7 @@ const ThumbnailTemplate = () => {
       <div className="flex justify-center pt-8 pb-4">
         <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-1">
           <button
-            onClick={() => {
-              setMode('youtube');
-              setCurrentTemplateIndex(0);
-            }}
+            onClick={() => setMode('youtube')}
             className={`px-6 py-3 rounded-lg text-sm font-medium transition-all ${
               mode === 'youtube'
                 ? 'bg-white text-primary shadow-md'
@@ -438,10 +461,7 @@ const ThumbnailTemplate = () => {
             YouTube (16:9)
           </button>
           <button
-            onClick={() => {
-              setMode('instagram');
-              setCurrentTemplateIndex(0);
-            }}
+            onClick={() => setMode('instagram')}
             className={`px-6 py-3 rounded-lg text-sm font-medium transition-all ${
               mode === 'instagram'
                 ? 'bg-white text-primary shadow-md'
@@ -506,11 +526,14 @@ const ThumbnailTemplate = () => {
                 <div className="absolute inset-0 bg-black/30 rounded-3xl"></div>
                 
                 <div className="h-full flex flex-col p-8 relative">
-                  {/* Title text in center area */}
-                  <div className="absolute top-1/2 left-8 right-8 transform -translate-y-1/2 text-center z-10">
+                  {/* Title text positioned above the logo */}
+                  <div className="absolute top-[30%] left-8 right-8 transform -translate-y-1/2 text-center z-10">
                     <h1 className="text-3xl xl:text-4xl font-bold leading-tight mb-4" style={{ textShadow: '3px 3px 6px rgba(0,0,0,0.9)' }}>
                       <span className="text-white">
-                        {tikTokTemplates[0].title}
+                        This Mindset Shift
+                      </span>
+                      <span className="block mt-1" style={{ color: 'hsl(35, 45%, 75%)' }}>
+                        Changed Everything
                       </span>
                     </h1>
                   </div>
@@ -590,11 +613,14 @@ const ThumbnailTemplate = () => {
                 <div className="absolute inset-0 bg-black/30 rounded-3xl"></div>
                 
                 <div className="h-full flex flex-col p-8 relative">
-                  {/* Title text in center area */}
-                  <div className="absolute top-1/2 left-8 right-8 transform -translate-y-1/2 text-center z-10">
+                  {/* Title text positioned above the logo */}
+                  <div className="absolute top-[30%] left-8 right-8 transform -translate-y-1/2 text-center z-10">
                     <h1 className="text-3xl xl:text-4xl font-bold leading-tight mb-4" style={{ textShadow: '3px 3px 6px rgba(0,0,0,0.9)' }}>
                       <span className="text-white">
-                        {tikTokTemplates[1].title}
+                        Why Your Habits Are
+                      </span>
+                      <span className="block mt-1" style={{ color: 'hsl(35, 45%, 75%)' }}>
+                        Failing You
                       </span>
                     </h1>
                   </div>
@@ -624,57 +650,57 @@ const ThumbnailTemplate = () => {
           </div>
         )}
 
-        {/* Generic Portrait Templates for Instagram/TikTok Mode (Templates 3-21) */}
+        {/* Generic TikTok Templates for Instagram/TikTok Mode (Templates 3-21) */}
         {currentTemplateIndex >= 2 && mode === 'instagram' && (
           <div className="relative">
-            <div id={`thumbnail-${currentTemplateIndex}-portrait`} key={`template-${currentTemplateIndex}-instagram`} className="w-[540px] h-[960px] relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
+            <div id={`thumbnail-${currentTemplateIndex}-portrait`} key={`template-${currentTemplateIndex}-instagram`} className="w-[540px] h-[960px] relative overflow-hidden rounded-3xl shadow-2xl animate-fade-in border-2 border-white">
+              {/* Background Image - Full Background */}
+              <img 
+                src={tikTokBg} 
+                alt="TikTok Background" 
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+              {/* Dark overlay for text readability */}
+              <div className="absolute inset-0 bg-black/30 rounded-3xl"></div>
+              
               <div className="h-full flex flex-col p-8 relative">
-                {/* BDBT Logo - Centered at top */}
-                <div className="absolute top-8 left-1/2 transform -translate-x-1/2 z-30">
+                {/* Title text positioned above the logo */}
+                <div className="absolute top-[30%] left-8 right-8 transform -translate-y-1/2 text-center z-10">
+                  <h1 className="text-3xl xl:text-4xl font-bold leading-tight mb-4" style={{ textShadow: '3px 3px 6px rgba(0,0,0,0.9)' }}>
+                    {tikTokTemplates[currentTemplateIndex] && tikTokTemplates[currentTemplateIndex].title.split(' ').length <= 4 ? (
+                      <span className="text-white">
+                        {tikTokTemplates[currentTemplateIndex].title}
+                      </span>
+                    ) : (
+                      <>
+                        <span className="text-white block">
+                          {tikTokTemplates[currentTemplateIndex]?.title.split(' ').slice(0, Math.ceil(tikTokTemplates[currentTemplateIndex].title.split(' ').length / 2)).join(' ')}
+                        </span>
+                        <span className="block mt-1" style={{ color: 'hsl(35, 45%, 75%)' }}>
+                          {tikTokTemplates[currentTemplateIndex]?.title.split(' ').slice(Math.ceil(tikTokTemplates[currentTemplateIndex].title.split(' ').length / 2)).join(' ')}
+                        </span>
+                      </>
+                    )}
+                  </h1>
+                </div>
+
+                {/* Bottom BDBT Logo with strong outline - kept visible */}
+                <div className="absolute bottom-16 left-1/2 transform -translate-x-1/2 z-30">
                   <img 
                     src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
                     alt="BDBT Logo"
-                    className="h-12 opacity-90"
+                    className="h-16 opacity-90"
+                    style={{ 
+                      filter: 'drop-shadow(0 0 8px rgba(255,255,255,1)) drop-shadow(0 0 4px rgba(255,255,255,0.8)) drop-shadow(2px 2px 4px rgba(0,0,0,0.8))',
+                    }}
                   />
                 </div>
-
-                {/* Background Image - Centered */}
-                <div className="absolute top-20 left-8 right-8 h-80 flex items-center">
-                  <div className="w-full h-full bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
-                    <img 
-                      src={templates[currentTemplateIndex].image} 
-                      alt="Podcast thumbnail"
-                      className="w-full h-full object-cover border-4 border-white/20"
-                    />
-                  </div>
-                </div>
                 
-                {/* Title - Below image */}
-                <div className="absolute top-[420px] left-8 right-8 z-10 text-center">
-                  <h1 className="text-3xl xl:text-4xl font-bold leading-tight mb-4">
-                    <span className="text-white block mb-2">
-                      {templates[currentTemplateIndex].title.split(' ').length <= 4 
-                        ? templates[currentTemplateIndex].title
-                        : templates[currentTemplateIndex].title.split(' ').slice(0, Math.ceil(templates[currentTemplateIndex].title.split(' ').length / 2)).join(' ')
-                      }
-                    </span>
-                    <span className="block" style={{ color: 'hsl(35, 45%, 75%)' }}>
-                      {templates[currentTemplateIndex].title.split(' ').length <= 4 
-                        ? ''
-                        : templates[currentTemplateIndex].title.split(' ').slice(Math.ceil(templates[currentTemplateIndex].title.split(' ').length / 2)).join(' ')
-                      }
-                    </span>
-                  </h1>
-                  <p className="text-white/80 text-xl font-medium">
-                    Daily Wins Podcast
-                  </p>
-                </div>
-
                 {/* Social Media Icons - Bottom */}
                 <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-30">
                   <div className="flex gap-4 items-center">
-                    <Instagram className="w-8 h-8 text-white" />
-                    <Youtube className="w-8 h-8 text-white" />
+                    <Instagram className="w-6 h-6 text-white" style={{ filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.8))' }} />
+                    <Youtube className="w-6 h-6 text-white" style={{ filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.8))' }} />
                   </div>
                 </div>
               </div>
@@ -1426,10 +1452,10 @@ const ThumbnailTemplate = () => {
           className="w-full max-w-6xl mx-auto"
         >
           <CarouselContent className="-ml-2 md:-ml-4">
-            {templates.map((template, index) => (
+            {currentTemplates.map((template, index) => (
               <CarouselItem key={template.id} className="pl-2 md:pl-4 basis-1/3 md:basis-1/4 lg:basis-1/5">
                 <button
-                  onClick={() => setCurrentTemplateIndex(index)}
+                  onClick={() => handleTemplateSelect(index)}
                   className={`w-full px-4 py-3 rounded-lg text-sm font-medium transition-all ${
                     currentTemplateIndex === index
                       ? 'bg-white text-primary shadow-lg scale-105'
@@ -1452,20 +1478,20 @@ const ThumbnailTemplate = () => {
         <div className="max-w-4xl mx-auto rounded-2xl shadow-2xl border-4 border-white/20 p-16 bg-gradient-to-br from-primary via-primary/90 to-primary/80">
           {/* Dynamic Phrase Content */}
           <div className={`flex items-center justify-center min-h-[200px] ${
-            phrases[currentPhraseIndex].layout === 'left' ? 'justify-start' : 
-            phrases[currentPhraseIndex].layout === 'right' ? 'justify-end' : 'justify-center'
+            currentPhrases[currentPhraseIndex].layout === 'left' ? 'justify-start' : 
+            currentPhrases[currentPhraseIndex].layout === 'right' ? 'justify-end' : 'justify-center'
           }`}>
-            <div className={`${phrases[currentPhraseIndex].layout === 'centered' ? 'text-center' : 
-              phrases[currentPhraseIndex].layout === 'left' ? 'text-left' : 'text-right'
+            <div className={`${currentPhrases[currentPhraseIndex].layout === 'centered' ? 'text-center' : 
+              currentPhrases[currentPhraseIndex].layout === 'left' ? 'text-left' : 'text-right'
             }`}>
-               <h1 className={`${phrases[currentPhraseIndex].textSize} font-black leading-tight font-black`}>
-                <span className="text-white">{phrases[currentPhraseIndex].whiteText}</span>
-                {phrases[currentPhraseIndex].goldText && (
+               <h1 className={`${currentPhrases[currentPhraseIndex].textSize} font-black leading-tight font-black`}>
+                <span className="text-white">{currentPhrases[currentPhraseIndex].whiteText}</span>
+                {currentPhrases[currentPhraseIndex].goldText && (
                   <span className="ml-3" style={{ color: 'hsl(35, 45%, 75%)' }}>
-                    {phrases[currentPhraseIndex].goldText}
+                    {currentPhrases[currentPhraseIndex].goldText}
                   </span>
                 )}
-                <span className="text-white">{phrases[currentPhraseIndex].questionMark}</span>
+                <span className="text-white">{currentPhrases[currentPhraseIndex].questionMark}</span>
               </h1>
             </div>
           </div>
@@ -1484,7 +1510,7 @@ const ThumbnailTemplate = () => {
             className="w-full max-w-5xl mx-auto"
           >
             <CarouselContent className="-ml-4">
-              {phrases.map((phrase, index) => (
+              {currentPhrases.map((phrase, index) => (
                 <CarouselItem key={index} className="pl-4 basis-1/1 md:basis-1/2 lg:basis-1/3">
                   <Card 
                     className={`cursor-pointer transition-all duration-200 ${
@@ -1492,7 +1518,7 @@ const ThumbnailTemplate = () => {
                         ? 'ring-2 ring-primary shadow-lg' 
                         : 'hover:shadow-md'
                     }`}
-                    onClick={() => setCurrentPhraseIndex(index)}
+                    onClick={() => handlePhraseSelect(index)}
                   >
                     <CardContent className="p-6">
                       <div className="aspect-video bg-gradient-to-br from-gray-100 to-gray-200 rounded-lg mb-4 flex items-center justify-center">
