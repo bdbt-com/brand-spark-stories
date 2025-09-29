@@ -9,6 +9,9 @@ import { useEffect, useState, useRef } from "react";
 import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "@/components/ui/collapsible";
 import ChevronRipple from "@/components/ChevronRipple";
 import tikTokBg from "@/assets/tiktok-background.png";
+import bdbtExplainedThumbnail from "@/assets/bdbt-explained-thumbnail.png";
+import dailyWinDriftThumbnail from "@/assets/daily-win-drift-thumbnail.png";
+import modernWorldThumbnail from "@/assets/modern-world-thumbnail.png";
 
 const Home = () => {
   // Add cache-busting parameter to force image reload
@@ -202,144 +205,29 @@ const Home = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {/* Reel 1: The Modern World is Designed to Keep You Stuck */}
             <div className="group cursor-pointer transform transition-all duration-300 hover:scale-105">
-              <div className="relative w-full aspect-[9/16] max-w-sm mx-auto overflow-hidden rounded-2xl shadow-lg hover:shadow-xl">
-                {/* Background Image */}
-                <img 
-                  src={tikTokBgWithCacheBust} 
-                  alt="TikTok Background"
-                  className="absolute inset-0 w-full h-full object-cover"
-                />
-                {/* Dark overlay */}
-                <div className="absolute inset-0 bg-black/30"></div>
-                
-                <div className="h-full flex flex-col p-8 relative">
-                  {/* Title text positioned above the logo */}
-                  <div className="absolute top-[30%] left-8 right-8 transform -translate-y-1/2 text-center z-10">
-                    <h1 className="text-4xl xl:text-5xl font-bold leading-tight mb-4" style={{ textShadow: '3px 3px 6px rgba(0,0,0,0.9)' }}>
-                      <span className="text-white block">
-                        The Modern World
-                      </span>
-                      <span className="block mt-1" style={{ color: 'hsl(35, 45%, 75%)' }}>
-                        is Designed to Keep You Stuck
-                      </span>
-                    </h1>
-                  </div>
-
-                  {/* Bottom BDBT Logo with strong outline - kept visible */}
-                  <div className="absolute bottom-16 left-1/2 transform -translate-x-1/2 z-30">
-                    <img 
-                      src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
-                      alt="BDBT Logo"
-                      className="h-16 opacity-90"
-                      style={{ 
-                        filter: 'drop-shadow(0 0 8px rgba(255,255,255,1)) drop-shadow(0 0 4px rgba(255,255,255,0.8)) drop-shadow(2px 2px 4px rgba(0,0,0,0.8))',
-                      }}
-                    />
-                  </div>
-                  
-                  {/* Social Media Icons - Bottom */}
-                  <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-30">
-                    <div className="flex gap-4 items-center">
-                      <Instagram className="w-6 h-6 text-white" style={{ filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.8))' }} />
-                      <Youtube className="w-6 h-6 text-white" style={{ filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.8))' }} />
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <img
+                src={modernWorldThumbnail}
+                alt="The Modern World Is Designed to Keep You Stuck"
+                className="w-full aspect-[9/16] max-w-sm mx-auto object-cover rounded-2xl shadow-lg hover:shadow-xl"
+              />
             </div>
 
             {/* Reel 2: Every Choice is a Daily Win or a Daily Drift */}
             <div className="group cursor-pointer transform transition-all duration-300 hover:scale-105">
-              <div className="relative w-full aspect-[9/16] max-w-sm mx-auto overflow-hidden rounded-2xl shadow-lg hover:shadow-xl">
-                {/* Background Image */}
-                <img 
-                  src={tikTokBgWithCacheBust} 
-                  alt="TikTok Background"
-                  className="absolute inset-0 w-full h-full object-cover"
-                />
-                {/* Dark overlay */}
-                <div className="absolute inset-0 bg-black/30"></div>
-                
-                <div className="h-full flex flex-col p-8 relative">
-                  {/* Title text positioned above the logo */}
-                  <div className="absolute top-[30%] left-8 right-8 transform -translate-y-1/2 text-center z-10">
-                    <h1 className="text-4xl xl:text-5xl font-bold leading-tight mb-4" style={{ textShadow: '3px 3px 6px rgba(0,0,0,0.9)' }}>
-                      <span className="text-white block">
-                        Every Choice is a
-                      </span>
-                      <span className="block mt-1" style={{ color: 'hsl(35, 45%, 75%)' }}>
-                        Daily Win or a Daily Drift
-                      </span>
-                    </h1>
-                  </div>
-
-                  {/* Bottom BDBT Logo with strong outline - kept visible */}
-                  <div className="absolute bottom-16 left-1/2 transform -translate-x-1/2 z-30">
-                    <img 
-                      src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
-                      alt="BDBT Logo"
-                      className="h-16 opacity-90"
-                      style={{ 
-                        filter: 'drop-shadow(0 0 8px rgba(255,255,255,1)) drop-shadow(0 0 4px rgba(255,255,255,0.8)) drop-shadow(2px 2px 4px rgba(0,0,0,0.8))',
-                      }}
-                    />
-                  </div>
-                  
-                  {/* Social Media Icons - Bottom */}
-                  <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-30">
-                    <div className="flex gap-4 items-center">
-                      <Instagram className="w-6 h-6 text-white" style={{ filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.8))' }} />
-                      <Youtube className="w-6 h-6 text-white" style={{ filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.8))' }} />
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <img
+                src={dailyWinDriftThumbnail}
+                alt="Daily Win vs Daily Drift"
+                className="w-full aspect-[9/16] max-w-sm mx-auto object-cover rounded-2xl shadow-lg hover:shadow-xl"
+              />
             </div>
 
             {/* Reel 3: BDBT Explained */}
             <div className="group cursor-pointer transform transition-all duration-300 hover:scale-105">
-              <div className="relative w-full aspect-[9/16] max-w-sm mx-auto overflow-hidden rounded-2xl shadow-lg hover:shadow-xl">
-                {/* Background Image */}
-                <img 
-                  src={tikTokBgWithCacheBust} 
-                  alt="TikTok Background"
-                  className="absolute inset-0 w-full h-full object-cover"
-                />
-                {/* Dark overlay */}
-                <div className="absolute inset-0 bg-black/30"></div>
-                
-                <div className="h-full flex flex-col p-8 relative">
-                  {/* Title text positioned above the logo */}
-                  <div className="absolute top-[30%] left-8 right-8 transform -translate-y-1/2 text-center z-10">
-                    <h1 className="text-4xl xl:text-5xl font-bold leading-tight mb-4" style={{ textShadow: '3px 3px 6px rgba(0,0,0,0.9)' }}>
-                      <span style={{ color: 'hsl(35, 45%, 75%)' }}>BDBT</span>
-                      <span className="text-white block">
-                        Explained
-                      </span>
-                    </h1>
-                  </div>
-
-                  {/* Bottom BDBT Logo with strong outline - kept visible */}
-                  <div className="absolute bottom-16 left-1/2 transform -translate-x-1/2 z-30">
-                    <img 
-                      src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
-                      alt="BDBT Logo"
-                      className="h-16 opacity-90"
-                      style={{ 
-                        filter: 'drop-shadow(0 0 8px rgba(255,255,255,1)) drop-shadow(0 0 4px rgba(255,255,255,0.8)) drop-shadow(2px 2px 4px rgba(0,0,0,0.8))',
-                      }}
-                    />
-                  </div>
-                  
-                  {/* Social Media Icons - Bottom */}
-                  <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-30">
-                    <div className="flex gap-4 items-center">
-                      <Instagram className="w-6 h-6 text-white" style={{ filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.8))' }} />
-                      <Youtube className="w-6 h-6 text-white" style={{ filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.8))' }} />
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <img
+                src={bdbtExplainedThumbnail}
+                alt="BDBT Explained"
+                className="w-full aspect-[9/16] max-w-sm mx-auto object-cover rounded-2xl shadow-lg hover:shadow-xl"
+              />
             </div>
           </div>
         </div>
