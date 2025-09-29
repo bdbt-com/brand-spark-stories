@@ -212,31 +212,36 @@ const Home = () => {
                 {/* Dark overlay */}
                 <div className="absolute inset-0 bg-black/30"></div>
                 
-                {/* Content */}
-                <div className="absolute inset-0 flex flex-col justify-between p-6">
-                  {/* Title */}
-                  <div className="flex-1 flex items-center justify-center text-center">
-                    <h3 className="text-xl sm:text-2xl font-bold leading-tight text-white" style={{ textShadow: '3px 3px 6px rgba(0,0,0,0.9)' }}>
-                      <span className="block">The Modern World</span>
-                      <span className="block" style={{ color: 'hsl(35, 45%, 75%)' }}>is Designed to Keep You Stuck</span>
-                    </h3>
+                <div className="h-full flex flex-col p-8 relative">
+                  {/* Title text positioned above the logo */}
+                  <div className="absolute top-[30%] left-8 right-8 transform -translate-y-1/2 text-center z-10">
+                    <h1 className="text-4xl xl:text-5xl font-bold leading-tight mb-4" style={{ textShadow: '3px 3px 6px rgba(0,0,0,0.9)' }}>
+                      <span className="text-white block">
+                        The Modern World
+                      </span>
+                      <span className="block mt-1" style={{ color: 'hsl(35, 45%, 75%)' }}>
+                        is Designed to Keep You Stuck
+                      </span>
+                    </h1>
                   </div>
-                  
-                  {/* Bottom Section */}
-                  <div className="flex flex-col items-center space-y-3">
-                    {/* BDBT Logo */}
+
+                  {/* Bottom BDBT Logo with strong outline - kept visible */}
+                  <div className="absolute bottom-16 left-1/2 transform -translate-x-1/2 z-30">
                     <img 
                       src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
                       alt="BDBT Logo"
-                      className="h-12 opacity-90"
+                      className="h-16 opacity-90"
                       style={{ 
                         filter: 'drop-shadow(0 0 8px rgba(255,255,255,1)) drop-shadow(0 0 4px rgba(255,255,255,0.8)) drop-shadow(2px 2px 4px rgba(0,0,0,0.8))',
                       }}
                     />
-                    {/* Social Icons */}
-                    <div className="flex gap-3">
-                      <Instagram className="w-5 h-5 text-white" style={{ filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.8))' }} />
-                      <Youtube className="w-5 h-5 text-white" style={{ filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.8))' }} />
+                  </div>
+                  
+                  {/* Social Media Icons - Bottom */}
+                  <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-30">
+                    <div className="flex gap-4 items-center">
+                      <Instagram className="w-6 h-6 text-white" style={{ filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.8))' }} />
+                      <Youtube className="w-6 h-6 text-white" style={{ filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.8))' }} />
                     </div>
                   </div>
                 </div>
@@ -255,31 +260,36 @@ const Home = () => {
                 {/* Dark overlay */}
                 <div className="absolute inset-0 bg-black/30"></div>
                 
-                {/* Content */}
-                <div className="absolute inset-0 flex flex-col justify-between p-6">
-                  {/* Title */}
-                  <div className="flex-1 flex items-center justify-center text-center">
-                    <h3 className="text-xl sm:text-2xl font-bold leading-tight text-white" style={{ textShadow: '3px 3px 6px rgba(0,0,0,0.9)' }}>
-                      <span className="block">Every Choice is a</span>
-                      <span className="block" style={{ color: 'hsl(35, 45%, 75%)' }}>Daily Win or a Daily Drift</span>
-                    </h3>
+                <div className="h-full flex flex-col p-8 relative">
+                  {/* Title text positioned above the logo */}
+                  <div className="absolute top-[30%] left-8 right-8 transform -translate-y-1/2 text-center z-10">
+                    <h1 className="text-4xl xl:text-5xl font-bold leading-tight mb-4" style={{ textShadow: '3px 3px 6px rgba(0,0,0,0.9)' }}>
+                      <span className="text-white block">
+                        Every Choice is a
+                      </span>
+                      <span className="block mt-1" style={{ color: 'hsl(35, 45%, 75%)' }}>
+                        Daily Win or a Daily Drift
+                      </span>
+                    </h1>
                   </div>
-                  
-                  {/* Bottom Section */}
-                  <div className="flex flex-col items-center space-y-3">
-                    {/* BDBT Logo */}
+
+                  {/* Bottom BDBT Logo with strong outline - kept visible */}
+                  <div className="absolute bottom-16 left-1/2 transform -translate-x-1/2 z-30">
                     <img 
                       src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
                       alt="BDBT Logo"
-                      className="h-12 opacity-90"
+                      className="h-16 opacity-90"
                       style={{ 
                         filter: 'drop-shadow(0 0 8px rgba(255,255,255,1)) drop-shadow(0 0 4px rgba(255,255,255,0.8)) drop-shadow(2px 2px 4px rgba(0,0,0,0.8))',
                       }}
                     />
-                    {/* Social Icons */}
-                    <div className="flex gap-3">
-                      <Instagram className="w-5 h-5 text-white" style={{ filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.8))' }} />
-                      <Youtube className="w-5 h-5 text-white" style={{ filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.8))' }} />
+                  </div>
+                  
+                  {/* Social Media Icons - Bottom */}
+                  <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-30">
+                    <div className="flex gap-4 items-center">
+                      <Instagram className="w-6 h-6 text-white" style={{ filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.8))' }} />
+                      <Youtube className="w-6 h-6 text-white" style={{ filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.8))' }} />
                     </div>
                   </div>
                 </div>
@@ -298,31 +308,34 @@ const Home = () => {
                 {/* Dark overlay */}
                 <div className="absolute inset-0 bg-black/30"></div>
                 
-                {/* Content */}
-                <div className="absolute inset-0 flex flex-col justify-between p-6">
-                  {/* Title */}
-                  <div className="flex-1 flex items-center justify-center text-center">
-                    <h3 className="text-3xl sm:text-4xl font-bold leading-tight text-white" style={{ textShadow: '3px 3px 6px rgba(0,0,0,0.9)' }}>
+                <div className="h-full flex flex-col p-8 relative">
+                  {/* Title text positioned above the logo */}
+                  <div className="absolute top-[30%] left-8 right-8 transform -translate-y-1/2 text-center z-10">
+                    <h1 className="text-4xl xl:text-5xl font-bold leading-tight mb-4" style={{ textShadow: '3px 3px 6px rgba(0,0,0,0.9)' }}>
                       <span style={{ color: 'hsl(35, 45%, 75%)' }}>BDBT</span>
-                      <span className="block">Explained</span>
-                    </h3>
+                      <span className="text-white block">
+                        Explained
+                      </span>
+                    </h1>
                   </div>
-                  
-                  {/* Bottom Section */}
-                  <div className="flex flex-col items-center space-y-3">
-                    {/* BDBT Logo */}
+
+                  {/* Bottom BDBT Logo with strong outline - kept visible */}
+                  <div className="absolute bottom-16 left-1/2 transform -translate-x-1/2 z-30">
                     <img 
                       src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
                       alt="BDBT Logo"
-                      className="h-12 opacity-90"
+                      className="h-16 opacity-90"
                       style={{ 
                         filter: 'drop-shadow(0 0 8px rgba(255,255,255,1)) drop-shadow(0 0 4px rgba(255,255,255,0.8)) drop-shadow(2px 2px 4px rgba(0,0,0,0.8))',
                       }}
                     />
-                    {/* Social Icons */}
-                    <div className="flex gap-3">
-                      <Instagram className="w-5 h-5 text-white" style={{ filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.8))' }} />
-                      <Youtube className="w-5 h-5 text-white" style={{ filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.8))' }} />
+                  </div>
+                  
+                  {/* Social Media Icons - Bottom */}
+                  <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-30">
+                    <div className="flex gap-4 items-center">
+                      <Instagram className="w-6 h-6 text-white" style={{ filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.8))' }} />
+                      <Youtube className="w-6 h-6 text-white" style={{ filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.8))' }} />
                     </div>
                   </div>
                 </div>
