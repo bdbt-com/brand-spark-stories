@@ -357,7 +357,7 @@ const FeelingStuck = () => {
                 Your Next Step
               </h3>
               <p className="text-lg sm:text-xl font-semibold text-white mb-4 sm:mb-6 leading-relaxed">
-                You don't need to overhaul your entire life at once. You just need to start stacking the right habits.
+                You don't need to overhaul your entire life at once. You just need to start stacking the right Daily Wins.
               </p>
               <p className="text-base sm:text-lg mb-4 text-white/90">
                 Start your first daily win today.
