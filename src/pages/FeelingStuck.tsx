@@ -238,25 +238,16 @@ const FeelingStuck = () => {
             
             <div className="grid gap-4 sm:gap-6 text-center">
               <p>
-                Every decision you make creates a ripple effect. That ripple will either take you forward into a life where you flourish, or hold you back in a cycle where you feel stuck.
+                You don't need another goal. You need one achievable Daily Win that creates a ripple effect across your entire life.
               </p>
               
               <p>
-                Stuck looks different for everyone. For some it's constant tiredness, aches and pains, or struggling with sleep. For others it's money stress, debt, or never quite getting ahead. And for many, it's internal; stress, anxiety, a lack of purpose, strained relationships, or the sense that you're just going through the motions.
+                If you feel stuck, scattered, or just know you're capable of more, this is your next step.
               </p>
               
               <p>
-                Whatever form "stuck" takes, it always feels heavy. It slows you down. It clouds your decisions. It convinces you that change is too big or too overwhelming.
+                One Daily Win today. A different life tomorrow. Let's build it together - one daily step at a time.
               </p>
-              
-              <div className="bg-accent/10 border-l-4 border-accent p-4 sm:p-6 rounded-r-lg">
-                <p className="text-lg sm:text-xl font-semibold text-accent mb-3">
-                  But here's the truth: you don't need a dramatic leap to escape feeling stuck.
-                </p>
-                <p className="text-lg sm:text-xl font-semibold text-accent">
-                  All you need is to start redirecting your ripple effects one small daily win at a time.
-                </p>
-              </div>
             </div>
           </div>
         </div>
