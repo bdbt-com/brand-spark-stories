@@ -378,7 +378,7 @@ const About = () => {
                           That's when Big Daddy's Big Tips was born. Not as a business plan, but as a mission to share what I'd learned with as many people as possible.
                         </p>
                         <p className="leading-relaxed">
-                          Because if a financially-broke single dad could turn his life around using this system, then anyone could.
+                          A way to turn the odds in your favour. No more huge effort for a tiny return, in a world designed to make you drift. Instead, one tiny daily action that fits around your unique schedule, and creates a powerful ripple effect across your entire life.
                         </p>
                       </div>
 
