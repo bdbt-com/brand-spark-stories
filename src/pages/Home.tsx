@@ -9,9 +9,7 @@ import { useEffect, useState, useRef } from "react";
 import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "@/components/ui/collapsible";
 import ChevronRipple from "@/components/ChevronRipple";
 import tikTokBg from "@/assets/tiktok-background.png";
-import bdbtExplainedThumbnail from "@/assets/bdbt-explained-thumbnail.png";
-import dailyWinDriftThumbnail from "@/assets/daily-win-drift-thumbnail.png";
-import modernWorldThumbnail from "@/assets/modern-world-thumbnail.png";
+import { TikTokTemplate } from "@/components/TikTokTemplate";
 
 const Home = () => {
   // Add cache-busting parameter to force image reload
@@ -205,28 +203,25 @@ const Home = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {/* Reel 1: The Modern World is Designed to Keep You Stuck */}
             <div className="group cursor-pointer transform transition-all duration-300 hover:scale-105">
-              <img
-                src={modernWorldThumbnail}
-                alt="The Modern World Is Designed to Keep You Stuck"
-                className="w-full aspect-[9/16] max-w-sm mx-auto object-cover rounded-2xl shadow-lg hover:shadow-xl"
+              <TikTokTemplate 
+                templateIndex={0} 
+                className="w-full max-w-sm mx-auto shadow-lg hover:shadow-xl"
               />
             </div>
 
             {/* Reel 2: Every Choice is a Daily Win or a Daily Drift */}
             <div className="group cursor-pointer transform transition-all duration-300 hover:scale-105">
-              <img
-                src={dailyWinDriftThumbnail}
-                alt="Daily Win vs Daily Drift"
-                className="w-full aspect-[9/16] max-w-sm mx-auto object-cover rounded-2xl shadow-lg hover:shadow-xl"
+              <TikTokTemplate 
+                templateIndex={1} 
+                className="w-full max-w-sm mx-auto shadow-lg hover:shadow-xl"
               />
             </div>
 
             {/* Reel 3: BDBT Explained */}
             <div className="group cursor-pointer transform transition-all duration-300 hover:scale-105">
-              <img
-                src={bdbtExplainedThumbnail}
-                alt="BDBT Explained"
-                className="w-full aspect-[9/16] max-w-sm mx-auto object-cover rounded-2xl shadow-lg hover:shadow-xl"
+              <TikTokTemplate 
+                templateIndex={2} 
+                className="w-full max-w-sm mx-auto shadow-lg hover:shadow-xl"
               />
             </div>
           </div>
