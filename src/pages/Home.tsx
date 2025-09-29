@@ -9,7 +9,11 @@ import { useEffect, useState, useRef } from "react";
 import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "@/components/ui/collapsible";
 import ChevronRipple from "@/components/ChevronRipple";
 import tikTokBg from "@/assets/tiktok-background.png";
+
 const Home = () => {
+  // Add cache-busting parameter to force image reload
+  const tikTokBgWithCacheBust = `${tikTokBg}?v=${Date.now()}`;
+  console.log('TikTok background path:', tikTokBgWithCacheBust);
   const images = ["/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png",
   // Sunset silhouette on rocks
   "/lovable-uploads/8d06c526-bd08-42b7-9a4e-09be508119c7.png",
@@ -201,8 +205,8 @@ const Home = () => {
               <div className="relative w-full aspect-[9/16] max-w-sm mx-auto overflow-hidden rounded-2xl shadow-lg hover:shadow-xl">
                 {/* Background Image */}
                 <img 
-                  src={tikTokBg} 
-                  alt="TikTok Background" 
+                  src={tikTokBgWithCacheBust} 
+                  alt="TikTok Background"
                   className="absolute inset-0 w-full h-full object-cover"
                 />
                 {/* Dark overlay */}
@@ -244,8 +248,8 @@ const Home = () => {
               <div className="relative w-full aspect-[9/16] max-w-sm mx-auto overflow-hidden rounded-2xl shadow-lg hover:shadow-xl">
                 {/* Background Image */}
                 <img 
-                  src={tikTokBg} 
-                  alt="TikTok Background" 
+                  src={tikTokBgWithCacheBust} 
+                  alt="TikTok Background"
                   className="absolute inset-0 w-full h-full object-cover"
                 />
                 {/* Dark overlay */}
@@ -287,8 +291,8 @@ const Home = () => {
               <div className="relative w-full aspect-[9/16] max-w-sm mx-auto overflow-hidden rounded-2xl shadow-lg hover:shadow-xl">
                 {/* Background Image */}
                 <img 
-                  src={tikTokBg} 
-                  alt="TikTok Background" 
+                  src={tikTokBgWithCacheBust} 
+                  alt="TikTok Background"
                   className="absolute inset-0 w-full h-full object-cover"
                 />
                 {/* Dark overlay */}
