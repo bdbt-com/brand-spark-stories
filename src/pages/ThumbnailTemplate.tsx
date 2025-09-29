@@ -415,12 +415,16 @@ const ThumbnailTemplate = () => {
                       ) : currentTemplateIndex === 1 ? (
                         <>
                           <span style={{ color: 'white' }}>
-                            Every Choice is a <span style={{ color: 'hsl(35, 45%, 75%)' }}>Daily Win</span>
+                            Every Choice is a <span style={{ color: 'hsl(35, 45%, 75%)' }}>Daily</span> <span style={{ color: 'hsl(35, 45%, 75%)' }}>Win</span>
                           </span>
                           <span style={{ color: 'white' }} className="block mt-1">
-                            or a <span style={{ color: 'hsl(35, 45%, 75%)' }}>Daily Drift</span>
+                            <span style={{ color: 'white' }}>or</span> <span style={{ color: 'white' }}>a</span> <span style={{ color: 'hsl(35, 45%, 75%)' }}>Daily</span> <span style={{ color: 'hsl(35, 45%, 75%)' }}>Drift</span>
                           </span>
                         </>
+                      ) : currentTemplateIndex === 2 ? (
+                        <span style={{ color: 'white' }}>
+                          BDBT <span style={{ color: 'hsl(35, 45%, 75%)' }}>Explained</span>
+                        </span>
                       ) : (
                         <span className="text-white">
                           {tikTokTemplates[currentTemplateIndex]?.title}
