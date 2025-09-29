@@ -8,6 +8,7 @@ import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "@/com
 import { useEffect, useState, useRef } from "react";
 import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "@/components/ui/collapsible";
 import ChevronRipple from "@/components/ChevronRipple";
+import tikTokBg from "@/assets/tiktok-background.png";
 const Home = () => {
   const images = ["/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png",
   // Sunset silhouette on rocks
@@ -190,11 +191,8 @@ const Home = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl lg:text-4xl font-bold mb-4 text-primary">
-              Featured Reels
+              Core Explanations
             </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Watch our most popular content that's transforming lives daily
-            </p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
@@ -203,7 +201,7 @@ const Home = () => {
               <div className="relative w-full aspect-[9/16] max-w-sm mx-auto overflow-hidden rounded-2xl shadow-lg hover:shadow-xl">
                 {/* Background Image */}
                 <img 
-                  src="/lovable-uploads/8db636d1-94ff-432a-a4b1-6ca278173f2f.png" 
+                  src={tikTokBg} 
                   alt="TikTok Background" 
                   className="absolute inset-0 w-full h-full object-cover"
                 />
@@ -246,7 +244,7 @@ const Home = () => {
               <div className="relative w-full aspect-[9/16] max-w-sm mx-auto overflow-hidden rounded-2xl shadow-lg hover:shadow-xl">
                 {/* Background Image */}
                 <img 
-                  src="/lovable-uploads/8db636d1-94ff-432a-a4b1-6ca278173f2f.png" 
+                  src={tikTokBg} 
                   alt="TikTok Background" 
                   className="absolute inset-0 w-full h-full object-cover"
                 />
@@ -289,7 +287,7 @@ const Home = () => {
               <div className="relative w-full aspect-[9/16] max-w-sm mx-auto overflow-hidden rounded-2xl shadow-lg hover:shadow-xl">
                 {/* Background Image */}
                 <img 
-                  src="/lovable-uploads/8db636d1-94ff-432a-a4b1-6ca278173f2f.png" 
+                  src={tikTokBg} 
                   alt="TikTok Background" 
                   className="absolute inset-0 w-full h-full object-cover"
                 />
