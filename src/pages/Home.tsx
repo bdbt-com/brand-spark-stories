@@ -241,7 +241,7 @@ const Home = () => {
                 </div>
                 <h3 className="text-2xl font-semibold text-success mb-4">Daily Wins</h3>
                 <p className="text-primary leading-relaxed">
-                  Actions that invest in your future self. Tiny daily choices that create powerful ripple effects across your entire life. Celebrate and track these daily victories. Every small daily win builds momentum towards your bigger goals.
+                  Actions that invest in your future self. Tiny daily choices that create powerful ripple effects across your entire life. Stack them together to compound your confidence, freedom, and momentum.
                 </p>
               </CardContent>
             </Card>
@@ -254,7 +254,7 @@ const Home = () => {
                 </div>
                 <h3 className="text-2xl font-semibold text-destructive mb-4">Daily Drifts</h3>
                 <p className="text-primary leading-relaxed">
-                  Identify the small habits that are slowly pulling you away from your goals before they compound.
+                  The easy choices that feel harmless in the moment but quietly drain your energy, money, and peace of mind. Drifts are the invisible currents that keep you stuck exactly where you don't want to be.
                 </p>
               </CardContent>
             </Card>
