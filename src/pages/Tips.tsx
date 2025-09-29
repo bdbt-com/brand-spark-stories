@@ -1756,7 +1756,7 @@ const Tips = () => {
               <span className="block text-[hsl(35_45%_75%)]">Big Tips</span>
             </h1>
             <p className="text-lg lg:text-xl mb-6 text-white/90 leading-relaxed max-w-3xl mx-auto">
-              Simple daily habits that silently transform your health, wealth, and happiness simultaneously.
+              Simple Daily Wins that silently transform your health, wealth, and happiness simultaneously.
             </p>
           </div>
         </div>

@@ -121,7 +121,7 @@ const AITipFinder = ({ tips, onTipHighlight }: AITipFinderProps) => {
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2 text-lg font-semibold shrink-0">
             <Brain className="w-5 h-5 text-primary" />
-            Find your custom solution
+            Find your ideal Daily Win
           </div>
           
           <div className="flex-1 flex gap-2">
@@ -130,7 +130,7 @@ const AITipFinder = ({ tips, onTipHighlight }: AITipFinderProps) => {
               value={userInput}
               onChange={(e) => setUserInput(e.target.value)}
               onKeyPress={handleKeyPress}
-              className="flex-1"
+              className="flex-1 border-2 border-primary/30"
             />
             <Button 
               onClick={analyzeAndRecommend}
