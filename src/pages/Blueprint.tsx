@@ -101,7 +101,7 @@ const Blueprint = () => {
         <div className="max-w-2xl mx-auto">
           <div className="text-center mb-8">
             
-            <h1 className="text-3xl font-bold text-primary">Get your Free Copy of The Blueprint here:
+            <h1 className="text-3xl font-bold text-primary">Get your Free Copy of the Foundation Blueprint here:
 
           </h1>
           </div>
@@ -131,7 +131,7 @@ const Blueprint = () => {
                         <Label htmlFor="firstName" className="text-sm font-medium">
                           First Name *
                         </Label>
-                        <Input id="firstName" type="text" value={firstName} onChange={e => handleInputChange("firstName", e.target.value)} placeholder="Enter your first name" disabled={isLoading} className={`mt-1 transition-all duration-200 ${fieldErrors.firstName ? "border-red-500 focus:border-red-500 focus:ring-red-200" : "focus:border-primary focus:ring-primary/20"}`} onBlur={() => {
+                        <Input id="firstName" type="text" value={firstName} onChange={e => handleInputChange("firstName", e.target.value)} placeholder="Enter your first name" disabled={isLoading} className={`mt-1 transition-all duration-200 border-2 border-primary/30 ${fieldErrors.firstName ? "border-red-500 focus:border-red-500 focus:ring-red-200" : "focus:border-primary focus:ring-primary/20"}`} onBlur={() => {
                       const error = validateFirstName(firstName);
                       setFieldErrors(prev => ({
                         ...prev,
@@ -148,7 +148,7 @@ const Blueprint = () => {
                         <Label htmlFor="email" className="text-sm font-medium">
                           Email Address *
                         </Label>
-                        <Input id="email" type="email" value={email} onChange={e => handleInputChange("email", e.target.value)} placeholder="Enter your email address" disabled={isLoading} className={`mt-1 transition-all duration-200 ${fieldErrors.email ? "border-red-500 focus:border-red-500 focus:ring-red-200" : "focus:border-primary focus:ring-primary/20"}`} onBlur={() => {
+                        <Input id="email" type="email" value={email} onChange={e => handleInputChange("email", e.target.value)} placeholder="Enter your email address" disabled={isLoading} className={`mt-1 transition-all duration-200 border-2 border-primary/30 ${fieldErrors.email ? "border-red-500 focus:border-red-500 focus:ring-red-200" : "focus:border-primary focus:ring-primary/20"}`} onBlur={() => {
                       const error = validateEmail(email);
                       setFieldErrors(prev => ({
                         ...prev,
