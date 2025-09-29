@@ -358,7 +358,7 @@ const About = () => {
                           Instead of trying to fix everything separately, I started looking for daily habits that would improve multiple areas at once. Small actions that would create ripple effects across my entire life.
                         </p>
                         <p className="leading-relaxed mb-4">
-                          I called it "habit stacking" - building daily wins that compound over time.
+                          I called them Daily Wins and repeated them every single day. As soon as one became automatic I layered in the next.
                         </p>
                         <p className="leading-relaxed">
                           The results were remarkable. Not just for me, but for everyone I started sharing this approach with.
