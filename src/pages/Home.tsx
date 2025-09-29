@@ -652,7 +652,7 @@ const Home = () => {
             <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-primary">
               Your Daily Transformation Toolkit
             </h2>
-            <p className="text-xl text-primary max-w-3xl mx-auto">Tested strategies that quietly transform your health, wealth, and happiness through small daily actions.</p>
+            <p className="text-xl text-primary max-w-3xl mx-auto">My supply of Daily Wins that quietly transform your health, wealth, and happiness through small daily actions.</p>
           </div>
           
           <TipsCarousel />
