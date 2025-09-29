@@ -386,7 +386,7 @@ const About = () => {
                       <div className="mb-12">
                         <h2 className="text-3xl font-bold text-primary mb-6">The Mission</h2>
                         <p className="leading-relaxed mb-4">
-                          Today, I'm living proof that this system works. I'm financially free, physically strong, and deeply connected to my family. But more importantly, I'm helping thousands of people create the same transformation in their own lives.
+                          I'm living proof that this system works. I've allowed my Daily Drifts to leave me feeling stuck in my health, wealth and happiness and I have used my Daily Wins to live a life in line with my values. But more importantly, I'm helping thousands of people create the same transformation in their own lives.
                         </p>
                         <p className="leading-relaxed mb-4">
                           I live in alignment now. I honour my time. I serve others.
