@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ArrowRight, Droplets, Activity, Moon, DollarSign, Heart, Smile, Target, Zap, ChevronDown, Trophy, AlertTriangle, FileText, Headphones } from "lucide-react";
+import { ArrowRight, Droplets, Activity, Moon, DollarSign, Heart, Smile, Target, Zap, ChevronDown, Trophy, AlertTriangle, FileText, Headphones, Instagram, Youtube } from "lucide-react";
 import { Link } from "react-router-dom";
 import TipsCarousel from "@/components/TipsCarousel";
 import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "@/components/ui/carousel";
@@ -183,6 +183,151 @@ const Home = () => {
             </div>
           </div>
         </button>
+      </section>
+
+      {/* Pinned Reels Section */}
+      <section className="py-16 bg-gradient-to-b from-primary/5 to-background">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl lg:text-4xl font-bold mb-4 text-primary">
+              Featured Reels
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Watch our most popular content that's transforming lives daily
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            {/* Reel 1: The Modern World is Designed to Keep You Stuck */}
+            <div className="group cursor-pointer transform transition-all duration-300 hover:scale-105">
+              <div className="relative w-full aspect-[9/16] max-w-sm mx-auto overflow-hidden rounded-2xl shadow-lg hover:shadow-xl">
+                {/* Background Image */}
+                <img 
+                  src="/lovable-uploads/8db636d1-94ff-432a-a4b1-6ca278173f2f.png" 
+                  alt="TikTok Background" 
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+                {/* Dark overlay */}
+                <div className="absolute inset-0 bg-black/30"></div>
+                
+                {/* Content */}
+                <div className="absolute inset-0 flex flex-col justify-between p-6">
+                  {/* Title */}
+                  <div className="flex-1 flex items-center justify-center text-center">
+                    <h3 className="text-xl sm:text-2xl font-bold leading-tight text-white" style={{ textShadow: '3px 3px 6px rgba(0,0,0,0.9)' }}>
+                      <span className="block">The Modern World</span>
+                      <span className="block" style={{ color: 'hsl(35, 45%, 75%)' }}>is Designed to Keep You Stuck</span>
+                    </h3>
+                  </div>
+                  
+                  {/* Bottom Section */}
+                  <div className="flex flex-col items-center space-y-3">
+                    {/* BDBT Logo */}
+                    <img 
+                      src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
+                      alt="BDBT Logo"
+                      className="h-12 opacity-90"
+                      style={{ 
+                        filter: 'drop-shadow(0 0 8px rgba(255,255,255,1)) drop-shadow(0 0 4px rgba(255,255,255,0.8)) drop-shadow(2px 2px 4px rgba(0,0,0,0.8))',
+                      }}
+                    />
+                    {/* Social Icons */}
+                    <div className="flex gap-3">
+                      <Instagram className="w-5 h-5 text-white" style={{ filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.8))' }} />
+                      <Youtube className="w-5 h-5 text-white" style={{ filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.8))' }} />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Reel 2: Every Choice is a Daily Win or a Daily Drift */}
+            <div className="group cursor-pointer transform transition-all duration-300 hover:scale-105">
+              <div className="relative w-full aspect-[9/16] max-w-sm mx-auto overflow-hidden rounded-2xl shadow-lg hover:shadow-xl">
+                {/* Background Image */}
+                <img 
+                  src="/lovable-uploads/8db636d1-94ff-432a-a4b1-6ca278173f2f.png" 
+                  alt="TikTok Background" 
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+                {/* Dark overlay */}
+                <div className="absolute inset-0 bg-black/30"></div>
+                
+                {/* Content */}
+                <div className="absolute inset-0 flex flex-col justify-between p-6">
+                  {/* Title */}
+                  <div className="flex-1 flex items-center justify-center text-center">
+                    <h3 className="text-xl sm:text-2xl font-bold leading-tight text-white" style={{ textShadow: '3px 3px 6px rgba(0,0,0,0.9)' }}>
+                      <span className="block">Every Choice is a</span>
+                      <span className="block" style={{ color: 'hsl(35, 45%, 75%)' }}>Daily Win or a Daily Drift</span>
+                    </h3>
+                  </div>
+                  
+                  {/* Bottom Section */}
+                  <div className="flex flex-col items-center space-y-3">
+                    {/* BDBT Logo */}
+                    <img 
+                      src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
+                      alt="BDBT Logo"
+                      className="h-12 opacity-90"
+                      style={{ 
+                        filter: 'drop-shadow(0 0 8px rgba(255,255,255,1)) drop-shadow(0 0 4px rgba(255,255,255,0.8)) drop-shadow(2px 2px 4px rgba(0,0,0,0.8))',
+                      }}
+                    />
+                    {/* Social Icons */}
+                    <div className="flex gap-3">
+                      <Instagram className="w-5 h-5 text-white" style={{ filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.8))' }} />
+                      <Youtube className="w-5 h-5 text-white" style={{ filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.8))' }} />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Reel 3: BDBT Explained */}
+            <div className="group cursor-pointer transform transition-all duration-300 hover:scale-105">
+              <div className="relative w-full aspect-[9/16] max-w-sm mx-auto overflow-hidden rounded-2xl shadow-lg hover:shadow-xl">
+                {/* Background Image */}
+                <img 
+                  src="/lovable-uploads/8db636d1-94ff-432a-a4b1-6ca278173f2f.png" 
+                  alt="TikTok Background" 
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+                {/* Dark overlay */}
+                <div className="absolute inset-0 bg-black/30"></div>
+                
+                {/* Content */}
+                <div className="absolute inset-0 flex flex-col justify-between p-6">
+                  {/* Title */}
+                  <div className="flex-1 flex items-center justify-center text-center">
+                    <h3 className="text-3xl sm:text-4xl font-bold leading-tight text-white" style={{ textShadow: '3px 3px 6px rgba(0,0,0,0.9)' }}>
+                      <span style={{ color: 'hsl(35, 45%, 75%)' }}>BDBT</span>
+                      <span className="block">Explained</span>
+                    </h3>
+                  </div>
+                  
+                  {/* Bottom Section */}
+                  <div className="flex flex-col items-center space-y-3">
+                    {/* BDBT Logo */}
+                    <img 
+                      src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
+                      alt="BDBT Logo"
+                      className="h-12 opacity-90"
+                      style={{ 
+                        filter: 'drop-shadow(0 0 8px rgba(255,255,255,1)) drop-shadow(0 0 4px rgba(255,255,255,0.8)) drop-shadow(2px 2px 4px rgba(0,0,0,0.8))',
+                      }}
+                    />
+                    {/* Social Icons */}
+                    <div className="flex gap-3">
+                      <Instagram className="w-5 h-5 text-white" style={{ filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.8))' }} />
+                      <Youtube className="w-5 h-5 text-white" style={{ filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.8))' }} />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* The Vessels, The Ripples, & The Journey Section */}
