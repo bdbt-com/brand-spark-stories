@@ -433,7 +433,7 @@ const About = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-primary">
-              Welcome to Habit-Driven Lifestyle Design
+              Welcome to the World of Daily Wins
             </h2>
             <p className="text-xl text-primary max-w-4xl mx-auto leading-relaxed">
               A system that's simple enough to start today, smart enough to compound over time 
@@ -503,7 +503,7 @@ const About = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-primary">
-              Why Habit-Driven Lifestyle Design™ Works
+              Why Daily Wins Work
             </h2>
             <p className="text-xl text-primary max-w-3xl mx-auto">
               Compare the old approach with the BDBT system that creates lasting change
