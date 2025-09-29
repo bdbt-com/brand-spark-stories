@@ -403,19 +403,30 @@ const ThumbnailTemplate = () => {
                   {/* Title text positioned above the logo */}
                   <div className="absolute top-[30%] left-8 right-8 transform -translate-y-1/2 text-center z-10">
                     <h1 className="text-4xl xl:text-5xl font-bold leading-tight mb-4" style={{ textShadow: '3px 3px 6px rgba(0,0,0,0.9)' }}>
-                      {tikTokTemplates[currentTemplateIndex] && tikTokTemplates[currentTemplateIndex].title.split(' ').length <= 4 ? (
-                        <span className="text-white">
-                          {tikTokTemplates[currentTemplateIndex].title}
-                        </span>
-                      ) : (
+                      {currentTemplateIndex === 0 ? (
                         <>
                           <span className="text-white block">
-                            {tikTokTemplates[currentTemplateIndex]?.title.split(' ').slice(0, Math.ceil(tikTokTemplates[currentTemplateIndex].title.split(' ').length / 2)).join(' ')}
+                            The Modern World is
                           </span>
                           <span className="block mt-1" style={{ color: 'hsl(35, 45%, 75%)' }}>
-                            {tikTokTemplates[currentTemplateIndex]?.title.split(' ').slice(Math.ceil(tikTokTemplates[currentTemplateIndex].title.split(' ').length / 2)).join(' ')}
+                            Designed to Keep You Stuck
                           </span>
                         </>
+                      ) : currentTemplateIndex === 1 ? (
+                        <>
+                          <span className="text-white block">
+                            Every Choice is a{' '}
+                            <span style={{ color: 'hsl(35, 45%, 75%)' }}>Daily Win</span>
+                          </span>
+                          <span className="text-white block mt-1">
+                            or a{' '}
+                            <span style={{ color: 'hsl(35, 45%, 75%)' }}>Daily Drift</span>
+                          </span>
+                        </>
+                      ) : (
+                        <span className="text-white">
+                          {tikTokTemplates[currentTemplateIndex]?.title}
+                        </span>
                       )}
                     </h1>
                   </div>
