@@ -1,5 +1,5 @@
-import tikTokBackground from "@/assets/tiktok-background.png";
-import bdbtLogoTransparent from "@/assets/bdbt-logo-transparent.png";
+import tikTokBg from "@/assets/tiktok-background.png";
+import { Instagram, Youtube } from "lucide-react";
 
 interface TikTokTemplateProps {
   templateIndex: 0 | 1 | 2;
@@ -7,84 +7,66 @@ interface TikTokTemplateProps {
 }
 
 export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplateProps) {
-  const renderTitle = () => {
-    switch (templateIndex) {
-      case 0:
-        return (
-          <>
-            <span style={{ color: 'white' }} className="block">
-              The Modern World is
-            </span>
-            <span style={{ color: 'hsl(35, 45%, 75%)' }} className="block mt-1">
-              Designed to Keep You Stuck
-            </span>
-          </>
-        );
-      case 1:
-        return (
-          <>
-            <span style={{ color: 'white' }}>
-              Every Choice is a <span style={{ color: 'hsl(35, 45%, 75%)' }}>Daily</span> <span style={{ color: 'hsl(35, 45%, 75%)' }}>Win</span>
-            </span>
-            <span style={{ color: 'white' }} className="block mt-1">
-              <span style={{ color: 'white' }}>or</span> <span style={{ color: 'white' }}>a</span> <span style={{ color: 'hsl(35, 45%, 75%)' }}>Daily</span> <span style={{ color: 'hsl(35, 45%, 75%)' }}>Drift</span>
-            </span>
-          </>
-        );
-      case 2:
-        return (
-          <span style={{ color: 'white' }}>
-            BDBT <span style={{ color: 'hsl(35, 45%, 75%)' }}>Explained</span>
-          </span>
-        );
-      default:
-        return null;
-    }
-  };
-
   return (
-    <div className={`relative w-full aspect-[9/16] bg-black rounded-2xl overflow-hidden ${className}`}>
-      {/* Background Image */}
-      <img
-        src={tikTokBackground}
-        alt="TikTok Background"
+    <div className={`w-[540px] h-[960px] relative overflow-hidden rounded-3xl shadow-2xl animate-fade-in border-2 border-white ${className}`}>
+      {/* Background Image - Full Background */}
+      <img 
+        src={tikTokBg} 
+        alt="TikTok Background" 
         className="absolute inset-0 w-full h-full object-cover"
       />
+      {/* Dark overlay for text readability */}
+      <div className="absolute inset-0 bg-black/30 rounded-3xl"></div>
       
-      {/* Dark overlay */}
-      <div className="absolute inset-0 bg-black/40" />
+      <div className="h-full flex flex-col p-8 relative">
+        {/* Title text positioned above the logo */}
+        <div className="absolute top-[30%] left-8 right-8 transform -translate-y-1/2 text-center z-10">
+          <h1 className="text-4xl xl:text-5xl font-bold leading-tight mb-4" style={{ textShadow: '3px 3px 6px rgba(0,0,0,0.9)' }}>
+            {templateIndex === 0 ? (
+              <>
+                <span className="text-white block">
+                  The Modern World is
+                </span>
+                <span className="block mt-1" style={{ color: 'hsl(35, 45%, 75%)' }}>
+                  Designed to Keep You Stuck
+                </span>
+              </>
+            ) : templateIndex === 1 ? (
+              <>
+                <span style={{ color: 'white' }}>
+                  Every Choice is a <span style={{ color: 'hsl(35, 45%, 75%)' }}>Daily</span> <span style={{ color: 'hsl(35, 45%, 75%)' }}>Win</span>
+                </span>
+                <span style={{ color: 'white' }} className="block mt-1">
+                  <span style={{ color: 'white' }}>or</span> <span style={{ color: 'white' }}>a</span> <span style={{ color: 'hsl(35, 45%, 75%)' }}>Daily</span> <span style={{ color: 'hsl(35, 45%, 75%)' }}>Drift</span>
+                </span>
+              </>
+            ) : templateIndex === 2 ? (
+              <span style={{ color: 'white' }}>
+                BDBT <span style={{ color: 'hsl(35, 45%, 75%)' }}>Explained</span>
+              </span>
+            ) : null}
+          </h1>
+        </div>
 
-      {/* Title text positioned above the logo */}
-      <div className="absolute top-[30%] left-8 right-8 transform -translate-y-1/2 text-center z-10">
-        <h1 className="text-4xl xl:text-5xl font-bold leading-tight mb-4" style={{ textShadow: '3px 3px 6px rgba(0,0,0,0.9)' }}>
-          {renderTitle()}
-        </h1>
-      </div>
-
-      {/* BDBT Logo */}
-      <div className="absolute bottom-[15%] left-1/2 transform -translate-x-1/2 z-10">
-        <img
-          src={bdbtLogoTransparent}
-          alt="BDBT Logo"
-          className="w-24 h-24 object-contain"
-        />
-      </div>
-
-      {/* Social Media Icons */}
-      <div className="absolute right-4 top-1/2 transform -translate-y-1/2 flex flex-col space-y-4 z-10">
-        <img
-          src="/social-icons-right.png"
-          alt="Social Media Icons"
-          className="w-12 h-auto object-contain"
-        />
-      </div>
-
-      <div className="absolute left-4 top-1/2 transform -translate-y-1/2 flex flex-col space-y-4 z-10">
-        <img
-          src="/social-icons-left.png"
-          alt="Social Media Icons"
-          className="w-12 h-auto object-contain"
-        />
+        {/* Bottom BDBT Logo with strong outline - kept visible */}
+        <div className="absolute bottom-16 left-1/2 transform -translate-x-1/2 z-30">
+          <img 
+            src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
+            alt="BDBT Logo"
+            className="h-16 opacity-90"
+            style={{ 
+              filter: 'drop-shadow(0 0 8px rgba(255,255,255,1)) drop-shadow(0 0 4px rgba(255,255,255,0.8)) drop-shadow(2px 2px 4px rgba(0,0,0,0.8))',
+            }}
+          />
+        </div>
+        
+        {/* Social Media Icons - Bottom */}
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-30">
+          <div className="flex gap-4 items-center">
+            <Instagram className="w-6 h-6 text-white" style={{ filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.8))' }} />
+            <Youtube className="w-6 h-6 text-white" style={{ filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.8))' }} />
+          </div>
+        </div>
       </div>
     </div>
   );
