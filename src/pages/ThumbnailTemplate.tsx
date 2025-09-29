@@ -511,33 +511,14 @@ const ThumbnailTemplate = () => {
                   {/* Title text positioned above the logo */}
                   <div className="absolute top-[30%] left-8 right-8 transform -translate-y-1/2 text-center z-10">
                     <h1 className="text-4xl xl:text-5xl font-bold leading-tight mb-4" style={{ textShadow: '3px 3px 6px rgba(0,0,0,0.9)' }}>
-                      {currentTemplateIndex === 0 ? (
-                        <>
-                          <span style={{ color: 'white' }} className="block">
-                            The Modern World is
-                          </span>
-                          <span style={{ color: 'hsl(35, 45%, 75%)' }} className="block mt-1">
-                            Designed to Keep You Stuck
-                          </span>
-                        </>
-                      ) : currentTemplateIndex === 1 ? (
-                        <>
-                          <span style={{ color: 'white' }}>
-                            Every Choice is a <span style={{ color: 'hsl(35, 45%, 75%)' }}>Daily</span> <span style={{ color: 'hsl(35, 45%, 75%)' }}>Win</span>
-                          </span>
-                          <span style={{ color: 'white' }} className="block mt-1">
-                            <span style={{ color: 'white' }}>or</span> <span style={{ color: 'white' }}>a</span> <span style={{ color: 'hsl(35, 45%, 75%)' }}>Daily</span> <span style={{ color: 'hsl(35, 45%, 75%)' }}>Drift</span>
-                          </span>
-                        </>
-                      ) : currentTemplateIndex === 2 ? (
+                      <>
                         <span style={{ color: 'white' }}>
-                          BDBT <span style={{ color: 'hsl(35, 45%, 75%)' }}>Explained</span>
+                          Every Choice is a <span style={{ color: 'hsl(35, 45%, 75%)' }}>Daily</span> <span style={{ color: 'hsl(35, 45%, 75%)' }}>Win</span>
                         </span>
-                      ) : (
-                        <span className="text-white">
-                          {tikTokTemplates[currentTemplateIndex]?.title}
+                        <span style={{ color: 'white' }} className="block mt-1">
+                          <span style={{ color: 'white' }}>or</span> <span style={{ color: 'white' }}>a</span> <span style={{ color: 'hsl(35, 45%, 75%)' }}>Daily</span> <span style={{ color: 'hsl(35, 45%, 75%)' }}>Drift</span>
                         </span>
-                      )}
+                      </>
                     </h1>
                   </div>
 
