@@ -8,13 +8,11 @@ import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "@/com
 import { useEffect, useState, useRef } from "react";
 import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "@/components/ui/collapsible";
 import ChevronRipple from "@/components/ChevronRipple";
-import tikTokBg from "@/assets/tiktok-background.png";
-import { TikTokTemplate } from "@/components/TikTokTemplate";
+import templateModernWorld from "@/assets/template-modern-world.png";
+import templateDailyWinDrift from "@/assets/template-daily-win-drift.png";
+import templateBdbtExplained from "@/assets/template-bdbt-explained.png";
 
 const Home = () => {
-  // Add cache-busting parameter to force image reload
-  const tikTokBgWithCacheBust = `${tikTokBg}?v=${Date.now()}`;
-  console.log('TikTok background path:', tikTokBgWithCacheBust);
   const images = ["/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png",
   // Sunset silhouette on rocks
   "/lovable-uploads/8d06c526-bd08-42b7-9a4e-09be508119c7.png",
@@ -203,25 +201,28 @@ const Home = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {/* Reel 1: The Modern World is Designed to Keep You Stuck */}
             <div className="group cursor-pointer transform transition-all duration-300 hover:scale-105">
-              <TikTokTemplate 
-                templateIndex={0} 
-                className="w-full max-w-sm mx-auto shadow-lg hover:shadow-xl"
+              <img 
+                src={templateModernWorld} 
+                alt="The Modern World is Designed to Keep You Stuck"
+                className="w-full max-w-sm mx-auto shadow-lg hover:shadow-xl rounded-3xl"
               />
             </div>
 
             {/* Reel 2: Every Choice is a Daily Win or a Daily Drift */}
             <div className="group cursor-pointer transform transition-all duration-300 hover:scale-105">
-              <TikTokTemplate 
-                templateIndex={1} 
-                className="w-full max-w-sm mx-auto shadow-lg hover:shadow-xl"
+              <img 
+                src={templateDailyWinDrift} 
+                alt="Every Choice is a Daily Win or a Daily Drift"
+                className="w-full max-w-sm mx-auto shadow-lg hover:shadow-xl rounded-3xl"
               />
             </div>
 
             {/* Reel 3: BDBT Explained */}
             <div className="group cursor-pointer transform transition-all duration-300 hover:scale-105">
-              <TikTokTemplate 
-                templateIndex={2} 
-                className="w-full max-w-sm mx-auto shadow-lg hover:shadow-xl"
+              <img 
+                src={templateBdbtExplained} 
+                alt="BDBT Explained"
+                className="w-full max-w-sm mx-auto shadow-lg hover:shadow-xl rounded-3xl"
               />
             </div>
           </div>
