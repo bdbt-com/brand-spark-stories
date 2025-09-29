@@ -150,11 +150,11 @@ const Home = () => {
                 Big Daddy's Big Tips teaches simple daily habits that silently transform your health, wealth, and happiness simultaneously. Turning overwhelming life changes into achievable daily steps.
               </p>
               <div className="flex justify-center">
-                {/* Get Your Foundation Blueprint Here - enlarged and centered */}
+                {/* Start Your Journey Here - enlarged and centered */}
                 <div className="relative w-full max-w-md">
                   <Button variant="secondary" size="lg" asChild className="relative transition-transform duration-200 rounded-xl h-14 md:h-16 px-8 md:px-10 text-lg md:text-xl w-full">
                     <Link to="/blueprint">
-                      Get Your Foundation Blueprint Here <ArrowRight className="w-5 h-5" />
+                      Start Your Journey Here <ArrowRight className="w-5 h-5" />
                     </Link>
                   </Button>
                 </div>
