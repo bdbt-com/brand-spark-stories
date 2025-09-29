@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Clock, Eye, TrendingUp, Download, ChevronDown, ChevronUp } from "lucide-react";
 import EmailCaptureForm from "./EmailCaptureForm";
+import { getGuideUrl } from "@/data/guideMapping";
 
 interface TipCardProps {
   tip: {
@@ -22,6 +23,7 @@ interface TipCardProps {
 
 const TipCard = ({ tip, index }: TipCardProps) => {
   const [showEmailForm, setShowEmailForm] = useState(false);
+  const guideUrl = getGuideUrl(tip.title);
 
   const getCategoryColor = (category: string) => {
     switch (category) {
@@ -46,10 +48,11 @@ const TipCard = ({ tip, index }: TipCardProps) => {
 
   return (
     <Card className="group hover-lift-strong interactive cursor-pointer relative overflow-hidden border-2 hover:border-primary/30 flex flex-col h-full min-h-[560px] shadow-soft">
-      {showEmailForm ? (
+      {showEmailForm && guideUrl ? (
         <CardContent className="p-6 flex-1 flex items-center">
           <EmailCaptureForm
             title={tip.title}
+            guideDownloadUrl={guideUrl}
             onClose={() => setShowEmailForm(false)}
             compact={true}
           />

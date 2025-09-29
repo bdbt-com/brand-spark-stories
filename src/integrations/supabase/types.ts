@@ -14,7 +14,39 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      email_subscriptions: {
+        Row: {
+          created_at: string | null
+          email: string
+          email_sent: boolean | null
+          email_sent_at: string | null
+          first_name: string
+          guide_download_url: string
+          guide_title: string
+          id: string
+        }
+        Insert: {
+          created_at?: string | null
+          email: string
+          email_sent?: boolean | null
+          email_sent_at?: string | null
+          first_name: string
+          guide_download_url: string
+          guide_title: string
+          id?: string
+        }
+        Update: {
+          created_at?: string | null
+          email?: string
+          email_sent?: boolean | null
+          email_sent_at?: string | null
+          first_name?: string
+          guide_download_url?: string
+          guide_title?: string
+          id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

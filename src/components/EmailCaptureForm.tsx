@@ -8,11 +8,12 @@ import { useFormValidation } from "@/hooks/useFormValidation";
 
 interface EmailCaptureFormProps {
   title: string;
+  guideDownloadUrl: string;
   onClose: () => void;
   compact?: boolean;
 }
 
-const EmailCaptureForm = ({ title, onClose, compact = true }: EmailCaptureFormProps) => {
+const EmailCaptureForm = ({ title, guideDownloadUrl, onClose, compact = true }: EmailCaptureFormProps) => {
   const [firstName, setFirstName] = useState("");
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -45,8 +46,25 @@ const EmailCaptureForm = ({ title, onClose, compact = true }: EmailCaptureFormPr
     clearErrors();
 
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      // Submit to Flask backend
+      const response = await fetch('http://localhost:5000/api/send-guide', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          firstName: firstName,
+          email: email,
+          guideTitle: title,
+          guideDownloadUrl: guideDownloadUrl
+        })
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to send guide');
+      }
       
       setIsSubmitted(true);
       toast({
