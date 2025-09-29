@@ -547,9 +547,10 @@ const About = () => {
       {/* BDBT Philosophy */}
       <section className="py-12 bg-gradient-primary text-primary-foreground relative overflow-hidden">
         <div className="absolute inset-0 bg-black/10"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-warning/5 via-transparent to-warning/10"></div>
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="text-center mb-16">
-            <Quote className="w-16 h-16 mx-auto mb-8 opacity-50" />
+            <Quote className="w-16 h-16 mx-auto mb-8 text-warning drop-shadow-lg" />
             <h2 className="text-4xl lg:text-5xl font-bold mb-8 text-white">The BDBT Philosophy</h2>
             <blockquote className="text-2xl lg:text-3xl font-bold leading-relaxed mb-8 text-white">
               "Habits that create ripple effects. Small daily actions that spark powerful momentum across your entire life."
@@ -575,9 +576,9 @@ const About = () => {
           }, {
             icon: Star,
             belief: "You don't need another goal. You need an achievable daily win that creates ripple effects."
-          }].map((item, index) => <Card key={index} className="bg-white/10 border-white/20 backdrop-blur-sm">
+          }].map((item, index) => <Card key={index} className="bg-white/10 border-warning/30 backdrop-blur-sm hover:border-warning/50 transition-all duration-300 group">
                 <CardContent className="p-6 text-center">
-                  <item.icon className="w-12 h-12 mx-auto mb-4 text-white" />
+                  <item.icon className="w-12 h-12 mx-auto mb-4 text-warning group-hover:scale-110 transition-transform duration-300 drop-shadow-sm" />
                   <p className="text-white/90 leading-relaxed">{item.belief}</p>
                 </CardContent>
               </Card>)}
