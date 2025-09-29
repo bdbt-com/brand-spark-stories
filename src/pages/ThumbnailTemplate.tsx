@@ -414,13 +414,11 @@ const ThumbnailTemplate = () => {
                         </>
                       ) : currentTemplateIndex === 1 ? (
                         <>
-                          <span className="text-white block">
-                            Every Choice is a{' '}
-                            <span style={{ color: 'hsl(35, 45%, 75%)' }}>Daily Win</span>
+                          <span className="text-white">
+                            Every Choice is a <span style={{ color: 'hsl(35, 45%, 75%)' }}>Daily Win</span>
                           </span>
                           <span className="text-white block mt-1">
-                            or a{' '}
-                            <span style={{ color: 'hsl(35, 45%, 75%)' }}>Daily Drift</span>
+                            or a <span style={{ color: 'hsl(35, 45%, 75%)' }}>Daily Drift</span>
                           </span>
                         </>
                       ) : (
