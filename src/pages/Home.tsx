@@ -262,6 +262,12 @@ const Home = () => {
         </div>
       </section>
 
+      {/* CTA Section */}
+      <section className="py-16 bg-background">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        </div>
+      </section>
+
       {/* The Vessels, The Ripples, & The Journey Section */}
       <section ref={howRef} className="py-20 bg-gradient-subtle">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
