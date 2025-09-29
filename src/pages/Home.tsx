@@ -262,9 +262,22 @@ const Home = () => {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-16 bg-background">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Strong vessel section - CTA */}
+      <section className="py-20 bg-warning text-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl lg:text-4xl font-bold mb-8 text-white">
+            Strong vessel, smoother journey
+          </h2>
+          <p className="text-xl text-white/90 max-w-3xl mx-auto mb-12">
+            Build the daily habits that become the foundation for lasting transformation in every area of your life.
+          </p>
+          <div className="flex justify-center">
+            <Button variant="colored-bg" size="lg" asChild className="w-full sm:w-auto max-w-sm">
+              <Link to="/blueprint">
+                Get Your Foundation Blueprint <ArrowRight className="w-5 h-5 ml-2" />
+              </Link>
+            </Button>
+          </div>
         </div>
       </section>
 
@@ -601,30 +614,6 @@ const Home = () => {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-16 bg-background">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        </div>
-      </section>
-
-      {/* Strong vessel section - now orange */}
-      <section className="py-20 bg-warning text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl lg:text-4xl font-bold mb-8 text-white">
-            Strong vessel, smoother journey
-          </h2>
-          <p className="text-xl text-white/90 max-w-3xl mx-auto mb-12">
-            Build the daily habits that become the foundation for lasting transformation in every area of your life.
-          </p>
-          <div className="flex justify-center">
-            <Button variant="colored-bg" size="lg" asChild className="w-full sm:w-auto max-w-sm">
-              <Link to="/blueprint">
-                Get Your Foundation Blueprint <ArrowRight className="w-5 h-5 ml-2" />
-              </Link>
-            </Button>
-          </div>
-        </div>
-      </section>
 
       {/* Feeling Stuck Section */}
       <section className="py-20 bg-gradient-subtle">
