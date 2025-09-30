@@ -20,8 +20,8 @@ export const guideMapping: Record<string, string> = {
   "Breath Deeply for 60 Seconds, Twice a Day": "https://drive.google.com/uc?export=download&id=1YX6WikjwtdNdsG4NtV4yQo35-LeMmW8-",
   "Build a 6-Month Emergency Buffer Fund": "https://drive.google.com/uc?export=download&id=1X2TSzA8PU8_uaaucb0mNn3Q1yn5KM9Gq",
   "Buy from Farmers' Markets": "https://drive.google.com/uc?export=download&id=1bThLADCI92vntWPiptzNRtZJp4nRQZZm",
-  "Buy GenericStore-Brand Products Instead of Big Name Brands": "https://drive.google.com/uc?export=download&id=12H-CU3TY16-gNUdF5gyRkS2zEavj1q1X",
-  "Buy UsedSecond-Hand Video Games": "https://drive.google.com/uc?export=download&id=1qzXBrPVY3oQ-93LmpdyQXCXAyZQu0maR",
+  "Buy Generic Store-Brand Products Instead of Big Name Brands": "https://drive.google.com/uc?export=download&id=12H-CU3TY16-gNUdF5gyRkS2zEavj1q1X",
+  "Buy Used Second-Hand Video Games": "https://drive.google.com/uc?export=download&id=1qzXBrPVY3oQ-93LmpdyQXCXAyZQu0maR",
   "Capitalise on the Benefits Offered by Your Employer": "https://drive.google.com/uc?export=download&id=17SzdkPevrerhul6f5IyhlsPgW0W7iP6V",
   "Chew Food More Slowly": "https://drive.google.com/uc?export=download&id=122uVPjZ53TK4-7OppptVD2qGyTkvwDt1",
   "Connect with Loved Ones": "https://drive.google.com/uc?export=download&id=13-zY9r0BCVb8K2xTpKwFm-ayfN3Unk57",
@@ -108,7 +108,8 @@ export const guideMapping: Record<string, string> = {
   "Try Generic Medication Brands": "https://drive.google.com/uc?export=download&id=1i2rl-2aTLpzGRgnh3zLGfLAkHyebChW1",
   "Spend Time in Zone 2 Each Week": "https://drive.google.com/uc?export=download&id=1ogTFnW4plcrKMirXRDTB1M19cCY07SeR",
   "Use Saffron as an Anti-Depressant": "https://drive.google.com/uc?export=download&id=1QcNble1rgzrZlhvcl4x1snqb7glaiLxn",
-  "Get Free Deliveroo Plus with Amazon Prime": "https://drive.google.com/uc?export=download&id=1n6XdcZFoSi9eh43iEXtzB_xF6UMHn0xP"
+  "Get Free Deliveroo Plus with Amazon Prime": "https://drive.google.com/uc?export=download&id=1n6XdcZFoSi9eh43iEXtzB_xF6UMHn0xP",
+  "Wait 30 Days Before Any Status Spend": "https://drive.google.com/uc?export=download&id=PLACEHOLDER_NEED_ACTUAL_URL"
 };
 
 // Helper function to get guide URL by tip title

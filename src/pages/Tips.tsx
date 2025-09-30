@@ -345,7 +345,7 @@ const Tips = () => {
     },
     {
       icon: Package,
-      title: "Buy GenericStore-Brand Products Instead of Big Name Brands",
+      title: "Buy Generic Store-Brand Products Instead of Big Name Brands",
       description: "Smart shopping strategy for identical quality at lower cost.",
       items: [
         "Health: Same ingredients and quality standards as name brands",
@@ -361,7 +361,7 @@ const Tips = () => {
     },
     {
       icon: Gamepad2,
-      title: "Buy UsedSecond-Hand Video Games",
+      title: "Buy Used Second-Hand Video Games",
       description: "Gaming on a budget without sacrificing entertainment value.",
       items: [
         "Health: Same entertainment benefits at reduced financial stress",
@@ -1577,7 +1577,7 @@ const Tips = () => {
     },
     {
       icon: ShoppingBasket,
-      title: "Use the Too Good To Go App",
+      title: "Use the Too Good to Go App",
       description: "Food waste reduction for savings and environmental impact.",
       items: [
         "Health: Access to quality food at reduced prices",
