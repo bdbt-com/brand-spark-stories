@@ -37,8 +37,6 @@ const Home = () => {
   // Man in home theater
   "/lovable-uploads/347bc4c8-a5fc-40c4-a30c-1d91b5bd5761.png",
   // Man on beach at sunset
-  "/lovable-uploads/fa5ff878-34d6-44b6-a517-f055a1627aab.png",
-  // Man smiling in car
   "/lovable-uploads/75853635-930c-4fa5-9403-d0b58c6db83b.png" // Person meditating in gazebo
   ];
   const [embla, setEmbla] = useState<CarouselApi | null>(null);
