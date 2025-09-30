@@ -505,7 +505,7 @@ const Tips = () => {
     },
     {
       icon: Timer,
-      title: "Do 30-Second Plank Every Day",
+      title: "Do a 30-Second Plank Every Day",
       description: "Minimal time commitment for maximum core strength benefits.",
       items: [
         "Health: Builds core stability and improves posture",
@@ -585,7 +585,7 @@ const Tips = () => {
     },
     {
       icon: ShoppingBasket,
-      title: "Do Food Shops Using Handbaskets, Not Trolleys",
+      title: "Do Food Shops with Handbaskets Not Trolleys",
       description: "Turning grocery runs into grip-strength and budget training sessions.",
       items: [
         "Health: Builds functional grip strength and adds incidental exercise",
@@ -601,7 +601,7 @@ const Tips = () => {
     },
     {
       icon: Timer,
-      title: "Do One Minute of Deep Squats per Day",
+      title: "Do One Minute of Deep Squats Per Day",
       description: "Daily movement practice for hip mobility and leg strength.",
       items: [
         "Health: Improves hip flexibility and strengthens leg muscles",
@@ -681,7 +681,7 @@ const Tips = () => {
     },
     {
       icon: Apple,
-      title: "Expand Your Diet to Improve Your Health",
+      title: "Expand Your Diet & Improve Your Health",
       description: "Dietary diversity strategies for optimal nutrition and enjoyment.",
       items: [
         "Health: Wider nutrient profile supports optimal body function",
@@ -713,7 +713,7 @@ const Tips = () => {
     },
     {
       icon: Wind,
-      title: "Get Your Lungs In While Vacuuming",
+      title: "Get Your Lunges in While Vacuuming",
       description: "Combine household chores with breathing exercises.",
       items: [
         "Health: Deep breathing improves oxygen delivery to muscles",
@@ -777,7 +777,7 @@ const Tips = () => {
     },
     {
       icon: EyeOff,
-      title: "Hide Your Savings From Yourself",
+      title: "Hide Your Savings from Yourself",
       description: "Psychological tricks for automatic wealth building.",
       items: [
         "Health: Reduces financial stress through automated systems",
@@ -937,7 +937,7 @@ const Tips = () => {
     },
     {
       icon: Target,
-      title: "Plan Your Day & Define What Success Looks Like",
+      title: "Plan Your Day and Define What Success Looks Like",
       description: "Intentional daily planning for focused and meaningful action.",
       items: [
         "Health: Reduces stress through organized approach to daily life",
@@ -1065,7 +1065,7 @@ const Tips = () => {
     },
     {
       icon: Apple,
-      title: "Replace a Dessert with a Yogurt or Fruit Option",
+      title: "Replace a Dessert with Yogurt or Fruit",
       description: "Sweet tooth satisfaction with nutritional benefits.",
       items: [
         "Health: Provides protein and fiber instead of empty calories",
@@ -1113,7 +1113,7 @@ const Tips = () => {
     },
     {
       icon: Monitor,
-      title: "Say Goodbye to Netflix, Prime & Binge-Watching",
+      title: "Say Goodbye to Netflix, Prime, and Binge Watching",
       description: "Screen time reduction for productivity and wellbeing.",
       items: [
         "Health: More sleep and physical activity time",
@@ -1129,7 +1129,7 @@ const Tips = () => {
     },
     {
       icon: MessageCircle,
-      title: "Say Something Kind to Yourself Out Loud Daily",
+      title: "Say Something Kind to Yourself Out Loud",
       description: "Verbal self-compassion for improved self-relationship.",
       items: [
         "Health: Reduces stress hormones and boosts confidence",
@@ -1273,7 +1273,7 @@ const Tips = () => {
     },
     {
       icon: ShoppingBasket,
-      title: "Stock Up on Favourite Beauty & Skincare Items When on Sale",
+      title: "Stock Up on Favourite Beauty and Skincare Items When on Sale",
       description: "Strategic purchasing for personal care savings.",
       items: [
         "Health: Ensures consistent skincare routine with quality products",
@@ -1305,7 +1305,7 @@ const Tips = () => {
     },
     {
       icon: Music,
-      title: "Swap TV for a Podcast",
+      title: "Swap One TV Episode for a TED Talk or Podcast",
       description: "Educational entertainment for passive learning opportunities.",
       items: [
         "Health: Mental stimulation and learning while multitasking",
@@ -1385,7 +1385,7 @@ const Tips = () => {
     },
     {
       icon: Apple,
-      title: "The Power of Frozen Fruits & Vegetables",
+      title: "The Power of Frozen Fruits and Vegetables",
       description: "Nutritious and budget-friendly produce alternatives.",
       items: [
         "Health: Retained nutrients with convenience and longer storage",
@@ -1401,7 +1401,7 @@ const Tips = () => {
     },
     {
       icon: TrendingUp,
-      title: "Time In the Market vs Timing the Market",
+      title: "Time in the Market vs Timing the Market",
       description: "Investment strategy for long-term wealth building.",
       items: [
         "Health: Reduces financial stress through steady growth approach",
@@ -1417,7 +1417,7 @@ const Tips = () => {
     },
     {
       icon: Utensils,
-      title: "Try and Eat Protein With Every Meal",
+      title: "Try and Eat Protein with Every Meal",
       description: "Protein prioritization for satiety and muscle maintenance.",
       items: [
         "Health: Supports muscle maintenance and stable blood sugar",
@@ -1481,7 +1481,7 @@ const Tips = () => {
     },
     {
       icon: Brain,
-      title: "Understand What High Blood Sugar Does to Your Brain and Body",
+      title: "Understand High Blood Sugar",
       description: "Education on glucose impact for better dietary choices.",
       items: [
         "Health: Knowledge leads to better blood sugar management",
@@ -1497,7 +1497,7 @@ const Tips = () => {
     },
     {
       icon: Bus,
-      title: "Use Public Transport (Instead of Driving) to Get Your Steps In",
+      title: "Use Public Transport to Get Your Steps In",
       description: "Active transportation for fitness and environmental benefits.",
       items: [
         "Health: Integrates walking into necessary transportation",
@@ -1513,7 +1513,7 @@ const Tips = () => {
     },
     {
       icon: Leaf,
-      title: "Use Saffron as an Antidepressant",
+      title: "Use Saffron as an Anti-Depressant",
       description: "Natural mood enhancement through culinary spice.",
       items: [
         "Health: Natural compounds support mood regulation",
@@ -1529,7 +1529,7 @@ const Tips = () => {
     },
     {
       icon: Utensils,
-      title: "Use Spices Instead of Salt for Seasoning",
+      title: "Use Spices Instead of Salt",
       description: "Flavor enhancement with reduced sodium and added nutrients.",
       items: [
         "Health: Reduces sodium intake while adding antioxidants",
@@ -1545,7 +1545,7 @@ const Tips = () => {
     },
     {
       icon: Activity,
-      title: "Use Spike Mat",
+      title: "Use a Spike Mat",
       description: "Acupressure therapy for pain relief and relaxation.",
       items: [
         "Health: Natural pain relief and improved circulation",
@@ -1561,7 +1561,7 @@ const Tips = () => {
     },
     {
       icon: Monitor,
-      title: "Use Standing Desk at Home",
+      title: "Use a Standing Desk at Home",
       description: "Ergonomic workspace for posture and energy benefits.",
       items: [
         "Health: Reduces sitting-related health risks and improves posture",
@@ -1689,7 +1689,7 @@ const Tips = () => {
     },
     {
       icon: Bed,
-      title: "Be More Japanese Sit on the Floor More",
+      title: "Sit on the Floor More",
       description: "Floor sitting for flexibility and cultural mindfulness.",
       items: [
         "Health: Improves hip flexibility and core strength",
