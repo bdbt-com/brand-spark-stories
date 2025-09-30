@@ -109,7 +109,11 @@ export const guideMapping: Record<string, string> = {
   "Spend Time in Zone 2 Each Week": "https://drive.google.com/uc?export=download&id=1ogTFnW4plcrKMirXRDTB1M19cCY07SeR",
   "Use Saffron as an Anti-Depressant": "https://drive.google.com/uc?export=download&id=1QcNble1rgzrZlhvcl4x1snqb7glaiLxn",
   "Get Free Deliveroo Plus with Amazon Prime": "https://drive.google.com/uc?export=download&id=1n6XdcZFoSi9eh43iEXtzB_xF6UMHn0xP",
-  "Wait 30 Days Before Any Status Spend": "https://drive.google.com/uc?export=download&id=PLACEHOLDER_NEED_ACTUAL_URL"
+  "Wait 30 Days Before Any Status Spend": "https://drive.google.com/uc?export=download&id=1XvJ5SNWNAdr2paXMgQrcfs67cNOmrV9Z",
+  "Walk Backwards": "https://drive.google.com/uc?export=download&id=1HZuE6etLxvdAfYPkzswR2D7cbSwf_QiE",
+  "When You Reach the Top of the Stairs, Go Back Down and Up Again": "https://drive.google.com/uc?export=download&id=1qnp1Ye79gRYkZ0rEGF9rAINA1a_TRgM2",
+  "Why Implement a 30-Day Rule for Big Purchases": "https://drive.google.com/uc?export=download&id=1XvJ5SNWNAdr2paXMgQrcfs67cNOmrV9Z",
+  "Write Down 3 Things You Accomplished at the End of Each Day": "https://drive.google.com/uc?export=download&id=1BCFQuG-eAw0pOw7uq3cINCDQYTLthLs9"
 };
 
 // Helper function to get guide URL by tip title
