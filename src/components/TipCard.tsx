@@ -97,17 +97,19 @@ const TipCard = ({ tip, index }: TipCardProps) => {
             </div>
             
             {/* Button Section - Fixed to bottom */}
-            <div className="mt-auto space-y-4">
-              <Button 
-                size="default" 
-                variant="accent" 
-                className="w-full h-11 hover-scale-sm shadow-soft group-hover:shadow-medium"
-                onClick={() => setShowEmailForm(true)}
-              >
-                Download Guide 
-                <Download className="w-4 h-4 ml-2 group-hover:translate-y-0.5 transition-transform" />
-              </Button>
-            </div>
+            {guideUrl && (
+              <div className="mt-auto space-y-4">
+                <Button 
+                  size="default" 
+                  variant="accent" 
+                  className="w-full h-11 hover-scale-sm shadow-soft group-hover:shadow-medium"
+                  onClick={() => setShowEmailForm(true)}
+                >
+                  Download Guide 
+                  <Download className="w-4 h-4 ml-2 group-hover:translate-y-0.5 transition-transform" />
+                </Button>
+              </div>
+            )}
           </CardContent>
         </>
       )}
