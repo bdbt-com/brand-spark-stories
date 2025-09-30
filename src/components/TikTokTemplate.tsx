@@ -1,4 +1,6 @@
 import tikTokBg from "@/assets/tiktok-background.png";
+import tikTokBg1 from "@/assets/tiktok-bg-template-1.png";
+import tikTokBg2 from "@/assets/tiktok-bg-template-2.png";
 import { Instagram, Youtube } from "lucide-react";
 
 interface TikTokTemplateProps {
@@ -7,11 +9,13 @@ interface TikTokTemplateProps {
 }
 
 export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplateProps) {
+  const backgroundImage = templateIndex === 0 ? tikTokBg : templateIndex === 1 ? tikTokBg1 : tikTokBg2;
+  
   return (
     <div className={`w-[540px] h-[960px] relative overflow-hidden rounded-3xl shadow-2xl animate-fade-in border-2 border-white ${className}`}>
       {/* Background Image - Full Background */}
       <img 
-        src={tikTokBg} 
+        src={backgroundImage} 
         alt="TikTok Background" 
         className="absolute inset-0 w-full h-full object-cover"
       />
