@@ -5,12 +5,6 @@ import { Badge } from "@/components/ui/badge";
 import { Clock, Eye, TrendingUp, Download, ChevronDown, ChevronUp } from "lucide-react";
 import EmailCaptureForm from "./EmailCaptureForm";
 import { getGuideUrl } from "@/data/guideMapping";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
 
 interface TipCardProps {
   tip: {
@@ -53,77 +47,71 @@ const TipCard = ({ tip, index }: TipCardProps) => {
   };
 
   return (
-    <>
-      <Card className="group hover-lift-strong interactive cursor-pointer relative overflow-hidden border-2 hover:border-primary/30 flex flex-col h-full min-h-[560px] shadow-soft">
-        {/* Header Section */}
-        <CardHeader className="pb-4 flex-shrink-0 p-6 h-auto">
-          <div className="flex items-start justify-between mb-4">
-            <div className="w-14 h-14 bg-gradient-primary rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-soft group-hover:shadow-medium">
-              <tip.icon className="w-7 h-7 text-white" />
-            </div>
-          </div>
-          <div className="flex flex-col items-center h-auto min-h-[60px]">
-            <CardTitle className="text-lg leading-tight group-hover:text-primary transition-colors text-center break-words font-semibold">
-              {tip.title}
-            </CardTitle>
-          </div>
-        </CardHeader>
-        
-        {/* Content Section */}
-        <CardContent className="flex-1 flex flex-col p-6 pt-0">
-          {/* Description Section */}
-          <div className="mb-6 h-auto">
-            <p className="text-primary text-sm leading-relaxed">
-              {tip.description}
-            </p>
-          </div>
-          
-          {/* Bullet Points Section */}
-          <div className="mb-6 h-auto">
-            <ul className="space-y-2">
-              {tip.items.map((item, itemIndex) => (
-                <li key={itemIndex} className="text-sm text-primary flex items-start">
-                  <span className="w-2 h-2 bg-gradient-primary rounded-full mt-1.5 mr-3 flex-shrink-0 shadow-xs"></span>
-                  <span className="leading-relaxed">{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-          
-          {/* Button Section - Fixed to bottom */}
-          <div className="mt-auto space-y-4">
-            <Button 
-              size="default" 
-              variant="accent" 
-              className="w-full h-11 hover-scale-sm shadow-soft group-hover:shadow-medium"
-              onClick={() => setShowEmailForm(true)}
-            >
-              Download Guide 
-              <Download className="w-4 h-4 ml-2 group-hover:translate-y-0.5 transition-transform" />
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Email Capture Modal */}
-      {guideUrl && (
-        <Dialog open={showEmailForm} onOpenChange={setShowEmailForm}>
-          <DialogContent className="sm:max-w-md">
-            <DialogHeader>
-              <DialogTitle className="text-center text-xl">
-                {tip.title}
-              </DialogTitle>
-            </DialogHeader>
+    <Card className="group hover-lift-strong interactive cursor-pointer relative overflow-hidden border-2 hover:border-primary/30 flex flex-col h-full min-h-[560px] shadow-soft">
+      {showEmailForm && guideUrl ? (
+        <CardContent className="p-6 flex-1 flex items-center justify-center">
+          <div className="w-full max-w-md mx-auto">
             <EmailCaptureForm
               title={tip.title}
               guideDownloadUrl={guideUrl}
               onClose={() => setShowEmailForm(false)}
               compact={false}
             />
-          </DialogContent>
-        </Dialog>
+          </div>
+        </CardContent>
+      ) : (
+        <>
+          {/* Header Section */}
+          <CardHeader className="pb-4 flex-shrink-0 p-6 h-auto">
+            <div className="flex items-start justify-between mb-4">
+              <div className="w-14 h-14 bg-gradient-primary rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-soft group-hover:shadow-medium">
+                <tip.icon className="w-7 h-7 text-white" />
+              </div>
+            </div>
+            <div className="flex flex-col items-center h-auto min-h-[60px]">
+              <CardTitle className="text-lg leading-tight group-hover:text-primary transition-colors text-center break-words font-semibold">
+                {tip.title}
+              </CardTitle>
+            </div>
+          </CardHeader>
+          
+          {/* Content Section */}
+          <CardContent className="flex-1 flex flex-col p-6 pt-0">
+            {/* Description Section */}
+            <div className="mb-6 h-auto">
+              <p className="text-primary text-sm leading-relaxed">
+                {tip.description}
+              </p>
+            </div>
+            
+            {/* Bullet Points Section */}
+            <div className="mb-6 h-auto">
+              <ul className="space-y-2">
+                {tip.items.map((item, itemIndex) => (
+                  <li key={itemIndex} className="text-sm text-primary flex items-start">
+                    <span className="w-2 h-2 bg-gradient-primary rounded-full mt-1.5 mr-3 flex-shrink-0 shadow-xs"></span>
+                    <span className="leading-relaxed">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            
+            {/* Button Section - Fixed to bottom */}
+            <div className="mt-auto space-y-4">
+              <Button 
+                size="default" 
+                variant="accent" 
+                className="w-full h-11 hover-scale-sm shadow-soft group-hover:shadow-medium"
+                onClick={() => setShowEmailForm(true)}
+              >
+                Download Guide 
+                <Download className="w-4 h-4 ml-2 group-hover:translate-y-0.5 transition-transform" />
+              </Button>
+            </div>
+          </CardContent>
+        </>
       )}
-    </>
+    </Card>
   );
 };
 
