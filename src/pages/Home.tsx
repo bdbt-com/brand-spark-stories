@@ -208,20 +208,20 @@ const Home = () => {
               />
             </div>
 
-            {/* Reel 2: Every Choice is a Daily Win or a Daily Drift */}
-            <div className="group cursor-pointer transform transition-all duration-300 hover:scale-105">
-              <img 
-                src={templateDailyWinDrift} 
-                alt="Every Choice is a Daily Win or a Daily Drift"
-                className="w-full max-w-sm mx-auto shadow-lg hover:shadow-xl rounded-3xl"
-              />
-            </div>
-
-            {/* Reel 3: BDBT Explained */}
+            {/* Reel 2: BDBT Explained */}
             <div className="group cursor-pointer transform transition-all duration-300 hover:scale-105">
               <img 
                 src={templateBdbtExplained} 
                 alt="BDBT Explained"
+                className="w-full max-w-sm mx-auto shadow-lg hover:shadow-xl rounded-3xl"
+              />
+            </div>
+
+            {/* Reel 3: Every Choice is a Daily Win or a Daily Drift */}
+            <div className="group cursor-pointer transform transition-all duration-300 hover:scale-105">
+              <img 
+                src={templateDailyWinDrift} 
+                alt="Every Choice is a Daily Win or a Daily Drift"
                 className="w-full max-w-sm mx-auto shadow-lg hover:shadow-xl rounded-3xl"
               />
             </div>
