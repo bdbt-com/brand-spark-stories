@@ -355,7 +355,7 @@ const ThumbnailTemplate = () => {
         {currentTemplateIndex === 0 && (
           <div className="relative">
             {mode === 'youtube' ? (
-              <div id="thumbnail-0" key="template-0-youtube" className="w-[1280px] h-[720px] relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
+              <div id="thumbnail-0" key="template-0-youtube" className="w-[1280px] h-[720px] relative overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
                 <div className="h-full flex items-center p-16 relative">
                   <div className="absolute right-16 top-16 bottom-16 flex items-center">
                     <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
@@ -399,7 +399,7 @@ const ThumbnailTemplate = () => {
         {currentTemplateIndex === 1 && (
           <div className="relative">
             {mode === 'youtube' ? (
-              <div id="thumbnail-1" key="template-1-youtube" className="w-[1280px] h-[720px] relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
+              <div id="thumbnail-1" key="template-1-youtube" className="w-[1280px] h-[720px] relative overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
                 <div className="h-full flex items-center p-16 relative">
                   <div className="absolute right-16 top-16 bottom-16 flex items-center">
                     <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
@@ -443,7 +443,7 @@ const ThumbnailTemplate = () => {
         {currentTemplateIndex === 2 && (
           <div className="relative">
             {mode === 'youtube' ? (
-              <div id="thumbnail-2" key="template-2-youtube" className="w-[1280px] h-[720px] relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
+              <div id="thumbnail-2" key="template-2-youtube" className="w-[1280px] h-[720px] relative overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
                 <div className="h-full flex items-center p-16 relative">
                   <div className="absolute right-16 top-16 bottom-16 flex items-center">
                     <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
@@ -486,7 +486,7 @@ const ThumbnailTemplate = () => {
         {/* Template 5 - Healthy Snacks */}
         {currentTemplateIndex === 4 && mode === 'youtube' && (
           <div className="relative">
-            <div id="thumbnail-4" key="template-4" className="w-[1280px] h-[720px] relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
+            <div id="thumbnail-4" key="template-4" className="w-[1280px] h-[720px] relative overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
               <div className="h-full flex items-center p-16 relative">
                 <div className="absolute right-16 top-16 bottom-16 flex items-center">
                   <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
@@ -526,7 +526,7 @@ const ThumbnailTemplate = () => {
         {/* Template 6 - Morning Self-Care */}
         {currentTemplateIndex === 5 && mode === 'youtube' && (
           <div className="relative">
-            <div id="thumbnail-5" key="template-5" className="w-[1280px] h-[720px] relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
+            <div id="thumbnail-5" key="template-5" className="w-[1280px] h-[720px] relative overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
               <div className="h-full flex items-center p-16 relative">
                 <div className="absolute right-16 top-16 bottom-16 flex items-center">
                   <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
@@ -566,7 +566,7 @@ const ThumbnailTemplate = () => {
         {/* Template 7 - Daily Movement */}
         {currentTemplateIndex === 6 && mode === 'youtube' && (
           <div className="relative">
-            <div id="thumbnail-6" key="template-6" className="w-[1280px] h-[720px] relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
+            <div id="thumbnail-6" key="template-6" className="w-[1280px] h-[720px] relative overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
               <div className="h-full flex items-center p-16 relative">
                 <div className="absolute right-16 top-16 bottom-16 flex items-center">
                   <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
@@ -606,7 +606,7 @@ const ThumbnailTemplate = () => {
         {/* Template 8 - Mindfulness */}
         {currentTemplateIndex === 7 && mode === 'youtube' && (
           <div className="relative">
-            <div id="thumbnail-7" key="template-7" className="w-[1280px] h-[720px] relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
+            <div id="thumbnail-7" key="template-7" className="w-[1280px] h-[720px] relative overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
               <div className="h-full flex items-center p-16 relative">
                 <div className="absolute right-16 top-16 bottom-16 flex items-center">
                   <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
@@ -646,7 +646,7 @@ const ThumbnailTemplate = () => {
         {/* Template 9 - Fitness Micro-Habits */}
         {currentTemplateIndex === 8 && mode === 'youtube' && (
           <div className="relative">
-            <div id="thumbnail-8" key="template-8" className="w-[1280px] h-[720px] relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
+            <div id="thumbnail-8" key="template-8" className="w-[1280px] h-[720px] relative overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
               <div className="h-full flex items-center p-16 relative">
                 <div className="absolute right-16 top-16 bottom-16 flex items-center">
                   <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
@@ -686,7 +686,7 @@ const ThumbnailTemplate = () => {
         {/* Template 10 - Walking Phone Calls */}
         {currentTemplateIndex === 9 && mode === 'youtube' && (
           <div className="relative">
-            <div id="thumbnail-9" key="template-9" className="w-[1280px] h-[720px] relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
+            <div id="thumbnail-9" key="template-9" className="w-[1280px] h-[720px] relative overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
               <div className="h-full flex items-center p-16 relative">
                 <div className="absolute right-16 top-16 bottom-16 flex items-center">
                   <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
@@ -726,7 +726,7 @@ const ThumbnailTemplate = () => {
         {/* New Template - The Secret to Eating More Greens */}
         {currentTemplateIndex === 10 && mode === 'youtube' && (
           <div className="relative">
-            <div id="thumbnail-10" key="template-10" className="w-[1280px] h-[720px] relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
+            <div id="thumbnail-10" key="template-10" className="w-[1280px] h-[720px] relative overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
               <div className="h-full flex items-center p-16 relative">
                 <div className="absolute right-16 top-16 bottom-16 flex items-center">
                   <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
@@ -766,7 +766,7 @@ const ThumbnailTemplate = () => {
         {/* Template 12 - Swap Netflix for Podcasts */}
         {currentTemplateIndex === 11 && mode === 'youtube' && (
           <div className="relative">
-            <div id="thumbnail-11" key="template-11" className="w-[1280px] h-[720px] relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
+            <div id="thumbnail-11" key="template-11" className="w-[1280px] h-[720px] relative overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
               <div className="h-full flex items-center p-16 relative">
                 <div className="absolute right-16 top-16 bottom-16 flex items-center">
                   <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
@@ -806,7 +806,7 @@ const ThumbnailTemplate = () => {
         {/* Template 13 - Always use a Shopping List */}
         {currentTemplateIndex === 12 && mode === 'youtube' && (
           <div className="relative">
-            <div id="thumbnail-12" key="template-12" className="w-[1280px] h-[720px] relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
+            <div id="thumbnail-12" key="template-12" className="w-[1280px] h-[720px] relative overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
               <div className="h-full flex items-center p-16 relative">
                 <div className="absolute right-16 top-16 bottom-16 flex items-center">
                   <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
@@ -846,7 +846,7 @@ const ThumbnailTemplate = () => {
         {/* Template 14 - The Importance of Movement after Meals */}
         {currentTemplateIndex === 13 && mode === 'youtube' && (
           <div className="relative">
-            <div id="thumbnail-13" key="template-13" className="w-[1280px] h-[720px] relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
+            <div id="thumbnail-13" key="template-13" className="w-[1280px] h-[720px] relative overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
               <div className="h-full flex items-center p-16 relative">
                 <div className="absolute right-16 top-16 bottom-16 flex items-center">
                   <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
@@ -886,7 +886,7 @@ const ThumbnailTemplate = () => {
         {/* Template 15 - The Power of nature in your Daily Life */}
         {currentTemplateIndex === 14 && mode === 'youtube' && (
           <div className="relative">
-            <div id="thumbnail-14" key="template-14" className="w-[1280px] h-[720px] relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
+            <div id="thumbnail-14" key="template-14" className="w-[1280px] h-[720px] relative overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
               <div className="h-full flex items-center p-16 relative">
                 <div className="absolute right-16 top-16 bottom-16 flex items-center">
                   <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
@@ -926,7 +926,7 @@ const ThumbnailTemplate = () => {
         {/* Template 16 - The Benefits of Protein in Every Meal */}
         {currentTemplateIndex === 15 && mode === 'youtube' && (
           <div className="relative">
-            <div id="thumbnail-15" key="template-15" className="w-[1280px] h-[720px] relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
+            <div id="thumbnail-15" key="template-15" className="w-[1280px] h-[720px] relative overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
               <div className="h-full flex items-center p-16 relative">
                 <div className="absolute right-16 top-16 bottom-16 flex items-center">
                   <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
@@ -966,7 +966,7 @@ const ThumbnailTemplate = () => {
         {/* Template 17 - The Power of Only Taking the Stairs */}
         {currentTemplateIndex === 16 && mode === 'youtube' && (
           <div className="relative">
-            <div id="thumbnail-16" key="template-16" className="w-[1280px] h-[720px] relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
+            <div id="thumbnail-16" key="template-16" className="w-[1280px] h-[720px] relative overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
               <div className="h-full flex items-center p-16 relative">
                 <div className="absolute right-16 top-16 bottom-16 flex items-center">
                   <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
@@ -1006,7 +1006,7 @@ const ThumbnailTemplate = () => {
         {/* Template 18 - Healthy Savings from Store Brand Medicine */}
         {currentTemplateIndex === 17 && mode === 'youtube' && (
           <div className="relative">
-            <div id="thumbnail-17" key="template-17" className="w-[1280px] h-[720px] relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
+            <div id="thumbnail-17" key="template-17" className="w-[1280px] h-[720px] relative overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
               <div className="h-full flex items-center p-16 relative">
                 <div className="absolute right-16 top-16 bottom-16 flex items-center">
                   <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
@@ -1046,7 +1046,7 @@ const ThumbnailTemplate = () => {
         {/* Template 19 - The Importance of Replacing your daily sugar intake */}
         {currentTemplateIndex === 18 && mode === 'youtube' && (
           <div className="relative">
-            <div id="thumbnail-18" key="template-18" className="w-[1280px] h-[720px] relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
+            <div id="thumbnail-18" key="template-18" className="w-[1280px] h-[720px] relative overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
               <div className="h-full flex items-center p-16 relative">
                 <div className="absolute right-16 top-16 bottom-16 flex items-center">
                   <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
@@ -1086,7 +1086,7 @@ const ThumbnailTemplate = () => {
         {/* Template 20 - The Power of Amazon Subscribe & Save */}
         {currentTemplateIndex === 19 && mode === 'youtube' && (
           <div className="relative">
-            <div id="thumbnail-19" key="template-19" className="w-[1280px] h-[720px] relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
+            <div id="thumbnail-19" key="template-19" className="w-[1280px] h-[720px] relative overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
               <div className="h-full flex items-center p-16 relative">
                 <div className="absolute right-16 top-16 bottom-16 flex items-center">
                   <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
@@ -1126,7 +1126,7 @@ const ThumbnailTemplate = () => {
         {/* Template 21 - Control your posture, Control your day */}
         {currentTemplateIndex === 20 && mode === 'youtube' && (
           <div className="relative">
-            <div id="thumbnail-20" key="template-20" className="w-[1280px] h-[720px] relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
+            <div id="thumbnail-20" key="template-20" className="w-[1280px] h-[720px] relative overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
               <div className="h-full flex items-center p-16 relative">
                 <div className="absolute right-16 top-16 bottom-16 flex items-center">
                   <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">

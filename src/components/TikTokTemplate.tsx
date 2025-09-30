@@ -12,7 +12,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
   const backgroundImage = templateIndex === 0 ? tikTokBg : templateIndex === 1 ? tikTokBg1 : tikTokBg2;
   
   return (
-    <div className={`w-[540px] h-[960px] relative overflow-hidden rounded-3xl shadow-2xl animate-fade-in border-2 border-white ${className}`}>
+    <div className={`w-[540px] h-[960px] relative overflow-hidden shadow-2xl animate-fade-in border-2 border-white ${className}`}>
       {/* Background Image - Full Background */}
       <img 
         src={backgroundImage} 
@@ -20,7 +20,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
         className="absolute inset-0 w-full h-full object-cover"
       />
       {/* Dark overlay for text readability */}
-      <div className="absolute inset-0 bg-black/30 rounded-3xl"></div>
+      <div className="absolute inset-0 bg-black/30"></div>
       
       <div className="h-full flex flex-col p-8 relative">
         {/* Title text positioned above the logo */}
