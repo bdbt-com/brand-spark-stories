@@ -1,15 +1,14 @@
-import tikTokBg from "@/assets/tiktok-background.png";
 import tikTokBg1 from "@/assets/tiktok-bg-template-2.png";
 import tikTokBg2 from "@/assets/tiktok-bg-template-3.png";
 import { Instagram, Youtube } from "lucide-react";
 
 interface TikTokTemplateProps {
-  templateIndex: 0 | 1 | 2;
+  templateIndex: 0 | 1;
   className?: string;
 }
 
 export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplateProps) {
-  const backgroundImage = templateIndex === 0 ? tikTokBg : templateIndex === 1 ? tikTokBg1 : tikTokBg2;
+  const backgroundImage = templateIndex === 0 ? tikTokBg1 : tikTokBg2;
   
   return (
     <div className={`w-[540px] h-[960px] relative overflow-hidden rounded-3xl shadow-2xl animate-fade-in border-2 border-white ${className}`}>
@@ -28,15 +27,6 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
           <h1 className="text-4xl xl:text-5xl font-bold leading-tight mb-4" style={{ textShadow: '3px 3px 6px rgba(0,0,0,0.9)' }}>
             {templateIndex === 0 ? (
               <>
-                <span className="text-white block">
-                  The Modern World is
-                </span>
-                <span className="block mt-1" style={{ color: 'hsl(35, 45%, 75%)' }}>
-                  Designed to Keep You Stuck
-                </span>
-              </>
-            ) : templateIndex === 1 ? (
-              <>
                 <span style={{ color: 'white' }}>
                   Every Choice is a <span style={{ color: 'hsl(35, 45%, 75%)' }}>Daily</span> <span style={{ color: 'hsl(35, 45%, 75%)' }}>Win</span>
                 </span>
@@ -44,11 +34,11 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
                   <span style={{ color: 'white' }}>or</span> <span style={{ color: 'white' }}>a</span> <span style={{ color: 'hsl(35, 45%, 75%)' }}>Daily</span> <span style={{ color: 'hsl(35, 45%, 75%)' }}>Drift</span>
                 </span>
               </>
-            ) : templateIndex === 2 ? (
+            ) : (
               <span style={{ color: 'white' }}>
                 BDBT <span style={{ color: 'hsl(35, 45%, 75%)' }}>Explained</span>
               </span>
-            ) : null}
+            )}
           </h1>
         </div>
 

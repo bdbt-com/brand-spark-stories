@@ -167,20 +167,13 @@ const ThumbnailTemplate = () => {
   const tikTokTemplates = [
     {
       id: 0,
-      name: "The Modern World is Designed to Keep You Stuck",
-      title: "The Modern World is Designed to Keep You Stuck",
-      subtitle: "",
-      image: ""
-    },
-    {
-      id: 1,
       name: "Every Choice is a Daily Win or a Daily Drift", 
       title: "Every Choice is a Daily Win or a Daily Drift",
       subtitle: "",
       image: ""
     },
     {
-      id: 2,
+      id: 1,
       name: "BDBT Explained",
       title: "BDBT Explained",
       subtitle: "",
@@ -390,7 +383,7 @@ const ThumbnailTemplate = () => {
                 </div>
               </div>
             ) : (
-              <TikTokTemplate templateIndex={currentTemplateIndex as 0 | 1 | 2} />
+              <TikTokTemplate templateIndex={currentTemplateIndex as 0 | 1} />
             )}
           </div>
         )}
@@ -434,93 +427,20 @@ const ThumbnailTemplate = () => {
                 </div>
               </div>
             ) : (
-              <TikTokTemplate templateIndex={currentTemplateIndex as 0 | 1 | 2} />
+              <TikTokTemplate templateIndex={currentTemplateIndex as 0 | 1} />
             )}
           </div>
         )}
 
-        {/* Generic TikTok Templates for Instagram/TikTok Mode (Templates 3-21) */}
-        {currentTemplateIndex >= 2 && mode === 'instagram' && (
+        {/* Template 2 - Financial Health (YouTube only, no TikTok) */}
+        {currentTemplateIndex === 2 && mode === 'youtube' && (
           <div className="relative">
-            <div id={`thumbnail-${currentTemplateIndex}-portrait`} key={`template-${currentTemplateIndex}-instagram`} className="w-[540px] h-[960px] relative overflow-hidden rounded-3xl shadow-2xl animate-fade-in border-2 border-white">
-              {/* Background Image - Full Background */}
-              <img 
-                src={tikTokBg} 
-                alt="TikTok Background" 
-                className="absolute inset-0 w-full h-full object-cover"
-              />
-              {/* Dark overlay for text readability */}
-              <div className="absolute inset-0 bg-black/30 rounded-3xl"></div>
-              
-              <div className="h-full flex flex-col p-8 relative">
-                {/* Title text positioned above the logo */}
-                <div className="absolute top-[30%] left-8 right-8 transform -translate-y-1/2 text-center z-10">
-                  <h1 className="text-4xl xl:text-5xl font-bold leading-tight mb-4" style={{ textShadow: '3px 3px 6px rgba(0,0,0,0.9)' }}>
-                    {currentTemplateIndex === 0 ? (
-                      <>
-                        <span style={{ color: 'white' }} className="block">
-                          The Modern World is
-                        </span>
-                        <span style={{ color: 'hsl(35, 45%, 75%)' }} className="block mt-1">
-                          Designed to Keep You Stuck
-                        </span>
-                      </>
-                    ) : currentTemplateIndex === 1 ? (
-                      <>
-                        <span style={{ color: 'white' }}>
-                          Every Choice is a <span style={{ color: 'hsl(35, 45%, 75%)' }}>Daily</span> <span style={{ color: 'hsl(35, 45%, 75%)' }}>Win</span>
-                        </span>
-                        <span style={{ color: 'white' }} className="block mt-1">
-                          <span style={{ color: 'white' }}>or</span> <span style={{ color: 'white' }}>a</span> <span style={{ color: 'hsl(35, 45%, 75%)' }}>Daily</span> <span style={{ color: 'hsl(35, 45%, 75%)' }}>Drift</span>
-                        </span>
-                      </>
-                    ) : currentTemplateIndex === 2 ? (
-                      <span style={{ color: 'white' }}>
-                        BDBT <span style={{ color: 'hsl(35, 45%, 75%)' }}>Explained</span>
-                      </span>
-                    ) : (
-                      <span className="text-white">
-                        {tikTokTemplates[currentTemplateIndex]?.title}
-                      </span>
-                    )}
-                  </h1>
-                </div>
-
-                {/* Bottom BDBT Logo with strong outline - kept visible */}
-                <div className="absolute bottom-16 left-1/2 transform -translate-x-1/2 z-30">
-                  <img 
-                    src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
-                    alt="BDBT Logo"
-                    className="h-16 opacity-90"
-                    style={{ 
-                      filter: 'drop-shadow(0 0 8px rgba(255,255,255,1)) drop-shadow(0 0 4px rgba(255,255,255,0.8)) drop-shadow(2px 2px 4px rgba(0,0,0,0.8))',
-                    }}
-                  />
-                </div>
-                
-                {/* Social Media Icons - Bottom */}
-                <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-30">
-                  <div className="flex gap-4 items-center">
-                    <Instagram className="w-6 h-6 text-white" style={{ filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.8))' }} />
-                    <Youtube className="w-6 h-6 text-white" style={{ filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.8))' }} />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-        {currentTemplateIndex === 2 && (
-          <div className="relative">
-            {mode === 'youtube' ? (
               <div id="thumbnail-2" key="template-2" className="w-[1280px] h-[720px] relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
                 <div className="h-full flex items-center p-16 relative">
 ...
                 </div>
               </div>
-            ) : (
-              <TikTokTemplate templateIndex={2} />
-            )}
-          </div>
+           </div>
         )}
 
         {/* Template 4 - Hydration */}
