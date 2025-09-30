@@ -19,7 +19,6 @@ interface UseYouTubeVideosReturn {
   refreshVideos: () => void;
 }
 
-const YOUTUBE_API_KEY = sessionStorage.getItem('youtube_api_key') || import.meta.env.VITE_YOUTUBE_API_KEY || 'AIzaSyDdkk8BXLo7fysGJCyJMzyIN1cIJNaBboQ';
 const CHANNEL_ID = '@bigdaddysbigtips'; // Can be channel handle or ID
 
 export const useYouTubeVideos = (maxResults: number = 50): UseYouTubeVideosReturn => {
@@ -28,6 +27,8 @@ export const useYouTubeVideos = (maxResults: number = 50): UseYouTubeVideosRetur
   const [error, setError] = useState<string | null>(null);
 
   const fetchVideos = async () => {
+    const YOUTUBE_API_KEY = sessionStorage.getItem('youtube_api_key') || import.meta.env.VITE_YOUTUBE_API_KEY;
+    
     if (!YOUTUBE_API_KEY) {
       setError('YouTube API key not configured. Please set VITE_YOUTUBE_API_KEY environment variable.');
       setLoading(false);

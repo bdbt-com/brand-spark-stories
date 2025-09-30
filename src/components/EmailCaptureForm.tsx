@@ -5,6 +5,7 @@ import { Label } from "@/components/ui/label";
 import { CheckCircle, Loader2, Mail, X, ArrowRight } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useFormValidation } from "@/hooks/useFormValidation";
+import { supabase } from "@/integrations/supabase/client";
 
 interface EmailCaptureFormProps {
   title: string;
@@ -46,44 +47,41 @@ const EmailCaptureForm = ({ title, guideDownloadUrl, onClose, compact = true }: 
     clearErrors();
 
     try {
-      // Submit to Flask backend
-      const response = await fetch('http://localhost:5000/api/send-guide', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          firstName: firstName,
-          email: email,
+      const { data, error } = await supabase.functions.invoke('send-guide', {
+        body: {
+          firstName,
+          email,
           guideTitle: title,
-          guideDownloadUrl: guideDownloadUrl
-        })
+          guideDownloadUrl,
+        },
       });
 
-      const data = await response.json();
+      if (error) {
+        throw error;
+      }
 
-      if (!response.ok) {
-        throw new Error(data.error || 'Failed to send guide');
+      if (data?.success) {
+        setIsSubmitted(true);
+        toast({
+          title: "Success! 🎉",
+          description: `Your "${title}" guide has been sent to your email!`,
+        });
+        
+        // Reset form after success animation
+        setTimeout(() => {
+          setFirstName("");
+          setEmail("");
+          setIsSubmitted(false);
+          onClose();
+        }, 3000);
+      } else {
+        throw new Error(data?.error || 'Failed to send guide');
       }
       
-      setIsSubmitted(true);
-      toast({
-        title: "Success! 🎉",
-        description: `Your "${title}" guide has been sent to your email!`,
-      });
-      
-      // Reset form after success animation
-      setTimeout(() => {
-        setFirstName("");
-        setEmail("");
-        setIsSubmitted(false);
-        onClose();
-      }, 3000);
-      
-    } catch (error) {
+    } catch (error: any) {
       toast({
         title: "Oops! Something went wrong",
-        description: "Please try again in a moment.",
+        description: error.message || "Please try again in a moment.",
         variant: "destructive",
       });
     } finally {
