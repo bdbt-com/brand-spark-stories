@@ -196,13 +196,13 @@ const Home = () => {
             </h2>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 max-w-5xl mx-auto">
             {/* Reel 1: The Modern World is Designed to Keep You Stuck */}
             <div className="group cursor-pointer transform transition-all duration-300 hover:scale-105">
               <img 
                 src={templateModernWorld} 
                 alt="The Modern World is Designed to Keep You Stuck"
-                className="w-full max-w-sm mx-auto shadow-lg hover:shadow-xl rounded-3xl"
+                className="w-full max-w-[288px] mx-auto shadow-lg hover:shadow-xl rounded-3xl"
               />
             </div>
 
@@ -211,7 +211,7 @@ const Home = () => {
               <img 
                 src={templateBdbtExplained} 
                 alt="BDBT Explained"
-                className="w-full max-w-sm mx-auto shadow-lg hover:shadow-xl rounded-3xl"
+                className="w-full max-w-[288px] mx-auto shadow-lg hover:shadow-xl rounded-3xl"
               />
             </div>
 
@@ -220,7 +220,7 @@ const Home = () => {
               <img 
                 src={templateDailyWinDrift} 
                 alt="Every Choice is a Daily Win or a Daily Drift"
-                className="w-full max-w-sm mx-auto shadow-lg hover:shadow-xl rounded-3xl"
+                className="w-full max-w-[288px] mx-auto shadow-lg hover:shadow-xl rounded-3xl"
               />
             </div>
           </div>
