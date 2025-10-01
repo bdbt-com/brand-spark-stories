@@ -62,7 +62,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
           <img 
             src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
             alt="BDBT Logo"
-            className="h-16 opacity-90"
+            className="h-32 opacity-90"
             style={{ 
               filter: 'drop-shadow(0 0 8px rgba(255,255,255,1)) drop-shadow(0 0 4px rgba(255,255,255,0.8)) drop-shadow(2px 2px 4px rgba(0,0,0,0.8))',
             }}
