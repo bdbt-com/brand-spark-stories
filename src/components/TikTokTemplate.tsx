@@ -1,6 +1,6 @@
 import tikTokBg from "@/assets/tiktok-background.png";
-import tikTokBg1 from "@/assets/tiktok-bg-template-2.png";
-import tikTokBg2 from "@/assets/tiktok-bg-template-3.png";
+import tikTokBg1 from "@/assets/tiktok-bg-template-3.png";
+import tikTokBg2 from "@/assets/tiktok-bg-template-2.png";
 import { Instagram, Youtube } from "lucide-react";
 
 interface TikTokTemplateProps {
