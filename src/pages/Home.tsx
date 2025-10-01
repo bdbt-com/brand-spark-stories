@@ -8,9 +8,9 @@ import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "@/com
 import { useEffect, useState, useRef } from "react";
 import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "@/components/ui/collapsible";
 import ChevronRipple from "@/components/ChevronRipple";
-import templateModernWorld from "@/assets/template-modern-world.png";
-import templateDailyWinDrift from "@/assets/template-daily-win-drift.png";
-import templateBdbtExplained from "@/assets/template-bdbt-explained.png";
+import templateModernWorld from "@/assets/new-template-modern-world.png";
+import templateDailyWinDrift from "@/assets/new-template-daily-win-drift.png";
+import templateBdbtExplained from "@/assets/new-template-bdbt-explained.png";
 
 const Home = () => {
   const images = ["/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png",
