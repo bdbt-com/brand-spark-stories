@@ -58,7 +58,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
         </div>
 
         {/* Bottom BDBT Logo with strong outline - kept visible */}
-        <div className="absolute bottom-16 left-1/2 transform -translate-x-1/2 z-30">
+        <div className="absolute bottom-48 left-1/2 transform -translate-x-1/2 z-30">
           <img 
             src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
             alt="BDBT Logo"
