@@ -38,16 +38,13 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             ) : templateIndex === 1 ? (
               <>
                 <span className="text-white block">
-                  Every Choice is a
+                  Every choice is
                 </span>
                 <span className="block mt-1" style={{ color: 'hsl(35, 45%, 75%)' }}>
-                  Daily Win
-                </span>
-                <span className="text-white block mt-1">
-                  or a
+                  a Daily Win
                 </span>
                 <span className="block mt-1" style={{ color: 'hsl(35, 45%, 75%)' }}>
-                  Daily Drift
+                  or a Daily Drift
                 </span>
               </>
             ) : templateIndex === 2 ? (
