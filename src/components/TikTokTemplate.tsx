@@ -9,7 +9,7 @@ interface TikTokTemplateProps {
 }
 
 export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplateProps) {
-  const backgroundImage = templateIndex === 0 ? tikTokBg : templateIndex === 1 ? tikTokBg2 : tikTokBg1;
+  const backgroundImage = templateIndex === 0 ? tikTokBg : templateIndex === 1 ? tikTokBg1 : tikTokBg2;
   
   return (
     <div className={`w-[540px] h-[960px] relative overflow-hidden shadow-2xl animate-fade-in border-2 border-white ${className}`}>
