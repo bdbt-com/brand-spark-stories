@@ -42,9 +42,26 @@ const AITipFinder = ({ tips, onTipHighlight }: AITipFinderProps) => {
       return;
     }
 
-    // Check if user searched for "Thumbnail" - redirect to thumbnail page
-    if (userInput.toLowerCase().includes('thumbnail')) {
+    // Check for special page searches - redirect to hidden pages
+    const searchLower = userInput.toLowerCase();
+
+    if (searchLower.includes('thumbnail')) {
       navigate('/thumbnail-template');
+      return;
+    }
+
+    if (searchLower.includes('daily wins') || searchLower.includes('daily win') || searchLower === 'dailywins') {
+      navigate('/daily-wins');
+      return;
+    }
+
+    if (searchLower.includes('partnership') || searchLower.includes('partner')) {
+      navigate('/partnership');
+      return;
+    }
+
+    if (searchLower.includes('community')) {
+      navigate('/community');
       return;
     }
 
