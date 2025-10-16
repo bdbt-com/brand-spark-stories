@@ -287,20 +287,20 @@ const Home = () => {
             icon: Droplets,
             title: "What goes into your body",
             description: "It's not just food and drink. It's what you see and what you hear. The inputs you feed your body, mind, and environment shape your energy, focus, and finances. Choose better fuel and watch every area of life transform.",
-            color: "bg-primary/10 text-primary"
+            color: "bg-warning text-white"
           }, {
             icon: Activity,
             title: "How you move your body",
             description: "Strength, stamina, flexibility. Movement isn't one-dimensional. Small, consistent actions build a body that carries you further, a mind that thinks sharper, and a wallet that benefits from daily momentum.",
-            color: "bg-accent/10 text-accent"
+            color: "bg-warning text-white"
           }, {
             icon: Moon,
             title: "How you rest your body",
             description: "Rest isn't passive, it's the amplifier. Quality sleep and recovery unlock energy, clarity, and resilience, turning stacked habits into lasting breakthroughs. Quality rest is the foundation of all other daily wins.",
-            color: "bg-accent/10 text-accent"
+            color: "bg-warning text-white"
           }].map((step, index) => <Card key={index} className="group hover:shadow-medium transition-all duration-300 hover:-translate-y-2">
                 <CardContent className="p-6 text-center">
-                  <div className={`w-16 h-16 ${step.color} rounded-xl flex items-center justify-center mb-4 mx-auto group-hover:scale-110 transition-transform duration-300`}>
+                  <div className={`w-16 h-16 ${step.color} rounded-full flex items-center justify-center mb-4 mx-auto group-hover:scale-110 transition-transform duration-300`}>
                     <step.icon className="w-8 h-8" />
                   </div>
                   <h3 className="text-xl font-semibold text-primary mb-2 group-hover:text-primary transition-colors">
