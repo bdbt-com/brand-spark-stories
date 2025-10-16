@@ -189,46 +189,6 @@ const Home = () => {
         </button>
       </section>
 
-      {/* Pinned Reels Section */}
-      <section className="py-16 bg-gradient-to-b from-primary/5 to-background">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl lg:text-4xl font-bold mb-4 text-primary">
-              Core Explanations
-            </h2>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 max-w-5xl mx-auto">
-            {/* Reel 1: The Modern World is Designed to Keep You Stuck */}
-            <div className="group cursor-pointer transform transition-all duration-300 hover:scale-105">
-              <img 
-                src={templateModernWorld} 
-                alt="The Modern World is Designed to Keep You Stuck"
-                className="w-full max-w-[288px] mx-auto shadow-lg hover:shadow-xl rounded-3xl"
-              />
-            </div>
-
-            {/* Reel 2: BDBT Explained */}
-            <div className="group cursor-pointer transform transition-all duration-300 hover:scale-105">
-              <img 
-                src={templateBdbtExplained} 
-                alt="BDBT Explained"
-                className="w-full max-w-[288px] mx-auto shadow-lg hover:shadow-xl rounded-3xl"
-              />
-            </div>
-
-            {/* Reel 3: Every Choice is a Daily Win or a Daily Drift */}
-            <div className="group cursor-pointer transform transition-all duration-300 hover:scale-105">
-              <img 
-                src={templateDailyWinDrift} 
-                alt="Every Choice is a Daily Win or a Daily Drift"
-                className="w-full max-w-[288px] mx-auto shadow-lg hover:shadow-xl rounded-3xl"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Daily Wins and Daily Drifts Boxes */}
       <section className="py-20 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
