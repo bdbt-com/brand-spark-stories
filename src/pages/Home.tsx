@@ -232,7 +232,7 @@ const Home = () => {
             <Card className="group hover:shadow-medium transition-all duration-300 hover:-translate-y-2">
               <CardContent className="p-8 text-center">
                 <div className="w-16 h-16 bg-warning rounded-xl flex items-center justify-center mb-6 mx-auto group-hover:scale-110 transition-transform duration-300">
-                  <Trophy className="w-8 h-8 text-primary" />
+                  <Trophy className="w-8 h-8 text-white" />
                 </div>
                 <h3 className="text-2xl font-semibold text-primary mb-4">Daily Wins</h3>
                 <p className="text-primary leading-relaxed">
@@ -245,7 +245,7 @@ const Home = () => {
             <Card className="group hover:shadow-medium transition-all duration-300 hover:-translate-y-2">
               <CardContent className="p-8 text-center">
                 <div className="w-16 h-16 bg-warning rounded-xl flex items-center justify-center mb-6 mx-auto group-hover:scale-110 transition-transform duration-300">
-                  <AlertTriangle className="w-8 h-8 text-primary" />
+                  <AlertTriangle className="w-8 h-8 text-white" />
                 </div>
                 <h3 className="text-2xl font-semibold text-primary mb-4">Daily Drifts</h3>
                 <p className="text-primary leading-relaxed">
