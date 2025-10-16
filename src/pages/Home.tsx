@@ -611,6 +611,21 @@ const Home = () => {
           </div>
         </div>
       </section>
+
+      {/* Call to Action Section */}
+      <section className="py-20 bg-muted/50">
+        <div className="container max-w-7xl mx-auto px-6 text-center">
+          <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-primary">
+            Ready to Start Your Journey?
+          </h2>
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-12">
+            Take the first step towards transforming your daily habits and unlocking your potential.
+          </p>
+          <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 text-lg">
+            <Link to="/feeling-stuck">Start Your Journey Here</Link>
+          </Button>
+        </div>
+      </section>
     </div>;
 };
 export default Home;
