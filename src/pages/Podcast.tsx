@@ -21,7 +21,7 @@ import {
   Loader2,
   AlertCircle
 } from "lucide-react";
-import spotifyLogo from "@/assets/spotify-logo.png";
+
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { useYouTubeVideos } from "@/hooks/useYouTubeVideos";
 import { YouTubeApiKeyInput } from "@/components/YouTubeApiKeyInput";
@@ -68,8 +68,8 @@ const Podcast = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="animate-fade-in">
             <h1 className="text-3xl lg:text-4xl font-bold mb-4 leading-tight">
-              <span className="block text-white">Podcast &</span>
-              <span className="block text-[hsl(35_45%_75%)]">Video Catalogue</span>
+              <span className="block text-white">Podcasts &</span>
+              <span className="block text-[hsl(35_45%_75%)]">Videos</span>
             </h1>
             <p className="text-lg lg:text-xl mb-6 text-white/90 leading-relaxed max-w-3xl mx-auto">
               Latest videos from Big Daddy's Big Tips.
@@ -90,14 +90,6 @@ const Podcast = () => {
             <div className="flex items-center gap-4">
               <span className="text-sm text-white/80 font-medium">Follow @BigDaddysBigTips</span>
               <div className="flex gap-3">
-                <a 
-                  href="https://open.spotify.com/show/BigDaddysBigTips" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="p-2 rounded-full bg-white/20 hover:bg-white/30 text-white transition-all duration-300 hover:scale-110"
-                >
-                  <img src={spotifyLogo} alt="Spotify" className="w-5 h-5" />
-                </a>
                 <a 
                   href="https://instagram.com/BigDaddysBigTips" 
                   target="_blank" 
