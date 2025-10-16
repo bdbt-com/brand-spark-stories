@@ -589,38 +589,6 @@ const Home = () => {
           </div>
         </div>
       </section>
-
-
-      {/* Feeling Stuck Section */}
-      <section className="py-20 bg-gradient-subtle">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-primary">
-              Feeling Stuck?
-            </h2>
-            <p className="text-xl text-primary max-w-3xl mx-auto mb-8">
-              You're smart enough to compound over time and strong enough to rebuild your identity from the inside out.
-            </p>
-            <p className="text-xl text-primary max-w-3xl mx-auto mb-8">
-              You don't need another goal. You need an achievable daily win that creates a ripple effect across your entire life.
-            </p>
-            <p className="text-xl text-primary max-w-3xl mx-auto mb-8">
-              If you feel stuck, scattered, or just know you're capable of more, this is your next step.
-            </p>
-            <p className="text-xl text-primary max-w-3xl mx-auto mb-12 font-semibold">
-              One habit today. A different life tomorrow. Let's build it together - one tip at a time.
-            </p>
-            <div className="flex justify-center">
-              <Button variant="outline" size="lg" asChild className="w-full sm:w-auto max-w-sm">
-                <Link to="/blueprint">
-                  Start Your Journey <ArrowRight className="w-5 h-5 ml-2" />
-                </Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Tips Preview Section */}
       <section className="py-32 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -641,21 +609,6 @@ const Home = () => {
               </Link>
             </Button>
           </div>
-        </div>
-      </section>
-
-      {/* Call to Action Section */}
-      <section className="py-20 bg-muted/50">
-        <div className="container max-w-7xl mx-auto px-6 text-center">
-          <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-primary">
-            Ready to Start Your Journey?
-          </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-12">
-            Take the first step towards transforming your daily habits and unlocking your potential.
-          </p>
-          <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 text-lg">
-            <Link to="/feeling-stuck">Start Your Journey Here</Link>
-          </Button>
         </div>
       </section>
     </div>;
