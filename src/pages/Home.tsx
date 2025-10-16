@@ -258,24 +258,24 @@ const Home = () => {
       </section>
 
       {/* The Vessels, The Ripples, & The Journey Section */}
-      <section ref={howRef} className="py-20 bg-gradient-subtle">
+      <section ref={howRef} className="py-20 bg-primary">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-primary">
+            <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-white">
               The Vessel, The Ripples, & The Journey
             </h2>
-            <div className="text-xl text-primary max-w-3xl mx-auto">
+            <div className="text-xl text-white max-w-3xl mx-auto">
               <ul className="space-y-2 text-left">
                 <li className="flex items-start">
-                  <span className="w-2 h-2 bg-primary rounded-full mt-3 mr-3 flex-shrink-0"></span>
+                  <span className="w-2 h-2 bg-white rounded-full mt-3 mr-3 flex-shrink-0"></span>
                   Your body is the vessel. Prime it to make good decisions.
                 </li>
                 <li className="flex items-start">
-                  <span className="w-2 h-2 bg-primary rounded-full mt-3 mr-3 flex-shrink-0"></span>
+                  <span className="w-2 h-2 bg-white rounded-full mt-3 mr-3 flex-shrink-0"></span>
                   Your daily decisions create your ripples. Stack the right ones daily.
                 </li>
                 <li className="flex items-start">
-                  <span className="w-2 h-2 bg-primary rounded-full mt-3 mr-3 flex-shrink-0"></span>
+                  <span className="w-2 h-2 bg-white rounded-full mt-3 mr-3 flex-shrink-0"></span>
                   Your ripples shape your journey. Small wins today create a transformed tomorrow.
                 </li>
               </ul>
@@ -317,35 +317,35 @@ const Home = () => {
           <div className="text-center">
             <Collapsible open={isHowWorkOpen} onOpenChange={handleHowWorkOpenChange}>
               <CollapsibleTrigger asChild>
-                <Button variant="outline" size="lg" ref={howWorkTriggerRef} className="group">
+                <Button variant="outline" size="lg" ref={howWorkTriggerRef} className="group bg-white text-primary hover:bg-white/90 border-white">
                   How BDBT Works for You 
                   <ChevronDown className={`w-5 h-5 ml-2 transition-transform duration-200 ${isHowWorkOpen ? 'rotate-180' : ''}`} />
                 </Button>
               </CollapsibleTrigger>
               <CollapsibleContent ref={howWorkContentRef} className="mt-8">
                 <div className="max-w-4xl mx-auto">
-                  <div className="bg-warning/20 border border-warning/30 rounded-2xl p-8 text-left space-y-6">
+                  <div className="bg-white/10 border border-white/30 rounded-2xl p-8 text-left space-y-6">
                     <div className="grid md:grid-cols-2 gap-8">
                       <div>
-                        <h4 className="text-xl font-semibold text-primary mb-4">The Problem</h4>
-                        <ul className="space-y-3 text-primary">
+                        <h4 className="text-xl font-semibold text-white mb-4">The Problem</h4>
+                        <ul className="space-y-3 text-white">
                           <li className="flex items-start">
-                            <span className="w-2 h-2 bg-primary rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                            <span className="w-2 h-2 bg-white rounded-full mt-2 mr-3 flex-shrink-0"></span>
                             Most self-improvement advice is overwhelming and hard to stick with
                           </li>
                           <li className="flex items-start">
-                            <span className="w-2 h-2 bg-primary rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                            <span className="w-2 h-2 bg-white rounded-full mt-2 mr-3 flex-shrink-0"></span>
                             People try to change too much at once and end up changing nothing
                           </li>
                           <li className="flex items-start">
-                            <span className="w-2 h-2 bg-primary rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                            <span className="w-2 h-2 bg-white rounded-full mt-2 mr-3 flex-shrink-0"></span>
                             Without a system, motivation fades and old habits return
                           </li>
                         </ul>
                       </div>
                       <div>
-                        <h4 className="text-xl font-semibold text-primary mb-4">The BDBT Solution</h4>
-                        <ul className="space-y-3 text-primary">
+                        <h4 className="text-xl font-semibold text-white mb-4">The BDBT Solution</h4>
+                        <ul className="space-y-3 text-white">
                           <li className="flex items-start">
                             <span className="w-2 h-2 bg-success rounded-full mt-2 mr-3 flex-shrink-0"></span>
                             Simple, high impact habits that require minimal time and minimal effort
@@ -361,33 +361,33 @@ const Home = () => {
                         </ul>
                       </div>
                     </div>
-                    <div className="border-t border-warning/20 pt-6">
-                      <h4 className="text-xl font-semibold text-primary mb-4 text-center">What You Get</h4>
+                    <div className="border-t border-white/20 pt-6">
+                      <h4 className="text-xl font-semibold text-white mb-4 text-center">What You Get</h4>
                       <div className="grid md:grid-cols-3 gap-6">
                         <div className="text-center">
-                          <div className="w-16 h-16 bg-primary/10 border-2 border-primary/20 rounded-xl flex items-center justify-center mx-auto mb-3 hover:scale-110 hover:bg-primary/20 hover:border-primary/30 transition-all duration-300">
-                            <FileText className="w-8 h-8 text-primary" />
+                          <div className="w-16 h-16 bg-white/10 border-2 border-white/30 rounded-xl flex items-center justify-center mx-auto mb-3 hover:scale-110 hover:bg-white/20 hover:border-white/40 transition-all duration-300">
+                            <FileText className="w-8 h-8 text-white" />
                           </div>
-                          <h5 className="font-semibold text-primary mb-2">Foundation Blueprint</h5>
-                          <p className="text-sm text-primary">Your guide for spotting drifts, tracking wins and staying on course</p>
+                          <h5 className="font-semibold text-white mb-2">Foundation Blueprint</h5>
+                          <p className="text-sm text-white/90">Your guide for spotting drifts, tracking wins and staying on course</p>
                         </div>
                         <div className="text-center">
-                          <div className="w-16 h-16 bg-primary/10 border-2 border-primary/20 rounded-xl flex items-center justify-center mx-auto mb-3 hover:scale-110 hover:bg-primary/20 hover:border-primary/30 transition-all duration-300">
-                            <Zap className="w-8 h-8 text-primary" />
+                          <div className="w-16 h-16 bg-white/10 border-2 border-white/30 rounded-xl flex items-center justify-center mx-auto mb-3 hover:scale-110 hover:bg-white/20 hover:border-white/40 transition-all duration-300">
+                            <Zap className="w-8 h-8 text-white" />
                           </div>
-                          <h5 className="font-semibold text-primary mb-2">Daily Tips</h5>
-                          <p className="text-sm text-primary">Small daily steps that quietly transform your health, wealth and happiness</p>
+                          <h5 className="font-semibold text-white mb-2">Daily Tips</h5>
+                          <p className="text-sm text-white/90">Small daily steps that quietly transform your health, wealth and happiness</p>
                         </div>
                         <div className="text-center">
-                          <div className="w-16 h-16 bg-primary/10 border-2 border-primary/20 rounded-xl flex items-center justify-center mx-auto mb-3 hover:scale-110 hover:bg-primary/20 hover:border-primary/30 transition-all duration-300">
-                            <Headphones className="w-8 h-8 text-primary" />
+                          <div className="w-16 h-16 bg-white/10 border-2 border-white/30 rounded-xl flex items-center justify-center mx-auto mb-3 hover:scale-110 hover:bg-white/20 hover:border-white/40 transition-all duration-300">
+                            <Headphones className="w-8 h-8 text-white" />
                           </div>
-                          <h5 className="font-semibold text-primary mb-2">BDBT Guidance</h5>
-                          <p className="text-sm text-primary">Daily podcasts, free guides and social posts explaining every tip</p>
+                          <h5 className="font-semibold text-white mb-2">BDBT Guidance</h5>
+                          <p className="text-sm text-white/90">Daily podcasts, free guides and social posts explaining every tip</p>
                         </div>
                       </div>
                     </div>
-                    <div className="text-center pt-4 border-t border-warning/20">
+                    <div className="text-center pt-4 border-t border-white/20">
                       <Button variant="outline" size="lg" asChild>
                         <Link to="/about">
                           Learn More About Our Story <ArrowRight className="w-5 h-5 ml-2" />
@@ -396,26 +396,26 @@ const Home = () => {
                     </div>
 
                     {/* 9 Limiting Beliefs BDBT Breaks - Complete Document */}
-                    <div className="mt-8 pt-8 border-t border-warning/20">
-                      <h4 className="text-xl font-semibold text-primary mb-6 text-center">9 Limiting Beliefs That BDBT Breaks</h4>
+                    <div className="mt-8 pt-8 border-t border-white/20">
+                      <h4 className="text-xl font-semibold text-white mb-6 text-center">9 Limiting Beliefs That BDBT Breaks</h4>
                       
                       <div className="space-y-8">
 
                         {/* Belief #1 */}
                         <div className="space-y-4">
-                          <div className="p-4 bg-background/50 rounded-lg border border-warning/20">
+                          <div className="p-4 bg-white/10 rounded-lg border border-white/20">
                             <div className="flex items-start mb-2">
-                              <span className="w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-0.5 flex-shrink-0">1</span>
+                              <span className="w-6 h-6 bg-white text-primary rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-0.5 flex-shrink-0">1</span>
                               <div>
-                                <h5 className="font-semibold text-primary mb-1">"This is just another self-help system."</h5>
-                                <p className="text-sm text-muted-foreground italic mb-2">Past experience: Tried courses that didn't stick.</p>
-                                <p className="text-sm text-muted-foreground">The story you may now tell yourself: "It's just more fluff. I've heard it all before."</p>
+                                <h5 className="font-semibold text-white mb-1">"This is just another self-help system."</h5>
+                                <p className="text-sm text-white/90 italic mb-2">Past experience: Tried courses that didn't stick.</p>
+                                <p className="text-sm text-white/90">The story you may now tell yourself: "It's just more fluff. I've heard it all before."</p>
                               </div>
                             </div>
                           </div>
                           <div className="pl-8">
-                            <h6 className="font-semibold text-primary mb-2">What I realised:</h6>
-                            <p className="text-sm text-muted-foreground leading-relaxed">
+                            <h6 className="font-semibold text-white mb-2">What I realised:</h6>
+                            <p className="text-sm text-white/90 leading-relaxed">
                               I used to think the same thing. I'd tried courses, books, spreadsheets, planners, and every time I got the same result: a short buzz, then nothing. What changed for me wasn't finding more advice. It was realising that the power wasn't in the information, it was in how you apply it. One evening, after weeks of just doing five minutes of movement in the morning and a 10-minute wind-down routine at night, I realised I wasn't stressed. The kids were calm. I was calm. Nothing in my life had been overhauled, but everything was working better. That's when I realised: this isn't self-help. This is life design. And it works because it's stacked, not scattered.
                             </p>
                           </div>
@@ -423,19 +423,19 @@ const Home = () => {
 
                         {/* Belief #2 */}
                         <div className="space-y-4">
-                          <div className="p-4 bg-background/50 rounded-lg border border-warning/20">
+                          <div className="p-4 bg-white/10 rounded-lg border border-white/20">
                             <div className="flex items-start mb-2">
-                              <span className="w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-0.5 flex-shrink-0">2</span>
+                              <span className="w-6 h-6 bg-white text-primary rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-0.5 flex-shrink-0">2</span>
                               <div>
-                                <h5 className="font-semibold text-primary mb-1">"I already know what to do."</h5>
-                                <p className="text-sm text-muted-foreground italic mb-2">Past experience: Consumed info but didn't apply it.</p>
-                                <p className="text-sm text-muted-foreground">The story you may now tell yourself: "It's my fault. I don't need a system. I just need more willpower."</p>
+                                <h5 className="font-semibold text-white mb-1">"I already know what to do."</h5>
+                                <p className="text-sm text-white/90 italic mb-2">Past experience: Consumed info but didn't apply it.</p>
+                                <p className="text-sm text-white/90">The story you may now tell yourself: "It's my fault. I don't need a system. I just need more willpower."</p>
                               </div>
                             </div>
                           </div>
                           <div className="pl-8">
-                            <h6 className="font-semibold text-primary mb-2">What I realised:</h6>
-                            <p className="text-sm text-muted-foreground leading-relaxed">
+                            <h6 className="font-semibold text-white mb-2">What I realised:</h6>
+                            <p className="text-sm text-white/90 leading-relaxed">
                               For years, I told myself I had all the answers. I'd read the books, listened to the podcasts, taken the notes. I didn't need a system, I needed more willpower. Until one day, I looked at my notes and thought, "If knowing was enough, I'd be thriving by now." That's when it clicked: the problem wasn't knowledge. It was integration. I had all the right pieces, but no structure to make them work together. That's what BDBT gave me, a way to link it all together. The shift came not from more effort, but from better design.
                             </p>
                           </div>
@@ -443,19 +443,19 @@ const Home = () => {
 
                         {/* Belief #3 */}
                         <div className="space-y-4">
-                          <div className="p-4 bg-background/50 rounded-lg border border-warning/20">
+                          <div className="p-4 bg-white/10 rounded-lg border border-white/20">
                             <div className="flex items-start mb-2">
-                              <span className="w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-0.5 flex-shrink-0">3</span>
+                              <span className="w-6 h-6 bg-white text-primary rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-0.5 flex-shrink-0">3</span>
                               <div>
-                                <h5 className="font-semibold text-primary mb-1">"Small habits don't matter."</h5>
-                                <p className="text-sm text-muted-foreground italic mb-2">Past experience: Tried habits but saw no big change.</p>
-                                <p className="text-sm text-muted-foreground">The story you may now tell yourself: "Tiny changes don't add up to anything meaningful."</p>
+                                <h5 className="font-semibold text-white mb-1">"Small habits don't matter."</h5>
+                                <p className="text-sm text-white/90 italic mb-2">Past experience: Tried habits but saw no big change.</p>
+                                <p className="text-sm text-white/90">The story you may now tell yourself: "Tiny changes don't add up to anything meaningful."</p>
                               </div>
                             </div>
                           </div>
                           <div className="pl-8">
-                            <h6 className="font-semibold text-primary mb-2">What I realised:</h6>
-                            <p className="text-sm text-muted-foreground leading-relaxed">
+                            <h6 className="font-semibold text-white mb-2">What I realised:</h6>
+                            <p className="text-sm text-white/90 leading-relaxed">
                               I used to chase big results, big transformations, big declarations, big overhauls. But they never lasted. What finally changed everything was going small. I didn't try to change my diet, routine, mindset, finances all at once. I started with a 5-minute morning movement, a 2-minute budget ritual, and a 5-minute evening reflection. That's it. And over time, I saw the ripple: I was calmer, sharper, saving money, moving more. The small things became the big change. That's when I realised, it's not about how much you do. It's about where the ripples go.
                             </p>
                           </div>
@@ -463,19 +463,19 @@ const Home = () => {
 
                         {/* Belief #4 */}
                         <div className="space-y-4">
-                          <div className="p-4 bg-background/50 rounded-lg border border-warning/20">
+                          <div className="p-4 bg-white/10 rounded-lg border border-white/20">
                             <div className="flex items-start mb-2">
-                              <span className="w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-0.5 flex-shrink-0">4</span>
+                              <span className="w-6 h-6 bg-white text-primary rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-0.5 flex-shrink-0">4</span>
                               <div>
-                                <h5 className="font-semibold text-primary mb-1">"I'm too busy."</h5>
-                                <p className="text-sm text-muted-foreground italic mb-2">Past experience: Overloaded schedule, past failures.</p>
-                                <p className="text-sm text-muted-foreground">The story you may now tell yourself: "There's no space for more. I'll just burn out."</p>
+                                <h5 className="font-semibold text-white mb-1">"I'm too busy."</h5>
+                                <p className="text-sm text-white/90 italic mb-2">Past experience: Overloaded schedule, past failures.</p>
+                                <p className="text-sm text-white/90">The story you may now tell yourself: "There's no space for more. I'll just burn out."</p>
                               </div>
                             </div>
                           </div>
                           <div className="pl-8">
-                            <h6 className="font-semibold text-primary mb-2">What I realised:</h6>
-                            <p className="text-sm text-muted-foreground leading-relaxed">
+                            <h6 className="font-semibold text-white mb-2">What I realised:</h6>
+                            <p className="text-sm text-white/90 leading-relaxed">
                               When I became a single dad 50% of the week, with a business to run the other 50%, I genuinely believed there was no room for anything. But the truth was, my time was leaking through the cracks, endless scrolling, takeaways, decision fatigue, disorganised evenings. I didn't need more time, I needed more structure. Just five minutes of the right habit gave me time back. I got calmer, more present, more productive and the chaos slowed down. That's when I realised: busyness isn't the enemy. Drift is.
                             </p>
                           </div>
@@ -483,19 +483,19 @@ const Home = () => {
 
                         {/* Belief #5 */}
                         <div className="space-y-4">
-                          <div className="p-4 bg-background/50 rounded-lg border border-warning/20">
+                          <div className="p-4 bg-white/10 rounded-lg border border-white/20">
                             <div className="flex items-start mb-2">
-                              <span className="w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-0.5 flex-shrink-0">5</span>
+                              <span className="w-6 h-6 bg-white text-primary rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-0.5 flex-shrink-0">5</span>
                               <div>
-                                <h5 className="font-semibold text-primary mb-1">"I always fail."</h5>
-                                <p className="text-sm text-muted-foreground italic mb-2">Past experience: Repeated broken promises to self.</p>
-                                <p className="text-sm text-muted-foreground">The story you may now tell yourself: "Why bother? I'll just quit again."</p>
+                                <h5 className="font-semibold text-white mb-1">"I always fail."</h5>
+                                <p className="text-sm text-white/90 italic mb-2">Past experience: Repeated broken promises to self.</p>
+                                <p className="text-sm text-white/90">The story you may now tell yourself: "Why bother? I'll just quit again."</p>
                               </div>
                             </div>
                           </div>
                           <div className="pl-8">
-                            <h6 className="font-semibold text-primary mb-2">What I realised:</h6>
-                            <p className="text-sm text-muted-foreground leading-relaxed">
+                            <h6 className="font-semibold text-white mb-2">What I realised:</h6>
+                            <p className="text-sm text-white/90 leading-relaxed">
                               I've started and quit more habits than I can count. What changed wasn't that I suddenly became more disciplined, it was that I finally stopped relying on motivation. I built habits that could survive bad days. Even if I only hit 70%, I kept moving forward. That was the difference: not perfection, but momentum. One month in, I realised this was sticking because it wasn't designed for a perfect version of me. It was designed for the real me. The one with kids, work, mess, and stress.
                             </p>
                           </div>
@@ -503,19 +503,19 @@ const Home = () => {
 
                         {/* Belief #6 */}
                         <div className="space-y-4">
-                          <div className="p-4 bg-background/50 rounded-lg border border-warning/20">
+                          <div className="p-4 bg-white/10 rounded-lg border border-white/20">
                             <div className="flex items-start mb-2">
-                              <span className="w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-0.5 flex-shrink-0">6</span>
+                              <span className="w-6 h-6 bg-white text-primary rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-0.5 flex-shrink-0">6</span>
                               <div>
-                                <h5 className="font-semibold text-primary mb-1">"I'm too old to change."</h5>
-                                <p className="text-sm text-muted-foreground italic mb-2">Past experience: Feels stuck, sees others succeed.</p>
-                                <p className="text-sm text-muted-foreground">The story you may now tell yourself: "It's too late for me. This works for them, not me."</p>
+                                <h5 className="font-semibold text-white mb-1">"I'm too old to change."</h5>
+                                <p className="text-sm text-white/90 italic mb-2">Past experience: Feels stuck, sees others succeed.</p>
+                                <p className="text-sm text-white/90">The story you may now tell yourself: "It's too late for me. This works for them, not me."</p>
                               </div>
                             </div>
                           </div>
                           <div className="pl-8">
-                            <h6 className="font-semibold text-primary mb-2">What I realised:</h6>
-                            <p className="text-sm text-muted-foreground leading-relaxed">
+                            <h6 className="font-semibold text-white mb-2">What I realised:</h6>
+                            <p className="text-sm text-white/90 leading-relaxed">
                               I'm not a superhuman biohacker. I'm not an influencer. I'm just a guy who had to figure out how to stay sane and strong while raising two kids, running a business, and trying not to burn out. I didn't "overhaul" anything. I just started stacking little wins. A few minutes a day. A few small decisions. And over time, they added up to a completely different direction. That's when I realised people like me don't change everything overnight. But we can change the trajectory. And that's what really matters.
                             </p>
                           </div>
@@ -523,19 +523,19 @@ const Home = () => {
 
                         {/* Belief #7 */}
                         <div className="space-y-4">
-                          <div className="p-4 bg-background/50 rounded-lg border border-warning/20">
+                          <div className="p-4 bg-white/10 rounded-lg border border-white/20">
                             <div className="flex items-start mb-2">
-                              <span className="w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-0.5 flex-shrink-0">7</span>
+                              <span className="w-6 h-6 bg-white text-primary rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-0.5 flex-shrink-0">7</span>
                               <div>
-                                <h5 className="font-semibold text-primary mb-1">"My environment will derail me."</h5>
-                                <p className="text-sm text-muted-foreground italic mb-2">Past experience: Family/friends discourage progress.</p>
-                                <p className="text-sm text-muted-foreground">The story you may now tell yourself: "What's the point? I'll get dragged back down."</p>
+                                <h5 className="font-semibold text-white mb-1">"My environment will derail me."</h5>
+                                <p className="text-sm text-white/90 italic mb-2">Past experience: Family/friends discourage progress.</p>
+                                <p className="text-sm text-white/90">The story you may now tell yourself: "What's the point? I'll get dragged back down."</p>
                               </div>
                             </div>
                           </div>
                           <div className="pl-8">
-                            <h6 className="font-semibold text-primary mb-2">What I realised:</h6>
-                            <p className="text-sm text-muted-foreground leading-relaxed">
+                            <h6 className="font-semibold text-white mb-2">What I realised:</h6>
+                            <p className="text-sm text-white/90 leading-relaxed">
                               When I started building my system, I worried I'd get derailed by everything around me, social invites, the kids' routines, other people's chaos. But what I found was that I became the anchor. When I stuck to my simple habits, not perfectly, but consistently, the people around me actually adjusted. I wasn't preaching, I was just showing up better. And slowly, that had more impact than anything I'd said. That's when I realised: the strongest ripple comes from living it, not talking about it.
                             </p>
                           </div>
@@ -543,19 +543,19 @@ const Home = () => {
 
                         {/* Belief #8 */}
                         <div className="space-y-4">
-                          <div className="p-4 bg-background/50 rounded-lg border border-warning/20">
+                          <div className="p-4 bg-white/10 rounded-lg border border-white/20">
                             <div className="flex items-start mb-2">
-                              <span className="w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-0.5 flex-shrink-0">8</span>
+                              <span className="w-6 h-6 bg-white text-primary rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-0.5 flex-shrink-0">8</span>
                               <div>
-                                <h5 className="font-semibold text-primary mb-1">"My loved ones won't change."</h5>
-                                <p className="text-sm text-muted-foreground italic mb-2">Past experience: Tried helping others to no avail.</p>
-                                <p className="text-sm text-muted-foreground">The story you may now tell yourself: "If they won't change, why should I? I'll just stay where I am."</p>
+                                <h5 className="font-semibold text-white mb-1">"My loved ones won't change."</h5>
+                                <p className="text-sm text-white/90 italic mb-2">Past experience: Tried helping others to no avail.</p>
+                                <p className="text-sm text-white/90">The story you may now tell yourself: "If they won't change, why should I? I'll just stay where I am."</p>
                               </div>
                             </div>
                           </div>
                           <div className="pl-8">
-                            <h6 className="font-semibold text-primary mb-2">What I realised:</h6>
-                            <p className="text-sm text-muted-foreground leading-relaxed">
+                            <h6 className="font-semibold text-white mb-2">What I realised:</h6>
+                            <p className="text-sm text-white/90 leading-relaxed">
                               Watching people you love drift is hard. I've seen it in my own family and no matter how much I care, they don't always want to hear it from me. That's painful. But what keeps me going is the belief that if I can be the voice someone else's loved one listens to, then I've done my job. I might not reach my family directly, but someone else might. And in return, I might be the person your family finally hears. That's what this movement is about. Ripples reaching where we can't.
                             </p>
                           </div>
@@ -563,19 +563,19 @@ const Home = () => {
 
                         {/* Belief #9 */}
                         <div className="space-y-4">
-                          <div className="p-4 bg-background/50 rounded-lg border border-warning/20">
+                          <div className="p-4 bg-white/10 rounded-lg border border-white/20">
                             <div className="flex items-start mb-2">
-                              <span className="w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-0.5 flex-shrink-0">9</span>
+                              <span className="w-6 h-6 bg-white text-primary rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-0.5 flex-shrink-0">9</span>
                               <div>
-                                <h5 className="font-semibold text-primary mb-1">"I'll start when life calms down."</h5>
-                                <p className="text-sm text-muted-foreground italic mb-2">Past experience: Life always interrupts change.</p>
-                                <p className="text-sm text-muted-foreground">The story you may now tell yourself: "Now isn't the time, it's too hectic to start anything new."</p>
+                                <h5 className="font-semibold text-white mb-1">"I'll start when life calms down."</h5>
+                                <p className="text-sm text-white/90 italic mb-2">Past experience: Life always interrupts change.</p>
+                                <p className="text-sm text-white/90">The story you may now tell yourself: "Now isn't the time, it's too hectic to start anything new."</p>
                               </div>
                             </div>
                           </div>
                           <div className="pl-8">
-                            <h6 className="font-semibold text-primary mb-2">What I realised:</h6>
-                            <p className="text-sm text-muted-foreground leading-relaxed">
+                            <h6 className="font-semibold text-white mb-2">What I realised:</h6>
+                            <p className="text-sm text-white/90 leading-relaxed">
                               I used to think the same. "I'll start when work slows down. When the kids are older. When things feel more manageable." But that perfect moment never came. The truth is, life never calms down. And once I realised that, I stopped waiting. I started anyway, with 5 minutes a day. That's all I could give, and that's all I needed. A few weeks in, things didn't feel calmer but I did. I realised I didn't need a better life to start. I just needed a better system to start in the life I already had.
                             </p>
                           </div>
@@ -613,15 +613,15 @@ const Home = () => {
       </section>
 
       {/* Call to Action Section */}
-      <section className="py-20 bg-muted/50">
+      <section className="py-20 bg-primary">
         <div className="container max-w-7xl mx-auto px-6 text-center">
-          <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-primary">
+          <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-white">
             Ready to Start Your Journey?
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-12">
+          <p className="text-xl text-white max-w-2xl mx-auto mb-12">
             Take the first step towards transforming your daily habits and unlocking your potential.
           </p>
-          <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 text-lg">
+          <Button asChild size="lg" className="bg-white hover:bg-white/90 text-primary px-8 py-6 text-lg">
             <Link to="/feeling-stuck">Start Your Journey Here</Link>
           </Button>
         </div>
