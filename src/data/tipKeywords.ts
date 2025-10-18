@@ -7,7 +7,7 @@ export const tipKeywordMap: Record<string, string> = {
   "6MonthBuffer": "Build a 6 month emergency Buffer Fund",
   "80%Full": "Be more japanese eat until 80% full",
   "Abs30": "30 benefits of using an ab roller",
-  "Animals": "Connect with more animals",
+  "Animals": "Connect with More Animals",
   "Anxiety": "Try Natural anxiety fixes",
   "Bath": "Have more baths",
   "Binge": "Say goodbye to netflix, prime & binge watching",
