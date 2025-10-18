@@ -1908,13 +1908,37 @@ const Tips = () => {
       if (matchedKeyword) {
         const tipTitle = tipKeywordMap[matchedKeyword];
         
+        // Mobile and iOS detection
+        const isMobile = window.innerWidth < 768;
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+        const scrollDelay = isMobile ? 800 : 500;
+        
         setTimeout(() => {
           handleTipHighlight(tipTitle);
-          const element = document.querySelector(`[data-tip-title="${tipTitle}"]`);
+          const element = document.querySelector(`[data-tip-title="${tipTitle}"]`) as HTMLElement;
+          
           if (element) {
-            element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            if (isIOS) {
+              // iOS Safari needs special handling for dynamic UI bars
+              element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              // Force repaint
+              element.offsetHeight;
+              // Secondary scroll after UI bars settle
+              setTimeout(() => {
+                window.scrollBy({ top: -60, behavior: 'smooth' });
+              }, 400);
+            } else if (isMobile) {
+              // Standard mobile: scroll to start with offset for header
+              element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              setTimeout(() => {
+                window.scrollBy({ top: -80, behavior: 'smooth' });
+              }, 600);
+            } else {
+              // Desktop: center positioning
+              element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
           }
-        }, 500);
+        }, scrollDelay);
       }
     }
   }, [keyword]);
@@ -1971,9 +1995,9 @@ const Tips = () => {
               <div
                 key={tip.title}
                 data-tip-title={tip.title}
-                className={`animate-fade-in ${
+                className={`animate-fade-in transition-all duration-300 ${
                   highlightedTip === tip.title 
-                    ? 'shadow-[0_0_0_4px_rgba(59,130,246,0.5)] rounded-lg' 
+                    ? 'shadow-[0_0_0_4px_rgba(59,130,246,0.6)] md:shadow-[0_0_0_4px_rgba(59,130,246,0.5)] ring-4 ring-blue-400/30 rounded-lg scale-[1.02]' 
                     : ''
                 }`}
                 style={{ animationDelay: `${400 + index * 100}ms` }}
