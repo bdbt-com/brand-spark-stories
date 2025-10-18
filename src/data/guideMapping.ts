@@ -98,7 +98,7 @@ export const guideMapping: Record<string, string> = {
   "30 Benefits of Activating Your Brown Fat": "https://drive.google.com/uc?export=download&id=1OLiuSZrj5VGV05RKXeZMp7LU4iE1l1XE",
   "25 Ways to Prevent or Delay Sarcopenia": "https://drive.google.com/uc?export=download&id=1ahwepdM48mVTN3I0rjjeXQyQZ6qg4POv",
   "BDBT Foundation Blueprint": "https://drive.google.com/uc?export=download&id=1oe0o2fqoSbO3RnVreamjVd4B8YUQbZN_",
-  "Buy 3 for 2 in Bulk and Store Them": "https://drive.google.com/uc?export=download&id=1v4aggKhcMtLJ8COhT-4vyUOe1GKizNZn",
+  "Buy 3 for 2 in bulk and store them": "https://drive.google.com/uc?export=download&id=1v4aggKhcMtLJ8COhT-4vyUOe1GKizNZn",
   "Do a Spending Freeze Challenge for a Week": "https://drive.google.com/uc?export=download&id=1XvJ5SNWNAdr2paXMgQrcfs67cNOmrV9Z",
   "Do 5 Minutes of Jumping Jacks or Skipping Daily": "https://drive.google.com/uc?export=download&id=1HZuE6etLxvdAfYPkzswR2D7cbSwf_QiE",
   "Do Food Shops with Handbaskets Not Trolleys": "https://drive.google.com/uc?export=download&id=1vVRTscQqJyBIuhZ5mWSHCmWHwkmvRqCZ",

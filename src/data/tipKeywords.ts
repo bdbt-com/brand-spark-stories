@@ -10,6 +10,7 @@ export const tipKeywordMap: Record<string, string> = {
   "Bath": "Have More Baths",
   "BloodSugar": "Understand High Blood Sugar",
   "BodyComposition": "Body Composition",
+  "Bootsale": "Sell Unused Items",
   "Borrow": "Borrow or Rent Items",
   "Breathing": "Breath Deeply for 60 Seconds, Twice a Day",
   "BuyGeneric": "Buy Generic Store-Brand Products Instead of Big Name Brands",

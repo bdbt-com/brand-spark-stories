@@ -233,6 +233,22 @@ const Tips = () => {
       dateAdded: "2024-01-13"
     },
     {
+      icon: ShoppingBasket,
+      title: "Buy 3 for 2 in bulk and store them",
+      description: "Strategic bulk buying to maximize promotional offers.",
+      items: [
+        "Health: Ensures consistent supply of healthy essentials at home",
+        "Wealth: Significant savings through promotional bulk purchases",
+        "Happiness: Reduces shopping frequency and decision fatigue"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "finance",
+      popularity: 40,
+      views: 0,
+      dateAdded: "2024-01-13"
+    },
+    {
       icon: Utensils,
       title: "Be More Japanese Eat Until 80% Full",
       description: "Ancient wisdom for portion control and digestive health.",
