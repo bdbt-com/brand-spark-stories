@@ -15,12 +15,14 @@ import {
   Camera, Music, Gift, Star, Gamepad2, ThumbsUp, CheckCircle, Award, Trophy,
   Briefcase, Calculator, X
 } from "lucide-react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
+import { tipKeywordMap } from "@/data/tipKeywords";
 
 const Tips = () => {
   const [sortBy, setSortBy] = useState("newest");
   const [highlightedTip, setHighlightedTip] = useState<string | null>(null);
   const location = useLocation();
+  const { keyword } = useParams<{ keyword?: string }>();
 
   const tipCategories = [
     {
@@ -1888,6 +1890,34 @@ const Tips = () => {
       window.history.replaceState({}, document.title);
     }
   }, [location.state]);
+
+  // Handle URL keyword parameter for direct tip links
+  useEffect(() => {
+    if (keyword) {
+      const normalizeSearchTerm = (term: string): string => {
+        return term.toLowerCase()
+          .replace(/[-_\s]/g, '')
+          .replace(/['"]/g, '');
+      };
+      
+      const keywordNormalized = normalizeSearchTerm(keyword);
+      const matchedKeyword = Object.keys(tipKeywordMap).find(
+        key => normalizeSearchTerm(key) === keywordNormalized
+      );
+      
+      if (matchedKeyword) {
+        const tipTitle = tipKeywordMap[matchedKeyword];
+        
+        setTimeout(() => {
+          handleTipHighlight(tipTitle);
+          const element = document.querySelector(`[data-tip-title="${tipTitle}"]`);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+        }, 500);
+      }
+    }
+  }, [keyword]);
 
   return (
     <div className="min-h-screen bg-gradient-subtle">
