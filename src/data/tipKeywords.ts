@@ -110,6 +110,14 @@ export const tipKeywordMap: Record<string, string> = {
   "Zone2": "Spend Time in Zone 2 Each Week",
   "OnlineCourse": "Take a Free Online Course",
   "TimeInMarket": "Time in the Market vs Timing the Market",
+  "Blueprint": "BDBT Foundation Blueprint",
+  "Brownfat30": "30 Benefits of Activating Your Brown Fat",
+  "Sarcopenia": "25 Ways to Prevent or Delay Sarcopenia",
+  "ChoresFriends": "Do 30 Benefits of Doing Chores with Friends",
+  "LifestyleInflation": "Don't Upgrade Your Lifestyle with Every Pay Rise",
+  "ParkFurther": "Park Further Away",
+  "Meditation": "Take Up Meditation",
+  "LoyaltySchemes": "Top 88 Retail Loyalty Schemes for Maximum Savings",
 };
 
 // Export reverse map for reference (title to keywords)

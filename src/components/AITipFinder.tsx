@@ -23,10 +23,9 @@ interface AITipFinderProps {
     items: string[];
   }>;
   onTipHighlight: (tipTitle: string) => void;
-  onKeywordMatch: (tipTitle: string | null) => void;
 }
 
-const AITipFinder = ({ tips, onTipHighlight, onKeywordMatch }: AITipFinderProps) => {
+const AITipFinder = ({ tips, onTipHighlight }: AITipFinderProps) => {
   const [userInput, setUserInput] = useState("");
   const [recommendations, setRecommendations] = useState<TipRecommendation[]>([]);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
@@ -82,11 +81,20 @@ const AITipFinder = ({ tips, onTipHighlight, onKeywordMatch }: AITipFinderProps)
       );
       
       if (tipExists) {
-        onKeywordMatch(tipTitle);
+        onTipHighlight(tipTitle);
         setIsOpen(false);
+        
+        // Scroll to the tip after a brief delay
+        setTimeout(() => {
+          const element = document.querySelector(`[data-tip-title="${tipTitle}"]`);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+        }, 100);
+        
         toast({
           title: "Tip Found!",
-          description: `Showing: "${tipTitle}"`,
+          description: `Scrolling to: "${tipTitle}"`,
         });
         return;
       } else {

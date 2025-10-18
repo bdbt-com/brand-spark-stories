@@ -20,7 +20,6 @@ import { Link, useLocation } from "react-router-dom";
 const Tips = () => {
   const [sortBy, setSortBy] = useState("newest");
   const [highlightedTip, setHighlightedTip] = useState<string | null>(null);
-  const [keywordFilter, setKeywordFilter] = useState<string | null>(null);
   const location = useLocation();
 
   const tipCategories = [
@@ -1719,18 +1718,138 @@ const Tips = () => {
       popularity: 34,
       views: 0,
       dateAdded: "2024-04-17"
+    },
+    {
+      icon: Flame,
+      title: "30 Benefits of Activating Your Brown Fat",
+      description: "Discover how brown fat activation boosts metabolism and health.",
+      items: [
+        "Health: Activates thermogenesis for natural calorie burning",
+        "Wealth: Free metabolic boost without supplements or equipment",
+        "Happiness: Increased energy and vitality from metabolic efficiency"
+      ],
+      level: "Moderate",
+      duration: "6 min read",
+      category: "health",
+      popularity: 40,
+      views: 0,
+      dateAdded: "2024-01-18"
+    },
+    {
+      icon: Dumbbell,
+      title: "25 Ways to Prevent or Delay Sarcopenia",
+      description: "Age-related muscle loss prevention strategies.",
+      items: [
+        "Health: Maintains functional strength and mobility as you age",
+        "Wealth: Prevents costly falls and medical interventions",
+        "Happiness: Independence and quality of life preservation"
+      ],
+      level: "Moderate",
+      duration: "5 min read",
+      category: "fitness",
+      popularity: 45,
+      views: 0,
+      dateAdded: "2024-01-19"
+    },
+    {
+      icon: Map,
+      title: "BDBT Foundation Blueprint",
+      description: "Your complete roadmap to transforming health, wealth and happiness.",
+      items: [
+        "Health: Comprehensive wellness framework for daily improvement",
+        "Wealth: Strategic financial planning integrated into lifestyle",
+        "Happiness: Holistic approach to sustainable life transformation"
+      ],
+      level: "Moderate",
+      duration: "10 min read",
+      category: "learning",
+      popularity: 85,
+      views: 0,
+      dateAdded: "2024-01-20"
+    },
+    {
+      icon: Users,
+      title: "Do 30 Benefits of Doing Chores with Friends",
+      description: "Transform mundane tasks into social connection opportunities.",
+      items: [
+        "Health: Physical activity while maintaining social bonds",
+        "Wealth: Shared effort reduces individual time and cost burdens",
+        "Happiness: Making chores enjoyable through companionship"
+      ],
+      level: "Easy",
+      duration: "4 min read",
+      category: "wellness",
+      popularity: 36,
+      views: 0,
+      dateAdded: "2024-01-21"
+    },
+    {
+      icon: TrendingUp,
+      title: "Don't Upgrade Your Lifestyle with Every Pay Rise",
+      description: "Lifestyle inflation prevention for wealth accumulation.",
+      items: [
+        "Health: Reduces financial stress from keeping up appearances",
+        "Wealth: Accelerates savings and investment growth exponentially",
+        "Happiness: Freedom from comparison and status-seeking stress"
+      ],
+      level: "Moderate",
+      duration: "5 min read",
+      category: "finance",
+      popularity: 70,
+      views: 0,
+      dateAdded: "2024-01-22"
+    },
+    {
+      icon: Car,
+      title: "Park Further Away",
+      description: "Simple parking strategy for effortless daily exercise.",
+      items: [
+        "Health: Adds 10-15 minutes of walking to daily routine",
+        "Wealth: Reduces parking stress and vehicle door damage risk",
+        "Happiness: Peaceful walk transitions between activities"
+      ],
+      level: "Easy",
+      duration: "2 min read",
+      category: "fitness",
+      popularity: 38,
+      views: 0,
+      dateAdded: "2024-01-23"
+    },
+    {
+      icon: Brain,
+      title: "Take Up Meditation",
+      description: "Mindfulness practice for mental clarity and stress reduction.",
+      items: [
+        "Health: Lowers blood pressure and reduces anxiety naturally",
+        "Wealth: Free mental health support with profound benefits",
+        "Happiness: Inner peace and emotional regulation improvement"
+      ],
+      level: "Moderate",
+      duration: "5 min read",
+      category: "mindfulness",
+      popularity: 67,
+      views: 0,
+      dateAdded: "2024-01-24"
+    },
+    {
+      icon: Award,
+      title: "Top 88 Retail Loyalty Schemes for Maximum Savings",
+      description: "Comprehensive guide to maximizing loyalty program benefits.",
+      items: [
+        "Health: Access to discounts on healthy food and wellness products",
+        "Wealth: Significant savings through strategic loyalty program use",
+        "Happiness: Reward satisfaction from maximizing everyday spending"
+      ],
+      level: "Easy",
+      duration: "8 min read",
+      category: "finance",
+      popularity: 55,
+      views: 0,
+      dateAdded: "2024-01-25"
     }
   ];
 
   const sortedAndFilteredTips = useMemo(() => {
-    // If keyword filter is active, show only that tip
-    if (keywordFilter) {
-      return tipCategories.filter(tip => 
-        tip.title.toLowerCase() === keywordFilter.toLowerCase()
-      );
-    }
-    
-    // Otherwise, apply normal sorting
     let tips = [...tipCategories];
     
     switch (sortBy) {
@@ -1743,7 +1862,7 @@ const Tips = () => {
       default:
         return tips;
     }
-  }, [sortBy, keywordFilter]);
+  }, [sortBy]);
 
   const handleTipHighlight = (tipTitle: string) => {
     setHighlightedTip(tipTitle);
@@ -1811,30 +1930,7 @@ const Tips = () => {
 
       {/* AI Tip Finder */}
       <div className="animate-fade-in" style={{ animationDelay: "200ms" }}>
-        {/* Keyword Filter Indicator */}
-        {keywordFilter && (
-          <div className="mb-6 p-4 bg-primary/10 border border-primary/20 rounded-lg flex items-center justify-between max-w-4xl mx-auto">
-            <div>
-              <p className="text-sm font-medium">
-                Showing tip: <span className="text-primary">{keywordFilter}</span>
-              </p>
-              <p className="text-xs text-muted-foreground mt-1">
-                Keyword search result
-              </p>
-            </div>
-            <Button 
-              onClick={() => setKeywordFilter(null)}
-              variant="outline"
-              size="sm"
-              className="ml-4"
-            >
-              <X className="w-4 h-4 mr-2" />
-              Clear Filter
-            </Button>
-          </div>
-        )}
-        
-        <AITipFinder tips={tipCategories} onTipHighlight={handleTipHighlight} onKeywordMatch={setKeywordFilter} />
+        <AITipFinder tips={tipCategories} onTipHighlight={handleTipHighlight} />
       </div>
 
       {/* Tips Grid */}
@@ -1862,9 +1958,7 @@ const Tips = () => {
           {sortedAndFilteredTips.length === 0 && (
             <div className="text-center py-12 animate-fade-in">
               <p className="text-muted-foreground text-lg mb-4">
-                {keywordFilter 
-                  ? "This tip hasn't been added yet. Try clearing the filter to see all tips."
-                  : "No guides found."}
+                No guides found.
               </p>
             </div>
           )}
