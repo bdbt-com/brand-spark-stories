@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Brain, Search, Lightbulb, Target, Loader2, ChevronDown, ChevronUp } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { tipKeywordMap } from "@/data/tipKeywords";
 
 interface TipRecommendation {
   title: string;
@@ -22,9 +23,10 @@ interface AITipFinderProps {
     items: string[];
   }>;
   onTipHighlight: (tipTitle: string) => void;
+  onKeywordMatch: (tipTitle: string | null) => void;
 }
 
-const AITipFinder = ({ tips, onTipHighlight }: AITipFinderProps) => {
+const AITipFinder = ({ tips, onTipHighlight, onKeywordMatch }: AITipFinderProps) => {
   const [userInput, setUserInput] = useState("");
   const [recommendations, setRecommendations] = useState<TipRecommendation[]>([]);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
@@ -63,6 +65,38 @@ const AITipFinder = ({ tips, onTipHighlight }: AITipFinderProps) => {
     if (searchLower.includes('community')) {
       navigate('/community');
       return;
+    }
+
+    // Check for exact keyword match (case-insensitive)
+    const inputTrimmed = userInput.trim();
+    const matchedKeyword = Object.keys(tipKeywordMap).find(
+      keyword => keyword.toLowerCase() === inputTrimmed.toLowerCase()
+    );
+
+    if (matchedKeyword) {
+      const tipTitle = tipKeywordMap[matchedKeyword];
+      
+      // Check if the tip actually exists in the tips array
+      const tipExists = tips.find(tip => 
+        tip.title.toLowerCase() === tipTitle.toLowerCase()
+      );
+      
+      if (tipExists) {
+        onKeywordMatch(tipTitle);
+        setIsOpen(false);
+        toast({
+          title: "Tip Found!",
+          description: `Showing: "${tipTitle}"`,
+        });
+        return;
+      } else {
+        toast({
+          title: "Tip Not Available",
+          description: `The tip "${tipTitle}" hasn't been added yet. Searching for similar tips...`,
+          variant: "destructive",
+        });
+        // Fall through to fuzzy search
+      }
     }
 
     setIsAnalyzing(true);

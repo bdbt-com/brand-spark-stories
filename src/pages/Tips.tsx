@@ -13,13 +13,14 @@ import {
   RotateCcw, Apple, Minus, Wind, Bus, Pill, Leaf, Users, XCircle, BookOpen,
   PenTool, Brain, Clock, Timer, Target, Lightbulb, Home, Utensils, Bed,
   Camera, Music, Gift, Star, Gamepad2, ThumbsUp, CheckCircle, Award, Trophy,
-  Briefcase, Calculator
+  Briefcase, Calculator, X
 } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 
 const Tips = () => {
   const [sortBy, setSortBy] = useState("newest");
   const [highlightedTip, setHighlightedTip] = useState<string | null>(null);
+  const [keywordFilter, setKeywordFilter] = useState<string | null>(null);
   const location = useLocation();
 
   const tipCategories = [
@@ -1706,6 +1707,14 @@ const Tips = () => {
   ];
 
   const sortedAndFilteredTips = useMemo(() => {
+    // If keyword filter is active, show only that tip
+    if (keywordFilter) {
+      return tipCategories.filter(tip => 
+        tip.title.toLowerCase() === keywordFilter.toLowerCase()
+      );
+    }
+    
+    // Otherwise, apply normal sorting
     let tips = [...tipCategories];
     
     switch (sortBy) {
@@ -1718,7 +1727,7 @@ const Tips = () => {
       default:
         return tips;
     }
-  }, [sortBy]);
+  }, [sortBy, keywordFilter]);
 
   const handleTipHighlight = (tipTitle: string) => {
     setHighlightedTip(tipTitle);
@@ -1786,7 +1795,30 @@ const Tips = () => {
 
       {/* AI Tip Finder */}
       <div className="animate-fade-in" style={{ animationDelay: "200ms" }}>
-        <AITipFinder tips={tipCategories} onTipHighlight={handleTipHighlight} />
+        {/* Keyword Filter Indicator */}
+        {keywordFilter && (
+          <div className="mb-6 p-4 bg-primary/10 border border-primary/20 rounded-lg flex items-center justify-between max-w-4xl mx-auto">
+            <div>
+              <p className="text-sm font-medium">
+                Showing tip: <span className="text-primary">{keywordFilter}</span>
+              </p>
+              <p className="text-xs text-muted-foreground mt-1">
+                Keyword search result
+              </p>
+            </div>
+            <Button 
+              onClick={() => setKeywordFilter(null)}
+              variant="outline"
+              size="sm"
+              className="ml-4"
+            >
+              <X className="w-4 h-4 mr-2" />
+              Clear Filter
+            </Button>
+          </div>
+        )}
+        
+        <AITipFinder tips={tipCategories} onTipHighlight={handleTipHighlight} onKeywordMatch={setKeywordFilter} />
       </div>
 
       {/* Tips Grid */}
@@ -1814,7 +1846,9 @@ const Tips = () => {
           {sortedAndFilteredTips.length === 0 && (
             <div className="text-center py-12 animate-fade-in">
               <p className="text-muted-foreground text-lg mb-4">
-                No guides found.
+                {keywordFilter 
+                  ? "This tip hasn't been added yet. Try clearing the filter to see all tips."
+                  : "No guides found."}
               </p>
             </div>
           )}
