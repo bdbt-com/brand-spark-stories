@@ -1,6 +1,8 @@
 // Keyword to Tip Title mapping based on master_merged.xlsx
 export const tipKeywordMap: Record<string, string> = {
   "3 for 2": "Buy 3 for 2 in bulk and store them",
+  "3-for-2": "Buy 3 for 2 in bulk and store them",
+  "3for2": "Buy 3 for 2 in bulk and store them",
   "5-min-mobility": "Add 5-Minute Mobility Routine to Your Day",
   "6MonthBuffer": "Build a 6-Month Emergency Buffer Fund",
   "80%Full": "Be More Japanese Eat Until 80% Full",
@@ -11,6 +13,8 @@ export const tipKeywordMap: Record<string, string> = {
   "BloodSugar": "Understand High Blood Sugar",
   "BodyComposition": "Body Composition",
   "Bootsale": "Sell Unused Items",
+  "boot-sale": "Sell Unused Items",
+  "boot sale": "Sell Unused Items",
   "Borrow": "Borrow or Rent Items",
   "Breathing": "Breath Deeply for 60 Seconds, Twice a Day",
   "BuyGeneric": "Buy Generic Store-Brand Products Instead of Big Name Brands",

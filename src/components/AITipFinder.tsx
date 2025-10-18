@@ -66,10 +66,18 @@ const AITipFinder = ({ tips, onTipHighlight }: AITipFinderProps) => {
       return;
     }
 
-    // Check for exact keyword match (case-insensitive)
+    // Normalize search term by removing hyphens, underscores, spaces, and quotes
+    const normalizeSearchTerm = (term: string): string => {
+      return term.toLowerCase()
+        .replace(/[-_\s]/g, '') // Remove hyphens, underscores, spaces
+        .replace(/['"]/g, '');   // Remove quotes
+    };
+
+    // Check for keyword match with normalization
     const inputTrimmed = userInput.trim();
+    const inputNormalized = normalizeSearchTerm(inputTrimmed);
     const matchedKeyword = Object.keys(tipKeywordMap).find(
-      keyword => keyword.toLowerCase() === inputTrimmed.toLowerCase()
+      keyword => normalizeSearchTerm(keyword) === inputNormalized
     );
 
     if (matchedKeyword) {
