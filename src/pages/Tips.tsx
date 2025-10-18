@@ -1940,6 +1940,7 @@ const Tips = () => {
             {sortedAndFilteredTips.map((tip, index) => (
               <div
                 key={tip.title}
+                data-tip-title={tip.title}
                 className={`animate-fade-in ${
                   highlightedTip === tip.title 
                     ? 'shadow-[0_0_0_4px_rgba(59,130,246,0.5)] rounded-lg' 
@@ -1947,7 +1948,7 @@ const Tips = () => {
                 }`}
                 style={{ animationDelay: `${400 + index * 100}ms` }}
               >
-                <div data-tip-title={tip.title} className="w-full">
+                <div className="w-full">
                   <TipCard tip={tip} index={index} />
                 </div>
               </div>
