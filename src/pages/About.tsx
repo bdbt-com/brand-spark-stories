@@ -96,7 +96,7 @@ const About = () => {
   
   return <div className="min-h-screen">
       {/* Hero Section - Owner Story */}
-      <section id="story" className="py-24 lg:py-32 bg-primary relative overflow-hidden">
+      <section id="story" className="py-32 lg:py-40 bg-primary relative overflow-hidden">
         <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
