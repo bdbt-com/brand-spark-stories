@@ -120,7 +120,7 @@ const handler = async (req: Request): Promise<Response> => {
 
     // Send email using Resend
     const emailResponse = await resend.emails.send({
-      from: "BDBT <onboarding@resend.dev>",
+      from: "Big Daddy's Big Tips <noreply@bigdaddysbigtips.com>",
       to: [sanitizedEmail],
       subject: `Your Free Guide: ${sanitizedGuideTitle}`,
       html: `
