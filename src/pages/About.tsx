@@ -99,7 +99,7 @@ const About = () => {
       <section id="story" className="py-24 lg:py-32 bg-primary relative overflow-hidden">
         <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div className="grid lg:grid-cols-2 gap-12 items-start">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="animate-fade-in space-y-8">
               <div className="space-y-4">
                 <h1 className="text-5xl lg:text-6xl font-bold leading-tight">
@@ -139,7 +139,7 @@ const About = () => {
         </div>
         
         {/* Down Arrow to next section */}
-        <div className="flex justify-center mt-12">
+        <div className="flex justify-center mt-8">
           <ChevronRipple to="/about#story-content" label="Read the story" size="sm" showLabel={false} variant="minimal" onClick={() => {
             if (!isStoryOpen) {
               setIsStoryOpen(true);
