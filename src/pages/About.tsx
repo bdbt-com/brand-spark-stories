@@ -96,18 +96,18 @@ const About = () => {
   
   return <div className="min-h-screen">
       {/* Hero Section - Owner Story */}
-      <section id="story" className="py-24 lg:py-32 bg-primary relative overflow-hidden">
+      <section id="story" className="py-20 lg:py-24 bg-primary relative overflow-hidden">
         <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div className="max-w-4xl mx-auto">
-            <div className="flex flex-col items-center text-center space-y-8 animate-fade-in">
-              <div className="space-y-6">
+          <div className="grid lg:grid-cols-2 gap-12 items-start">
+            <div className="animate-fade-in space-y-8">
+              <div className="space-y-4">
                 <h1 className="text-5xl lg:text-6xl font-bold leading-tight">
                   <span className="block text-white">The Story Behind</span>
                   <span className="block text-[hsl(35_45%_75%)]">The System</span>
                 </h1>
               </div>
-              <div className="space-y-6 max-w-3xl">
+              <div className="space-y-6">
                 <p className="text-xl text-white leading-relaxed">
                   How one dad turned daily overwhelm into a life-changing ripple effect.
                 </p>
@@ -116,7 +116,7 @@ const About = () => {
                   Big Daddy's Big Tips and why I'm sharing it with you.
                 </p>
               </div>
-              <div className="flex justify-center mt-8">
+              <div className="flex justify-center mt-12">
                 <Collapsible open={isStoryOpen} onOpenChange={handleStoryToggle}>
                   <CollapsibleTrigger asChild>
                     <Button variant="outline" size="lg" className="relative hover:scale-105 transition-transform text-lg h-16 px-12 py-6 bg-background/95 backdrop-blur-sm border-primary/30 rounded-xl">
@@ -127,13 +127,12 @@ const About = () => {
                   </CollapsibleTrigger>
                 </Collapsible>
               </div>
-              <div className="relative animate-fade-in mt-8" style={{
-                animationDelay: "200ms"
-              }}>
-                <div className="relative w-48 h-48">
-                  <div className="absolute inset-0 bg-white/10 rounded-full blur-3xl" />
-                  <img src="/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png" alt="Big Daddy - BDBT Founder" className="relative rounded-2xl shadow-2xl w-full h-full object-cover" />
-                </div>
+            </div>
+            <div className="relative animate-fade-in" style={{
+              animationDelay: "200ms"
+            }}>
+              <div className="relative">
+                <img src="/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png" alt="Big Daddy - BDBT Founder" className="w-full h-96 lg:h-[500px] object-cover rounded-3xl shadow-strong border-4 border-white/20" />
               </div>
             </div>
           </div>
