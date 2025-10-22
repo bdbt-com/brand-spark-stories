@@ -61,9 +61,9 @@ const autoProgressThroughSentences = () => {
       if (currentIndex < sentences.length) {
         setTimeout(progressNext, 3500);
       } else {
-        // After all sentences, scroll to story section
+        // After all sentences, scroll to welcome section
         setTimeout(() => {
-          document.getElementById('story')?.scrollIntoView({
+          document.getElementById('welcome-to-habit-driven-lifestyle-design')?.scrollIntoView({
             behavior: 'smooth',
             block: 'start'
           });
@@ -93,97 +93,8 @@ const About = () => {
       }, 300);
     }
   };
+  
   return <div className="min-h-screen">
-      {/* The Problem Section */}
-      <section id="problem" className="py-20 bg-background">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-20">
-            <h2 className="text-4xl lg:text-6xl font-bold mb-8 text-primary tracking-tight">
-              The Problem
-            </h2>
-            <p className="text-xl text-primary font-light max-w-2xl mx-auto">
-              We live in a world obsessed with doing more
-            </p>
-          </div>
-          <div className="my-32 flex justify-center" id="arrow-1">
-            <ChevronRipple to="/about#problem-1" label="Why change fails?" size="sm" showLabel={false} variant="minimal" onClick={() => {
-              autoProgressThroughSentences();
-            }} />
-          </div>
-          
-          <div className="">
-            {/* First statement - Center aligned */}
-            <div id="problem-1" className="text-center max-w-4xl mx-auto mt-20">
-              <h3 className="text-4xl lg:text-5xl font-bold leading-tight text-primary mb-8">
-                Why do traditional approaches fail to create lasting change?
-              </h3>
-              <p className="text-xl text-primary font-light">
-                More workouts. More goals. More hustle. Yet most people feel stuck, drained, and uncertain.
-              </p>
-            </div>
-            <div className="my-32 flex justify-center" id="arrow-2">
-              <ChevronRipple to="/about#problem-2" label="One tip at a time?" size="sm" showLabel={false} variant="minimal" onClick={() => {
-              const currentArrow = document.getElementById('arrow-2');
-              if (currentArrow) smoothScrollToNext(currentArrow, 'problem-2');
-            }} />
-            </div>
-
-            {/* Second statement - Center aligned */}
-            <div id="problem-2" className="text-center max-w-4xl mx-auto mt-20">
-              <h3 className="text-4xl lg:text-5xl font-bold leading-tight text-primary mb-8">
-                We're told to fix our lives one isolated tip at a time.
-              </h3>
-              <p className="text-xl text-primary font-light">
-                A budgeting app here. A gym membership there. A meditation streak that lasts three days.
-              </p>
-            </div>
-            <div className="my-32 flex justify-center" id="arrow-3">
-              <ChevronRipple to="/about#problem-3" label="Why tips fail" size="sm" showLabel={false} variant="minimal" onClick={() => {
-              const currentArrow = document.getElementById('arrow-3');
-              if (currentArrow) smoothScrollToNext(currentArrow, 'problem-3');
-            }} />
-            </div>
-
-            {/* Third statement - Center aligned with emphasis */}
-            <div id="problem-3" className="text-center max-w-4xl mx-auto">
-              <h3 className="text-4xl lg:text-5xl font-bold leading-tight text-primary mb-8">
-                But nothing sticks.
-              </h3>
-              <p className="text-xl text-primary font-light mb-4">
-                Not because people are lazy. Not because they're broken.
-              </p>
-              <p className="text-xl text-primary font-semibold">
-                But because the old model is broken.
-              </p>
-            </div>
-            <div className="my-32 flex justify-center" id="arrow-4">
-              <ChevronRipple to="/about#problem-4" label="Modern life pressures" size="sm" showLabel={false} variant="minimal" onClick={() => {
-              const currentArrow = document.getElementById('arrow-4');
-              if (currentArrow) smoothScrollToNext(currentArrow, 'problem-4');
-            }} />
-            </div>
-
-            {/* Fourth statement - Center aligned */}
-            <div id="problem-4" className="text-center max-w-4xl mx-auto mt-20">
-              <h3 className="text-4xl lg:text-5xl font-bold leading-tight text-primary mb-8">
-                Meanwhile, modern life pushes us further behind.
-              </h3>
-              <p className="text-xl text-primary font-light">
-                Sit more. Scroll more. Consume more. With every new demand, we feel more overwhelmed.
-              </p>
-            </div>
-            {/* Down Arrow to next section */}
-            <div className="my-32 flex justify-center">
-              <Button variant="ghost" size="icon" className="rounded-full w-12 h-12 bg-primary/10 hover:bg-primary/20 text-primary shadow-soft" onClick={() => document.getElementById('story')?.scrollIntoView({
-              behavior: 'smooth',
-              block: 'start'
-            })} aria-label="Scroll to Read My Story">
-                <ArrowDown className="w-6 h-6" />
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
       {/* Hero Section - Owner Story */}
       <section id="story" className="py-20 lg:py-24 bg-primary relative overflow-hidden">
         <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
@@ -225,6 +136,15 @@ const About = () => {
               </div>
             </div>
           </div>
+        </div>
+        
+        {/* Down Arrow to next section */}
+        <div className="flex justify-center mt-12">
+          <ChevronRipple to="/about#story-content" label="Read the story" size="sm" showLabel={false} variant="minimal" onClick={() => {
+            if (!isStoryOpen) {
+              setIsStoryOpen(true);
+            }
+          }} />
         </div>
       </section>
 
@@ -338,47 +258,66 @@ const About = () => {
                           I've spent the best part of two decades working in financial services, helping people with mortgages, pensions, and investments. From the outside, it looked like I had things sorted. But behind the scenes, I was starting to see a pattern, not just in our clients' lives, but in my own.
                         </p>
                         <p className="leading-relaxed mb-4">
-                          People were chasing success in one area. Their money, their health, their relationships, their career - while letting everything else slide. And I was doing the same thing. I was working in finance, but I wasn't financially free. I was helping others plan their futures, while quietly losing grip on my own.
-                        </p>
-                        <p className="leading-relaxed mb-4">
-                          The wake-up call came when my marriage ended. Suddenly, I was a single dad with two young kids, trying to figure out how to rebuild my life from scratch.
+                          People were doing everything "right" on paper. They saved, they planned, they set goals. But they still felt stuck. Overwhelmed. Disconnected.
                         </p>
                         <p className="leading-relaxed">
-                          That's when I realised the problem: we've been taught to fix our lives one isolated area at a time. But life doesn't work that way. Everything is connected.
+                          And here's the thing I realised...
                         </p>
                       </div>
 
-                      {/* The Discovery */}
+                      {/* The Breaking Point */}
                       <div className="mb-12">
-                        <h2 className="text-3xl font-bold text-primary mb-6">The Discovery</h2>
+                        <h2 className="text-3xl font-bold text-primary mb-6">The Breaking Point</h2>
                         <p className="leading-relaxed mb-4">
-                          As I started rebuilding, I noticed something interesting. When I took care of my physical health, I had more energy for work. When I got my finances sorted, I felt less stressed with the kids. When I prioritised my relationships, everything else seemed to flow better.
+                          Life had a way of forcing that lesson home. When my marriage ended, I found myself parenting solo, managing a full-time business, and trying to keep my own head above water. My house in Nottinghamshire had flooded, my mental space felt even more chaotic, and my health and happiness were… well, I didn't even think about them. They were non-existent.
                         </p>
                         <p className="leading-relaxed mb-4">
-                          Instead of trying to fix everything separately, I started looking for daily habits that would improve multiple areas at once. Small actions that would create ripple effects across my entire life.
-                        </p>
-                        <p className="leading-relaxed mb-4">
-                          I called them Daily Wins and repeated them every single day. As soon as one became automatic I layered in the next.
+                          I was working hard, earning decent money, but I was spinning. There was no structure. No momentum. No wins.
                         </p>
                         <p className="leading-relaxed">
-                          The results were remarkable. Not just for me, but for everyone I started sharing this approach with.
+                          I knew I needed a different approach. Something I could actually stick to. Something that didn't require me to be superhuman. Something that would create progress without adding more overwhelm. So I started small, building a framework of daily habits that worked with my life, not against it.
                         </p>
                       </div>
 
-                      {/* The System */}
+                      {/* The System Takes Shape */}
                       <div className="mb-12">
-                        <h2 className="text-3xl font-bold text-primary mb-6">The System</h2>
+                        <h2 className="text-3xl font-bold text-primary mb-6">The System Takes Shape</h2>
                         <p className="leading-relaxed mb-4">
-                          What started as personal survival became a tested system. I began documenting everything, refining the approach, and sharing it with other parents, professionals, and anyone who felt like they were falling behind.
+                          That framework became BDBT. "Big Daddy's Big Tips" may sound playful, but the system behind it is serious. It's built on one principle: Small, stacked daily wins across three core areas: Health. Wealth. Happiness.
                         </p>
                         <p className="leading-relaxed mb-4">
-                          The feedback was overwhelming. People weren't just improving their health OR their wealth OR their relationships. They were improving all three, simultaneously, with less effort than they'd been putting into trying to fix just one area.
-                        </p>
-                        <p className="leading-relaxed mb-4">
-                          That's when Big Daddy's Big Tips was born. Not as a business plan, but as a mission to share what I'd learned with as many people as possible.
+                          I started tracking 10 simple actions each day. They didn't take hours. They didn't require perfect conditions. They just had to move me forward. They had to create ripple effects.
                         </p>
                         <p className="leading-relaxed">
-                          A way to turn the odds in your favour. No more huge effort for a tiny return, in a world designed to make you drift. Instead, one tiny daily action that fits around your unique schedule, and creates a powerful ripple effect across your entire life.
+                          And they did.
+                        </p>
+                      </div>
+
+                      {/* The Ripple Effect */}
+                      <div className="mb-12">
+                        <h2 className="text-3xl font-bold text-primary mb-6">The Ripple Effect</h2>
+                        <p className="leading-relaxed mb-4">
+                          The interesting thing about this approach? One win creates others. A morning workout gave me more energy. More energy helped me focus. Focus led to better decisions in business. Better decisions reduced stress. Less stress improved my relationship with my kids. And so on.
+                        </p>
+                        <p className="leading-relaxed mb-4">
+                          My business grew. My health improved. My confidence returned. More importantly, I felt like myself again. Strong. Clear. In control.
+                        </p>
+                        <p className="leading-relaxed">
+                          I wasn't doing more, I was doing better.
+                        </p>
+                      </div>
+
+                      {/* The Secret Weapon */}
+                      <div className="mb-12">
+                        <h2 className="text-3xl font-bold text-primary mb-6">The Secret Weapon</h2>
+                        <p className="leading-relaxed mb-4">
+                          I started sharing what I'd learned. At first, just with friends and clients who were stuck in the same cycles I'd been in. Then on social media. Then through a podcast.
+                        </p>
+                        <p className="leading-relaxed mb-4">
+                          The response was overwhelming. Not because I was saying anything revolutionary, but because it was practical. Achievable. Relatable. People didn't need another guru telling them to wake up at 4 AM and run a marathon before breakfast.
+                        </p>
+                        <p className="leading-relaxed">
+                          They needed a real person who'd been where they were, showing them a way forward that actually worked.
                         </p>
                       </div>
 
@@ -386,37 +325,30 @@ const About = () => {
                       <div className="mb-12">
                         <h2 className="text-3xl font-bold text-primary mb-6">The Mission</h2>
                         <p className="leading-relaxed mb-4">
-                          I'm living proof that this system works. I've allowed my Daily Drifts to leave me feeling stuck in my health, wealth and happiness and I have used my Daily Wins to live a life in line with my values. But more importantly, I'm helping thousands of people create the same transformation in their own lives.
+                          That's why BDBT exists. Not to sell you a dream, but to give you a system. A system that works even when you don't feel motivated. A system that builds momentum, not burnout. A system that stacks wins so they compound over time.
                         </p>
                         <p className="leading-relaxed mb-4">
-                          I live in alignment now. I honour my time. I serve others.
-                        </p>
-                        <p className="leading-relaxed">
-                          And part of my deepest transformation has been accepting that some people closest to me may never hear it from me. But if I can become the expert that your loved ones listen to, and help you help them, then maybe I'm exactly where I need to be.
-                        </p>
-                        <p className="leading-relaxed mt-4 font-semibold text-primary">
-                          That's what drives me. That's what Big Daddy's Big Tips is here to do.
+                          If you feel stuck, scattered, or just know you're capable of more, I've built this for you. Not because I have all the answers. But because I've walked the path. I've tested the system. And I've seen what happens when you shift from chasing perfection to building progress.
                         </p>
                       </div>
 
-                      <div className="text-center pt-8 border-t border-muted space-y-4">
-                        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                          <Button variant="hero" size="lg" asChild className="hover:scale-105 transition-transform w-full sm:w-auto">
-                            <Link to="/blueprint">
-                              Get Started Now
-                              <ArrowRight className="w-5 h-5 ml-2" />
-                            </Link>
-                          </Button>
-                          <Button variant="outline" size="lg" asChild className="hover:scale-105 transition-transform w-full sm:w-auto">
-                            <Link to="/blueprint">
-                              Start Your Journey Now
-                              <ArrowRight className="w-5 h-5 ml-2" />
-                            </Link>
-                          </Button>
-                        </div>
-                        <div className="flex justify-center mt-8">
-                          <ChevronRipple to="/blueprint" label="Download and Read the Blueprint" />
-                        </div>
+                      {/* The Promise */}
+                      <div className="text-center py-8 bg-primary/5 rounded-lg">
+                        <p className="text-2xl font-bold text-primary mb-4">
+                          One habit today. A different life tomorrow.
+                        </p>
+                        <p className="text-lg text-primary">
+                          Let's build it together. One tip at a time.
+                        </p>
+                      </div>
+
+                      {/* CTA */}
+                      <div className="mt-12 text-center">
+                        <Button asChild size="lg" variant="hero" className="w-full sm:w-auto">
+                          <Link to="/blueprint">
+                            Get Your Foundation Blueprint <ArrowRight className="w-5 h-5 ml-2" />
+                          </Link>
+                        </Button>
                       </div>
                     </div>
                   </CardContent>
@@ -427,6 +359,96 @@ const About = () => {
         </CollapsibleContent>
       </Collapsible>
 
+      {/* The Problem Section */}
+      <section id="problem" className="py-20 bg-background">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-20">
+            <h2 className="text-4xl lg:text-6xl font-bold mb-8 text-primary tracking-tight">
+              The Problem
+            </h2>
+            <p className="text-xl text-primary font-light max-w-2xl mx-auto">
+              We live in a world obsessed with doing more
+            </p>
+          </div>
+          <div className="my-32 flex justify-center" id="arrow-1">
+            <ChevronRipple to="/about#problem-1" label="Why change fails?" size="sm" showLabel={false} variant="minimal" onClick={() => {
+              autoProgressThroughSentences();
+            }} />
+          </div>
+          
+          <div className="">
+            {/* First statement - Center aligned */}
+            <div id="problem-1" className="text-center max-w-4xl mx-auto mt-20">
+              <h3 className="text-4xl lg:text-5xl font-bold leading-tight text-primary mb-8">
+                Why do traditional approaches fail to create lasting change?
+              </h3>
+              <p className="text-xl text-primary font-light">
+                More workouts. More goals. More hustle. Yet most people feel stuck, drained, and uncertain.
+              </p>
+            </div>
+            <div className="my-32 flex justify-center" id="arrow-2">
+              <ChevronRipple to="/about#problem-2" label="One tip at a time?" size="sm" showLabel={false} variant="minimal" onClick={() => {
+              const currentArrow = document.getElementById('arrow-2');
+              if (currentArrow) smoothScrollToNext(currentArrow, 'problem-2');
+            }} />
+            </div>
+
+            {/* Second statement - Center aligned */}
+            <div id="problem-2" className="text-center max-w-4xl mx-auto mt-20">
+              <h3 className="text-4xl lg:text-5xl font-bold leading-tight text-primary mb-8">
+                We're told to fix our lives one isolated tip at a time.
+              </h3>
+              <p className="text-xl text-primary font-light">
+                A budgeting app here. A gym membership there. A meditation streak that lasts three days.
+              </p>
+            </div>
+            <div className="my-32 flex justify-center" id="arrow-3">
+              <ChevronRipple to="/about#problem-3" label="Why tips fail" size="sm" showLabel={false} variant="minimal" onClick={() => {
+              const currentArrow = document.getElementById('arrow-3');
+              if (currentArrow) smoothScrollToNext(currentArrow, 'problem-3');
+            }} />
+            </div>
+
+            {/* Third statement - Center aligned with emphasis */}
+            <div id="problem-3" className="text-center max-w-4xl mx-auto">
+              <h3 className="text-4xl lg:text-5xl font-bold leading-tight text-primary mb-8">
+                But nothing sticks.
+              </h3>
+              <p className="text-xl text-primary font-light mb-4">
+                Not because people are lazy. Not because they're broken.
+              </p>
+              <p className="text-xl text-primary font-semibold">
+                But because the old model is broken.
+              </p>
+            </div>
+            <div className="my-32 flex justify-center" id="arrow-4">
+              <ChevronRipple to="/about#problem-4" label="Modern life pressures" size="sm" showLabel={false} variant="minimal" onClick={() => {
+              const currentArrow = document.getElementById('arrow-4');
+              if (currentArrow) smoothScrollToNext(currentArrow, 'problem-4');
+            }} />
+            </div>
+
+            {/* Fourth statement - Center aligned */}
+            <div id="problem-4" className="text-center max-w-4xl mx-auto mt-20">
+              <h3 className="text-4xl lg:text-5xl font-bold leading-tight text-primary mb-8">
+                Meanwhile, modern life pushes us further behind.
+              </h3>
+              <p className="text-xl text-primary font-light">
+                Sit more. Scroll more. Consume more. With every new demand, we feel more overwhelmed.
+              </p>
+            </div>
+            {/* Down Arrow to next section */}
+            <div className="my-32 flex justify-center">
+              <Button variant="ghost" size="icon" className="rounded-full w-12 h-12 bg-primary/10 hover:bg-primary/20 text-primary shadow-soft" onClick={() => document.getElementById('welcome-to-habit-driven-lifestyle-design')?.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            })} aria-label="Scroll to Welcome section">
+                <ArrowDown className="w-6 h-6" />
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* The New Opportunity */}
       <section id="welcome-to-habit-driven-lifestyle-design" className="py-20 bg-gradient-subtle">
