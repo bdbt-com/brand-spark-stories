@@ -146,19 +146,19 @@ const Home = () => {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="animate-fade-in">
-              <h1 className="text-3xl sm:text-4xl lg:text-6xl font-bold mb-6 leading-tight">
+              <h1 className="text-4xl lg:text-6xl font-bold mb-6 leading-tight">
                 <span className="block text-white">Small Daily Steps.</span>
                 <span className="block text-[hsl(35_45%_75%)]">Big Life Changes.</span>
               </h1>
-              <p className="text-sm sm:text-base lg:text-lg mb-8 text-white/90 leading-relaxed">
+              <p className="text-base lg:text-lg mb-8 text-white/90 leading-relaxed">
                 Big Daddy's Big Tips teaches simple daily habits that silently transform your health, wealth, and happiness simultaneously. Turning overwhelming life changes into achievable daily steps.
               </p>
               <div className="flex justify-center">
                 {/* Start Your Journey Here - enlarged and centered */}
                 <div className="relative w-full max-w-md">
-                  <Button variant="secondary" size="lg" asChild className="relative transition-transform duration-200 rounded-xl h-12 sm:h-14 md:h-16 px-6 sm:px-8 md:px-10 text-base sm:text-lg md:text-xl w-full touch-target">
+                  <Button variant="secondary" size="lg" asChild className="relative transition-transform duration-200 rounded-xl h-14 md:h-16 px-8 md:px-10 text-lg md:text-xl w-full">
                     <Link to="/blueprint">
-                      Start Your Journey Here <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
+                      Start Your Journey Here <ArrowRight className="w-5 h-5" />
                     </Link>
                   </Button>
                 </div>
@@ -170,8 +170,8 @@ const Home = () => {
                 loop: true
               }} className="w-full" aria-label="Daily success journey image carousel">
                   <CarouselContent>
-                     {(filteredImages.length ? filteredImages : images).map((src, idx) => <CarouselItem key={src}>
-                         <img src={src} alt={`Big Life Change inspiration image ${idx + 1}`} className="w-full aspect-square sm:aspect-auto object-cover rounded-xl" loading={idx === 0 ? "eager" : "lazy"} />
+                    {(filteredImages.length ? filteredImages : images).map((src, idx) => <CarouselItem key={src}>
+                         <img src={src} alt={`Big Life Change inspiration image ${idx + 1}`} className="w-full aspect-square object-cover rounded-xl" loading={idx === 0 ? "eager" : "lazy"} />
                       </CarouselItem>)}
                   </CarouselContent>
                 </Carousel>
@@ -193,7 +193,7 @@ const Home = () => {
       <section className="py-24 bg-gradient-to-b from-primary/5 to-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-12 lg:gap-16 max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16 max-w-5xl mx-auto">
             {/* Reel 1: The Modern World is Designed to Keep You Stuck */}
             <div className="group cursor-pointer transform transition-all duration-300 hover:scale-105">
               <img 
@@ -230,9 +230,9 @@ const Home = () => {
           <div className="grid md:grid-cols-2 gap-8">
             {/* Daily Wins Box */}
             <Card className="group hover:shadow-medium transition-all duration-300 hover:-translate-y-2">
-              <CardContent className="p-6 sm:p-8 text-center">
-                <div className="w-12 h-12 sm:w-16 sm:h-16 bg-warning rounded-xl flex items-center justify-center mb-4 sm:mb-6 mx-auto group-hover:scale-110 transition-transform duration-300">
-                  <Trophy className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
+              <CardContent className="p-8 text-center">
+                <div className="w-16 h-16 bg-warning rounded-xl flex items-center justify-center mb-6 mx-auto group-hover:scale-110 transition-transform duration-300">
+                  <Trophy className="w-8 h-8 text-white" />
                 </div>
                 <h3 className="text-2xl font-semibold text-primary mb-4">Daily Wins</h3>
                 <p className="text-primary leading-relaxed">
@@ -243,9 +243,9 @@ const Home = () => {
 
             {/* Daily Drifts Box */}
             <Card className="group hover:shadow-medium transition-all duration-300 hover:-translate-y-2">
-              <CardContent className="p-6 sm:p-8 text-center">
-                <div className="w-12 h-12 sm:w-16 sm:h-16 bg-warning rounded-xl flex items-center justify-center mb-4 sm:mb-6 mx-auto group-hover:scale-110 transition-transform duration-300">
-                  <AlertTriangle className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
+              <CardContent className="p-8 text-center">
+                <div className="w-16 h-16 bg-warning rounded-xl flex items-center justify-center mb-6 mx-auto group-hover:scale-110 transition-transform duration-300">
+                  <AlertTriangle className="w-8 h-8 text-white" />
                 </div>
                 <h3 className="text-2xl font-semibold text-primary mb-4">Daily Drifts</h3>
                 <p className="text-primary leading-relaxed">
@@ -261,7 +261,7 @@ const Home = () => {
       <section ref={howRef} className="py-20 bg-primary">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 text-white">
+            <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-white">
               The Vessel, The Ripples, & The Journey
             </h2>
             <div className="text-xl text-white max-w-3xl mx-auto">

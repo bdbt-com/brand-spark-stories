@@ -86,17 +86,17 @@ const Podcast = () => {
           </div>
           
           {/* Social Media Icons */}
-          <div className="flex justify-center items-center gap-4 sm:gap-6 mb-8">
-            <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4">
-              <span className="text-xs sm:text-sm text-white/80 font-medium">Follow @BigDaddysBigTips</span>
-              <div className="flex gap-2 sm:gap-3">
-                  <a 
+          <div className="flex justify-center items-center gap-6 mb-8">
+            <div className="flex items-center gap-4">
+              <span className="text-sm text-white/80 font-medium">Follow @BigDaddysBigTips</span>
+              <div className="flex gap-3">
+                <a 
                   href="https://instagram.com/BigDaddysBigTips" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="p-2 rounded-full bg-white/20 hover:bg-white/30 text-white transition-all duration-300 hover:scale-110 touch-target"
+                  className="p-2 rounded-full bg-white/20 hover:bg-white/30 text-white transition-all duration-300 hover:scale-110"
                 >
-                  <Instagram className="w-4 h-4 sm:w-5 sm:h-5" />
+                  <Instagram className="w-5 h-5" />
                 </a>
                 <a 
                   href="https://tiktok.com/@BigDaddysBigTips" 
@@ -192,12 +192,12 @@ const Podcast = () => {
                 >
                   {featuredVideos.map((video) => (
                     <div key={video.id} className="w-full flex-shrink-0">
-                      <div className="flex flex-col lg:grid lg:grid-cols-2 gap-0 bg-card">
+                      <div className="grid lg:grid-cols-2 gap-0 bg-card">
                         <div className="relative group">
                           <img 
                             src={video.thumbnail} 
                             alt={video.title}
-                            className="w-full h-64 sm:h-80 lg:h-96 object-cover"
+                            className="w-full h-96 object-cover"
                           />
                           <div className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                             <Button 
@@ -278,7 +278,7 @@ const Podcast = () => {
           {!loading && allVideos.length > 0 && (
             <div>
               <h2 className="text-2xl lg:text-3xl font-bold mb-8 text-primary">All Videos ({allVideos.length})</h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {allVideos.map((video) => (
                   <Card 
                     key={video.id}
@@ -300,11 +300,11 @@ const Podcast = () => {
                         {video.duration}
                       </div>
                     </div>
-                    <CardContent className="p-4 sm:p-6">
-                      <h3 className="text-sm sm:text-base font-semibold mb-2 text-primary group-hover:text-primary transition-colors line-clamp-2">
+                    <CardContent className="p-6">
+                      <h3 className="font-semibold mb-2 text-primary group-hover:text-primary transition-colors line-clamp-2">
                         {video.title}
                       </h3>
-                      <p className="text-xs sm:text-sm text-primary mb-4 line-clamp-2">
+                      <p className="text-sm text-primary mb-4 line-clamp-2">
                         {video.description}
                       </p>
                       <div className="flex items-center justify-between text-xs text-primary mb-4">
@@ -370,11 +370,11 @@ const Podcast = () => {
           )}
 
           {/* CTA Section */}
-          <div className="mt-20 text-center bg-warning text-white rounded-2xl p-6 sm:p-8 lg:p-12 border-4 border-warning/40">
-            <h2 className="text-2xl sm:text-3xl font-bold mb-4 text-white">
+          <div className="mt-20 text-center bg-warning text-white rounded-2xl p-12 border-4 border-warning/40">
+            <h2 className="text-3xl font-bold mb-4 text-white">
               Never Miss an Episode
             </h2>
-            <p className="text-base sm:text-lg lg:text-xl text-white/90 mb-6 sm:mb-8 max-w-2xl mx-auto">
+            <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
               Subscribe to our channels and get notified when we release new content 
               packed with actionable insights and success strategies.
             </p>

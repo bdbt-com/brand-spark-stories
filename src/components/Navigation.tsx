@@ -112,13 +112,10 @@ const Navigation = () => {
             <Button 
               variant="accent" 
               size="sm" 
-              className="ml-4 hover-scale shadow-soft text-xs lg:text-sm"
+              className="ml-4 hover-scale shadow-soft"
               asChild
             >
-              <Link to="/blueprint">
-                <span className="hidden xl:inline">Get Your Foundation Blueprint Here</span>
-                <span className="xl:hidden">Get Blueprint</span>
-              </Link>
+              <Link to="/blueprint">Get Your Foundation Blueprint Here</Link>
             </Button>
           </div>
 
@@ -167,10 +164,10 @@ const Navigation = () => {
                 <Button 
                   variant="accent" 
                   size="default" 
-                  className="w-full hover-scale-sm shadow-soft text-sm sm:text-base"
+                  className="w-full hover-scale-sm shadow-soft"
                   asChild
                 >
-                  <Link to="/blueprint">Get Blueprint</Link>
+                  <Link to="/blueprint">Get Your Foundation Blueprint Here</Link>
                 </Button>
               </div>
             </div>

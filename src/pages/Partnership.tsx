@@ -171,20 +171,20 @@ const Partnership = () => {
         </div>
 
         {/* Contact Form */}
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-start">
+        <div className="grid lg:grid-cols-2 gap-16 items-start">
           <div>
-            <h2 className="text-2xl sm:text-3xl font-bold mb-6 text-primary">
+            <h2 className="text-3xl font-bold mb-6 text-primary">
               Let's Start the Conversation
             </h2>
-            <p className="text-base sm:text-lg text-muted-foreground mb-8 leading-relaxed">
+            <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
               Ready to explore partnership opportunities? Fill out the form and we'll get back to you 
               within 24 hours to discuss how we can work together.
             </p>
 
             <Card>
-              <CardContent className="p-4 sm:p-6">
-                <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <CardContent className="p-6">
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div className="grid md:grid-cols-2 gap-4">
                     <div>
                       <Label htmlFor="name">Full Name *</Label>
                       <Input
@@ -210,7 +210,7 @@ const Partnership = () => {
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="grid md:grid-cols-2 gap-4">
                     <div>
                       <Label htmlFor="company">Company/Organization</Label>
                       <Input
@@ -283,9 +283,9 @@ const Partnership = () => {
                     />
                   </div>
 
-                  <Button type="submit" variant="hero" size="lg" className="w-full touch-target">
+                  <Button type="submit" variant="hero" size="lg" className="w-full">
                     Submit Partnership Proposal
-                    <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 ml-2" />
+                    <ArrowRight className="w-5 h-5 ml-2" />
                   </Button>
                 </form>
               </CardContent>
@@ -358,12 +358,12 @@ const Partnership = () => {
           </div>
         </div>
 
-          {/* CTA Section */}
-        <div className="mt-20 text-center bg-warning text-white rounded-2xl p-6 sm:p-8 lg:p-12 border-4 border-warning/40">
-          <h2 className="text-2xl sm:text-3xl font-bold mb-4 text-white">
+        {/* CTA Section */}
+        <div className="mt-20 text-center bg-warning text-white rounded-2xl p-12 border-4 border-warning/40">
+          <h2 className="text-3xl font-bold mb-4 text-white">
             Let's Build Something Amazing Together
           </h2>
-          <p className="text-base sm:text-lg lg:text-xl text-white/90 mb-6 sm:mb-8 max-w-2xl mx-auto">
+          <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
             Ready to partner with us? Fill out the form above or reach out directly to start the conversation.
           </p>
           <Button variant="accent" size="lg" asChild>
