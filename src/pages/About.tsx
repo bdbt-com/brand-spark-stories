@@ -2,17 +2,77 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
-import { Clock, Heart, Award, Users2, Quote, BookOpen, Target, Star, TrendingUp, Zap, AlertTriangle, CheckCircle, ArrowRight, BarChart3, Brain, Lightbulb, ChevronDown, User } from "lucide-react";
+import { Clock, Heart, Award, Users2, Quote, BookOpen, Target, Star, TrendingUp, Zap, AlertTriangle, CheckCircle, ArrowRight, ArrowDown, BarChart3, Brain, Lightbulb, ChevronDown, User } from "lucide-react";
 import { Link } from "react-router-dom";
 import ChevronRipple from "@/components/ChevronRipple";
 import { useState } from "react";
-const centerScrollToElement = (targetId: string) => {
-  const targetElement = document.getElementById(targetId);
-  if (targetElement) {
-    const rect = targetElement.getBoundingClientRect();
-    const scrollTop = window.scrollY + rect.top - (window.innerHeight / 2) + (rect.height / 2);
-    window.scrollTo({ top: scrollTop, behavior: 'smooth' });
-  }
+const smoothScrollToNext = (currentElement: HTMLElement, nextId: string) => {
+  // First, scroll current element to center
+  const viewportHeight = window.innerHeight;
+  const elementRect = currentElement.getBoundingClientRect();
+  const elementCenter = elementRect.top + elementRect.height / 2;
+  const targetScroll = window.scrollY + elementCenter - viewportHeight / 2;
+
+  // Smooth scroll to center current element
+  window.scrollTo({
+    top: targetScroll,
+    behavior: 'smooth'
+  });
+
+  // After a brief pause, scroll to next element
+  setTimeout(() => {
+    const nextElement = document.getElementById(nextId);
+    if (nextElement) {
+      const nextRect = nextElement.getBoundingClientRect();
+      const nextCenter = nextRect.top + nextRect.height / 2;
+      const nextTargetScroll = window.scrollY + nextCenter - viewportHeight / 2;
+      window.scrollTo({
+        top: nextTargetScroll,
+        behavior: 'smooth'
+      });
+    }
+  }, 800);
+};
+
+const autoProgressThroughSentences = () => {
+  const sentences = ['problem-1', 'problem-2', 'problem-3', 'problem-4'];
+  let currentIndex = 0;
+
+  const scrollToSentence = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      const viewportHeight = window.innerHeight;
+      const elementRect = element.getBoundingClientRect();
+      const elementCenter = elementRect.top + elementRect.height / 2;
+      const targetScroll = window.scrollY + elementCenter - viewportHeight / 2;
+      
+      window.scrollTo({
+        top: targetScroll,
+        behavior: 'smooth'
+      });
+    }
+  };
+
+  const progressNext = () => {
+    if (currentIndex < sentences.length) {
+      scrollToSentence(sentences[currentIndex]);
+      currentIndex++;
+      
+      if (currentIndex < sentences.length) {
+        setTimeout(progressNext, 3500);
+      } else {
+        // After all sentences, scroll to welcome section
+        setTimeout(() => {
+          document.getElementById('welcome-to-habit-driven-lifestyle-design')?.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }, 3500);
+      }
+    }
+  };
+
+  progressNext();
 };
 const About = () => {
   const [isStoryOpen, setIsStoryOpen] = useState(false);
@@ -302,7 +362,9 @@ const About = () => {
             </p>
           </div>
           <div className="my-32 flex justify-center" id="arrow-1">
-            <ChevronRipple to="/about#problem-1" label="Why change fails?" size="sm" showLabel={false} variant="minimal" onClick={() => centerScrollToElement('problem-1')} />
+            <ChevronRipple to="/about#problem-1" label="Why change fails?" size="sm" showLabel={false} variant="minimal" onClick={() => {
+              autoProgressThroughSentences();
+            }} />
           </div>
           
           <div className="">
@@ -316,7 +378,10 @@ const About = () => {
               </p>
             </div>
             <div className="my-32 flex justify-center" id="arrow-2">
-              <ChevronRipple to="/about#problem-2" label="One tip at a time?" size="sm" showLabel={false} variant="minimal" onClick={() => centerScrollToElement('problem-2')} />
+              <ChevronRipple to="/about#problem-2" label="One tip at a time?" size="sm" showLabel={false} variant="minimal" onClick={() => {
+              const currentArrow = document.getElementById('arrow-2');
+              if (currentArrow) smoothScrollToNext(currentArrow, 'problem-2');
+            }} />
             </div>
 
             {/* Second statement - Center aligned */}
@@ -329,7 +394,10 @@ const About = () => {
               </p>
             </div>
             <div className="my-32 flex justify-center" id="arrow-3">
-              <ChevronRipple to="/about#problem-3" label="Why tips fail" size="sm" showLabel={false} variant="minimal" onClick={() => centerScrollToElement('problem-3')} />
+              <ChevronRipple to="/about#problem-3" label="Why tips fail" size="sm" showLabel={false} variant="minimal" onClick={() => {
+              const currentArrow = document.getElementById('arrow-3');
+              if (currentArrow) smoothScrollToNext(currentArrow, 'problem-3');
+            }} />
             </div>
 
             {/* Third statement - Center aligned with emphasis */}
@@ -345,7 +413,10 @@ const About = () => {
               </p>
             </div>
             <div className="my-32 flex justify-center" id="arrow-4">
-              <ChevronRipple to="/about#problem-4" label="Modern life pressures" size="sm" showLabel={false} variant="minimal" onClick={() => centerScrollToElement('problem-4')} />
+              <ChevronRipple to="/about#problem-4" label="Modern life pressures" size="sm" showLabel={false} variant="minimal" onClick={() => {
+              const currentArrow = document.getElementById('arrow-4');
+              if (currentArrow) smoothScrollToNext(currentArrow, 'problem-4');
+            }} />
             </div>
 
             {/* Fourth statement - Center aligned */}
@@ -359,7 +430,12 @@ const About = () => {
             </div>
             {/* Down Arrow to next section */}
             <div className="my-32 flex justify-center">
-              <ChevronRipple to="/about#welcome-to-habit-driven-lifestyle-design" label="" size="sm" showLabel={false} variant="minimal" onClick={() => centerScrollToElement('welcome-to-habit-driven-lifestyle-design')} />
+              <Button variant="ghost" size="icon" className="rounded-full w-12 h-12 bg-primary/10 hover:bg-primary/20 text-primary shadow-soft" onClick={() => document.getElementById('welcome-to-habit-driven-lifestyle-design')?.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            })} aria-label="Scroll to Welcome section">
+                <ArrowDown className="w-6 h-6" />
+              </Button>
             </div>
           </div>
         </div>
