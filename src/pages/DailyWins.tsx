@@ -153,14 +153,14 @@ const DailyWins = () => {
       <section className="py-12 bg-gradient-hero text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="animate-fade-in">
-            <h1 className="text-3xl lg:text-4xl font-bold mb-6 leading-tight">
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-6 leading-tight">
               <span className="block text-white">Daily Wins</span>
               <span className="block text-[hsl(35_45%_75%)]">Wall</span>
             </h1>
-            <p className="text-lg text-white/90 max-w-3xl mx-auto leading-relaxed mb-4">
+            <p className="text-base sm:text-lg text-white/90 max-w-3xl mx-auto leading-relaxed mb-4">
               Daily wins across any area of your life? We want to hear about it!
             </p>
-            <p className="text-lg text-white/90 max-w-3xl mx-auto leading-relaxed mb-4">
+            <p className="text-base sm:text-lg text-white/90 max-w-3xl mx-auto leading-relaxed mb-4">
               Feeling the ripple effects in action? We want to hear about it!
             </p>
           </div>
@@ -204,17 +204,17 @@ const DailyWins = () => {
                   <div key={win.id} className="w-full flex-shrink-0">
                     <Card className="border-0 shadow-none bg-transparent">
                       <CardHeader className="pb-3">
-                        <div className="flex items-start justify-between">
-                          <div className="flex items-center gap-4">
-                            <Avatar className="w-16 h-16">
+                          <div className="flex items-start justify-between">
+                          <div className="flex items-center gap-3 sm:gap-4">
+                            <Avatar className="w-12 h-12 sm:w-16 sm:h-16">
                               <AvatarImage src={win.user.avatar} />
-                              <AvatarFallback className="bg-gradient-primary text-white text-lg">
+                              <AvatarFallback className="bg-gradient-primary text-white text-base sm:text-lg">
                                 {win.user.initials}
                               </AvatarFallback>
                             </Avatar>
                             <div>
-                              <div className="text-xl font-semibold text-foreground">{win.user.name}</div>
-                              <div className={`text-sm font-medium ${getLevelColor(win.user.level)}`}>
+                              <div className="text-base sm:text-lg lg:text-xl font-semibold text-foreground">{win.user.name}</div>
+                              <div className={`text-xs sm:text-sm font-medium ${getLevelColor(win.user.level)}`}>
                                 {win.user.level}
                               </div>
                             </div>
@@ -228,8 +228,8 @@ const DailyWins = () => {
                           </div>
                         </div>
                       </CardHeader>
-                      <CardContent className="space-y-6 px-6 pb-8">
-                        <p className="text-lg text-foreground leading-relaxed">{win.content}</p>
+                      <CardContent className="space-y-6 px-4 sm:px-6 pb-6 sm:pb-8">
+                        <p className="text-sm sm:text-base lg:text-lg text-foreground leading-relaxed">{win.content}</p>
                         
                         <div className="flex items-center justify-between text-sm text-muted-foreground">
                           <div className="flex items-center gap-2">
@@ -243,17 +243,17 @@ const DailyWins = () => {
                             <Button 
                               variant="ghost" 
                               size="sm" 
-                              className="text-muted-foreground hover:text-destructive"
+                              className="text-muted-foreground hover:text-destructive touch-target"
                             >
-                              <Heart className="w-5 h-5 mr-2" />
+                              <Heart className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
                               {win.likes}
                             </Button>
                             <Button 
                               variant="ghost" 
                               size="sm" 
-                              className="text-muted-foreground hover:text-primary"
+                              className="text-muted-foreground hover:text-primary touch-target"
                             >
-                              <MessageCircle className="w-5 h-5 mr-2" />
+                              <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
                               {win.comments}
                             </Button>
                           </div>
@@ -298,17 +298,17 @@ const DailyWins = () => {
 
 
         {/* CTA Section */}
-        <div className="text-center bg-warning text-white rounded-2xl p-12 border-4 border-warning/40">
-          <h2 className="text-2xl lg:text-3xl font-bold mb-4 text-white">
+        <div className="text-center bg-warning text-white rounded-2xl p-6 sm:p-8 lg:p-12 border-4 border-warning/40">
+          <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-4 text-white">
             Ready to Start Your Own Success Story?
           </h2>
-          <p className="text-lg text-white/90 mb-8 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg text-white/90 mb-6 sm:mb-8 max-w-2xl mx-auto">
             Get the same system these people used to transform their lives through simple daily habits.
           </p>
           <div className="flex justify-center">
-            <Button variant="colored-bg" size="lg" asChild className="w-full sm:w-auto max-w-sm">
+            <Button variant="colored-bg" size="lg" asChild className="w-full sm:w-auto max-w-sm touch-target">
               <Link to="/blueprint">
-                Get Your Foundation Blueprint Here <ArrowRight className="w-5 h-5 ml-2" />
+                Get Your Foundation Blueprint Here <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 ml-2" />
               </Link>
             </Button>
           </div>

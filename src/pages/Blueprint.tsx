@@ -13,7 +13,7 @@ const Blueprint = () => {
         <div className="max-w-2xl mx-auto">
           <div className="text-center mb-8">
             
-            <h1 className="text-3xl font-bold text-primary">Get your Free Copy of the Foundation Blueprint here:
+            <h1 className="text-2xl sm:text-3xl font-bold text-primary">Get your Free Copy of the Foundation Blueprint here:
 
           </h1>
           </div>
@@ -94,15 +94,15 @@ const Blueprint = () => {
           </Card>
           
           {/* CTA Section */}
-          <div className="mt-20 text-center bg-warning text-white rounded-2xl p-6 sm:p-12 border-4 border-warning/40">
-            <h2 className="text-2xl sm:text-3xl font-bold mb-4 text-white">
+          <div className="mt-20 text-center bg-warning text-white rounded-2xl p-6 sm:p-8 lg:p-12 border-4 border-warning/40">
+            <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-4 text-white">
               Start Building Your Foundation Today
             </h2>
-            <p className="text-lg sm:text-xl text-white/90 mb-8 max-w-2xl mx-auto px-4">
+            <p className="text-base sm:text-lg lg:text-xl text-white/90 mb-6 sm:mb-8 max-w-2xl mx-auto px-4">
               With your blueprint in hand, explore our complete tip library to maximize your transformation.
             </p>
             <div className="flex justify-center">
-              <Button variant="colored-bg" size="lg" asChild className="w-full sm:w-auto max-w-sm">
+              <Button variant="colored-bg" size="lg" asChild className="w-full sm:w-auto max-w-sm touch-target">
                 <Link to="/tips">Explore All Tips</Link>
               </Button>
             </div>

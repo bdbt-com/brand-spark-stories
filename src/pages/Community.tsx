@@ -10,10 +10,10 @@ const Community = () => {
       {/* Hero Section */}
       <section className="container mx-auto px-4 py-20 text-center">
         <div className="max-w-4xl mx-auto">
-          <h1 className="text-5xl lg:text-7xl font-bold mb-8 text-primary">
+          <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold mb-8 text-primary">
             Become a Baddy
           </h1>
-          <p className="text-xl lg:text-2xl text-primary/80 mb-8 leading-relaxed">
+          <p className="text-lg sm:text-xl lg:text-2xl text-primary/80 mb-8 leading-relaxed">
             The World Won't Always Clap For Your Wins
           </p>
         </div>
@@ -22,7 +22,7 @@ const Community = () => {
       {/* Reality of Growth */}
       <section className="container mx-auto px-4 py-20">
         <div className="max-w-4xl mx-auto text-center">
-          <div className="space-y-6 text-lg text-primary/80 leading-relaxed">
+          <div className="space-y-6 text-base sm:text-lg text-primary/80 leading-relaxed">
             <p>When you choose health over hangovers, people may make a jibe.</p>
             <p>When you eat the food that nourishes you, people may call you boring.</p>
             <p>When you save money instead of spending it to keep up, people may say you're missing out.</p>
@@ -38,10 +38,10 @@ const Community = () => {
       {/* Who is a Guide */}
       <section className="container mx-auto px-4 py-20 bg-muted/20">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl lg:text-5xl font-bold mb-12 text-primary">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-12 text-primary">
             Who is a Baddy?
           </h2>
-          <div className="space-y-6 text-lg text-primary/80 leading-relaxed">
+          <div className="space-y-6 text-base sm:text-lg text-primary/80 leading-relaxed">
             <p>A Baddy is someone who dares to go against the grain. The one who says no when everyone else says yes.</p>
             <p>A Baddy is someone who chooses daily wins over daily drifts, even when it makes them the outsider.</p>
             <p>A Baddy is brave enough to be labelled the bad guy or the boring one, for making better choices. The one who chooses the "boring" healthy option, even when it's easier to give in.</p>
@@ -112,10 +112,10 @@ const Community = () => {
           </h2>
           
           <div className="grid gap-8 max-w-2xl mx-auto">
-            <Card className="p-8">
+              <Card className="p-6 sm:p-8">
               <CardContent className="p-0">
-                <Target className="h-12 w-12 text-primary mx-auto mb-4" />
-                <p className="text-xl font-semibold">Choose wins over drifts.</p>
+                <Target className="h-10 w-10 sm:h-12 sm:w-12 text-primary mx-auto mb-4" />
+                <p className="text-lg sm:text-xl font-semibold">Choose wins over drifts.</p>
               </CardContent>
             </Card>
             
@@ -158,10 +158,10 @@ const Community = () => {
           </h2>
           
           <div className="space-y-12">
-            <Card className="p-8">
+            <Card className="p-6 sm:p-8">
               <CardContent className="p-0 text-center">
-                <Badge className="mb-4 text-lg px-4 py-2">Phase 1</Badge>
-                <p className="text-lg text-primary/80 leading-relaxed">
+                <Badge className="mb-4 text-base sm:text-lg px-4 py-2">Phase 1</Badge>
+                <p className="text-base sm:text-lg text-primary/80 leading-relaxed">
                   You choose differently. You break free from the drift and start stacking small wins. Identity shifts to "I'm not doing what everyone else is doing, and that's my strength."
                 </p>
               </CardContent>
