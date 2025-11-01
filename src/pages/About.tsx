@@ -185,91 +185,88 @@ const About = () => {
                       {/* The Backstory */}
                       <div className="mb-12">
                         <h2 className="text-3xl font-bold text-primary mb-6">The Backstory</h2>
-                        <p className="leading-relaxed mb-4">
-                          I've spent the best part of two decades working in financial services, helping people with mortgages, pensions, and investments. From the outside, it looked like I had things sorted. But behind the scenes, I was starting to see a pattern, not just in our clients' lives, but in my own.
+                        <p className="text-lg leading-relaxed">
+                          I spent years trying to "fix" myself. Read the books. Listened to the podcasts. Followed the gurus. And sure, I'd get a temporary boost. But nothing stuck. The harder I tried to overhaul my life, the more exhausted I became. I was caught in the cycle of big promises and bigger disappointments—constantly starting over, never quite getting there.
                         </p>
-                        <p className="leading-relaxed mb-4">
-                          People were doing everything "right" on paper. They saved, they planned, they set goals. But they still felt stuck. Overwhelmed. Disconnected.
-                        </p>
-                        <p className="leading-relaxed">
-                          And here's the thing I realised...
+                        <p className="text-lg leading-relaxed">
+                          Sound familiar?
                         </p>
                       </div>
 
                       {/* The Breaking Point */}
                       <div className="mb-12">
                         <h2 className="text-3xl font-bold text-primary mb-6">The Breaking Point</h2>
-                        <p className="leading-relaxed mb-4">
-                          Life had a way of forcing that lesson home. When my marriage ended, I found myself parenting solo, managing a full-time business, and trying to keep my own head above water. My house in Nottinghamshire had flooded, my mental space felt even more chaotic, and my health and happiness were… well, I didn't even think about them. They were non-existent.
+                        <p className="text-lg leading-relaxed">
+                          When my marriage ended, I found myself parenting solo on my days with the kids, managing a full-time business, and trying to keep my own head above water.
                         </p>
-                        <p className="leading-relaxed mb-4">
-                          I was working hard, earning decent money, but I was spinning. There was no structure. No momentum. No wins.
+                        <p className="text-lg leading-relaxed">
+                          That's when I realized: I didn't have the luxury of waiting for the "perfect system." I needed something that worked now. Something simple. Something sustainable.
                         </p>
-                        <p className="leading-relaxed">
-                          I knew I needed a different approach. Something I could actually stick to. Something that didn't require me to be superhuman. Something that would create progress without adding more overwhelm. So I started small, building a framework of daily habits that worked with my life, not against it.
+                        <p className="text-lg leading-relaxed">
+                          So I stopped trying to do everything and started focusing on just one thing: showing up every day.
                         </p>
                       </div>
 
                       {/* The System Takes Shape */}
                       <div className="mb-12">
                         <h2 className="text-3xl font-bold text-primary mb-6">The System Takes Shape</h2>
-                        <p className="leading-relaxed mb-4">
-                          That framework became BDBT. "Big Daddy's Big Tips" may sound playful, but the system behind it is serious. It's built on one principle: Small, stacked daily wins across three core areas: Health. Wealth. Happiness.
+                        <p className="text-lg leading-relaxed">
+                          I started small. Really small. A morning walk. A quick workout. Drinking more water. Writing down one thing I was grateful for. These weren't life-changing habits—they were just… doable.
                         </p>
-                        <p className="leading-relaxed mb-4">
-                          I started tracking 10 simple actions each day. They didn't take hours. They didn't require perfect conditions. They just had to move me forward. They had to create ripple effects.
+                        <p className="text-lg leading-relaxed">
+                          And something unexpected happened.
                         </p>
-                        <p className="leading-relaxed">
-                          And they did.
+                        <p className="text-lg leading-relaxed">
+                          Those small wins started to stack. Not overnight. Not in a week. But slowly, steadily, they built momentum. And the more I showed up, the more confidence I gained. The more energy I had. The better I felt.
                         </p>
                       </div>
 
                       {/* The Ripple Effect */}
                       <div className="mb-12">
                         <h2 className="text-3xl font-bold text-primary mb-6">The Ripple Effect</h2>
-                        <p className="leading-relaxed mb-4">
-                          The interesting thing about this approach? One win creates others. A morning workout gave me more energy. More energy helped me focus. Focus led to better decisions in business. Better decisions reduced stress. Less stress improved my relationship with my kids. And so on.
+                        <p className="text-lg leading-relaxed">
+                          Here's the thing: change doesn't happen in isolation. When you improve one area of your life, it ripples into everything else.
                         </p>
-                        <p className="leading-relaxed mb-4">
-                          My business grew. My health improved. My confidence returned. More importantly, I felt like myself again. Strong. Clear. In control.
+                        <p className="text-lg leading-relaxed">
+                          Morning movement gave me more energy. More energy meant I showed up better for my kids. Showing up better for my kids made me feel like a better dad. Feeling like a better dad gave me the confidence to grow my business. Growing my business gave me financial stability. Financial stability gave me peace of mind.
                         </p>
-                        <p className="leading-relaxed">
-                          I wasn't doing more, I was doing better.
+                        <p className="text-lg leading-relaxed">
+                          It all connected. Health. Wealth. Happiness. They weren't separate goals—they were part of the same system.
                         </p>
                       </div>
 
                       {/* The Secret Weapon */}
                       <div className="mb-12">
                         <h2 className="text-3xl font-bold text-primary mb-6">The Secret Weapon</h2>
-                        <p className="leading-relaxed mb-4">
-                          I started sharing what I'd learned. At first, just with friends and clients who were stuck in the same cycles I'd been in. Then on social media. Then through a podcast.
+                        <p className="text-lg leading-relaxed">
+                          As I refined this approach, I realized something profound: most people don't fail because they lack willpower. They fail because they're trying to do too much, too fast, with no clear system to follow.
                         </p>
-                        <p className="leading-relaxed mb-4">
-                          The response was overwhelming. Not because I was saying anything revolutionary, but because it was practical. Achievable. Relatable. People didn't need another guru telling them to wake up at 4 AM and run a marathon before breakfast.
+                        <p className="text-lg leading-relaxed">
+                          People didn't need another guru telling them to wake up at 4am and run a marathon before breakfast. They needed a framework that met them where they were. A system that fit into their real lives—not some idealized version of what life "should" look like.
                         </p>
-                        <p className="leading-relaxed">
-                          They needed a real person who'd been where they were, showing them a way forward that actually worked.
+                        <p className="text-lg leading-relaxed">
+                          That's when Big Daddy's Big Tips was born.
                         </p>
                       </div>
 
                       {/* The Mission */}
                       <div className="mb-12">
                         <h2 className="text-3xl font-bold text-primary mb-6">The Mission</h2>
-                        <p className="leading-relaxed mb-4">
-                          That's why BDBT exists. Not to sell you a dream, but to give you a system. A system that works even when you don't feel motivated. A system that builds momentum, not burnout. A system that stacks wins so they compound over time.
+                        <p className="text-lg leading-relaxed">
+                          My mission is simple: to help you build a life you don't need to escape from. Not through grand transformations or overnight success. But through small, intentional actions that compound over time.
                         </p>
-                        <p className="leading-relaxed mb-4">
-                          If you feel stuck, scattered, or just know you're capable of more, I've built this for you. Not because I have all the answers. But because I've walked the path. I've tested the system. And I've seen what happens when you shift from chasing perfection to building progress.
+                        <p className="text-lg leading-relaxed">
+                          Because here's the truth: you don't need a dream. You need a system. And that's exactly what BDBT gives you.
                         </p>
                       </div>
 
                       {/* The Promise */}
                       <div className="text-center py-8 bg-primary/5 rounded-lg">
                         <p className="text-2xl font-bold text-primary mb-4">
-                          One habit today. A different life tomorrow.
+                          If you show up consistently—even imperfectly—you will see results. Not because I said so. But because the system works. It worked for me. It's worked for thousands of others. And it will work for you.
                         </p>
                         <p className="text-lg text-primary">
-                          Let's build it together. One tip at a time.
+                          Welcome to Big Daddy's Big Tips. Let's build something that lasts.
                         </p>
                       </div>
 
