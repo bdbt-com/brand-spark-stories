@@ -109,7 +109,7 @@ const Blueprint = () => {
               Start Building Your Foundation Today
             </h2>
             <p className="text-lg sm:text-xl text-white/90 mb-8 max-w-2xl mx-auto px-4">
-              With your blueprint in hand, explore our complete tip library to maximize your transformation.
+              With your blueprint in hand, explore our complete tip library to maximise your transformation.
             </p>
             <div className="flex justify-center">
               <Button variant="colored-bg" size="lg" asChild className="w-full sm:w-auto max-w-sm">
