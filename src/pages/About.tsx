@@ -91,11 +91,11 @@ const About = () => {
                  left: '-120px'
                }}>
                  {/* Photo 1 - Position 1/10 - Office/Workspace */}
-                 <div className="w-[400px] h-[400px] bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform rotate-3" style={{
-                   animationDelay: "500ms",
-                   marginTop: "0px"
-                 }}>
-                   <img src="/lovable-uploads/8d06c526-bd08-42b7-9a4e-09be508119c7.png" alt="BDBT journey image 2 - Podcast recording setup" className="w-full h-full object-cover rounded-xl" />
+                  <div className="w-[400px] h-[400px] bg-gradient-primary/10 border-4 border-primary/30 rounded-2xl shadow-2xl animate-fade-in overflow-hidden transform rotate-3" style={{
+                    animationDelay: "500ms",
+                    marginTop: "0px"
+                  }}>
+                    <img src="/lovable-uploads/recording-setup-new.jpg" alt="BDBT journey image 2 - Podcast recording setup" className="w-full h-full object-cover rounded-xl" />
                  </div>
                  
                  {/* Photo 3 - Position 3/10 - Dog & Family Life */}
