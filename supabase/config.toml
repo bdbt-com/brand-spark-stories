@@ -2,3 +2,6 @@ project_id = "hmswcmvarmqlgckwyjvj"
 
 [functions.send-guide]
 verify_jwt = false
+
+[functions.get-download-counts]
+verify_jwt = false
