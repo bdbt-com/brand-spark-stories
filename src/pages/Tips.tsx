@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import TipCard from "@/components/TipCard";
 import ChevronRipple from "@/components/ChevronRipple";
 import AITipFinder from "@/components/AITipFinder";
+import { useDownloadCounts } from "@/hooks/useDownloadCounts";
 import { 
   Heart, DollarSign, Smile, SlidersHorizontal, Filter, Dumbbell, Flame, TrendingUp,
   BarChart3, Coffee, Eye, Shield, MessageCircle, ShoppingBasket, Map, Truck, Waves,
@@ -23,6 +24,7 @@ const Tips = () => {
   const [highlightedTip, setHighlightedTip] = useState<string | null>(null);
   const location = useLocation();
   const { keyword } = useParams<{ keyword?: string }>();
+  const { data: downloadCounts } = useDownloadCounts();
 
   const tipCategories = [
     {
@@ -2003,7 +2005,11 @@ const Tips = () => {
                 style={{ animationDelay: `${400 + index * 100}ms` }}
               >
                 <div className="w-full">
-                  <TipCard tip={tip} index={index} />
+                  <TipCard 
+                    tip={tip} 
+                    index={index} 
+                    downloadCount={downloadCounts?.[tip.title]}
+                  />
                 </div>
               </div>
             ))}
