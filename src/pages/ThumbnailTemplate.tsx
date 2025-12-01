@@ -80,85 +80,113 @@ const ThumbnailTemplate = () => {
     },
     {
       id: 9,
-      name: "Walking Phone Calls",
-      title: "The Power of Walking",
-      subtitle: "During Phone Calls",
-      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
-    },
-    {
-      id: 10,
       name: "Eating More Greens",
       title: "The Secret to Eating More Greens",
       subtitle: "Daily Wins Podcast",
       image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
     },
     {
-      id: 11,
+      id: 10,
       name: "Swap Netflix for Podcasts",
       title: "Swap Netflix for Podcasts",
       subtitle: "Daily Wins Podcast",
       image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
     },
     {
-      id: 12,
+      id: 11,
       name: "Always use a Shopping List",
       title: "Always use a Shopping List",
       subtitle: "Daily Wins Podcast",
       image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
     },
     {
-      id: 13,
+      id: 12,
       name: "The Importance of Movement after Meals",
       title: "The Importance of Movement after Meals",
       subtitle: "Daily Wins Podcast",
       image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
     },
     {
-      id: 14,
+      id: 13,
       name: "The Power of nature in your Daily Life",
       title: "The Power of nature in your Daily Life",
       subtitle: "Daily Wins Podcast",
       image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
     },
     {
-      id: 15,
+      id: 14,
       name: "The Benefits of Protein in Every Meal",
       title: "The Benefits of Protein in Every Meal",
       subtitle: "Daily Wins Podcast",
       image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
     },
     {
-      id: 16,
+      id: 15,
       name: "The Power of Only Taking the Stairs",
       title: "The Power of Only Taking the Stairs",
       subtitle: "Daily Wins Podcast",
       image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
     },
     {
-      id: 17,
+      id: 16,
       name: "Healthy Savings from Store Brand Medicine",
       title: "Healthy Savings from Store Brand Medicine",
       subtitle: "Daily Wins Podcast",
       image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
     },
     {
-      id: 18,
+      id: 17,
       name: "The Importance of Replacing your daily sugar intake",
       title: "The Importance of Replacing your daily sugar intake",
       subtitle: "Daily Wins Podcast",
       image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
     },
     {
-      id: 19,
+      id: 18,
       name: "The Power of Amazon Subscribe & Save",
       title: "The Power of Amazon Subscribe & Save",
       subtitle: "Daily Wins Podcast",
       image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
     },
     {
-      id: 20,
+      id: 19,
       name: "Control your posture, Control your day",
       title: "Control your posture, Control your day",
+      subtitle: "Daily Wins Podcast",
+      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+    },
+    {
+      id: 20,
+      name: "60 Seconds of Deep Breathing",
+      title: "The Power Of 60 Seconds of Deep Breathing, twice a day",
+      subtitle: "Daily Wins Podcast",
+      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+    },
+    {
+      id: 21,
+      name: "Look UP Every Day",
+      title: "Why You Should Look UP, Every Day",
+      subtitle: "Daily Wins Podcast",
+      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+    },
+    {
+      id: 22,
+      name: "Box Jumping for Bone Health",
+      title: "Box Jumping for Bone Health (Are you at Risk of osteoporosis?)",
+      subtitle: "Daily Wins Podcast",
+      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+    },
+    {
+      id: 23,
+      name: "Weekly No Spend Day",
+      title: "Increase your savings with a Weekly No Spend Day",
+      subtitle: "Daily Wins Podcast",
+      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+    },
+    {
+      id: 24,
+      name: "Try a New Food Each Week",
+      title: "The Benefits of trying a new food each week",
       subtitle: "Daily Wins Podcast",
       image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
     }
@@ -723,7 +751,7 @@ const ThumbnailTemplate = () => {
           </div>
         )}
 
-        {/* Template 10 - Walking Phone Calls */}
+        {/* Template 10 - The Secret to Eating More Greens */}
         {currentTemplateIndex === 9 && mode === 'youtube' && (
           <div className="relative">
             <div id="thumbnail-9" key="template-9" className="w-[1280px] h-[720px] relative overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
@@ -732,46 +760,6 @@ const ThumbnailTemplate = () => {
                   <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
                     <img 
                       src={templates[9].image} 
-                      alt="Podcast thumbnail"
-                      className="w-full h-full object-cover border-4 border-white/20"
-                    />
-                    <div className="absolute bottom-4 left-4">
-                      <img 
-                        src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
-                        alt="BDBT Logo"
-                        className="h-16 opacity-90"
-                      />
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="absolute left-8 top-16 bottom-24 right-[35%] pr-4 z-10 flex flex-col justify-center">
-                  <h1 className="text-6xl xl:text-7xl 2xl:text-8xl font-bold leading-tight mb-6">
-                    <span className="text-white block mb-2">
-                      The Power of Walking
-                    </span>
-                    <span className="block" style={{ color: 'hsl(35, 45%, 75%)' }}>
-                      During Phone Calls
-                    </span>
-                  </h1>
-                  <p className="text-white/80 text-3xl font-medium">
-                    Daily Wins Podcast
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* New Template - The Secret to Eating More Greens */}
-        {currentTemplateIndex === 10 && mode === 'youtube' && (
-          <div className="relative">
-            <div id="thumbnail-10" key="template-10" className="w-[1280px] h-[720px] relative overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
-              <div className="h-full flex items-center p-16 relative">
-                <div className="absolute right-16 top-16 bottom-16 flex items-center">
-                  <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
-                    <img 
-                      src={templates[10].image} 
                       alt="Podcast thumbnail"
                       className="w-full h-full object-cover border-4 border-white/20"
                     />
@@ -803,15 +791,15 @@ const ThumbnailTemplate = () => {
           </div>
         )}
 
-        {/* Template 12 - Swap Netflix for Podcasts */}
-        {currentTemplateIndex === 11 && mode === 'youtube' && (
+        {/* Template 11 - Swap Netflix for Podcasts */}
+        {currentTemplateIndex === 10 && mode === 'youtube' && (
           <div className="relative">
-            <div id="thumbnail-11" key="template-11" className="w-[1280px] h-[720px] relative overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
+            <div id="thumbnail-10" key="template-10" className="w-[1280px] h-[720px] relative overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
               <div className="h-full flex items-center p-16 relative">
                 <div className="absolute right-16 top-16 bottom-16 flex items-center">
                   <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
                     <img 
-                      src={templates[11].image} 
+                      src={templates[10].image} 
                       alt="Podcast thumbnail"
                       className="w-full h-full object-cover border-4 border-white/20"
                     />
@@ -843,15 +831,15 @@ const ThumbnailTemplate = () => {
           </div>
         )}
 
-        {/* Template 13 - Always use a Shopping List */}
-        {currentTemplateIndex === 12 && mode === 'youtube' && (
+        {/* Template 12 - Always use a Shopping List */}
+        {currentTemplateIndex === 11 && mode === 'youtube' && (
           <div className="relative">
-            <div id="thumbnail-12" key="template-12" className="w-[1280px] h-[720px] relative overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
+            <div id="thumbnail-11" key="template-11" className="w-[1280px] h-[720px] relative overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
               <div className="h-full flex items-center p-16 relative">
                 <div className="absolute right-16 top-16 bottom-16 flex items-center">
                   <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
                     <img 
-                      src={templates[12].image} 
+                      src={templates[11].image} 
                       alt="Podcast thumbnail"
                       className="w-full h-full object-cover border-4 border-white/20"
                     />
@@ -883,15 +871,15 @@ const ThumbnailTemplate = () => {
           </div>
         )}
 
-        {/* Template 14 - The Importance of Movement after Meals */}
-        {currentTemplateIndex === 13 && mode === 'youtube' && (
+        {/* Template 13 - The Importance of Movement after Meals */}
+        {currentTemplateIndex === 12 && mode === 'youtube' && (
           <div className="relative">
-            <div id="thumbnail-13" key="template-13" className="w-[1280px] h-[720px] relative overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
+            <div id="thumbnail-12" key="template-12" className="w-[1280px] h-[720px] relative overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
               <div className="h-full flex items-center p-16 relative">
                 <div className="absolute right-16 top-16 bottom-16 flex items-center">
                   <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
                     <img 
-                      src={templates[13].image} 
+                      src={templates[12].image} 
                       alt="Podcast thumbnail"
                       className="w-full h-full object-cover border-4 border-white/20"
                     />
@@ -923,15 +911,15 @@ const ThumbnailTemplate = () => {
           </div>
         )}
 
-        {/* Template 15 - The Power of nature in your Daily Life */}
-        {currentTemplateIndex === 14 && mode === 'youtube' && (
+        {/* Template 14 - The Power of nature in your Daily Life */}
+        {currentTemplateIndex === 13 && mode === 'youtube' && (
           <div className="relative">
-            <div id="thumbnail-14" key="template-14" className="w-[1280px] h-[720px] relative overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
+            <div id="thumbnail-13" key="template-13" className="w-[1280px] h-[720px] relative overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
               <div className="h-full flex items-center p-16 relative">
                 <div className="absolute right-16 top-16 bottom-16 flex items-center">
                   <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
                     <img 
-                      src={templates[14].image} 
+                      src={templates[13].image} 
                       alt="Podcast thumbnail"
                       className="w-full h-full object-cover border-4 border-white/20"
                     />
@@ -963,15 +951,15 @@ const ThumbnailTemplate = () => {
           </div>
         )}
 
-        {/* Template 16 - The Benefits of Protein in Every Meal */}
-        {currentTemplateIndex === 15 && mode === 'youtube' && (
+        {/* Template 15 - The Benefits of Protein in Every Meal */}
+        {currentTemplateIndex === 14 && mode === 'youtube' && (
           <div className="relative">
-            <div id="thumbnail-15" key="template-15" className="w-[1280px] h-[720px] relative overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
+            <div id="thumbnail-14" key="template-14" className="w-[1280px] h-[720px] relative overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
               <div className="h-full flex items-center p-16 relative">
                 <div className="absolute right-16 top-16 bottom-16 flex items-center">
                   <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
                     <img 
-                      src={templates[15].image} 
+                      src={templates[14].image} 
                       alt="Podcast thumbnail"
                       className="w-full h-full object-cover border-4 border-white/20"
                     />
@@ -1003,15 +991,15 @@ const ThumbnailTemplate = () => {
           </div>
         )}
 
-        {/* Template 17 - The Power of Only Taking the Stairs */}
-        {currentTemplateIndex === 16 && mode === 'youtube' && (
+        {/* Template 16 - The Power of Only Taking the Stairs */}
+        {currentTemplateIndex === 15 && mode === 'youtube' && (
           <div className="relative">
-            <div id="thumbnail-16" key="template-16" className="w-[1280px] h-[720px] relative overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
+            <div id="thumbnail-15" key="template-15" className="w-[1280px] h-[720px] relative overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
               <div className="h-full flex items-center p-16 relative">
                 <div className="absolute right-16 top-16 bottom-16 flex items-center">
                   <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
                     <img 
-                      src={templates[16].image} 
+                      src={templates[15].image} 
                       alt="Podcast thumbnail"
                       className="w-full h-full object-cover border-4 border-white/20"
                     />
@@ -1043,15 +1031,15 @@ const ThumbnailTemplate = () => {
           </div>
         )}
 
-        {/* Template 18 - Healthy Savings from Store Brand Medicine */}
-        {currentTemplateIndex === 17 && mode === 'youtube' && (
+        {/* Template 17 - Healthy Savings from Store Brand Medicine */}
+        {currentTemplateIndex === 16 && mode === 'youtube' && (
           <div className="relative">
-            <div id="thumbnail-17" key="template-17" className="w-[1280px] h-[720px] relative overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
+            <div id="thumbnail-16" key="template-16" className="w-[1280px] h-[720px] relative overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
               <div className="h-full flex items-center p-16 relative">
                 <div className="absolute right-16 top-16 bottom-16 flex items-center">
                   <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
                     <img 
-                      src={templates[17].image} 
+                      src={templates[16].image} 
                       alt="Podcast thumbnail"
                       className="w-full h-full object-cover border-4 border-white/20"
                     />
@@ -1083,15 +1071,15 @@ const ThumbnailTemplate = () => {
           </div>
         )}
 
-        {/* Template 19 - The Importance of Replacing your daily sugar intake */}
-        {currentTemplateIndex === 18 && mode === 'youtube' && (
+        {/* Template 18 - The Importance of Replacing your daily sugar intake */}
+        {currentTemplateIndex === 17 && mode === 'youtube' && (
           <div className="relative">
-            <div id="thumbnail-18" key="template-18" className="w-[1280px] h-[720px] relative overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
+            <div id="thumbnail-17" key="template-17" className="w-[1280px] h-[720px] relative overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
               <div className="h-full flex items-center p-16 relative">
                 <div className="absolute right-16 top-16 bottom-16 flex items-center">
                   <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
                     <img 
-                      src={templates[18].image} 
+                      src={templates[17].image} 
                       alt="Podcast thumbnail"
                       className="w-full h-full object-cover border-4 border-white/20"
                     />
@@ -1123,15 +1111,15 @@ const ThumbnailTemplate = () => {
           </div>
         )}
 
-        {/* Template 20 - The Power of Amazon Subscribe & Save */}
-        {currentTemplateIndex === 19 && mode === 'youtube' && (
+        {/* Template 19 - The Power of Amazon Subscribe & Save */}
+        {currentTemplateIndex === 18 && mode === 'youtube' && (
           <div className="relative">
-            <div id="thumbnail-19" key="template-19" className="w-[1280px] h-[720px] relative overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
+            <div id="thumbnail-18" key="template-18" className="w-[1280px] h-[720px] relative overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
               <div className="h-full flex items-center p-16 relative">
                 <div className="absolute right-16 top-16 bottom-16 flex items-center">
                   <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
                     <img 
-                      src={templates[19].image} 
+                      src={templates[18].image} 
                       alt="Podcast thumbnail"
                       className="w-full h-full object-cover border-4 border-white/20"
                     />
@@ -1163,7 +1151,47 @@ const ThumbnailTemplate = () => {
           </div>
         )}
 
-        {/* Template 21 - Control your posture, Control your day */}
+        {/* Template 20 - Control your posture, Control your day */}
+        {currentTemplateIndex === 19 && mode === 'youtube' && (
+          <div className="relative">
+            <div id="thumbnail-19" key="template-19" className="w-[1280px] h-[720px] relative overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
+              <div className="h-full flex items-center p-16 relative">
+                <div className="absolute right-16 top-16 bottom-16 flex items-center">
+                  <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
+                    <img 
+                      src={templates[19].image} 
+                      alt="Podcast thumbnail"
+                      className="w-full h-full object-cover border-4 border-white/20"
+                    />
+                    <div className="absolute bottom-4 left-4">
+                      <img 
+                        src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
+                        alt="BDBT Logo"
+                        className="h-16 opacity-90"
+                      />
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="absolute left-8 top-16 bottom-24 right-[35%] pr-4 z-10 flex flex-col justify-center">
+                  <h1 className="text-6xl xl:text-7xl 2xl:text-8xl font-bold leading-tight mb-6">
+                    <span className="text-white block mb-2">
+                      Control your posture,
+                    </span>
+                    <span className="block" style={{ color: 'hsl(35, 45%, 75%)' }}>
+                      Control your day
+                    </span>
+                  </h1>
+                  <p className="text-white/80 text-3xl font-medium">
+                    Daily Wins Podcast
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Template 21 - 60 Seconds of Deep Breathing */}
         {currentTemplateIndex === 20 && mode === 'youtube' && (
           <div className="relative">
             <div id="thumbnail-20" key="template-20" className="w-[1280px] h-[720px] relative overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
@@ -1188,10 +1216,170 @@ const ThumbnailTemplate = () => {
                 <div className="absolute left-8 top-16 bottom-24 right-[35%] pr-4 z-10 flex flex-col justify-center">
                   <h1 className="text-6xl xl:text-7xl 2xl:text-8xl font-bold leading-tight mb-6">
                     <span className="text-white block mb-2">
-                      Control your posture,
+                      The Power Of 60 Seconds of
                     </span>
                     <span className="block" style={{ color: 'hsl(35, 45%, 75%)' }}>
-                      Control your day
+                      Deep Breathing, twice a day
+                    </span>
+                  </h1>
+                  <p className="text-white/80 text-3xl font-medium">
+                    Daily Wins Podcast
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Template 22 - Look UP Every Day */}
+        {currentTemplateIndex === 21 && mode === 'youtube' && (
+          <div className="relative">
+            <div id="thumbnail-21" key="template-21" className="w-[1280px] h-[720px] relative overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
+              <div className="h-full flex items-center p-16 relative">
+                <div className="absolute right-16 top-16 bottom-16 flex items-center">
+                  <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
+                    <img 
+                      src={templates[21].image} 
+                      alt="Podcast thumbnail"
+                      className="w-full h-full object-cover border-4 border-white/20"
+                    />
+                    <div className="absolute bottom-4 left-4">
+                      <img 
+                        src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
+                        alt="BDBT Logo"
+                        className="h-16 opacity-90"
+                      />
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="absolute left-8 top-16 bottom-24 right-[35%] pr-4 z-10 flex flex-col justify-center">
+                  <h1 className="text-6xl xl:text-7xl 2xl:text-8xl font-bold leading-tight mb-6">
+                    <span className="text-white block mb-2">
+                      Why You Should Look UP,
+                    </span>
+                    <span className="block" style={{ color: 'hsl(35, 45%, 75%)' }}>
+                      Every Day
+                    </span>
+                  </h1>
+                  <p className="text-white/80 text-3xl font-medium">
+                    Daily Wins Podcast
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Template 23 - Box Jumping for Bone Health */}
+        {currentTemplateIndex === 22 && mode === 'youtube' && (
+          <div className="relative">
+            <div id="thumbnail-22" key="template-22" className="w-[1280px] h-[720px] relative overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
+              <div className="h-full flex items-center p-16 relative">
+                <div className="absolute right-16 top-16 bottom-16 flex items-center">
+                  <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
+                    <img 
+                      src={templates[22].image} 
+                      alt="Podcast thumbnail"
+                      className="w-full h-full object-cover border-4 border-white/20"
+                    />
+                    <div className="absolute bottom-4 left-4">
+                      <img 
+                        src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
+                        alt="BDBT Logo"
+                        className="h-16 opacity-90"
+                      />
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="absolute left-8 top-16 bottom-24 right-[35%] pr-4 z-10 flex flex-col justify-center">
+                  <h1 className="text-6xl xl:text-7xl 2xl:text-8xl font-bold leading-tight mb-6">
+                    <span className="text-white block mb-2">
+                      Box Jumping for Bone Health
+                    </span>
+                    <span className="block" style={{ color: 'hsl(35, 45%, 75%)' }}>
+                      (Are you at Risk of osteoporosis?)
+                    </span>
+                  </h1>
+                  <p className="text-white/80 text-3xl font-medium">
+                    Daily Wins Podcast
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Template 24 - Weekly No Spend Day */}
+        {currentTemplateIndex === 23 && mode === 'youtube' && (
+          <div className="relative">
+            <div id="thumbnail-23" key="template-23" className="w-[1280px] h-[720px] relative overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
+              <div className="h-full flex items-center p-16 relative">
+                <div className="absolute right-16 top-16 bottom-16 flex items-center">
+                  <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
+                    <img 
+                      src={templates[23].image} 
+                      alt="Podcast thumbnail"
+                      className="w-full h-full object-cover border-4 border-white/20"
+                    />
+                    <div className="absolute bottom-4 left-4">
+                      <img 
+                        src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
+                        alt="BDBT Logo"
+                        className="h-16 opacity-90"
+                      />
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="absolute left-8 top-16 bottom-24 right-[35%] pr-4 z-10 flex flex-col justify-center">
+                  <h1 className="text-6xl xl:text-7xl 2xl:text-8xl font-bold leading-tight mb-6">
+                    <span className="text-white block mb-2">
+                      Increase your savings with a
+                    </span>
+                    <span className="block" style={{ color: 'hsl(35, 45%, 75%)' }}>
+                      Weekly No Spend Day
+                    </span>
+                  </h1>
+                  <p className="text-white/80 text-3xl font-medium">
+                    Daily Wins Podcast
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Template 25 - Try a New Food Each Week */}
+        {currentTemplateIndex === 24 && mode === 'youtube' && (
+          <div className="relative">
+            <div id="thumbnail-24" key="template-24" className="w-[1280px] h-[720px] relative overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
+              <div className="h-full flex items-center p-16 relative">
+                <div className="absolute right-16 top-16 bottom-16 flex items-center">
+                  <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
+                    <img 
+                      src={templates[24].image} 
+                      alt="Podcast thumbnail"
+                      className="w-full h-full object-cover border-4 border-white/20"
+                    />
+                    <div className="absolute bottom-4 left-4">
+                      <img 
+                        src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
+                        alt="BDBT Logo"
+                        className="h-16 opacity-90"
+                      />
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="absolute left-8 top-16 bottom-24 right-[35%] pr-4 z-10 flex flex-col justify-center">
+                  <h1 className="text-6xl xl:text-7xl 2xl:text-8xl font-bold leading-tight mb-6">
+                    <span className="text-white block mb-2">
+                      The Benefits of trying
+                    </span>
+                    <span className="block" style={{ color: 'hsl(35, 45%, 75%)' }}>
+                      a new food each week
                     </span>
                   </h1>
                   <p className="text-white/80 text-3xl font-medium">
