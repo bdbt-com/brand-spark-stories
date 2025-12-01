@@ -51,7 +51,7 @@ const TipCard = ({ tip, index, downloadCount }: TipCardProps) => {
     <Card className="group hover-lift-strong interactive cursor-pointer relative overflow-hidden border-2 hover:border-primary/30 flex flex-col h-full min-h-[520px] md:min-h-[560px] shadow-soft">
       {/* Download counter in top-left */}
       {downloadCount !== undefined && (
-        <span className="absolute top-2 left-2 text-xs text-muted-foreground/40 font-mono z-10">
+        <span className="hidden absolute top-2 left-2 text-xs text-muted-foreground/40 font-mono z-10">
           {downloadCount}
         </span>
       )}

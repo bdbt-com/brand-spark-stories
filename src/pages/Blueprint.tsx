@@ -38,7 +38,7 @@ const Blueprint = () => {
           <Card className="group hover:shadow-strong transition-all duration-300 hover:-translate-y-2 relative overflow-hidden bg-gradient-subtle border-2 border-primary/20 hover:border-warning/30">
             {/* Download counter in top-left */}
             {blueprintCount > 0 && (
-              <span className="absolute top-2 left-2 text-xs text-muted-foreground/40 font-mono z-10">
+              <span className="hidden absolute top-2 left-2 text-xs text-muted-foreground/40 font-mono z-10">
                 {blueprintCount}
               </span>
             )}
