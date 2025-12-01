@@ -95,13 +95,17 @@ const handler = async (req: Request): Promise<Response> => {
     const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
     const supabase = createClient(supabaseUrl, supabaseKey);
 
-    // Check if this email has already received this guide twice
+    // Calculate 24 hours ago
+    const twentyFourHoursAgo = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
+
+    // Check if this email has already received this guide twice today
     const { count, error: countError } = await supabase
       .from("email_subscriptions")
       .select("*", { count: "exact", head: true })
       .eq("email", sanitizedEmail)
       .eq("guide_title", guideTitle.trim())
-      .eq("email_sent", true);
+      .eq("email_sent", true)
+      .gte("email_sent_at", twentyFourHoursAgo);
 
     if (countError) {
       console.error("Count query error:", countError);
@@ -112,10 +116,10 @@ const handler = async (req: Request): Promise<Response> => {
     }
 
     if (count !== null && count >= 2) {
-      console.log(`Guide "${guideTitle}" already sent twice to ${sanitizedEmail}`);
+      console.log(`Guide "${guideTitle}" already sent twice today to ${sanitizedEmail}`);
       return new Response(
         JSON.stringify({ 
-          error: "This guide has already been sent to this email address twice. Please try a different email or check your inbox/spam folder." 
+          error: "You've already received this guide twice today. Please try again tomorrow or check your inbox/spam folder." 
         }),
         { status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
