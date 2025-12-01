@@ -95,6 +95,32 @@ const handler = async (req: Request): Promise<Response> => {
     const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
     const supabase = createClient(supabaseUrl, supabaseKey);
 
+    // Check if this email has already received this guide twice
+    const { count, error: countError } = await supabase
+      .from("email_subscriptions")
+      .select("*", { count: "exact", head: true })
+      .eq("email", sanitizedEmail)
+      .eq("guide_title", guideTitle.trim())
+      .eq("email_sent", true);
+
+    if (countError) {
+      console.error("Count query error:", countError);
+      return new Response(
+        JSON.stringify({ error: "Failed to check subscription limit" }),
+        { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    if (count !== null && count >= 2) {
+      console.log(`Guide "${guideTitle}" already sent twice to ${sanitizedEmail}`);
+      return new Response(
+        JSON.stringify({ 
+          error: "This guide has already been sent to this email address twice. Please try a different email or check your inbox/spam folder." 
+        }),
+        { status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
     // Store submission in database
     const { data: dbData, error: dbError } = await supabase
       .from("email_subscriptions")
