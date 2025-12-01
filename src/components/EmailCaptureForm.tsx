@@ -62,10 +62,6 @@ const EmailCaptureForm = ({ title, guideDownloadUrl, onClose, compact = true }: 
 
       if (data?.success) {
         setIsSubmitted(true);
-        toast({
-          title: "Success! 🎉",
-          description: `Your "${title}" guide has been sent to your email!`,
-        });
         
         // Reset form after success animation
         setTimeout(() => {
