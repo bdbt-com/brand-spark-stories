@@ -396,9 +396,6 @@ const About = () => {
                     <ArrowRight className="w-5 h-5 ml-2" />
                   </Link>
                 </Button>
-                <Button variant="outline" size="lg" asChild className="hover:scale-105 transition-transform">
-                  <Link to="/daily-wins">Get Daily Wins Tracker</Link>
-                </Button>
               </div>
             </div>
             
