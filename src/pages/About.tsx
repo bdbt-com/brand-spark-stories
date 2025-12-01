@@ -403,7 +403,7 @@ const About = () => {
               <CardContent className="p-8">
                 <h3 className="text-2xl font-bold text-primary mb-6">What You'll Get:</h3>
                 <div className="space-y-4">
-                  {["A system that works even when you don't feel motivated", "Daily habits that create ripple effects across all areas", "Clear, achievable steps instead of overwhelming goals", "A community of people on the same journey", "Tools to track and stack your wins"].map((benefit, index) => <div key={index} className="flex items-start gap-3">
+                  {["A system that works even when you don't feel motivated", "Daily habits that create ripple effects across all areas", "Clear, achievable steps instead of overwhelming goals", "Tools to track and stack your wins"].map((benefit, index) => <div key={index} className="flex items-start gap-3">
                       <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
                       <span className="text-primary">{benefit}</span>
                     </div>)}
