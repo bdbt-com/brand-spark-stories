@@ -390,7 +390,7 @@ const Home = () => {
                     <div className="text-center pt-4 border-t border-white/20">
                       <Button variant="outline" size="lg" asChild>
                         <Link to="/about">
-                          Learn More About Our Story <ArrowRight className="w-5 h-5 ml-2" />
+                          Learn More About My Story <ArrowRight className="w-5 h-5 ml-2" />
                         </Link>
                       </Button>
                     </div>
