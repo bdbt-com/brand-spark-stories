@@ -95,7 +95,7 @@ const EmailCaptureForm = ({ title, guideDownloadUrl, onClose, compact = true }: 
           Guide Sent! 🎉
         </h4>
         <p className="text-sm text-primary mb-3">
-          Check your email - it should arrive within minutes.
+          Check your email - it should arrive within minutes (also please check your spam just in case our system or your email is having a bad day!).
         </p>
         <div className="flex items-center justify-center text-xs text-primary">
           <Mail className="w-3 h-3 mr-1" />
