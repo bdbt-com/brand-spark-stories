@@ -186,10 +186,7 @@ const About = () => {
                       <div className="mb-12">
                         <h2 className="text-3xl font-bold text-primary mb-6">The Backstory</h2>
                         <p className="text-lg leading-relaxed">
-                          I spent years trying to "fix" myself. Read the books. Listened to the podcasts. Followed the gurus. And sure, I'd get a temporary boost. But nothing stuck. The harder I tried to overhaul my life, the more exhausted I became. I was caught in the cycle of big promises and bigger disappointments—constantly starting over, never quite getting there.
-                        </p>
-                        <p className="text-lg leading-relaxed">
-                          Sound familiar?
+                          I spent years trying to "fix" myself. Read the books. Listened to the podcasts. Followed the gurus. And sure, I'd get a temporary boost. But nothing stuck. The harder I tried to overhaul my life, the more exhausted I became. I was caught in the cycle of big promises and bigger disappointments; constantly starting over, but never quite getting there. Sound familiar?
                         </p>
                       </div>
 
@@ -197,13 +194,7 @@ const About = () => {
                       <div className="mb-12">
                         <h2 className="text-3xl font-bold text-primary mb-6">The Breaking Point</h2>
                         <p className="text-lg leading-relaxed">
-                          When my marriage ended, I found myself parenting solo on my days with the kids, managing a full-time business, and trying to keep my own head above water.
-                        </p>
-                        <p className="text-lg leading-relaxed">
-                          That's when I realized: I didn't have the luxury of waiting for the "perfect system." I needed something that worked now. Something simple. Something sustainable.
-                        </p>
-                        <p className="text-lg leading-relaxed">
-                          So I stopped trying to do everything and started focusing on just one thing: showing up every day.
+                          When my marriage ended, I found myself parenting solo on my days with the kids, managing a business, and trying to keep my own head above water. That's when I realised, I didn't have the luxury of waiting for the "perfect system." I needed something that worked now. Something simple. Something sustainable. So I stopped trying to do everything and started focusing on just one thing: showing up every day.
                         </p>
                       </div>
 
@@ -211,13 +202,7 @@ const About = () => {
                       <div className="mb-12">
                         <h2 className="text-3xl font-bold text-primary mb-6">The System Takes Shape</h2>
                         <p className="text-lg leading-relaxed">
-                          I started small. Really small. A morning walk. A quick workout. Drinking more water. Writing down one thing I was grateful for. These weren't life-changing habits—they were just… doable.
-                        </p>
-                        <p className="text-lg leading-relaxed">
-                          And something unexpected happened.
-                        </p>
-                        <p className="text-lg leading-relaxed">
-                          Those small wins started to stack. Not overnight. Not in a week. But slowly, steadily, they built momentum. And the more I showed up, the more confidence I gained. The more energy I had. The better I felt.
+                          I started small. Really small. A morning walk. A quick workout. Drinking more water. Writing down one thing I was grateful for. These weren't life-changing habits, they were simple, achievable Daily Wins, and something unexpected happened. Those small Daily Wins started to stack. Not overnight. Not in a week. But slowly, steadily, they built momentum. And the more I showed up, the more confidence I gained. The more energy I had. The better I felt.
                         </p>
                       </div>
 
@@ -225,13 +210,7 @@ const About = () => {
                       <div className="mb-12">
                         <h2 className="text-3xl font-bold text-primary mb-6">The Ripple Effect</h2>
                         <p className="text-lg leading-relaxed">
-                          Here's the thing: change doesn't happen in isolation. When you improve one area of your life, it ripples into everything else.
-                        </p>
-                        <p className="text-lg leading-relaxed">
-                          Morning movement gave me more energy. More energy meant I showed up better for my kids. Showing up better for my kids made me feel like a better dad. Feeling like a better dad gave me the confidence to grow my business. Growing my business gave me financial stability. Financial stability gave me peace of mind.
-                        </p>
-                        <p className="text-lg leading-relaxed">
-                          It all connected. Health. Wealth. Happiness. They weren't separate goals—they were part of the same system.
+                          Here's the thing, change doesn't happen in isolation. When you improve one area of your life, it ripples into everything else. Morning movement gave me more energy. More energy meant I showed up better for my kids. Showing up better for my kids made me feel like a better dad. Feeling like a better dad gave me more confidence in my work. Turning up better at work gave me financial stability. Financial stability gave me peace of mind. It all connected. Health. Wealth. Happiness. They weren't separate goals, they were part of the same system.
                         </p>
                       </div>
 
@@ -239,13 +218,7 @@ const About = () => {
                       <div className="mb-12">
                         <h2 className="text-3xl font-bold text-primary mb-6">The Secret Weapon</h2>
                         <p className="text-lg leading-relaxed">
-                          As I refined this approach, I realized something profound: most people don't fail because they lack willpower. They fail because they're trying to do too much, too fast, with no clear system to follow.
-                        </p>
-                        <p className="text-lg leading-relaxed">
-                          People didn't need another guru telling them to wake up at 4am and run a marathon before breakfast. They needed a framework that met them where they were. A system that fit into their real lives—not some idealized version of what life "should" look like.
-                        </p>
-                        <p className="text-lg leading-relaxed">
-                          That's when Big Daddy's Big Tips was born.
+                          As I refined this approach, I realised something profound: most people don't fail because they lack willpower. They fail because they're trying to do too much, too fast, with no clear system to follow. People didn't need another guru telling them to wake up at 4am and run a marathon before breakfast. They needed a framework that met them where they were. A system that fit into their real lives, not an idealised version of what life "should" look like. That's when Big Daddy's Big Tips was born.
                         </p>
                       </div>
 
@@ -253,17 +226,14 @@ const About = () => {
                       <div className="mb-12">
                         <h2 className="text-3xl font-bold text-primary mb-6">The Mission</h2>
                         <p className="text-lg leading-relaxed">
-                          My mission is simple: to help you build a life you don't need to escape from. Not through grand transformations or overnight success. But through small, intentional actions that compound over time.
-                        </p>
-                        <p className="text-lg leading-relaxed">
-                          Because here's the truth: you don't need a dream. You need a system. And that's exactly what BDBT gives you.
+                          My mission is simple: to help you build a life you don't need to escape from. Not through grand transformations or overnight success. But through small, intentional actions that compound over time. Because here's the truth: you don't need a dream. You need a system. And that's exactly what BDBT gives you.
                         </p>
                       </div>
 
                       {/* The Promise */}
                       <div className="text-center py-8 bg-primary/5 rounded-lg">
                         <p className="text-2xl font-bold text-primary mb-4">
-                          If you show up consistently—even imperfectly—you will see results. Not because I said so. But because the system works. It worked for me. It's worked for thousands of others. And it will work for you.
+                          If you show up consistently you will see results. Not because I said so. But because the system works. It worked for me. It's worked for thousands of others. And it will work for you.
                         </p>
                         <p className="text-lg text-primary">
                           Welcome to Big Daddy's Big Tips. Let's build something that lasts.
