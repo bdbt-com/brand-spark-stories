@@ -15,8 +15,8 @@ import templateBdbtExplained from "@/assets/new-template-bdbt-explained.png";
 const Home = () => {
   const images = ["/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png",
   // Sunset silhouette on rocks
-  "/lovable-uploads/8d06c526-bd08-42b7-9a4e-09be508119c7.png",
-  // Podcast recording setup
+  "/lovable-uploads/recording-setup-new.jpg",
+  // Podcast recording setup - updated
   "/lovable-uploads/b362cf10-f3b4-4ab1-aeb3-30ab18058ace.png",
   // Man with dog outdoors
   "/lovable-uploads/4fd0818e-20c3-4941-9c54-6915db50a7c0.png",
