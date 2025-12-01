@@ -12,9 +12,10 @@ interface EmailCaptureFormProps {
   guideDownloadUrl: string;
   onClose: () => void;
   compact?: boolean;
+  hideable?: boolean;
 }
 
-const EmailCaptureForm = ({ title, guideDownloadUrl, onClose, compact = true }: EmailCaptureFormProps) => {
+const EmailCaptureForm = ({ title, guideDownloadUrl, onClose, compact = true, hideable = true }: EmailCaptureFormProps) => {
   const [firstName, setFirstName] = useState("");
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -111,14 +112,16 @@ const EmailCaptureForm = ({ title, guideDownloadUrl, onClose, compact = true }: 
         <h4 className={`font-semibold text-foreground ${compact ? 'text-sm' : 'text-lg'}`}>
           Get Your Free Guide
         </h4>
-        <Button 
-          variant="ghost" 
-          size="icon"
-          onClick={onClose}
-          className="w-6 h-6 hover:bg-destructive/10 hover:text-destructive"
-        >
-          <X className="w-4 h-4" />
-        </Button>
+          {hideable && (
+            <Button 
+              variant="ghost" 
+              size="icon"
+              onClick={onClose}
+              className="w-6 h-6 hover:bg-destructive/10 hover:text-destructive"
+            >
+              <X className="w-4 h-4" />
+            </Button>
+          )}
       </div>
       
       {!compact && (
