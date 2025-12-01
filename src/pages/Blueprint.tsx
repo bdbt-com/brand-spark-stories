@@ -30,6 +30,7 @@ const Blueprint = () => {
                   guideDownloadUrl={guideUrl}
                   onClose={() => setShowEmailForm(false)}
                   compact={false}
+                  hideable={false}
                 />
               </CardContent>
             </Card>
