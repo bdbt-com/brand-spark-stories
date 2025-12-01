@@ -118,18 +118,69 @@ const handler = async (req: Request): Promise<Response> => {
 
     console.log(`Database insert successful for email: ${sanitizedEmail}`);
 
-    // Send email using Resend
-    const emailResponse = await resend.emails.send({
-      from: "Big Daddy's Big Tips <noreply@bigdaddysbigtips.com>",
-      to: [sanitizedEmail],
-      subject: `Your Free Guide: ${sanitizedGuideTitle}`,
-      html: `
+    // Determine if this is the Blueprint or a regular Tip
+    const isBlueprint = guideTitle.toLowerCase().includes('blueprint') || guideTitle === 'BDBT Foundation Blueprint';
+    
+    // Prepare email content based on guide type
+    const emailSubject = isBlueprint 
+      ? "Your Foundation Blueprint from Big Daddy's Big Tips"
+      : `Your Free Guide: ${sanitizedGuideTitle}`;
+    
+    const emailHtml = isBlueprint 
+      ? `
         <html>
           <body style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
             <div style="background-color: white; padding: 40px; border-radius: 10px;">
               <h1 style="color: #333;">Hi ${sanitizedFirstName}! 👋</h1>
               <p style="font-size: 16px; color: #666; line-height: 1.6;">
-                Thank you for your interest in <strong>${sanitizedGuideTitle}</strong>!
+                Thank you for your interest in Big Daddy's Foundation Blueprint!
+              </p>
+              <p style="font-size: 16px; color: #666; line-height: 1.6;">
+                This is an exciting step in your journey and I hope you find the blueprint as useful as I have.
+              </p>
+              <p style="font-size: 16px; color: #666; line-height: 1.6;">
+                I can't wait to hear about your first Daily Win and the rest that follow.
+              </p>
+              <p style="font-size: 16px; color: #666; line-height: 1.6;">
+                If you need anything, reach out to me on Instagram/TikTok and I will be in touch.
+              </p>
+              <p style="font-size: 16px; color: #666; line-height: 1.6;">
+                Looking forward to helping you along your unique journey!
+              </p>
+              <p style="font-size: 16px; color: #666; line-height: 1.6; margin-top: 20px;">
+                Big love,<br>
+                <strong>Big Daddy</strong>
+              </p>
+              <div style="text-align: center; margin: 40px 0;">
+                <a href="${guideDownloadUrl}" style="background-color: #000; color: white; padding: 16px 50px; text-decoration: none; border-radius: 5px; display: inline-block;">
+                  Download Your Foundation Blueprint →
+                </a>
+              </div>
+              <p style="color: #999; font-size: 12px;">
+                If the button doesn't work, copy this link:<br>
+                <a href="${guideDownloadUrl}" style="color: #666; word-break: break-all;">${guideDownloadUrl}</a>
+              </p>
+            </div>
+          </body>
+        </html>
+      `
+      : `
+        <html>
+          <body style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+            <div style="background-color: white; padding: 40px; border-radius: 10px;">
+              <h1 style="color: #333;">Hi ${sanitizedFirstName}! 👋</h1>
+              <p style="font-size: 16px; color: #666; line-height: 1.6;">
+                Thank you for your interest in today's tip: <strong>${sanitizedGuideTitle}</strong>!
+              </p>
+              <p style="font-size: 16px; color: #666; line-height: 1.6;">
+                I hope you find this guide useful and I look forward to hearing about your journey.
+              </p>
+              <p style="font-size: 16px; color: #666; line-height: 1.6;">
+                Your life does not change in one big leap, it changes in the next small step you take today!
+              </p>
+              <p style="font-size: 16px; color: #666; line-height: 1.6; margin-top: 20px;">
+                Big love,<br>
+                <strong>Big Daddy</strong>
               </p>
               <div style="text-align: center; margin: 40px 0;">
                 <a href="${guideDownloadUrl}" style="background-color: #000; color: white; padding: 16px 50px; text-decoration: none; border-radius: 5px; display: inline-block;">
@@ -143,7 +194,14 @@ const handler = async (req: Request): Promise<Response> => {
             </div>
           </body>
         </html>
-      `,
+      `;
+
+    // Send email using Resend
+    const emailResponse = await resend.emails.send({
+      from: "Big Daddy's Big Tips <noreply@bigdaddysbigtips.com>",
+      to: [sanitizedEmail],
+      subject: emailSubject,
+      html: emailHtml,
     });
 
     if (emailResponse.error) {
