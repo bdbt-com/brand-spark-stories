@@ -360,7 +360,7 @@ const FeelingStuck = () => {
                 You don't need to overhaul your entire life at once. You just need to start stacking the right Daily Wins.
               </p>
               <p className="text-base sm:text-lg mb-4 text-white/90">
-                Start your first daily win today.
+                Start your first Daily Win today.
               </p>
               <p className="mb-8 text-white/90 leading-relaxed">
                 Download your free copy of the Big Daddy Foundation Blueprint and begin building ripple effects that move your life in the right direction.
