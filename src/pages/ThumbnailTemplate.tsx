@@ -189,6 +189,55 @@ const ThumbnailTemplate = () => {
       title: "The Benefits of trying a new food each week",
       subtitle: "Daily Wins Podcast",
       image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+    },
+    {
+      id: 25,
+      name: "Daily savings through energy efficiency",
+      title: "Daily savings through energy efficiency",
+      subtitle: "Daily Wins Podcast",
+      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+    },
+    {
+      id: 26,
+      name: "Public Transport to Get your Steps in",
+      title: "Public Transport to Get your Steps in",
+      subtitle: "Daily Wins Podcast",
+      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+    },
+    {
+      id: 27,
+      name: "The Power of Connecting with Your Loved Ones",
+      title: "The Power of Connecting with Your Loved Ones",
+      subtitle: "Daily Wins Podcast",
+      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+    },
+    {
+      id: 28,
+      name: "Keep a Notebook for Random Thoughts",
+      title: "Keep a Notebook for Random Thoughts",
+      subtitle: "Daily Wins Podcast",
+      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+    },
+    {
+      id: 29,
+      name: "Walk During Phone Calls",
+      title: "Walk During Phone Calls",
+      subtitle: "Daily Wins Podcast",
+      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+    },
+    {
+      id: 30,
+      name: "Stop Buying Books, and Go To The Library",
+      title: "Stop Buying Books, and Go To The Library",
+      subtitle: "Daily Wins Podcast",
+      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+    },
+    {
+      id: 31,
+      name: "The Power Of Community",
+      title: "The Power Of Community",
+      subtitle: "Daily Wins Podcast",
+      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
     }
   ];
 
@@ -1380,6 +1429,286 @@ const ThumbnailTemplate = () => {
                     </span>
                     <span className="block" style={{ color: 'hsl(35, 45%, 75%)' }}>
                       a new food each week
+                    </span>
+                  </h1>
+                  <p className="text-white/80 text-3xl font-medium">
+                    Daily Wins Podcast
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Template 26 - Daily savings through energy efficiency */}
+        {currentTemplateIndex === 25 && mode === 'youtube' && (
+          <div className="relative">
+            <div id="thumbnail-25" key="template-25" className="w-[1280px] h-[720px] relative overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
+              <div className="h-full flex items-center p-16 relative">
+                <div className="absolute right-16 top-16 bottom-16 flex items-center">
+                  <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
+                    <img 
+                      src={templates[25].image} 
+                      alt="Podcast thumbnail"
+                      className="w-full h-full object-cover border-4 border-white/20"
+                    />
+                    <div className="absolute bottom-4 left-4">
+                      <img 
+                        src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
+                        alt="BDBT Logo"
+                        className="h-16 opacity-90"
+                      />
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="absolute left-8 top-16 bottom-24 right-[35%] pr-4 z-10 flex flex-col justify-center">
+                  <h1 className="text-6xl xl:text-7xl 2xl:text-8xl font-bold leading-tight mb-6">
+                    <span className="text-white block mb-2">
+                      Daily savings through
+                    </span>
+                    <span className="block" style={{ color: 'hsl(35, 45%, 75%)' }}>
+                      energy efficiency
+                    </span>
+                  </h1>
+                  <p className="text-white/80 text-3xl font-medium">
+                    Daily Wins Podcast
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Template 27 - Public Transport to Get your Steps in */}
+        {currentTemplateIndex === 26 && mode === 'youtube' && (
+          <div className="relative">
+            <div id="thumbnail-26" key="template-26" className="w-[1280px] h-[720px] relative overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
+              <div className="h-full flex items-center p-16 relative">
+                <div className="absolute right-16 top-16 bottom-16 flex items-center">
+                  <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
+                    <img 
+                      src={templates[26].image} 
+                      alt="Podcast thumbnail"
+                      className="w-full h-full object-cover border-4 border-white/20"
+                    />
+                    <div className="absolute bottom-4 left-4">
+                      <img 
+                        src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
+                        alt="BDBT Logo"
+                        className="h-16 opacity-90"
+                      />
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="absolute left-8 top-16 bottom-24 right-[35%] pr-4 z-10 flex flex-col justify-center">
+                  <h1 className="text-6xl xl:text-7xl 2xl:text-8xl font-bold leading-tight mb-6">
+                    <span className="text-white block mb-2">
+                      Public Transport to Get
+                    </span>
+                    <span className="block" style={{ color: 'hsl(35, 45%, 75%)' }}>
+                      your Steps in
+                    </span>
+                  </h1>
+                  <p className="text-white/80 text-3xl font-medium">
+                    Daily Wins Podcast
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Template 28 - The Power of Connecting with Your Loved Ones */}
+        {currentTemplateIndex === 27 && mode === 'youtube' && (
+          <div className="relative">
+            <div id="thumbnail-27" key="template-27" className="w-[1280px] h-[720px] relative overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
+              <div className="h-full flex items-center p-16 relative">
+                <div className="absolute right-16 top-16 bottom-16 flex items-center">
+                  <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
+                    <img 
+                      src={templates[27].image} 
+                      alt="Podcast thumbnail"
+                      className="w-full h-full object-cover border-4 border-white/20"
+                    />
+                    <div className="absolute bottom-4 left-4">
+                      <img 
+                        src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
+                        alt="BDBT Logo"
+                        className="h-16 opacity-90"
+                      />
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="absolute left-8 top-16 bottom-24 right-[35%] pr-4 z-10 flex flex-col justify-center">
+                  <h1 className="text-6xl xl:text-7xl 2xl:text-8xl font-bold leading-tight mb-6">
+                    <span className="text-white block mb-2">
+                      The Power of Connecting
+                    </span>
+                    <span className="block" style={{ color: 'hsl(35, 45%, 75%)' }}>
+                      with Your Loved Ones
+                    </span>
+                  </h1>
+                  <p className="text-white/80 text-3xl font-medium">
+                    Daily Wins Podcast
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Template 29 - Keep a Notebook for Random Thoughts */}
+        {currentTemplateIndex === 28 && mode === 'youtube' && (
+          <div className="relative">
+            <div id="thumbnail-28" key="template-28" className="w-[1280px] h-[720px] relative overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
+              <div className="h-full flex items-center p-16 relative">
+                <div className="absolute right-16 top-16 bottom-16 flex items-center">
+                  <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
+                    <img 
+                      src={templates[28].image} 
+                      alt="Podcast thumbnail"
+                      className="w-full h-full object-cover border-4 border-white/20"
+                    />
+                    <div className="absolute bottom-4 left-4">
+                      <img 
+                        src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
+                        alt="BDBT Logo"
+                        className="h-16 opacity-90"
+                      />
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="absolute left-8 top-16 bottom-24 right-[35%] pr-4 z-10 flex flex-col justify-center">
+                  <h1 className="text-6xl xl:text-7xl 2xl:text-8xl font-bold leading-tight mb-6">
+                    <span className="text-white block mb-2">
+                      Keep a Notebook for
+                    </span>
+                    <span className="block" style={{ color: 'hsl(35, 45%, 75%)' }}>
+                      Random Thoughts
+                    </span>
+                  </h1>
+                  <p className="text-white/80 text-3xl font-medium">
+                    Daily Wins Podcast
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Template 30 - Walk During Phone Calls */}
+        {currentTemplateIndex === 29 && mode === 'youtube' && (
+          <div className="relative">
+            <div id="thumbnail-29" key="template-29" className="w-[1280px] h-[720px] relative overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
+              <div className="h-full flex items-center p-16 relative">
+                <div className="absolute right-16 top-16 bottom-16 flex items-center">
+                  <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
+                    <img 
+                      src={templates[29].image} 
+                      alt="Podcast thumbnail"
+                      className="w-full h-full object-cover border-4 border-white/20"
+                    />
+                    <div className="absolute bottom-4 left-4">
+                      <img 
+                        src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
+                        alt="BDBT Logo"
+                        className="h-16 opacity-90"
+                      />
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="absolute left-8 top-16 bottom-24 right-[35%] pr-4 z-10 flex flex-col justify-center">
+                  <h1 className="text-6xl xl:text-7xl 2xl:text-8xl font-bold leading-tight mb-6">
+                    <span className="text-white block mb-2">
+                      Walk During
+                    </span>
+                    <span className="block" style={{ color: 'hsl(35, 45%, 75%)' }}>
+                      Phone Calls
+                    </span>
+                  </h1>
+                  <p className="text-white/80 text-3xl font-medium">
+                    Daily Wins Podcast
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Template 31 - Stop Buying Books, and Go To The Library */}
+        {currentTemplateIndex === 30 && mode === 'youtube' && (
+          <div className="relative">
+            <div id="thumbnail-30" key="template-30" className="w-[1280px] h-[720px] relative overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
+              <div className="h-full flex items-center p-16 relative">
+                <div className="absolute right-16 top-16 bottom-16 flex items-center">
+                  <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
+                    <img 
+                      src={templates[30].image} 
+                      alt="Podcast thumbnail"
+                      className="w-full h-full object-cover border-4 border-white/20"
+                    />
+                    <div className="absolute bottom-4 left-4">
+                      <img 
+                        src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
+                        alt="BDBT Logo"
+                        className="h-16 opacity-90"
+                      />
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="absolute left-8 top-16 bottom-24 right-[35%] pr-4 z-10 flex flex-col justify-center">
+                  <h1 className="text-6xl xl:text-7xl 2xl:text-8xl font-bold leading-tight mb-6">
+                    <span className="text-white block mb-2">
+                      Stop Buying Books, and
+                    </span>
+                    <span className="block" style={{ color: 'hsl(35, 45%, 75%)' }}>
+                      Go To The Library
+                    </span>
+                  </h1>
+                  <p className="text-white/80 text-3xl font-medium">
+                    Daily Wins Podcast
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Template 32 - The Power Of Community */}
+        {currentTemplateIndex === 31 && mode === 'youtube' && (
+          <div className="relative">
+            <div id="thumbnail-31" key="template-31" className="w-[1280px] h-[720px] relative overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
+              <div className="h-full flex items-center p-16 relative">
+                <div className="absolute right-16 top-16 bottom-16 flex items-center">
+                  <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
+                    <img 
+                      src={templates[31].image} 
+                      alt="Podcast thumbnail"
+                      className="w-full h-full object-cover border-4 border-white/20"
+                    />
+                    <div className="absolute bottom-4 left-4">
+                      <img 
+                        src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
+                        alt="BDBT Logo"
+                        className="h-16 opacity-90"
+                      />
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="absolute left-8 top-16 bottom-24 right-[35%] pr-4 z-10 flex flex-col justify-center">
+                  <h1 className="text-6xl xl:text-7xl 2xl:text-8xl font-bold leading-tight mb-6">
+                    <span className="text-white block mb-2">
+                      The Power Of
+                    </span>
+                    <span className="block" style={{ color: 'hsl(35, 45%, 75%)' }}>
+                      Community
                     </span>
                   </h1>
                   <p className="text-white/80 text-3xl font-medium">
