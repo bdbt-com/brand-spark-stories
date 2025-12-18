@@ -1867,22 +1867,6 @@ const Tips = () => {
       views: 0,
       dateAdded: "2024-04-25"
     },
-    {
-      icon: Map,
-      title: "BDBT Foundation Blueprint",
-      description: "Your complete roadmap to transforming health, wealth and happiness.",
-      items: [
-        "Health: Comprehensive wellness framework for daily improvement",
-        "Wealth: Strategic financial planning integrated into lifestyle",
-        "Happiness: Holistic approach to sustainable life transformation"
-      ],
-      level: "Moderate",
-      duration: "10 min read",
-      category: "learning",
-      popularity: 85,
-      views: 0,
-      dateAdded: "2024-04-26"
-    }
   ];
 
   const sortedAndFilteredTips = useMemo(() => {
