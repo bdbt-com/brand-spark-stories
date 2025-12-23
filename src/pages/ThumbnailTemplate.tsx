@@ -262,6 +262,13 @@ const ThumbnailTemplate = () => {
       title: "BDBT Explained",
       subtitle: "",
       image: ""
+    },
+    {
+      id: 3,
+      name: "Placeholder Title",
+      title: "Placeholder Title",
+      subtitle: "",
+      image: ""
     }
   ];
 
