@@ -3,16 +3,22 @@ import tikTokBg1 from "@/assets/tiktok-bg-modern-world.png";
 import tikTokBg2 from "@/assets/tiktok-bg-bdbt-explained.png";
 import tikTokBg3 from "@/assets/tiktok-bg-template-4.png";
 import tikTokBg4 from "@/assets/tiktok-bg-template-5.png";
+import tikTokBg5 from "@/assets/tiktok-bg-template-6.png";
+import tikTokBg6 from "@/assets/tiktok-bg-template-7.png";
+import tikTokBg7 from "@/assets/tiktok-bg-template-8.png";
+import tikTokBg8 from "@/assets/tiktok-bg-template-9.png";
+import tikTokBg9 from "@/assets/tiktok-bg-template-10.png";
 import { Instagram, Youtube } from "lucide-react";
 
 interface TikTokTemplateProps {
-  templateIndex: 0 | 1 | 2 | 3 | 4;
+  templateIndex: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
   className?: string;
 }
 
 export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplateProps) {
-  const backgroundImage = templateIndex === 0 ? tikTokBg : templateIndex === 1 ? tikTokBg2 : templateIndex === 2 ? tikTokBg1 : templateIndex === 3 ? tikTokBg3 : tikTokBg4;
-  const showOverlay = templateIndex !== 3 && templateIndex !== 4; // No overlay for template 4 and 5
+  const backgrounds = [tikTokBg, tikTokBg2, tikTokBg1, tikTokBg3, tikTokBg4, tikTokBg5, tikTokBg6, tikTokBg7, tikTokBg8, tikTokBg9];
+  const backgroundImage = backgrounds[templateIndex];
+  const showOverlay = templateIndex <= 2; // Only overlay for templates 0, 1, 2
   
   return (
     <div className={`w-[540px] h-[960px] relative overflow-hidden shadow-2xl animate-fade-in border-2 border-white ${className}`}>
@@ -72,6 +78,51 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
                 </span>
                 <span className="block mt-1" style={{ color: 'hsl(35, 45%, 75%)' }}>
                   Truth
+                </span>
+              </>
+            ) : templateIndex === 5 ? (
+              <>
+                <span className="text-white block">
+                  Wins vs
+                </span>
+                <span className="block mt-1" style={{ color: 'hsl(35, 45%, 75%)' }}>
+                  Drifts
+                </span>
+              </>
+            ) : templateIndex === 6 ? (
+              <>
+                <span className="text-white block">
+                  My
+                </span>
+                <span className="block mt-1" style={{ color: 'hsl(35, 45%, 75%)' }}>
+                  Story
+                </span>
+              </>
+            ) : templateIndex === 7 ? (
+              <>
+                <span className="text-white block">
+                  Why The Old
+                </span>
+                <span className="block mt-1" style={{ color: 'hsl(35, 45%, 75%)' }}>
+                  Model Fails
+                </span>
+              </>
+            ) : templateIndex === 8 ? (
+              <>
+                <span className="text-white block">
+                  What Is
+                </span>
+                <span className="block mt-1" style={{ color: 'hsl(35, 45%, 75%)' }}>
+                  BDBT?
+                </span>
+              </>
+            ) : templateIndex === 9 ? (
+              <>
+                <span className="text-white block">
+                  The
+                </span>
+                <span className="block mt-1" style={{ color: 'hsl(35, 45%, 75%)' }}>
+                  Invitation
                 </span>
               </>
             ) : null}
