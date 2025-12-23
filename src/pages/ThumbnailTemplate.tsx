@@ -242,41 +242,16 @@ const ThumbnailTemplate = () => {
   ];
 
   const tikTokTemplates = [
-    {
-      id: 0,
-      name: "The Modern World is Designed to Keep You Stuck",
-      title: "The Modern World is Designed to Keep You Stuck",
-      subtitle: "",
-      image: ""
-    },
-    {
-      id: 1,
-      name: "Every Choice is a Daily Win or a Daily Drift", 
-      title: "Every Choice is a Daily Win or a Daily Drift",
-      subtitle: "",
-      image: ""
-    },
-    {
-      id: 2,
-      name: "BDBT Explained",
-      title: "BDBT Explained",
-      subtitle: "",
-      image: ""
-    },
-    {
-      id: 3,
-      name: "Why We Stay Stuck",
-      title: "Why We Stay Stuck",
-      subtitle: "",
-      image: ""
-    },
-    {
-      id: 4,
-      name: "The Harsh Truth",
-      title: "The Harsh Truth",
-      subtitle: "",
-      image: ""
-    }
+    { id: 0, name: "The Modern World is Designed to Keep You Stuck", title: "The Modern World is Designed to Keep You Stuck", subtitle: "", image: "" },
+    { id: 1, name: "Every Choice is a Daily Win or a Daily Drift", title: "Every Choice is a Daily Win or a Daily Drift", subtitle: "", image: "" },
+    { id: 2, name: "BDBT Explained", title: "BDBT Explained", subtitle: "", image: "" },
+    { id: 3, name: "Why We Stay Stuck", title: "Why We Stay Stuck", subtitle: "", image: "" },
+    { id: 4, name: "The Harsh Truth", title: "The Harsh Truth", subtitle: "", image: "" },
+    { id: 5, name: "Wins vs Drifts", title: "Wins vs Drifts", subtitle: "", image: "" },
+    { id: 6, name: "My Story", title: "My Story", subtitle: "", image: "" },
+    { id: 7, name: "Why The Old Model Fails", title: "Why The Old Model Fails", subtitle: "", image: "" },
+    { id: 8, name: "What Is BDBT?", title: "What Is BDBT?", subtitle: "", image: "" },
+    { id: 9, name: "The Invitation", title: "The Invitation", subtitle: "", image: "" }
   ];
 
   const phrases = [
@@ -481,7 +456,7 @@ const ThumbnailTemplate = () => {
                 </div>
               </div>
             ) : (
-              <TikTokTemplate templateIndex={currentTemplateIndex as 0 | 1 | 2 | 3 | 4} />
+              <TikTokTemplate templateIndex={currentTemplateIndex as 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9} />
             )}
           </div>
         )}
@@ -525,7 +500,7 @@ const ThumbnailTemplate = () => {
                 </div>
               </div>
             ) : (
-              <TikTokTemplate templateIndex={currentTemplateIndex as 0 | 1 | 2 | 3 | 4} />
+              <TikTokTemplate templateIndex={currentTemplateIndex as 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9} />
             )}
           </div>
         )}
@@ -569,7 +544,7 @@ const ThumbnailTemplate = () => {
                 </div>
               </div>
             ) : (
-              <TikTokTemplate templateIndex={currentTemplateIndex as 0 | 1 | 2 | 3 | 4} />
+              <TikTokTemplate templateIndex={currentTemplateIndex as 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9} />
             )}
           </div>
         )}
@@ -613,7 +588,7 @@ const ThumbnailTemplate = () => {
                 </div>
               </div>
             ) : (
-              <TikTokTemplate templateIndex={currentTemplateIndex as 0 | 1 | 2 | 3 | 4} />
+              <TikTokTemplate templateIndex={currentTemplateIndex as 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9} />
             )}
           </div>
         )}
@@ -622,6 +597,41 @@ const ThumbnailTemplate = () => {
         {currentTemplateIndex === 4 && mode === 'instagram' && (
           <div className="relative">
             <TikTokTemplate templateIndex={4} />
+          </div>
+        )}
+
+        {/* Template 6 - Wins vs Drifts (TikTok only) */}
+        {currentTemplateIndex === 5 && mode === 'instagram' && (
+          <div className="relative">
+            <TikTokTemplate templateIndex={5} />
+          </div>
+        )}
+
+        {/* Template 7 - My Story (TikTok only) */}
+        {currentTemplateIndex === 6 && mode === 'instagram' && (
+          <div className="relative">
+            <TikTokTemplate templateIndex={6} />
+          </div>
+        )}
+
+        {/* Template 8 - Why The Old Model Fails (TikTok only) */}
+        {currentTemplateIndex === 7 && mode === 'instagram' && (
+          <div className="relative">
+            <TikTokTemplate templateIndex={7} />
+          </div>
+        )}
+
+        {/* Template 9 - What Is BDBT? (TikTok only) */}
+        {currentTemplateIndex === 8 && mode === 'instagram' && (
+          <div className="relative">
+            <TikTokTemplate templateIndex={8} />
+          </div>
+        )}
+
+        {/* Template 10 - The Invitation (TikTok only) */}
+        {currentTemplateIndex === 9 && mode === 'instagram' && (
+          <div className="relative">
+            <TikTokTemplate templateIndex={9} />
           </div>
         )}
 
