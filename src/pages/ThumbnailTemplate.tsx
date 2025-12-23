@@ -263,13 +263,13 @@ const ThumbnailTemplate = () => {
       subtitle: "",
       image: ""
     },
-    {
-      id: 3,
-      name: "Placeholder Title",
-      title: "Placeholder Title",
-      subtitle: "",
-      image: ""
-    }
+      {
+        id: 3,
+        name: "Why We Stay Stuck",
+        title: "Why We Stay Stuck",
+        subtitle: "",
+        image: ""
+      }
   ];
 
   const phrases = [
