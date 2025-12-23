@@ -33,7 +33,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
       
       <div className="h-full flex flex-col p-8 relative">
         {/* Title text positioned above the logo */}
-        <div className="absolute top-[30%] left-8 right-8 transform -translate-y-1/2 text-center z-10">
+        <div className={`absolute ${templateIndex >= 3 ? 'top-[38%]' : 'top-[30%]'} left-8 right-8 transform -translate-y-1/2 text-center z-10`}>
           <h1 className="text-4xl xl:text-5xl font-bold leading-tight mb-4" style={{ textShadow: '3px 3px 6px rgba(0,0,0,0.9)' }}>
             {templateIndex === 0 ? (
               <>
