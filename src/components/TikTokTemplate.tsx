@@ -2,16 +2,17 @@ import tikTokBg from "@/assets/tiktok-bg-daily-wins.png";
 import tikTokBg1 from "@/assets/tiktok-bg-modern-world.png";
 import tikTokBg2 from "@/assets/tiktok-bg-bdbt-explained.png";
 import tikTokBg3 from "@/assets/tiktok-bg-template-4.png";
+import tikTokBg4 from "@/assets/tiktok-bg-template-5.png";
 import { Instagram, Youtube } from "lucide-react";
 
 interface TikTokTemplateProps {
-  templateIndex: 0 | 1 | 2 | 3;
+  templateIndex: 0 | 1 | 2 | 3 | 4;
   className?: string;
 }
 
 export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplateProps) {
-  const backgroundImage = templateIndex === 0 ? tikTokBg : templateIndex === 1 ? tikTokBg2 : templateIndex === 2 ? tikTokBg1 : tikTokBg3;
-  const showOverlay = templateIndex !== 3; // No overlay for template 4
+  const backgroundImage = templateIndex === 0 ? tikTokBg : templateIndex === 1 ? tikTokBg2 : templateIndex === 2 ? tikTokBg1 : templateIndex === 3 ? tikTokBg3 : tikTokBg4;
+  const showOverlay = templateIndex !== 3 && templateIndex !== 4; // No overlay for template 4 and 5
   
   return (
     <div className={`w-[540px] h-[960px] relative overflow-hidden shadow-2xl animate-fade-in border-2 border-white ${className}`}>
@@ -62,6 +63,15 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
                 </span>
                 <span className="block mt-1" style={{ color: 'hsl(35, 45%, 75%)' }}>
                   Stay Stuck
+                </span>
+              </>
+            ) : templateIndex === 4 ? (
+              <>
+                <span className="text-white block">
+                  The Harsh
+                </span>
+                <span className="block mt-1" style={{ color: 'hsl(35, 45%, 75%)' }}>
+                  Truth
                 </span>
               </>
             ) : null}

@@ -263,13 +263,20 @@ const ThumbnailTemplate = () => {
       subtitle: "",
       image: ""
     },
-      {
-        id: 3,
-        name: "Why We Stay Stuck",
-        title: "Why We Stay Stuck",
-        subtitle: "",
-        image: ""
-      }
+    {
+      id: 3,
+      name: "Why We Stay Stuck",
+      title: "Why We Stay Stuck",
+      subtitle: "",
+      image: ""
+    },
+    {
+      id: 4,
+      name: "The Harsh Truth",
+      title: "The Harsh Truth",
+      subtitle: "",
+      image: ""
+    }
   ];
 
   const phrases = [
@@ -474,7 +481,7 @@ const ThumbnailTemplate = () => {
                 </div>
               </div>
             ) : (
-              <TikTokTemplate templateIndex={currentTemplateIndex as 0 | 1 | 2 | 3} />
+              <TikTokTemplate templateIndex={currentTemplateIndex as 0 | 1 | 2 | 3 | 4} />
             )}
           </div>
         )}
@@ -518,7 +525,7 @@ const ThumbnailTemplate = () => {
                 </div>
               </div>
             ) : (
-              <TikTokTemplate templateIndex={currentTemplateIndex as 0 | 1 | 2 | 3} />
+              <TikTokTemplate templateIndex={currentTemplateIndex as 0 | 1 | 2 | 3 | 4} />
             )}
           </div>
         )}
@@ -562,7 +569,7 @@ const ThumbnailTemplate = () => {
                 </div>
               </div>
             ) : (
-              <TikTokTemplate templateIndex={currentTemplateIndex as 0 | 1 | 2 | 3} />
+              <TikTokTemplate templateIndex={currentTemplateIndex as 0 | 1 | 2 | 3 | 4} />
             )}
           </div>
         )}
@@ -606,8 +613,15 @@ const ThumbnailTemplate = () => {
                 </div>
               </div>
             ) : (
-              <TikTokTemplate templateIndex={currentTemplateIndex as 0 | 1 | 2 | 3} />
+              <TikTokTemplate templateIndex={currentTemplateIndex as 0 | 1 | 2 | 3 | 4} />
             )}
+          </div>
+        )}
+
+        {/* Template 5 - The Harsh Truth (TikTok only) */}
+        {currentTemplateIndex === 4 && mode === 'instagram' && (
+          <div className="relative">
+            <TikTokTemplate templateIndex={4} />
           </div>
         )}
 
