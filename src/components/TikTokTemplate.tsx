@@ -121,7 +121,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
                 <span className="text-white block">
                   The
                 </span>
-                <span className="text-white block mt-1">
+                <span className="block mt-1" style={{ color: 'hsl(35, 45%, 75%)' }}>
                   Invitation
                 </span>
               </>
