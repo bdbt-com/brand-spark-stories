@@ -1,15 +1,17 @@
 import tikTokBg from "@/assets/tiktok-bg-daily-wins.png";
 import tikTokBg1 from "@/assets/tiktok-bg-modern-world.png";
 import tikTokBg2 from "@/assets/tiktok-bg-bdbt-explained.png";
+import tikTokBg3 from "@/assets/tiktok-bg-template-4.png";
 import { Instagram, Youtube } from "lucide-react";
 
 interface TikTokTemplateProps {
-  templateIndex: 0 | 1 | 2;
+  templateIndex: 0 | 1 | 2 | 3;
   className?: string;
 }
 
 export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplateProps) {
-  const backgroundImage = templateIndex === 0 ? tikTokBg : templateIndex === 1 ? tikTokBg2 : tikTokBg1;
+  const backgroundImage = templateIndex === 0 ? tikTokBg : templateIndex === 1 ? tikTokBg2 : templateIndex === 2 ? tikTokBg1 : tikTokBg3;
+  const showOverlay = templateIndex !== 3; // No overlay for template 4
   
   return (
     <div className={`w-[540px] h-[960px] relative overflow-hidden shadow-2xl animate-fade-in border-2 border-white ${className}`}>
@@ -19,8 +21,8 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
         alt="TikTok Background" 
         className="absolute inset-0 w-full h-full object-cover"
       />
-      {/* Dark overlay for text readability */}
-      <div className="absolute inset-0 bg-black/30"></div>
+      {/* Dark overlay for text readability - hidden for template 4 */}
+      {showOverlay && <div className="absolute inset-0 bg-black/30"></div>}
       
       <div className="h-full flex flex-col p-8 relative">
         {/* Title text positioned above the logo */}
@@ -53,6 +55,15 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
               <span style={{ color: 'white' }}>
                 BDBT <span style={{ color: 'hsl(35, 45%, 75%)' }}>Explained</span>
               </span>
+            ) : templateIndex === 3 ? (
+              <>
+                <span className="text-white block">
+                  Placeholder
+                </span>
+                <span className="block mt-1" style={{ color: 'hsl(35, 45%, 75%)' }}>
+                  Title Here
+                </span>
+              </>
             ) : null}
           </h1>
         </div>
