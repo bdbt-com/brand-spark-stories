@@ -11,12 +11,12 @@ import tikTokBg9 from "@/assets/tiktok-bg-template-10.png";
 import { Instagram, Youtube } from "lucide-react";
 
 interface TikTokTemplateProps {
-  templateIndex: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
+  templateIndex: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
   className?: string;
 }
 
 export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplateProps) {
-  const backgrounds = [tikTokBg, tikTokBg2, tikTokBg1, tikTokBg3, tikTokBg4, tikTokBg5, tikTokBg6, tikTokBg7, tikTokBg8, tikTokBg9];
+  const backgrounds = [tikTokBg, tikTokBg2, tikTokBg1, tikTokBg3, tikTokBg4, tikTokBg5, tikTokBg6, tikTokBg7, tikTokBg8, tikTokBg9, tikTokBg3];
   const backgroundImage = backgrounds[templateIndex];
   const showOverlay = templateIndex <= 2; // Only overlay for templates 0, 1, 2
   
@@ -123,6 +123,18 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
                 </span>
                 <span className="block mt-1" style={{ color: 'hsl(35, 45%, 75%)' }}>
                   Invitation
+                </span>
+              </>
+            ) : templateIndex === 10 ? (
+              <>
+                <span className="text-white block">
+                  Wait for the Next
+                </span>
+                <span className="block mt-1" style={{ color: 'hsl(35, 45%, 75%)' }}>
+                  Sale / Promo
+                </span>
+                <span className="block mt-1" style={{ color: 'hsl(35, 45%, 75%)' }}>
+                  Before you Buy
                 </span>
               </>
             ) : null}
