@@ -251,7 +251,8 @@ const ThumbnailTemplate = () => {
     { id: 6, name: "My Story", title: "My Story", subtitle: "", image: "" },
     { id: 7, name: "Why The Old Model Fails", title: "Why The Old Model Fails", subtitle: "", image: "" },
     { id: 8, name: "What Is BDBT?", title: "What Is BDBT?", subtitle: "", image: "" },
-    { id: 9, name: "The Invitation", title: "The Invitation", subtitle: "", image: "" }
+    { id: 9, name: "The Invitation", title: "The Invitation", subtitle: "", image: "" },
+    { id: 10, name: "Wait for the Next Sale / Promo Before you Buy", title: "Wait for the Next Sale / Promo Before you Buy", subtitle: "", image: "" }
   ];
 
   const phrases = [
@@ -456,7 +457,7 @@ const ThumbnailTemplate = () => {
                 </div>
               </div>
             ) : (
-              <TikTokTemplate templateIndex={currentTemplateIndex as 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9} />
+              <TikTokTemplate templateIndex={currentTemplateIndex as 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10} />
             )}
           </div>
         )}
@@ -500,7 +501,7 @@ const ThumbnailTemplate = () => {
                 </div>
               </div>
             ) : (
-              <TikTokTemplate templateIndex={currentTemplateIndex as 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9} />
+              <TikTokTemplate templateIndex={currentTemplateIndex as 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10} />
             )}
           </div>
         )}
@@ -544,7 +545,7 @@ const ThumbnailTemplate = () => {
                 </div>
               </div>
             ) : (
-              <TikTokTemplate templateIndex={currentTemplateIndex as 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9} />
+              <TikTokTemplate templateIndex={currentTemplateIndex as 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10} />
             )}
           </div>
         )}
@@ -588,7 +589,7 @@ const ThumbnailTemplate = () => {
                 </div>
               </div>
             ) : (
-              <TikTokTemplate templateIndex={currentTemplateIndex as 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9} />
+              <TikTokTemplate templateIndex={currentTemplateIndex as 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10} />
             )}
           </div>
         )}
@@ -632,6 +633,13 @@ const ThumbnailTemplate = () => {
         {currentTemplateIndex === 9 && mode === 'instagram' && (
           <div className="relative">
             <TikTokTemplate templateIndex={9} />
+          </div>
+        )}
+
+        {/* Template 11 - Wait for the Next Sale / Promo Before you Buy */}
+        {currentTemplateIndex === 10 && mode === 'instagram' && (
+          <div className="relative">
+            <TikTokTemplate templateIndex={10} />
           </div>
         )}
 
