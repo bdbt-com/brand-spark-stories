@@ -20,231 +20,231 @@ const ThumbnailTemplate = () => {
       name: "Parking Benefits",
       title: "The Benefits of Parking Further Away from your Destination",
       subtitle: "Daily Wins Podcast",
-      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+      image: "/lovable-uploads/recording-setup-new.jpg"
     },
     {
       id: 1,
       name: "Dead Time",
       title: "The Benefits of making use of your Dead Time",
       subtitle: "Daily Wins Podcast",
-      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+      image: "/lovable-uploads/recording-setup-new.jpg"
     },
     {
       id: 2,
       name: "Wait 24 hours before clicking buy",
       title: "Wait 24 hours before clicking buy",
       subtitle: "Daily Wins Podcast",
-      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+      image: "/lovable-uploads/recording-setup-new.jpg"
     },
     {
       id: 3,
       name: "Hydration",
       title: "The Necessity of Staying Hydrated",
       subtitle: "Daily Wins Podcast",
-      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+      image: "/lovable-uploads/recording-setup-new.jpg"
     },
     {
       id: 4,
       name: "Healthy Snacks",
       title: "The Benefits of Buying Healthy Snacks in Bulk",
       subtitle: "Daily Wins Podcast",
-      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+      image: "/lovable-uploads/recording-setup-new.jpg"
     },
     {
       id: 5,
       name: "Morning Self-Care",
       title: "The Power of Smiling at Yourself",
       subtitle: "in The Mirror Every Morning",
-      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+      image: "/lovable-uploads/recording-setup-new.jpg"
     },
     {
       id: 6,
       name: "Daily Movement",
       title: "The Benefits of Stretching",
       subtitle: "Daily for Your Body",
-      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+      image: "/lovable-uploads/recording-setup-new.jpg"
     },
     {
       id: 7,
       name: "Mindfulness",
       title: "The Power of Meditating",
       subtitle: "for 2 Minutes Daily",
-      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+      image: "/lovable-uploads/recording-setup-new.jpg"
     },
     {
       id: 8,
       name: "Fitness Micro-Habits",
       title: "The Benefits of 1 Minute",
       subtitle: "of Squats a Day",
-      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+      image: "/lovable-uploads/recording-setup-new.jpg"
     },
     {
       id: 9,
       name: "Eating More Greens",
       title: "The Secret to Eating More Greens",
       subtitle: "Daily Wins Podcast",
-      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+      image: "/lovable-uploads/recording-setup-new.jpg"
     },
     {
       id: 10,
       name: "Swap Netflix for Podcasts",
       title: "Swap Netflix for Podcasts",
       subtitle: "Daily Wins Podcast",
-      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+      image: "/lovable-uploads/recording-setup-new.jpg"
     },
     {
       id: 11,
       name: "Always use a Shopping List",
       title: "Always use a Shopping List",
       subtitle: "Daily Wins Podcast",
-      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+      image: "/lovable-uploads/recording-setup-new.jpg"
     },
     {
       id: 12,
       name: "The Importance of Movement after Meals",
       title: "The Importance of Movement after Meals",
       subtitle: "Daily Wins Podcast",
-      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+      image: "/lovable-uploads/recording-setup-new.jpg"
     },
     {
       id: 13,
       name: "The Power of nature in your Daily Life",
       title: "The Power of nature in your Daily Life",
       subtitle: "Daily Wins Podcast",
-      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+      image: "/lovable-uploads/recording-setup-new.jpg"
     },
     {
       id: 14,
       name: "The Benefits of Protein in Every Meal",
       title: "The Benefits of Protein in Every Meal",
       subtitle: "Daily Wins Podcast",
-      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+      image: "/lovable-uploads/recording-setup-new.jpg"
     },
     {
       id: 15,
       name: "The Power of Only Taking the Stairs",
       title: "The Power of Only Taking the Stairs",
       subtitle: "Daily Wins Podcast",
-      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+      image: "/lovable-uploads/recording-setup-new.jpg"
     },
     {
       id: 16,
       name: "Healthy Savings from Store Brand Medicine",
       title: "Healthy Savings from Store Brand Medicine",
       subtitle: "Daily Wins Podcast",
-      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+      image: "/lovable-uploads/recording-setup-new.jpg"
     },
     {
       id: 17,
       name: "The Importance of Replacing your daily sugar intake",
       title: "The Importance of Replacing your daily sugar intake",
       subtitle: "Daily Wins Podcast",
-      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+      image: "/lovable-uploads/recording-setup-new.jpg"
     },
     {
       id: 18,
       name: "The Power of Amazon Subscribe & Save",
       title: "The Power of Amazon Subscribe & Save",
       subtitle: "Daily Wins Podcast",
-      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+      image: "/lovable-uploads/recording-setup-new.jpg"
     },
     {
       id: 19,
       name: "Control your posture, Control your day",
       title: "Control your posture, Control your day",
       subtitle: "Daily Wins Podcast",
-      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+      image: "/lovable-uploads/recording-setup-new.jpg"
     },
     {
       id: 20,
       name: "60 Seconds of Deep Breathing",
       title: "The Power Of 60 Seconds of Deep Breathing, twice a day",
       subtitle: "Daily Wins Podcast",
-      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+      image: "/lovable-uploads/recording-setup-new.jpg"
     },
     {
       id: 21,
       name: "Look UP Every Day",
       title: "Why You Should Look UP, Every Day",
       subtitle: "Daily Wins Podcast",
-      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+      image: "/lovable-uploads/recording-setup-new.jpg"
     },
     {
       id: 22,
       name: "Box Jumping for Bone Health",
       title: "Box Jumping for Bone Health (Are you at Risk of osteoporosis?)",
       subtitle: "Daily Wins Podcast",
-      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+      image: "/lovable-uploads/recording-setup-new.jpg"
     },
     {
       id: 23,
       name: "Weekly No Spend Day",
       title: "Increase your savings with a Weekly No Spend Day",
       subtitle: "Daily Wins Podcast",
-      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+      image: "/lovable-uploads/recording-setup-new.jpg"
     },
     {
       id: 24,
       name: "Try a New Food Each Week",
       title: "The Benefits of trying a new food each week",
       subtitle: "Daily Wins Podcast",
-      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+      image: "/lovable-uploads/recording-setup-new.jpg"
     },
     {
       id: 25,
       name: "Daily savings through energy efficiency",
       title: "Daily savings through energy efficiency",
       subtitle: "Daily Wins Podcast",
-      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+      image: "/lovable-uploads/recording-setup-new.jpg"
     },
     {
       id: 26,
       name: "Public Transport to Get your Steps in",
       title: "Public Transport to Get your Steps in",
       subtitle: "Daily Wins Podcast",
-      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+      image: "/lovable-uploads/recording-setup-new.jpg"
     },
     {
       id: 27,
       name: "The Power of Connecting with Your Loved Ones",
       title: "The Power of Connecting with Your Loved Ones",
       subtitle: "Daily Wins Podcast",
-      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+      image: "/lovable-uploads/recording-setup-new.jpg"
     },
     {
       id: 28,
       name: "Keep a Notebook for Random Thoughts",
       title: "Keep a Notebook for Random Thoughts",
       subtitle: "Daily Wins Podcast",
-      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+      image: "/lovable-uploads/recording-setup-new.jpg"
     },
     {
       id: 29,
       name: "Walk During Phone Calls",
       title: "Walk During Phone Calls",
       subtitle: "Daily Wins Podcast",
-      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+      image: "/lovable-uploads/recording-setup-new.jpg"
     },
     {
       id: 30,
       name: "Stop Buying Books, and Go To The Library",
       title: "Stop Buying Books, and Go To The Library",
       subtitle: "Daily Wins Podcast",
-      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+      image: "/lovable-uploads/recording-setup-new.jpg"
     },
     {
       id: 31,
       name: "The Power Of Community",
       title: "The Power Of Community",
       subtitle: "Daily Wins Podcast",
-      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+      image: "/lovable-uploads/recording-setup-new.jpg"
     },
     {
       id: 32,
       name: "Wait for the Next Sale / Promo Before you Buy",
       title: "Wait for the Next Sale / Promo Before you Buy",
       subtitle: "Daily Wins Podcast",
-      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+      image: "/lovable-uploads/recording-setup-new.jpg"
     }
   ];
 
