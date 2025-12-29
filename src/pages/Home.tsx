@@ -195,46 +195,52 @@ const Home = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16 max-w-5xl mx-auto">
             {/* Reel 1: The Modern World is Designed to Keep You Stuck */}
-            <a 
-              href="https://www.tiktok.com/@bigdaddysbigtips/video/7589202047988239649"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group cursor-pointer transform transition-all duration-300 hover:scale-105 block"
-            >
-              <img 
-                src={templateModernWorld} 
-                alt="The Modern World is Designed to Keep You Stuck"
-                className="w-full max-w-[288px] mx-auto shadow-lg hover:shadow-xl rounded-3xl"
-              />
-            </a>
+            <div className="group transform transition-all duration-300 hover:scale-105">
+              <div 
+                className="w-full max-w-[288px] mx-auto rounded-3xl overflow-hidden shadow-lg hover:shadow-xl"
+                style={{ aspectRatio: '9/16' }}
+              >
+                <iframe
+                  src="https://www.tiktok.com/embed/v2/7589202047988239649"
+                  className="w-full h-full border-0"
+                  allowFullScreen
+                  allow="encrypted-media"
+                  title="The Modern World is Designed to Keep You Stuck"
+                />
+              </div>
+            </div>
 
             {/* Reel 2: BDBT Explained */}
-            <a 
-              href="https://www.tiktok.com/@bigdaddysbigtips/video/7589207085095734561"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group cursor-pointer transform transition-all duration-300 hover:scale-105 block"
-            >
-              <img 
-                src={templateBdbtExplained} 
-                alt="BDBT Explained"
-                className="w-full max-w-[288px] mx-auto shadow-lg hover:shadow-xl rounded-3xl"
-              />
-            </a>
+            <div className="group transform transition-all duration-300 hover:scale-105">
+              <div 
+                className="w-full max-w-[288px] mx-auto rounded-3xl overflow-hidden shadow-lg hover:shadow-xl"
+                style={{ aspectRatio: '9/16' }}
+              >
+                <iframe
+                  src="https://www.tiktok.com/embed/v2/7589207085095734561"
+                  className="w-full h-full border-0"
+                  allowFullScreen
+                  allow="encrypted-media"
+                  title="BDBT Explained"
+                />
+              </div>
+            </div>
 
             {/* Reel 3: Every Choice is a Daily Win or a Daily Drift */}
-            <a 
-              href="https://www.tiktok.com/@bigdaddysbigtips/video/7589204507263896865"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group cursor-pointer transform transition-all duration-300 hover:scale-105 block"
-            >
-              <img 
-                src={templateDailyWinDrift} 
-                alt="Every Choice is a Daily Win or a Daily Drift"
-                className="w-full max-w-[288px] mx-auto shadow-lg hover:shadow-xl rounded-3xl"
-              />
-            </a>
+            <div className="group transform transition-all duration-300 hover:scale-105">
+              <div 
+                className="w-full max-w-[288px] mx-auto rounded-3xl overflow-hidden shadow-lg hover:shadow-xl"
+                style={{ aspectRatio: '9/16' }}
+              >
+                <iframe
+                  src="https://www.tiktok.com/embed/v2/7589204507263896865"
+                  className="w-full h-full border-0"
+                  allowFullScreen
+                  allow="encrypted-media"
+                  title="Every Choice is a Daily Win or a Daily Drift"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </section>
