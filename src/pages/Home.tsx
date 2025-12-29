@@ -195,31 +195,46 @@ const Home = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16 max-w-5xl mx-auto">
             {/* Reel 1: The Modern World is Designed to Keep You Stuck */}
-            <div className="group cursor-pointer transform transition-all duration-300 hover:scale-105">
+            <a 
+              href="https://www.tiktok.com/@bigdaddysbigtips/video/7589202047988239649"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group cursor-pointer transform transition-all duration-300 hover:scale-105 block"
+            >
               <img 
                 src={templateModernWorld} 
                 alt="The Modern World is Designed to Keep You Stuck"
                 className="w-full max-w-[288px] mx-auto shadow-lg hover:shadow-xl rounded-3xl"
               />
-            </div>
+            </a>
 
             {/* Reel 2: BDBT Explained */}
-            <div className="group cursor-pointer transform transition-all duration-300 hover:scale-105">
+            <a 
+              href="https://www.tiktok.com/@bigdaddysbigtips/video/7589207085095734561"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group cursor-pointer transform transition-all duration-300 hover:scale-105 block"
+            >
               <img 
                 src={templateBdbtExplained} 
                 alt="BDBT Explained"
                 className="w-full max-w-[288px] mx-auto shadow-lg hover:shadow-xl rounded-3xl"
               />
-            </div>
+            </a>
 
             {/* Reel 3: Every Choice is a Daily Win or a Daily Drift */}
-            <div className="group cursor-pointer transform transition-all duration-300 hover:scale-105">
+            <a 
+              href="https://www.tiktok.com/@bigdaddysbigtips/video/7589204507263896865"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group cursor-pointer transform transition-all duration-300 hover:scale-105 block"
+            >
               <img 
                 src={templateDailyWinDrift} 
                 alt="Every Choice is a Daily Win or a Daily Drift"
                 className="w-full max-w-[288px] mx-auto shadow-lg hover:shadow-xl rounded-3xl"
               />
-            </div>
+            </a>
           </div>
         </div>
       </section>
