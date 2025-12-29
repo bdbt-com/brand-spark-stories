@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ArrowRight, Droplets, Activity, Moon, DollarSign, Heart, Smile, Target, Zap, ChevronDown, Trophy, AlertTriangle, FileText, Headphones, Instagram, Youtube } from "lucide-react";
+import { ArrowRight, Droplets, Activity, Moon, DollarSign, Heart, Smile, Target, Zap, ChevronDown, Trophy, AlertTriangle, FileText, Headphones, Instagram, Youtube, Play } from "lucide-react";
 import { Link } from "react-router-dom";
 import TipsCarousel from "@/components/TipsCarousel";
 import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "@/components/ui/carousel";
@@ -45,6 +45,7 @@ const Home = () => {
   const [filteredImages, setFilteredImages] = useState<string[]>([]);
   const [isHowOpen, setIsHowOpen] = useState(false);
   const [isHowWorkOpen, setIsHowWorkOpen] = useState(false);
+  const [playingVideo, setPlayingVideo] = useState<string | null>(null);
   const howRef = useRef<HTMLDivElement>(null);
   const howWorkContentRef = useRef<HTMLDivElement>(null);
   const howContentRef = useRef<HTMLDivElement>(null);
@@ -197,48 +198,96 @@ const Home = () => {
             {/* Reel 1: The Modern World is Designed to Keep You Stuck */}
             <div className="group transform transition-all duration-300 hover:scale-105">
               <div 
-                className="w-full max-w-[288px] mx-auto rounded-3xl overflow-hidden shadow-lg hover:shadow-xl"
-                style={{ aspectRatio: '9/16' }}
+                className="w-full max-w-[288px] mx-auto rounded-3xl overflow-hidden shadow-lg hover:shadow-xl relative cursor-pointer"
+                onClick={() => setPlayingVideo('modern-world')}
               >
-                <iframe
-                  src="https://www.tiktok.com/embed/v2/7589202047988239649"
-                  className="w-full h-full border-0"
-                  allowFullScreen
-                  allow="encrypted-media"
-                  title="The Modern World is Designed to Keep You Stuck"
-                />
+                {playingVideo === 'modern-world' ? (
+                  <iframe
+                    src="https://www.tiktok.com/embed/v2/7589202047988239649?autoplay=1"
+                    className="w-full border-0"
+                    style={{ aspectRatio: '9/16' }}
+                    allowFullScreen
+                    allow="encrypted-media; autoplay"
+                    title="The Modern World is Designed to Keep You Stuck"
+                  />
+                ) : (
+                  <div className="relative">
+                    <img 
+                      src={templateModernWorld} 
+                      alt="The Modern World is Designed to Keep You Stuck"
+                      className="w-full"
+                    />
+                    <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition-colors">
+                      <div className="w-16 h-16 rounded-full bg-white/90 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                        <Play className="w-8 h-8 text-primary fill-primary ml-1" />
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
 
             {/* Reel 2: BDBT Explained */}
             <div className="group transform transition-all duration-300 hover:scale-105">
               <div 
-                className="w-full max-w-[288px] mx-auto rounded-3xl overflow-hidden shadow-lg hover:shadow-xl"
-                style={{ aspectRatio: '9/16' }}
+                className="w-full max-w-[288px] mx-auto rounded-3xl overflow-hidden shadow-lg hover:shadow-xl relative cursor-pointer"
+                onClick={() => setPlayingVideo('bdbt-explained')}
               >
-                <iframe
-                  src="https://www.tiktok.com/embed/v2/7589207085095734561"
-                  className="w-full h-full border-0"
-                  allowFullScreen
-                  allow="encrypted-media"
-                  title="BDBT Explained"
-                />
+                {playingVideo === 'bdbt-explained' ? (
+                  <iframe
+                    src="https://www.tiktok.com/embed/v2/7589207085095734561?autoplay=1"
+                    className="w-full border-0"
+                    style={{ aspectRatio: '9/16' }}
+                    allowFullScreen
+                    allow="encrypted-media; autoplay"
+                    title="BDBT Explained"
+                  />
+                ) : (
+                  <div className="relative">
+                    <img 
+                      src={templateBdbtExplained} 
+                      alt="BDBT Explained"
+                      className="w-full"
+                    />
+                    <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition-colors">
+                      <div className="w-16 h-16 rounded-full bg-white/90 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                        <Play className="w-8 h-8 text-primary fill-primary ml-1" />
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
 
             {/* Reel 3: Every Choice is a Daily Win or a Daily Drift */}
             <div className="group transform transition-all duration-300 hover:scale-105">
               <div 
-                className="w-full max-w-[288px] mx-auto rounded-3xl overflow-hidden shadow-lg hover:shadow-xl"
-                style={{ aspectRatio: '9/16' }}
+                className="w-full max-w-[288px] mx-auto rounded-3xl overflow-hidden shadow-lg hover:shadow-xl relative cursor-pointer"
+                onClick={() => setPlayingVideo('daily-win')}
               >
-                <iframe
-                  src="https://www.tiktok.com/embed/v2/7589204507263896865"
-                  className="w-full h-full border-0"
-                  allowFullScreen
-                  allow="encrypted-media"
-                  title="Every Choice is a Daily Win or a Daily Drift"
-                />
+                {playingVideo === 'daily-win' ? (
+                  <iframe
+                    src="https://www.tiktok.com/embed/v2/7589204507263896865?autoplay=1"
+                    className="w-full border-0"
+                    style={{ aspectRatio: '9/16' }}
+                    allowFullScreen
+                    allow="encrypted-media; autoplay"
+                    title="Every Choice is a Daily Win or a Daily Drift"
+                  />
+                ) : (
+                  <div className="relative">
+                    <img 
+                      src={templateDailyWinDrift} 
+                      alt="Every Choice is a Daily Win or a Daily Drift"
+                      className="w-full"
+                    />
+                    <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition-colors">
+                      <div className="w-16 h-16 rounded-full bg-white/90 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                        <Play className="w-8 h-8 text-primary fill-primary ml-1" />
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </div>
