@@ -185,13 +185,13 @@ const AITipFinder = ({ tips, onTipHighlight }: AITipFinderProps) => {
     <div className="mb-8 max-w-4xl mx-auto">
       {/* Compact Header and Input */}
       <div className="bg-background/95 backdrop-blur-sm border border-primary/20 rounded-lg p-4 shadow-sm">
-        <div className="flex items-center gap-4">
-          <div className="flex items-center gap-2 text-lg font-semibold shrink-0">
+        <div className="flex flex-col md:flex-row md:items-center gap-3 md:gap-4">
+          <div className="flex items-center gap-2 text-base md:text-lg font-semibold shrink-0">
             <Brain className="w-5 h-5 text-primary" />
             Find your ideal Daily Win
           </div>
           
-          <div className="flex-1 flex gap-2">
+          <div className="w-full md:flex-1 flex gap-2">
             <Input
               placeholder="Describe your goal or challenge..."
               value={userInput}
@@ -203,7 +203,7 @@ const AITipFinder = ({ tips, onTipHighlight }: AITipFinderProps) => {
               onClick={analyzeAndRecommend}
               disabled={isAnalyzing || !userInput.trim()}
               size="sm"
-              className="gap-2 shrink-0"
+              className="gap-2 shrink-0 px-4 md:px-3"
             >
               {isAnalyzing ? (
                 <Loader2 className="w-4 h-4 animate-spin" />
