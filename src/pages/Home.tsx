@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ArrowRight, Droplets, Activity, Moon, DollarSign, Heart, Smile, Target, Zap, ChevronDown, Trophy, AlertTriangle, FileText, Headphones, Instagram, Youtube } from "lucide-react";
+import { ArrowRight, Droplets, Activity, Moon, DollarSign, Heart, Smile, Target, Zap, ChevronDown, Trophy, AlertTriangle, FileText, Headphones, Instagram, Youtube, Play } from "lucide-react";
 import { Link } from "react-router-dom";
 import TipsCarousel from "@/components/TipsCarousel";
 import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "@/components/ui/carousel";
@@ -11,6 +11,13 @@ import ChevronRipple from "@/components/ChevronRipple";
 import templateModernWorld from "@/assets/new-template-modern-world.png";
 import templateDailyWinDrift from "@/assets/new-template-daily-win-drift.png";
 import templateBdbtExplained from "@/assets/new-template-bdbt-explained.png";
+
+// TikTok video IDs for the reels (update these with the correct video IDs)
+const tiktokVideos = [
+  { id: "7449692987207741729", thumbnail: templateModernWorld, alt: "The Modern World is Designed to Keep You Stuck" },
+  { id: "7449693074960971041", thumbnail: templateBdbtExplained, alt: "BDBT Explained" },
+  { id: "7449693161388751137", thumbnail: templateDailyWinDrift, alt: "Every Choice is a Daily Win or a Daily Drift" },
+];
 
 const Home = () => {
   const images = ["/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png",
@@ -45,6 +52,7 @@ const Home = () => {
   const [filteredImages, setFilteredImages] = useState<string[]>([]);
   const [isHowOpen, setIsHowOpen] = useState(false);
   const [isHowWorkOpen, setIsHowWorkOpen] = useState(false);
+  const [playingVideo, setPlayingVideo] = useState<number | null>(null);
   const howRef = useRef<HTMLDivElement>(null);
   const howWorkContentRef = useRef<HTMLDivElement>(null);
   const howContentRef = useRef<HTMLDivElement>(null);
@@ -194,53 +202,39 @@ const Home = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16 max-w-5xl mx-auto">
-          {/* Reel 1: The Modern World is Designed to Keep You Stuck */}
-            <a 
-              href="https://www.tiktok.com/@bigdaddysbigtips/video/7449692987207741729" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="group transform transition-all duration-300 hover:scale-105"
-            >
-              <div className="w-full max-w-[288px] mx-auto rounded-3xl overflow-hidden shadow-lg hover:shadow-xl">
-                <img 
-                  src={templateModernWorld} 
-                  alt="The Modern World is Designed to Keep You Stuck"
-                  className="w-full aspect-[9/16] object-cover"
-                />
+            {tiktokVideos.map((video, index) => (
+              <div key={video.id} className="group transform transition-all duration-300 hover:scale-105">
+                <div className="w-full max-w-[288px] mx-auto rounded-3xl overflow-hidden shadow-lg hover:shadow-xl relative">
+                  {playingVideo === index ? (
+                    <div className="w-full aspect-[9/16] bg-black">
+                      <iframe
+                        src={`https://www.tiktok.com/embed/v2/${video.id}?autoplay=1`}
+                        className="w-full h-full"
+                        allow="autoplay; encrypted-media"
+                        allowFullScreen
+                      />
+                    </div>
+                  ) : (
+                    <button 
+                      onClick={() => setPlayingVideo(index)}
+                      className="relative w-full cursor-pointer"
+                    >
+                      <img 
+                        src={video.thumbnail} 
+                        alt={video.alt}
+                        className="w-full aspect-[9/16] object-cover"
+                      />
+                      {/* Play button overlay */}
+                      <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition-colors">
+                        <div className="w-16 h-16 rounded-full bg-white/90 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                          <Play className="w-8 h-8 text-primary ml-1" fill="currentColor" />
+                        </div>
+                      </div>
+                    </button>
+                  )}
+                </div>
               </div>
-            </a>
-
-            {/* Reel 2: BDBT Explained */}
-            <a 
-              href="https://www.tiktok.com/@bigdaddysbigtips/video/7449693074960971041" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="group transform transition-all duration-300 hover:scale-105"
-            >
-              <div className="w-full max-w-[288px] mx-auto rounded-3xl overflow-hidden shadow-lg hover:shadow-xl">
-                <img 
-                  src={templateBdbtExplained} 
-                  alt="BDBT Explained"
-                  className="w-full aspect-[9/16] object-cover"
-                />
-              </div>
-            </a>
-
-            {/* Reel 3: Every Choice is a Daily Win or a Daily Drift */}
-            <a 
-              href="https://www.tiktok.com/@bigdaddysbigtips/video/7449693161388751137" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="group transform transition-all duration-300 hover:scale-105"
-            >
-              <div className="w-full max-w-[288px] mx-auto rounded-3xl overflow-hidden shadow-lg hover:shadow-xl">
-                <img 
-                  src={templateDailyWinDrift} 
-                  alt="Every Choice is a Daily Win or a Daily Drift"
-                  className="w-full aspect-[9/16] object-cover"
-                />
-              </div>
-            </a>
+            ))}
           </div>
         </div>
       </section>
