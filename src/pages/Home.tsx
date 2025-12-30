@@ -194,8 +194,13 @@ const Home = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16 max-w-5xl mx-auto">
-            {/* Reel 1: The Modern World is Designed to Keep You Stuck */}
-            <div className="group transform transition-all duration-300 hover:scale-105">
+          {/* Reel 1: The Modern World is Designed to Keep You Stuck */}
+            <a 
+              href="https://www.tiktok.com/@bigdaddysbigtips/video/7449692987207741729" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="group transform transition-all duration-300 hover:scale-105"
+            >
               <div className="w-full max-w-[288px] mx-auto rounded-3xl overflow-hidden shadow-lg hover:shadow-xl">
                 <img 
                   src={templateModernWorld} 
@@ -203,10 +208,15 @@ const Home = () => {
                   className="w-full aspect-[9/16] object-cover"
                 />
               </div>
-            </div>
+            </a>
 
             {/* Reel 2: BDBT Explained */}
-            <div className="group transform transition-all duration-300 hover:scale-105">
+            <a 
+              href="https://www.tiktok.com/@bigdaddysbigtips/video/7449693074960971041" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="group transform transition-all duration-300 hover:scale-105"
+            >
               <div className="w-full max-w-[288px] mx-auto rounded-3xl overflow-hidden shadow-lg hover:shadow-xl">
                 <img 
                   src={templateBdbtExplained} 
@@ -214,10 +224,15 @@ const Home = () => {
                   className="w-full aspect-[9/16] object-cover"
                 />
               </div>
-            </div>
+            </a>
 
             {/* Reel 3: Every Choice is a Daily Win or a Daily Drift */}
-            <div className="group transform transition-all duration-300 hover:scale-105">
+            <a 
+              href="https://www.tiktok.com/@bigdaddysbigtips/video/7449693161388751137" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="group transform transition-all duration-300 hover:scale-105"
+            >
               <div className="w-full max-w-[288px] mx-auto rounded-3xl overflow-hidden shadow-lg hover:shadow-xl">
                 <img 
                   src={templateDailyWinDrift} 
@@ -225,7 +240,7 @@ const Home = () => {
                   className="w-full aspect-[9/16] object-cover"
                 />
               </div>
-            </div>
+            </a>
           </div>
         </div>
       </section>

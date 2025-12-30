@@ -1857,13 +1857,6 @@ const ThumbnailTemplate = () => {
                         className="h-full object-contain"
                       />
                     </div>
-                    <div className="absolute bottom-4 left-4 z-10">
-                      <img 
-                        src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
-                        alt="BDBT Logo"
-                        className="h-16 opacity-90"
-                      />
-                    </div>
                   </div>
                 </div>
                 
@@ -1908,13 +1901,6 @@ const ThumbnailTemplate = () => {
                         className="h-full object-contain"
                       />
                     </div>
-                    <div className="absolute bottom-4 left-4 z-10">
-                      <img 
-                        src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
-                        alt="BDBT Logo"
-                        className="h-16 opacity-90"
-                      />
-                    </div>
                   </div>
                 </div>
                 
@@ -1957,13 +1943,6 @@ const ThumbnailTemplate = () => {
                         src={newTemplateDailyWinDrift} 
                         alt="Daily Win or Drift"
                         className="h-full object-contain"
-                      />
-                    </div>
-                    <div className="absolute bottom-4 left-4 z-10">
-                      <img 
-                        src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
-                        alt="BDBT Logo"
-                        className="h-16 opacity-90"
                       />
                     </div>
                   </div>
