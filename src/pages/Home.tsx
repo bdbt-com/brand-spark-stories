@@ -198,25 +198,40 @@ const Home = () => {
             {/* Reel 1: The Modern World is Designed to Keep You Stuck */}
             <div className="group transform transition-all duration-300 hover:scale-105">
               <div 
-                className="w-full max-w-[288px] mx-auto rounded-3xl overflow-hidden shadow-lg hover:shadow-xl relative cursor-pointer"
+                className="w-full max-w-[512px] mx-auto rounded-3xl overflow-hidden shadow-lg hover:shadow-xl relative cursor-pointer"
+                style={{ aspectRatio: '16/9' }}
                 onClick={() => setPlayingVideo('modern-world')}
               >
                 {playingVideo === 'modern-world' ? (
-                  <iframe
-                    src="https://www.tiktok.com/embed/v2/7589202047988239649?autoplay=1"
-                    className="w-full border-0"
-                    style={{ aspectRatio: '9/16' }}
-                    allowFullScreen
-                    allow="encrypted-media; autoplay"
-                    title="The Modern World is Designed to Keep You Stuck"
-                  />
-                ) : (
-                  <div className="relative">
-                    <img 
-                      src={templateModernWorld} 
-                      alt="The Modern World is Designed to Keep You Stuck"
-                      className="w-full"
+                  <div className="relative w-full h-full bg-black flex items-center justify-center">
+                    <iframe
+                      src="https://www.tiktok.com/embed/v2/7589202047988239649?autoplay=1"
+                      className="h-full border-0"
+                      style={{ aspectRatio: '9/16' }}
+                      allowFullScreen
+                      allow="encrypted-media; autoplay"
+                      title="The Modern World is Designed to Keep You Stuck"
                     />
+                  </div>
+                ) : (
+                  <div className="relative w-full h-full overflow-hidden">
+                    {/* Blurred background */}
+                    <div 
+                      className="absolute inset-0 bg-cover bg-center scale-110"
+                      style={{ 
+                        backgroundImage: `url(${templateModernWorld})`,
+                        filter: 'blur(20px)'
+                      }}
+                    />
+                    {/* Original portrait image - centered */}
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <img 
+                        src={templateModernWorld} 
+                        alt="The Modern World is Designed to Keep You Stuck"
+                        className="h-full object-contain"
+                      />
+                    </div>
+                    {/* Play button overlay */}
                     <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition-colors">
                       <div className="w-16 h-16 rounded-full bg-white/90 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
                         <Play className="w-8 h-8 text-primary fill-primary ml-1" />
@@ -230,25 +245,40 @@ const Home = () => {
             {/* Reel 2: BDBT Explained */}
             <div className="group transform transition-all duration-300 hover:scale-105">
               <div 
-                className="w-full max-w-[288px] mx-auto rounded-3xl overflow-hidden shadow-lg hover:shadow-xl relative cursor-pointer"
+                className="w-full max-w-[512px] mx-auto rounded-3xl overflow-hidden shadow-lg hover:shadow-xl relative cursor-pointer"
+                style={{ aspectRatio: '16/9' }}
                 onClick={() => setPlayingVideo('bdbt-explained')}
               >
                 {playingVideo === 'bdbt-explained' ? (
-                  <iframe
-                    src="https://www.tiktok.com/embed/v2/7589207085095734561?autoplay=1"
-                    className="w-full border-0"
-                    style={{ aspectRatio: '9/16' }}
-                    allowFullScreen
-                    allow="encrypted-media; autoplay"
-                    title="BDBT Explained"
-                  />
-                ) : (
-                  <div className="relative">
-                    <img 
-                      src={templateBdbtExplained} 
-                      alt="BDBT Explained"
-                      className="w-full"
+                  <div className="relative w-full h-full bg-black flex items-center justify-center">
+                    <iframe
+                      src="https://www.tiktok.com/embed/v2/7589207085095734561?autoplay=1"
+                      className="h-full border-0"
+                      style={{ aspectRatio: '9/16' }}
+                      allowFullScreen
+                      allow="encrypted-media; autoplay"
+                      title="BDBT Explained"
                     />
+                  </div>
+                ) : (
+                  <div className="relative w-full h-full overflow-hidden">
+                    {/* Blurred background */}
+                    <div 
+                      className="absolute inset-0 bg-cover bg-center scale-110"
+                      style={{ 
+                        backgroundImage: `url(${templateBdbtExplained})`,
+                        filter: 'blur(20px)'
+                      }}
+                    />
+                    {/* Original portrait image - centered */}
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <img 
+                        src={templateBdbtExplained} 
+                        alt="BDBT Explained"
+                        className="h-full object-contain"
+                      />
+                    </div>
+                    {/* Play button overlay */}
                     <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition-colors">
                       <div className="w-16 h-16 rounded-full bg-white/90 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
                         <Play className="w-8 h-8 text-primary fill-primary ml-1" />
@@ -262,25 +292,40 @@ const Home = () => {
             {/* Reel 3: Every Choice is a Daily Win or a Daily Drift */}
             <div className="group transform transition-all duration-300 hover:scale-105">
               <div 
-                className="w-full max-w-[288px] mx-auto rounded-3xl overflow-hidden shadow-lg hover:shadow-xl relative cursor-pointer"
+                className="w-full max-w-[512px] mx-auto rounded-3xl overflow-hidden shadow-lg hover:shadow-xl relative cursor-pointer"
+                style={{ aspectRatio: '16/9' }}
                 onClick={() => setPlayingVideo('daily-win')}
               >
                 {playingVideo === 'daily-win' ? (
-                  <iframe
-                    src="https://www.tiktok.com/embed/v2/7589204507263896865?autoplay=1"
-                    className="w-full border-0"
-                    style={{ aspectRatio: '9/16' }}
-                    allowFullScreen
-                    allow="encrypted-media; autoplay"
-                    title="Every Choice is a Daily Win or a Daily Drift"
-                  />
-                ) : (
-                  <div className="relative">
-                    <img 
-                      src={templateDailyWinDrift} 
-                      alt="Every Choice is a Daily Win or a Daily Drift"
-                      className="w-full"
+                  <div className="relative w-full h-full bg-black flex items-center justify-center">
+                    <iframe
+                      src="https://www.tiktok.com/embed/v2/7589204507263896865?autoplay=1"
+                      className="h-full border-0"
+                      style={{ aspectRatio: '9/16' }}
+                      allowFullScreen
+                      allow="encrypted-media; autoplay"
+                      title="Every Choice is a Daily Win or a Daily Drift"
                     />
+                  </div>
+                ) : (
+                  <div className="relative w-full h-full overflow-hidden">
+                    {/* Blurred background */}
+                    <div 
+                      className="absolute inset-0 bg-cover bg-center scale-110"
+                      style={{ 
+                        backgroundImage: `url(${templateDailyWinDrift})`,
+                        filter: 'blur(20px)'
+                      }}
+                    />
+                    {/* Original portrait image - centered */}
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <img 
+                        src={templateDailyWinDrift} 
+                        alt="Every Choice is a Daily Win or a Daily Drift"
+                        className="h-full object-contain"
+                      />
+                    </div>
+                    {/* Play button overlay */}
                     <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition-colors">
                       <div className="w-16 h-16 rounded-full bg-white/90 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
                         <Play className="w-8 h-8 text-primary fill-primary ml-1" />
