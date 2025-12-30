@@ -2245,7 +2245,7 @@ const ThumbnailTemplate = () => {
                       </div>
                       <div className="w-96 h-64 rounded-lg overflow-hidden border-2 border-white/20 shadow-lg">
                         <img 
-                          src="/lovable-uploads/8d06c526-bd08-42b7-9a4e-09be508119c7.png"
+                          src="/lovable-uploads/recording-setup-new-2.jpg"
                           alt="Featured Image 2"
                           className="w-full h-full object-cover opacity-80"
                         />
