@@ -11,6 +11,7 @@ import newTemplateDailyWinDrift from "@/assets/new-template-daily-win-drift.png"
 import tiktokBgModernWorld from "@/assets/tiktok-bg-modern-world.png";
 import tiktokBgBdbtExplained from "@/assets/tiktok-bg-bdbt-explained.png";
 import tiktokBgDailyWins from "@/assets/tiktok-bg-daily-wins.png";
+import whyWeFeelStuck from "@/assets/why-we-feel-stuck.png";
 
 const ThumbnailTemplate = () => {
   // Separate state management for YouTube and TikTok modes
@@ -272,6 +273,13 @@ const ThumbnailTemplate = () => {
       title: "Every Choice is a Daily Win",
       subtitle: "or a Daily Drift",
       image: "daily-win-drift"
+    },
+    {
+      id: 36,
+      name: "Why We Feel Stuck",
+      title: "Why We Feel",
+      subtitle: "Stuck...",
+      image: "why-we-feel-stuck"
     }
   ];
 
@@ -1982,6 +1990,58 @@ const ThumbnailTemplate = () => {
                     </span>
                     <span className="block" style={{ color: 'hsl(35, 45%, 75%)' }}>
                       or a Daily Drift
+                    </span>
+                  </h1>
+                  <p className="text-white/80 text-3xl font-medium">
+                    Daily Wins Podcast
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Template 37 - Why We Feel Stuck (Portrait with blurred edges) */}
+        {currentTemplateIndex === 36 && mode === 'youtube' && (
+          <div className="relative">
+            <div id="thumbnail-36" key="template-36" className="w-[1280px] h-[720px] relative overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
+              <div className="h-full flex items-center p-16 relative">
+                <div className="absolute right-16 top-16 bottom-16 flex items-center">
+                  <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
+                    {/* Blurred background to extend portrait to square */}
+                    <div 
+                      className="absolute inset-0 bg-cover bg-center scale-110"
+                      style={{ 
+                        backgroundImage: `url(${whyWeFeelStuck})`,
+                        filter: 'blur(20px)'
+                      }}
+                    />
+                    {/* Centered portrait image - clean, no blur */}
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <img 
+                        src={whyWeFeelStuck} 
+                        alt="Why We Feel Stuck"
+                        className="h-full object-contain"
+                      />
+                    </div>
+                    {/* BDBT Logo */}
+                    <div className="absolute bottom-4 left-4 z-10">
+                      <img 
+                        src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
+                        alt="BDBT Logo"
+                        className="h-16 opacity-90"
+                      />
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="absolute left-8 top-16 bottom-24 right-[35%] pr-4 z-10 flex flex-col justify-center">
+                  <h1 className="text-6xl xl:text-7xl 2xl:text-8xl font-bold leading-tight mb-6">
+                    <span className="text-white block mb-2">
+                      Why We Feel
+                    </span>
+                    <span className="block" style={{ color: 'hsl(35, 45%, 75%)' }}>
+                      Stuck...
                     </span>
                   </h1>
                   <p className="text-white/80 text-3xl font-medium">
