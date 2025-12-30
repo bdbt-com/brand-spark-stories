@@ -12,11 +12,11 @@ import templateModernWorld from "@/assets/new-template-modern-world.png";
 import templateDailyWinDrift from "@/assets/new-template-daily-win-drift.png";
 import templateBdbtExplained from "@/assets/new-template-bdbt-explained.png";
 
-// TikTok video IDs for the reels (update these with the correct video IDs)
+// TikTok video IDs for the reels
 const tiktokVideos = [
-  { id: "7449692987207741729", thumbnail: templateModernWorld, alt: "The Modern World is Designed to Keep You Stuck" },
-  { id: "7449693074960971041", thumbnail: templateBdbtExplained, alt: "BDBT Explained" },
-  { id: "7449693161388751137", thumbnail: templateDailyWinDrift, alt: "Every Choice is a Daily Win or a Daily Drift" },
+  { id: "7589202047988239649", thumbnail: templateModernWorld, alt: "The Modern World is Designed to Keep You Stuck" },
+  { id: "7589207085095734561", thumbnail: templateBdbtExplained, alt: "BDBT Explained" },
+  { id: "7589204507263896865", thumbnail: templateDailyWinDrift, alt: "Every Choice is a Daily Win or a Daily Drift" },
 ];
 
 const Home = () => {
