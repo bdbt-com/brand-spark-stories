@@ -8,6 +8,9 @@ import tikTokBg from "@/assets/tiktok-background.png";
 import newTemplateModernWorld from "@/assets/new-template-modern-world.png";
 import newTemplateBdbtExplained from "@/assets/new-template-bdbt-explained.png";
 import newTemplateDailyWinDrift from "@/assets/new-template-daily-win-drift.png";
+import tiktokBgModernWorld from "@/assets/tiktok-bg-modern-world.png";
+import tiktokBgBdbtExplained from "@/assets/tiktok-bg-bdbt-explained.png";
+import tiktokBgDailyWins from "@/assets/tiktok-bg-daily-wins.png";
 
 const ThumbnailTemplate = () => {
   // Separate state management for YouTube and TikTok modes
@@ -1845,16 +1848,24 @@ const ThumbnailTemplate = () => {
                     <div 
                       className="absolute inset-0 bg-cover bg-center scale-110"
                       style={{ 
-                        backgroundImage: `url(${newTemplateModernWorld})`,
+                        backgroundImage: `url(${tiktokBgModernWorld})`,
                         filter: 'blur(20px)'
                       }}
                     />
-                    {/* Centered portrait image */}
+                    {/* Centered portrait image - clean, no blur */}
                     <div className="absolute inset-0 flex items-center justify-center">
                       <img 
-                        src={newTemplateModernWorld} 
+                        src={tiktokBgModernWorld} 
                         alt="The Modern World"
                         className="h-full object-contain"
+                      />
+                    </div>
+                    {/* BDBT Logo */}
+                    <div className="absolute bottom-4 left-4 z-10">
+                      <img 
+                        src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
+                        alt="BDBT Logo"
+                        className="h-16 opacity-90"
                       />
                     </div>
                   </div>
@@ -1889,16 +1900,24 @@ const ThumbnailTemplate = () => {
                     <div 
                       className="absolute inset-0 bg-cover bg-center scale-110"
                       style={{ 
-                        backgroundImage: `url(${newTemplateBdbtExplained})`,
+                        backgroundImage: `url(${tiktokBgBdbtExplained})`,
                         filter: 'blur(20px)'
                       }}
                     />
-                    {/* Centered portrait image */}
+                    {/* Centered portrait image - clean, no blur */}
                     <div className="absolute inset-0 flex items-center justify-center">
                       <img 
-                        src={newTemplateBdbtExplained} 
+                        src={tiktokBgBdbtExplained} 
                         alt="BDBT Explained"
                         className="h-full object-contain"
+                      />
+                    </div>
+                    {/* BDBT Logo */}
+                    <div className="absolute bottom-4 left-4 z-10">
+                      <img 
+                        src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
+                        alt="BDBT Logo"
+                        className="h-16 opacity-90"
                       />
                     </div>
                   </div>
@@ -1933,16 +1952,24 @@ const ThumbnailTemplate = () => {
                     <div 
                       className="absolute inset-0 bg-cover bg-center scale-110"
                       style={{ 
-                        backgroundImage: `url(${newTemplateDailyWinDrift})`,
+                        backgroundImage: `url(${tiktokBgDailyWins})`,
                         filter: 'blur(20px)'
                       }}
                     />
-                    {/* Centered portrait image */}
+                    {/* Centered portrait image - clean, no blur */}
                     <div className="absolute inset-0 flex items-center justify-center">
                       <img 
-                        src={newTemplateDailyWinDrift} 
+                        src={tiktokBgDailyWins} 
                         alt="Daily Win or Drift"
                         className="h-full object-contain"
+                      />
+                    </div>
+                    {/* BDBT Logo */}
+                    <div className="absolute bottom-4 left-4 z-10">
+                      <img 
+                        src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
+                        alt="BDBT Logo"
+                        className="h-16 opacity-90"
                       />
                     </div>
                   </div>
