@@ -110,7 +110,7 @@ const EmailCaptureForm = ({ title, guideDownloadUrl, onClose, compact = true, hi
     <div className="space-y-4 md:space-y-4 space-y-5 py-2 animate-fade-in">
       <div className="flex items-center justify-between">
         <h4 className={`font-semibold text-foreground ${compact ? 'text-sm' : 'text-lg'}`}>
-          Get Your Free Guide
+          Get Your Free Copy
         </h4>
           {hideable && (
             <Button 
@@ -126,7 +126,7 @@ const EmailCaptureForm = ({ title, guideDownloadUrl, onClose, compact = true, hi
       
       {!compact && (
         <p className="text-sm text-primary">
-          Join thousands who've transformed their lives with our proven strategies
+          Join my growing community of people replacing Daily Drifts with Daily Wins:
         </p>
       )}
       
@@ -197,7 +197,7 @@ const EmailCaptureForm = ({ title, guideDownloadUrl, onClose, compact = true, hi
             </>
           ) : (
             <>
-              Send Me The Guide
+              Send me the Foundation Blueprint
               <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-0.5 transition-transform" />
             </>
           )}
