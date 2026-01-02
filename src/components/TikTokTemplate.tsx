@@ -8,15 +8,17 @@ import tikTokBg6 from "@/assets/tiktok-bg-template-7.png";
 import tikTokBg7 from "@/assets/tiktok-bg-template-8.png";
 import tikTokBg8 from "@/assets/tiktok-bg-template-9.png";
 import tikTokBg9 from "@/assets/tiktok-bg-template-10.png";
+import tikTokBg11 from "@/assets/tiktok-bg-template-12.png";
+import tikTokBg12 from "@/assets/tiktok-bg-template-13.png";
 import { Instagram, Youtube } from "lucide-react";
 
 interface TikTokTemplateProps {
-  templateIndex: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
+  templateIndex: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
   className?: string;
 }
 
 export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplateProps) {
-  const backgrounds = [tikTokBg, tikTokBg2, tikTokBg1, tikTokBg3, tikTokBg4, tikTokBg5, tikTokBg6, tikTokBg7, tikTokBg8, tikTokBg9, tikTokBg3];
+  const backgrounds = [tikTokBg, tikTokBg2, tikTokBg1, tikTokBg3, tikTokBg4, tikTokBg5, tikTokBg6, tikTokBg7, tikTokBg8, tikTokBg9, tikTokBg3, tikTokBg11, tikTokBg12];
   const backgroundImage = backgrounds[templateIndex];
   const showOverlay = templateIndex <= 2; // Only overlay for templates 0, 1, 2
   
@@ -135,6 +137,24 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
                 </span>
                 <span className="block mt-1" style={{ color: 'hsl(35, 45%, 75%)' }}>
                   Before you Buy
+                </span>
+              </>
+            ) : templateIndex === 11 ? (
+              <>
+                <span className="text-white block">
+                  December is
+                </span>
+                <span className="block mt-1" style={{ color: 'hsl(35, 45%, 75%)' }}>
+                  the Goal...
+                </span>
+              </>
+            ) : templateIndex === 12 ? (
+              <>
+                <span className="text-white block">
+                  Why Most Habits
+                </span>
+                <span className="block mt-1" style={{ color: 'hsl(35, 45%, 75%)' }}>
+                  Fail...
                 </span>
               </>
             ) : null}
