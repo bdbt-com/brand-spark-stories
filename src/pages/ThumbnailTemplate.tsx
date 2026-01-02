@@ -294,7 +294,9 @@ const ThumbnailTemplate = () => {
     { id: 7, name: "Why The Old Model Fails", title: "Why The Old Model Fails", subtitle: "", image: "" },
     { id: 8, name: "What Is BDBT?", title: "What Is BDBT?", subtitle: "", image: "" },
     { id: 9, name: "The Invitation", title: "The Invitation", subtitle: "", image: "" },
-    { id: 10, name: "Wait for the Next Sale / Promo Before you Buy", title: "Wait for the Next Sale / Promo Before you Buy", subtitle: "", image: "" }
+    { id: 10, name: "Wait for the Next Sale / Promo Before you Buy", title: "Wait for the Next Sale / Promo Before you Buy", subtitle: "", image: "" },
+    { id: 11, name: "December is the Goal...", title: "December is the Goal...", subtitle: "", image: "" },
+    { id: 12, name: "Why Most Habits Fail...", title: "Why Most Habits Fail...", subtitle: "", image: "" }
   ];
 
   const phrases = [
