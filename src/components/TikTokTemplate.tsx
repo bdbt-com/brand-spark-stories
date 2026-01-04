@@ -153,10 +153,10 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             ) : templateIndex === 12 ? (
               <>
                 <span className="text-white block">
-                  Why Most Habits
+                  The Forever
                 </span>
                 <span className="block mt-1" style={{ color: 'hsl(35, 45%, 75%)' }}>
-                  Fail...
+                  Test
                 </span>
               </>
             ) : templateIndex === 13 ? (

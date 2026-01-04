@@ -296,7 +296,7 @@ const ThumbnailTemplate = () => {
     { id: 9, name: "The Invitation", title: "The Invitation", subtitle: "", image: "" },
     { id: 10, name: "Wait for the Next Sale / Promo Before you Buy", title: "Wait for the Next Sale / Promo Before you Buy", subtitle: "", image: "" },
     { id: 11, name: "December is the Goal...", title: "December is the Goal...", subtitle: "", image: "" },
-    { id: 12, name: "Why Most Habits Fail...", title: "Why Most Habits Fail...", subtitle: "", image: "" },
+    { id: 12, name: "The Forever Test", title: "The Forever Test", subtitle: "", image: "" },
     { id: 13, name: "Systems Beat Motivation", title: "Systems Beat Motivation", subtitle: "", image: "" },
     { id: 14, name: "Small Wins Matter", title: "Small Wins Matter", subtitle: "", image: "" }
   ];
