@@ -1931,32 +1931,33 @@ const Tips = () => {
         const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
         const scrollDelay = isMobile ? 800 : 500;
         
-        setTimeout(() => {
-          handleTipHighlight(tipTitle);
+        // Retry mechanism for elements that may not be rendered yet
+        const scrollWithRetry = (attempts = 0) => {
           const element = document.querySelector(`[data-tip-title="${tipTitle}"]`) as HTMLElement;
           
           if (element) {
+            handleTipHighlight(tipTitle);
+            
             if (isIOS) {
-              // iOS Safari needs special handling for dynamic UI bars
               element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-              // Force repaint
               element.offsetHeight;
-              // Secondary scroll after UI bars settle
               setTimeout(() => {
                 window.scrollBy({ top: -60, behavior: 'smooth' });
               }, 400);
             } else if (isMobile) {
-              // Standard mobile: scroll to start with offset for header
               element.scrollIntoView({ behavior: 'smooth', block: 'start' });
               setTimeout(() => {
                 window.scrollBy({ top: -80, behavior: 'smooth' });
               }, 600);
             } else {
-              // Desktop: center positioning
               element.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
+          } else if (attempts < 5) {
+            setTimeout(() => scrollWithRetry(attempts + 1), 200);
           }
-        }, scrollDelay);
+        };
+        
+        setTimeout(scrollWithRetry, scrollDelay);
       }
     }
   }, [keyword]);
