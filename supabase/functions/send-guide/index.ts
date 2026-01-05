@@ -125,15 +125,18 @@ const handler = async (req: Request): Promise<Response> => {
       );
     }
 
-    // Store submission in database
+    // Store submission in database (upsert to handle existing users)
     const { data: dbData, error: dbError } = await supabase
       .from("email_subscriptions")
-      .insert({
+      .upsert({
         first_name: firstName.trim(),
         email: sanitizedEmail,
         guide_title: guideTitle.trim(),
         guide_download_url: guideDownloadUrl,
         email_sent: false,
+      }, {
+        onConflict: 'first_name,email',
+        ignoreDuplicates: false
       })
       .select()
       .single();
