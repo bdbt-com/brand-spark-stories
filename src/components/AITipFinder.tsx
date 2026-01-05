@@ -92,13 +92,17 @@ const AITipFinder = ({ tips, onTipHighlight }: AITipFinderProps) => {
         onTipHighlight(tipTitle);
         setIsOpen(false);
         
-        // Scroll to the tip after a brief delay
-        setTimeout(() => {
+        // Scroll to the tip with retry mechanism for animation delays
+        const scrollToTip = (attempts = 0) => {
           const element = document.querySelector(`[data-tip-title="${tipTitle}"]`);
           if (element) {
             element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          } else if (attempts < 5) {
+            setTimeout(() => scrollToTip(attempts + 1), 200);
           }
-        }, 100);
+        };
+        
+        setTimeout(scrollToTip, 300);
         
         toast({
           title: "Tip Found!",
