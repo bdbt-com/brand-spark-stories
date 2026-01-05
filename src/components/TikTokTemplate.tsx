@@ -180,11 +180,11 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
               </>
             ) : templateIndex === 15 ? (
               <>
-                <span className="text-white/80 block text-xl tracking-wider mb-1">
-                  BDBT PODCAST 1
-                </span>
-                <span className="text-white block text-2xl tracking-wider">
+                <span className="text-white block text-3xl tracking-wider mb-1">
                   NEW EPISODE
+                </span>
+                <span className="text-white/90 block text-2xl tracking-wider">
+                  BDBT PODCAST 1
                 </span>
                 <span className="block mt-3 text-white">
                   PARK FURTHER AWAY
