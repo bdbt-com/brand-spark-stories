@@ -197,7 +197,7 @@ const EmailCaptureForm = ({ title, guideDownloadUrl, onClose, compact = true, hi
             </>
           ) : (
             <>
-              Send me the Foundation Blueprint
+              Send me this Guide
               <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-0.5 transition-transform" />
             </>
           )}
