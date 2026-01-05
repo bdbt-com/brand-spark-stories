@@ -9,13 +9,14 @@ import { supabase } from "@/integrations/supabase/client";
 
 interface EmailCaptureFormProps {
   title: string;
+  description?: string;
   guideDownloadUrl: string;
   onClose: () => void;
   compact?: boolean;
   hideable?: boolean;
 }
 
-const EmailCaptureForm = ({ title, guideDownloadUrl, onClose, compact = true, hideable = true }: EmailCaptureFormProps) => {
+const EmailCaptureForm = ({ title, description, guideDownloadUrl, onClose, compact = true, hideable = true }: EmailCaptureFormProps) => {
   const [firstName, setFirstName] = useState("");
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -124,9 +125,9 @@ const EmailCaptureForm = ({ title, guideDownloadUrl, onClose, compact = true, hi
           )}
       </div>
       
-      {!compact && (
+      {!compact && description && (
         <p className="text-sm text-primary">
-          Join my growing community of people replacing Daily Drifts with Daily Wins:
+          {description}
         </p>
       )}
       

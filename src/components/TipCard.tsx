@@ -61,6 +61,7 @@ const TipCard = ({ tip, index, downloadCount }: TipCardProps) => {
           <div className="w-full max-w-md mx-auto">
             <EmailCaptureForm
               title={tip.title}
+              description={tip.description}
               guideDownloadUrl={guideUrl}
               onClose={() => setShowEmailForm(false)}
               compact={false}
