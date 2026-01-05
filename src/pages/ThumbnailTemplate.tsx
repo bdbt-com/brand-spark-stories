@@ -718,6 +718,13 @@ const ThumbnailTemplate = () => {
           </div>
         )}
 
+        {/* Template 16 - Park Further Away On Purpose */}
+        {currentTemplateIndex === 15 && mode === 'instagram' && (
+          <div className="relative">
+            <TikTokTemplate templateIndex={15} />
+          </div>
+        )}
+
         {/* Template 5 - Healthy Snacks */}
         {currentTemplateIndex === 4 && mode === 'youtube' && (
           <div className="relative">
