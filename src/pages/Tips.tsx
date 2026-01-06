@@ -1933,7 +1933,11 @@ const Tips = () => {
         
         // Retry mechanism for elements that may not be rendered yet
         const scrollWithRetry = (attempts = 0) => {
-          const element = document.querySelector(`[data-tip-title="${tipTitle}"]`) as HTMLElement;
+          // Case-insensitive element matching for keyword-title lookup
+          const allTipElements = document.querySelectorAll('[data-tip-title]');
+          const element = Array.from(allTipElements).find(el => 
+            el.getAttribute('data-tip-title')?.toLowerCase() === tipTitle.toLowerCase()
+          ) as HTMLElement;
           
           if (element) {
             handleTipHighlight(tipTitle);
