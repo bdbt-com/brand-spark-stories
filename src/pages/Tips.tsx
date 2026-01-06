@@ -1867,6 +1867,22 @@ const Tips = () => {
       views: 0,
       dateAdded: "2024-04-25"
     },
+    {
+      icon: ShoppingBasket,
+      title: "Wait 24 Hours before Clicking Buy",
+      description: "Smart shopping strategy to avoid impulse purchases and save money.",
+      items: [
+        "Health: Reduces stress from buyer's remorse",
+        "Wealth: Prevents impulse purchases and saves money",
+        "Happiness: Greater satisfaction from mindful spending"
+      ],
+      level: "Easy",
+      duration: "2 min read",
+      category: "finance",
+      popularity: 42,
+      views: 0,
+      dateAdded: "2025-01-06"
+    },
   ];
 
   const sortedAndFilteredTips = useMemo(() => {

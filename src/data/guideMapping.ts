@@ -160,7 +160,10 @@ export const guideMapping: Record<string, string> = {
   "30 benefits of doing chores with friends": "https://drive.google.com/uc?export=download&id=1U5S6vxUthmJWDvlVvugMUE8kkI9XZYlU",
   
   // Blueprint
-  "BDBT Foundation Blueprint": "https://drive.google.com/uc?export=download&id=1caRm0mvVGslcUB8j1sA5EhqAVIeIupXb"
+  "BDBT Foundation Blueprint": "https://drive.google.com/uc?export=download&id=1caRm0mvVGslcUB8j1sA5EhqAVIeIupXb",
+  
+  // Basket
+  "Wait 24 Hours before Clicking Buy": "https://drive.google.com/uc?export=download&id=1nwBdnTOuKO00E8Z5OBnZ7gV-xSX42tKC"
 };
 
 // Helper function to get guide URL by tip title

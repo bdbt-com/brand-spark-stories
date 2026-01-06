@@ -438,6 +438,10 @@ export const tipKeywordMap: Record<string, string> = {
   "Zone2": "Spend time in zone 2 each week",
   "zone2": "Spend time in zone 2 each week",
   
+  // BASKET -> Wait 24 Hours before Clicking Buy
+  "BASKET": "Wait 24 Hours before Clicking Buy",
+  "basket": "Wait 24 Hours before Clicking Buy",
+  
   // darcopenia25 -> 25 ways to prevent or delay sarcopenia
   "darcopenia25": "25 ways to prevent or delay sarcopenia",
   "sarcopenia25": "25 ways to prevent or delay sarcopenia",
