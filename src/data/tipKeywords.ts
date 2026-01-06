@@ -1,318 +1,455 @@
 // Keyword to Tip Title mapping - EXACT from master_merged.xlsx spreadsheet
-// All keywords with variations for flexible search - titles MUST match Tips.tsx exactly
+// URL keywords map to exact titles as they appear in Tips.tsx tipCategories
 export const tipKeywordMap: Record<string, string> = {
-  // Main keywords - titles match Tips.tsx tipCategories exactly (case-sensitive)
-  "parking": "Park further away",
-  "CalfRaise": "Do calf raises while brushing your teeth",
-  "ExtraGlass": "Drink one extra glass of water daily",
-  "Smile": "Smile at yourslf in the mirror every morning",
-  "Stretch": "Stretch Daily",
-  "Meditation": "Meditate for 2 minutes",
-  "DeepSquats": "Do one minute of deep squats per day",
-  "FrozenGreens": "The power of frozen fruits and vegitables",
-  "Podcast": "Swap one tv episode for a ted talk or podcast",
-  "SHOPPINGLIST": "Always use a shopping list",
-  "SHORTWALK": "Take a short walk after meals",
-  "DailyNature": "50 ways to incorporate more nature into daily life",
-  "Protein": "Try and eat protein with every meal",
-  "Stairs": "Always take the stairs",
-  "StoreBrand": "Buy Generic store brand products instead of name brands",
-  "SUGAR": "Replace at least one sugary snack with a healthier alternative",
-  "SubSave": "Amazon subscribe and save",
-  "Posture": "Practice good posture",
-  "BreathDeep": "Do 60 Seconds Deep Breathing Twice a Day",
-  "LookUp": "Look up at the sky once a day",
-  "Diet": "Expand your diet & improve your health",
-  "Transport": "Use Public transport to get your steps in",
-  "LovedOnes": "Connect with loved ones",
-  "Notebook": "Keep a notebook by your bed for random thoughts",
-  "Community": "Join a Community",
-  "Gratitude": "Practice Gratitude",
-  "ColdShower": "Take Cold Showers",
-  "Sunlight": "Expose yourself to natural sunlight in the morning",
-  "Screentime": "Limit screen time before bed",
-  "Sleep": "Stop compromising on sleep",
-  "DayReview": "Review Your Day",
-  "Reframe": "Reframe One Thing Today",
-  "Kind": "Say Something Kind to Yourself Out Loud",
-  "SayNo": "Learn to Say No",
-  "Self-Talk": "Practice Positive Self-Talk",
-  "Hug": "Hug Daily",
-  "Silent5": "Sit in Silence for 5 Minutes a Day",
-  "Read": "Read for 20 Minutes a Day",
-  "Learn": "Learn Something New",
-  "Journal": "Journal Daily",
-  "Plansuccess": "Plan Your Day and Define What Success Looks Like",
-  "Movement": "Start Your Day with Movement",
-  "Recharge": "Prioritise Finding Time to Unwind, Relax and Recharge",
-  "Zone2": "Spend Time in Zone 2 Each Week",
-  "Fibre": "Eat the Fibre on Your Plate First",
-  "ChewSlow": "Chew Food More Slowly",
-  "Replacesugar": "Replace Sugary Drinks with Water",
-  "ReplaceDessert": "Replace a Dessert with Yogurt or Fruit",
-  "80%Full": "Be More Japanese Eat Until 80% Full",
-  "LifePurpose": "Be More Japanese Find Your Strong Sense of Life Purpose",
-  "Lemon-Cayenne": "Drink Warm Lemon Water with Cayenne Pepper Every Day",
-  "Vitamin C": "Add Lemon to Water for a Vitamin C Boost",
-  "WaterGoal": "Set a Water Intake Goal",
-  "WaterBottle": "Invest in a Quality Water Bottle",
-  "Plank": "Do a 30-Second Plank Every Day",
-  "FloorSit": "Sit on the Floor More",
-  "Standup": "Set an Hourly Reminder to Stand Up",
-  "Standingdesk": "Use a Standing Desk at Home",
-  "Lunges": "Get Your Lunges in While Vacuuming",
-  "Skipping": "Do 5 Minutes of Jumping Jacks or Skipping Daily",
-  "STRETCH": "Do 10 Reverse Lunges While Watching TV",
-  "Declutter": "Declutter Your Living and Working Spaces",
-  "Bath": "Have More Baths",
-  "SpikeMat": "Use a Spike Mat",
-  "Saffron": "Use Saffron as an Anti-Depressant",
-  "Anxiety": "Try Natural Anxiety Fixes",
-  "Difficient": "Take Supplements for What You Are Deficient In",
-  "Unbranded": "Try Generic Medication Brands",
-  "HighBloodsurgar": "Understand High Blood Sugar",
-  "Animals": "Connect with More Animals",
-  "Explore": "Go Exploring",
-  "Whatsapp": "Create a WhatsApp Group with Friends for a Specific Purpose",
-  "Freeguide": "Take a Free Online Course",
-  "No-Spend": "Have a Weekly No-Spend Day",
-  "SpendingFreeze": "Do a Spending Freeze Challenge for a Week",
-  "Lifestyle": "Don't Upgrade Your Lifestyle with Every Pay Rise",
-  "Savings": "Hide Your Savings from Yourself",
-  "6MonthBuffer": "Build a 6-Month Emergency Buffer Fund",
-  "FinancialHealth": "Do a Financial Health Check Every 3 Months",
-  "Timing": "Time in the Market vs Timing the Market",
-  "Capitalise": "Capitalise on the Benefits Offered by Your Employer",
-  "Handbasket": "Do Food Shops with Handbaskets Not Trolleys",
-  "FarmersMarket": "Buy from Farmers' Markets",
-  "OFF": "Turn Off Appliances at the Plug",
-  "Stockup": "Stock Up on Favourite Beauty and Skincare Items When on Sale",
-  "Bootsale": "Sell Unused Items",
-  "SecondHand": "Buy Used Second-Hand Video Games",
-  "Borrow": "Borrow or Rent Items",
-  "TooGood": "Use the Too Good to Go App",
-  "Capsule": "Create a Capsule Wardrobe",
-  "PrimePlus": "Get Free Deliveroo Plus with Amazon Prime",
-  "SavingScheme": "Top 88 Retail Loyalty Schemes for Maximum Savings",
-  "Walk50": "50 Ways to Walk More in a Day",
-  "5-min-mobility": "Add 5-Minute Mobility Routine to Your Day",
-  "Getup30": "30 Benefits of Getting Up and Down",
-  "GreenTea30": "30 Reasons to Drink Green Tea Instead of Water",
-  "Brownfat30": "30 Benefits of Activating Your Brown Fat",
-  "Grip30": "30 Benefits of Greater Grip Strength",
-  "Peanut30": "30 Reasons to Swap Butter for Peanut Butter",
-  "Abs30": "30 Benefits of Using an AB Roller",
-  "Fatigue30": "30 Ways to Reduce Decision Fatigue in Everyday Life",
-  "Habit30": "30 Ways to Track Your Habit Progress",
-  "Chores30": "Do 30 Benefits of Doing Chores with Friends",
-  "darcopenia25": "25 Ways to Prevent or Delay Sarcopenia",
-  "Binge": "Say Goodbye to Netflix, Prime, and Binge Watching",
+  // === PRIMARY KEYWORDS (from spreadsheet Website_Guides column) ===
+  // All mappings use exact titles from Tips.tsx tipCategories
+  
+  // 3for2 -> Buy 3 for 2 in bulk and store them
+  "3for2": "Buy 3 for 2 in bulk and store them",
+  "3-for-2": "Buy 3 for 2 in bulk and store them",
+  
+  // 5minmobility -> Add a 5 - minute mobility routine to your day
+  "5minmobility": "Add a 5-minute mobility routine to your day",
+  "5-min-mobility": "Add a 5-minute mobility routine to your day",
+  
+  // 6MonthBuffer -> Build a 6 month emergency Buffer Fund
+  "6MonthBuffer": "Build a 6 month emergency Buffer Fund",
+  "6monthbuffer": "Build a 6 month emergency Buffer Fund",
+  
+  // 80%Full -> Be more japanese eat until 80% full
+  "80%Full": "Be more japanese eat until 80% full",
+  "80full": "Be more japanese eat until 80% full",
+  
+  // Abs30 -> 30 benefits of using an ab roller
+  "Abs30": "30 benefits of using an ab roller",
+  "abs30": "30 benefits of using an ab roller",
+  "abroller": "30 benefits of using an ab roller",
+  
+  // Animals -> Connect with more animals
+  "Animals": "Connect with more animals",
+  "animals": "Connect with more animals",
+  
+  // Anxiety -> Try Natural anxiety fixes
+  "Anxiety": "Try Natural anxiety fixes",
+  "anxiety": "Try Natural anxiety fixes",
+  
+  // Bath -> Have more baths
+  "Bath": "Have more baths",
+  "bath": "Have more baths",
+  
+  // Binge -> Say goodbye to netflix, prime & binge watching
+  "Binge": "Say goodbye to netflix, prime & binge watching",
+  "binge": "Say goodbye to netflix, prime & binge watching",
+  
+  // Blueprint -> BDBT Foundation Blueprint
   "Blueprint": "BDBT Foundation Blueprint",
-  "BodyComposition": "Body Composition",
-  "Salternative": "Use Spices Instead of Salt",
-
-  // Variations for flexible search (normalized keywords) - match tipCategories exactly
-  "calf-raise": "Do calf raises while brushing your teeth",
-  "calf raise": "Do calf raises while brushing your teeth",
-  "calfraise": "Do calf raises while brushing your teeth",
-  "extra-glass": "Drink one extra glass of water daily",
-  "extra glass": "Drink one extra glass of water daily",
-  "extraglass": "Drink one extra glass of water daily",
-  "smile": "Smile at yourslf in the mirror every morning",
-  "stretch": "Stretch Daily",
-  "meditation": "Meditate for 2 minutes",
-  "meditate": "Meditate for 2 minutes",
-  "deep-squats": "Do one minute of deep squats per day",
-  "deep squats": "Do one minute of deep squats per day",
-  "deepsquats": "Do one minute of deep squats per day",
-  "frozen-greens": "The power of frozen fruits and vegitables",
-  "frozen greens": "The power of frozen fruits and vegitables",
-  "frozengreens": "The power of frozen fruits and vegitables",
-  "podcast": "Swap one tv episode for a ted talk or podcast",
-  "shopping-list": "Always use a shopping list",
-  "shopping list": "Always use a shopping list",
-  "shoppinglist": "Always use a shopping list",
-  "short-walk": "Take a short walk after meals",
-  "short walk": "Take a short walk after meals",
-  "shortwalk": "Take a short walk after meals",
-  "daily-nature": "50 ways to incorporate more nature into daily life",
-  "daily nature": "50 ways to incorporate more nature into daily life",
-  "dailynature": "50 ways to incorporate more nature into daily life",
-  "protein": "Try and eat protein with every meal",
-  "stairs": "Always take the stairs",
-  "store-brand": "Buy Generic store brand products instead of name brands",
-  "storebrand": "Buy Generic store brand products instead of name brands",
-  "store brand": "Buy Generic store brand products instead of name brands",
-  "sugar": "Replace at least one sugary snack with a healthier alternative",
-  "sub-save": "Amazon subscribe and save",
-  "subsave": "Amazon subscribe and save",
-  "sub save": "Amazon subscribe and save",
-  "posture": "Practice good posture",
-  "breath-deep": "Do 60 Seconds Deep Breathing Twice a Day",
-  "breathdeep": "Do 60 Seconds Deep Breathing Twice a Day",
-  "breath deep": "Do 60 Seconds Deep Breathing Twice a Day",
-  "look-up": "Look up at the sky once a day",
-  "lookup": "Look up at the sky once a day",
-  "look up": "Look up at the sky once a day",
-  "diet": "Expand your diet & improve your health",
-  "transport": "Use Public transport to get your steps in",
-  "loved-ones": "Connect with loved ones",
-  "lovedones": "Connect with loved ones",
-  "loved ones": "Connect with loved ones",
-  "notebook": "Keep a notebook by your bed for random thoughts",
-  "community": "Join a Community",
-  "gratitude": "Practice Gratitude",
-  "cold-shower": "Take Cold Showers",
-  "coldshower": "Take Cold Showers",
-  "cold shower": "Take Cold Showers",
-  "sunlight": "Expose yourself to natural sunlight in the morning",
-  "screen-time": "Limit screen time before bed",
-  "screentime": "Limit screen time before bed",
-  "screen time": "Limit screen time before bed",
-  "sleep": "Stop compromising on sleep",
-  "day-review": "Review Your Day",
-  "dayreview": "Review Your Day",
-  "day review": "Review Your Day",
-  "reframe": "Reframe One Thing Today",
-  "kind": "Say Something Kind to Yourself Out Loud",
-  "say-no": "Learn to Say No",
-  "sayno": "Learn to Say No",
-  "say no": "Learn to Say No",
-  "self-talk": "Practice Positive Self-Talk",
-  "selftalk": "Practice Positive Self-Talk",
-  "self talk": "Practice Positive Self-Talk",
-  "hug": "Hug Daily",
-  "silent-5": "Sit in Silence for 5 Minutes a Day",
-  "silent5": "Sit in Silence for 5 Minutes a Day",
-  "silent 5": "Sit in Silence for 5 Minutes a Day",
-  "read": "Read for 20 Minutes a Day",
-  "learn": "Learn Something New",
-  "journal": "Journal Daily",
-  "plan-success": "Plan Your Day and Define What Success Looks Like",
-  "plansuccess": "Plan Your Day and Define What Success Looks Like",
-  "plan success": "Plan Your Day and Define What Success Looks Like",
-  "movement": "Start Your Day with Movement",
-  "recharge": "Prioritise Finding Time to Unwind, Relax and Recharge",
-  "zone-2": "Spend Time in Zone 2 Each Week",
-  "zone2": "Spend Time in Zone 2 Each Week",
-  "zone 2": "Spend Time in Zone 2 Each Week",
-  "fibre": "Eat the Fibre on Your Plate First",
-  "chew-slow": "Chew Food More Slowly",
-  "chewslow": "Chew Food More Slowly",
-  "chew slow": "Chew Food More Slowly",
-  "replace-sugar": "Replace Sugary Drinks with Water",
-  "replacesugar": "Replace Sugary Drinks with Water",
-  "replace sugar": "Replace Sugary Drinks with Water",
-  "replace-dessert": "Replace a Dessert with Yogurt or Fruit",
-  "replacedessert": "Replace a Dessert with Yogurt or Fruit",
-  "replace dessert": "Replace a Dessert with Yogurt or Fruit",
-  "80full": "Be More Japanese Eat Until 80% Full",
-  "80 full": "Be More Japanese Eat Until 80% Full",
-  "life-purpose": "Be More Japanese Find Your Strong Sense of Life Purpose",
-  "lifepurpose": "Be More Japanese Find Your Strong Sense of Life Purpose",
-  "life purpose": "Be More Japanese Find Your Strong Sense of Life Purpose",
-  "lemon-cayenne": "Drink Warm Lemon Water with Cayenne Pepper Every Day",
-  "lemoncayenne": "Drink Warm Lemon Water with Cayenne Pepper Every Day",
-  "lemon cayenne": "Drink Warm Lemon Water with Cayenne Pepper Every Day",
-  "vitamin-c": "Add Lemon to Water for a Vitamin C Boost",
-  "vitaminc": "Add Lemon to Water for a Vitamin C Boost",
-  "vitamin c": "Add Lemon to Water for a Vitamin C Boost",
-  "water-goal": "Set a Water Intake Goal",
-  "watergoal": "Set a Water Intake Goal",
-  "water goal": "Set a Water Intake Goal",
-  "water-bottle": "Invest in a Quality Water Bottle",
-  "waterbottle": "Invest in a Quality Water Bottle",
-  "water bottle": "Invest in a Quality Water Bottle",
-  "plank": "Do a 30-Second Plank Every Day",
-  "floor-sit": "Sit on the Floor More",
-  "floorsit": "Sit on the Floor More",
-  "floor sit": "Sit on the Floor More",
-  "stand-up": "Set an Hourly Reminder to Stand Up",
-  "standup": "Set an Hourly Reminder to Stand Up",
-  "stand up": "Set an Hourly Reminder to Stand Up",
-  "standing-desk": "Use a Standing Desk at Home",
-  "standingdesk": "Use a Standing Desk at Home",
-  "standing desk": "Use a Standing Desk at Home",
-  "lunges": "Get Your Lunges in While Vacuuming",
-  "skipping": "Do 5 Minutes of Jumping Jacks or Skipping Daily",
-  "reverse-lunges": "Do 10 Reverse Lunges While Watching TV",
-  "declutter": "Declutter Your Living and Working Spaces",
-  "bath": "Have More Baths",
-  "spike-mat": "Use a Spike Mat",
-  "spikemat": "Use a Spike Mat",
-  "spike mat": "Use a Spike Mat",
-  "saffron": "Use Saffron as an Anti-Depressant",
-  "anxiety": "Try Natural Anxiety Fixes",
-  "supplements": "Take Supplements for What You Are Deficient In",
-  "difficient": "Take Supplements for What You Are Deficient In",
-  "unbranded": "Try Generic Medication Brands",
-  "blood-sugar": "Understand High Blood Sugar",
-  "highbloodsugar": "Understand High Blood Sugar",
-  "animals": "Connect with More Animals",
-  "explore": "Go Exploring",
-  "whatsapp": "Create a WhatsApp Group with Friends for a Specific Purpose",
-  "free-guide": "Take a Free Online Course",
-  "freeguide": "Take a Free Online Course",
-  "no-spend": "Have a Weekly No-Spend Day",
-  "nospend": "Have a Weekly No-Spend Day",
-  "spending-freeze": "Do a Spending Freeze Challenge for a Week",
-  "spendingfreeze": "Do a Spending Freeze Challenge for a Week",
-  "lifestyle": "Don't Upgrade Your Lifestyle with Every Pay Rise",
-  "savings": "Hide Your Savings from Yourself",
-  "6-month-buffer": "Build a 6-Month Emergency Buffer Fund",
-  "6monthbuffer": "Build a 6-Month Emergency Buffer Fund",
-  "financial-health": "Do a Financial Health Check Every 3 Months",
-  "financialhealth": "Do a Financial Health Check Every 3 Months",
-  "timing": "Time in the Market vs Timing the Market",
-  "capitalise": "Capitalise on the Benefits Offered by Your Employer",
-  "handbasket": "Do Food Shops with Handbaskets Not Trolleys",
-  "farmers-market": "Buy from Farmers' Markets",
-  "farmersmarket": "Buy from Farmers' Markets",
-  "off": "Turn Off Appliances at the Plug",
-  "stock-up": "Stock Up on Favourite Beauty and Skincare Items When on Sale",
-  "stockup": "Stock Up on Favourite Beauty and Skincare Items When on Sale",
-  "boot-sale": "Sell Unused Items",
-  "bootsale": "Sell Unused Items",
-  "second-hand": "Buy Used Second-Hand Video Games",
-  "secondhand": "Buy Used Second-Hand Video Games",
-  "borrow": "Borrow or Rent Items",
-  "too-good": "Use the Too Good to Go App",
-  "toogood": "Use the Too Good to Go App",
-  "capsule": "Create a Capsule Wardrobe",
-  "prime-plus": "Get Free Deliveroo Plus with Amazon Prime",
-  "primeplus": "Get Free Deliveroo Plus with Amazon Prime",
-  "saving-scheme": "Top 88 Retail Loyalty Schemes for Maximum Savings",
-  "savingscheme": "Top 88 Retail Loyalty Schemes for Maximum Savings",
-  "walk-50": "50 Ways to Walk More in a Day",
-  "walk50": "50 Ways to Walk More in a Day",
-  "5minmobility": "Add 5-Minute Mobility Routine to Your Day",
-  "5 min mobility": "Add 5-Minute Mobility Routine to Your Day",
-  "getup-30": "30 Benefits of Getting Up and Down",
-  "getup30": "30 Benefits of Getting Up and Down",
-  "greentea-30": "30 Reasons to Drink Green Tea Instead of Water",
-  "greentea30": "30 Reasons to Drink Green Tea Instead of Water",
-  "brownfat-30": "30 Benefits of Activating Your Brown Fat",
-  "brownfat30": "30 Benefits of Activating Your Brown Fat",
-  "grip-30": "30 Benefits of Greater Grip Strength",
-  "grip30": "30 Benefits of Greater Grip Strength",
-  "peanut-30": "30 Reasons to Swap Butter for Peanut Butter",
-  "peanut30": "30 Reasons to Swap Butter for Peanut Butter",
-  "abs-30": "30 Benefits of Using an AB Roller",
-  "abs30": "30 Benefits of Using an AB Roller",
-  "fatigue-30": "30 Ways to Reduce Decision Fatigue in Everyday Life",
-  "fatigue30": "30 Ways to Reduce Decision Fatigue in Everyday Life",
-  "habit-30": "30 Ways to Track Your Habit Progress",
-  "habit30": "30 Ways to Track Your Habit Progress",
-  "chores-30": "Do 30 Benefits of Doing Chores with Friends",
-  "chores30": "Do 30 Benefits of Doing Chores with Friends",
-  "sarcopenia": "25 Ways to Prevent or Delay Sarcopenia",
-  "sarcopenia25": "25 Ways to Prevent or Delay Sarcopenia",
-  "binge": "Say Goodbye to Netflix, Prime, and Binge Watching",
   "blueprint": "BDBT Foundation Blueprint",
-  "body-composition": "Body Composition",
-  "bodycomposition": "Body Composition",
-  "Parking": "Park further away",
+  
+  // BodyComposition -> Why its so important to understand body compositions
+  "BodyComposition": "Why its so important to understand body compositions",
+  "bodycomposition": "Why its so important to understand body compositions",
+  
+  // Bootsale -> Sell unused items
+  "Bootsale": "Sell unused items",
+  "bootsale": "Sell unused items",
+  
+  // Borrow -> Borrow Or Rent Items
+  "Borrow": "Borrow or Rent Items",
+  "borrow": "Borrow or Rent Items",
+  
+  // BreathDeep -> Breath deeply for 60 seconds, twice a day
+  "BreathDeep": "Do 60 Seconds Deep Breathing Twice a Day",
+  "breathdeep": "Do 60 Seconds Deep Breathing Twice a Day",
+  
+  // Brownfat30 -> 30 benefits of activating your brown fat
+  "Brownfat30": "30 benefits of activating your brown fat",
+  "brownfat30": "30 benefits of activating your brown fat",
+  
+  // CalfRaise -> Do calf raises while brushing your teeth
+  "CalfRaise": "Do calf raises while brushing your teeth",
+  "calfraise": "Do calf raises while brushing your teeth",
+  
+  // Capitalise -> Capitalise on the benefits offered by your employer
+  "Capitalise": "Capitalise on the benefits offered by your employer",
+  "capitalise": "Capitalise on the benefits offered by your employer",
+  
+  // Capsule -> Create a capsule wardrobe
+  "Capsule": "Create a capsule wardrobe",
+  "capsule": "Create a capsule wardrobe",
+  
+  // ChewSlow -> Chew Food More slowly
+  "ChewSlow": "Chew food more slowly",
+  "chewslow": "Chew food more slowly",
+  
+  // Chores30 -> 30 benefits of doing chores with friends
+  "Chores30": "30 benefits of doing chores with friends",
+  "chores30": "30 benefits of doing chores with friends",
+  
+  // ColdShower -> Take Cold Showers
+  "ColdShower": "Take Cold Showers",
+  "coldshower": "Take Cold Showers",
+  
+  // Community -> Join a Community
+  "Community": "Join a Community",
+  "community": "Join a Community",
+  
+  // DailyNature -> 50 ways to incorporate more nature into daily life
+  "DailyNature": "50 ways to incorporate more nature into daily life",
+  "dailynature": "50 ways to incorporate more nature into daily life",
+  
+  // DayReview -> Review Your day
+  "DayReview": "Review your day",
+  "dayreview": "Review your day",
+  
+  // Declutter -> Declutter your living and working spaces
+  "Declutter": "Declutter your living and working spaces",
+  "declutter": "Declutter your living and working spaces",
+  
+  // DeepSquats -> Do one minute of deep squats per day
+  "DeepSquats": "Do one minute of deep squats per day",
+  "deepsquats": "Do one minute of deep squats per day",
+  
+  // Diet -> Expand your diet & improve your health
+  "Diet": "Expand your diet & improve your health",
+  "diet": "Expand your diet & improve your health",
+  
+  // Difficient -> Take supplements for what you are deficient in
+  "Difficient": "Take supplements for what you are deficient in",
+  "difficient": "Take supplements for what you are deficient in",
+  
+  // Explore -> Go Exploring
+  "Explore": "Go Exploring",
+  "explore": "Go Exploring",
+  
+  // ExtraGlass -> Drink one extra glass of water daily
+  "ExtraGlass": "Drink one extra glass of water daily",
+  "extraglass": "Drink one extra glass of water daily",
+  
+  // FarmersMarket -> Buy from farmers markets
+  "FarmersMarket": "Buy from farmers' markets",
+  "farmersmarket": "Buy from farmers' markets",
+  
+  // Fatigue30 -> 30 ways to reduce descision fatigue in everyday life
+  "Fatigue30": "30 ways to reduce decision fatigue in everyday life",
+  "fatigue30": "30 ways to reduce decision fatigue in everyday life",
+  
+  // Fibre -> Eat the fibre on your plate first
+  "Fibre": "Eat the fibre on your plate first",
+  "fibre": "Eat the fibre on your plate first",
+  
+  // FinancialHealth -> Do a financial health check every 3 months
+  "FinancialHealth": "Do a financial health check every 3 months",
+  "financialhealth": "Do a financial health check every 3 months",
+  
+  // FloorSit -> Be more japanese sit on the floor more
+  "FloorSit": "Be more japanese sit on the floor more",
+  "floorsit": "Be more japanese sit on the floor more",
+  
+  // Freeguide -> Take a free online course
+  "Freeguide": "Take a free online course",
+  "freeguide": "Take a free online course",
+  
+  // FrozenGreens -> The power of frozen fruits and vegitables
+  "FrozenGreens": "The power of frozen fruits and vegitables",
+  "frozengreens": "The power of frozen fruits and vegitables",
+  
+  // Getup30 -> 30 benefits of getting up and down from the floor without using your arms
+  "Getup30": "30 benefits of getting up and down from the floor without using your arms",
+  "getup30": "30 benefits of getting up and down from the floor without using your arms",
+  
+  // Gratitude -> Practice gratitude
+  "Gratitude": "Practice gratitude",
+  "gratitude": "Practice gratitude",
+  
+  // GreenTea30 -> 30 Reasons to drink green tea instead of water
+  "GreenTea30": "30 Reasons to drink green tea instead of water",
+  "greentea30": "30 Reasons to drink green tea instead of water",
+  
+  // Grip30 -> 30 benefits of greater grip strength
+  "Grip30": "30 benefits of greater grip strength",
+  "grip30": "30 benefits of greater grip strength",
+  
+  // Habit30 -> 30 Ways to track your habit progress
+  "Habit30": "30 ways to track your habit progress",
+  "habit30": "30 ways to track your habit progress",
+  
+  // Handbasket -> Do food shops with handbaskets not trolleys
+  "Handbasket": "Do food shops with handbaskets not trolleys",
+  "handbasket": "Do food shops with handbaskets not trolleys",
+  
+  // SUGAR -> Replace at least one sugary snack with a healthier alternative
+  "SUGAR": "Replace at least one sugary snack with a healthier alternative",
+  "sugar": "Replace at least one sugary snack with a healthier alternative",
+  
+  // HighBloodsurgar -> Understand what high blood sugar does to your brain and body
+  "HighBloodsurgar": "Understand what high blood sugar does to your brain and body",
+  "highbloodsugar": "Understand what high blood sugar does to your brain and body",
+  
+  // Hug -> Hug Daily
+  "Hug": "Hug Daily",
+  "hug": "Hug Daily",
+  
+  // Journal -> Journal Daily
+  "Journal": "Journal Daily",
+  "journal": "Journal Daily",
+  
+  // Kind -> Say something kind to yourself out loud
+  "Kind": "Say something kind to yourself out loud",
+  "kind": "Say something kind to yourself out loud",
+  
+  // Learn -> Learn something new
+  "Learn": "Learn something new",
+  "learn": "Learn something new",
+  
+  // LemonCayenne -> Drink warm lemon water with cayenne pepper every day
+  "LemonCayenne": "Drink warm lemon water with cayenne pepper every day",
+  "lemoncayenne": "Drink warm lemon water with cayenne pepper every day",
+  
+  // LifePurpose -> Be more japanese, find your strong sense of life purpose
+  "LifePurpose": "Be more japanese, find your strong sense of life purpose",
+  "lifepurpose": "Be more japanese, find your strong sense of life purpose",
+  
+  // Lifestyle -> Don't upgrade your lifestyle with every pay rise
+  "Lifestyle": "Don't upgrade your lifestyle with every pay rise",
+  "lifestyle": "Don't upgrade your lifestyle with every pay rise",
+  
+  // LookUp -> Look up at the sky once a day
+  "LookUp": "Look up at the sky once a day",
+  "lookup": "Look up at the sky once a day",
+  
+  // LovedOnes -> Connect with loved ones
+  "LovedOnes": "Connect with loved ones",
+  "lovedones": "Connect with loved ones",
+  
+  // Lunges -> Get your lunges in while vaccuing
+  "Lunges": "Get your lunges in while vacuuming",
+  "lunges": "Get your lunges in while vacuuming",
+  
+  // STOREBRAND -> Take up meditation (note: this maps to meditation)
+  "STOREBRAND": "Meditate for 2 minutes",
+  "storebrand": "Meditate for 2 minutes",
+  "meditation": "Meditate for 2 minutes",
+  
+  // Movement -> Start your day with movement
+  "Movement": "Start your day with movement",
+  "movement": "Start your day with movement",
+  
+  // NoSpend -> Have a weekly no spend day
+  "NoSpend": "Have a weekly no spend day",
+  "nospend": "Have a weekly no spend day",
+  
+  // Notebook -> Keep a notebook by your bed for random thoughts
+  "Notebook": "Keep a notebook by your bed for random thoughts",
+  "notebook": "Keep a notebook by your bed for random thoughts",
+  
+  // OFF -> Turn off appliances at the plug
+  "OFF": "Turn off appliances at the plug",
+  "off": "Turn off appliances at the plug",
+  
+  // ParkAway -> Park further away
+  "ParkAway": "Park further away",
+  "parkaway": "Park further away",
+  "parking": "Park further away",
   "park": "Park further away",
+  
+  // Peanut30 -> 30 reasons to swap butter for peanut butter
+  "Peanut30": "30 reasons to swap butter for peanut butter",
+  "peanut30": "30 reasons to swap butter for peanut butter",
+  
+  // Plank -> Do a 30 second plank every day
+  "Plank": "Do a 30 second plank every day",
+  "plank": "Do a 30 second plank every day",
+  
+  // Plansuccess -> Plan your day and define what success looks like
+  "Plansuccess": "Plan your day and define what success looks like",
+  "plansuccess": "Plan your day and define what success looks like",
+  
+  // Podcast -> Swap one tv episode for a ted talk or podcast
+  "Podcast": "Swap one tv episode for a ted talk or podcast",
+  "podcast": "Swap one tv episode for a ted talk or podcast",
+  
+  // Posture -> Practice good posture
+  "Posture": "Practice good posture",
+  "posture": "Practice good posture",
+  
+  // PrimePlus -> Get free deliveroo plus with amazon prime
+  "PrimePlus": "Get free deliveroo plus with amazon prime",
+  "primeplus": "Get free deliveroo plus with amazon prime",
+  
+  // Protein -> Try and eat protein with every meal
+  "Protein": "Try and eat protein with every meal",
+  "protein": "Try and eat protein with every meal",
+  
+  // Read -> Read for 20 minutes a day
+  "Read": "Read for 20 minutes a day",
+  "read": "Read for 20 minutes a day",
+  
+  // Recharge -> Prioritise finding time to unwind, relax and recharge
+  "Recharge": "Prioritise finding time to unwind, relax and recharge",
+  "recharge": "Prioritise finding time to unwind, relax and recharge",
+  
+  // Reframe -> Reframe one thing today
+  "Reframe": "Reframe one thing today",
+  "reframe": "Reframe one thing today",
+  
+  // ReplaceDessert -> Replace a dessert with a yogurt or fruit option
+  "ReplaceDessert": "Replace a dessert with a yogurt or fruit option",
+  "replacedessert": "Replace a dessert with a yogurt or fruit option",
+  
+  // Replacesugar -> Replace sugary drinks with water
+  "Replacesugar": "Replace sugary drinks with water",
+  "replacesugar": "Replace sugary drinks with water",
+  
+  // STRETCH -> Do 10 reverse lunges while watching TV
+  "STRETCH": "Do 10 reverse lunges while watching TV",
+  "stretch": "Stretch Daily",
+  
+  // Saffron -> Use Saffron as an AntiDeppresant
+  "Saffron": "Use Saffron as an anti-depressant",
+  "saffron": "Use Saffron as an anti-depressant",
+  
+  // Salternative -> Use Spices Instead Of Salt
+  "Salternative": "Use spices instead of salt",
+  "salternative": "Use spices instead of salt",
+  
+  // SavingScheme -> Top 88 Retail loyalty schemes for maximum savings
+  "SavingScheme": "Top 88 Retail loyalty schemes for maximum savings",
+  "savingscheme": "Top 88 Retail loyalty schemes for maximum savings",
+  
+  // Savings -> Hide your savings from yourself
+  "Savings": "Hide your savings from yourself",
+  "savings": "Hide your savings from yourself",
+  
+  // SayNo -> Learn to say No
+  "SayNo": "Learn to say No",
+  "sayno": "Learn to say No",
+  
+  // Screentime -> Limit screen time before bed
+  "Screentime": "Limit screen time before bed",
+  "screentime": "Limit screen time before bed",
+  
+  // SecondHand -> Buy used / second hand video games
+  "SecondHand": "Buy used / second hand video games",
+  "secondhand": "Buy used / second hand video games",
+  
+  // SelfTalk -> Practice positive self talk
+  "SelfTalk": "Practice positive self talk",
+  "selftalk": "Practice positive self talk",
+  
+  // SHOPPINGLIST -> Always use a shopping list
+  "SHOPPINGLIST": "Always use a shopping list",
+  "shoppinglist": "Always use a shopping list",
+  
+  // Silent5 -> Sit in silence for 5 minutes a day
+  "Silent5": "Sit in silence for 5 minutes a day",
+  "silent5": "Sit in silence for 5 minutes a day",
+  
+  // Skipping -> Do 5 minutes of jumping jacks or skipping daily
+  "Skipping": "Do 5 minutes of jumping jacks or skipping daily",
+  "skipping": "Do 5 minutes of jumping jacks or skipping daily",
+  
+  // Sleep -> Stop compromising on sleep
+  "Sleep": "Stop compromising on sleep",
+  "sleep": "Stop compromising on sleep",
+  
+  // Smile -> Smile at yourslf in the mirror every morning
+  "Smile": "Smile at yourslf in the mirror every morning",
+  "smile": "Smile at yourslf in the mirror every morning",
+  
+  // SpendingFreeze -> Do a spending freeze challenge for a week
+  "SpendingFreeze": "Do a spending freeze challenge for a week",
+  "spendingfreeze": "Do a spending freeze challenge for a week",
+  
+  // SpikeMat -> Use a Spike Mat
+  "SpikeMat": "Use a Spike Mat",
+  "spikemat": "Use a Spike Mat",
+  
+  // Stairs -> Always take the stairs
+  "Stairs": "Always take the stairs",
+  "stairs": "Always take the stairs",
+  
+  // Standingdesk -> Use a standing desk at home
+  "Standingdesk": "Use a standing desk at home",
+  "standingdesk": "Use a standing desk at home",
+  
+  // Standup -> Set an hourly reminder to stand up
+  "Standup": "Set an hourly reminder to stand up",
+  "standup": "Set an hourly reminder to stand up",
+  
+  // Stockup -> Stock up on favourite beauty and skincare items when on sale
+  "Stockup": "Stock up on favourite beauty and skincare items when on sale",
+  "stockup": "Stock up on favourite beauty and skincare items when on sale",
+  
+  // StoreBrand -> Buy Generic store brand products instead of name brands
+  "StoreBrand": "Buy Generic store brand products instead of name brands",
+  
+  // Stretch -> Stretch Daily
+  "Stretch": "Stretch Daily",
+  
+  // SubSave -> Amazon subscribe and save
+  "SubSave": "Amazon subscribe and save",
+  "subsave": "Amazon subscribe and save",
+  
+  // Sunlight -> Expose yourself to natural sunlight in the morning
+  "Sunlight": "Expose yourself to natural sunlight in the morning",
+  "sunlight": "Expose yourself to natural sunlight in the morning",
+  
+  // Timing -> Time in the market vs Timing the market
+  "Timing": "Time in the market vs Timing the market",
+  "timing": "Time in the market vs Timing the market",
+  
+  // TooGood -> Use the Too Good To Go App
+  "TooGood": "Use the Too Good To Go App",
+  "toogood": "Use the Too Good To Go App",
+  
+  // Transport -> Use Public transport to get your steps in
+  "Transport": "Use Public transport to get your steps in",
+  "transport": "Use Public transport to get your steps in",
+  
+  // Unbranded -> Try Generic Medication Brands
+  "Unbranded": "Try Generic Medication Brands",
+  "unbranded": "Try Generic Medication Brands",
+  
+  // VitaminC -> Add lemon to water for a vitamin C Boost
+  "VitaminC": "Add lemon to water for a vitamin C Boost",
+  "vitaminc": "Add lemon to water for a vitamin C Boost",
+  
+  // Walk50 -> 50 ways to walk more in a day
+  "Walk50": "50 ways to walk more in a day",
+  "walk50": "50 ways to walk more in a day",
+  
+  // SHORTWALK -> Take a short walk after meals
+  "SHORTWALK": "Take a short walk after meals",
+  "shortwalk": "Take a short walk after meals",
+  
+  // WaterBottle -> Invest in a quality water bottle
+  "WaterBottle": "Invest in a quality water bottle",
+  "waterbottle": "Invest in a quality water bottle",
+  
+  // WaterGoal -> Set a water intake goal
+  "WaterGoal": "Set a water intake goal",
+  "watergoal": "Set a water intake goal",
+  
+  // Whatsapp -> Create a whatsapp group with friends for a specific purpose
+  "Whatsapp": "Create a whatsapp group with friends for a specific purpose",
+  "whatsapp": "Create a whatsapp group with friends for a specific purpose",
+  
+  // Zone2 -> Spend time in zone 2 each week
+  "Zone2": "Spend time in zone 2 each week",
+  "zone2": "Spend time in zone 2 each week",
+  
+  // darcopenia25 -> 25 ways to prevent or delay sarcopenia
+  "darcopenia25": "25 ways to prevent or delay sarcopenia",
+  "sarcopenia25": "25 ways to prevent or delay sarcopenia",
+  "sarcopenia": "25 ways to prevent or delay sarcopenia",
+  
+  // Bedstretch -> Stretch Before Bed
+  "Bedstretch": "Stretch before bed",
+  "bedstretch": "Stretch before bed",
+  
+  // hangtough -> 30 Benefits of greater grip strength
+  "hangtough": "30 benefits of greater grip strength",
+  "HANGTOUGH": "30 benefits of greater grip strength",
 };
 
 // Export reverse map for reference (title to keywords)
