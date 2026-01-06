@@ -299,7 +299,8 @@ const ThumbnailTemplate = () => {
     { id: 12, name: "The Forever Test", title: "The Forever Test", subtitle: "", image: "" },
     { id: 13, name: "Systems Beat Motivation", title: "Systems Beat Motivation", subtitle: "", image: "" },
     { id: 14, name: "Small Wins Matter", title: "Small Wins Matter", subtitle: "", image: "" },
-    { id: 15, name: "Park Further Away On Purpose", title: "Park Further Away On Purpose", subtitle: "", image: "" }
+    { id: 15, name: "Park Further Away On Purpose", title: "Park Further Away On Purpose", subtitle: "", image: "" },
+    { id: 16, name: "Making Use of Your Dead Time", title: "Making Use of Your Dead Time", subtitle: "", image: "" }
   ];
 
   const phrases = [
