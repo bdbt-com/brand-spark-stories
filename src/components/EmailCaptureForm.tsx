@@ -65,13 +65,13 @@ const EmailCaptureForm = ({ title, description, guideDownloadUrl, onClose, compa
       if (data?.success) {
         setIsSubmitted(true);
         
-        // Reset form after success animation
+        // Reset form after success animation (20 seconds)
         setTimeout(() => {
           setFirstName("");
           setEmail("");
           setIsSubmitted(false);
           onClose();
-        }, 3000);
+        }, 20000);
       } else {
         throw new Error(data?.error || 'Failed to send guide');
       }
