@@ -14,15 +14,16 @@ import tikTokBg13 from "@/assets/tiktok-bg-template-14.png";
 import tikTokBg14 from "@/assets/tiktok-bg-template-15.png";
 import tikTokBg15 from "@/assets/tiktok-bg-template-16.png";
 import tikTokBg16 from "@/assets/tiktok-bg-template-17.png";
+import tikTokBg17 from "@/assets/tiktok-bg-template-18.png";
 import { Instagram, Youtube } from "lucide-react";
 
 interface TikTokTemplateProps {
-  templateIndex: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16;
+  templateIndex: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17;
   className?: string;
 }
 
 export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplateProps) {
-  const backgrounds = [tikTokBg, tikTokBg2, tikTokBg1, tikTokBg3, tikTokBg4, tikTokBg5, tikTokBg6, tikTokBg7, tikTokBg8, tikTokBg9, tikTokBg3, tikTokBg11, tikTokBg12, tikTokBg13, tikTokBg14, tikTokBg15, tikTokBg16];
+  const backgrounds = [tikTokBg, tikTokBg2, tikTokBg1, tikTokBg3, tikTokBg4, tikTokBg5, tikTokBg6, tikTokBg7, tikTokBg8, tikTokBg9, tikTokBg3, tikTokBg11, tikTokBg12, tikTokBg13, tikTokBg14, tikTokBg15, tikTokBg16, tikTokBg17];
   const backgroundImage = backgrounds[templateIndex];
   const showOverlay = templateIndex <= 2; // Only overlay for templates 0, 1, 2
   
@@ -210,6 +211,24 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
                 </span>
                 <span className="block mt-1" style={{ color: 'hsl(35, 45%, 75%)' }}>
                   BRUSHING YOUR TEETH
+                </span>
+                <span className="block mt-4 text-lg text-white/80 tracking-wide">
+                  NOW ON YOUTUBE AND SPOTIFY
+                </span>
+              </>
+            ) : templateIndex === 17 ? (
+              <>
+                <span className="text-white block text-3xl tracking-wider mb-1">
+                  NEW EPISODE
+                </span>
+                <span className="text-white/90 block text-2xl tracking-wider">
+                  BDBT PODCAST 3
+                </span>
+                <span className="block mt-3 text-white">
+                  PUT IT IN YOUR BASKET
+                </span>
+                <span className="block mt-1" style={{ color: 'hsl(35, 45%, 75%)' }}>
+                  WAIT 24 HOURS
                 </span>
                 <span className="block mt-4 text-lg text-white/80 tracking-wide">
                   NOW ON YOUTUBE AND SPOTIFY
