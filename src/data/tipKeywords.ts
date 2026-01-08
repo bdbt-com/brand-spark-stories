@@ -149,9 +149,9 @@ export const tipKeywordMap: Record<string, string> = {
   "Freeguide": "Take a free online course",
   "freeguide": "Take a free online course",
   
-  // FrozenGreens -> The power of frozen fruits and vegitables
-  "FrozenGreens": "The power of frozen fruits and vegitables",
-  "frozengreens": "The power of frozen fruits and vegitables",
+// FrozenGreens -> The power of frozen fruits and vegetables
+"FrozenGreens": "The power of frozen fruits and vegetables",
+"frozengreens": "The power of frozen fruits and vegetables",
   
   // Getup30 -> 30 benefits of getting up and down from the floor without using your arms
   "Getup30": "30 benefits of getting up and down from the floor without using your arms",
@@ -301,7 +301,7 @@ export const tipKeywordMap: Record<string, string> = {
   "replacesugar": "Replace sugary drinks with water",
   
   // STRETCH -> Do 10 reverse lunges while watching TV
-  "STRETCH": "Do 10 reverse lunges while watching TV",
+  "STRETCH": "Stretch Daily",
   "stretch": "Stretch Daily",
   
   // Saffron -> Use Saffron as an AntiDeppresant
@@ -454,6 +454,11 @@ export const tipKeywordMap: Record<string, string> = {
   // hangtough -> 30 Benefits of greater grip strength
   "hangtough": "30 benefits of greater grip strength",
   "HANGTOUGH": "30 benefits of greater grip strength",
+
+  // Cashew -> Eat a Handful of Nuts Daily
+  "Cashew": "Eat a Handful of Nuts Daily",
+  "cashew": "Eat a Handful of Nuts Daily",
+  "CASHEW": "Eat a Handful of Nuts Daily",
 };
 
 // Export reverse map for reference (title to keywords)

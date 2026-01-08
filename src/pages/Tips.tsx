@@ -108,6 +108,22 @@ const Tips = () => {
       dateAdded: "2024-01-05"
     },
     {
+      icon: Apple,
+      title: "Eat a Handful of Nuts Daily",
+      description: "Simple daily habit for better nutrition and sustained energy.",
+      items: [
+        "Health: Packed with healthy fats, protein, and essential nutrients",
+        "Wealth: Affordable and long-lasting pantry staple",
+        "Happiness: Satisfying snack that boosts energy and mood"
+      ],
+      level: "Easy",
+      duration: "2 min read",
+      category: "health",
+      popularity: 30,
+      views: 0,
+      dateAdded: "2026-01-08"
+    },
+    {
       icon: Smile,
       title: "Smile at yourslf in the mirror every morning",
       description: "Self-love practice for positive day starting.",
@@ -173,7 +189,7 @@ const Tips = () => {
     },
     {
       icon: Apple,
-      title: "The power of frozen fruits and vegitables",
+      title: "The power of frozen fruits and vegetables",
       description: "Nutritious and budget-friendly produce alternatives.",
       items: [
         "Health: Retained nutrients with convenience and longer storage",
