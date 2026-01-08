@@ -14,7 +14,7 @@ export const guideMapping: Record<string, string> = {
   // Week 2
   "Meditate for 2 minutes": "https://drive.google.com/uc?export=download&id=1mclEq09vtPPv8jDM1m5tT1RnXMGFSnUN",
   "Do one minute of deep squats per day": "https://drive.google.com/uc?export=download&id=1Tf1QSNOu9yRrEwE0PUp5tUiOSu5CjqVk",
-  "The power of frozen fruits and vegitables": "https://drive.google.com/uc?export=download&id=10lkVEAf14l4JCkuR98NXpEUT-BMViODz",
+  "The power of frozen fruits and vegetables": "https://drive.google.com/uc?export=download&id=10lkVEAf14l4JCkuR98NXpEUT-BMViODz",
   "Swap one tv episode for a ted talk or podcast": "https://drive.google.com/uc?export=download&id=1p8-gyEbUyYtWVwzgEythRhFEDAj0G-ME",
   "Always use a shopping list": "https://drive.google.com/uc?export=download&id=1qnp1Ye79gRYkZ0rEGF9rAINA1a_TRgM2",
   "Take a short walk after meals": "https://drive.google.com/uc?export=download&id=1YbYwf-J_D0H8XkUSQrXsV7xR-P2EAcQt",
@@ -163,7 +163,10 @@ export const guideMapping: Record<string, string> = {
   "BDBT Foundation Blueprint": "https://drive.google.com/uc?export=download&id=1caRm0mvVGslcUB8j1sA5EhqAVIeIupXb",
   
   // Basket
-  "Wait 24 Hours before Clicking Buy": "https://drive.google.com/uc?export=download&id=1nwBdnTOuKO00E8Z5OBnZ7gV-xSX42tKC"
+  "Wait 24 Hours before Clicking Buy": "https://drive.google.com/uc?export=download&id=1nwBdnTOuKO00E8Z5OBnZ7gV-xSX42tKC",
+  
+  // New tips
+  "Eat a Handful of Nuts Daily": "https://drive.google.com/uc?export=download&id=1ryw7Ljpu6MkLrkJUA0IcT1Kwko_4tNkt"
 };
 
 // Helper function to get guide URL by tip title
