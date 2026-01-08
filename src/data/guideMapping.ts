@@ -167,7 +167,9 @@ export const guideMapping: Record<string, string> = {
   
   // New tips
   "Eat a Handful of Nuts Daily": "https://drive.google.com/uc?export=download&id=1ryw7Ljpu6MkLrkJUA0IcT1Kwko_4tNkt",
-  "Stretch before bed": "https://drive.google.com/uc?export=download&id=16uJQsLT67Rzl-ZMIgeSeiWRkmsk5qwta"
+  "Stretch before bed": "https://drive.google.com/uc?export=download&id=16uJQsLT67Rzl-ZMIgeSeiWRkmsk5qwta",
+  "30 Benefits of greater grip strength": "https://drive.google.com/uc?export=download&id=19-VT__xKrHyj9t7_6_JRxhcR0IldjAMZ",
+  "Buying Nuts in Bulk": "https://drive.google.com/uc?export=download&id=1d0JKl-yPMSDVp1JBEhqGMK_fCPb08c6x"
 };
 
 // Helper function to get guide URL by tip title

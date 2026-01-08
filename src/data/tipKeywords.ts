@@ -458,10 +458,12 @@ export const tipKeywordMap: Record<string, string> = {
   "hangtough": "30 benefits of greater grip strength",
   "HANGTOUGH": "30 benefits of greater grip strength",
 
-  // Cashew -> Eat a Handful of Nuts Daily
-  "Cashew": "Eat a Handful of Nuts Daily",
-  "cashew": "Eat a Handful of Nuts Daily",
-  "CASHEW": "Eat a Handful of Nuts Daily",
+  // Cashew -> Buying Nuts in Bulk
+  "Cashew": "Buying Nuts in Bulk",
+  "cashew": "Buying Nuts in Bulk",
+  "CASHEW": "Buying Nuts in Bulk",
+  "buyingnuts": "Buying Nuts in Bulk",
+  "BuyingNuts": "Buying Nuts in Bulk",
 };
 
 // Export reverse map for reference (title to keywords)
