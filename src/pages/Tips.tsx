@@ -93,7 +93,7 @@ const Tips = () => {
     },
     {
       icon: ShoppingBasket,
-      title: "Buy Cashew Nuts in Bulk",
+      title: "Buy Nuts in Bulk",
       description: "Smart bulk buying strategy for healthy snacking.",
       items: [
         "Health: Nutrient-dense snack always available",
