@@ -741,6 +741,13 @@ const ThumbnailTemplate = () => {
             <TikTokTemplate templateIndex={17} />
           </div>
         )}
+
+        {/* Template 19 - Why You Must Stay Hydrated */}
+        {currentTemplateIndex === 18 && mode === 'instagram' && (
+          <div className="relative">
+            <TikTokTemplate templateIndex={18} />
+          </div>
+        )}
         {/* Template 5 - Healthy Snacks */}
         {currentTemplateIndex === 4 && mode === 'youtube' && (
           <div className="relative">
