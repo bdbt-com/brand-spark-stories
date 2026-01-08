@@ -166,7 +166,8 @@ export const guideMapping: Record<string, string> = {
   "Wait 24 Hours before Clicking Buy": "https://drive.google.com/uc?export=download&id=1nwBdnTOuKO00E8Z5OBnZ7gV-xSX42tKC",
   
   // New tips
-  "Eat a Handful of Nuts Daily": "https://drive.google.com/uc?export=download&id=1ryw7Ljpu6MkLrkJUA0IcT1Kwko_4tNkt"
+  "Eat a Handful of Nuts Daily": "https://drive.google.com/uc?export=download&id=1ryw7Ljpu6MkLrkJUA0IcT1Kwko_4tNkt",
+  "Stretch before bed": "https://drive.google.com/uc?export=download&id=16uJQsLT67Rzl-ZMIgeSeiWRkmsk5qwta"
 };
 
 // Helper function to get guide URL by tip title
