@@ -7,7 +7,7 @@ export const guideMapping: Record<string, string> = {
   "Do calf raises while brushing your teeth": "https://drive.google.com/uc?export=download&id=13RhEAtpZpA-GkWOV6w1mtkG7ZH2UdItE",
   "Put it in your online basket. Wait 24 hours. Get a discount.": "https://drive.google.com/uc?export=download&id=1e6aNvmHC9DeEgxp9J3sPHtnKdG3roJ5-",
   "Drink one extra glass of water daily": "https://drive.google.com/uc?export=download&id=1oFlBePdQhC1GoZf_ob730h-UkOxs2ah8",
-  "Buy Cashew Nuts in Bulk": "https://drive.google.com/uc?export=download&id=1QZX4X_co9xMGXQ60Z1YkE8XTDDBCcUQ4",
+  
   "Smile at yourslf in the mirror every morning": "https://drive.google.com/uc?export=download&id=13tDD77bQvg6PXdCsMgT1IJhXghCG_wnP",
   "Stretch Daily": "https://drive.google.com/uc?export=download&id=1gEa382rf8_CNVJ1IupF4PzaRzd2N4Iew",
   
