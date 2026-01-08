@@ -124,6 +124,22 @@ const Tips = () => {
       dateAdded: "2026-01-08"
     },
     {
+      icon: Moon,
+      title: "Stretch before bed",
+      description: "Evening stretching routine for better sleep and recovery.",
+      items: [
+        "Health: Relaxes muscles and reduces tension for deeper sleep",
+        "Wealth: Free nightly routine that improves recovery",
+        "Happiness: Peaceful transition from day to restful night"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "wellness",
+      popularity: 40,
+      views: 0,
+      dateAdded: "2026-01-08"
+    },
+    {
       icon: Smile,
       title: "Smile at yourslf in the mirror every morning",
       description: "Self-love practice for positive day starting.",

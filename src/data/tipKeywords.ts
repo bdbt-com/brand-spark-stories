@@ -225,10 +225,13 @@ export const tipKeywordMap: Record<string, string> = {
   "Lunges": "Get your lunges in while vacuuming",
   "lunges": "Get your lunges in while vacuuming",
   
-  // STOREBRAND -> Take up meditation (note: this maps to meditation)
+  // Meditation/Meditate -> Meditate for 2 minutes
   "STOREBRAND": "Meditate for 2 minutes",
   "storebrand": "Meditate for 2 minutes",
+  "Meditation": "Meditate for 2 minutes",
   "meditation": "Meditate for 2 minutes",
+  "Meditate": "Meditate for 2 minutes",
+  "meditate": "Meditate for 2 minutes",
   
   // Movement -> Start your day with movement
   "Movement": "Start your day with movement",
