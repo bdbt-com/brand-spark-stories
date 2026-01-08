@@ -302,7 +302,7 @@ const ThumbnailTemplate = () => {
     { id: 15, name: "Park Further Away On Purpose", title: "Park Further Away On Purpose", subtitle: "", image: "" },
     { id: 16, name: "Making Use of Your Dead Time", title: "Making Use of Your Dead Time", subtitle: "", image: "" },
     { id: 17, name: "Put it in your Basket, wait 24 Hours", title: "Put it in your Basket, wait 24 Hours", subtitle: "", image: "" },
-    { id: 18, name: "Why You Must Stay Hydrated", title: "Why You Must Stay Hydrated", subtitle: "", image: "" }
+    { id: 18, name: "Drink One Extra Glass of Water Daily", title: "Drink One Extra Glass of Water Daily", subtitle: "", image: "" }
   ];
 
   const phrases = [

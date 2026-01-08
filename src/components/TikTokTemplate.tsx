@@ -244,10 +244,13 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
                   BDBT PODCAST 4
                 </span>
                 <span className="block mt-3 text-white">
-                  WHY YOU MUST
+                  DRINK ONE EXTRA
                 </span>
                 <span className="block mt-1" style={{ color: 'hsl(35, 45%, 75%)' }}>
-                  STAY HYDRATED
+                  GLASS OF WATER
+                </span>
+                <span className="block mt-1" style={{ color: 'hsl(35, 45%, 75%)' }}>
+                  DAILY
                 </span>
                 <span className="block mt-4 text-lg text-white/80 tracking-wide">
                   NOW ON YOUTUBE AND SPOTIFY
