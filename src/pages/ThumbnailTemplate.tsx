@@ -508,7 +508,7 @@ const ThumbnailTemplate = () => {
                 </div>
               </div>
             ) : (
-              <TikTokTemplate templateIndex={currentTemplateIndex as 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10} />
+              <TikTokTemplate templateIndex={currentTemplateIndex as 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19} />
             )}
           </div>
         )}
@@ -552,7 +552,7 @@ const ThumbnailTemplate = () => {
                 </div>
               </div>
             ) : (
-              <TikTokTemplate templateIndex={currentTemplateIndex as 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10} />
+              <TikTokTemplate templateIndex={currentTemplateIndex as 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19} />
             )}
           </div>
         )}
@@ -596,7 +596,7 @@ const ThumbnailTemplate = () => {
                 </div>
               </div>
             ) : (
-              <TikTokTemplate templateIndex={currentTemplateIndex as 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10} />
+              <TikTokTemplate templateIndex={currentTemplateIndex as 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19} />
             )}
           </div>
         )}
@@ -640,7 +640,7 @@ const ThumbnailTemplate = () => {
                 </div>
               </div>
             ) : (
-              <TikTokTemplate templateIndex={currentTemplateIndex as 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10} />
+              <TikTokTemplate templateIndex={currentTemplateIndex as 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19} />
             )}
           </div>
         )}
@@ -747,6 +747,12 @@ const ThumbnailTemplate = () => {
         {currentTemplateIndex === 18 && mode === 'instagram' && (
           <div className="relative">
             <TikTokTemplate templateIndex={18} />
+          </div>
+        )}
+        {/* Template 20 - Buy Cashew Nuts in Bulk */}
+        {currentTemplateIndex === 19 && mode === 'instagram' && (
+          <div className="relative">
+            <TikTokTemplate templateIndex={19} />
           </div>
         )}
         {/* Template 5 - Healthy Snacks */}
