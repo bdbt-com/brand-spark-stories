@@ -18,6 +18,7 @@ import tikTokBg17 from "@/assets/tiktok-bg-template-18.png";
 import tikTokBg18 from "@/assets/tiktok-bg-template-19.png";
 import tikTokBg19 from "@/assets/tiktok-bg-template-20.png";
 import tikTokBg20 from "@/assets/tiktok-bg-template-21.png";
+import tikTokBg21 from "@/assets/tiktok-bg-template-22.png";
 import { Instagram, Youtube } from "lucide-react";
 
 interface TikTokTemplateProps {
@@ -26,7 +27,7 @@ interface TikTokTemplateProps {
 }
 
 export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplateProps) {
-  const backgrounds = [tikTokBg, tikTokBg2, tikTokBg1, tikTokBg3, tikTokBg4, tikTokBg5, tikTokBg6, tikTokBg7, tikTokBg8, tikTokBg9, tikTokBg3, tikTokBg11, tikTokBg12, tikTokBg13, tikTokBg14, tikTokBg15, tikTokBg16, tikTokBg17, tikTokBg18, tikTokBg17, tikTokBg20, tikTokBg17, tikTokBg20];
+  const backgrounds = [tikTokBg, tikTokBg2, tikTokBg1, tikTokBg3, tikTokBg4, tikTokBg5, tikTokBg6, tikTokBg7, tikTokBg8, tikTokBg9, tikTokBg3, tikTokBg11, tikTokBg12, tikTokBg13, tikTokBg14, tikTokBg15, tikTokBg16, tikTokBg17, tikTokBg18, tikTokBg17, tikTokBg20, tikTokBg17, tikTokBg21];
   const backgroundImage = backgrounds[templateIndex];
   const showOverlay = templateIndex <= 2; // Only overlay for templates 0, 1, 2
   
