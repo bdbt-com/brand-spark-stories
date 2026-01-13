@@ -16,7 +16,7 @@ import whyWeFeelStuck from "@/assets/why-we-feel-stuck.png";
 const ThumbnailTemplate = () => {
   // Separate state management for YouTube and TikTok modes
   const [youTubeTemplateIndex, setYouTubeTemplateIndex] = useState(0);
-  const [tikTokTemplateIndex, setTikTokTemplateIndex] = useState(23);
+  const [tikTokTemplateIndex, setTikTokTemplateIndex] = useState(0);
   const [youTubePhraseIndex, setYouTubePhraseIndex] = useState(0);
   const [tikTokPhraseIndex, setTikTokPhraseIndex] = useState(0);
   const [mode, setMode] = useState<'youtube' | 'instagram'>('youtube');
@@ -778,6 +778,13 @@ const ThumbnailTemplate = () => {
         {currentTemplateIndex === 22 && mode === 'instagram' && (
           <div className="relative">
             <TikTokTemplate templateIndex={22} />
+          </div>
+        )}
+
+        {/* Template 24 - Do 1 Minute of Squats Daily */}
+        {currentTemplateIndex === 23 && mode === 'instagram' && (
+          <div className="relative">
+            <TikTokTemplate templateIndex={23} />
           </div>
         )}
         {/* Template 5 - Healthy Snacks */}
