@@ -16,7 +16,7 @@ import whyWeFeelStuck from "@/assets/why-we-feel-stuck.png";
 const ThumbnailTemplate = () => {
   // Separate state management for YouTube and TikTok modes
   const [youTubeTemplateIndex, setYouTubeTemplateIndex] = useState(0);
-  const [tikTokTemplateIndex, setTikTokTemplateIndex] = useState(0);
+  const [tikTokTemplateIndex, setTikTokTemplateIndex] = useState(23);
   const [youTubePhraseIndex, setYouTubePhraseIndex] = useState(0);
   const [tikTokPhraseIndex, setTikTokPhraseIndex] = useState(0);
   const [mode, setMode] = useState<'youtube' | 'instagram'>('youtube');
@@ -306,7 +306,8 @@ const ThumbnailTemplate = () => {
     { id: 19, name: "Buy Cashew Nuts in Bulk", title: "Buy Cashew Nuts in Bulk", subtitle: "", image: "" },
     { id: 20, name: "Smile at Yourself in the Mirror Every Morning", title: "Smile at Yourself in the Mirror Every Morning", subtitle: "", image: "" },
     { id: 21, name: "Stretch Daily", title: "Stretch Daily", subtitle: "", image: "" },
-    { id: 22, name: "Your 2 Minute Meditation", title: "Your 2 Minute Meditation", subtitle: "", image: "" }
+    { id: 22, name: "Your 2 Minute Meditation", title: "Your 2 Minute Meditation", subtitle: "", image: "" },
+    { id: 23, name: "Do 1 Minute of Squats Daily", title: "Do 1 Minute of Squats Daily", subtitle: "", image: "" }
   ];
 
   const phrases = [
