@@ -226,8 +226,6 @@ export const tipKeywordMap: Record<string, string> = {
   "lunges": "Get your lunges in while vacuuming",
   
   // Meditation/Meditate -> Meditate for 2 minutes
-  "STOREBRAND": "Meditate for 2 minutes",
-  "storebrand": "Meditate for 2 minutes",
   "Meditation": "Meditate for 2 minutes",
   "meditation": "Meditate for 2 minutes",
   "Meditate": "Meditate for 2 minutes",
@@ -385,6 +383,9 @@ export const tipKeywordMap: Record<string, string> = {
   
   // StoreBrand -> Buy Generic store brand products instead of name brands
   "StoreBrand": "Buy Generic store brand products instead of name brands",
+  "storebrand": "Buy Generic store brand products instead of name brands",
+  "STOREBRAND": "Buy Generic store brand products instead of name brands",
+  "Storebrand": "Buy Generic store brand products instead of name brands",
   
   // Stretch -> Stretch Daily
   "Stretch": "Stretch Daily",
