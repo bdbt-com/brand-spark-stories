@@ -307,7 +307,8 @@ const ThumbnailTemplate = () => {
     { id: 20, name: "Smile at Yourself in the Mirror Every Morning", title: "Smile at Yourself in the Mirror Every Morning", subtitle: "", image: "" },
     { id: 21, name: "Stretch Daily", title: "Stretch Daily", subtitle: "", image: "" },
     { id: 22, name: "Your 2 Minute Meditation", title: "Your 2 Minute Meditation", subtitle: "", image: "" },
-    { id: 23, name: "Do 1 Minute of Squats Daily", title: "Do 1 Minute of Squats Daily", subtitle: "", image: "" }
+    { id: 23, name: "Do 1 Minute of Squats Daily", title: "Do 1 Minute of Squats Daily", subtitle: "", image: "" },
+    { id: 24, name: "Keep Frozen Fruit and Veg in the Freezer", title: "Keep Frozen Fruit and Veg in the Freezer", subtitle: "", image: "" }
   ];
 
   const phrases = [
