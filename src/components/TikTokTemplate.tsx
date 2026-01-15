@@ -20,15 +20,16 @@ import tikTokBg19 from "@/assets/tiktok-bg-template-20.png";
 import tikTokBg20 from "@/assets/tiktok-bg-template-21.png";
 import tikTokBg21 from "@/assets/tiktok-bg-template-22.png";
 import tikTokBg22 from "@/assets/tiktok-bg-template-23.png";
+import tikTokBg23 from "@/assets/tiktok-bg-template-24.png";
 import { Instagram, Youtube } from "lucide-react";
 
 interface TikTokTemplateProps {
-  templateIndex: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23;
+  templateIndex: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24;
   className?: string;
 }
 
 export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplateProps) {
-  const backgrounds = [tikTokBg, tikTokBg2, tikTokBg1, tikTokBg3, tikTokBg4, tikTokBg5, tikTokBg6, tikTokBg7, tikTokBg8, tikTokBg9, tikTokBg3, tikTokBg11, tikTokBg12, tikTokBg13, tikTokBg14, tikTokBg15, tikTokBg16, tikTokBg17, tikTokBg18, tikTokBg17, tikTokBg20, tikTokBg17, tikTokBg21, tikTokBg22];
+  const backgrounds = [tikTokBg, tikTokBg2, tikTokBg1, tikTokBg3, tikTokBg4, tikTokBg5, tikTokBg6, tikTokBg7, tikTokBg8, tikTokBg9, tikTokBg3, tikTokBg11, tikTokBg12, tikTokBg13, tikTokBg14, tikTokBg15, tikTokBg16, tikTokBg17, tikTokBg18, tikTokBg17, tikTokBg20, tikTokBg17, tikTokBg21, tikTokBg22, tikTokBg23];
   const backgroundImage = backgrounds[templateIndex];
   const showOverlay = templateIndex <= 2; // Only overlay for templates 0, 1, 2
   
@@ -348,6 +349,24 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
                 </span>
                 <span className="block mt-1" style={{ color: 'hsl(35, 45%, 75%)' }}>
                   DAILY
+                </span>
+                <span className="block mt-4 text-lg text-white/80 tracking-wide">
+                  NOW ON YOUTUBE AND SPOTIFY
+                </span>
+              </>
+            ) : templateIndex === 24 ? (
+              <>
+                <span className="text-white block text-3xl tracking-wider mb-1">
+                  NEW EPISODE
+                </span>
+                <span className="text-white/90 block text-2xl tracking-wider">
+                  BDBT PODCAST 10
+                </span>
+                <span className="block mt-3 text-white">
+                  KEEP FROZEN FRUIT AND VEG
+                </span>
+                <span className="block mt-1" style={{ color: 'hsl(35, 45%, 75%)' }}>
+                  IN THE FREEZER
                 </span>
                 <span className="block mt-4 text-lg text-white/80 tracking-wide">
                   NOW ON YOUTUBE AND SPOTIFY
