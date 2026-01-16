@@ -499,13 +499,13 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             ) : templateIndex === 29 ? (
               <>
                 <span className="text-white block text-2xl tracking-wider mb-1">
-                  JOCKO WILLINK ON
+                  THE MASTER TALKING ABOUT
                 </span>
                 <span className="block mt-3 text-white">
-                  TAKING THE SMALL STEP
+                  1% DAILY
                 </span>
                 <span className="block mt-1" style={{ color: 'hsl(35, 45%, 75%)' }}>
-                  EVERY DAY
+                  IMPROVEMENTS
                 </span>
               </>
             ) : null}
