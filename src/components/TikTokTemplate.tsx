@@ -42,7 +42,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
         {/* Brand Blue Background */}
         <div 
           className="absolute inset-0" 
-          style={{ backgroundColor: '#1E3A5F' }}
+          style={{ backgroundColor: '#3D4F5F' }}
         />
         
         {/* Black Fade from Bottom */}
@@ -92,7 +92,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
           <div className="text-center mb-8">
             <h2 className="text-4xl font-black tracking-wider" style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.9)' }}>
               <span className="text-white block">FOLLOW FOR MORE</span>
-              <span className="block mt-1" style={{ color: 'hsl(35, 45%, 75%)' }}>DAILY TIPS</span>
+              <span className="block mt-1" style={{ color: 'hsl(35, 45%, 75%)' }}>DAILY WINS</span>
             </h2>
           </div>
           
