@@ -39,11 +39,22 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
   if (isOutroTemplate) {
     return (
       <div className={`w-[540px] h-[960px] relative overflow-hidden shadow-2xl animate-fade-in border-2 border-white ${className}`}>
-        {/* Top Half - Brand Blue Gradient */}
-        <div className="absolute top-0 left-0 right-0 h-1/2 bg-gradient-to-br from-primary via-primary/90 to-primary/80" />
+        {/* Top Half - Chroma Key Green for transparency */}
+        <div 
+          className="absolute top-0 left-0 right-0 h-1/2" 
+          style={{ backgroundColor: '#00FF00' }} 
+        />
         
-        {/* Bottom Half - Dark background with content */}
-        <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-black/90 via-black/70 to-transparent" />
+        {/* Thanks for Watching Text - Top Half */}
+        <div className="absolute top-0 left-0 right-0 h-1/2 flex items-center justify-center">
+          <h1 className="text-5xl font-bold tracking-wider text-center" style={{ textShadow: '3px 3px 6px rgba(0,0,0,0.7)' }}>
+            <span className="text-white block">THANKS FOR</span>
+            <span className="block mt-2" style={{ color: 'hsl(35, 45%, 75%)' }}>WATCHING</span>
+          </h1>
+        </div>
+        
+        {/* Bottom Half - Solid dark background with content */}
+        <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-black" />
         
         {/* Content Container - Bottom Half */}
         <div className="absolute bottom-0 left-0 right-0 h-1/2 flex flex-col items-center justify-center p-8">
