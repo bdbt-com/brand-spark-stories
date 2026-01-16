@@ -311,7 +311,8 @@ const ThumbnailTemplate = () => {
     { id: 24, name: "Keep Frozen Fruit and Veg in the Freezer", title: "Keep Frozen Fruit and Veg in the Freezer", subtitle: "", image: "" },
     { id: 25, name: "Swap Netflix, for a Podcast", title: "Swap Netflix, for a Podcast", subtitle: "", image: "" },
     { id: 26, name: "Always Use a Shopping List", title: "Always Use a Shopping List", subtitle: "", image: "" },
-    { id: 27, name: "Outro - Follow For More", title: "Follow For More Daily Tips", subtitle: "", image: "" }
+    { id: 27, name: "Outro - Follow For More", title: "Follow For More Daily Tips", subtitle: "", image: "" },
+    { id: 28, name: "The Master - 1% Daily Improvements", title: "The Master - 1% Daily Improvements", subtitle: "", image: "" }
   ];
 
   const phrases = [
