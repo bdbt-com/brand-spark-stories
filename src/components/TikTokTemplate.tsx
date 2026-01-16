@@ -39,25 +39,31 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
   if (isOutroTemplate) {
     return (
       <div className={`w-[540px] h-[960px] relative overflow-hidden shadow-2xl animate-fade-in border-2 border-white ${className}`}>
-        {/* Top Half - Chroma Key Green for transparency */}
+        {/* Brand Blue Background */}
         <div 
-          className="absolute top-0 left-0 right-0 h-1/2" 
-          style={{ backgroundColor: '#00FF00' }} 
+          className="absolute inset-0" 
+          style={{ backgroundColor: '#1E3A5F' }}
+        />
+        
+        {/* Black Fade from Bottom */}
+        <div 
+          className="absolute bottom-0 left-0 right-0 h-2/3"
+          style={{
+            background: 'linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.7) 40%, rgba(0,0,0,0) 100%)'
+          }}
         />
         
         {/* Thanks for Watching Text - Top Half */}
-        <div className="absolute top-0 left-0 right-0 h-1/2 flex items-center justify-center">
-          <h1 className="text-6xl font-black tracking-wider text-center">
+        <div className="absolute top-0 left-0 right-0 h-1/2 flex flex-col items-center justify-center">
+          <h1 className="text-6xl font-black tracking-wider text-center" style={{ textShadow: '3px 3px 6px rgba(0,0,0,0.7)' }}>
             <span className="text-white block">THANKS FOR</span>
             <span className="block mt-2" style={{ color: 'hsl(35, 45%, 75%)' }}>WATCHING</span>
           </h1>
+          {/* Instagram Handle */}
+          <p className="text-white/90 text-2xl mt-4 tracking-wide" style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.7)' }}>
+            @BigDaddysBigTips
+          </p>
         </div>
-        
-        {/* Bottom Half - Chroma Key Green for transparency */}
-        <div 
-          className="absolute bottom-0 left-0 right-0 h-1/2" 
-          style={{ backgroundColor: '#00FF00' }} 
-        />
         
         {/* Content Container - Bottom Half */}
         <div className="absolute bottom-0 left-0 right-0 h-1/2 flex flex-col items-center justify-center p-8">
@@ -66,7 +72,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             <img 
               src="/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
               alt="Sunset"
-              className="w-[320px] h-[200px] object-cover rounded-xl border-4 border-white"
+              className="w-[320px] h-[200px] object-cover rounded-xl border-4 border-white/80 shadow-2xl"
             />
           </div>
           
@@ -75,13 +81,16 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             <img 
               src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
               alt="BDBT Logo"
-              className="h-14"
+              className="h-14 opacity-95"
+              style={{ 
+                filter: 'drop-shadow(0 0 8px rgba(255,255,255,1)) drop-shadow(0 0 4px rgba(255,255,255,0.8)) drop-shadow(2px 2px 4px rgba(0,0,0,0.8))',
+              }}
             />
           </div>
           
           {/* CTA Text */}
           <div className="text-center mb-8">
-            <h2 className="text-4xl font-black tracking-wider">
+            <h2 className="text-4xl font-black tracking-wider" style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.9)' }}>
               <span className="text-white block">FOLLOW FOR MORE</span>
               <span className="block mt-1" style={{ color: 'hsl(35, 45%, 75%)' }}>DAILY TIPS</span>
             </h2>
@@ -89,8 +98,8 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
           
           {/* Social Media Icons */}
           <div className="flex gap-6 items-center">
-            <Instagram className="w-10 h-10 text-white" />
-            <Youtube className="w-10 h-10 text-white" />
+            <Instagram className="w-10 h-10 text-white" style={{ filter: 'drop-shadow(2px 2px 4px rgba(0,0,0,0.8))' }} />
+            <Youtube className="w-10 h-10 text-white" style={{ filter: 'drop-shadow(2px 2px 4px rgba(0,0,0,0.8))' }} />
           </div>
         </div>
       </div>
