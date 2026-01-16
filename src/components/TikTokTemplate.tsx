@@ -23,15 +23,16 @@ import tikTokBg22 from "@/assets/tiktok-bg-template-23.png";
 import tikTokBg23 from "@/assets/tiktok-bg-template-24.png";
 import tikTokBg24 from "@/assets/tiktok-bg-template-25.png";
 import tikTokBg25 from "@/assets/tiktok-bg-template-28.png";
+import tikTokBg26 from "@/assets/tiktok-bg-template-29.png";
 import { Instagram, Youtube } from "lucide-react";
 
 interface TikTokTemplateProps {
-  templateIndex: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24 | 25 | 26 | 27 | 28;
+  templateIndex: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24 | 25 | 26 | 27 | 28 | 29;
   className?: string;
 }
 
 export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplateProps) {
-  const backgrounds = [tikTokBg, tikTokBg2, tikTokBg1, tikTokBg3, tikTokBg4, tikTokBg5, tikTokBg6, tikTokBg7, tikTokBg8, tikTokBg9, tikTokBg3, tikTokBg11, tikTokBg12, tikTokBg13, tikTokBg14, tikTokBg15, tikTokBg16, tikTokBg17, tikTokBg18, tikTokBg17, tikTokBg20, tikTokBg17, tikTokBg21, tikTokBg22, tikTokBg23, tikTokBg24, tikTokBg23, null, tikTokBg25];
+  const backgrounds = [tikTokBg, tikTokBg2, tikTokBg1, tikTokBg3, tikTokBg4, tikTokBg5, tikTokBg6, tikTokBg7, tikTokBg8, tikTokBg9, tikTokBg3, tikTokBg11, tikTokBg12, tikTokBg13, tikTokBg14, tikTokBg15, tikTokBg16, tikTokBg17, tikTokBg18, tikTokBg17, tikTokBg20, tikTokBg17, tikTokBg21, tikTokBg22, tikTokBg23, tikTokBg24, tikTokBg23, null, tikTokBg25, tikTokBg26];
   const backgroundImage = backgrounds[templateIndex];
   const showOverlay = templateIndex <= 2; // Only overlay for templates 0, 1, 2
   const isOutroTemplate = templateIndex === 27;
@@ -495,16 +496,28 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
                   IMPROVEMENTS
                 </span>
               </>
+            ) : templateIndex === 29 ? (
+              <>
+                <span className="text-white block text-2xl tracking-wider mb-1">
+                  JOCKO WILLINK ON
+                </span>
+                <span className="block mt-3 text-white">
+                  TAKING THE SMALL STEP
+                </span>
+                <span className="block mt-1" style={{ color: 'hsl(35, 45%, 75%)' }}>
+                  EVERY DAY
+                </span>
+              </>
             ) : null}
           </h1>
         </div>
 
-        {/* Bottom BDBT Logo with strong outline - special positioning for template 28 to cover captions */}
-        <div className={`absolute ${templateIndex === 28 ? 'bottom-24' : 'bottom-48'} left-1/2 transform -translate-x-1/2 z-30`}>
+        {/* Bottom BDBT Logo with strong outline - special positioning for template 28 and 29 to cover captions */}
+        <div className={`absolute ${templateIndex === 28 || templateIndex === 29 ? 'bottom-24' : 'bottom-48'} left-1/2 transform -translate-x-1/2 z-30`}>
           <img 
             src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
             alt="BDBT Logo"
-            className={`${templateIndex === 28 ? 'h-24' : 'h-16'} opacity-90`}
+            className={`${templateIndex === 28 || templateIndex === 29 ? 'h-24' : 'h-16'} opacity-90`}
             style={{ 
               filter: 'drop-shadow(0 0 8px rgba(255,255,255,1)) drop-shadow(0 0 4px rgba(255,255,255,0.8)) drop-shadow(2px 2px 4px rgba(0,0,0,0.8))',
             }}
