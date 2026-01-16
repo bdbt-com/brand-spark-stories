@@ -114,6 +114,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
         src={backgroundImage} 
         alt="TikTok Background" 
         className="absolute inset-0 w-full h-full object-cover"
+        style={templateIndex === 28 ? { filter: 'grayscale(100%)' } : undefined}
       />
       {/* Dark overlay for text readability - hidden for template 4 */}
       {showOverlay && <div className="absolute inset-0 bg-black/30"></div>}
