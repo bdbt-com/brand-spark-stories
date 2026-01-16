@@ -42,7 +42,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
         {/* Brand Blue Background */}
         <div 
           className="absolute inset-0" 
-          style={{ backgroundColor: '#3D4F5F' }}
+          style={{ backgroundColor: 'hsl(215, 25%, 15%)' }}
         />
         
         {/* Black Fade from Bottom */}
