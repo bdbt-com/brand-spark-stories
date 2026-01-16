@@ -53,8 +53,11 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
           </h1>
         </div>
         
-        {/* Bottom Half - Solid dark background with content */}
-        <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-black" />
+        {/* Bottom Half - Chroma Key Green for transparency */}
+        <div 
+          className="absolute bottom-0 left-0 right-0 h-1/2" 
+          style={{ backgroundColor: '#00FF00' }} 
+        />
         
         {/* Content Container - Bottom Half */}
         <div className="absolute bottom-0 left-0 right-0 h-1/2 flex flex-col items-center justify-center p-8">
