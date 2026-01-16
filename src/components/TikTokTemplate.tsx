@@ -25,15 +25,67 @@ import tikTokBg24 from "@/assets/tiktok-bg-template-25.png";
 import { Instagram, Youtube } from "lucide-react";
 
 interface TikTokTemplateProps {
-  templateIndex: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24 | 25;
+  templateIndex: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24 | 25 | 26;
   className?: string;
 }
 
 export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplateProps) {
-  const backgrounds = [tikTokBg, tikTokBg2, tikTokBg1, tikTokBg3, tikTokBg4, tikTokBg5, tikTokBg6, tikTokBg7, tikTokBg8, tikTokBg9, tikTokBg3, tikTokBg11, tikTokBg12, tikTokBg13, tikTokBg14, tikTokBg15, tikTokBg16, tikTokBg17, tikTokBg18, tikTokBg17, tikTokBg20, tikTokBg17, tikTokBg21, tikTokBg22, tikTokBg23, tikTokBg24];
+  const backgrounds = [tikTokBg, tikTokBg2, tikTokBg1, tikTokBg3, tikTokBg4, tikTokBg5, tikTokBg6, tikTokBg7, tikTokBg8, tikTokBg9, tikTokBg3, tikTokBg11, tikTokBg12, tikTokBg13, tikTokBg14, tikTokBg15, tikTokBg16, tikTokBg17, tikTokBg18, tikTokBg17, tikTokBg20, tikTokBg17, tikTokBg21, tikTokBg22, tikTokBg23, tikTokBg24, null];
   const backgroundImage = backgrounds[templateIndex];
   const showOverlay = templateIndex <= 2; // Only overlay for templates 0, 1, 2
+  const isOutroTemplate = templateIndex === 26;
   
+  // Special rendering for Outro template
+  if (isOutroTemplate) {
+    return (
+      <div className={`w-[540px] h-[960px] relative overflow-hidden shadow-2xl animate-fade-in border-2 border-white ${className}`}>
+        {/* Top Half - Brand Blue Gradient */}
+        <div className="absolute top-0 left-0 right-0 h-1/2 bg-gradient-to-br from-primary via-primary/90 to-primary/80" />
+        
+        {/* Bottom Half - Dark background with content */}
+        <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-black/90 via-black/70 to-transparent" />
+        
+        {/* Content Container - Bottom Half */}
+        <div className="absolute bottom-0 left-0 right-0 h-1/2 flex flex-col items-center justify-center p-8">
+          {/* Sunset Image */}
+          <div className="mb-6">
+            <img 
+              src="/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+              alt="Sunset"
+              className="w-[320px] h-[200px] object-cover rounded-xl border-4 border-white/80 shadow-2xl"
+            />
+          </div>
+          
+          {/* BDBT Logo */}
+          <div className="mb-6">
+            <img 
+              src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
+              alt="BDBT Logo"
+              className="h-14 opacity-95"
+              style={{ 
+                filter: 'drop-shadow(0 0 8px rgba(255,255,255,1)) drop-shadow(0 0 4px rgba(255,255,255,0.8)) drop-shadow(2px 2px 4px rgba(0,0,0,0.8))',
+              }}
+            />
+          </div>
+          
+          {/* CTA Text */}
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold tracking-wider" style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.9)' }}>
+              <span className="text-white block">FOLLOW FOR MORE</span>
+              <span className="block mt-1" style={{ color: 'hsl(35, 45%, 75%)' }}>DAILY TIPS</span>
+            </h2>
+          </div>
+          
+          {/* Social Media Icons */}
+          <div className="flex gap-6 items-center">
+            <Instagram className="w-8 h-8 text-white" style={{ filter: 'drop-shadow(2px 2px 4px rgba(0,0,0,0.8))' }} />
+            <Youtube className="w-8 h-8 text-white" style={{ filter: 'drop-shadow(2px 2px 4px rgba(0,0,0,0.8))' }} />
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className={`w-[540px] h-[960px] relative overflow-hidden shadow-2xl animate-fade-in border-2 border-white ${className}`}>
       {/* Background Image - Full Background */}
