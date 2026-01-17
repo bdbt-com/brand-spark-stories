@@ -116,7 +116,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
         src={backgroundImage} 
         alt="TikTok Background" 
         className="absolute inset-0 w-full h-full object-cover"
-        style={templateIndex === 28 ? { filter: 'grayscale(100%)' } : undefined}
+        style={templateIndex === 28 || templateIndex === 30 ? { filter: 'grayscale(100%)' } : undefined}
       />
       {/* Dark overlay for text readability - hidden for template 4 */}
       {showOverlay && <div className="absolute inset-0 bg-black/30"></div>}
@@ -526,7 +526,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
         </div>
 
         {/* Bottom BDBT Logo with strong outline - special positioning for template 28, 29 and 30 to cover captions */}
-        <div className={`absolute ${templateIndex === 28 || templateIndex === 29 || templateIndex === 30 ? 'top-[65%]' : 'bottom-48'} left-1/2 transform -translate-x-1/2 z-30`}>
+        <div className={`absolute ${templateIndex === 30 ? 'top-[72%]' : templateIndex === 28 || templateIndex === 29 ? 'top-[65%]' : 'bottom-48'} left-1/2 transform -translate-x-1/2 z-30`}>
           <img 
             src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
             alt="BDBT Logo"
