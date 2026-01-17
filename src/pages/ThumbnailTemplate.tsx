@@ -836,6 +836,13 @@ const ThumbnailTemplate = () => {
             <TikTokTemplate templateIndex={29} />
           </div>
         )}
+
+        {/* Template 31 - Novak Djokovic Breathing */}
+        {currentTemplateIndex === 30 && mode === 'instagram' && (
+          <div className="relative">
+            <TikTokTemplate templateIndex={30} />
+          </div>
+        )}
         {/* Template 5 - Healthy Snacks */}
         {currentTemplateIndex === 4 && mode === 'youtube' && (
           <div className="relative">
