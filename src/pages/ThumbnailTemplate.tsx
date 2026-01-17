@@ -314,7 +314,8 @@ const ThumbnailTemplate = () => {
     { id: 27, name: "Outro - Follow For More", title: "Follow For More Daily Tips", subtitle: "", image: "" },
     { id: 28, name: "The Master - 1% Daily Improvements", title: "The Master - 1% Daily Improvements", subtitle: "", image: "" },
     { id: 29, name: "Jocko Willink Small Steps", title: "Jocko Willink on taking the small step every day", subtitle: "", image: "" },
-    { id: 30, name: "Novak Djokovic Breathing", title: "Novak Djokovic on the ripple effect of conscious daily breathing", subtitle: "", image: "" }
+    { id: 30, name: "Novak Djokovic Breathing", title: "Novak Djokovic on the ripple effect of conscious daily breathing", subtitle: "", image: "" },
+    { id: 31, name: "Podcast 13 Walk After Meals", title: "Take a Short Walk After Meals", subtitle: "", image: "" }
   ];
 
   const phrases = [
@@ -841,6 +842,13 @@ const ThumbnailTemplate = () => {
         {currentTemplateIndex === 30 && mode === 'instagram' && (
           <div className="relative">
             <TikTokTemplate templateIndex={30} />
+          </div>
+        )}
+
+        {/* Template 32 - Podcast 13 Walk After Meals */}
+        {currentTemplateIndex === 31 && mode === 'instagram' && (
+          <div className="relative">
+            <TikTokTemplate templateIndex={31} />
           </div>
         )}
         {/* Template 5 - Healthy Snacks */}
