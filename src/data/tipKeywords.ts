@@ -240,9 +240,9 @@ export const tipKeywordMap: Record<string, string> = {
   "Movement": "Start your day with movement",
   "movement": "Start your day with movement",
   
-  // NoSpend -> Do a spending freeze challenge for a week
-  "NoSpend": "Do a spending freeze challenge for a week",
-  "nospend": "Do a spending freeze challenge for a week",
+  // NoSpend -> Have a weekly no spend day
+  "NoSpend": "Have a weekly no spend day",
+  "nospend": "Have a weekly no spend day",
   
   // Notebook -> Keep a notebook by your bed for random thoughts
   "Notebook": "Keep a notebook by your bed for random thoughts",
