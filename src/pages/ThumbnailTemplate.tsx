@@ -326,7 +326,8 @@ const ThumbnailTemplate = () => {
     { id: 32, name: "Podcast 14 Nature", title: "Incorporate more Nature into your Daily Life", subtitle: "", image: "" },
     { id: 33, name: "Podcast 15 Protein", title: "Try and Eat Protein with Every Meal", subtitle: "", image: "" },
     { id: 34, name: "Podcast 16 Stairs", title: "Always Take The Stairs", subtitle: "", image: "" },
-    { id: 35, name: "Podcast 17 Store Brand Medicine", title: "Try Store Brand Medicine", subtitle: "", image: "" }
+    { id: 35, name: "Podcast 17 Store Brand Medicine", title: "Try Store Brand Medicine", subtitle: "", image: "" },
+    { id: 36, name: "Podcast 18 Sugary Snack", title: "Replace one Sugary Snack, with a Healthier Alternative", subtitle: "", image: "" }
   ];
 
   const phrases = [
