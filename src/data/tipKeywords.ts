@@ -57,6 +57,11 @@ export const tipKeywordMap: Record<string, string> = {
   "Borrow": "Borrow or Rent Items",
   "borrow": "Borrow or Rent Items",
   
+  // BoxJump -> Box Jumping (for Bone Health)
+  "BoxJump": "Box Jumping (for Bone Health)",
+  "boxjump": "Box Jumping (for Bone Health)",
+  "box-jump": "Box Jumping (for Bone Health)",
+  
   // BreathDeep -> Breath deeply for 60 seconds, twice a day
   "BreathDeep": "Do 60 Seconds Deep Breathing Twice a Day",
   "breathdeep": "Do 60 Seconds Deep Breathing Twice a Day",
@@ -235,9 +240,9 @@ export const tipKeywordMap: Record<string, string> = {
   "Movement": "Start your day with movement",
   "movement": "Start your day with movement",
   
-  // NoSpend -> Have a weekly no spend day
-  "NoSpend": "Have a weekly no spend day",
-  "nospend": "Have a weekly no spend day",
+  // NoSpend -> Do a spending freeze challenge for a week
+  "NoSpend": "Do a spending freeze challenge for a week",
+  "nospend": "Do a spending freeze challenge for a week",
   
   // Notebook -> Keep a notebook by your bed for random thoughts
   "Notebook": "Keep a notebook by your bed for random thoughts",
