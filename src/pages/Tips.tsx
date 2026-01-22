@@ -1180,6 +1180,22 @@ const Tips = () => {
       dateAdded: "2024-03-11"
     },
     {
+      icon: DollarSign,
+      title: "Have a weekly no spend day",
+      description: "Designate one day per week with zero spending.",
+      items: [
+        "Health: Reduces stress from constant purchasing decisions",
+        "Wealth: Guaranteed savings one day per week",
+        "Happiness: Builds mindful spending habits"
+      ],
+      level: "Easy",
+      duration: "2 min read",
+      category: "finance",
+      popularity: 40,
+      views: 0,
+      dateAdded: "2025-01-22"
+    },
+    {
       icon: Utensils,
       title: "Eat the fibre on your plate first",
       description: "Strategic eating order for better digestion and satisfaction.",
