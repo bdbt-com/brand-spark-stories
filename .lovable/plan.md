@@ -1,61 +1,63 @@
 
 
-## Fix URL Keyword Routing for boxjump and nospend
+## Add "Have a weekly no spend day" Tip
 
-Both `/tips/boxjump` and `/tips/nospend` are not working because of misconfigurations in the keyword mapping system.
+This plan adds a new tip and fixes the keyword routing for `nospend`.
 
 ---
 
-### Issue 1: boxjump Keyword Missing
+### Changes Required
 
-**Problem**: No keyword entry exists for `boxjump` in `tipKeywords.ts`
+**1. Add Guide Mapping** - `src/data/guideMapping.ts`
 
-**Solution**: Add the keyword mapping
-
-**File**: `src/data/tipKeywords.ts`
-
-Add the following entries (insert alphabetically after "Borrow"):
-
+Add the new guide URL:
 ```typescript
-// BoxJump -> Box Jumping (for Bone Health)
-"BoxJump": "Box Jumping (for Bone Health)",
-"boxjump": "Box Jumping (for Bone Health)",
-"box-jump": "Box Jumping (for Bone Health)",
+"Have a weekly no spend day": "https://drive.google.com/uc?export=download&id=1C_Lht6zRd9-iMpdLD-A5DJSjw6RnNpke",
 ```
 
 ---
 
-### Issue 2: nospend Keyword Points to Non-Existent Tip
+**2. Add New Tip** - `src/pages/Tips.tsx`
 
-**Problem**: The keyword `nospend` maps to `"Have a weekly no spend day"` but this tip does NOT exist in Tips.tsx. The actual tip is titled `"Do a spending freeze challenge for a week"`.
-
-**Solution Options**:
-
-**Option A (Recommended)**: Update the keyword mapping to point to the existing tip:
-
+Add to the `tipCategories` array (finance category):
 ```typescript
-// NoSpend -> Do a spending freeze challenge for a week
-"NoSpend": "Do a spending freeze challenge for a week",
-"nospend": "Do a spending freeze challenge for a week",
+{
+  icon: Wallet, // or PiggyBank
+  title: "Have a weekly no spend day",
+  description: "Designate one day per week with zero spending.",
+  items: [
+    "Health: Reduces stress from constant purchasing decisions",
+    "Wealth: Guaranteed savings one day per week",
+    "Happiness: Builds mindful spending habits"
+  ],
+  level: "Easy",
+  duration: "2 min read",
+  category: "finance",
+  popularity: 40,
+  views: 0,
+  dateAdded: "2025-01-22"
+},
 ```
 
-**Option B**: Add a new tip titled "Have a weekly no spend day" to Tips.tsx (more work, may create duplicate content)
+---
+
+**3. Revert Keyword Mapping** - `src/data/tipKeywords.ts`
+
+Change the `nospend` mapping back to the correct tip:
+```typescript
+// NoSpend -> Have a weekly no spend day
+"NoSpend": "Have a weekly no spend day",
+"nospend": "Have a weekly no spend day",
+```
 
 ---
 
-### Summary of Changes
+### Result
 
-| File | Change |
-|------|--------|
-| `src/data/tipKeywords.ts` | Add `boxjump`, `BoxJump`, `box-jump` keywords mapping to "Box Jumping (for Bone Health)" |
-| `src/data/tipKeywords.ts` | Update `nospend` and `NoSpend` to map to "Do a spending freeze challenge for a week" |
+| URL | Goes To |
+|-----|---------|
+| `/tips/nospend` | "Have a weekly no spend day" (with scroll + highlight animation) |
+| Download button on that tip | Downloads guide ID `1C_Lht6zRd9-iMpdLD-A5DJSjw6RnNpke` |
 
----
-
-### After Implementation
-
-- `/tips/boxjump` will scroll to and highlight "Box Jumping (for Bone Health)"
-- `/tips/nospend` will scroll to and highlight "Do a spending freeze challenge for a week"
-
-Both will have the blue glow animation effect for 3 seconds.
+The "Do a spending freeze challenge for a week" tip remains unchanged as a separate tip.
 
