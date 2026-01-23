@@ -1,42 +1,65 @@
 
 
-## Fix: Add Missing Rendering Block for Template 36 (Podcast 18)
+## Add TikTok Thumbnail for Podcast 19
 
-The Podcast 18 thumbnail is showing blank because the ThumbnailTemplate.tsx is missing the conditional rendering block for this template.
+Create a new TikTok template for **Episode 19 - Use Amazon Subscribe and Save** using the background from "Do 1 Minute of Squats Daily".
 
 ---
 
-### Issue Identified
+### Current State
+- "Do 1 Minute of Squats Daily" (Template 23) uses `tikTokBg22` which is `tiktok-bg-template-22.png`
+- The highest template index is currently **36** (Podcast 18)
+- New Podcast 19 will be template index **37**
 
-Looking at the code:
-- **TikTokTemplate.tsx**: Template 36 content is correctly defined (title, background array entry)
-- **ThumbnailTemplate.tsx**: Missing the conditional block to render `TikTokTemplate templateIndex={36}`
+---
 
-The pattern for each template requires a block like this in ThumbnailTemplate.tsx:
-```tsx
-{currentTemplateIndex === 36 && mode === 'instagram' && (
-  <div className="relative">
-    <TikTokTemplate templateIndex={36} />
-  </div>
-)}
+### Changes Required
+
+**1. Update TikTokTemplate.tsx**
+
+**a) Expand the templateIndex type (line 33):**
+```typescript
+templateIndex: 0 | 1 | 2 | ... | 35 | 36 | 37;
 ```
 
-This block is present for templates 30-35, but was not added for template 36.
+**b) Add background mapping in backgrounds array (line 38):**
+Add `tikTokBg22` (Squats template background) at index 37:
+```typescript
+const backgrounds = [...existing..., tikTokBg22]; // reuse squats background
+```
+
+**c) Add title text for template 37 (after line 597):**
+```typescript
+) : templateIndex === 37 ? (
+  <>
+    <span className="text-white/90 block text-2xl tracking-wider">
+      BDBT PODCAST 19
+    </span>
+    <span className="block mt-3 text-white">
+      USE AMAZON SUBSCRIBE
+    </span>
+    <span className="block mt-1" style={{ color: 'hsl(35, 45%, 75%)' }}>
+      AND SAVE
+    </span>
+  </>
+)
+```
 
 ---
 
-### Fix Required
+**2. Update ThumbnailTemplate.tsx**
 
-**File**: `src/pages/ThumbnailTemplate.tsx`
+**a) Add metadata to tikTokTemplates array (after line 330):**
+```typescript
+{ id: 37, name: "Podcast 19 Amazon Subscribe", title: "Use Amazon Subscribe and Save", subtitle: "", image: "" }
+```
 
-**Location**: After line 893 (after the Template 36 block for Podcast 17)
-
-**Add**:
+**b) Add rendering block (after line 900):**
 ```tsx
-{/* Template 37 - Podcast 18 Sugary Snack */}
-{currentTemplateIndex === 36 && mode === 'instagram' && (
+{/* Template 38 - Podcast 19 Amazon Subscribe and Save */}
+{currentTemplateIndex === 37 && mode === 'instagram' && (
   <div className="relative">
-    <TikTokTemplate templateIndex={36} />
+    <TikTokTemplate templateIndex={37} />
   </div>
 )}
 ```
@@ -45,13 +68,11 @@ This block is present for templates 30-35, but was not added for template 36.
 
 ### Summary
 
-| Task | Status |
-|------|--------|
-| TikTokTemplate.tsx - Type definition includes 36 | Done |
-| TikTokTemplate.tsx - Background array has entry for index 36 | Done |
-| TikTokTemplate.tsx - Title content for templateIndex 36 | Done |
-| ThumbnailTemplate.tsx - Template metadata (id: 36) | Done |
-| ThumbnailTemplate.tsx - Rendering block for index 36 | **Missing - needs to be added** |
-
-After this fix, the Podcast 18 thumbnail will display correctly with the background and title text.
+| Item | Value |
+|------|-------|
+| Template Index | 37 |
+| Podcast Number | 19 |
+| Title | USE AMAZON SUBSCRIBE / AND SAVE |
+| Background | Reuses Squats template background (`tiktok-bg-template-22.png`) |
+| Files to modify | `TikTokTemplate.tsx`, `ThumbnailTemplate.tsx` |
 
