@@ -81,7 +81,7 @@ const LinkInBio = () => {
         
         {/* Handle */}
         <h1 className="text-xl font-semibold mb-3">
-          <span className="text-amber-400">BigDaddy's</span>
+          <span className="text-[hsl(35_45%_75%)]">BigDaddy's</span>
           <span className="text-white">BigTips</span>
         </h1>
         
