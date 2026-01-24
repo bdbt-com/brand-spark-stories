@@ -73,7 +73,7 @@ const LinkInBio = () => {
         {/* Profile Photo */}
         <div className="w-24 h-24 rounded-full overflow-hidden border-2 border-white/20 mb-4">
           <img 
-            src="/lovable-uploads/recording-setup-new.jpg" 
+            src="/lovable-uploads/profile-photo.png" 
             alt="Big Daddy"
             className="w-full h-full object-cover"
           />
