@@ -1,20 +1,47 @@
 
+## Fix Profile Photo Cropping and Style Handle Text
 
-## Add Profile Photo to Link in Bio Page
-
-Copy your uploaded photo into the project and update the Link in Bio page to use it.
+Two changes to make on the Link in Bio page.
 
 ---
 
-### Steps
+### 1. Fix Profile Photo Cropping
 
-1. **Copy the uploaded image into the project**
-   - Source: `user-uploads://Screenshot_2026-01-24_at_11.09.58.png`
-   - Destination: `public/lovable-uploads/profile-photo.png`
+**File:** `src/pages/LinkInBio.tsx` (line 78)
 
-2. **Update `src/pages/LinkInBio.tsx` (line 76)**
-   - Change from: `src="/lovable-uploads/recording-setup-new.jpg"`
-   - Change to: `src="/lovable-uploads/profile-photo.png"`
+The profile photo is cropping to the center of the image, cutting off the person. Adding `object-top` will focus on the upper portion where the person is sitting.
+
+**Change:**
+```tsx
+// From
+className="w-full h-full object-cover"
+
+// To
+className="w-full h-full object-cover object-top"
+```
+
+---
+
+### 2. Style Handle Text - Gold "BigDaddy" + White "BigTips"
+
+**File:** `src/pages/LinkInBio.tsx` (lines 83-85)
+
+Split the handle into two styled spans with different colors.
+
+**Current:**
+```tsx
+<h1 className="text-white text-xl font-semibold mb-3">
+  BigDaddysBigTips
+</h1>
+```
+
+**Updated:**
+```tsx
+<h1 className="text-xl font-semibold mb-3">
+  <span className="text-amber-400">BigDaddy's</span>
+  <span className="text-white">BigTips</span>
+</h1>
+```
 
 ---
 
@@ -22,6 +49,5 @@ Copy your uploaded photo into the project and update the Link in Bio page to use
 
 | Item | Change |
 |------|--------|
-| New file | Copy uploaded image to `public/lovable-uploads/profile-photo.png` |
-| Update profile src | Change to use the new `profile-photo.png` file |
-
+| Line 78 | Add `object-top` for proper photo cropping |
+| Lines 83-85 | Split handle text: gold "BigDaddy's" + white "BigTips" |
