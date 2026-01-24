@@ -1,53 +1,20 @@
 
 
-## Fix Link in Bio Thumbnail Images
+## Update Profile Photo on Link in Bio Page
 
-Update the Link in Bio page to use the correct images from the homepage carousel as specified.
-
----
-
-### Image Mapping
-
-Based on your screenshots and the homepage carousel:
-
-| Link | Current Image | Correct Image |
-|------|--------------|---------------|
-| Free Foundation Blueprint | `bdbt-score-thumbnail.png` | `bc6fa209-b818-463e-aeb6-08d6c7b423c6.png` (Carousel image 1 - sunset silhouette) |
-| BDBT Daily Podcast (YouTube) | `recording-setup-new.jpg` | `recording-setup-new.jpg` (Man on sofa with green wall - already correct!) |
-| BDBT Daily Podcast (Spotify) | No thumbnail | `75853635-930c-4fa5-9403-d0b58c6db83b.png` (Man meditating in gazebo) |
+Replace the current profile photo with the sofa/green wall image.
 
 ---
 
-### Changes Required
+### Change Required
 
 **File to Modify:** `src/pages/LinkInBio.tsx`
 
-**Update the links array (lines 42-63):**
+**Update line 76:**
+- Current: `src="/lovable-uploads/man-in-car.jpeg"`
+- New: `src="/lovable-uploads/recording-setup-new.jpg"`
 
-```tsx
-const links = [
-  {
-    title: "Free Foundation Blueprint",
-    href: "/blueprint",
-    external: false,
-    thumbnail: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png", // Carousel image 1 - sunset silhouette
-  },
-  {
-    title: "BDBT Daily Podcast",
-    subtitle: "(YouTube)",
-    href: "https://www.youtube.com/@BigDaddysBigTips",
-    external: true,
-    thumbnail: "/lovable-uploads/recording-setup-new.jpg", // Man on sofa with green wall (already correct)
-  },
-  {
-    title: "BDBT Daily Podcast",
-    subtitle: "(Spotify)",
-    href: "https://open.spotify.com/show/4PO4P4X6dF3FJasqf3dR5L",
-    external: true,
-    thumbnail: "/lovable-uploads/75853635-930c-4fa5-9403-d0b58c6db83b.png", // Man meditating in gazebo
-  },
-];
-```
+This image (person on sofa with green plant wall) is already in your project and is currently being used as the YouTube podcast thumbnail.
 
 ---
 
@@ -55,7 +22,6 @@ const links = [
 
 | Item | Change |
 |------|--------|
-| Blueprint thumbnail | Changed from `bdbt-score-thumbnail.png` to carousel image 1 (sunset silhouette) |
-| YouTube thumbnail | No change needed - already using correct image (man on sofa) |
-| Spotify thumbnail | Added gazebo meditation image (was previously no thumbnail) |
+| Profile photo | Change from `man-in-car.jpeg` to `recording-setup-new.jpg` |
+| Location | Line 76 in `src/pages/LinkInBio.tsx` |
 
