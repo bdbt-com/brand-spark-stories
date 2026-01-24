@@ -1,45 +1,4 @@
-import { Headphones, FileText, Lightbulb, Youtube, Globe, HelpCircle } from "lucide-react";
 import { Link } from "react-router-dom";
-import bdbtLogo from "@/assets/bdbt-logo-white.png";
-
-const links = [
-  {
-    title: "Listen to the Podcast",
-    icon: Headphones,
-    href: "https://open.spotify.com/show/4PO4P4X6dF3FJasqf3dR5L",
-    external: true,
-  },
-  {
-    title: "Get the Free Blueprint",
-    icon: FileText,
-    href: "/blueprint",
-    external: false,
-  },
-  {
-    title: "Browse All Tips",
-    icon: Lightbulb,
-    href: "/tips",
-    external: false,
-  },
-  {
-    title: "Watch on YouTube",
-    icon: Youtube,
-    href: "https://www.youtube.com/@BigDaddysBigTips",
-    external: true,
-  },
-  {
-    title: "Visit Full Website",
-    icon: Globe,
-    href: "/",
-    external: false,
-  },
-  {
-    title: "Feeling Stuck?",
-    icon: HelpCircle,
-    href: "/feeling-stuck",
-    external: false,
-  },
-];
 
 const socialLinks = [
   {
@@ -70,15 +29,6 @@ const socialLinks = [
     ),
   },
   {
-    name: "Facebook",
-    href: "https://www.facebook.com/bigdaddysbigtips",
-    icon: (
-      <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-      </svg>
-    ),
-  },
-  {
     name: "Spotify",
     href: "https://open.spotify.com/show/4PO4P4X6dF3FJasqf3dR5L",
     icon: (
@@ -86,6 +36,29 @@ const socialLinks = [
         <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
       </svg>
     ),
+  },
+];
+
+const links = [
+  {
+    title: "Free Foundation Blueprint",
+    href: "/blueprint",
+    external: false,
+    thumbnail: "/lovable-uploads/bdbt-score-thumbnail.png",
+  },
+  {
+    title: "BDBT Daily Podcast",
+    subtitle: "(YouTube)",
+    href: "https://www.youtube.com/@BigDaddysBigTips",
+    external: true,
+    thumbnail: "/lovable-uploads/recording-setup-new.jpg",
+  },
+  {
+    title: "BDBT Daily Podcast",
+    subtitle: "(Spotify)",
+    href: "https://open.spotify.com/show/4PO4P4X6dF3FJasqf3dR5L",
+    external: true,
+    thumbnail: null,
   },
 ];
 
@@ -97,79 +70,39 @@ const LinkInBio = () => {
       
       {/* Main content container */}
       <div className="w-full max-w-md flex flex-col items-center animate-fade-in">
-        {/* Logo */}
-        <img 
-          src={bdbtLogo} 
-          alt="Big Daddy's Big Tips" 
-          className="w-24 h-24 object-contain mb-4"
-        />
+        {/* Profile Photo */}
+        <div className="w-24 h-24 rounded-full overflow-hidden border-2 border-white/20 mb-4">
+          <img 
+            src="/lovable-uploads/man-in-car.jpeg" 
+            alt="Big Daddy" 
+            className="w-full h-full object-cover"
+          />
+        </div>
         
         {/* Handle */}
-        <p className="text-white/80 text-lg font-medium mb-1">
-          @BigDaddysBigTips
-        </p>
+        <h1 className="text-white text-xl font-semibold mb-3">
+          BigDaddysBigTips
+        </h1>
         
         {/* Tagline */}
-        <p className="text-white/60 text-sm mb-8 italic">
-          "Small wins, big life"
-        </p>
-        
-        {/* Links */}
-        <div className="w-full space-y-3 mb-10">
-          {links.map((link, index) => {
-            const IconComponent = link.icon;
-            const buttonContent = (
-              <div 
-                className="w-full p-4 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 
-                         hover:bg-white/20 hover:scale-[1.02] hover:border-white/40
-                         transition-all duration-300 ease-out cursor-pointer
-                         flex items-center justify-center gap-3 group"
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
-                <IconComponent className="w-5 h-5 text-white/80 group-hover:text-white transition-colors" />
-                <span className="text-white font-medium text-base">
-                  {link.title}
-                </span>
-              </div>
-            );
-
-            if (link.external) {
-              return (
-                <a 
-                  key={link.title} 
-                  href={link.href} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="block animate-fade-in"
-                  style={{ animationDelay: `${index * 100}ms` }}
-                >
-                  {buttonContent}
-                </a>
-              );
-            }
-
-            return (
-              <Link 
-                key={link.title} 
-                to={link.href}
-                className="block animate-fade-in"
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
-                {buttonContent}
-              </Link>
-            );
-          })}
+        <div className="text-center mb-5">
+          <p className="text-white text-sm mb-1">
+            🎵 Small daily steps 💥 Big life changes
+          </p>
+          <p className="text-white/80 text-sm">
+            Replace Daily Drifts with Daily Wins
+          </p>
         </div>
         
         {/* Social icons */}
-        <div className="flex items-center gap-5 mb-8">
+        <div className="flex items-center gap-6 mb-8">
           {socialLinks.map((social) => (
             <a
               key={social.name}
               href={social.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-white/60 hover:text-white hover:scale-110 transition-all duration-200"
+              className="text-white/70 hover:text-white hover:scale-110 transition-all duration-200"
               aria-label={social.name}
             >
               {social.icon}
@@ -177,8 +110,69 @@ const LinkInBio = () => {
           ))}
         </div>
         
+        {/* Links */}
+        <div className="w-full space-y-3">
+          {links.map((link, index) => {
+            const cardContent = (
+              <div 
+                className="w-full rounded-xl bg-black/40 backdrop-blur-sm border border-white/10 
+                         hover:bg-black/50 hover:scale-[1.02] hover:border-white/20
+                         transition-all duration-300 ease-out cursor-pointer
+                         flex items-center overflow-hidden"
+                style={{ animationDelay: `${index * 100}ms` }}
+              >
+                {link.thumbnail && (
+                  <div className="w-16 h-16 flex-shrink-0">
+                    <img 
+                      src={link.thumbnail} 
+                      alt={link.title}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                )}
+                <div className={`flex-1 py-4 ${link.thumbnail ? 'px-4' : 'px-5 text-center'}`}>
+                  <span className="text-white font-medium text-sm block">
+                    {link.title}
+                  </span>
+                  {link.subtitle && (
+                    <span className="text-white/60 text-xs">
+                      {link.subtitle}
+                    </span>
+                  )}
+                </div>
+              </div>
+            );
+
+            if (link.external) {
+              return (
+                <a 
+                  key={link.title + (link.subtitle || '')} 
+                  href={link.href} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="block animate-fade-in"
+                  style={{ animationDelay: `${index * 100}ms` }}
+                >
+                  {cardContent}
+                </a>
+              );
+            }
+
+            return (
+              <Link 
+                key={link.title + (link.subtitle || '')} 
+                to={link.href}
+                className="block animate-fade-in"
+                style={{ animationDelay: `${index * 100}ms` }}
+              >
+                {cardContent}
+              </Link>
+            );
+          })}
+        </div>
+        
         {/* Footer */}
-        <p className="text-white/40 text-xs">
+        <p className="text-white/40 text-xs mt-10">
           © Big Daddy's Big Tips
         </p>
       </div>
