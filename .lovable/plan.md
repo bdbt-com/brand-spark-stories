@@ -1,47 +1,31 @@
 
-## Fix Profile Photo Cropping and Style Handle Text
 
-Two changes to make on the Link in Bio page.
+## Fix Handle Text to Use Brand Gold Color
 
----
-
-### 1. Fix Profile Photo Cropping
-
-**File:** `src/pages/LinkInBio.tsx` (line 78)
-
-The profile photo is cropping to the center of the image, cutting off the person. Adding `object-top` will focus on the upper portion where the person is sitting.
-
-**Change:**
-```tsx
-// From
-className="w-full h-full object-cover"
-
-// To
-className="w-full h-full object-cover object-top"
-```
+The "BigDaddy's" text is incorrectly using `text-amber-400` (orange) instead of the brand gold color used across the entire website.
 
 ---
 
-### 2. Style Handle Text - Gold "BigDaddy" + White "BigTips"
+### Change Required
 
-**File:** `src/pages/LinkInBio.tsx` (lines 83-85)
+**File:** `src/pages/LinkInBio.tsx` (line 84)
 
-Split the handle into two styled spans with different colors.
-
-**Current:**
+**Current (wrong):**
 ```tsx
-<h1 className="text-white text-xl font-semibold mb-3">
-  BigDaddysBigTips
-</h1>
+<span className="text-amber-400">BigDaddy's</span>
 ```
 
-**Updated:**
+**Updated (correct):**
 ```tsx
-<h1 className="text-xl font-semibold mb-3">
-  <span className="text-amber-400">BigDaddy's</span>
-  <span className="text-white">BigTips</span>
-</h1>
+<span className="text-[hsl(35_45%_75%)]">BigDaddy's</span>
 ```
+
+This matches the exact gold color used on:
+- Home page: "Big Life Changes."
+- Tips page: "Big Tips"
+- About page: "The System"
+- Daily Wins page: "Wall"
+- Podcast page: "Videos"
 
 ---
 
@@ -49,5 +33,5 @@ Split the handle into two styled spans with different colors.
 
 | Item | Change |
 |------|--------|
-| Line 78 | Add `object-top` for proper photo cropping |
-| Lines 83-85 | Split handle text: gold "BigDaddy's" + white "BigTips" |
+| Line 84 | Change `text-amber-400` to `text-[hsl(35_45%_75%)]` |
+
