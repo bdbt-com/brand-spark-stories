@@ -1,46 +1,28 @@
 
 
-## Fix Thumbnail Images to Seamlessly Fit Within Button Cards
+## Fix Profile Photo - More Zoom and Repositioning
 
-The thumbnail images in the link cards currently show sharp edges that don't match the rounded corners of the button cards. The card container has `rounded-xl` but the thumbnail images don't have matching rounded corners.
+The current 10% zoom (`scale-110`) isn't enough to eliminate the gaps around the edges of the circle. Need to increase the zoom and adjust the positioning.
 
 ---
 
-### Changes Required
+### Change Required
 
-**File:** `src/pages/LinkInBio.tsx` (lines 126-132)
+**File:** `src/pages/LinkInBio.tsx` (line 78)
 
 **Current:**
 ```tsx
-{link.thumbnail && (
-  <div className="w-16 h-16 flex-shrink-0">
-    <img 
-      src={link.thumbnail} 
-      alt={link.title}
-      className="w-full h-full object-cover"
-    />
-  </div>
-)}
+className="absolute inset-0 w-full h-full object-cover object-top scale-110 rounded-full"
 ```
 
 **Updated:**
 ```tsx
-{link.thumbnail && (
-  <div className="w-16 h-16 flex-shrink-0 overflow-hidden rounded-l-xl">
-    <img 
-      src={link.thumbnail} 
-      alt={link.title}
-      className="w-full h-full object-cover"
-    />
-  </div>
-)}
+className="absolute inset-0 w-full h-full object-cover object-[center_15%] scale-125 rounded-full"
 ```
 
 **What this does:**
-- `overflow-hidden`: Ensures the image doesn't extend beyond the container
-- `rounded-l-xl`: Applies matching rounded corners to the left side of the thumbnail container (same radius as the card's `rounded-xl`)
-
-This will make the thumbnails seamlessly blend with the button card borders on the left side where they meet the card edge.
+- `scale-125`: Increases zoom from 10% to 25% to ensure no edges are visible
+- `object-[center_15%]`: Custom object position to center horizontally and position 15% from top vertically (better than `object-top` which was too high)
 
 ---
 
@@ -48,5 +30,5 @@ This will make the thumbnails seamlessly blend with the button card borders on t
 
 | Item | Change |
 |------|--------|
-| Lines 126-132 | Add `overflow-hidden rounded-l-xl` to thumbnail container to match card's rounded corners |
+| Line 78 | Increase zoom to `scale-125` and reposition with `object-[center_15%]` |
 
