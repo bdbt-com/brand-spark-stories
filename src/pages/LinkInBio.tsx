@@ -75,7 +75,7 @@ const LinkInBio = () => {
           <img 
             src="/lovable-uploads/profile-photo.png" 
             alt="Big Daddy"
-            className="absolute inset-0 w-full h-full object-cover object-top scale-110 rounded-full"
+            className="absolute inset-0 w-full h-full object-cover object-[center_15%] scale-125 rounded-full"
           />
         </div>
         
