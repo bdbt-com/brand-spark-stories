@@ -75,13 +75,14 @@ const LinkInBio = () => {
           <img 
             src="/lovable-uploads/profile-photo.png" 
             alt="Big Daddy"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover object-top"
           />
         </div>
         
         {/* Handle */}
-        <h1 className="text-white text-xl font-semibold mb-3">
-          BigDaddysBigTips
+        <h1 className="text-xl font-semibold mb-3">
+          <span className="text-amber-400">BigDaddy's</span>
+          <span className="text-white">BigTips</span>
         </h1>
         
         {/* Tagline */}
