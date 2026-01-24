@@ -1,20 +1,20 @@
 
 
-## Update Profile Photo on Link in Bio Page
+## Add Profile Photo to Link in Bio Page
 
-Replace the current profile photo with the sofa/green wall image.
+Copy your uploaded photo into the project and update the Link in Bio page to use it.
 
 ---
 
-### Change Required
+### Steps
 
-**File to Modify:** `src/pages/LinkInBio.tsx`
+1. **Copy the uploaded image into the project**
+   - Source: `user-uploads://Screenshot_2026-01-24_at_11.09.58.png`
+   - Destination: `public/lovable-uploads/profile-photo.png`
 
-**Update line 76:**
-- Current: `src="/lovable-uploads/man-in-car.jpeg"`
-- New: `src="/lovable-uploads/recording-setup-new.jpg"`
-
-This image (person on sofa with green plant wall) is already in your project and is currently being used as the YouTube podcast thumbnail.
+2. **Update `src/pages/LinkInBio.tsx` (line 76)**
+   - Change from: `src="/lovable-uploads/recording-setup-new.jpg"`
+   - Change to: `src="/lovable-uploads/profile-photo.png"`
 
 ---
 
@@ -22,6 +22,6 @@ This image (person on sofa with green plant wall) is already in your project and
 
 | Item | Change |
 |------|--------|
-| Profile photo | Change from `man-in-car.jpeg` to `recording-setup-new.jpg` |
-| Location | Line 76 in `src/pages/LinkInBio.tsx` |
+| New file | Copy uploaded image to `public/lovable-uploads/profile-photo.png` |
+| Update profile src | Change to use the new `profile-photo.png` file |
 
