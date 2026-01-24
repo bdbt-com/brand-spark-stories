@@ -71,11 +71,11 @@ const LinkInBio = () => {
       {/* Main content container */}
       <div className="w-full max-w-md flex flex-col items-center animate-fade-in">
         {/* Profile Photo */}
-        <div className="w-24 h-24 rounded-full overflow-hidden border-2 border-white/20 mb-4">
+        <div className="w-24 h-24 rounded-full overflow-hidden border-2 border-white/20 mb-4 relative">
           <img 
             src="/lovable-uploads/profile-photo.png" 
             alt="Big Daddy"
-            className="w-full h-full object-cover object-top"
+            className="absolute inset-0 w-full h-full object-cover object-top scale-110 rounded-full"
           />
         </div>
         
@@ -123,7 +123,7 @@ const LinkInBio = () => {
                 style={{ animationDelay: `${index * 100}ms` }}
               >
                 {link.thumbnail && (
-                  <div className="w-16 h-16 flex-shrink-0">
+                  <div className="w-16 h-16 flex-shrink-0 overflow-hidden rounded-l-xl">
                     <img 
                       src={link.thumbnail} 
                       alt={link.title}
