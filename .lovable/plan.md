@@ -1,169 +1,115 @@
 
 
-## Build a Custom "Link in Bio" Page for Big Daddy's Big Tips
+## Redesign Link in Bio Page - Clean, High-Converting Layout
 
-Create a branded, mobile-first "link tree" style page that replaces Linktree with a custom on-brand solution, accessible only via direct URL (not through site navigation).
-
----
-
-### Overview
-
-This will be a standalone page at `/links` (or `/bio`) that:
-- Is NOT shown in the main navigation
-- Is designed mobile-first (optimized for social media bio clicks)
-- Matches the BDBT brand styling
-- Contains all important links in an attractive, easy-to-tap layout
-- Includes the BDBT logo, profile image, and social icons
+Recreate the page to match the screenshot reference exactly: profile photo, tagline, social icons row, and only 3 focused links with thumbnails.
 
 ---
 
-### Page Design
+### Design Structure
 
 ```text
-┌──────────────────────────────────┐
-│         BDBT Logo                │
-│     @BigDaddysBigTips            │
-│    "Small wins, big life"        │
-├──────────────────────────────────┤
-│                                  │
-│  ┌────────────────────────────┐  │
-│  │ 🎧 Listen to the Podcast   │  │
-│  └────────────────────────────┘  │
-│                                  │
-│  ┌────────────────────────────┐  │
-│  │ 📘 Get the Free Blueprint  │  │
-│  └────────────────────────────┘  │
-│                                  │
-│  ┌────────────────────────────┐  │
-│  │ 💡 Browse All Tips         │  │
-│  └────────────────────────────┘  │
-│                                  │
-│  ┌────────────────────────────┐  │
-│  │ 📺 Watch on YouTube        │  │
-│  └────────────────────────────┘  │
-│                                  │
-│  ┌────────────────────────────┐  │
-│  │ 🌐 Visit Website           │  │
-│  └────────────────────────────┘  │
-│                                  │
-├──────────────────────────────────┤
-│   [IG] [TT] [YT] [FB] [Spotify]  │
-│                                  │
-│     © Big Daddy's Big Tips       │
-└──────────────────────────────────┘
+┌─────────────────────────────────────┐
+│                                     │
+│     ┌─────────────────────────┐     │
+│     │  Profile Photo (circle) │     │
+│     │    man-in-car.jpeg      │     │
+│     └─────────────────────────┘     │
+│                                     │
+│        BigDaddysBigTips             │
+│                                     │
+│   🎵 Small daily steps 💥           │
+│      Big life changes               │
+│  Replace Daily Drifts with          │
+│        Daily Wins                   │
+│                                     │
+│     [IG] [TT] [YT] [Spotify]        │
+│                                     │
+├─────────────────────────────────────┤
+│  ┌──────┬───────────────────────┐   │
+│  │ IMG  │ Free Foundation       │   │
+│  │      │ Blueprint             │   │
+│  └──────┴───────────────────────┘   │
+│                                     │
+│  ┌──────┬───────────────────────┐   │
+│  │ IMG  │ BDBT Daily Podcast    │   │
+│  │      │ (YouTube)             │   │
+│  └──────┴───────────────────────┘   │
+│                                     │
+│  ┌────────────────────────────────┐ │
+│  │  BDBT Daily Podcast (Spotify)  │ │
+│  └────────────────────────────────┘ │
+│                                     │
+└─────────────────────────────────────┘
 ```
 
 ---
 
-### Links to Include
+### Key Changes
 
-Based on the current site structure and social presence:
+**1. Profile Section**
+- Replace logo with circular profile photo (`man-in-car.jpeg`)
+- Clean white text: "BigDaddysBigTips"
+- Two-line tagline with emoji:
+  - "🎵 Small daily steps 💥 Big life changes"
+  - "Replace Daily Drifts with Daily Wins"
 
-| Link | Destination | Icon |
-|------|-------------|------|
-| Listen to Podcast | Spotify show link | Headphones |
-| Get Free Blueprint | /blueprint | FileText |
-| Browse All Tips | /tips | Lightbulb |
-| Watch on YouTube | YouTube channel | Youtube |
-| Visit Full Website | / | Globe |
-| Feeling Stuck? | /feeling-stuck | HelpCircle |
+**2. Social Icons Row**
+- Move social icons to just below the tagline (above links)
+- Keep only 4 icons: Instagram, TikTok, YouTube, Spotify
+- Remove Facebook (not in screenshot)
 
-**Social Icons (bottom):**
-- Instagram
-- TikTok
-- YouTube
-- Facebook
-- Spotify
+**3. Simplified Links (Only 3)**
+- **Free Foundation Blueprint** - with thumbnail image, links to `/blueprint`
+- **BDBT Daily Podcast (YouTube)** - with thumbnail image (`recording-setup-new.jpg`), links to YouTube
+- **BDBT Daily Podcast (Spotify)** - no thumbnail, links to Spotify
 
----
-
-### Implementation Details
-
-**1. Create new page: `src/pages/LinkInBio.tsx`**
-
-A standalone page component with:
-- Dark gradient background (matching brand)
-- Centered container, max-width for mobile
-- BDBT logo at top
-- Tagline text
-- Stack of animated link buttons
-- Social media icons footer
-- No header/footer navigation (clean look)
-
-**2. Update `src/App.tsx`**
-
-Add route for the link page:
-```tsx
-<Route path="/links" element={<LinkInBio />} />
-```
-
-Key: This route is added WITHOUT adding the page to the Navigation component, so it remains "hidden" from regular site navigation but accessible via direct URL.
-
-**3. Styling Approach**
-
-- Mobile-first design (optimized for 9:16 aspect ratio screens)
-- Dark theme to match social media aesthetics
-- Hover/tap animations on link buttons
-- Smooth entrance animations
-- Glassmorphism effects for modern look
+**4. Link Card Design**
+- Black/dark background cards
+- Square thumbnail image on left (for first two)
+- White text on right
+- Clean, minimal styling for high click-through
 
 ---
 
-### Technical Notes
+### Images to Use
 
-**Files to Create:**
-- `src/pages/LinkInBio.tsx` - The main link page component
-
-**Files to Modify:**
-- `src/App.tsx` - Add the new route (without Navigation visibility)
-
-**No Navigation Changes:**
-The Navigation component remains unchanged - the `/links` page will only be accessible by:
-- Direct URL: `bdbt.lovable.app/links`
-- Social media bio links
+| Link | Thumbnail |
+|------|-----------|
+| Profile | `/lovable-uploads/man-in-car.jpeg` |
+| Blueprint | `/lovable-uploads/bdbt-score-thumbnail.png` |
+| YouTube Podcast | `/lovable-uploads/recording-setup-new.jpg` |
+| Spotify Podcast | No thumbnail (text only) |
 
 ---
 
-### Link Button Design
+### Technical Implementation
 
-Each link will be a styled button with:
-- Icon on the left
-- Text centered
-- Hover effect (scale + glow)
-- Gradient border
-- Semi-transparent background
+**File to Modify:** `src/pages/LinkInBio.tsx`
 
----
-
-### Suggested URL
-
-The page will be accessible at:
-- **Primary**: `bdbt.lovable.app/links`
-- **Alternative**: `bdbt.lovable.app/bio`
-
-(Can add both routes if desired)
-
----
-
-### Customization Ready
-
-The links array will be defined at the top of the component, making it easy to:
-- Add new links
-- Reorder links
-- Update destinations
-- Change icons
+**Changes:**
+1. Replace logo with circular profile photo
+2. Update handle styling to match brand (white text, clean font)
+3. Add two-line tagline with emojis
+4. Move social icons row below tagline
+5. Remove Facebook from social links
+6. Replace 6 links with 3 focused links
+7. Add thumbnail images to Blueprint and YouTube links
+8. Style cards with dark background, rounded corners
+9. Maintain dark gradient background
 
 ---
 
 ### Summary
 
-| Item | Details |
-|------|---------|
-| New File | `src/pages/LinkInBio.tsx` |
-| Route | `/links` (hidden from nav) |
-| Design | Mobile-first, dark theme, animated |
-| Links | 6 main links + 5 social icons |
-| Navigation | NOT added (intentionally hidden) |
+| Item | Change |
+|------|--------|
+| Profile | Circular photo instead of logo |
+| Tagline | Two-line format with emojis |
+| Social Icons | 4 icons below tagline |
+| Links | Reduced from 6 to 3 |
+| Link Style | Dark cards with thumbnails |
+| Background | Keep dark gradient |
 
-This gives your client a professional, on-brand alternative to Linktree that lives on their own domain!
+This creates a focused, high-converting link page that reduces decision fatigue and matches the professional Linktree style shown in the reference.
 
