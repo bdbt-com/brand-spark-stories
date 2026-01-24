@@ -66,6 +66,11 @@ const AITipFinder = ({ tips, onTipHighlight }: AITipFinderProps) => {
       return;
     }
 
+    if (searchLower.includes('linktree') || searchLower.includes('link in bio') || searchLower.includes('links')) {
+      navigate('/links');
+      return;
+    }
+
     // Normalize search term by removing hyphens, underscores, spaces, and quotes
     const normalizeSearchTerm = (term: string): string => {
       return term.toLowerCase()
