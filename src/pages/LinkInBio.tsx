@@ -44,7 +44,7 @@ const links = [
     title: "Free Foundation Blueprint",
     href: "/blueprint",
     external: false,
-    thumbnail: "/lovable-uploads/bdbt-score-thumbnail.png",
+    thumbnail: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png",
   },
   {
     title: "BDBT Daily Podcast",
@@ -58,7 +58,7 @@ const links = [
     subtitle: "(Spotify)",
     href: "https://open.spotify.com/show/4PO4P4X6dF3FJasqf3dR5L",
     external: true,
-    thumbnail: null,
+    thumbnail: "/lovable-uploads/75853635-930c-4fa5-9403-d0b58c6db83b.png",
   },
 ];
 
