@@ -1,31 +1,46 @@
 
 
-## Fix Handle Text to Use Brand Gold Color
+## Fix Thumbnail Images to Seamlessly Fit Within Button Cards
 
-The "BigDaddy's" text is incorrectly using `text-amber-400` (orange) instead of the brand gold color used across the entire website.
+The thumbnail images in the link cards currently show sharp edges that don't match the rounded corners of the button cards. The card container has `rounded-xl` but the thumbnail images don't have matching rounded corners.
 
 ---
 
-### Change Required
+### Changes Required
 
-**File:** `src/pages/LinkInBio.tsx` (line 84)
+**File:** `src/pages/LinkInBio.tsx` (lines 126-132)
 
-**Current (wrong):**
+**Current:**
 ```tsx
-<span className="text-amber-400">BigDaddy's</span>
+{link.thumbnail && (
+  <div className="w-16 h-16 flex-shrink-0">
+    <img 
+      src={link.thumbnail} 
+      alt={link.title}
+      className="w-full h-full object-cover"
+    />
+  </div>
+)}
 ```
 
-**Updated (correct):**
+**Updated:**
 ```tsx
-<span className="text-[hsl(35_45%_75%)]">BigDaddy's</span>
+{link.thumbnail && (
+  <div className="w-16 h-16 flex-shrink-0 overflow-hidden rounded-l-xl">
+    <img 
+      src={link.thumbnail} 
+      alt={link.title}
+      className="w-full h-full object-cover"
+    />
+  </div>
+)}
 ```
 
-This matches the exact gold color used on:
-- Home page: "Big Life Changes."
-- Tips page: "Big Tips"
-- About page: "The System"
-- Daily Wins page: "Wall"
-- Podcast page: "Videos"
+**What this does:**
+- `overflow-hidden`: Ensures the image doesn't extend beyond the container
+- `rounded-l-xl`: Applies matching rounded corners to the left side of the thumbnail container (same radius as the card's `rounded-xl`)
+
+This will make the thumbnails seamlessly blend with the button card borders on the left side where they meet the card edge.
 
 ---
 
@@ -33,5 +48,5 @@ This matches the exact gold color used on:
 
 | Item | Change |
 |------|--------|
-| Line 84 | Change `text-amber-400` to `text-[hsl(35_45%_75%)]` |
+| Lines 126-132 | Add `overflow-hidden rounded-l-xl` to thumbnail container to match card's rounded corners |
 
