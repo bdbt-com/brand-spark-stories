@@ -329,7 +329,8 @@ const ThumbnailTemplate = () => {
     { id: 35, name: "Podcast 17 Store Brand Medicine", title: "Try Store Brand Medicine", subtitle: "", image: "" },
     { id: 36, name: "Podcast 18 Sugary Snack", title: "Replace one Sugary Snack, with a Healthier Alternative", subtitle: "", image: "" },
     { id: 37, name: "Podcast 19 Amazon Subscribe", title: "Use Amazon Subscribe and Save", subtitle: "", image: "" },
-    { id: 38, name: "Podcast 20 Check Your Posture", title: "Check Your Posture in The Mirror", subtitle: "", image: "" }
+    { id: 38, name: "Podcast 20 Check Your Posture", title: "Check Your Posture in The Mirror", subtitle: "", image: "" },
+    { id: 39, name: "Podcast 21 Deep Breathing", title: "Do 60 Seconds Deep Breathing, Twice a Day", subtitle: "", image: "" }
   ];
 
   const phrases = [
@@ -912,6 +913,13 @@ const ThumbnailTemplate = () => {
         {currentTemplateIndex === 38 && mode === 'instagram' && (
           <div className="relative">
             <TikTokTemplate templateIndex={38} />
+          </div>
+        )}
+
+        {/* Template 40 - Podcast 21 Deep Breathing */}
+        {currentTemplateIndex === 39 && mode === 'instagram' && (
+          <div className="relative">
+            <TikTokTemplate templateIndex={39} />
           </div>
         )}
         {/* Template 5 - Healthy Snacks */}
