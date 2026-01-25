@@ -329,7 +329,7 @@ const ThumbnailTemplate = () => {
     { id: 35, name: "Podcast 17 Store Brand Medicine", title: "Try Store Brand Medicine", subtitle: "", image: "" },
     { id: 36, name: "Podcast 18 Sugary Snack", title: "Replace one Sugary Snack, with a Healthier Alternative", subtitle: "", image: "" },
     { id: 37, name: "Podcast 19 Amazon Subscribe", title: "Use Amazon Subscribe and Save", subtitle: "", image: "" },
-    { id: 38, name: "Podcast 29 Check Your Posture", title: "Check Your Posture in The Mirror", subtitle: "", image: "" }
+    { id: 38, name: "Podcast 20 Check Your Posture", title: "Check Your Posture in The Mirror", subtitle: "", image: "" }
   ];
 
   const phrases = [
