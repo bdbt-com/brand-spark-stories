@@ -625,10 +625,10 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
                   BDBT PODCAST 21
                 </span>
                 <span className="block mt-3 text-white">
-                  LOOK UP AT THE SKY
+                  DO 60 SECONDS DEEP BREATHING
                 </span>
                 <span className="block mt-1" style={{ color: 'hsl(35, 45%, 75%)' }}>
-                  ONCE A DAY
+                  TWICE A DAY
                 </span>
               </>
             ) : templateIndex === 40 ? (
@@ -637,10 +637,10 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
                   BDBT PODCAST 22
                 </span>
                 <span className="block mt-3 text-white">
-                  DO 60 SECONDS DEEP BREATHING
+                  LOOK UP AT THE SKY
                 </span>
                 <span className="block mt-1" style={{ color: 'hsl(35, 45%, 75%)' }}>
-                  TWICE A DAY
+                  ONCE A DAY
                 </span>
               </>
             ) : null}
