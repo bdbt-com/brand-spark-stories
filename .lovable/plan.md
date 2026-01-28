@@ -1,8 +1,8 @@
 
 
-## Add Podcast 21 Thumbnail Template - Do 60 Seconds Deep Breathing, Twice a Day
+## Add Podcast 23 Thumbnail Template - Box Jumping for Bone Health
 
-This plan adds a new TikTok thumbnail template for **Podcast 21**, reusing the same background image as Podcast 19 (Amazon Subscribe and Save).
+This plan adds a new TikTok thumbnail template for **Podcast 23**, using `tikTokBg29` (tiktok-bg-template-33.png) as the background - different from the previous template which uses `tikTokBg22`.
 
 ---
 
@@ -10,10 +10,10 @@ This plan adds a new TikTok thumbnail template for **Podcast 21**, reusing the s
 
 | Property | Value |
 |----------|-------|
-| Template Index | 39 |
-| Podcast Number | 21 |
-| Title | "Do 60 Seconds Deep Breathing, Twice a Day" |
-| Background | `tikTokBg22` (same as Podcast 19 - Amazon Subscribe and Save) |
+| Template Index | 41 |
+| Podcast Number | 23 |
+| Title | "Box Jumping for Bone Health" |
+| Background | `tikTokBg29` (tiktok-bg-template-33.png) - same as Podcast 18 and 20 |
 
 ---
 
@@ -21,49 +21,46 @@ This plan adds a new TikTok thumbnail template for **Podcast 21**, reusing the s
 
 #### 1. TikTokTemplate.tsx - Type Definition (Line 33)
 
-Add `| 39` to the union type:
+Add `| 41` to the union type:
 
 ```tsx
-// Current
-templateIndex: 0 | 1 | ... | 38;
-
-// Updated
-templateIndex: 0 | 1 | ... | 38 | 39;
+templateIndex: 0 | 1 | ... | 40 | 41;
 ```
 
 ---
 
 #### 2. TikTokTemplate.tsx - Backgrounds Array (Line 38)
 
-Add `tikTokBg22` to position 39:
+Add `tikTokBg29` to position 41:
 
 ```tsx
 // Current ends with:
-..., tikTokBg29];
+..., tikTokBg22, tikTokBg22];
 
 // Updated ends with:
-..., tikTokBg29, tikTokBg22];
+..., tikTokBg22, tikTokBg22, tikTokBg29];
 ```
 
 ---
 
-#### 3. TikTokTemplate.tsx - JSX Title Block (After Line 621)
+#### 3. TikTokTemplate.tsx - JSX Title Block
 
-Add the rendering block for template index 39:
+Add the rendering block for template index 41 after template 40:
 
 ```tsx
-) : templateIndex === 39 ? (
+) : templateIndex === 41 ? (
   <>
     <span className="text-white/90 block text-2xl tracking-wider">
-      BDBT PODCAST 21
+      BDBT PODCAST 23
     </span>
     <span className="block mt-3 text-white">
-      DO 60 SECONDS DEEP BREATHING
+      BOX JUMPING
     </span>
     <span className="block mt-1" style={{ color: 'hsl(35, 45%, 75%)' }}>
-      TWICE A DAY
+      FOR BONE HEALTH
     </span>
   </>
+) : null
 ```
 
 ---
@@ -73,20 +70,20 @@ Add the rendering block for template index 39:
 Add metadata for the new template:
 
 ```tsx
-{ id: 39, name: "Podcast 21 Deep Breathing", title: "Do 60 Seconds Deep Breathing, Twice a Day", subtitle: "", image: "" }
+{ id: 41, name: "Podcast 23 Box Jumping", title: "Box Jumping for Bone Health", subtitle: "", image: "" }
 ```
 
 ---
 
 #### 5. ThumbnailTemplate.tsx - Rendering Block
 
-Add the display block for template 39:
+Add the display block for template 41:
 
 ```tsx
-{/* Template 40 - Podcast 21 Deep Breathing */}
-{currentTemplateIndex === 39 && mode === 'instagram' && (
+{/* Template 42 - Podcast 23 Box Jumping */}
+{currentTemplateIndex === 41 && mode === 'instagram' && (
   <div className="relative">
-    <TikTokTemplate templateIndex={39} />
+    <TikTokTemplate templateIndex={41} />
   </div>
 )}
 ```
