@@ -1931,6 +1931,22 @@ const Tips = () => {
       views: 0,
       dateAdded: "2025-01-06"
     },
+    {
+      icon: Zap,
+      title: "Use energy efficient devices at home",
+      description: "Save money and reduce environmental impact with efficient appliances.",
+      items: [
+        "Health: Better air quality and reduced noise from efficient appliances",
+        "Wealth: Lower electricity bills and longer-lasting devices",
+        "Happiness: Eco-friendly choices create peace of mind"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "finance",
+      popularity: 40,
+      views: 0,
+      dateAdded: "2026-01-30"
+    },
   ];
 
   const sortedAndFilteredTips = useMemo(() => {
