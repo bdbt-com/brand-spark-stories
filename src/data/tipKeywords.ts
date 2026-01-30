@@ -470,6 +470,31 @@ export const tipKeywordMap: Record<string, string> = {
   "CASHEW": "Buy Nuts in Bulk",
   "buyingnuts": "Buy Nuts in Bulk",
   "BuyingNuts": "Buy Nuts in Bulk",
+
+  // NEWFOOD -> Expand your diet & improve your health
+  "NEWFOOD": "Expand your diet & improve your health",
+  "newfood": "Expand your diet & improve your health",
+  "newfoods": "Expand your diet & improve your health",
+
+  // Library -> Stop Buying Books and go to the Library
+  "Library": "Stop Buying Books and go to the Library",
+  "library": "Stop Buying Books and go to the Library",
+
+  // Sales -> Wait for the Next Sale/Promo
+  "Sales": "Wait for the Next Sale/Promo",
+  "sales": "Wait for the Next Sale/Promo",
+
+  // Sitstand -> 30 benefits of getting up and down from the floor without using your arms
+  "Sitstand": "30 benefits of getting up and down from the floor without using your arms",
+  "sitstand": "30 benefits of getting up and down from the floor without using your arms",
+
+  // Local -> Free Local Events for Entertainment
+  "Local": "Free Local Events for Entertainment",
+  "local": "Free Local Events for Entertainment",
+
+  // Efficient -> Use energy efficient devices at home
+  "Efficient": "Use energy efficient devices at home",
+  "efficient": "Use energy efficient devices at home",
 };
 
 // Export reverse map for reference (title to keywords)
