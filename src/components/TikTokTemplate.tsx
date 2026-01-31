@@ -35,7 +35,7 @@ interface TikTokTemplateProps {
 }
 
 export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplateProps) {
-  const backgrounds = [tikTokBg, tikTokBg2, tikTokBg1, tikTokBg3, tikTokBg4, tikTokBg5, tikTokBg6, tikTokBg7, tikTokBg8, tikTokBg9, tikTokBg3, tikTokBg11, tikTokBg12, tikTokBg13, tikTokBg14, tikTokBg15, tikTokBg16, tikTokBg17, tikTokBg18, tikTokBg17, tikTokBg20, tikTokBg17, tikTokBg21, tikTokBg22, tikTokBg23, tikTokBg24, tikTokBg23, null, tikTokBg25, tikTokBg26, tikTokBg27, tikTokBg23, tikTokBg28, tikTokBg24, tikTokBg29, tikTokBg24, tikTokBg29, tikTokBg22, tikTokBg29, tikTokBg22, tikTokBg22, tikTokBg29, tikTokBg24, tikTokBg28, tikTokBg25];
+  const backgrounds = [tikTokBg, tikTokBg2, tikTokBg1, tikTokBg3, tikTokBg4, tikTokBg5, tikTokBg6, tikTokBg7, tikTokBg8, tikTokBg9, tikTokBg3, tikTokBg11, tikTokBg12, tikTokBg13, tikTokBg14, tikTokBg15, tikTokBg16, tikTokBg17, tikTokBg18, tikTokBg17, tikTokBg20, tikTokBg17, tikTokBg21, tikTokBg22, tikTokBg23, tikTokBg24, tikTokBg23, null, tikTokBg25, tikTokBg26, tikTokBg27, tikTokBg23, tikTokBg28, tikTokBg24, tikTokBg29, tikTokBg24, tikTokBg29, tikTokBg22, tikTokBg29, tikTokBg22, tikTokBg22, tikTokBg29, tikTokBg24, tikTokBg28, tikTokBg24];
   const backgroundImage = backgrounds[templateIndex];
   const showOverlay = templateIndex <= 2; // Only overlay for templates 0, 1, 2
   const isOutroTemplate = templateIndex === 27;
