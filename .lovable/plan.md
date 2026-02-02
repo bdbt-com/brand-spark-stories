@@ -1,7 +1,8 @@
 
-## Add Podcast 27 Thumbnail Template - Use Public Transport To Get Your Steps In
 
-This plan adds a new TikTok thumbnail template for **Podcast 27**, using `tikTokBg28` (same as template 43) as the background to maintain consistency with recent templates.
+## Add Podcast 29 Thumbnail Template - Keep A Notebook By Your Bed For Random Thoughts
+
+This plan adds a new TikTok thumbnail template for **Podcast 29**, using `tikTokBg28` as the background (alternating with template 46).
 
 ---
 
@@ -9,54 +10,54 @@ This plan adds a new TikTok thumbnail template for **Podcast 27**, using `tikTok
 
 | Property | Value |
 |----------|-------|
-| Template Index | 45 |
-| Podcast Number | 27 |
-| Title | "Use Public Transport To Get Your Steps In" |
-| Background | `tikTokBg28` (tiktok-bg-template-32.png) - same as template 43 |
+| Template Index | 47 |
+| Podcast Number | 29 |
+| Title | "Keep A Notebook By Your Bed For Random Thoughts" |
+| Background | `tikTokBg28` (alternating pattern with template 46) |
 
 ---
 
 ### Changes Required
 
-#### 1. TikTokTemplate.tsx - Type Definition (Line 33)
+#### 1. TikTokTemplate.tsx - Type Definition
 
-Add `| 45` to the union type:
+Add `| 47` to the union type:
 
 ```tsx
-templateIndex: 0 | 1 | ... | 44 | 45;
+templateIndex: 0 | 1 | ... | 46 | 47;
 ```
 
 ---
 
-#### 2. TikTokTemplate.tsx - Backgrounds Array (Line 38)
+#### 2. TikTokTemplate.tsx - Backgrounds Array
 
-Add `tikTokBg28` to position 45:
+Add `tikTokBg28` to position 47:
 
 ```text
 Current ends with:
-..., tikTokBg24, tikTokBg28, tikTokBg24];
+..., tikTokBg28, tikTokBg24];
 
 Updated ends with:
-..., tikTokBg24, tikTokBg28, tikTokBg24, tikTokBg28];
+..., tikTokBg28, tikTokBg24, tikTokBg28];
 ```
 
 ---
 
-#### 3. TikTokTemplate.tsx - JSX Title Block (after line 693)
+#### 3. TikTokTemplate.tsx - JSX Title Block
 
-Add the rendering block for template index 45 after template 44:
+Add the rendering block for template index 47 after template 46:
 
 ```tsx
-) : templateIndex === 45 ? (
+) : templateIndex === 47 ? (
   <>
     <span className="text-white/90 block text-2xl tracking-wider">
-      BDBT PODCAST 27
+      BDBT PODCAST 29
     </span>
     <span className="block mt-3 text-white">
-      USE PUBLIC TRANSPORT
+      KEEP A NOTEBOOK BY YOUR BED
     </span>
     <span className="block mt-1" style={{ color: 'hsl(35, 45%, 75%)' }}>
-      TO GET YOUR STEPS IN
+      FOR RANDOM THOUGHTS
     </span>
   </>
 ) : null
@@ -64,25 +65,25 @@ Add the rendering block for template index 45 after template 44:
 
 ---
 
-#### 4. ThumbnailTemplate.tsx - tikTokTemplates Array (Line 338)
+#### 4. ThumbnailTemplate.tsx - tikTokTemplates Array
 
-Add metadata for the new template after id 44:
+Add metadata for the new template after id 46:
 
 ```tsx
-{ id: 45, name: "Podcast 27 Public Transport", title: "Use Public Transport To Get Your Steps In", subtitle: "", image: "" }
+{ id: 47, name: "Podcast 29 Notebook", title: "Keep A Notebook By Your Bed For Random Thoughts", subtitle: "", image: "" }
 ```
 
 ---
 
-#### 5. ThumbnailTemplate.tsx - Rendering Block (after line 962)
+#### 5. ThumbnailTemplate.tsx - Rendering Block
 
-Add the display block for template 45 after the template 44 block:
+Add the display block for template 47 after the template 46 block:
 
 ```tsx
-{/* Template 46 - Podcast 27 Public Transport */}
-{currentTemplateIndex === 45 && mode === 'instagram' && (
+{/* Template 48 - Podcast 29 Notebook */}
+{currentTemplateIndex === 47 && mode === 'instagram' && (
   <div className="relative">
-    <TikTokTemplate templateIndex={45} />
+    <TikTokTemplate templateIndex={47} />
   </div>
 )}
 ```
@@ -101,8 +102,9 @@ Add the display block for template 45 after the template 44 block:
 ### Background Selection
 
 Recent templates used:
-- Template 44: `tikTokBg24` (tiktok-bg-template-25.png)
-- Template 43: `tikTokBg28` (tiktok-bg-template-32.png)
-- Template 42: `tikTokBg24` (tiktok-bg-template-25.png)
+- Template 46: `tikTokBg24`
+- Template 45: `tikTokBg28`
+- Template 44: `tikTokBg24`
 
-Selected: `tikTokBg28` (tiktok-bg-template-32.png) - alternating with template 44 for variety
+Selected: `tikTokBg28` - continuing the alternating pattern
+
