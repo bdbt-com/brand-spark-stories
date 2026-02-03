@@ -338,7 +338,8 @@ const ThumbnailTemplate = () => {
     { id: 44, name: "Podcast 26 Energy Efficient", title: "Use Energy Efficient Devices At Home", subtitle: "", image: "" },
     { id: 45, name: "Podcast 27 Public Transport", title: "Use Public Transport To Get Your Steps In", subtitle: "", image: "" },
     { id: 46, name: "Podcast 28 Connect Loved One", title: "Connect With A Loved One", subtitle: "", image: "" },
-    { id: 47, name: "Podcast 29 Notebook", title: "Keep A Notebook By Your Bed For Random Thoughts", subtitle: "", image: "" }
+    { id: 47, name: "Podcast 29 Notebook", title: "Keep A Notebook By Your Bed For Random Thoughts", subtitle: "", image: "" },
+    { id: 48, name: "Podcast 30 Walk Phone Calls", title: "Walk During Phone Calls", subtitle: "", image: "" }
   ];
 
   const phrases = [
@@ -979,6 +980,12 @@ const ThumbnailTemplate = () => {
         {currentTemplateIndex === 47 && mode === 'instagram' && (
           <div className="relative">
             <TikTokTemplate templateIndex={47} />
+          </div>
+        )}
+        {/* Template 49 - Podcast 30 Walk Phone Calls */}
+        {currentTemplateIndex === 48 && mode === 'instagram' && (
+          <div className="relative">
+            <TikTokTemplate templateIndex={48} />
           </div>
         )}
         {/* Template 5 - Healthy Snacks */}
