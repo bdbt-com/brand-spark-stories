@@ -1,8 +1,8 @@
 
 
-## Add Podcast 29 Thumbnail Template - Keep A Notebook By Your Bed For Random Thoughts
+## Add YouTube Thumbnail Template - Podcast 34: Try Something New
 
-This plan adds a new TikTok thumbnail template for **Podcast 29**, using `tikTokBg28` as the background (alternating with template 46).
+This plan adds a new YouTube thumbnail template for **Podcast 34** with the title "Try Something New".
 
 ---
 
@@ -10,80 +10,73 @@ This plan adds a new TikTok thumbnail template for **Podcast 29**, using `tikTok
 
 | Property | Value |
 |----------|-------|
-| Template Index | 47 |
-| Podcast Number | 29 |
-| Title | "Keep A Notebook By Your Bed For Random Thoughts" |
-| Background | `tikTokBg28` (alternating pattern with template 46) |
+| Template ID | 38 |
+| Podcast Number | 34 |
+| Title | "Try Something New" |
+| Format | YouTube 16:9 (1280x720) |
 
 ---
 
 ### Changes Required
 
-#### 1. TikTokTemplate.tsx - Type Definition
+#### 1. ThumbnailTemplate.tsx - templates Array (after line 290)
 
-Add `| 47` to the union type:
+Add metadata for the new template after id 37:
 
 ```tsx
-templateIndex: 0 | 1 | ... | 46 | 47;
+{
+  id: 38,
+  name: "Try Something New",
+  title: "Try Something New",
+  subtitle: "Daily Wins Podcast",
+  image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+}
 ```
 
 ---
 
-#### 2. TikTokTemplate.tsx - Backgrounds Array
+#### 2. ThumbnailTemplate.tsx - YouTube Rendering Block
 
-Add `tikTokBg28` to position 47:
-
-```text
-Current ends with:
-..., tikTokBg28, tikTokBg24];
-
-Updated ends with:
-..., tikTokBg28, tikTokBg24, tikTokBg28];
-```
-
----
-
-#### 3. TikTokTemplate.tsx - JSX Title Block
-
-Add the rendering block for template index 47 after template 46:
+Add the display block for template 38 (using the standard YouTube layout pattern):
 
 ```tsx
-) : templateIndex === 47 ? (
-  <>
-    <span className="text-white/90 block text-2xl tracking-wider">
-      BDBT PODCAST 29
-    </span>
-    <span className="block mt-3 text-white">
-      KEEP A NOTEBOOK BY YOUR BED
-    </span>
-    <span className="block mt-1" style={{ color: 'hsl(35, 45%, 75%)' }}>
-      FOR RANDOM THOUGHTS
-    </span>
-  </>
-) : null
-```
-
----
-
-#### 4. ThumbnailTemplate.tsx - tikTokTemplates Array
-
-Add metadata for the new template after id 46:
-
-```tsx
-{ id: 47, name: "Podcast 29 Notebook", title: "Keep A Notebook By Your Bed For Random Thoughts", subtitle: "", image: "" }
-```
-
----
-
-#### 5. ThumbnailTemplate.tsx - Rendering Block
-
-Add the display block for template 47 after the template 46 block:
-
-```tsx
-{/* Template 48 - Podcast 29 Notebook */}
-{currentTemplateIndex === 47 && mode === 'instagram' && (
+{/* Template 39 - Podcast 34 Try Something New */}
+{currentTemplateIndex === 38 && mode === 'youtube' && (
   <div className="relative">
-    <TikTokTemplate templateIndex={47} />
+    <div id="thumbnail-38" key="template-38" className="w-[1280px] h-[720px] relative overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
+      <div className="h-full flex items-center p-16 relative">
+        <div className="absolute right-16 top-16 bottom-16 flex items-center">
+          <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
+            <img 
+              src={templates[38].image} 
+              alt="Podcast thumbnail"
+              className="w-full h-full object-cover border-4 border-white/20"
+            />
+            <div className="absolute bottom-4 left-4">
+              <img 
+                src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" 
+                alt="BDBT Logo"
+                className="h-16 opacity-90"
+              />
+            </div>
+          </div>
+        </div>
+        
+        <div className="absolute left-8 top-16 bottom-24 right-[35%] pr-4 z-10 flex flex-col justify-center">
+          <h1 className="text-6xl xl:text-7xl 2xl:text-8xl font-bold leading-tight mb-6">
+            <span className="text-white block mb-2">
+              Try
+            </span>
+            <span className="block" style={{ color: 'hsl(35, 45%, 75%)' }}>
+              Something New
+            </span>
+          </h1>
+          <p className="text-white/80 text-3xl font-medium">
+            Daily Wins Podcast
+          </p>
+        </div>
+      </div>
+    </div>
   </div>
 )}
 ```
@@ -94,17 +87,15 @@ Add the display block for template 47 after the template 46 block:
 
 | File | Changes |
 |------|---------|
-| `src/components/TikTokTemplate.tsx` | Type definition, backgrounds array, JSX title block |
-| `src/pages/ThumbnailTemplate.tsx` | Add template metadata + rendering block |
+| `src/pages/ThumbnailTemplate.tsx` | Add template metadata to `templates` array + YouTube rendering block |
 
 ---
 
-### Background Selection
+### Design Notes
 
-Recent templates used:
-- Template 46: `tikTokBg24`
-- Template 45: `tikTokBg28`
-- Template 44: `tikTokBg24`
-
-Selected: `tikTokBg28` - continuing the alternating pattern
+- Uses the standard YouTube thumbnail layout (16:9 at 1280x720)
+- Right-side image box with glassmorphism effect
+- BDBT logo positioned in bottom-left of image box
+- Title split: "Try" in white, "Something New" in brand gold
+- Uses the standard podcast image (`bc6fa209-b818-463e-aeb6-08d6c7b423c6.png`)
 
