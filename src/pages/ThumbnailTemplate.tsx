@@ -347,7 +347,8 @@ const ThumbnailTemplate = () => {
     { id: 46, name: "Podcast 28 Connect Loved One", title: "Connect With A Loved One", subtitle: "", image: "" },
     { id: 47, name: "Podcast 29 Notebook", title: "Keep A Notebook By Your Bed For Random Thoughts", subtitle: "", image: "" },
     { id: 48, name: "Podcast 30 Walk Phone Calls", title: "Walk During Phone Calls", subtitle: "", image: "" },
-    { id: 49, name: "Podcast 31 Library", title: "Stop Buying Books, And Go To The Library", subtitle: "", image: "" }
+    { id: 49, name: "Podcast 31 Library", title: "Stop Buying Books, And Go To The Library", subtitle: "", image: "" },
+    { id: 50, name: "Podcast 32 Community", title: "Join A Community", subtitle: "", image: "" }
   ];
 
   const phrases = [
