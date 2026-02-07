@@ -348,7 +348,8 @@ const ThumbnailTemplate = () => {
     { id: 47, name: "Podcast 29 Notebook", title: "Keep A Notebook By Your Bed For Random Thoughts", subtitle: "", image: "" },
     { id: 48, name: "Podcast 30 Walk Phone Calls", title: "Walk During Phone Calls", subtitle: "", image: "" },
     { id: 49, name: "Podcast 31 Library", title: "Stop Buying Books, And Go To The Library", subtitle: "", image: "" },
-    { id: 50, name: "Podcast 32 Community", title: "Join A Community", subtitle: "", image: "" }
+    { id: 50, name: "Podcast 32 Community", title: "Join A Community", subtitle: "", image: "" },
+    { id: 51, name: "Podcast 33 Sale Promo", title: "Wait For The Next Sale / Promo", subtitle: "", image: "" }
   ];
 
   const phrases = [
@@ -1007,6 +1008,12 @@ const ThumbnailTemplate = () => {
         {currentTemplateIndex === 50 && mode === 'instagram' && (
           <div className="relative">
             <TikTokTemplate templateIndex={50} />
+          </div>
+        )}
+        {/* Template 52 - Podcast 33 Wait for Sale */}
+        {currentTemplateIndex === 51 && mode === 'instagram' && (
+          <div className="relative">
+            <TikTokTemplate templateIndex={51} />
           </div>
         )}
         {/* Template 5 - Healthy Snacks */}
