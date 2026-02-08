@@ -1,105 +1,83 @@
 
+## New TikTok Thumbnail - Podcast 35
 
-## Fix YouTube Videos on Podcast Page
-
-The YouTube API key is stored in backend secrets, but the frontend code cannot access backend secrets directly. We need to create an Edge Function to securely fetch the YouTube videos.
-
----
-
-### The Problem
-
-| Location | Can Access Secrets? | Current Code |
-|----------|---------------------|--------------|
-| Frontend (React) | No | Trying to use `VITE_YOUTUBE_API_KEY` |
-| Edge Functions | Yes | Not implemented |
-
-Backend secrets can only be accessed from Edge Functions, not from frontend code.
+Adding a new TikTok thumbnail for Podcast 35 with the title "Try Natural Anxiety Fixes".
 
 ---
 
-### Solution
+### Overview
 
-Create an Edge Function that:
-1. Reads the YouTube API key from secrets
-2. Fetches videos from the YouTube Data API
-3. Returns the video data to the frontend
+| Property | Value |
+|----------|-------|
+| Template Index | 53 |
+| Podcast Number | 35 |
+| Title | TRY NATURAL ANXIETY FIXES |
+| Background | tikTokBg28 (tiktok-bg-template-32.png) |
 
-Then update the frontend to call this Edge Function instead of the YouTube API directly.
+The background follows the established alternating pattern where odd-indexed templates (51, 53, etc.) use tikTokBg28.
 
 ---
 
-### Implementation Steps
+### Changes Required
 
-#### 1. Add YouTube API Key Secret
+#### 1. TikTokTemplate.tsx - Type Definition (line 33)
 
-Request the user to add their YouTube API key as a secret named `YOUTUBE_API_KEY`.
-
-#### 2. Create Edge Function: `supabase/functions/youtube-videos/index.ts`
+Update the `templateIndex` type to include 53:
 
 ```text
-Purpose: Fetch YouTube channel videos securely
-- Read YOUTUBE_API_KEY from secrets
-- Get channel ID from handle @bigdaddysbigtips
-- Fetch latest videos with details (duration, view count)
-- Return formatted video data
+From: 0 | 1 | ... | 52
+To:   0 | 1 | ... | 52 | 53
 ```
 
-#### 3. Update Frontend Hook: `src/hooks/useYouTubeVideos.ts`
+#### 2. TikTokTemplate.tsx - Backgrounds Array (line 38)
+
+Add tikTokBg28 for template 53:
 
 ```text
-Changes:
-- Remove direct YouTube API calls
-- Call Edge Function instead: /youtube-videos?maxResults=50
-- Remove sessionStorage API key logic
-- Simplify error handling
+Add at end of array: tikTokBg28
 ```
 
-#### 4. Remove Unused Component: `src/components/YouTubeApiKeyInput.tsx`
+#### 3. TikTokTemplate.tsx - JSX Title Block (after line 789)
 
-No longer needed since we'll use backend secrets.
+Add the title rendering for template 53:
 
-#### 5. Update Podcast Page: `src/pages/Podcast.tsx`
+```tsx
+) : templateIndex === 53 ? (
+  <>
+    <span className="text-white/90 block text-2xl tracking-wider">
+      BDBT PODCAST 35
+    </span>
+    <span className="block mt-3 text-white">
+      TRY NATURAL
+    </span>
+    <span className="block mt-1" style={{ color: 'hsl(35, 45%, 75%)' }}>
+      ANXIETY FIXES
+    </span>
+  </>
+```
 
-```text
-Changes:
-- Remove apiKey state
-- Remove YouTubeApiKeyInput import and usage
-- Remove handleApiKeySet function
+#### 4. ThumbnailTemplate.tsx - tikTokTemplates Array (after line 367)
+
+Add metadata entry:
+
+```tsx
+{ id: 53, name: "Podcast 35 Natural Anxiety Fixes", title: "Try Natural Anxiety Fixes", subtitle: "", image: "" }
 ```
 
 ---
 
-### Files to Create/Modify
+### Files to Modify
 
-| File | Action |
-|------|--------|
-| `supabase/functions/youtube-videos/index.ts` | Create |
-| `src/hooks/useYouTubeVideos.ts` | Modify |
-| `src/components/YouTubeApiKeyInput.tsx` | Delete |
-| `src/pages/Podcast.tsx` | Modify |
+| File | Changes |
+|------|---------|
+| `src/components/TikTokTemplate.tsx` | Add type, background, and JSX title block |
+| `src/pages/ThumbnailTemplate.tsx` | Add tikTokTemplates metadata entry |
 
 ---
 
-### Technical Details
+### Style Details
 
-**Edge Function Flow:**
-
-```text
-Frontend Request
-      ↓
-Edge Function (youtube-videos)
-      ↓
-Read YOUTUBE_API_KEY from Deno.env
-      ↓
-Fetch channel ID from YouTube API
-      ↓
-Fetch video list with details
-      ↓
-Return JSON response
-```
-
-**API Calls Made by Edge Function:**
-1. Search for channel by handle
-2. Get latest videos from channel
-3. Get video details (duration, stats)
-
+- Title line 1: "TRY NATURAL" (white)
+- Title line 2: "ANXIETY FIXES" (brand gold - hsl(35, 45%, 75%))
+- Standard podcast thumbnail layout with top-[55%] positioning
+- BDBT Podcast 35 subtitle
