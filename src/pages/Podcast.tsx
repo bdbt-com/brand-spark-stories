@@ -24,17 +24,12 @@ import {
 
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { useYouTubeVideos } from "@/hooks/useYouTubeVideos";
-import { YouTubeApiKeyInput } from "@/components/YouTubeApiKeyInput";
 
 const Podcast = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [apiKey, setApiKey] = useState<string | null>(() => {
-    return sessionStorage.getItem('youtube_api_key') || import.meta.env.VITE_YOUTUBE_API_KEY || null;
-  });
 
   const { videos, loading, error, refreshVideos } = useYouTubeVideos(50);
 
-  // Use real YouTube videos or show API key input
   const featuredVideos = videos.slice(0, 6);
   const allVideos = videos;
 
@@ -48,12 +43,6 @@ const Podcast = () => {
     if (featuredVideos.length > 0) {
       setCurrentSlide((prev) => (prev - 1 + featuredVideos.length) % featuredVideos.length);
     }
-  };
-
-  const handleApiKeySet = (newApiKey: string) => {
-    setApiKey(newApiKey);
-    // Refresh the page to re-initialize the hook with the new API key
-    window.location.reload();
   };
 
   const openVideo = (videoId: string) => {
