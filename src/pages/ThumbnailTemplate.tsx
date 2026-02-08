@@ -304,8 +304,8 @@ const ThumbnailTemplate = () => {
     },
     {
       id: 40,
-      name: "Learn Something New",
-      title: "Learn Something New",
+      name: "Learn These Words Brown Fat",
+      title: "Learn These Words... Brown Fat",
       subtitle: "Daily Wins Podcast 36",
       image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
     }
@@ -2550,10 +2550,10 @@ const ThumbnailTemplate = () => {
                 <div className="absolute left-8 top-16 bottom-24 right-[35%] pr-4 z-10 flex flex-col justify-center">
                   <h1 className="text-6xl xl:text-7xl 2xl:text-8xl font-bold leading-tight mb-6">
                     <span className="text-white block mb-2">
-                      Learn
+                      Learn These Words...
                     </span>
                     <span className="block" style={{ color: 'hsl(35, 45%, 75%)' }}>
-                      Something New
+                      Brown Fat
                     </span>
                   </h1>
                   <p className="text-white/80 text-3xl font-medium">
