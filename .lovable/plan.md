@@ -1,7 +1,8 @@
 
-## New TikTok Thumbnail - Podcast 35
 
-Adding a new TikTok thumbnail for Podcast 35 with the title "Try Natural Anxiety Fixes".
+## New TikTok Thumbnail - Podcast 36
+
+Adding TikTok thumbnail for Podcast 36 with title "Learn These Two Words - Brown Fat".
 
 ---
 
@@ -9,59 +10,65 @@ Adding a new TikTok thumbnail for Podcast 35 with the title "Try Natural Anxiety
 
 | Property | Value |
 |----------|-------|
-| Template Index | 53 |
-| Podcast Number | 35 |
-| Title | TRY NATURAL ANXIETY FIXES |
-| Background | tikTokBg28 (tiktok-bg-template-32.png) |
+| Template Index | 54 |
+| Podcast Number | 36 |
+| Title | LEARN THESE TWO WORDS - BROWN FAT |
+| Background | tikTokBg24 (tiktok-bg-template-25.png) |
 
-The background follows the established alternating pattern where odd-indexed templates (51, 53, etc.) use tikTokBg28.
+Even-indexed templates (50, 52, 54) use tikTokBg24 per the alternating pattern.
 
 ---
 
 ### Changes Required
 
-#### 1. TikTokTemplate.tsx - Type Definition (line 33)
+#### 1. TikTokTemplate.tsx - Type Definition
 
-Update the `templateIndex` type to include 53:
+Update `templateIndex` type: add `| 54`
 
-```text
-From: 0 | 1 | ... | 52
-To:   0 | 1 | ... | 52 | 53
-```
+#### 2. TikTokTemplate.tsx - Backgrounds Array
 
-#### 2. TikTokTemplate.tsx - Backgrounds Array (line 38)
+Add `tikTokBg24` at the end of the array for template 54.
 
-Add tikTokBg28 for template 53:
+#### 3. TikTokTemplate.tsx - JSX Title Block
 
-```text
-Add at end of array: tikTokBg28
-```
-
-#### 3. TikTokTemplate.tsx - JSX Title Block (after line 789)
-
-Add the title rendering for template 53:
+Add after the template 53 block:
 
 ```tsx
-) : templateIndex === 53 ? (
+) : templateIndex === 54 ? (
   <>
     <span className="text-white/90 block text-2xl tracking-wider">
-      BDBT PODCAST 35
+      BDBT PODCAST 36
     </span>
     <span className="block mt-3 text-white">
-      TRY NATURAL
+      LEARN THESE
+    </span>
+    <span className="block mt-1 text-white">
+      TWO WORDS
     </span>
     <span className="block mt-1" style={{ color: 'hsl(35, 45%, 75%)' }}>
-      ANXIETY FIXES
+      BROWN FAT
     </span>
   </>
 ```
 
-#### 4. ThumbnailTemplate.tsx - tikTokTemplates Array (after line 367)
+#### 4. ThumbnailTemplate.tsx - tikTokTemplates Array
 
 Add metadata entry:
 
 ```tsx
-{ id: 53, name: "Podcast 35 Natural Anxiety Fixes", title: "Try Natural Anxiety Fixes", subtitle: "", image: "" }
+{ id: 54, name: "Podcast 36 Brown Fat", title: "Learn These Two Words Brown Fat", subtitle: "", image: "" }
+```
+
+#### 5. ThumbnailTemplate.tsx - Rendering Block
+
+Add explicit rendering conditional (the commonly missed step):
+
+```tsx
+{currentTemplateIndex === 54 && mode === 'instagram' && (
+  <div className="relative">
+    <TikTokTemplate templateIndex={54} />
+  </div>
+)}
 ```
 
 ---
@@ -70,14 +77,15 @@ Add metadata entry:
 
 | File | Changes |
 |------|---------|
-| `src/components/TikTokTemplate.tsx` | Add type, background, and JSX title block |
-| `src/pages/ThumbnailTemplate.tsx` | Add tikTokTemplates metadata entry |
+| `src/components/TikTokTemplate.tsx` | Type, background, JSX title block |
+| `src/pages/ThumbnailTemplate.tsx` | Metadata entry + rendering block |
 
 ---
 
 ### Style Details
 
-- Title line 1: "TRY NATURAL" (white)
-- Title line 2: "ANXIETY FIXES" (brand gold - hsl(35, 45%, 75%))
-- Standard podcast thumbnail layout with top-[55%] positioning
-- BDBT Podcast 35 subtitle
+- Line 1: "LEARN THESE" (white)
+- Line 2: "TWO WORDS" (white)
+- Line 3: "BROWN FAT" (brand gold - hsl(35, 45%, 75%))
+- Standard top-[55%] positioning, BDBT Podcast 36 subtitle
+
