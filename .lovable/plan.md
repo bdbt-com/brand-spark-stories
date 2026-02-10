@@ -1,50 +1,49 @@
 
 
-## Add 5 New Guides + Update 2 Existing Guides Across Website
+## Add TikTok Thumbnail - Podcast 37: Sit and Stand Without Using Your Arms
 
-Based on the updated spreadsheet, 5 new guides need to be added and 2 existing guide download links need updating.
-
----
-
-### New Guides to Add
-
-| # | Title | Keyword | Category |
-|---|-------|---------|----------|
-| 1 | Do a financial health check every 3 months | FinancialHealth | finance |
-| 2 | Be more japanese, find your strong sense of life purpose | LifePurpose | mindfulness |
-| 3 | Get your lunges in while vacuuming | Lunges | fitness |
-| 4 | Take up meditation | Meditate | mindfulness |
-| 5 | Say goodbye to netflix, prime & binge watching | Binge | wellness |
-
-### Updated Guide Download Links
-
-| Title | Old File ID | New File ID |
-|-------|------------|-------------|
-| Learn One Word - Osteoperosis | 1hmfCpKxkMg8JML4gcumoo21jajErY3rW | 1V5HzMaA3pZelMuKT9umoWFoadXEgdlU6 |
-| 30 Ways to track your habit progress | 1Si2Nxbz154HPQg5y6szGqteHNMR6TSsp | 1fSaWrfn_HqXEEr03NfFWkrdmhDpCyfxP |
+New template at index 55, following the established alternating background pattern.
 
 ---
 
-### Files to Modify
+### Changes Required
 
-#### 1. `src/data/guideMapping.ts`
-- Add 5 new guide title-to-URL entries
-- Update 2 existing download URLs with new file IDs
+#### 1. `src/components/TikTokTemplate.tsx`
 
-#### 2. `src/pages/Tips.tsx`
-- Add 5 new tip cards with icon, title, description, bullet points, level, category, and date
+- **Type definition** (line 33): Add `| 55` to the `templateIndex` union type
+- **Backgrounds array** (line 38): Add `tikTokBg28` as the 56th entry (odd index in the alternating pattern uses tikTokBg28)
+- **JSX title block** (after the template 54 block, before the `null`): Add new conditional block:
+  ```
+  BDBT PODCAST 37
+  SIT AND STAND
+  WITHOUT USING
+  YOUR ARMS
+  ```
+  Last line "YOUR ARMS" in brand gold `hsl(35, 45%, 75%)`
 
-#### 3. `src/data/tipKeywords.ts`
-- Add keyword routing entries for FinancialHealth (already partially exists, will verify)
-- Entries for Binge, LifePurpose, Lunges, Meditate already exist in tipKeywords -- will verify they match the exact titles used in the new tip cards
+#### 2. `src/pages/ThumbnailTemplate.tsx`
+
+- **tikTokTemplates array** (after line 376): Add new entry:
+  ```
+  { id: 55, name: "Podcast 37 Sit Stand Arms", title: "Sit And Stand Without Using Your Arms", subtitle: "", image: "" }
+  ```
+- **Rendering block** (after the template 54 block, around line 1059): Add:
+  ```jsx
+  {currentTemplateIndex === 55 && mode === 'instagram' && (
+    <div className="relative">
+      <TikTokTemplate templateIndex={55} />
+    </div>
+  )}
+  ```
 
 ---
 
-### Technical Details
+### Summary
 
-Each new tip card follows the existing pattern with:
-- Lucide icon selection
-- 3 bullet points (Health / Wealth / Happiness)
-- Level, duration, category, popularity, views, dateAdded fields
-- Title must exactly match the guideMapping.ts key for the Download Guide button to work
-
+| Location | Change |
+|----------|--------|
+| TikTokTemplate type | Add `55` to union |
+| TikTokTemplate backgrounds | Add `tikTokBg28` at position 55 |
+| TikTokTemplate JSX | Add podcast 37 title block |
+| ThumbnailTemplate metadata | Add id 55 entry |
+| ThumbnailTemplate rendering | Add `currentTemplateIndex === 55` block |
