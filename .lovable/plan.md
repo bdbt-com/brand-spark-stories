@@ -1,29 +1,30 @@
 
 
-## Add Google AdSense Script
+## Add ads.txt for Google AdSense
 
-Adding the Google AdSense verification script to the site's `<head>` section for site ownership verification.
+Google AdSense requires an `ads.txt` file at your site root (`bigdaddysbigtips.com/ads.txt`) for verification.
 
 ---
 
 ### Changes Required
 
-#### 1. index.html - Add AdSense Script
+#### 1. Create `public/ads.txt`
 
-Add the following script tag inside the `<head>` section:
+Add the standard AdSense ads.txt entry using your publisher ID:
 
-```html
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8736580968690323"
-     crossorigin="anonymous"></script>
+```
+google.com, pub-8736580968690323, DIRECT, f08c47fec0942fa0
 ```
 
-This is a public client ID (not a secret), so it's safe to include directly in the HTML.
+This file in the `public/` folder will be served at the root URL automatically by Vite.
 
 ---
 
-### Files to Modify
+### Files to Create
 
-| File | Changes |
+| File | Purpose |
 |------|---------|
-| `index.html` | Add AdSense script tag in `<head>` |
+| `public/ads.txt` | AdSense publisher verification file |
+
+After publishing, Google will find it at `bigdaddysbigtips.com/ads.txt` and the status should update within a few hours.
 
