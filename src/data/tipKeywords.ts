@@ -233,8 +233,8 @@ export const tipKeywordMap: Record<string, string> = {
   // Meditation/Meditate -> Meditate for 2 minutes
   "Meditation": "Meditate for 2 minutes",
   "meditation": "Meditate for 2 minutes",
-  "Meditate": "Meditate for 2 minutes",
-  "meditate": "Meditate for 2 minutes",
+  "Meditate": "Take up meditation",
+  "meditate": "Take up meditation",
   
   // Movement -> Start your day with movement
   "Movement": "Start your day with movement",
