@@ -72,13 +72,13 @@ export const guideMapping: Record<string, string> = {
   "Limit screen time before bed": "https://drive.google.com/uc?export=download&id=16gyJ3jmiy3LR3_RI-3KRMdK8oZ-yn12q",
   
   // Week 9
-  "Learn One Word - Osteoperosis": "https://drive.google.com/uc?export=download&id=1hmfCpKxkMg8JML4gcumoo21jajErY3rW",
+  "Learn One Word - Osteoperosis": "https://drive.google.com/uc?export=download&id=1V5HzMaA3pZelMuKT9umoWFoadXEgdlU6",
   "Climb the stairs, go back down and up again": "https://drive.google.com/uc?export=download&id=1hmfCpKxkMg8JML4gcumoo21jajErY3rW",
   "Time in the market vs Timing the market": "https://drive.google.com/uc?export=download&id=1duERBrQPxYLo0CutmXEokiUtPx49by7d",
   "Reframe one thing today": "https://drive.google.com/uc?export=download&id=1YdIyRgwQJ7iIpqOoSVq1ALE6JYSXNHBN",
   "Hide your savings from yourself": "https://drive.google.com/uc?export=download&id=1-kdPZNhPWGqz7rS8UgvpMB0gwWI6iBrm",
   "Frozen Blueberries in evening (Brown Fat)": "https://drive.google.com/uc?export=download&id=1owQq7pYTR_9wA9TZGawIVwDczxzktUfF",
-  "30 Ways to track your habit progress": "https://drive.google.com/uc?export=download&id=1Si2Nxbz154HPQg5y6szGqteHNMR6TSsp",
+  "30 Ways to track your habit progress": "https://drive.google.com/uc?export=download&id=1fSaWrfn_HqXEEr03NfFWkrdmhDpCyfxP",
   
   // Week 10
   "Create a whatsapp group with friends for a specific purpose": "https://drive.google.com/uc?export=download&id=1xftXcD5CmwejEjoTeqMg-v4o_QZ5JjJK",
@@ -171,7 +171,14 @@ export const guideMapping: Record<string, string> = {
   "Stretch before bed": "https://drive.google.com/uc?export=download&id=16uJQsLT67Rzl-ZMIgeSeiWRkmsk5qwta",
   "30 Benefits of greater grip strength": "https://drive.google.com/uc?export=download&id=19-VT__xKrHyj9t7_6_JRxhcR0IldjAMZ",
   "Buy Nuts in Bulk": "https://drive.google.com/uc?export=download&id=1d0JKl-yPMSDVp1JBEhqGMK_fCPb08c6x",
-  "Use energy efficient devices at home": "https://drive.google.com/uc?export=download&id=1tfeMQSIfrkkjwJudA6UAP4AWFQRCCyoj"
+  "Use energy efficient devices at home": "https://drive.google.com/uc?export=download&id=1tfeMQSIfrkkjwJudA6UAP4AWFQRCCyoj",
+  
+  // New guides - February 2026
+  "Do a financial health check every 3 months": "https://drive.google.com/uc?export=download&id=1KzsV5AIxeWl_ClZVoV77ebyWDOgveXkq",
+  "Be more japanese, find your strong sense of life purpose": "https://drive.google.com/uc?export=download&id=15Uk-vuYpPSyRAPPefFzNqkBpXIzgQkCN",
+  "Get your lunges in while vacuuming": "https://drive.google.com/uc?export=download&id=1YVoHwlRlYNhcPPiXpt-8M4iOZWtcCZJJ",
+  "Take up meditation": "https://drive.google.com/uc?export=download&id=1s0j0_O26dMTccC4pays8191Ym7CGxrln",
+  "Say goodbye to netflix, prime & binge watching": "https://drive.google.com/uc?export=download&id=1LzXz7Ey2_MITetWfi6tm83S5JQSj3AYT"
 };
 
 // Helper function to get guide URL by tip title

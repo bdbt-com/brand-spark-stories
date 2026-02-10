@@ -1947,6 +1947,86 @@ const Tips = () => {
       views: 0,
       dateAdded: "2026-01-30"
     },
+    {
+      icon: Calculator,
+      title: "Do a financial health check every 3 months",
+      description: "Regular financial reviews to stay on track with your money goals.",
+      items: [
+        "Health: Reduces financial stress and anxiety",
+        "Wealth: Identifies savings opportunities and spending leaks",
+        "Happiness: Confidence and control over your financial future"
+      ],
+      level: "Moderate",
+      duration: "4 min read",
+      category: "finance",
+      popularity: 38,
+      views: 0,
+      dateAdded: "2026-02-10"
+    },
+    {
+      icon: Target,
+      title: "Be more japanese, find your strong sense of life purpose",
+      description: "Discover your Ikigai and align your daily actions with deeper meaning.",
+      items: [
+        "Health: Purpose-driven living linked to longer lifespan",
+        "Wealth: Clarity of purpose improves career and financial decisions",
+        "Happiness: Deep fulfilment from living with intention"
+      ],
+      level: "Intermediate",
+      duration: "5 min read",
+      category: "mindfulness",
+      popularity: 44,
+      views: 0,
+      dateAdded: "2026-02-10"
+    },
+    {
+      icon: Flame,
+      title: "Get your lunges in while vacuuming",
+      description: "Turn household chores into effective lower body workouts.",
+      items: [
+        "Health: Strengthens legs, glutes and improves balance",
+        "Wealth: Free workout during a task you already do",
+        "Happiness: Sense of productivity from combining exercise with chores"
+      ],
+      level: "Easy",
+      duration: "2 min read",
+      category: "fitness",
+      popularity: 35,
+      views: 0,
+      dateAdded: "2026-02-10"
+    },
+    {
+      icon: Leaf,
+      title: "Take up meditation",
+      description: "Build a consistent meditation practice for lasting mental clarity.",
+      items: [
+        "Health: Reduces cortisol, lowers blood pressure and boosts immunity",
+        "Wealth: Improved focus leads to better decision-making",
+        "Happiness: Greater emotional resilience and inner peace"
+      ],
+      level: "Beginner",
+      duration: "4 min read",
+      category: "mindfulness",
+      popularity: 52,
+      views: 0,
+      dateAdded: "2026-02-10"
+    },
+    {
+      icon: Monitor,
+      title: "Say goodbye to netflix, prime & binge watching",
+      description: "Reclaim hours of your life by breaking the binge watching habit.",
+      items: [
+        "Health: Better sleep quality and reduced eye strain",
+        "Wealth: Save on multiple streaming subscriptions",
+        "Happiness: More time for meaningful activities and connections"
+      ],
+      level: "Moderate",
+      duration: "4 min read",
+      category: "wellness",
+      popularity: 40,
+      views: 0,
+      dateAdded: "2026-02-10"
+    },
   ];
 
   const sortedAndFilteredTips = useMemo(() => {
