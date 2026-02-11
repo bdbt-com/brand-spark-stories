@@ -495,6 +495,16 @@ export const tipKeywordMap: Record<string, string> = {
   // Efficient -> Use energy efficient devices at home
   "Efficient": "Use energy efficient devices at home",
   "efficient": "Use energy efficient devices at home",
+
+  // Osteoperosis -> Learn One Word - Osteoperosis
+  "Osteoperosis": "Learn One Word - Osteoperosis",
+  "osteoperosis": "Learn One Word - Osteoperosis",
+  "Osteoporosis": "Learn One Word - Osteoperosis",
+  "osteoporosis": "Learn One Word - Osteoperosis",
+
+  // HabitProgress -> 30 Ways to track your habit progress
+  "habitprogress": "30 Ways to track your habit progress",
+  "HabitProgress": "30 Ways to track your habit progress",
 };
 
 // Export reverse map for reference (title to keywords)
