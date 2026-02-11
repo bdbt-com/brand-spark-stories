@@ -1,26 +1,25 @@
 
 
-## Fix Missing Tip Keyword Mappings
+## Fix `/tips/review` Link for "30 Ways to track your habit progress"
 
-Two tip keywords are missing from `src/data/tipKeywords.ts`, causing broken links when users navigate to `/tips/osteoperosis` or search for these terms.
+### Problem
 
----
+The URL `/tips/review` has no keyword mapping in `tipKeywords.ts`. The keyword `"review"` simply doesn't exist in the map, so navigating to that URL shows no tip match.
+
+Additionally, there's a minor case inconsistency: the `Habit30` entries use `"30 ways to track..."` (lowercase w) while the actual tip title in Tips.tsx is `"30 Ways to track..."` (uppercase W). The `HabitProgress` entries already use the correct casing.
 
 ### Changes
 
 #### `src/data/tipKeywords.ts`
 
-Add the following entries before the closing `};` (around line 498):
+1. **Add `review` / `Review` keyword mappings** pointing to `"30 Ways to track your habit progress"`
+2. **Fix case on existing `Habit30` / `habit30` entries** from `"30 ways..."` to `"30 Ways..."` to match the actual tip title
 
-1. **Osteoporosis keywords** (currently zero entries exist):
-   - `"Osteoperosis"` -> `"Learn One Word - Osteoperosis"`
-   - `"osteoperosis"` -> `"Learn One Word - Osteoperosis"`
-   - `"Osteoporosis"` -> `"Learn One Word - Osteoperosis"`
-   - `"osteoporosis"` -> `"Learn One Word - Osteoperosis"`
+| Keyword | Maps To |
+|---------|---------|
+| `"review"` (new) | `"30 Ways to track your habit progress"` |
+| `"Review"` (new) | `"30 Ways to track your habit progress"` |
+| `"Habit30"` (fix case) | `"30 Ways to track your habit progress"` |
+| `"habit30"` (fix case) | `"30 Ways to track your habit progress"` |
 
-2. **Habit Progress additional variants** (Habit30/habit30 exist but these don't):
-   - `"habitprogress"` -> `"30 Ways to track your habit progress"`
-   - `"HabitProgress"` -> `"30 Ways to track your habit progress"`
-
-No other file changes are needed -- the routing and matching logic in `AITipFinder.tsx` and `Tips.tsx` already handles keyword lookups correctly. Only the keyword map entries were missing.
-
+No other files need changes.
