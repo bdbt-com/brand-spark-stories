@@ -175,8 +175,8 @@ export const tipKeywordMap: Record<string, string> = {
   "grip30": "30 benefits of greater grip strength",
   
   // Habit30 -> 30 Ways to track your habit progress
-  "Habit30": "30 ways to track your habit progress",
-  "habit30": "30 ways to track your habit progress",
+  "Habit30": "30 Ways to track your habit progress",
+  "habit30": "30 Ways to track your habit progress",
   
   // Handbasket -> Do food shops with handbaskets not trolleys
   "Handbasket": "Do food shops with handbaskets not trolleys",
@@ -505,6 +505,10 @@ export const tipKeywordMap: Record<string, string> = {
   // HabitProgress -> 30 Ways to track your habit progress
   "habitprogress": "30 Ways to track your habit progress",
   "HabitProgress": "30 Ways to track your habit progress",
+
+  // Review -> 30 Ways to track your habit progress
+  "review": "30 Ways to track your habit progress",
+  "Review": "30 Ways to track your habit progress",
 };
 
 // Export reverse map for reference (title to keywords)
