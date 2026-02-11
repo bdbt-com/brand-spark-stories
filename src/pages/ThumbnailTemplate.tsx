@@ -388,7 +388,8 @@ const ThumbnailTemplate = () => {
     { id: 52, name: "Podcast 34 Try Something New", title: "Try Something New", subtitle: "", image: "" },
     { id: 53, name: "Podcast 35 Natural Anxiety Fixes", title: "Try Natural Anxiety Fixes", subtitle: "", image: "" },
     { id: 54, name: "Podcast 36 Brown Fat", title: "Learn These Two Words Brown Fat", subtitle: "", image: "" },
-    { id: 55, name: "Podcast 37 Sit Stand Arms", title: "Sit And Stand Without Using Your Arms", subtitle: "", image: "" }
+    { id: 55, name: "Podcast 37 Sit Stand Arms", title: "Sit And Stand Without Using Your Arms", subtitle: "", image: "" },
+    { id: 56, name: "Podcast 38 Free Local Events", title: "Find Free Local Events For Your Entertainment", subtitle: "", image: "" }
   ];
 
   const phrases = [
@@ -1077,6 +1078,12 @@ const ThumbnailTemplate = () => {
         {currentTemplateIndex === 55 && mode === 'instagram' && (
           <div className="relative">
             <TikTokTemplate templateIndex={55} />
+          </div>
+        )}
+        {/* Template 56 - Podcast 38 Free Local Events */}
+        {currentTemplateIndex === 56 && mode === 'instagram' && (
+          <div className="relative">
+            <TikTokTemplate templateIndex={56} />
           </div>
         )}
         {/* Template 5 - Healthy Snacks */}
