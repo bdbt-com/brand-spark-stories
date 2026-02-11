@@ -1,40 +1,26 @@
 
 
-## Add YouTube Thumbnail - Podcast 39: Use a Standing Desk at Home
+## Fix Missing Tip Keyword Mappings
 
-New YouTube template at index 43 in the `templates` array.
-
----
-
-### Changes Required
-
-#### 1. `src/pages/ThumbnailTemplate.tsx`
-
-**Templates array** (after line 325, before the closing `];`): Add new entry:
-```
-{
-  id: 43,
-  name: "Use a Standing Desk",
-  title: "Use a Standing Desk at Home",
-  subtitle: "Daily Wins Podcast 39",
-  image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
-}
-```
-
-**Rendering block** (after the template 42 block, around line 2653): Add a new YouTube thumbnail block matching the standard 16:9 layout with:
-- Gradient background
-- Right-side 650x650 glassmorphism image box with BDBT logo
-- Left-side text:
-  - White: "Use a Standing Desk"
-  - Gold (`hsl(35, 45%, 75%)`): "at Home"
-  - Subtitle: "Daily Wins Podcast 39"
+Two tip keywords are missing from `src/data/tipKeywords.ts`, causing broken links when users navigate to `/tips/osteoperosis` or search for these terms.
 
 ---
 
-### Summary
+### Changes
 
-| Location | Change |
-|----------|--------|
-| templates array | Add id 43 entry |
-| Rendering section | Add `currentTemplateIndex === 43 && mode === 'youtube'` block |
+#### `src/data/tipKeywords.ts`
+
+Add the following entries before the closing `};` (around line 498):
+
+1. **Osteoporosis keywords** (currently zero entries exist):
+   - `"Osteoperosis"` -> `"Learn One Word - Osteoperosis"`
+   - `"osteoperosis"` -> `"Learn One Word - Osteoperosis"`
+   - `"Osteoporosis"` -> `"Learn One Word - Osteoperosis"`
+   - `"osteoporosis"` -> `"Learn One Word - Osteoperosis"`
+
+2. **Habit Progress additional variants** (Habit30/habit30 exist but these don't):
+   - `"habitprogress"` -> `"30 Ways to track your habit progress"`
+   - `"HabitProgress"` -> `"30 Ways to track your habit progress"`
+
+No other file changes are needed -- the routing and matching logic in `AITipFinder.tsx` and `Tips.tsx` already handles keyword lookups correctly. Only the keyword map entries were missing.
 
