@@ -1,51 +1,22 @@
 
 
-## Add TikTok Thumbnail - Podcast 38: Find Free Local Events
+## Fix Spelling: "Osteoperosis" to "Osteoporosis"
 
-New TikTok template at index 56 for "Find Free Local Events for Your Entertainment".
-
----
-
-### Changes Required
-
-#### 1. `src/components/TikTokTemplate.tsx`
-
-**Type definition** (line 33): Add `56` to the `templateIndex` union type.
-
-**Backgrounds array** (line 38): Append `tikTokBg24` (tiktok-bg-template-25.png) following the alternating pattern (index 55 used bg28, so 56 uses bg24).
-
-**JSX title block** (after the `templateIndex === 55` block, around line 831): Add new conditional:
-```
-) : templateIndex === 56 ? (
-  <>
-    <span className="text-white/90 block text-2xl tracking-wider">
-      BDBT PODCAST 38
-    </span>
-    <span className="block mt-3 text-white">
-      FIND FREE LOCAL EVENTS
-    </span>
-    <span className="block mt-1" style={{ color: 'hsl(35, 45%, 75%)' }}>
-      FOR YOUR ENTERTAINMENT
-    </span>
-  </>
-)
-```
-
-#### 2. `src/pages/ThumbnailTemplate.tsx`
-
-**TikTok templates array** (after line 391, the id 55 entry): Add:
-```
-{ id: 56, name: "Podcast 38 Free Local Events", title: "Find Free Local Events For Your Entertainment", subtitle: "", image: "" }
-```
-
-**Rendering block** (after the template 55 TikTok rendering block): Add a `currentTemplateIndex === 56` block using the standard TikTok thumbnail layout with the `TikTokTemplate` component at index 56.
+The word is misspelled as "Osteoperosis" in three files. All occurrences will be corrected to "Osteoporosis".
 
 ---
 
-### Summary
+### Changes
 
-| File | Change |
-|------|--------|
-| TikTokTemplate.tsx | Add 56 to type, bg24 to backgrounds, JSX title block |
-| ThumbnailTemplate.tsx | Add tikTok metadata entry + rendering block for index 56 |
+#### 1. `src/pages/Tips.tsx` (line ~912)
+- Change tip title from `"Learn One Word - Osteoperosis"` to `"Learn One Word - Osteoporosis"`
+
+#### 2. `src/data/guideMapping.ts` (line ~75)
+- Change key from `"Learn One Word - Osteoperosis"` to `"Learn One Word - Osteoporosis"`
+
+#### 3. `src/data/tipKeywords.ts` (lines ~499-503)
+- Update comment and all four keyword values to point to `"Learn One Word - Osteoporosis"`
+- Keep all four keyword variants (Osteoperosis, osteoperosis, Osteoporosis, osteoporosis) so old URLs still work, but update their target title
+
+All three files must match exactly for the "Download Guide" button and URL routing to function correctly.
 
