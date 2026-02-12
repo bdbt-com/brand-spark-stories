@@ -1,22 +1,51 @@
 
 
-## Fix Spelling: "Osteoperosis" to "Osteoporosis"
+## Add TikTok Thumbnail - Podcast 39: Use a Standing Desk at Home
 
-The word is misspelled as "Osteoperosis" in three files. All occurrences will be corrected to "Osteoporosis".
+New TikTok template at index 57 for "Use a Standing Desk at Home".
 
 ---
 
 ### Changes
 
-#### 1. `src/pages/Tips.tsx` (line ~912)
-- Change tip title from `"Learn One Word - Osteoperosis"` to `"Learn One Word - Osteoporosis"`
+#### 1. `src/components/TikTokTemplate.tsx`
 
-#### 2. `src/data/guideMapping.ts` (line ~75)
-- Change key from `"Learn One Word - Osteoperosis"` to `"Learn One Word - Osteoporosis"`
+**Type definition** (line 33): Add `57` to the `templateIndex` union type.
 
-#### 3. `src/data/tipKeywords.ts` (lines ~499-503)
-- Update comment and all four keyword values to point to `"Learn One Word - Osteoporosis"`
-- Keep all four keyword variants (Osteoperosis, osteoperosis, Osteoporosis, osteoporosis) so old URLs still work, but update their target title
+**Backgrounds array** (line 38): Append `tikTokBg28` (tiktok-bg-template-32.png) following the alternating pattern (index 56 used bg24, so 57 uses bg28).
 
-All three files must match exactly for the "Download Guide" button and URL routing to function correctly.
+**JSX title block** (after the `templateIndex === 56` block, line ~843): Add new conditional:
+```
+) : templateIndex === 57 ? (
+  <>
+    <span className="text-white/90 block text-2xl tracking-wider">
+      BDBT PODCAST 39
+    </span>
+    <span className="block mt-3 text-white">
+      USE A STANDING DESK
+    </span>
+    <span className="block mt-1" style={{ color: 'hsl(35, 45%, 75%)' }}>
+      AT HOME
+    </span>
+  </>
+)
+```
+
+#### 2. `src/pages/ThumbnailTemplate.tsx`
+
+**TikTok templates array** (line 392, after the id 56 entry): Add:
+```
+{ id: 57, name: "Podcast 39 Standing Desk", title: "Use A Standing Desk At Home", subtitle: "", image: "" }
+```
+
+**Rendering block** (after the template 56 rendering block): Add a `currentTemplateIndex === 57` block using the standard TikTok thumbnail layout with `TikTokTemplate` at index 57.
+
+---
+
+### Summary
+
+| File | Change |
+|------|--------|
+| TikTokTemplate.tsx | Add 57 to type, bg28 to backgrounds, JSX title block |
+| ThumbnailTemplate.tsx | Add tikTok metadata entry + rendering block for index 57 |
 
