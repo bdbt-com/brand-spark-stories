@@ -72,7 +72,7 @@ export const guideMapping: Record<string, string> = {
   "Limit screen time before bed": "https://drive.google.com/uc?export=download&id=16gyJ3jmiy3LR3_RI-3KRMdK8oZ-yn12q",
   
   // Week 9
-  "Learn One Word - Osteoperosis": "https://drive.google.com/uc?export=download&id=1V5HzMaA3pZelMuKT9umoWFoadXEgdlU6",
+  "Learn One Word - Osteoporosis": "https://drive.google.com/uc?export=download&id=1V5HzMaA3pZelMuKT9umoWFoadXEgdlU6",
   "Climb the stairs, go back down and up again": "https://drive.google.com/uc?export=download&id=1hmfCpKxkMg8JML4gcumoo21jajErY3rW",
   "Time in the market vs Timing the market": "https://drive.google.com/uc?export=download&id=1duERBrQPxYLo0CutmXEokiUtPx49by7d",
   "Reframe one thing today": "https://drive.google.com/uc?export=download&id=1YdIyRgwQJ7iIpqOoSVq1ALE6JYSXNHBN",

@@ -496,11 +496,11 @@ export const tipKeywordMap: Record<string, string> = {
   "Efficient": "Use energy efficient devices at home",
   "efficient": "Use energy efficient devices at home",
 
-  // Osteoperosis -> Learn One Word - Osteoperosis
-  "Osteoperosis": "Learn One Word - Osteoperosis",
-  "osteoperosis": "Learn One Word - Osteoperosis",
-  "Osteoporosis": "Learn One Word - Osteoperosis",
-  "osteoporosis": "Learn One Word - Osteoperosis",
+  // Osteoporosis -> Learn One Word - Osteoporosis
+  "Osteoperosis": "Learn One Word - Osteoporosis",
+  "osteoperosis": "Learn One Word - Osteoporosis",
+  "Osteoporosis": "Learn One Word - Osteoporosis",
+  "osteoporosis": "Learn One Word - Osteoporosis",
 
   // HabitProgress -> 30 Ways to track your habit progress
   "habitprogress": "30 Ways to track your habit progress",

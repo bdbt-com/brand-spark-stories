@@ -909,7 +909,7 @@ const Tips = () => {
     },
     {
       icon: BookOpen,
-      title: "Learn One Word - Osteoperosis",
+      title: "Learn One Word - Osteoporosis",
       description: "Understanding bone health for prevention and longevity.",
       items: [
         "Health: Knowledge leads to better bone health practices",
