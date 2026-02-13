@@ -1,44 +1,62 @@
 
 
-## Add TikTok Thumbnail - Podcast 39: Use a Standing Desk at Home
+## Add YouTube and TikTok Thumbnails - Podcast 40: Buy in Bulk and Save More
 
-New TikTok template at index 57 for "Use a Standing Desk at Home".
+Two new templates: YouTube at index 44, TikTok at index 58.
 
 ---
 
 ### Changes
 
-#### 1. `src/components/TikTokTemplate.tsx`
+#### 1. `src/pages/ThumbnailTemplate.tsx`
 
-**Type definition** (line 33): Add `57` to the `templateIndex` union type.
-
-**Backgrounds array** (line 38): Append `tikTokBg28` (tiktok-bg-template-32.png) following the alternating pattern (index 56 used bg24, so 57 uses bg28).
-
-**JSX title block** (after the `templateIndex === 56` block, line ~843): Add new conditional:
+**YouTube templates array** (after line 332, the id 43 entry): Add new entry:
+```js
+{
+  id: 44,
+  name: "Buy in Bulk and Save",
+  title: "Buy in Bulk and Save More",
+  subtitle: "Daily Wins Podcast 40",
+  image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+}
 ```
-) : templateIndex === 57 ? (
+
+**TikTok templates array** (after line 393, the id 57 entry): Add:
+```js
+{ id: 58, name: "Podcast 40 Buy in Bulk", title: "Buy In Bulk And Save More", subtitle: "", image: "" }
+```
+
+**YouTube rendering block** (after the template 43 YouTube block, around line 2694): Add a `currentTemplateIndex === 44 && mode === 'youtube'` block using the standard podcast layout (1280x720, gradient background, right-side image box with glassmorphism, BDBT logo):
+```
+Title line 1 (white): "Buy in Bulk"
+Title line 2 (gold): "and Save More"
+Subtitle: "Daily Wins Podcast 40"
+```
+
+**TikTok rendering block** (after the template 57 TikTok block): Add a `currentTemplateIndex === 58 && mode === 'instagram'` block with `TikTokTemplate` at index 58.
+
+#### 2. `src/components/TikTokTemplate.tsx`
+
+**Type definition** (line 33): Add `58` to the `templateIndex` union type.
+
+**Backgrounds array** (line 38): Append `tikTokBg24` (alternating pattern: 57 used bg28, so 58 uses bg24).
+
+**JSX title block** (after the templateIndex === 57 block): Add:
+```tsx
+) : templateIndex === 58 ? (
   <>
     <span className="text-white/90 block text-2xl tracking-wider">
-      BDBT PODCAST 39
+      BDBT PODCAST 40
     </span>
     <span className="block mt-3 text-white">
-      USE A STANDING DESK
+      BUY IN BULK
     </span>
     <span className="block mt-1" style={{ color: 'hsl(35, 45%, 75%)' }}>
-      AT HOME
+      AND SAVE MORE
     </span>
   </>
 )
 ```
-
-#### 2. `src/pages/ThumbnailTemplate.tsx`
-
-**TikTok templates array** (line 392, after the id 56 entry): Add:
-```
-{ id: 57, name: "Podcast 39 Standing Desk", title: "Use A Standing Desk At Home", subtitle: "", image: "" }
-```
-
-**Rendering block** (after the template 56 rendering block): Add a `currentTemplateIndex === 57` block using the standard TikTok thumbnail layout with `TikTokTemplate` at index 57.
 
 ---
 
@@ -46,6 +64,6 @@ New TikTok template at index 57 for "Use a Standing Desk at Home".
 
 | File | Change |
 |------|--------|
-| TikTokTemplate.tsx | Add 57 to type, bg28 to backgrounds, JSX title block |
-| ThumbnailTemplate.tsx | Add tikTok metadata entry + rendering block for index 57 |
+| TikTokTemplate.tsx | Add 58 to type, bg24 to backgrounds, JSX title block |
+| ThumbnailTemplate.tsx | Add YouTube template id 44 (metadata + rendering), TikTok template id 58 (metadata + rendering) |
 
