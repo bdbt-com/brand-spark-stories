@@ -336,6 +336,13 @@ const ThumbnailTemplate = () => {
       title: "Buy in Bulk and Save More",
       subtitle: "Daily Wins Podcast 40",
       image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+    },
+    {
+      id: 45,
+      name: "Spend Time in Zone 2",
+      title: "Spend Time in Zone 2 Every Day",
+      subtitle: "Daily Wins Podcast 41",
+      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
     }
   ];
 
@@ -398,7 +405,8 @@ const ThumbnailTemplate = () => {
     { id: 55, name: "Podcast 37 Sit Stand Arms", title: "Sit And Stand Without Using Your Arms", subtitle: "", image: "" },
     { id: 56, name: "Podcast 38 Free Local Events", title: "Find Free Local Events For Your Entertainment", subtitle: "", image: "" },
     { id: 57, name: "Podcast 39 Standing Desk", title: "Use A Standing Desk At Home", subtitle: "", image: "" },
-    { id: 58, name: "Podcast 40 Buy in Bulk", title: "Buy In Bulk And Save More", subtitle: "", image: "" }
+    { id: 58, name: "Podcast 40 Buy in Bulk", title: "Buy In Bulk And Save More", subtitle: "", image: "" },
+    { id: 59, name: "Podcast 41 Zone 2", title: "Spend Time In Zone 2 Every Day", subtitle: "", image: "" }
   ];
 
   const phrases = [
@@ -1105,6 +1113,12 @@ const ThumbnailTemplate = () => {
         {currentTemplateIndex === 58 && mode === 'instagram' && (
           <div className="relative">
             <TikTokTemplate templateIndex={58} />
+          </div>
+        )}
+        {/* Template 59 - Podcast 41 Zone 2 */}
+        {currentTemplateIndex === 59 && mode === 'instagram' && (
+          <div className="relative">
+            <TikTokTemplate templateIndex={59} />
           </div>
         )}
         {/* Template 5 - Healthy Snacks */}
@@ -2725,6 +2739,30 @@ const ThumbnailTemplate = () => {
                     <span className="block" style={{ color: 'hsl(35, 45%, 75%)' }}>and Save More</span>
                   </h1>
                   <p className="text-white/80 text-3xl font-medium">Daily Wins Podcast 40</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {currentTemplateIndex === 45 && mode === 'youtube' && (
+          <div className="relative">
+            <div id="thumbnail-45" key="template-45" className="w-[1280px] h-[720px] relative overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
+              <div className="h-full flex items-center p-16 relative">
+                <div className="absolute right-16 top-16 bottom-16 flex items-center">
+                  <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
+                    <img src={templates[45].image} alt="Podcast thumbnail" className="w-full h-full object-cover border-4 border-white/20" />
+                    <div className="absolute bottom-4 left-4">
+                      <img src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" alt="BDBT Logo" className="h-16 opacity-90" />
+                    </div>
+                  </div>
+                </div>
+                <div className="absolute left-8 top-16 bottom-24 right-[35%] pr-4 z-10 flex flex-col justify-center">
+                  <h1 className="text-6xl xl:text-7xl 2xl:text-8xl font-bold leading-tight mb-6">
+                    <span className="text-white block mb-2">Spend Time in Zone 2</span>
+                    <span className="block" style={{ color: 'hsl(35, 45%, 75%)' }}>Every Day</span>
+                  </h1>
+                  <p className="text-white/80 text-3xl font-medium">Daily Wins Podcast 41</p>
                 </div>
               </div>
             </div>
