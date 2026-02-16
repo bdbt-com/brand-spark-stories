@@ -9,8 +9,8 @@ export const tipKeywordMap: Record<string, string> = {
   "3-for-2": "Buy 3 for 2 in bulk and store them",
   
   // 5minmobility -> Add a 5 - minute mobility routine to your day
-  "5minmobility": "Add a 5-minute mobility routine to your day",
-  "5-min-mobility": "Add a 5-minute mobility routine to your day",
+  "5minmobility": "Add a 5 - minute mobility routine to your day",
+  "5-min-mobility": "Add a 5 - minute mobility routine to your day",
   
   // 6MonthBuffer -> Build a 6 month emergency Buffer Fund
   "6MonthBuffer": "Build a 6 month emergency Buffer Fund",
@@ -46,16 +46,16 @@ export const tipKeywordMap: Record<string, string> = {
   "blueprint": "BDBT Foundation Blueprint",
   
   // BodyComposition -> Why its so important to understand body compositions
-  "BodyComposition": "Why its so important to understand body compositions",
-  "bodycomposition": "Why its so important to understand body compositions",
+  "BodyComposition": "Why its so important to understand body composition",
+  "bodycomposition": "Why its so important to understand body composition",
   
   // Bootsale -> Sell unused items
   "Bootsale": "Sell unused items",
   "bootsale": "Sell unused items",
   
   // Borrow -> Borrow Or Rent Items
-  "Borrow": "Borrow or Rent Items",
-  "borrow": "Borrow or Rent Items",
+  "Borrow": "Borrow Or Rent Items",
+  "borrow": "Borrow Or Rent Items",
   
   // BoxJump -> Box Jumping (for Bone Health)
   "BoxJump": "Box Jumping (for Bone Health)",
@@ -83,8 +83,8 @@ export const tipKeywordMap: Record<string, string> = {
   "capsule": "Create a capsule wardrobe",
   
   // ChewSlow -> Chew Food More slowly
-  "ChewSlow": "Chew food more slowly",
-  "chewslow": "Chew food more slowly",
+  "ChewSlow": "Chew Food More slowly",
+  "chewslow": "Chew Food More slowly",
   
   // Chores30 -> 30 benefits of doing chores with friends
   "Chores30": "30 benefits of doing chores with friends",
@@ -103,8 +103,8 @@ export const tipKeywordMap: Record<string, string> = {
   "dailynature": "50 ways to incorporate more nature into daily life",
   
   // DayReview -> Review Your day
-  "DayReview": "Review your day",
-  "dayreview": "Review your day",
+  "DayReview": "Review Your day",
+  "dayreview": "Review Your day",
   
   // Declutter -> Declutter your living and working spaces
   "Declutter": "Declutter your living and working spaces",
@@ -131,12 +131,12 @@ export const tipKeywordMap: Record<string, string> = {
   "extraglass": "Drink one extra glass of water daily",
   
   // FarmersMarket -> Buy from farmers markets
-  "FarmersMarket": "Buy from farmers' markets",
-  "farmersmarket": "Buy from farmers' markets",
+  "FarmersMarket": "Buy from farmers markets",
+  "farmersmarket": "Buy from farmers markets",
   
   // Fatigue30 -> 30 ways to reduce descision fatigue in everyday life
-  "Fatigue30": "30 ways to reduce decision fatigue in everyday life",
-  "fatigue30": "30 ways to reduce decision fatigue in everyday life",
+  "Fatigue30": "30 ways to reduce descision fatigue in everyday life",
+  "fatigue30": "30 ways to reduce descision fatigue in everyday life",
   
   // Fibre -> Eat the fibre on your plate first
   "Fibre": "Eat the fibre on your plate first",
@@ -311,12 +311,12 @@ export const tipKeywordMap: Record<string, string> = {
   "stretch": "Stretch Daily",
   
   // Saffron -> Use Saffron as an AntiDeppresant
-  "Saffron": "Use Saffron as an anti-depressant",
-  "saffron": "Use Saffron as an anti-depressant",
+  "Saffron": "Use Saffron as an AntiDeppresant",
+  "saffron": "Use Saffron as an AntiDeppresant",
   
   // Salternative -> Use Spices Instead Of Salt
-  "Salternative": "Use spices instead of salt",
-  "salternative": "Use spices instead of salt",
+  "Salternative": "Use Spices Instead Of Salt",
+  "salternative": "Use Spices Instead Of Salt",
   
   // SavingScheme -> Top 88 Retail loyalty schemes for maximum savings
   "SavingScheme": "Top 88 Retail loyalty schemes for maximum savings",
@@ -509,6 +509,18 @@ export const tipKeywordMap: Record<string, string> = {
   // Review -> 30 Ways to track your habit progress
   "review": "30 Ways to track your habit progress",
   "Review": "30 Ways to track your habit progress",
+
+  // Complete -> 30 Ways to track your habit progress
+  "Complete": "30 Ways to track your habit progress",
+  "complete": "30 Ways to track your habit progress",
+
+  // Noarms -> 30 benefits of getting up and down from the floor without using your arms
+  "Noarms": "30 benefits of getting up and down from the floor without using your arms",
+  "noarms": "30 benefits of getting up and down from the floor without using your arms",
+
+  // wait30 -> Wait 30 days before any status spend
+  "wait30": "Wait 30 days before any status spend",
+  "Wait30": "Wait 30 days before any status spend",
 };
 
 // Export reverse map for reference (title to keywords)
