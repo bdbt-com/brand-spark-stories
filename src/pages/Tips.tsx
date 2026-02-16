@@ -1149,7 +1149,7 @@ const Tips = () => {
     },
     {
       icon: BarChart3,
-      title: "Why its so important to understand body compositions",
+      title: "Why its so important to understand body composition",
       description: "Understanding and tracking your body composition for health.",
       items: [
         "Health: Track muscle mass and fat percentage for optimal health",
@@ -2026,6 +2026,22 @@ const Tips = () => {
       popularity: 40,
       views: 0,
       dateAdded: "2026-02-10"
+    },
+    {
+      icon: Clock,
+      title: "Wait 30 days before any status spend",
+      description: "Apply a 30-day cooling-off period before making any purchase driven by status or image.",
+      items: [
+        "Health: Reduces impulse-driven stress and buyer's remorse",
+        "Wealth: Prevents wasteful spending on status symbols",
+        "Happiness: Builds intentional spending habits and financial confidence"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "finance",
+      popularity: 38,
+      views: 0,
+      dateAdded: "2026-02-16"
     },
   ];
 

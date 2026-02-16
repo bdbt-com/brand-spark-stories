@@ -78,7 +78,7 @@ export const guideMapping: Record<string, string> = {
   "Reframe one thing today": "https://drive.google.com/uc?export=download&id=1YdIyRgwQJ7iIpqOoSVq1ALE6JYSXNHBN",
   "Hide your savings from yourself": "https://drive.google.com/uc?export=download&id=1-kdPZNhPWGqz7rS8UgvpMB0gwWI6iBrm",
   "Frozen Blueberries in evening (Brown Fat)": "https://drive.google.com/uc?export=download&id=1owQq7pYTR_9wA9TZGawIVwDczxzktUfF",
-  "30 Ways to track your habit progress": "https://drive.google.com/uc?export=download&id=1fSaWrfn_HqXEEr03NfFWkrdmhDpCyfxP",
+  "30 Ways to track your habit progress": "https://drive.google.com/uc?export=download&id=1Si2Nxbz154HPQg5y6szGqteHNMR6TSsp",
   
   // Week 10
   "Create a whatsapp group with friends for a specific purpose": "https://drive.google.com/uc?export=download&id=1xftXcD5CmwejEjoTeqMg-v4o_QZ5JjJK",
@@ -91,7 +91,7 @@ export const guideMapping: Record<string, string> = {
   // Week 11
   "Drink warm lemon water with cayenne pepper every day": "https://drive.google.com/uc?export=download&id=1f6JvLPdB7V0TxFEJx1zmcGn92tOoxdI6",
   "Do 10 reverse lunges while watching TV": "https://drive.google.com/uc?export=download&id=1Dwh8XFi0q_Bbeabd0dE6sPwX2it5S96k",
-  "Why its so important to understand body compositions": "https://drive.google.com/uc?export=download&id=1BSk3uQ08c2MJ3XfIE3mFrG8w28OcnHip",
+  "Why its so important to understand body composition": "https://drive.google.com/uc?export=download&id=1BSk3uQ08c2MJ3XfIE3mFrG8w28OcnHip",
   "Do a spending freeze challenge for a week": "https://drive.google.com/uc?export=download&id=1XvJ5SNWNAdr2paXMgQrcfs67cNOmrV9Z",
   "Eat the fibre on your plate first": "https://drive.google.com/uc?export=download&id=1cS9wl0zh8pzbvzZFwjXeqt9ZhD-AaVvd",
   "Read for 20 minutes a day": "https://drive.google.com/uc?export=download&id=1wQiD8fR0oseeXROAO3rIgxAo3NgC3M5M",
@@ -178,7 +178,10 @@ export const guideMapping: Record<string, string> = {
   "Be more japanese, find your strong sense of life purpose": "https://drive.google.com/uc?export=download&id=15Uk-vuYpPSyRAPPefFzNqkBpXIzgQkCN",
   "Get your lunges in while vacuuming": "https://drive.google.com/uc?export=download&id=1YVoHwlRlYNhcPPiXpt-8M4iOZWtcCZJJ",
   "Take up meditation": "https://drive.google.com/uc?export=download&id=1s0j0_O26dMTccC4pays8191Ym7CGxrln",
-  "Say goodbye to netflix, prime & binge watching": "https://drive.google.com/uc?export=download&id=1LzXz7Ey2_MITetWfi6tm83S5JQSj3AYT"
+  "Say goodbye to netflix, prime & binge watching": "https://drive.google.com/uc?export=download&id=1LzXz7Ey2_MITetWfi6tm83S5JQSj3AYT",
+
+  // New - Wait 30 days
+  "Wait 30 days before any status spend": "https://drive.google.com/uc?export=download&id=16wQerj9mRBpOIloTQ3mnMq1uj_JzkvPl"
 };
 
 // Helper function to get guide URL by tip title
