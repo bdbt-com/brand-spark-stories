@@ -1,69 +1,77 @@
 
 
-## Add YouTube and TikTok Thumbnails - Podcast 41: Spend Time in Zone 2 Every Day
-
-Two new templates: YouTube at index 45, TikTok at index 59.
+## Sync Tips with Updated Spreadsheet + Fix Broken Keyword Routes
 
 ---
 
-### Changes
+### NEW TIP being added
 
-#### 1. `src/pages/ThumbnailTemplate.tsx`
+| Tip Title | Keyword | Guide File ID |
+|-----------|---------|---------------|
+| "Wait 30 days before any status spend" | wait30 / Wait30 | 16wQerj9mRBpOIloTQ3mnMq1uj_JzkvPl |
 
-**YouTube templates array** (after line 339, the id 44 entry): Add new entry:
-```js
-{
-  id: 45,
-  name: "Spend Time in Zone 2",
-  title: "Spend Time in Zone 2 Every Day",
-  subtitle: "Daily Wins Podcast 41",
-  image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
-}
-```
-
-**TikTok templates array** (after line 401, the id 58 entry): Add:
-```js
-{ id: 59, name: "Podcast 41 Zone 2", title: "Spend Time In Zone 2 Every Day", subtitle: "", image: "" }
-```
-
-**YouTube rendering block** (after the template 44 YouTube block): Add a `currentTemplateIndex === 45 && mode === 'youtube'` block using the standard podcast layout (1280x720, gradient background, right-side image box with glassmorphism, BDBT logo):
-```
-Title line 1 (white): "Spend Time in Zone 2"
-Title line 2 (gold): "Every Day"
-Subtitle: "Daily Wins Podcast 41"
-```
-
-**TikTok rendering block** (after the template 58 TikTok block): Add a `currentTemplateIndex === 59 && mode === 'instagram'` block with `TikTokTemplate` at index 59.
-
-#### 2. `src/components/TikTokTemplate.tsx`
-
-**Type definition** (line 33): Add `59` to the `templateIndex` union type.
-
-**Backgrounds array** (line 38): Append `tikTokBg28` (alternating pattern: 58 used bg24, so 59 uses bg28).
-
-**JSX title block** (after the templateIndex === 58 block): Add:
-```tsx
-) : templateIndex === 59 ? (
-  <>
-    <span className="text-white/90 block text-2xl tracking-wider">
-      BDBT PODCAST 41
-    </span>
-    <span className="block mt-3 text-white">
-      SPEND TIME IN ZONE 2
-    </span>
-    <span className="block mt-1" style={{ color: 'hsl(35, 45%, 75%)' }}>
-      EVERY DAY
-    </span>
-  </>
-)
-```
+This is the only tip in the spreadsheet that doesn't already exist on the website.
 
 ---
 
-### Summary
+### NEW KEYWORDS being added (for existing tips)
 
-| File | Change |
-|------|--------|
-| TikTokTemplate.tsx | Add 59 to type, bg28 to backgrounds, JSX title block |
-| ThumbnailTemplate.tsx | Add YouTube template id 45 (metadata + rendering), TikTok template id 59 (metadata + rendering) |
+| Keyword | Maps to existing tip |
+|---------|---------------------|
+| Complete / complete | "30 Ways to track your habit progress" |
+| Noarms / noarms | "30 benefits of getting up and down from the floor without using your arms" |
+| wait30 / Wait30 | "Wait 30 days before any status spend" (new tip above) |
+
+---
+
+### TYPO FIX
+
+| File | Current | Fixed |
+|------|---------|-------|
+| Tips.tsx (line 1152) | "body compositions" | "body composition" |
+| guideMapping.ts (line 94) | "body compositions" | "body composition" |
+| tipKeywords.ts (lines 49-50) | "body compositions" | "body composition" |
+
+Note: The spreadsheet actually says "body compositions" too, but your screenshot flagged it as a typo, so I'm fixing it to singular "body composition" across all 3 files.
+
+---
+
+### FILE ID UPDATE
+
+| Tip | File | Current ID | New ID (from spreadsheet) |
+|-----|------|-----------|--------------------------|
+| "30 Ways to track your habit progress" | guideMapping.ts (line 81) | 1fSaWrfn_HqXEEr03NfFWkrdmhDpCyfxP | 1Si2Nxbz154HPQg5y6szGqteHNMR6TSsp |
+
+---
+
+### BROKEN KEYWORD ROUTES being fixed (title in tipKeywords.ts doesn't match Tips.tsx, so scroll-to-tip fails)
+
+| Keyword | Current in tipKeywords.ts | Correct (matches Tips.tsx) | Issue |
+|---------|--------------------------|---------------------------|-------|
+| ChewSlow | "Chew food more slowly" | "Chew Food More slowly" | Casing: "food" should be "Food" |
+| Borrow | "Borrow or Rent Items" | "Borrow Or Rent Items" | Casing: "or" should be "Or" |
+| FarmersMarket | "Buy from farmers' markets" | "Buy from farmers markets" | Apostrophe: remove ' |
+| Salternative | "Use spices instead of salt" | "Use Spices Instead Of Salt" | Casing: all lowercase should be title case |
+| Saffron | "Use Saffron as an anti-depressant" | "Use Saffron as an AntiDeppresant" | Different word form |
+| DayReview | "Review your day" | "Review Your day" | Casing: "your" should be "Your" |
+| 5minmobility | "Add a 5-minute mobility routine to your day" | "Add a 5 - minute mobility routine to your day" | Spacing: "5-minute" should be "5 - minute" |
+| Fatigue30 | "30 ways to reduce decision fatigue in everyday life" | "30 ways to reduce descision fatigue in everyday life" | Spelling: "decision" should match Tips.tsx "descision" |
+
+---
+
+### Detailed Changes by File
+
+#### 1. `src/pages/Tips.tsx`
+- Fix typo line 1152: "body compositions" to "body composition"
+- Add new tip card "Wait 30 days before any status spend" (Finance category, with icon, description, and bullet items)
+
+#### 2. `src/data/guideMapping.ts`
+- Fix typo line 94: key "body compositions" to "body composition"
+- Update Habit30 file ID on line 81: change to `1Si2Nxbz154HPQg5y6szGqteHNMR6TSsp`
+- Add new entry: `"Wait 30 days before any status spend": "https://drive.google.com/uc?export=download&id=16wQerj9mRBpOIloTQ3mnMq1uj_JzkvPl"`
+
+#### 3. `src/data/tipKeywords.ts`
+- Fix typo lines 49-50: "body compositions" to "body composition"
+- Fix 8 broken keyword routes listed above (match exact casing/spelling from Tips.tsx)
+- Add 3 new keyword pairs: Complete, Noarms, wait30
 
