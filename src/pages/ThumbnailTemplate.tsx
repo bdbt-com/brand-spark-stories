@@ -357,6 +357,13 @@ const ThumbnailTemplate = () => {
       title: "Have More Baths",
       subtitle: "Daily Wins Podcast 43",
       image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+    },
+    {
+      id: 48,
+      name: "Hang Tough for Grip Strength",
+      title: "Hang Tough for Grip Strength",
+      subtitle: "Daily Wins Podcast 44",
+      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
     }
   ];
 
@@ -422,7 +429,8 @@ const ThumbnailTemplate = () => {
     { id: 58, name: "Podcast 40 Buy in Bulk", title: "Buy In Bulk And Save More", subtitle: "", image: "" },
     { id: 59, name: "Podcast 41 Zone 2", title: "Spend Time In Zone 2 Every Day", subtitle: "", image: "" },
     { id: 60, name: "Podcast 42 Go Exploring", title: "Go Exploring", subtitle: "", image: "" },
-    { id: 61, name: "Podcast 43 Have More Baths", title: "Have More Baths", subtitle: "", image: "" }
+    { id: 61, name: "Podcast 43 Have More Baths", title: "Have More Baths", subtitle: "", image: "" },
+    { id: 62, name: "Podcast 44 Hang Tough for Grip Strength", title: "Hang Tough for Grip Strength", subtitle: "", image: "" }
   ];
 
   const phrases = [
@@ -1147,6 +1155,12 @@ const ThumbnailTemplate = () => {
         {currentTemplateIndex === 61 && mode === 'instagram' && (
           <div className="relative">
             <TikTokTemplate templateIndex={61} />
+          </div>
+        )}
+        {/* Template 62 - Podcast 44 Hang Tough for Grip Strength */}
+        {currentTemplateIndex === 62 && mode === 'instagram' && (
+          <div className="relative">
+            <TikTokTemplate templateIndex={62} />
           </div>
         )}
         {/* Template 5 - Healthy Snacks */}
@@ -2839,6 +2853,30 @@ const ThumbnailTemplate = () => {
                     <span className="block" style={{ color: 'hsl(35, 45%, 75%)' }}>Baths</span>
                   </h1>
                   <p className="text-white/80 text-3xl font-medium">Daily Wins Podcast 43</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {currentTemplateIndex === 48 && mode === 'youtube' && (
+          <div className="relative">
+            <div id="thumbnail-48" key="template-48" className="w-[1280px] h-[720px] relative overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
+              <div className="h-full flex items-center p-16 relative">
+                <div className="absolute right-16 top-16 bottom-16 flex items-center">
+                  <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
+                    <img src={templates[48].image} alt="Podcast thumbnail" className="w-full h-full object-cover border-4 border-white/20" />
+                    <div className="absolute bottom-4 left-4">
+                      <img src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" alt="BDBT Logo" className="h-16 opacity-90" />
+                    </div>
+                  </div>
+                </div>
+                <div className="absolute left-8 top-16 bottom-24 right-[35%] pr-4 z-10 flex flex-col justify-center">
+                  <h1 className="text-6xl xl:text-7xl 2xl:text-8xl font-bold leading-tight mb-6">
+                    <span className="text-white block mb-2">Hang Tough for</span>
+                    <span className="block" style={{ color: 'hsl(35, 45%, 75%)' }}>Grip Strength</span>
+                  </h1>
+                  <p className="text-white/80 text-3xl font-medium">Daily Wins Podcast 44</p>
                 </div>
               </div>
             </div>
