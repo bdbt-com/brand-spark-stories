@@ -1,10 +1,10 @@
 
 
-## Podcast 45 - "Use Bike or Feet Wherever Possible" Thumbnails
+## Podcast 46 - "Drink More Green Tea" Thumbnails
 
-Adding YouTube thumbnail (ID 49) and TikTok thumbnail (ID 63).
+Adding YouTube thumbnail (ID 50) and TikTok thumbnail (ID 64).
 
-Per the alternating background pattern, odd-numbered podcasts use `tikTokBg28` (`tiktok-bg-template-32.png`).
+Per the alternating background pattern, even-numbered podcasts use `tikTokBg24` (`tiktok-bg-template-25.png`).
 
 ---
 
@@ -12,17 +12,17 @@ Per the alternating background pattern, odd-numbered podcasts use `tikTokBg28` (
 
 #### 1. `src/components/TikTokTemplate.tsx`
 
-- Add `63` to the `templateIndex` union type
-- Append `tikTokBg28` to the `backgrounds` array
-- Add JSX title block for index 63:
-  - "BDBT PODCAST 45" (white, smaller text)
-  - "USE BIKE OR FEET" (white)
-  - "WHEREVER POSSIBLE" (gold accent `hsl(35, 45%, 75%)`)
+- Add `64` to the `templateIndex` union type
+- Append `tikTokBg24` to the `backgrounds` array for index 64
+- Add JSX title block for index 64:
+  - "BDBT PODCAST 46" (white, smaller text)
+  - "DRINK MORE" (white)
+  - "GREEN TEA" (gold accent `hsl(35, 45%, 75%)`)
 
 #### 2. `src/pages/ThumbnailTemplate.tsx`
 
-- Add YouTube metadata entry (ID 49): name "Use Bike or Feet Wherever Possible", title "Use Bike or Feet Wherever Possible", subtitle "Daily Wins Podcast 45", standard podcast image
-- Add TikTok metadata entry (ID 63): name "Podcast 45 Use Bike or Feet Wherever Possible"
-- Add TikTok rendering block for `currentTemplateIndex === 63` (after the existing index 62 block)
-- Add YouTube rendering block for `currentTemplateIndex === 49` (after the existing index 48 block), standard 16:9 gradient style with glassmorphism image box, title split as "Use Bike or Feet" (white) / "Wherever Possible" (gold)
+- Add YouTube metadata entry (ID 50): name "Drink More Green Tea", title "Drink More Green Tea", subtitle "Daily Wins Podcast 46", standard podcast image
+- Add TikTok metadata entry (ID 64): name "Podcast 46 Drink More Green Tea"
+- Add TikTok rendering block for `currentTemplateIndex === 64` (after the existing index 63 block)
+- Add YouTube rendering block for `currentTemplateIndex === 50` (after the existing index 49 block), standard 16:9 gradient style with glassmorphism image box, title split as "Drink More" (white) / "Green Tea" (gold)
 
