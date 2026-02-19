@@ -30,12 +30,12 @@ import tikTokBg29 from "@/assets/tiktok-bg-template-33.png";
 import { Instagram, Youtube } from "lucide-react";
 
 interface TikTokTemplateProps {
-  templateIndex: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24 | 25 | 26 | 27 | 28 | 29 | 30 | 31 | 32 | 33 | 34 | 35 | 36 | 37 | 38 | 39 | 40 | 41 | 42 | 43 | 44 | 45 | 46 | 47 | 48 | 49 | 50 | 51 | 52 | 53 | 54 | 55 | 56 | 57 | 58 | 59 | 60 | 61 | 62 | 63;
+  templateIndex: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24 | 25 | 26 | 27 | 28 | 29 | 30 | 31 | 32 | 33 | 34 | 35 | 36 | 37 | 38 | 39 | 40 | 41 | 42 | 43 | 44 | 45 | 46 | 47 | 48 | 49 | 50 | 51 | 52 | 53 | 54 | 55 | 56 | 57 | 58 | 59 | 60 | 61 | 62 | 63 | 64;
   className?: string;
 }
 
 export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplateProps) {
-  const backgrounds = [tikTokBg, tikTokBg2, tikTokBg1, tikTokBg3, tikTokBg4, tikTokBg5, tikTokBg6, tikTokBg7, tikTokBg8, tikTokBg9, tikTokBg3, tikTokBg11, tikTokBg12, tikTokBg13, tikTokBg14, tikTokBg15, tikTokBg16, tikTokBg17, tikTokBg18, tikTokBg17, tikTokBg20, tikTokBg17, tikTokBg21, tikTokBg22, tikTokBg23, tikTokBg24, tikTokBg23, null, tikTokBg25, tikTokBg26, tikTokBg27, tikTokBg23, tikTokBg28, tikTokBg24, tikTokBg29, tikTokBg24, tikTokBg29, tikTokBg22, tikTokBg29, tikTokBg22, tikTokBg22, tikTokBg29, tikTokBg24, tikTokBg28, tikTokBg24, tikTokBg28, tikTokBg24, tikTokBg28, tikTokBg24, tikTokBg28, tikTokBg24, tikTokBg28, tikTokBg24, tikTokBg28, tikTokBg24, tikTokBg28, tikTokBg24, tikTokBg28, tikTokBg24, tikTokBg28, tikTokBg24, tikTokBg28, tikTokBg24, tikTokBg28];
+  const backgrounds = [tikTokBg, tikTokBg2, tikTokBg1, tikTokBg3, tikTokBg4, tikTokBg5, tikTokBg6, tikTokBg7, tikTokBg8, tikTokBg9, tikTokBg3, tikTokBg11, tikTokBg12, tikTokBg13, tikTokBg14, tikTokBg15, tikTokBg16, tikTokBg17, tikTokBg18, tikTokBg17, tikTokBg20, tikTokBg17, tikTokBg21, tikTokBg22, tikTokBg23, tikTokBg24, tikTokBg23, null, tikTokBg25, tikTokBg26, tikTokBg27, tikTokBg23, tikTokBg28, tikTokBg24, tikTokBg29, tikTokBg24, tikTokBg29, tikTokBg22, tikTokBg29, tikTokBg22, tikTokBg22, tikTokBg29, tikTokBg24, tikTokBg28, tikTokBg24, tikTokBg28, tikTokBg24, tikTokBg28, tikTokBg24, tikTokBg28, tikTokBg24, tikTokBg28, tikTokBg24, tikTokBg28, tikTokBg24, tikTokBg28, tikTokBg24, tikTokBg28, tikTokBg24, tikTokBg28, tikTokBg24, tikTokBg28, tikTokBg24, tikTokBg28, tikTokBg24];
   const backgroundImage = backgrounds[templateIndex];
   const showOverlay = templateIndex <= 2; // Only overlay for templates 0, 1, 2
   const isOutroTemplate = templateIndex === 27;
@@ -923,6 +923,18 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
                 </span>
                 <span className="block mt-1" style={{ color: 'hsl(35, 45%, 75%)' }}>
                   WHEREVER POSSIBLE
+                </span>
+              </>
+            ) : templateIndex === 64 ? (
+              <>
+                <span className="text-white/90 block text-2xl tracking-wider">
+                  BDBT PODCAST 46
+                </span>
+                <span className="block mt-3 text-white">
+                  DRINK MORE
+                </span>
+                <span className="block mt-1" style={{ color: 'hsl(35, 45%, 75%)' }}>
+                  GREEN TEA
                 </span>
               </>
             ) : null}
