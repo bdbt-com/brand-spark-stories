@@ -226,9 +226,9 @@ export const tipKeywordMap: Record<string, string> = {
   "LovedOnes": "Connect with loved ones",
   "lovedones": "Connect with loved ones",
   
-  // Lunges -> Get your lunges in while vaccuing
-  "Lunges": "Get your lunges in while vacuuming",
-  "lunges": "Get your lunges in while vacuuming",
+  // Lunges -> Do 10 reverse lunges while watching TV
+  "Lunges": "Do 10 reverse lunges while watching TV",
+  "lunges": "Do 10 reverse lunges while watching TV",
   
   // Meditation/Meditate -> Meditate for 2 minutes
   "Meditation": "Meditate for 2 minutes",
