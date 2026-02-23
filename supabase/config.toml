@@ -1,13 +1,1 @@
-project_id = "hmswcmvarmqlgckwyjvj"
-
-[functions.send-guide]
-verify_jwt = false
-
-[functions.get-download-counts]
-verify_jwt = false
-
-[functions.youtube-videos]
-verify_jwt = false
-
-[functions.admin-email-stats]
-verify_jwt = false
+project_id = "xvqhkjgowlwfdosxmvba"
