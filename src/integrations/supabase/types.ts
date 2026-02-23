@@ -45,19 +45,34 @@ export type Database = {
         Row: {
           created_at: string | null
           email: string
+          email_sent: boolean | null
+          email_sent_at: string | null
+          first_name: string | null
+          guide_download_url: string | null
           guide_id: string | null
+          guide_title: string | null
           id: string
         }
         Insert: {
           created_at?: string | null
           email: string
+          email_sent?: boolean | null
+          email_sent_at?: string | null
+          first_name?: string | null
+          guide_download_url?: string | null
           guide_id?: string | null
+          guide_title?: string | null
           id?: string
         }
         Update: {
           created_at?: string | null
           email?: string
+          email_sent?: boolean | null
+          email_sent_at?: string | null
+          first_name?: string | null
+          guide_download_url?: string | null
           guide_id?: string | null
+          guide_title?: string | null
           id?: string
         }
         Relationships: [
