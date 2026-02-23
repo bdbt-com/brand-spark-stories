@@ -1,42 +1,39 @@
 
 
-## Podcasts 49 and 51 - YouTube and TikTok Thumbnails
+## Admin Email Stats via Tips Search Bar
 
-Podcast 50 ("Learn This Word: Sarcopenia") is already implemented. Adding the other two from the screenshot.
+When you type "adminstats" in the Tips page search bar, instead of navigating to a separate page, it will reveal an inline email stats dashboard right there on the Tips page -- no new route needed, keeping it completely hidden from regular users.
 
-- **Podcast 49** - "Appreciate the Things Around You" (odd, uses `tikTokBg28`)
-  - TikTok index: 67, YouTube index: 53
-- **Podcast 51** - "Start Your Day With Movement" (odd, uses `tikTokBg28`)
-  - TikTok index: 69, YouTube index: 55
+### What You'll See
 
----
+- **Total subscribers** count
+- **Emails sent vs pending** counts
+- **Breakdown by guide** -- how many signups each guide has received
+- **Subscriber table** -- name, email, guide requested, date, and sent status (newest first)
+- A close button to dismiss the panel
 
 ### Changes
 
-#### 1. `src/components/TikTokTemplate.tsx`
+#### 1. New file: `src/components/AdminEmailStats.tsx`
 
-- Add `67` and `69` to the `templateIndex` union type
-- Add `tikTokBg28` entries in the `backgrounds` array for indices 67 and 69 (filling in between existing 66 and 68)
-- Add JSX title block for index 67:
-  - "BDBT PODCAST 49" (white, smaller)
-  - "APPRECIATE THE THINGS" (white)
-  - "AROUND YOU" (gold `hsl(35, 45%, 75%)`)
-- Add JSX title block for index 69:
-  - "BDBT PODCAST 51" (white, smaller)
-  - "START YOUR DAY" (white)
-  - "WITH MOVEMENT" (gold `hsl(35, 45%, 75%)`)
+- A self-contained component that:
+  - Fetches all rows from `email_subscriptions` via the existing Supabase client
+  - Uses `@tanstack/react-query` for data fetching (consistent with existing patterns)
+  - Displays stat cards (total, sent, pending, per-guide breakdown) using existing Card components
+  - Renders a subscriber table using existing Table components
+  - Includes a close/dismiss button
+  - Shows loading and error states
 
-#### 2. `src/pages/ThumbnailTemplate.tsx`
+#### 2. `src/components/AITipFinder.tsx`
 
-- Add YouTube metadata (ID 53): name "Appreciate the Things Around You", subtitle "Daily Wins Podcast 49"
-- Add YouTube metadata (ID 55): name "Start Your Day With Movement", subtitle "Daily Wins Podcast 51"
-- Add TikTok metadata (ID 67): name "Podcast 49 Appreciate the Things Around You"
-- Add TikTok metadata (ID 69): name "Podcast 51 Start Your Day With Movement"
-- Add YouTube rendering block for ID 53: title split "Appreciate the Things" (white) / "Around You" (gold)
-- Add YouTube rendering block for ID 55: title split "Start Your Day" (white) / "With Movement" (gold)
-- Add TikTok rendering blocks for indices 67 and 69
+- Add a new state: `showAdminStats` (boolean)
+- Add a check in `analyzeAndRecommend()` alongside the existing special keyword checks (thumbnail, daily wins, etc.):
+  - If search input matches "adminstats" (case-insensitive), set `showAdminStats = true` and return early
+- Render `AdminEmailStats` component below the search bar when `showAdminStats` is true, with an onClose callback to hide it
 
 ### Technical Notes
 
-- The backgrounds array currently jumps from index 66 to 68. Index 67 needs to be inserted between them, and index 69 appended after 68.
-- Both podcasts 49 and 51 are odd-numbered, so both use `tikTokBg28` (`tiktok-bg-template-32.png`).
+- No new routes or navigation changes needed -- everything stays inline on the Tips page
+- Uses the same Supabase client already imported elsewhere in the app
+- The `email_subscriptions` table schema includes: `id`, `first_name`, `email`, `guide_title`, `guide_download_url`, `email_sent`, `email_sent_at`, `created_at`
+
