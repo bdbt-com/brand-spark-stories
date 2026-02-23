@@ -15,12 +15,16 @@ const AdminEmailStats = ({ onClose }: AdminEmailStatsProps) => {
   const { data: subscriptions, isLoading, error } = useQuery({
     queryKey: ["admin-email-subscriptions"],
     queryFn: async () => {
-      const { data, error } = await supabase
-        .from("email_subscriptions")
-        .select("*")
-        .order("created_at", { ascending: false });
+      const { data, error } = await supabase.functions.invoke("admin-email-stats");
       if (error) throw error;
-      return data;
+      return data.subscriptions as Array<{
+        id: string;
+        first_name: string;
+        email: string;
+        guide_title: string;
+        email_sent: boolean;
+        created_at: string;
+      }>;
     },
   });
 
