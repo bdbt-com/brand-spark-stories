@@ -18,8 +18,8 @@ serve(async (req) => {
 
     const { data, error } = await supabase
       .from("email_subscriptions")
-      .select("*")
-      .order("created_at", { ascending: false });
+      .select("email, first_name, created_at")
+      .order("created_at", { ascending: true });
 
     if (error) {
       return new Response(JSON.stringify({ error: error.message }), {
@@ -28,12 +28,20 @@ serve(async (req) => {
       });
     }
 
-    const uniqueEmails = new Set(data?.map(r => r.email) || []);
+    // Deduplicate: keep earliest entry per email
+    const emailMap = new Map<string, { email: string; first_name: string | null; created_at: string | null }>();
+    for (const row of data || []) {
+      if (!emailMap.has(row.email)) {
+        emailMap.set(row.email, row);
+      }
+    }
+
+    // Convert to array, sorted newest first
+    const subscribers = Array.from(emailMap.values()).reverse();
 
     return new Response(JSON.stringify({ 
-      subscribers: data, 
-      total: data?.length || 0,
-      uniqueSignups: uniqueEmails.size 
+      subscribers,
+      total: subscribers.length,
     }), {
       status: 200,
       headers: { ...corsHeaders, "Content-Type": "application/json" },
