@@ -1,39 +1,20 @@
 
+## Remove adminstats feature and show email list in chat
 
-## Admin Email Stats via Tips Search Bar
+### Step 1: Clean up the app (remove adminstats feature entirely)
 
-When you type "adminstats" in the Tips page search bar, instead of navigating to a separate page, it will reveal an inline email stats dashboard right there on the Tips page -- no new route needed, keeping it completely hidden from regular users.
+**Delete file:**
+- `src/components/AdminEmailStats.tsx`
+- `supabase/functions/admin-email-stats/index.ts`
 
-### What You'll See
+**Edit `src/components/AITipFinder.tsx`:**
+- Remove the `import AdminEmailStats` line
+- Remove the `showAdminStats` state
+- Remove the `if (searchLower === 'adminstats')` block in `analyzeAndRecommend()`
+- Remove the `{showAdminStats && <AdminEmailStats ... />}` render block
 
-- **Total subscribers** count
-- **Emails sent vs pending** counts
-- **Breakdown by guide** -- how many signups each guide has received
-- **Subscriber table** -- name, email, guide requested, date, and sent status (newest first)
-- A close button to dismiss the panel
+This fully reverts your app to how it was before the adminstats feature was added.
 
-### Changes
+### Step 2: Show your email list directly in chat
 
-#### 1. New file: `src/components/AdminEmailStats.tsx`
-
-- A self-contained component that:
-  - Fetches all rows from `email_subscriptions` via the existing Supabase client
-  - Uses `@tanstack/react-query` for data fetching (consistent with existing patterns)
-  - Displays stat cards (total, sent, pending, per-guide breakdown) using existing Card components
-  - Renders a subscriber table using existing Table components
-  - Includes a close/dismiss button
-  - Shows loading and error states
-
-#### 2. `src/components/AITipFinder.tsx`
-
-- Add a new state: `showAdminStats` (boolean)
-- Add a check in `analyzeAndRecommend()` alongside the existing special keyword checks (thumbnail, daily wins, etc.):
-  - If search input matches "adminstats" (case-insensitive), set `showAdminStats = true` and return early
-- Render `AdminEmailStats` component below the search bar when `showAdminStats` is true, with an onClose callback to hide it
-
-### Technical Notes
-
-- No new routes or navigation changes needed -- everything stays inline on the Tips page
-- Uses the same Supabase client already imported elsewhere in the app
-- The `email_subscriptions` table schema includes: `id`, `first_name`, `email`, `guide_title`, `guide_download_url`, `email_sent`, `email_sent_at`, `created_at`
-
+After cleanup, I'll query the `email_subscriptions` table via the edge function and display the results (subscriber list + unique signup count) right here in the conversation for you to review.
