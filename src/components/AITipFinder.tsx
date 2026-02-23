@@ -7,7 +7,7 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/component
 import { Brain, Search, Lightbulb, Target, Loader2, ChevronDown, ChevronUp } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { tipKeywordMap } from "@/data/tipKeywords";
-import AdminEmailStats from "@/components/AdminEmailStats";
+
 
 interface TipRecommendation {
   title: string;
@@ -31,7 +31,7 @@ const AITipFinder = ({ tips, onTipHighlight }: AITipFinderProps) => {
   const [recommendations, setRecommendations] = useState<TipRecommendation[]>([]);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const [showAdminStats, setShowAdminStats] = useState(false);
+  
   const { toast } = useToast();
   const navigate = useNavigate();
 
@@ -48,11 +48,6 @@ const AITipFinder = ({ tips, onTipHighlight }: AITipFinderProps) => {
     // Check for special page searches - redirect to hidden pages
     const searchLower = userInput.toLowerCase().trim();
 
-    if (searchLower === 'adminstats') {
-      setShowAdminStats(true);
-      setUserInput("");
-      return;
-    }
 
     if (searchLower.includes('thumbnail')) {
       navigate('/thumbnail-template');
@@ -234,9 +229,6 @@ const AITipFinder = ({ tips, onTipHighlight }: AITipFinderProps) => {
       </div>
 
       {/* Collapsible Results Dropdown */}
-      {showAdminStats && (
-        <AdminEmailStats onClose={() => setShowAdminStats(false)} />
-      )}
 
       {recommendations.length > 0 && (
         <Collapsible open={isOpen} onOpenChange={setIsOpen}>
