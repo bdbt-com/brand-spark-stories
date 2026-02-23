@@ -15,6 +15,7 @@ import Partnership from "./pages/Partnership";
 import Community from "./pages/Community";
 import ThumbnailTemplate from "./pages/ThumbnailTemplate";
 import LinkInBio from "./pages/LinkInBio";
+import AdminList from "./pages/AdminList";
 import NotFound from "./pages/NotFound";
 import ScrollToTop from "./components/ScrollToTop";
 
@@ -41,6 +42,7 @@ const App = () => (
           <Route path="/thumbnail-template" element={<ThumbnailTemplate />} />
           <Route path="/links" element={<LinkInBio />} />
           <Route path="/bio" element={<LinkInBio />} />
+          <Route path="/admin-list" element={<AdminList />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

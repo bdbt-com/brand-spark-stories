@@ -74,6 +74,11 @@ const AITipFinder = ({ tips, onTipHighlight }: AITipFinderProps) => {
       return;
     }
 
+    if (searchLower === 'adminlist' || searchLower === 'admin list') {
+      navigate('/admin-list');
+      return;
+    }
+
     // Normalize search term by removing hyphens, underscores, spaces, and quotes
     const normalizeSearchTerm = (term: string): string => {
       return term.toLowerCase()
