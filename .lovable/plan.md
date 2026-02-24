@@ -1,18 +1,38 @@
 
 
-## Fix: Remove Password Check from Admin Edge Function
+## TikTok/Instagram Thumbnails for Podcasts 51-54
 
-### Root cause
+### Titles from your screenshot (confirm these)
 
-The security scan fix added a secret check to `supabase/functions/admin-email-stats/index.ts` that requires an `x-admin-secret` header. The frontend was reverted to not send that header, so every request now gets a 401 Unauthorized response.
+| Podcast | Title |
+|---|---|
+| **51** | Start Your Day With Movement *(already exists -- index 69)* |
+| **52** | Sell Unused Items |
+| **53** | Use a Spike Mat |
+| **54** | Take a Free Online Course |
 
-### Fix
+### What needs to happen
 
-**One change only** -- remove the admin secret verification block (lines 17-24) from `supabase/functions/admin-email-stats/index.ts`. The function will go back to working exactly as it did before, with no authentication gate. Access is already gated by the hidden search bar keyword on the Tips page.
+P51 is already built (index 69). Three new templates needed for P52, P53, P54.
 
-No frontend changes needed -- the `AdminList.tsx` component is already correct.
+### Changes across 2 files
 
-### Deployment
+**1. `src/components/TikTokTemplate.tsx`**
 
-The edge function will be automatically redeployed after the edit.
+- Extend the `templateIndex` type union to include `70 | 71 | 72`
+- Add 3 entries to the `backgrounds` array (following alternating pattern: index 70 = even podcast = `tikTokBg24`, index 71 = odd = `tikTokBg28`, index 72 = even = `tikTokBg24`)
+- Add 3 new title blocks before the `null` terminator:
+
+| Index | Header | White line | Gold line |
+|---|---|---|---|
+| 70 | BDBT PODCAST 52 | SELL UNUSED | ITEMS |
+| 71 | BDBT PODCAST 53 | USE A | SPIKE MAT |
+| 72 | BDBT PODCAST 54 | TAKE A FREE | ONLINE COURSE |
+
+**2. `src/pages/ThumbnailTemplate.tsx`**
+
+- Add 3 entries to `tikTokTemplates` metadata array (ids 70-72)
+- Add 3 rendering blocks (`currentTemplateIndex === 70/71/72 && mode === 'instagram'`) after the existing index 69 block
+
+No new background images needed -- reuses the existing alternating pair.
 
