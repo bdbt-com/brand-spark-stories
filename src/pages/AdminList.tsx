@@ -10,36 +10,56 @@ interface Subscriber {
 
 const AdminList = () => {
   const [subscribers, setSubscribers] = useState<Subscriber[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [secret, setSecret] = useState("");
+  const [authenticated, setAuthenticated] = useState(false);
 
-  useEffect(() => {
-    const fetchSubscribers = async () => {
-      try {
-        const { data, error } = await supabase.functions.invoke("admin-email-stats");
-        if (error) throw error;
-        setSubscribers(data.subscribers || []);
-      } catch (err: any) {
-        setError(err.message || "Failed to load subscribers");
-      } finally {
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+    try {
+      const { data, error } = await supabase.functions.invoke("admin-email-stats", {
+        headers: { "x-admin-secret": secret },
+      });
+      if (error) throw error;
+      if (data?.error === "Unauthorized") {
+        setError("Invalid admin secret");
         setLoading(false);
+        return;
       }
-    };
-    fetchSubscribers();
-  }, []);
+      setSubscribers(data.subscribers || []);
+      setAuthenticated(true);
+    } catch (err: any) {
+      setError(err.message || "Failed to authenticate");
+    } finally {
+      setLoading(false);
+    }
+  };
 
-  if (loading) {
+  if (!authenticated) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <Loader2 className="w-8 h-8 animate-spin text-primary" />
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <p className="text-destructive">{error}</p>
+      <div className="min-h-screen bg-background flex items-center justify-center px-4">
+        <form onSubmit={handleLogin} className="w-full max-w-sm space-y-4">
+          <h1 className="text-xl font-bold text-foreground text-center">Admin Access</h1>
+          <input
+            type="password"
+            value={secret}
+            onChange={(e) => setSecret(e.target.value)}
+            placeholder="Enter admin secret"
+            className="w-full px-4 py-2 rounded-lg border border-border bg-background text-foreground"
+            autoFocus
+          />
+          {error && <p className="text-destructive text-sm">{error}</p>}
+          <button
+            type="submit"
+            disabled={loading || !secret}
+            className="w-full px-4 py-2 rounded-lg bg-primary text-primary-foreground font-medium disabled:opacity-50"
+          >
+            {loading ? <Loader2 className="w-4 h-4 animate-spin mx-auto" /> : "Access"}
+          </button>
+        </form>
       </div>
     );
   }
