@@ -486,7 +486,10 @@ const ThumbnailTemplate = () => {
     { id: 66, name: "Podcast 48 Connect More with Animals", title: "Connect More with Animals", subtitle: "", image: "" },
     { id: 67, name: "Podcast 49 Appreciate the Things Around You", title: "Appreciate the Things Around You", subtitle: "", image: "" },
     { id: 68, name: "Podcast 50 Learn This Word Sarcopenia", title: "Learn This Word: Sarcopenia", subtitle: "", image: "" },
-    { id: 69, name: "Podcast 51 Start Your Day With Movement", title: "Start Your Day With Movement", subtitle: "", image: "" }
+    { id: 69, name: "Podcast 51 Start Your Day With Movement", title: "Start Your Day With Movement", subtitle: "", image: "" },
+    { id: 70, name: "Podcast 52 Sell Unused Items", title: "Sell Unused Items", subtitle: "", image: "" },
+    { id: 71, name: "Podcast 53 Use a Spike Mat", title: "Use a Spike Mat", subtitle: "", image: "" },
+    { id: 72, name: "Podcast 54 Take a Free Online Course", title: "Take a Free Online Course", subtitle: "", image: "" }
   ];
 
   const phrases = [
@@ -1259,6 +1262,24 @@ const ThumbnailTemplate = () => {
         {currentTemplateIndex === 69 && mode === 'instagram' && (
           <div className="relative">
             <TikTokTemplate templateIndex={69} />
+          </div>
+        )}
+        {/* Template 70 - Podcast 52 Sell Unused Items */}
+        {currentTemplateIndex === 70 && mode === 'instagram' && (
+          <div className="relative">
+            <TikTokTemplate templateIndex={70} />
+          </div>
+        )}
+        {/* Template 71 - Podcast 53 Use a Spike Mat */}
+        {currentTemplateIndex === 71 && mode === 'instagram' && (
+          <div className="relative">
+            <TikTokTemplate templateIndex={71} />
+          </div>
+        )}
+        {/* Template 72 - Podcast 54 Take a Free Online Course */}
+        {currentTemplateIndex === 72 && mode === 'instagram' && (
+          <div className="relative">
+            <TikTokTemplate templateIndex={72} />
           </div>
         )}
         {/* Template 5 - Healthy Snacks */}
