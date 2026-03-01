@@ -1,32 +1,32 @@
 
 
-## Add Podcast 55 Thumbnails -- "Set a Daily Water Intake Goal"
+## Add Podcast 56 Thumbnails -- "Limit Your Screentime Before Bed"
 
-Both YouTube (16:9) and TikTok/Instagram (9:16) templates needed.
+Both YouTube (16:9) and TikTok/Instagram (9:16) templates.
 
 ### 1. `src/pages/ThumbnailTemplate.tsx`
 
-- **YouTube `templates` array**: Add entry after id 58:
-  - `{ id: 59, name: "Set a Daily Water Intake Goal", title: "Set a Daily Water Intake Goal", subtitle: "Daily Wins Podcast 55", image: "..." }`
+- **YouTube `templates` array**: Add after id 59:
+  - `{ id: 60, name: "Limit Your Screentime Before Bed", title: "Limit Your Screentime Before Bed", subtitle: "Daily Wins Podcast 56", image: "..." }`
 
-- **`tikTokTemplates` array**: Add entry after id 72:
-  - `{ id: 73, name: "Podcast 55 Set a Daily Water Intake Goal", title: "Set a Daily Water Intake Goal", ... }`
+- **`tikTokTemplates` array**: Add after id 73:
+  - `{ id: 74, name: "Podcast 56 Limit Your Screentime Before Bed", title: "Limit Your Screentime Before Bed", ... }`
 
-- **YouTube rendering block** (after index 58 block, before closing `</div>`):
-  - Index 59, 1280x720 layout matching P54 pattern
-  - White text: "Set a Daily Water" / Gold text: "Intake Goal"
-  - Subtitle: "Daily Wins Podcast 55"
+- **YouTube rendering block** (after index 59 block):
+  - Index 60, 1280x720 standard layout
+  - White text: "Limit Your Screentime" / Gold text: "Before Bed"
+  - Subtitle: "Daily Wins Podcast 56"
 
-- **Instagram rendering block** (after index 72 block):
-  - `currentTemplateIndex === 73 && mode === 'instagram'`
-  - Renders `<TikTokTemplate templateIndex={73} />`
+- **Instagram rendering block** (after index 73 block):
+  - `currentTemplateIndex === 74 && mode === 'instagram'`
+  - Renders `<TikTokTemplate templateIndex={74} />`
 
 ### 2. `src/components/TikTokTemplate.tsx`
 
-- **Type union**: Add `| 73`
-- **Backgrounds array**: Append `tikTokBg28` (odd podcast = tikTokBg28 per alternating pattern)
-- **Title block** (after index 72 block):
-  - Header: `BDBT PODCAST 55`
-  - White line: `SET A DAILY WATER`
-  - Gold line: `INTAKE GOAL`
+- **Type union**: Add `| 74`
+- **Backgrounds array**: Append `tikTokBg24` (even podcast = tikTokBg24 per alternating pattern)
+- **Title block** (after index 73 block):
+  - Header: `BDBT PODCAST 56`
+  - White line: `LIMIT YOUR SCREENTIME`
+  - Gold line: `BEFORE BED`
 
