@@ -1,32 +1,32 @@
 
 
-## Add Podcast 56 Thumbnails -- "Limit Your Screentime Before Bed"
+## Add Podcast 57 Thumbnails -- "Learn This Word: Osteoporosis"
 
 Both YouTube (16:9) and TikTok/Instagram (9:16) templates.
 
 ### 1. `src/pages/ThumbnailTemplate.tsx`
 
-- **YouTube `templates` array**: Add after id 59:
-  - `{ id: 60, name: "Limit Your Screentime Before Bed", title: "Limit Your Screentime Before Bed", subtitle: "Daily Wins Podcast 56", image: "..." }`
+- **YouTube `templates` array**: Add after id 60:
+  - `{ id: 61, name: "Learn This Word: Osteoporosis", title: "Learn This Word: Osteoporosis", subtitle: "Daily Wins Podcast 57", image: "..." }`
 
-- **`tikTokTemplates` array**: Add after id 73:
-  - `{ id: 74, name: "Podcast 56 Limit Your Screentime Before Bed", title: "Limit Your Screentime Before Bed", ... }`
+- **`tikTokTemplates` array**: Add after id 74:
+  - `{ id: 75, name: "Podcast 57 Learn This Word: Osteoporosis", title: "Learn This Word: Osteoporosis", ... }`
 
-- **YouTube rendering block** (after index 59 block):
-  - Index 60, 1280x720 standard layout
-  - White text: "Limit Your Screentime" / Gold text: "Before Bed"
-  - Subtitle: "Daily Wins Podcast 56"
+- **YouTube rendering block** (after index 60 block):
+  - Index 61, 1280x720 standard layout
+  - White text: "Learn This Word:" / Gold text: "Osteoporosis"
+  - Subtitle: "Daily Wins Podcast 57"
 
-- **Instagram rendering block** (after index 73 block):
-  - `currentTemplateIndex === 74 && mode === 'instagram'`
-  - Renders `<TikTokTemplate templateIndex={74} />`
+- **Instagram rendering block** (after index 74 block):
+  - `currentTemplateIndex === 75 && mode === 'instagram'`
+  - Renders `<TikTokTemplate templateIndex={75} />`
 
 ### 2. `src/components/TikTokTemplate.tsx`
 
-- **Type union**: Add `| 74`
-- **Backgrounds array**: Append `tikTokBg24` (even podcast = tikTokBg24 per alternating pattern)
-- **Title block** (after index 73 block):
-  - Header: `BDBT PODCAST 56`
-  - White line: `LIMIT YOUR SCREENTIME`
-  - Gold line: `BEFORE BED`
+- **Type union**: Add `| 75`
+- **Backgrounds array**: Append `tikTokBg28` (odd podcast = tikTokBg28 per alternating pattern)
+- **Title block** (after index 74 block):
+  - Header: `BDBT PODCAST 57`
+  - White line: `LEARN THIS WORD:`
+  - Gold line: `OSTEOPOROSIS`
 
