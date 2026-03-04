@@ -39,11 +39,14 @@ Deno.serve(async (req) => {
       });
     }
 
-    // Insert mode: { page_path, session_id }
+    // Insert mode: { page_path, session_id, referrer? }
     if (body.page_path && body.session_id) {
+      const insertData: any = { page_path: body.page_path, session_id: body.session_id };
+      if (body.referrer) insertData.referrer = body.referrer;
+      
       const { data, error } = await supabase
         .from("page_views")
-        .insert({ page_path: body.page_path, session_id: body.session_id })
+        .insert(insertData)
         .select("id")
         .single();
 

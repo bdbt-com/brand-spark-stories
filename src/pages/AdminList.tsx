@@ -28,6 +28,7 @@ const AdminList = () => {
   const [downloadCounts, setDownloadCounts] = useState<[string, number][]>([]);
   const [analytics, setAnalytics] = useState<Record<string, AnalyticsPeriod>>({});
   const [bioClicks, setBioClicks] = useState(0);
+  const [bioReferrers, setBioReferrers] = useState<Record<string, number>>({});
   const [todaySubscribers, setTodaySubscribers] = useState(0);
 
   const fetchVideoCounts = useCallback(async () => {
@@ -54,6 +55,7 @@ const AdminList = () => {
       const { data } = await supabase.functions.invoke("get-page-analytics");
       if (data?.analytics) setAnalytics(data.analytics);
       if (data?.bio_clicks !== undefined) setBioClicks(data.bio_clicks);
+      if (data?.bio_referrers) setBioReferrers(data.bio_referrers);
     } catch {}
   }, []);
 
@@ -123,6 +125,16 @@ const AdminList = () => {
                       <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">Visitors</p>
                       <p className="text-3xl font-bold text-primary">{today?.visitors || 0}</p>
                       <p className="text-xs text-muted-foreground mt-1">/bio clicks: {bioClicks}</p>
+                      {Object.keys(bioReferrers).length > 0 && (
+                        <p className="text-[10px] text-muted-foreground mt-0.5">
+                          {[
+                            bioReferrers.instagram && `IG: ${bioReferrers.instagram}`,
+                            bioReferrers.tiktok && `TT: ${bioReferrers.tiktok}`,
+                            bioReferrers.youtube && `YT: ${bioReferrers.youtube}`,
+                            bioReferrers.direct && `Direct: ${bioReferrers.direct}`,
+                          ].filter(Boolean).join(" · ")}
+                        </p>
+                      )}
                     </CardContent>
                   </Card>
                   <Card className="border-primary/30 bg-primary/5">

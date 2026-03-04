@@ -156,6 +156,7 @@ export type Database = {
           entered_at: string | null
           id: string
           page_path: string
+          referrer: string | null
           session_id: string
         }
         Insert: {
@@ -163,6 +164,7 @@ export type Database = {
           entered_at?: string | null
           id?: string
           page_path: string
+          referrer?: string | null
           session_id: string
         }
         Update: {
@@ -170,6 +172,7 @@ export type Database = {
           entered_at?: string | null
           id?: string
           page_path?: string
+          referrer?: string | null
           session_id?: string
         }
         Relationships: []

@@ -92,7 +92,20 @@ Deno.serve(async (req) => {
       .in("page_path", ["/bio", "/links"])
       .gte("entered_at", periods["today"]);
 
-    return new Response(JSON.stringify({ analytics: results, bio_clicks: bioClicksCount || 0 }), {
+    // Get referrer breakdown for /bio and /links today
+    const { data: bioRows } = await supabase
+      .from("page_views")
+      .select("referrer")
+      .in("page_path", ["/bio", "/links"])
+      .gte("entered_at", periods["today"]);
+
+    const bioReferrers: Record<string, number> = {};
+    for (const row of bioRows || []) {
+      const key = row.referrer || "direct";
+      bioReferrers[key] = (bioReferrers[key] || 0) + 1;
+    }
+
+    return new Response(JSON.stringify({ analytics: results, bio_clicks: bioClicksCount || 0, bio_referrers: bioReferrers }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
   } catch (err) {

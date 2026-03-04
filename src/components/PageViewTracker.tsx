@@ -33,9 +33,13 @@ const PageViewTracker = () => {
 
     enteredAt.current = Date.now();
 
+    // Capture ?ref= query param for referral tracking
+    const searchParams = new URLSearchParams(window.location.search);
+    const referrer = searchParams.get("ref") || null;
+
     try {
       const { data } = await supabase.functions.invoke("track-page-view", {
-        body: { page_path: path, session_id: sessionId.current },
+        body: { page_path: path, session_id: sessionId.current, referrer },
       });
 
       currentRowId.current = data?.id || null;
