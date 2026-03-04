@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { Play, BookOpen } from "lucide-react";
+import { Play } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 
 const podcastEpisodes = [
@@ -63,32 +63,21 @@ const links = [
     title: "Free Foundation Blueprint",
     href: "/blueprint",
     external: false,
-    icon: <BookOpen className="w-6 h-6 text-white" />,
-    iconBg: "bg-emerald-500",
+    thumbnail: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png",
   },
   {
     title: "BDBT Daily Podcast",
     subtitle: "(YouTube)",
     href: "https://www.youtube.com/@BigDaddysBigTips",
     external: true,
-    icon: (
-      <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
-        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-      </svg>
-    ),
-    iconBg: "bg-red-600",
+    thumbnail: "/lovable-uploads/recording-setup-new.jpg",
   },
   {
     title: "BDBT Daily Podcast",
     subtitle: "(Spotify)",
     href: "https://open.spotify.com/show/7AryqWOzeVCOC7WQ9wcBlk?si=2ede4b3121ea46c1&nd=1&dlsi=f03fd58680794b34",
     external: true,
-    icon: (
-      <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
-        <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
-      </svg>
-    ),
-    iconBg: "bg-green-500",
+    thumbnail: "/lovable-uploads/75853635-930c-4fa5-9403-d0b58c6db83b.png",
   },
 ];
 
@@ -112,7 +101,7 @@ const LinkInBio = () => {
       <div className="fixed inset-0 bg-gradient-to-b from-[#36455A] via-[#2d3a4d] to-[#1e2836] -z-10" />
       
       {/* Main content container */}
-      <div className="w-full max-w-md flex flex-col items-center animate-fade-in">
+      <div className="w-full max-w-md md:max-w-4xl flex flex-col items-center animate-fade-in">
         {/* Profile Photo */}
         <div className="w-24 h-24 rounded-full overflow-hidden border-2 border-white/20 mb-4 relative">
           <img 
@@ -155,7 +144,7 @@ const LinkInBio = () => {
         </div>
         
         {/* Links */}
-        <div className="w-full space-y-3">
+        <div className="w-full max-w-md space-y-3">
           {links.map((link, index) => {
             const cardContent = (
               <div 
@@ -165,12 +154,16 @@ const LinkInBio = () => {
                          flex items-center overflow-hidden"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
-                {link.icon && (
-                  <div className={`w-14 h-14 flex-shrink-0 flex items-center justify-center rounded-l-xl ${link.iconBg}`}>
-                    {link.icon}
+                {link.thumbnail && (
+                  <div className="w-16 h-16 flex-shrink-0 overflow-hidden rounded-l-xl">
+                    <img 
+                      src={link.thumbnail} 
+                      alt={link.title}
+                      className="w-full h-full object-cover"
+                    />
                   </div>
                 )}
-                <div className={`flex-1 py-4 ${link.icon ? 'px-4' : 'px-5 text-center'}`}>
+                <div className={`flex-1 py-4 ${link.thumbnail ? 'px-4' : 'px-5 text-center'}`}>
                   <span className="text-white font-medium text-sm block">
                     {link.title}
                   </span>
@@ -214,7 +207,7 @@ const LinkInBio = () => {
         {/* Podcast Episodes — Home page style */}
         <div className="w-full mt-8">
           <p className="text-white/50 text-xs uppercase tracking-wider text-center mb-4">🎙 Top Episodes</p>
-          <div className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {podcastEpisodes.map((episode, index) => (
               <div key={episode.videoId} className="group rounded-2xl overflow-hidden shadow-lg bg-black/40 backdrop-blur-sm border border-white/10">
                 {playingVideo === index ? (
