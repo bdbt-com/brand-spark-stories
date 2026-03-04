@@ -1,13 +1,26 @@
 
 
-## No Changes Needed
+## Why the Bio Referrer Cards Show 0
 
-The featured video ("The Dangers of Screen-time Before Bed") already has `order-first md:order-none` applied on line 214 of `LinkInBio.tsx`. This means:
+The tracking system works by reading a `?ref=` query parameter from the URL. Currently, **all 30 /bio visits have no referrer** — they're all `null`, meaning the links shared on your social media profiles don't include the `?ref=` parameter.
 
-- **Mobile**: It renders first (top of the list), regardless of its position in the data array
-- **Desktop**: It stays in its natural position (center column) with the scale-up effect
+### The Fix (No Code Change Needed)
 
-This is already working correctly. If you're not seeing it at the top on mobile, try refreshing the preview or checking in a narrower viewport. The Screen-time video should appear above "Why 70% of People Are Dehydrated" on mobile screens.
+Update the URLs in your social media bios to include the tracking parameter:
 
-If something looks off, please share a screenshot of what you're seeing on mobile so I can diagnose the issue.
+- **Instagram bio**: `https://bdbt.lovable.app/bio?ref=instagram`
+- **TikTok bio**: `https://bdbt.lovable.app/bio?ref=tiktok`
+- **YouTube about/description**: `https://bdbt.lovable.app/bio?ref=youtube`
+
+Right now you're probably using `https://bdbt.lovable.app/bio` everywhere, so the system can't tell which platform the visitor came from.
+
+### Code Change: Show "Direct" count too
+
+In `src/pages/AdminList.tsx`, add a 4th card for "Direct" visits (those without a `?ref=` param) so the 30 existing visits aren't invisible:
+
+- Add `{ label: "Direct", value: bioReferrers.direct || 0 }` to the Bio Link Clicks cards array
+- Change grid from `grid-cols-3` to `grid-cols-4` (or `grid-cols-2 md:grid-cols-4`)
+
+### Files Changed
+- `src/pages/AdminList.tsx` — add Direct card, adjust grid columns
 
