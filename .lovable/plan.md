@@ -1,29 +1,27 @@
 
 
-## Use Lovable's Historical Analytics Data
+## Fix: Center the Featured Podcast Video
 
-The custom `page_views` tracking only started today, so the admin dashboard shows zeros. The user wants the real historical data from Lovable's built-in analytics reflected in the dashboard.
+The featured video is the **first item** in the `podcastEpisodes` array, so on desktop's 3-column grid it renders in the **left** column instead of the center.
 
-### Approach: Add Historical Baselines to the Edge Function
+### Fix
 
-Since we can't backfill thousands of rows into `page_views`, the simplest approach is to add baseline constants to the `get-page-analytics` edge function. These represent the data recorded by Lovable analytics **before** custom tracking began (March 4, 2026). The live-tracked data from `page_views` will be added on top.
+**`src/pages/Home.tsx`** -- Reorder the `podcastEpisodes` array so the featured video is the **second** (middle) item:
 
-From the Lovable analytics data provided:
-- **Since Launch** (Dec 28): 4,684 visitors, 241s avg duration
-- **Last 30 days**: 3,100 visitors, 299s avg duration  
-- **Last 14 days**: 1,300 visitors, 351s avg duration
-- **Last 7 days**: 528 visitors, 284s avg duration
+```ts
+const podcastEpisodes = [
+  { videoId: "ERXXO8mG5IY", title: "Why 70% of People Are Dehydrated & Don't Know It", views: "8.4K views" },
+  { videoId: "OjwSKAXveN8", title: "The Dangers of Screen-time Before Bed", views: "12.8K views", featured: true },
+  { videoId: "THIRD_ID", title: "...", views: "..." },
+];
+```
 
-### Changes
+On **mobile** (single column) the featured video will appear second, which is fine -- or we can add an `order-first` class on mobile so it always appears at the top. On **tablet** at `md` breakpoint, the 3-column grid kicks in and the featured item sits in the center with `scale-110`.
 
-**`supabase/functions/get-page-analytics/index.ts`**:
-- Add a `TRACKING_START` date constant (2026-03-04)
-- Add baseline data per period representing pre-tracking Lovable analytics
-- For each period, combine the baseline visitors/duration with the live `page_views` data
-- Use weighted average for duration (baseline weighted by baseline visitor count, live weighted by live count)
+### Recommendation for mobile ordering
 
-This way the numbers match reality immediately, and going forward the live tracking adds to them naturally. As time passes and all data falls within the custom-tracking era, the baselines for shorter periods (7d, 14d) will naturally become irrelevant.
+Add `order-first md:order-none` to the featured video's wrapper so it appears first on mobile but stays in the natural (center) position on desktop/tablet.
 
-### Files Changed
-- `supabase/functions/get-page-analytics/index.ts` -- add historical baselines
+### Files changed
+- `src/pages/Home.tsx` -- reorder array + add mobile ordering class
 
