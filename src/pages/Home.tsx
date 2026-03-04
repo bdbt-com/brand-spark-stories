@@ -12,8 +12,8 @@ import { supabase } from "@/integrations/supabase/client";
 
 // YouTube podcast episodes
 const podcastEpisodes = [
-  { videoId: "OjwSKAXveN8", title: "The Dangers of Screen-time Before Bed", views: "12.8K views", featured: true },
   { videoId: "ERXXO8mG5IY", title: "Why 70% of People Are Dehydrated & Don't Know It", views: "8.4K views" },
+  { videoId: "OjwSKAXveN8", title: "The Dangers of Screen-time Before Bed", views: "12.8K views", featured: true },
   { videoId: "TY1nkJsQtyw", title: "BDBT Explained", views: "5.7K views" },
 ];
 
@@ -224,7 +224,7 @@ const Home = () => {
             {podcastEpisodes.map((episode, index) => (
               <div 
                 key={episode.videoId} 
-                className={`group transition-all duration-300 ${episode.featured ? 'md:scale-110 md:z-10' : ''}`}
+                className={`group transition-all duration-300 ${episode.featured ? 'order-first md:order-none md:scale-110 md:z-10' : ''}`}
               >
                 <div className="rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow bg-card">
                   {playingVideo === index ? (
