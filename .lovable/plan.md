@@ -1,33 +1,18 @@
 
 
-## Fix: Admin List Analytics by Bypassing RLS with Edge Functions
+## Plan: Fix Today's Counter with Correct Baseline
 
-### Problem
-The `page_views` RLS INSERT policy is still **RESTRICTIVE** despite two migration attempts. This means the `PageViewTracker` component (which uses the anon key client-side) silently fails on every insert. Zero data ever reaches the table, so the admin dashboard always shows 0.
+The `get-page-analytics` edge function currently shows "today" with no baseline (only live tracked data: 3 visitors). The real stats from Lovable analytics show 76 visitors and 2m 12s (132s) avg duration today.
 
-### Root Cause
-The migrations to recreate the policies as permissive have not taken effect. The RLS info still shows `Permissive: No` on both INSERT and UPDATE policies.
+### Change
 
-### Solution: Bypass RLS entirely with edge functions
+**`supabase/functions/get-page-analytics/index.ts`** — Add a today baseline for March 4:
+- Add `"today"` to the BASELINES object: `{ visitors: 76, avg_duration: 132 }`
+- This means the "today" period will show 76 + live tracked visitors, and a weighted average duration
+- Tomorrow (March 5+), the today baseline won't match the current date, so it resets to 0 automatically
 
-Instead of fighting the RLS policies, route all page view tracking through an edge function that uses the **service role key** (which bypasses RLS).
+To make the baseline date-aware, add a check: only apply today's baseline when the current UTC date is `"2026-03-04"`. On any other day, today starts from 0 (pure live data).
 
-**1. Create `track-page-view` edge function**
-- Accepts `{ page_path, session_id }` for inserts and `{ id, duration_seconds }` for updates
-- Uses `SUPABASE_SERVICE_ROLE_KEY` to insert/update `page_views`, bypassing RLS completely
-- Returns the inserted row ID
-
-**2. Update `PageViewTracker.tsx`**
-- Replace direct `supabase.from("page_views").insert(...)` with `supabase.functions.invoke("track-page-view", ...)`
-- Replace the raw `fetch` PATCH call for duration updates with the same edge function (passing update mode)
-- Keep the same session ID and duration tracking logic
-
-**3. No changes needed to:**
-- `get-page-analytics` edge function (already uses service role key for reads)
-- `AdminList.tsx` (already displays the data correctly)
-- Database schema or RLS policies
-
-### Files changed
-- `supabase/functions/track-page-view/index.ts` (new)
-- `src/components/PageViewTracker.tsx` (modified)
+### Files
+- `supabase/functions/get-page-analytics/index.ts` — add today baseline with date guard
 
