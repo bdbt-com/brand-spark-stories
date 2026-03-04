@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CheckCircle, Target, Play } from "lucide-react";
@@ -16,6 +16,18 @@ const podcastEpisodes = [
 const Blueprint = () => {
   const [showEmailForm, setShowEmailForm] = useState(true);
   const [playingVideo, setPlayingVideo] = useState<string | null>(null);
+
+  // Auto-redirect to YouTube after 4 seconds of playing
+  useEffect(() => {
+    if (playingVideo === null) return;
+    const episode = podcastEpisodes.find(e => e.videoId === playingVideo);
+    if (!episode) return;
+    const timer = setTimeout(() => {
+      window.open(`https://www.youtube.com/watch?v=${episode.videoId}`, '_blank');
+      setPlayingVideo(null);
+    }, 4000);
+    return () => clearTimeout(timer);
+  }, [playingVideo]);
   const guideUrl = getGuideUrl("BDBT Foundation Blueprint");
   const { data: downloadCounts } = useDownloadCounts();
   const blueprintCount = downloadCounts?.["BDBT Foundation Blueprint"] || 0;
@@ -128,10 +140,10 @@ const Blueprint = () => {
                       </div>
                     </div>
                   )}
-                  <div className="p-4">
+                  <a href={`https://www.youtube.com/watch?v=${episode.videoId}`} target="_blank" rel="noopener noreferrer" className="block p-4 hover:bg-muted/50 transition-colors">
                     <h3 className="font-semibold text-sm text-foreground line-clamp-2">{episode.title}</h3>
                     <p className="text-xs text-muted-foreground mt-1">{episode.views}</p>
-                  </div>
+                  </a>
                 </div>
               ))}
             </div>
