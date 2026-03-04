@@ -73,6 +73,7 @@ const Home = () => {
     return () => clearTimeout(timer);
   }, [playingVideo]);
   const howRef = useRef<HTMLDivElement>(null);
+  const podcastRef = useRef<HTMLDivElement>(null);
   const howWorkContentRef = useRef<HTMLDivElement>(null);
   const howContentRef = useRef<HTMLDivElement>(null);
   const handleScrollToHow = () => {
@@ -207,7 +208,7 @@ const Home = () => {
           </div>
         </div>
         {/* Bottom Chevron Scroll to How BDBT Works */}
-        <button aria-label="Scroll to How BDBT Works" onClick={handleScrollToHow} className="group absolute z-10 bottom-16 left-1/2 -translate-x-1/2">
+        <button aria-label="Scroll to Top Podcast Episodes" onClick={() => podcastRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })} className="group absolute z-10 bottom-16 left-1/2 -translate-x-1/2">
           <div className="relative w-14 h-14">
             <div className="relative w-14 h-14 rounded-full bg-white/15 backdrop-blur border border-white/30 flex items-center justify-center">
               <ChevronDown className="w-6 h-6 text-white transition-transform group-hover:translate-y-0.5" />
@@ -217,7 +218,7 @@ const Home = () => {
       </section>
 
       {/* Top Podcast Episodes Section */}
-      <section className="py-10 md:py-24 bg-gradient-to-b from-primary/5 to-background">
+      <section ref={podcastRef} className="py-10 md:py-24 bg-gradient-to-b from-primary/5 to-background">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
