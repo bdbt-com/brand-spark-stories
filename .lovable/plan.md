@@ -1,24 +1,26 @@
 
 
-## Replace TikTok Reels with YouTube Podcast Episodes
+## Blueprint Page Layout Restructure + YouTube Podcast Section
 
-Yes — the plan is to **replace** the current TikTok reels section entirely with 3 YouTube podcast episodes.
+### Changes to `src/pages/Blueprint.tsx`
 
-### What changes
+**1. Side-by-side layout for email form + blueprint info card**
+- Change the container from `max-w-2xl` to `max-w-5xl`
+- Place the email capture card (left) and the blueprint info card (right) in a 2-column grid (`grid md:grid-cols-2 gap-8`)
+- Remove the `mb-16` spacing between them since they'll be side-by-side
+- On mobile, they stack vertically
 
-**File: `src/pages/Home.tsx`** (lines 200-240)
+**2. Add YouTube podcast episodes section below the two cards**
+- Copy the exact podcast episodes section from `Home.tsx` (the 3-video grid with play button overlays, titles, view counts, and the middle card at `scale-110`)
+- Add `useState` for `playingVideo` state
+- Import `Play` from lucide-react
+- Place it between the two-card row and the CTA section
+- Include the same `podcastEpisodes` array data
 
-Replace the entire "Pinned Reels Section" with a new "Top Podcast Episodes" section:
-
-- **Left card**: "Why 70% of People Are Dehydrated..." (`ERXXO8mG5IY`) — ~8.4K views
-- **Middle card (10% bigger)**: "The Dangers of Screen-time Before Bed" (`OjwSKAXveN8`) — ~12.8K views, styled with `scale-110` and `z-10`
-- **Right card**: "BDBT Explained" (`TY1nkJsQtyw`) — ~5.7K views
-
-Each card shows:
-- YouTube thumbnail (`img.youtube.com/vi/{id}/maxresdefault.jpg`)
-- Play button overlay → clicks open inline YouTube iframe embed
-- Video title below thumbnail
-- Small grey view counter (e.g., "12.8K views") in `text-xs text-muted-foreground`
-
-Layout: 3-column grid on desktop, stacked on mobile. Middle card uses `scale-110` for the 10% size bump. Cards use rounded corners + shadow styling consistent with existing design. Remove all TikTok-related code (`tiktokVideos` array, TikTok iframe embeds).
+### File: `src/pages/Blueprint.tsx`
+- Add imports: `Play` from lucide-react, `useState` already exists
+- Add `podcastEpisodes` array (same 3 videos)
+- Add `playingVideo` state
+- Restructure layout: widen container, put email card + info card in 2-col grid
+- Insert YouTube section below the grid, above CTA
 
