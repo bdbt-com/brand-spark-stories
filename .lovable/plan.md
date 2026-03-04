@@ -1,39 +1,26 @@
 
 
-## Three Changes
+## Make Admin Dashboard Update Live
 
-### 1. Blueprint.tsx: Move signup boxes above videos
-The email form + blueprint info card grid (lines 97-154) needs to move above the podcast videos section (lines 46-95). Swap the order so the signup content appears first, then videos below.
+### Current State
+- **Video clicks**: Has a Supabase Realtime subscription, but it likely doesn't work because the `video_clicks` table has no SELECT RLS policy (Realtime requires SELECT access for the subscribing role).
+- **Download counts**: Polled every 30 seconds via edge function.
+- **Subscribers**: Fetched once on mount, never refreshes.
 
-### 2. Home.tsx: Reorder videos -- Screen-time first
-Move `OjwSKAXveN8` ("Dangers of Screen-time") to index 0 in the array. Update the featured scaling check from `episode.featured` to still highlight the correct video on desktop (keep `featured: true` on it, logic already uses `episode.featured`).
+### Problem with Realtime Approach
+Both `video_clicks` and `email_subscriptions` have no SELECT RLS policies. Adding public SELECT policies would expose user data. Since this is an admin-only page, polling is the simpler and more secure approach.
 
-### 3. Fix YouTube redirect on mobile (both pages)
-Currently `window.open(url, '_blank')` doesn't open the YouTube app on mobile -- it often gets blocked by popup blockers or just opens in the same browser context.
+### Plan: Poll All Three Sections
 
-**Fix**: Replace `window.open()` with `window.location.href` using the YouTube deep link format:
-- Use `vnd.youtube://` URI scheme first (opens YouTube app if installed)
-- Fall back to regular `https://www.youtube.com/watch?v=` URL after a short delay
+**`src/pages/AdminList.tsx`**:
+- Extract subscriber fetching into a `useCallback` like the other two fetchers
+- Remove the broken Realtime channel (no SELECT RLS = no events delivered)
+- Set up a single `setInterval` that polls all three functions every 15 seconds
+- Initial fetch on mount stays the same
+- Clean up interval on unmount
 
-Implementation: Create a helper function used in both pages:
-```typescript
-const openYouTube = (videoId: string) => {
-  const webUrl = `https://www.youtube.com/watch?v=${videoId}`;
-  // Try YouTube app deep link first
-  const appUrl = `vnd.youtube://${videoId}`;
-  
-  // Set fallback to web URL
-  const fallbackTimer = setTimeout(() => {
-    window.location.href = webUrl;
-  }, 500);
-  
-  window.location.href = appUrl;
-};
-```
+This means all three sections (video clicks, download counts, subscribers) will auto-refresh every 15 seconds without needing to republish or manually reload.
 
-This approach attempts the app URI scheme. If the YouTube app is installed, it opens immediately and the fallback timer gets cleared by the page unload. If the app isn't installed, the 500ms timer fires and redirects to the YouTube website.
-
-### Files changed
-- `src/pages/Home.tsx` -- reorder array, replace `window.open` with `openYouTube` helper
-- `src/pages/Blueprint.tsx` -- swap section order, replace `window.open` with `openYouTube` helper
+### Files Changed
+- `src/pages/AdminList.tsx` only
 
