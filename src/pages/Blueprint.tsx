@@ -18,7 +18,7 @@ const openYouTube = (videoId: string) => {
   const webUrl = `https://www.youtube.com/watch?v=${videoId}`;
   const appUrl = `vnd.youtube://${videoId}`;
   setTimeout(() => {
-    window.location.href = webUrl;
+    window.open(webUrl, '_blank');
   }, 500);
   window.location.href = appUrl;
 };
