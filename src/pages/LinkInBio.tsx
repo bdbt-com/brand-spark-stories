@@ -1,4 +1,23 @@
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Play } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+
+const podcastEpisodes = [
+  { videoId: "ERXXO8mG5IY", title: "Why 70% of People Are Dehydrated", views: "8.4K views" },
+  { videoId: "OjwSKAXveN8", title: "The Dangers of Screen-time Before Bed", views: "12.8K views" },
+  { videoId: "TY1nkJsQtyw", title: "BDBT Explained", views: "5.7K views" },
+];
+
+const openYouTube = (videoId: string) => {
+  const webUrl = `https://www.youtube.com/watch?v=${videoId}`;
+  const appUrl = `vnd.youtube://${videoId}`;
+  setTimeout(() => {
+    const newWindow = window.open(webUrl, '_blank');
+    if (!newWindow) window.location.href = webUrl;
+  }, 500);
+  window.location.href = appUrl;
+};
 
 const socialLinks = [
   {
@@ -63,6 +82,19 @@ const links = [
 ];
 
 const LinkInBio = () => {
+  const [playingVideo, setPlayingVideo] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (playingVideo === null) return;
+    const episode = podcastEpisodes[playingVideo];
+    if (!episode) return;
+    const timer = setTimeout(() => {
+      openYouTube(episode.videoId);
+      setPlayingVideo(null);
+    }, 4000);
+    return () => clearTimeout(timer);
+  }, [playingVideo]);
+
   return (
     <div className="min-h-screen bg-[#36455A] flex flex-col items-center px-4 py-8">
       {/* Background gradient overlay */}
@@ -172,6 +204,47 @@ const LinkInBio = () => {
           })}
         </div>
         
+        {/* Podcast Episodes */}
+        <div className="w-full mt-6 space-y-3">
+          <p className="text-white/50 text-xs uppercase tracking-wider text-center mb-2">🎙 Top Episodes</p>
+          {podcastEpisodes.map((episode, index) => (
+            <div key={episode.videoId} className="rounded-xl bg-black/40 backdrop-blur-sm border border-white/10 overflow-hidden">
+              {playingVideo === index ? (
+                <div className="w-full aspect-video bg-black">
+                  <iframe
+                    src={`https://www.youtube.com/embed/${episode.videoId}?autoplay=1`}
+                    className="w-full h-full"
+                    allow="autoplay; encrypted-media"
+                  />
+                </div>
+              ) : (
+                <button
+                  onClick={() => {
+                    setPlayingVideo(index);
+                    supabase.functions.invoke("track-video-click", { body: { videoId: episode.videoId } });
+                  }}
+                  className="flex items-center w-full text-left cursor-pointer hover:bg-black/50 transition-colors"
+                >
+                  <div className="w-20 h-14 flex-shrink-0 relative">
+                    <img
+                      src={`https://img.youtube.com/vi/${episode.videoId}/mqdefault.jpg`}
+                      alt={episode.title}
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 flex items-center justify-center bg-black/30">
+                      <Play className="w-5 h-5 text-white" fill="white" />
+                    </div>
+                  </div>
+                  <div className="flex-1 px-3 py-2">
+                    <p className="text-white text-xs font-medium line-clamp-2 leading-tight">{episode.title}</p>
+                    <p className="text-white/40 text-[10px] mt-0.5">{episode.views}</p>
+                  </div>
+                </button>
+              )}
+            </div>
+          ))}
+        </div>
+
         {/* Footer */}
         <p className="text-white/40 text-xs mt-10">
           © Big Daddy's Big Tips
