@@ -15,6 +15,10 @@ const BASELINES: Record<string, { visitors: number; avg_duration: number }> = {
   "30d":         { visitors: 3100, avg_duration: 299 },
   since_launch:  { visitors: 4684, avg_duration: 241 },
 };
+
+// Today's baseline — only applies on this specific date, resets to 0 tomorrow
+const TODAY_BASELINE_DATE = "2026-03-04";
+const TODAY_BASELINE = { visitors: 76, avg_duration: 132 };
 const TRACKING_START = new Date("2026-03-04T00:00:00Z");
 
 Deno.serve(async (req) => {
@@ -62,8 +66,11 @@ Deno.serve(async (req) => {
       );
       const liveAvg = rows.length > 0 ? totalDuration / rows.length : 0;
 
-      // Combine with historical baseline (skip for "today" — no historical data)
-      const baseline = key === "today" ? { visitors: 0, avg_duration: 0 } : (BASELINES[key] || { visitors: 0, avg_duration: 0 });
+      // For "today": apply date-aware baseline
+      const todayDate = new Date().toISOString().split("T")[0];
+      const baseline = key === "today"
+        ? (todayDate === TODAY_BASELINE_DATE ? TODAY_BASELINE : { visitors: 0, avg_duration: 0 })
+        : (BASELINES[key] || { visitors: 0, avg_duration: 0 });
       const combinedVisitors = baseline.visitors + liveVisitors;
       const combinedAvg = combinedVisitors > 0
         ? Math.round(
