@@ -1,36 +1,46 @@
 
 
-## Update Podcast Page to Show All YouTube Uploads
+## Admin Dashboard: Video Click Counters + Top 10 Downloaded Tips
 
-### Current State
-The Podcast page (`src/pages/Podcast.tsx`) and the edge function (`supabase/functions/youtube-videos/index.ts`) are already fully built to fetch and display videos from `@bigdaddysbigtips`. The hook `useYouTubeVideos(50)` calls the edge function which resolves the channel and fetches videos.
+### Overview
+Add two new sections to the AdminList page:
+1. **Video Click Counters** - 3 cards side by side showing real-time click counts for each YouTube video
+2. **Top 10 Downloaded Tips** - ranked list of the most downloaded guides with live counts
 
-### What Needs to Be Done
+### Database Changes
 
-**1. Deploy the edge function**
-The `youtube-videos` edge function needs to be deployed to Supabase so it's callable from the frontend.
+**New table: `video_clicks`**
+```sql
+CREATE TABLE public.video_clicks (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  video_id text NOT NULL,
+  clicked_at timestamptz DEFAULT now()
+);
+ALTER TABLE public.video_clicks ENABLE ROW LEVEL SECURITY;
+-- Allow anyone to insert (track clicks)
+CREATE POLICY "allow_public_insert" ON public.video_clicks FOR INSERT WITH CHECK (true);
+-- Allow select via service role only (admin reads)
+```
 
-**2. Verify the `YOUTUBE_API_KEY` secret**
-The edge function requires a `YOUTUBE_API_KEY` environment variable (YouTube Data API v3 key). This must be set as a Supabase secret. If you don't have one yet, you'll need to create one at [Google Cloud Console](https://console.cloud.google.com/) with the YouTube Data API v3 enabled.
+### Edge Function Changes
 
-**3. Support pagination for channels with 50+ videos**
-The YouTube Search API caps at 50 results per request. To show ALL uploads, I'll update the edge function to use the channel's `uploads` playlist (via the Channels API) instead of the Search API. This is both more efficient (fewer API quota units) and supports pagination via `pageToken` to fetch beyond 50 videos.
+**Fix `get-download-counts`** - Currently crashing with `Cannot read properties of null (reading 'trim')` because some `guide_title` values are null. Add a null check: `const title = record.guide_title?.trim()`.
 
-### Technical Changes
+**New edge function: `track-video-click`** - Inserts a row into `video_clicks` with the `video_id`. Called from the frontend when a user clicks a video title or play button.
 
-**`supabase/functions/youtube-videos/index.ts`** -- Refactor to:
-- Use `channels?forHandle=@bigdaddysbigtips` to get the channel's `uploads` playlist ID (1 API call instead of search)
-- Use `playlistItems` API to fetch all videos with `nextPageToken` pagination
-- Still fetch video details (duration, views) in batches
-- This approach uses 1 quota unit per 50 videos vs 100 units for search
+**New edge function: `get-video-clicks`** - Queries `video_clicks`, groups by `video_id`, returns counts. Called by the AdminList page.
 
-**`src/hooks/useYouTubeVideos.ts`** -- Clean up:
-- Remove the redundant `supabase.functions.invoke` call (currently makes 2 requests -- one via invoke and one via fetch)
-- Keep only the fetch-based call
+### Frontend Changes
 
-**`supabase/config.toml`** -- Add function config:
-- Add `[functions.youtube-videos]` with `verify_jwt = false` so it's publicly callable
+**`src/pages/Home.tsx` and `src/pages/Blueprint.tsx`** - When a video title link is clicked or play button is pressed, fire a `supabase.functions.invoke("track-video-click", { body: { videoId } })` call (fire-and-forget, no await needed).
 
-### No UI changes needed
-The Podcast page grid/carousel already renders whatever videos the hook returns, so it will automatically show more videos once the backend returns them.
+**`src/pages/AdminList.tsx`** - Add two new sections above the subscriber table:
+1. **Video Clicks** - 3 cards in a row, each showing video title + total click count. Data from `get-video-clicks`. Auto-refresh via Supabase realtime subscription on `video_clicks` table.
+2. **Top 10 Tips** - Ordered list of guide titles with download counts. Data from `get-download-counts`. Auto-refresh every 30 seconds.
+
+### Technical Details
+
+- Video click tracking is lightweight (just an insert, no auth required)
+- Real-time updates on AdminList use Supabase Realtime channel subscription on `video_clicks` to increment counts without polling
+- Top 10 tips uses the existing `get-download-counts` function (after fixing the null bug), sorted descending and sliced to 10
 
