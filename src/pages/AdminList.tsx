@@ -27,6 +27,7 @@ const AdminList = () => {
   const [videoCounts, setVideoCounts] = useState<Record<string, number>>({});
   const [downloadCounts, setDownloadCounts] = useState<[string, number][]>([]);
   const [analytics, setAnalytics] = useState<Record<string, AnalyticsPeriod>>({});
+  const [bioClicks, setBioClicks] = useState(0);
   const [todaySubscribers, setTodaySubscribers] = useState(0);
 
   const fetchVideoCounts = useCallback(async () => {
@@ -52,6 +53,7 @@ const AdminList = () => {
     try {
       const { data } = await supabase.functions.invoke("get-page-analytics");
       if (data?.analytics) setAnalytics(data.analytics);
+      if (data?.bio_clicks !== undefined) setBioClicks(data.bio_clicks);
     } catch {}
   }, []);
 
@@ -116,10 +118,11 @@ const AdminList = () => {
               const avgSecs = today ? today.avg_duration % 60 : 0;
               return (
                 <>
-                  <Card className="border-primary/30 bg-primary/5">
+                   <Card className="border-primary/30 bg-primary/5">
                     <CardContent className="p-5 text-center">
                       <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">Visitors</p>
                       <p className="text-3xl font-bold text-primary">{today?.visitors || 0}</p>
+                      <p className="text-xs text-muted-foreground mt-1">/bio clicks: {bioClicks}</p>
                     </CardContent>
                   </Card>
                   <Card className="border-primary/30 bg-primary/5">

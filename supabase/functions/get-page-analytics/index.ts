@@ -85,7 +85,14 @@ Deno.serve(async (req) => {
       };
     }
 
-    return new Response(JSON.stringify({ analytics: results }), {
+    // Count /bio and /links page views for today
+    const { count: bioClicksCount } = await supabase
+      .from("page_views")
+      .select("*", { count: "exact", head: true })
+      .in("page_path", ["/bio", "/links"])
+      .gte("entered_at", periods["today"]);
+
+    return new Response(JSON.stringify({ analytics: results, bio_clicks: bioClicksCount || 0 }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
   } catch (err) {
