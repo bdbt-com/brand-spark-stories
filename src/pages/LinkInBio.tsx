@@ -207,9 +207,13 @@ const LinkInBio = () => {
         {/* Podcast Episodes — Home page style */}
         <div className="w-full mt-8">
           <p className="text-white/50 text-xs uppercase tracking-wider text-center mb-4">🎙 Top Episodes</p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
             {podcastEpisodes.map((episode, index) => (
-              <div key={episode.videoId} className="group rounded-2xl overflow-hidden shadow-lg bg-black/40 backdrop-blur-sm border border-white/10">
+              <div 
+                key={episode.videoId} 
+                className={`group transition-all duration-300 ${episode.videoId === 'OjwSKAXveN8' ? 'order-first md:order-none md:scale-110 md:z-10' : ''}`}
+              >
+                <div className="rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow bg-card">
                 {playingVideo === index ? (
                   <div className="w-full aspect-video bg-black">
                     <iframe
@@ -233,7 +237,7 @@ const LinkInBio = () => {
                     />
                     <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition-colors">
                       <div className="w-14 h-14 rounded-full bg-white/90 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-                        <Play className="w-7 h-7 text-red-600 ml-0.5" fill="currentColor" />
+                        <Play className="w-7 h-7 text-primary ml-0.5" fill="currentColor" />
                       </div>
                     </div>
                   </button>
@@ -242,16 +246,17 @@ const LinkInBio = () => {
                   href={`https://www.youtube.com/watch?v=${episode.videoId}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block p-4 hover:bg-white/5 transition-colors"
+                  className="block p-4 hover:bg-muted/50 transition-colors"
                   onClick={(e) => {
                     e.preventDefault();
                     supabase.functions.invoke("track-video-click", { body: { videoId: episode.videoId } });
                     openYouTube(episode.videoId);
                   }}
                 >
-                  <h3 className="text-sm font-semibold text-white leading-snug line-clamp-2">{episode.title}</h3>
-                  <p className="text-white/40 text-xs mt-1">{episode.views}</p>
+                  <h3 className="text-sm font-semibold text-foreground leading-snug line-clamp-2">{episode.title}</h3>
+                  <p className="text-xs text-muted-foreground mt-1">{episode.views}</p>
                 </a>
+                </div>
               </div>
             ))}
           </div>

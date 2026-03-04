@@ -125,16 +125,7 @@ const AdminList = () => {
                       <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">Visitors</p>
                       <p className="text-3xl font-bold text-primary">{today?.visitors || 0}</p>
                       <p className="text-xs text-muted-foreground mt-1">/bio clicks: {bioClicks}</p>
-                      {Object.keys(bioReferrers).length > 0 && (
-                        <p className="text-[10px] text-muted-foreground mt-0.5">
-                          {[
-                            bioReferrers.instagram && `IG: ${bioReferrers.instagram}`,
-                            bioReferrers.tiktok && `TT: ${bioReferrers.tiktok}`,
-                            bioReferrers.youtube && `YT: ${bioReferrers.youtube}`,
-                            bioReferrers.direct && `Direct: ${bioReferrers.direct}`,
-                          ].filter(Boolean).join(" · ")}
-                        </p>
-                      )}
+                      
                     </CardContent>
                   </Card>
                   <Card className="border-primary/30 bg-primary/5">
@@ -154,6 +145,28 @@ const AdminList = () => {
                 </>
               );
             })()}
+          </div>
+        </section>
+
+        {/* Bio Link Clicks */}
+        <section>
+          <h2 className="text-xl font-bold text-foreground mb-4 flex items-center gap-2">
+            <BarChart3 className="w-5 h-5 text-primary" /> Bio Link Clicks
+          </h2>
+          <div className="grid grid-cols-3 gap-4">
+            {[
+              { label: "Instagram", value: bioReferrers.instagram || 0 },
+              { label: "TikTok", value: bioReferrers.tiktok || 0 },
+              { label: "YouTube", value: bioReferrers.youtube || 0 },
+            ].map(({ label, value }) => (
+              <Card key={label}>
+                <CardContent className="p-5 text-center">
+                  <p className="text-xs font-medium text-muted-foreground mb-3 uppercase tracking-wider">{label}</p>
+                  <p className="text-3xl font-bold text-primary">{value}</p>
+                  <p className="text-xs text-muted-foreground mt-1">clicks</p>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </section>
 
