@@ -1,25 +1,28 @@
 
 
-## Plan: Replace per-platform bio cards with Direct clicks by time period
+## Plan: Add time-period breakdown to Video Click cards
 
-### Edge Function (`supabase/functions/get-page-analytics/index.ts`)
+### Edge Function (`supabase/functions/get-video-clicks/index.ts`)
 
-Replace the current referrer-breakdown logic (lines 88-106) with queries that count `/bio` + `/links` page views (all referrers, i.e. "direct" = total clicks) for each time period:
+Update to return per-video counts broken down by time period. Instead of just `{ counts: { videoId: N } }`, return `{ counts: { videoId: { total: N, today: N, "7d": N, "14d": N, "30d": N } } }`.
 
-- Query `/bio` + `/links` views for: today, 7d, 14d, 30d
-- Return as `bio_clicks: { today: N, "7d": N, "14d": N, "30d": N }`
-- Remove `bio_referrers` from response
+- Calculate `today`, `7d`, `14d`, `30d` cutoff dates
+- Select `video_id, clicked_at` from `video_clicks`
+- Group by video_id, counting rows per time period
 
 ### Admin Dashboard (`src/pages/AdminList.tsx`)
 
-Replace the "Bio Link Clicks" section (currently 4 cards: Instagram, TikTok, YouTube, Direct) with 4 time-period cards:
-
-- Today, Last 7 Days, Last 14 Days, Last 30 Days
-- Each shows the total `/bio` click count for that period
-- Keep the `grid-cols-2 md:grid-cols-4` layout
-- Remove `bioReferrers` state; update `bioClicks` state to hold the new object shape `{ today, "7d", "14d", "30d" }`
+- Update `videoCounts` state type from `Record<string, number>` to `Record<string, { total: number; today: number; "7d": number; "14d": number; "30d": number }>`
+- In the Video Clicks cards (lines 211-226), replace the single big number + "clicks" with 4 smaller lines:
+  ```
+  Today: X
+  7 Days: X
+  14 Days: X
+  30 Days: X
+  ```
+- Use smaller text (e.g. `text-sm font-semibold` for numbers) to fit under the title within the existing card space
 
 ### Files Changed
-- `supabase/functions/get-page-analytics/index.ts`
+- `supabase/functions/get-video-clicks/index.ts`
 - `src/pages/AdminList.tsx`
 
