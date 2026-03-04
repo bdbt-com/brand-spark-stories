@@ -1,40 +1,39 @@
 
 
-## Move Video Sections to Top of Page (Above the Fold)
+## Three Changes
 
-### Goal
-Maximize video visibility for mobile ad traffic to boost YouTube engagement, without altering the desktop/mobile look or removing any existing content.
+### 1. Blueprint.tsx: Move signup boxes above videos
+The email form + blueprint info card grid (lines 97-154) needs to move above the podcast videos section (lines 46-95). Swap the order so the signup content appears first, then videos below.
 
-### Current Layout Order
+### 2. Home.tsx: Reorder videos -- Screen-time first
+Move `OjwSKAXveN8` ("Dangers of Screen-time") to index 0 in the array. Update the featured scaling check from `episode.featured` to still highlight the correct video on desktop (keep `featured: true` on it, logic already uses `episode.featured`).
 
-**Home.tsx:**
-1. Hero section (full viewport with CTA + carousel) `py-24 lg:py-32`
-2. Podcast videos section `py-24`
-3. Daily Wins / Drifts explanation
-4. The Vessel, Ripples, Journey...
+### 3. Fix YouTube redirect on mobile (both pages)
+Currently `window.open(url, '_blank')` doesn't open the YouTube app on mobile -- it often gets blocked by popup blockers or just opens in the same browser context.
 
-**Blueprint.tsx:**
-1. Heading + Email form + Blueprint info card
-2. Podcast videos (at `mt-16`)
-3. CTA section
+**Fix**: Replace `window.open()` with `window.location.href` using the YouTube deep link format:
+- Use `vnd.youtube://` URI scheme first (opens YouTube app if installed)
+- Fall back to regular `https://www.youtube.com/watch?v=` URL after a short delay
 
-### Problem
-On mobile, the hero section fills the entire screen. Users must scroll past it before seeing any video. On Blueprint, videos are even further down -- below the email form and info card.
+Implementation: Create a helper function used in both pages:
+```typescript
+const openYouTube = (videoId: string) => {
+  const webUrl = `https://www.youtube.com/watch?v=${videoId}`;
+  // Try YouTube app deep link first
+  const appUrl = `vnd.youtube://${videoId}`;
+  
+  // Set fallback to web URL
+  const fallbackTimer = setTimeout(() => {
+    window.location.href = webUrl;
+  }, 500);
+  
+  window.location.href = appUrl;
+};
+```
 
-### Proposed Changes
+This approach attempts the app URI scheme. If the YouTube app is installed, it opens immediately and the fallback timer gets cleared by the page unload. If the app isn't installed, the 500ms timer fires and redirects to the YouTube website.
 
-**`src/pages/Home.tsx`:**
-- Reduce the podcast section top padding from `py-24` to `py-10 md:py-24` so it sits tighter below the hero on mobile
-- This brings videos into view with minimal scrolling on mobile, while keeping the spacious desktop layout
-
-**`src/pages/Blueprint.tsx`:**
-- Move the podcast videos section from below the email/info grid to directly above it (right after the heading)
-- Reduce its bottom margin from `mt-16 mb-16` to `mb-8` since it's now at the top
-- The email form + blueprint card remain exactly where they are visually on desktop (just one section lower)
-
-### What stays the same
-- All existing content remains in place
-- Desktop spacing and visual hierarchy unchanged (using `md:` prefixes)
-- No styling, color, or component changes
-- Video tracking still works identically
+### Files changed
+- `src/pages/Home.tsx` -- reorder array, replace `window.open` with `openYouTube` helper
+- `src/pages/Blueprint.tsx` -- swap section order, replace `window.open` with `openYouTube` helper
 
