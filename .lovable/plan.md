@@ -1,26 +1,25 @@
 
 
-## Why the Bio Referrer Cards Show 0
+## Plan: Replace per-platform bio cards with Direct clicks by time period
 
-The tracking system works by reading a `?ref=` query parameter from the URL. Currently, **all 30 /bio visits have no referrer** — they're all `null`, meaning the links shared on your social media profiles don't include the `?ref=` parameter.
+### Edge Function (`supabase/functions/get-page-analytics/index.ts`)
 
-### The Fix (No Code Change Needed)
+Replace the current referrer-breakdown logic (lines 88-106) with queries that count `/bio` + `/links` page views (all referrers, i.e. "direct" = total clicks) for each time period:
 
-Update the URLs in your social media bios to include the tracking parameter:
+- Query `/bio` + `/links` views for: today, 7d, 14d, 30d
+- Return as `bio_clicks: { today: N, "7d": N, "14d": N, "30d": N }`
+- Remove `bio_referrers` from response
 
-- **Instagram bio**: `https://bdbt.lovable.app/bio?ref=instagram`
-- **TikTok bio**: `https://bdbt.lovable.app/bio?ref=tiktok`
-- **YouTube about/description**: `https://bdbt.lovable.app/bio?ref=youtube`
+### Admin Dashboard (`src/pages/AdminList.tsx`)
 
-Right now you're probably using `https://bdbt.lovable.app/bio` everywhere, so the system can't tell which platform the visitor came from.
+Replace the "Bio Link Clicks" section (currently 4 cards: Instagram, TikTok, YouTube, Direct) with 4 time-period cards:
 
-### Code Change: Show "Direct" count too
-
-In `src/pages/AdminList.tsx`, add a 4th card for "Direct" visits (those without a `?ref=` param) so the 30 existing visits aren't invisible:
-
-- Add `{ label: "Direct", value: bioReferrers.direct || 0 }` to the Bio Link Clicks cards array
-- Change grid from `grid-cols-3` to `grid-cols-4` (or `grid-cols-2 md:grid-cols-4`)
+- Today, Last 7 Days, Last 14 Days, Last 30 Days
+- Each shows the total `/bio` click count for that period
+- Keep the `grid-cols-2 md:grid-cols-4` layout
+- Remove `bioReferrers` state; update `bioClicks` state to hold the new object shape `{ today, "7d", "14d", "30d" }`
 
 ### Files Changed
-- `src/pages/AdminList.tsx` — add Direct card, adjust grid columns
+- `supabase/functions/get-page-analytics/index.ts`
+- `src/pages/AdminList.tsx`
 
