@@ -85,27 +85,19 @@ Deno.serve(async (req) => {
       };
     }
 
-    // Count /bio and /links page views for today
-    const { count: bioClicksCount } = await supabase
-      .from("page_views")
-      .select("*", { count: "exact", head: true })
-      .in("page_path", ["/bio", "/links"])
-      .gte("entered_at", periods["today"]);
-
-    // Get referrer breakdown for /bio and /links today
-    const { data: bioRows } = await supabase
-      .from("page_views")
-      .select("referrer")
-      .in("page_path", ["/bio", "/links"])
-      .gte("entered_at", periods["today"]);
-
-    const bioReferrers: Record<string, number> = {};
-    for (const row of bioRows || []) {
-      const key = row.referrer || "direct";
-      bioReferrers[key] = (bioReferrers[key] || 0) + 1;
+    // Count /bio and /links page views for each time period
+    const bioPeriods = { today: periods["today"], "7d": periods["7d"], "14d": periods["14d"], "30d": periods["30d"] };
+    const bioClicks: Record<string, number> = {};
+    for (const [key, since] of Object.entries(bioPeriods)) {
+      const { count } = await supabase
+        .from("page_views")
+        .select("*", { count: "exact", head: true })
+        .in("page_path", ["/bio", "/links"])
+        .gte("entered_at", since);
+      bioClicks[key] = count || 0;
     }
 
-    return new Response(JSON.stringify({ analytics: results, bio_clicks: bioClicksCount || 0, bio_referrers: bioReferrers }), {
+    return new Response(JSON.stringify({ analytics: results, bio_clicks: bioClicks }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
   } catch (err) {
