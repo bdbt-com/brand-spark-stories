@@ -28,7 +28,7 @@ import { useYouTubeVideos } from "@/hooks/useYouTubeVideos";
 const Podcast = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  const { videos, loading, error, refreshVideos } = useYouTubeVideos(50);
+  const { videos, loading, error, refreshVideos } = useYouTubeVideos();
 
   const featuredVideos = videos.slice(0, 6);
   const allVideos = videos;

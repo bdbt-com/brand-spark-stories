@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { supabase } from '@/integrations/supabase/client';
 
 export interface YouTubeVideo {
   id: string;
@@ -20,7 +19,7 @@ interface UseYouTubeVideosReturn {
   refreshVideos: () => void;
 }
 
-export const useYouTubeVideos = (maxResults: number = 50): UseYouTubeVideosReturn => {
+export const useYouTubeVideos = (): UseYouTubeVideosReturn => {
   const [videos, setVideos] = useState<YouTubeVideo[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -30,14 +29,8 @@ export const useYouTubeVideos = (maxResults: number = 50): UseYouTubeVideosRetur
       setLoading(true);
       setError(null);
 
-      const { data, error: fnError } = await supabase.functions.invoke('youtube-videos', {
-        body: null,
-        headers: {},
-      });
-
-      // Add query params via URL since invoke doesn't support them directly
       const response = await fetch(
-        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/youtube-videos?maxResults=${maxResults}`,
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/youtube-videos`,
         {
           method: 'GET',
           headers: {
@@ -73,7 +66,7 @@ export const useYouTubeVideos = (maxResults: number = 50): UseYouTubeVideosRetur
 
   useEffect(() => {
     fetchVideos();
-  }, [maxResults]);
+  }, []);
 
   return { videos, loading, error, refreshVideos };
 };
