@@ -1,41 +1,28 @@
 
 
-## Plan: Track /bio Referral Sources (Instagram, TikTok, YouTube)
+## Plan: Bio Referrer Cards + Match Home Page Video Style on /bio
 
-The idea is to use `?ref=` query parameters in the bio URLs you share on each platform, then capture that ref value when tracking page views, and display a per-source breakdown in the admin dashboard.
+### 1. Admin Dashboard — Bio Referrer Section (AdminList.tsx)
 
-### How It Works
+Add a new section **underneath Page Analytics** called "Bio Link Clicks" with 3 cards in a row (same style as the Page Analytics cards):
+- **Instagram** — shows `bioReferrers.instagram || 0`
+- **TikTok** — shows `bioReferrers.tiktok || 0`  
+- **YouTube** — shows `bioReferrers.youtube || 0`
 
-You'll use different URLs on each platform:
-- **Instagram**: `bdbt.lovable.app/bio?ref=instagram`
-- **TikTok**: `bdbt.lovable.app/bio?ref=tiktok`
-- **YouTube**: `bdbt.lovable.app/bio?ref=youtube`
+Each card uses the same `<Card>` + `<CardContent>` layout as the Page Analytics cards (label on top, big number, "clicks" underneath). Remove the referrer breakdown text from the Visitors card since it now has its own section.
 
-### Changes
+### 2. LinkInBio Videos — Exact Copy of Home Page Style (LinkInBio.tsx)
 
-**1. Database: Add `referrer` column to `page_views`**
-- Add a nullable `text` column `referrer` to the `page_views` table (migration)
-
-**2. `src/components/PageViewTracker.tsx`**
-- Read `?ref=` from the URL search params (`useLocation` already available)
-- Pass `referrer` in the body when invoking `track-page-view`
-
-**3. `supabase/functions/track-page-view/index.ts`**
-- Accept optional `referrer` field in the insert body and save it to the new column
-
-**4. `supabase/functions/get-page-analytics/index.ts`**
-- Query today's `/bio` and `/links` page views grouped by `referrer`
-- Return a `bio_referrers` object like `{ instagram: 5, tiktok: 12, youtube: 3, direct: 8 }`
-
-**5. `src/pages/AdminList.tsx`**
-- Under the existing `/bio clicks: X` line, show a small breakdown:
-  - `IG: 5 · TT: 12 · YT: 3 · Direct: 8`
-- All in grey, compact, same card
+Replace the current video card styling with an exact copy of the Home page code:
+- Card wrapper: `rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow bg-card` (not `bg-black/40`)
+- Play button color: `text-primary` (not `text-red-600`)
+- Title: `text-foreground` (not `text-white`)
+- Views: `text-muted-foreground` (not `text-white/40`)
+- Title link area: `hover:bg-muted/50` (not `hover:bg-white/5`)
+- Featured episode (Screen-time) gets `order-first md:order-none md:scale-110 md:z-10`
+- Grid uses `gap-8 items-center` like Home
 
 ### Files Changed
-- Migration: add `referrer` column to `page_views`
-- `src/components/PageViewTracker.tsx` — capture `?ref=` param
-- `supabase/functions/track-page-view/index.ts` — store referrer
-- `supabase/functions/get-page-analytics/index.ts` — return per-source counts
-- `src/pages/AdminList.tsx` — display referrer breakdown
+- `src/pages/AdminList.tsx` — new Bio Link Clicks section after Page Analytics; remove inline referrer text from Visitors card
+- `src/pages/LinkInBio.tsx` — replace video card classes with exact Home page styles
 
