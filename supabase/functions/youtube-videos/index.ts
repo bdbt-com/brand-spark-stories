@@ -8,7 +8,6 @@ const corsHeaders = {
 const CHANNEL_HANDLE = '@bigdaddysbigtips';
 
 serve(async (req) => {
-  // Handle CORS preflight requests
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
   }
@@ -24,18 +23,15 @@ serve(async (req) => {
       );
     }
 
-    const url = new URL(req.url);
-    const maxResults = url.searchParams.get('maxResults') || '50';
+    console.log(`Fetching ALL YouTube videos for ${CHANNEL_HANDLE}`);
 
-    console.log(`Fetching YouTube videos for ${CHANNEL_HANDLE}, maxResults: ${maxResults}`);
-
-    // Step 1: Get channel ID from handle
-    const channelSearchUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=channel&q=${CHANNEL_HANDLE}&key=${YOUTUBE_API_KEY}`;
-    const channelResponse = await fetch(channelSearchUrl);
+    // Step 1: Get channel ID and uploads playlist ID from handle
+    const channelUrl = `https://www.googleapis.com/youtube/v3/channels?part=contentDetails&forHandle=${CHANNEL_HANDLE}&key=${YOUTUBE_API_KEY}`;
+    const channelResponse = await fetch(channelUrl);
     const channelData = await channelResponse.json();
 
     if (channelData.error) {
-      console.error("YouTube API error (channel search):", channelData.error);
+      console.error("YouTube API error (channel lookup):", channelData.error);
       return new Response(
         JSON.stringify({ error: channelData.error.message }),
         { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
@@ -49,47 +45,70 @@ serve(async (req) => {
       );
     }
 
-    const channelId = channelData.items[0].snippet.channelId;
-    console.log(`Found channel ID: ${channelId}`);
+    const uploadsPlaylistId = channelData.items[0].contentDetails.relatedPlaylists.uploads;
+    console.log(`Uploads playlist ID: ${uploadsPlaylistId}`);
 
-    // Step 2: Get videos from channel
-    const videosUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${channelId}&maxResults=${maxResults}&order=date&type=video&key=${YOUTUBE_API_KEY}`;
-    const videosResponse = await fetch(videosUrl);
-    const videosData = await videosResponse.json();
+    // Step 2: Fetch ALL videos from uploads playlist using pagination
+    const allItems: any[] = [];
+    let nextPageToken: string | undefined = undefined;
 
-    if (videosData.error) {
-      console.error("YouTube API error (videos search):", videosData.error);
-      return new Response(
-        JSON.stringify({ error: videosData.error.message }),
-        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
-    }
+    do {
+      const pageParam = nextPageToken ? `&pageToken=${nextPageToken}` : '';
+      const playlistUrl = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=${uploadsPlaylistId}&maxResults=50${pageParam}&key=${YOUTUBE_API_KEY}`;
+      const playlistResponse = await fetch(playlistUrl);
+      const playlistData = await playlistResponse.json();
 
-    if (!videosData.items || videosData.items.length === 0) {
+      if (playlistData.error) {
+        console.error("YouTube API error (playlist items):", playlistData.error);
+        break;
+      }
+
+      if (playlistData.items) {
+        allItems.push(...playlistData.items);
+      }
+
+      nextPageToken = playlistData.nextPageToken;
+      console.log(`Fetched ${allItems.length} items so far, nextPageToken: ${nextPageToken || 'none'}`);
+    } while (nextPageToken);
+
+    if (allItems.length === 0) {
       return new Response(
         JSON.stringify({ videos: [] }),
         { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
 
-    // Step 3: Get video details (duration, view count)
-    const videoIds = videosData.items.map((item: any) => item.id.videoId).join(',');
-    const detailsUrl = `https://www.googleapis.com/youtube/v3/videos?part=contentDetails,statistics&id=${videoIds}&key=${YOUTUBE_API_KEY}`;
-    const detailsResponse = await fetch(detailsUrl);
-    const detailsData = await detailsResponse.json();
+    // Step 3: Get video details (duration, view count) in batches of 50
+    const detailsMap: Record<string, any> = {};
+    const videoIds = allItems.map((item: any) => item.snippet.resourceId.videoId);
 
-    // Combine search results with video details
-    const videos = videosData.items.map((item: any) => {
-      const details = detailsData.items?.find((detail: any) => detail.id === item.id.videoId);
+    for (let i = 0; i < videoIds.length; i += 50) {
+      const batch = videoIds.slice(i, i + 50).join(',');
+      const detailsUrl = `https://www.googleapis.com/youtube/v3/videos?part=contentDetails,statistics,snippet&id=${batch}&key=${YOUTUBE_API_KEY}`;
+      const detailsResponse = await fetch(detailsUrl);
+      const detailsData = await detailsResponse.json();
+
+      if (detailsData.items) {
+        for (const detail of detailsData.items) {
+          detailsMap[detail.id] = detail;
+        }
+      }
+    }
+
+    // Combine playlist items with video details
+    const videos = allItems.map((item: any) => {
+      const videoId = item.snippet.resourceId.videoId;
+      const details = detailsMap[videoId];
       
       return {
-        id: item.id.videoId,
-        videoId: item.id.videoId,
+        id: videoId,
+        videoId: videoId,
         title: item.snippet.title,
         description: item.snippet.description,
-        thumbnail: item.snippet.thumbnails.maxres?.url || 
-                  item.snippet.thumbnails.high?.url || 
-                  item.snippet.thumbnails.medium?.url,
+        thumbnail: item.snippet.thumbnails?.maxres?.url || 
+                  item.snippet.thumbnails?.high?.url || 
+                  item.snippet.thumbnails?.medium?.url ||
+                  item.snippet.thumbnails?.default?.url,
         publishedAt: item.snippet.publishedAt,
         duration: formatDuration(details?.contentDetails?.duration || 'PT0S'),
         viewCount: formatViewCount(details?.statistics?.viewCount || '0'),
@@ -97,7 +116,7 @@ serve(async (req) => {
       };
     });
 
-    console.log(`Returning ${videos.length} videos`);
+    console.log(`Returning ${videos.length} videos total`);
 
     return new Response(
       JSON.stringify({ videos }),
@@ -113,32 +132,20 @@ serve(async (req) => {
   }
 });
 
-// Helper function to format ISO 8601 duration to readable format
 function formatDuration(duration: string): string {
   const match = duration.match(/PT(\d+H)?(\d+M)?(\d+S)?/);
-  
   if (!match) return '0 min';
-  
   const hours = (match[1] || '').replace('H', '');
   const minutes = (match[2] || '').replace('M', '');
   const seconds = (match[3] || '').replace('S', '');
-  
-  if (hours) {
-    return `${hours}h ${minutes || '0'}m`;
-  } else if (minutes) {
-    return `${minutes} min`;
-  } else {
-    return `${seconds || '0'} sec`;
-  }
+  if (hours) return `${hours}h ${minutes || '0'}m`;
+  if (minutes) return `${minutes} min`;
+  return `${seconds || '0'} sec`;
 }
 
-// Helper function to format view count
 function formatViewCount(count: string): string {
   const num = parseInt(count);
-  if (num >= 1000000) {
-    return `${(num / 1000000).toFixed(1)}M`;
-  } else if (num >= 1000) {
-    return `${(num / 1000).toFixed(1)}K`;
-  }
+  if (num >= 1000000) return `${(num / 1000000).toFixed(1)}M`;
+  if (num >= 1000) return `${(num / 1000).toFixed(1)}K`;
   return count;
 }
