@@ -27,6 +27,7 @@ const AdminList = () => {
   const [videoCounts, setVideoCounts] = useState<Record<string, number>>({});
   const [downloadCounts, setDownloadCounts] = useState<[string, number][]>([]);
   const [analytics, setAnalytics] = useState<Record<string, AnalyticsPeriod>>({});
+  const [todaySubscribers, setTodaySubscribers] = useState(0);
 
   const fetchVideoCounts = useCallback(async () => {
     try {
@@ -59,6 +60,7 @@ const AdminList = () => {
       const { data, error } = await supabase.functions.invoke("admin-email-stats");
       if (error) throw error;
       setSubscribers(data.subscribers || []);
+      setTodaySubscribers(data.today_count || 0);
     } catch (err: any) {
       setError(err.message || "Failed to load subscribers");
     } finally {
@@ -101,6 +103,44 @@ const AdminList = () => {
   return (
     <div className="min-h-screen bg-background pt-24 pb-16 px-4">
       <div className="max-w-5xl mx-auto space-y-12">
+
+        {/* Today's Live Stats */}
+        <section>
+          <h2 className="text-xl font-bold text-foreground mb-4 flex items-center gap-2">
+            <BarChart3 className="w-5 h-5 text-primary" /> Today — Live
+          </h2>
+          <div className="grid grid-cols-3 gap-4">
+            {(() => {
+              const today = analytics["today"];
+              const avgMins = today ? Math.floor(today.avg_duration / 60) : 0;
+              const avgSecs = today ? today.avg_duration % 60 : 0;
+              return (
+                <>
+                  <Card className="border-primary/30 bg-primary/5">
+                    <CardContent className="p-5 text-center">
+                      <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">Visitors</p>
+                      <p className="text-3xl font-bold text-primary">{today?.visitors || 0}</p>
+                    </CardContent>
+                  </Card>
+                  <Card className="border-primary/30 bg-primary/5">
+                    <CardContent className="p-5 text-center">
+                      <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">Avg Time</p>
+                      <p className="text-3xl font-bold text-primary">
+                        {avgMins > 0 ? `${avgMins}m ` : ""}{avgSecs}s
+                      </p>
+                    </CardContent>
+                  </Card>
+                  <Card className="border-primary/30 bg-primary/5">
+                    <CardContent className="p-5 text-center">
+                      <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">New Subs</p>
+                      <p className="text-3xl font-bold text-primary">{todaySubscribers}</p>
+                    </CardContent>
+                  </Card>
+                </>
+              );
+            })()}
+          </div>
+        </section>
 
         {/* Page Analytics */}
         <section>
