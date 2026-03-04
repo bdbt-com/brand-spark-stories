@@ -50,6 +50,18 @@ const Home = () => {
   const [isHowOpen, setIsHowOpen] = useState(false);
   const [isHowWorkOpen, setIsHowWorkOpen] = useState(false);
   const [playingVideo, setPlayingVideo] = useState<number | null>(null);
+
+  // Auto-redirect to YouTube after 4 seconds of playing
+  useEffect(() => {
+    if (playingVideo === null) return;
+    const episode = podcastEpisodes[playingVideo];
+    if (!episode) return;
+    const timer = setTimeout(() => {
+      window.open(`https://www.youtube.com/watch?v=${episode.videoId}`, '_blank');
+      setPlayingVideo(null);
+    }, 4000);
+    return () => clearTimeout(timer);
+  }, [playingVideo]);
   const howRef = useRef<HTMLDivElement>(null);
   const howWorkContentRef = useRef<HTMLDivElement>(null);
   const howContentRef = useRef<HTMLDivElement>(null);
@@ -230,10 +242,10 @@ const Home = () => {
                       </div>
                     </button>
                   )}
-                  <div className="p-4">
+                  <a href={`https://www.youtube.com/watch?v=${episode.videoId}`} target="_blank" rel="noopener noreferrer" className="block p-4 hover:bg-muted/50 transition-colors">
                     <h3 className="text-sm font-semibold text-foreground leading-snug line-clamp-2">{episode.title}</h3>
                     <p className="text-xs text-muted-foreground mt-1">{episode.views}</p>
-                  </div>
+                  </a>
                 </div>
               </div>
             ))}
