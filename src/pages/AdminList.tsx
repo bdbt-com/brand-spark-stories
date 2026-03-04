@@ -27,8 +27,7 @@ const AdminList = () => {
   const [videoCounts, setVideoCounts] = useState<Record<string, number>>({});
   const [downloadCounts, setDownloadCounts] = useState<[string, number][]>([]);
   const [analytics, setAnalytics] = useState<Record<string, AnalyticsPeriod>>({});
-  const [bioClicks, setBioClicks] = useState(0);
-  const [bioReferrers, setBioReferrers] = useState<Record<string, number>>({});
+  const [bioClicks, setBioClicks] = useState<Record<string, number>>({});
   const [todaySubscribers, setTodaySubscribers] = useState(0);
 
   const fetchVideoCounts = useCallback(async () => {
@@ -54,8 +53,7 @@ const AdminList = () => {
     try {
       const { data } = await supabase.functions.invoke("get-page-analytics");
       if (data?.analytics) setAnalytics(data.analytics);
-      if (data?.bio_clicks !== undefined) setBioClicks(data.bio_clicks);
-      if (data?.bio_referrers) setBioReferrers(data.bio_referrers);
+      if (data?.bio_clicks) setBioClicks(data.bio_clicks);
     } catch {}
   }, []);
 
@@ -124,7 +122,7 @@ const AdminList = () => {
                     <CardContent className="p-5 text-center">
                       <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">Visitors</p>
                       <p className="text-3xl font-bold text-primary">{today?.visitors || 0}</p>
-                      <p className="text-xs text-muted-foreground mt-1">/bio clicks: {bioClicks}</p>
+                      <p className="text-xs text-muted-foreground mt-1">/bio clicks: {bioClicks.today || 0}</p>
                       
                     </CardContent>
                   </Card>
@@ -155,10 +153,10 @@ const AdminList = () => {
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
-              { label: "Instagram", value: bioReferrers.instagram || 0 },
-              { label: "TikTok", value: bioReferrers.tiktok || 0 },
-              { label: "YouTube", value: bioReferrers.youtube || 0 },
-              { label: "Direct", value: bioReferrers.direct || 0 },
+              { label: "Today", value: bioClicks.today || 0 },
+              { label: "7 Days", value: bioClicks["7d"] || 0 },
+              { label: "14 Days", value: bioClicks["14d"] || 0 },
+              { label: "30 Days", value: bioClicks["30d"] || 0 },
             ].map(({ label, value }) => (
               <Card key={label}>
                 <CardContent className="p-5 text-center">
