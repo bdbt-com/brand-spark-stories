@@ -1,21 +1,25 @@
 
 
-## Plan: Add Podcast Videos to /bio Page + Track /bio Clicks Separately
+## Plan: Restyle /bio Podcast Section to Match Home Page + Modern Link Icons
 
-### 1. Add Podcast Video Cards to LinkInBio Page
+### 1. Podcast Episodes — Match Home Page Layout
 
-**`src/pages/LinkInBio.tsx`** — Add the 3 podcast episode cards (same data as Home page) below the existing link buttons, styled to fit the dark theme. Cards will show YouTube thumbnails with play buttons, titles, and simulated view counts. Clicking plays inline or opens YouTube. The section will be compact enough to be visible on the initial viewport on both mobile and desktop (smaller thumbnails, tighter spacing).
+Replace the current small horizontal list items in the "Top Episodes" section with the same card grid layout from the Home page:
+- Large YouTube thumbnails (aspect-video, `hqdefault.jpg` instead of `mqdefault.jpg`)
+- Rounded play button overlay (white circle with play icon)
+- Title and view count below each thumbnail as a clickable link
+- On mobile: single column stack. On desktop (if space allows within max-w-md): still single column but with the larger card style
+- Keep inline iframe playback and video click tracking
 
-### 2. Track /bio Clicks as Separate Metric in Admin Dashboard
+### 2. Link Buttons — Modern Icons
 
-The `PageViewTracker` already records `page_path` for every visit (e.g., `/bio`, `/links`, `/`). The tracking is already happening — we just need to surface it.
+Replace the thumbnail images on the 3 link buttons with clean Lucide icons for a more modern look:
+- **Free Foundation Blueprint** — `FileText` or `BookOpen` icon
+- **BDBT Daily Podcast (YouTube)** — YouTube SVG icon (keep existing)
+- **BDBT Daily Podcast (Spotify)** — Spotify SVG icon (keep existing)
 
-**`supabase/functions/get-page-analytics/index.ts`** — Add a new field to the response: query `page_views` where `page_path IN ('/bio', '/links')` for today, and return a `bio_clicks` count alongside the existing analytics.
-
-**`src/pages/AdminList.tsx`** — In the "Today — Live" section, keep the Visitors card as the total, but add a small grey sub-line underneath showing "/bio clicks: X" as a separate number.
+Actually, since the links already have thumbnail images, I'll replace them with styled icon containers using the brand SVGs (YouTube, Spotify) and a Lucide icon for Blueprint, displayed as clean rounded squares with brand colors instead of photo thumbnails.
 
 ### Files Changed
-- `src/pages/LinkInBio.tsx` — add podcast episodes section
-- `supabase/functions/get-page-analytics/index.ts` — add bio_clicks count to response
-- `src/pages/AdminList.tsx` — show /bio clicks beneath the visitor count
+- `src/pages/LinkInBio.tsx` — restyle podcast cards to match Home page grid layout; replace link thumbnail images with modern icon containers
 
