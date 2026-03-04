@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { Loader2, Play, TrendingDown } from "lucide-react";
+import { Loader2, Play, TrendingDown, BarChart3, Clock } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 
 const VIDEO_MAP: Record<string, string> = {
@@ -8,6 +8,11 @@ const VIDEO_MAP: Record<string, string> = {
   OjwSKAXveN8: "Dangers of Screen-time Before Bed",
   TY1nkJsQtyw: "BDBT Explained",
 };
+
+interface AnalyticsPeriod {
+  visitors: number;
+  avg_duration: number;
+}
 
 interface Subscriber {
   email: string;
@@ -21,6 +26,7 @@ const AdminList = () => {
   const [error, setError] = useState<string | null>(null);
   const [videoCounts, setVideoCounts] = useState<Record<string, number>>({});
   const [downloadCounts, setDownloadCounts] = useState<[string, number][]>([]);
+  const [analytics, setAnalytics] = useState<Record<string, AnalyticsPeriod>>({});
 
   const fetchVideoCounts = useCallback(async () => {
     try {
@@ -41,6 +47,13 @@ const AdminList = () => {
     } catch {}
   }, []);
 
+  const fetchAnalytics = useCallback(async () => {
+    try {
+      const { data } = await supabase.functions.invoke("get-page-analytics");
+      if (data?.analytics) setAnalytics(data.analytics);
+    } catch {}
+  }, []);
+
   const fetchSubscribers = useCallback(async () => {
     try {
       const { data, error } = await supabase.functions.invoke("admin-email-stats");
@@ -57,15 +70,17 @@ const AdminList = () => {
     fetchSubscribers();
     fetchVideoCounts();
     fetchDownloadCounts();
+    fetchAnalytics();
 
     const interval = setInterval(() => {
       fetchSubscribers();
       fetchVideoCounts();
       fetchDownloadCounts();
+      fetchAnalytics();
     }, 15000);
 
     return () => clearInterval(interval);
-  }, [fetchSubscribers, fetchVideoCounts, fetchDownloadCounts]);
+  }, [fetchSubscribers, fetchVideoCounts, fetchDownloadCounts, fetchAnalytics]);
 
   if (loading) {
     return (
@@ -86,6 +101,40 @@ const AdminList = () => {
   return (
     <div className="min-h-screen bg-background pt-24 pb-16 px-4">
       <div className="max-w-5xl mx-auto space-y-12">
+
+        {/* Page Analytics */}
+        <section>
+          <h2 className="text-xl font-bold text-foreground mb-4 flex items-center gap-2">
+            <BarChart3 className="w-5 h-5 text-primary" /> Page Analytics
+          </h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {[
+              { key: "7d", label: "Last 7 Days" },
+              { key: "14d", label: "Last 14 Days" },
+              { key: "30d", label: "Last 30 Days" },
+              { key: "since_launch", label: "Since Launch" },
+            ].map(({ key, label }) => {
+              const period = analytics[key];
+              const avgMins = period ? Math.floor(period.avg_duration / 60) : 0;
+              const avgSecs = period ? period.avg_duration % 60 : 0;
+              return (
+                <Card key={key}>
+                  <CardContent className="p-5 text-center">
+                    <p className="text-xs font-medium text-muted-foreground mb-3 uppercase tracking-wider">{label}</p>
+                    <p className="text-3xl font-bold text-primary">{period?.visitors || 0}</p>
+                    <p className="text-xs text-muted-foreground mb-2">visitors</p>
+                    <div className="flex items-center justify-center gap-1 text-muted-foreground">
+                      <Clock className="w-3 h-3" />
+                      <span className="text-xs">
+                        {avgMins > 0 ? `${avgMins}m ` : ""}{avgSecs}s avg
+                      </span>
+                    </div>
+                  </CardContent>
+                </Card>
+              );
+            })}
+          </div>
+        </section>
 
         {/* Video Click Counters */}
         <section>
