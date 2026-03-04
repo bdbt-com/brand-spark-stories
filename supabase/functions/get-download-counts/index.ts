@@ -38,7 +38,8 @@ serve(async (req) => {
     // Count downloads by guide_title
     const counts: Record<string, number> = {};
     data?.forEach((record) => {
-      const title = record.guide_title.trim();
+      const title = record.guide_title?.trim();
+      if (!title) return;
       counts[title] = (counts[title] || 0) + 1;
     });
 

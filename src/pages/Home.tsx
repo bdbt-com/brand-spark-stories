@@ -8,6 +8,7 @@ import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "@/com
 import { useEffect, useState, useRef } from "react";
 import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "@/components/ui/collapsible";
 import ChevronRipple from "@/components/ChevronRipple";
+import { supabase } from "@/integrations/supabase/client";
 
 // YouTube podcast episodes
 const podcastEpisodes = [
@@ -227,7 +228,10 @@ const Home = () => {
                     </div>
                   ) : (
                     <button 
-                      onClick={() => setPlayingVideo(index)}
+                      onClick={() => {
+                        setPlayingVideo(index);
+                        supabase.functions.invoke("track-video-click", { body: { videoId: episode.videoId } });
+                      }}
                       className="relative w-full cursor-pointer"
                     >
                       <img 
@@ -242,7 +246,7 @@ const Home = () => {
                       </div>
                     </button>
                   )}
-                  <a href={`https://www.youtube.com/watch?v=${episode.videoId}`} target="_blank" rel="noopener noreferrer" className="block p-4 hover:bg-muted/50 transition-colors">
+                  <a href={`https://www.youtube.com/watch?v=${episode.videoId}`} target="_blank" rel="noopener noreferrer" className="block p-4 hover:bg-muted/50 transition-colors" onClick={() => supabase.functions.invoke("track-video-click", { body: { videoId: episode.videoId } })}>
                     <h3 className="text-sm font-semibold text-foreground leading-snug line-clamp-2">{episode.title}</h3>
                     <p className="text-xs text-muted-foreground mt-1">{episode.views}</p>
                   </a>
