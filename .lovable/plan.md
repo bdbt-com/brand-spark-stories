@@ -1,18 +1,16 @@
 
 
-## Plan: YouTube Click-Through Behavior
+## Change Favicon to BDBT Logo
 
-### Changes to `src/pages/Home.tsx` and `src/pages/Blueprint.tsx`
+The browser tab currently shows the default Lovable favicon. You want it to show your BDBT logo instead.
 
-**1. Title area click → open YouTube in new tab**
-- Wrap the title/views `div` below thumbnails with an `<a>` tag linking to `https://www.youtube.com/watch?v=${episode.videoId}` with `target="_blank"`
+### Changes
 
-**2. Play button click → embed starts, then redirect to YouTube after ~4 seconds**
-- Keep existing click-to-embed behavior
-- Add a `useEffect` that watches `playingVideo` state — when set, start a 4-second timeout
-- After timeout: open YouTube link in new tab, pause the embed by setting `playingVideo` back to `null` (which swaps iframe back to thumbnail, effectively stopping playback)
+**1. Replace `public/favicon.ico`**
+- Copy the BDBT logo (the black "BD BT" text logo from your second screenshot) to use as the favicon
+- You already have `public/lovable-uploads/bdbt-logo-transparent.png` which appears to be your logo — we'll reference that as the favicon
 
-### Files to edit
-- `src/pages/Home.tsx`
-- `src/pages/Blueprint.tsx`
+**2. Update `index.html`**
+- Add a `<link rel="icon">` tag pointing to your BDBT logo image (e.g., `/lovable-uploads/bdbt-logo-transparent.png`)
+- This overrides the default `favicon.ico`
 
