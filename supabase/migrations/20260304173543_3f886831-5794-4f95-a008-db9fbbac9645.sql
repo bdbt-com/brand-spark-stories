@@ -1,0 +1,1 @@
+DROP POLICY "Only service role can select email_subscriptions" ON public.email_subscriptions;
