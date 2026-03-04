@@ -129,8 +129,8 @@ const AdminList = () => {
           {downloadCounts.length === 0 ? (
             <p className="text-muted-foreground text-sm">No download data yet.</p>
           ) : (
-            <div className="border border-border rounded-lg overflow-hidden">
-              <div className="grid grid-cols-[auto_1fr_auto] gap-2 p-3 bg-muted/30 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+          <div className="overflow-x-auto border border-border rounded-lg">
+              <div className="grid grid-cols-[auto_1fr_auto] gap-2 p-2 md:p-3 bg-muted/30 text-xs font-semibold text-muted-foreground uppercase tracking-wider min-w-[300px]">
                 <span>#</span>
                 <span>Guide Title</span>
                 <span>Downloads</span>
@@ -138,7 +138,7 @@ const AdminList = () => {
               {downloadCounts.map(([title, count], i) => (
                 <div
                   key={title}
-                  className="grid grid-cols-[auto_1fr_auto] gap-2 p-3 border-t border-border text-sm hover:bg-muted/20 transition-colors"
+                  className="grid grid-cols-[auto_1fr_auto] gap-2 p-2 md:p-3 border-t border-border text-xs md:text-sm hover:bg-muted/20 transition-colors min-w-[300px]"
                 >
                   <span className="text-muted-foreground font-mono w-6">{i + 1}</span>
                   <span className="text-foreground truncate">{title}</span>
@@ -156,8 +156,8 @@ const AdminList = () => {
             {subscribers.length} unique subscribers
           </p>
 
-          <div className="border border-border rounded-lg overflow-hidden">
-            <div className="grid grid-cols-[1fr_2fr_auto] gap-2 p-3 bg-muted/30 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+          <div className="overflow-x-auto border border-border rounded-lg">
+            <div className="grid grid-cols-[1fr_2fr_auto] gap-2 p-2 md:p-3 bg-muted/30 text-xs font-semibold text-muted-foreground uppercase tracking-wider min-w-[400px]">
               <span>Name</span>
               <span>Email</span>
               <span>Date</span>
@@ -166,7 +166,7 @@ const AdminList = () => {
             {subscribers.map((sub, i) => (
               <div
                 key={i}
-                className="grid grid-cols-[1fr_2fr_auto] gap-2 p-3 border-t border-border text-sm hover:bg-muted/20 transition-colors"
+                className="grid grid-cols-[1fr_2fr_auto] gap-2 p-2 md:p-3 border-t border-border text-xs md:text-sm hover:bg-muted/20 transition-colors min-w-[400px]"
               >
                 <span className="text-foreground truncate">{sub.first_name || "—"}</span>
                 <span className="text-foreground truncate">{sub.email}</span>

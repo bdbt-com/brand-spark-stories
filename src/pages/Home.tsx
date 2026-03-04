@@ -215,7 +215,7 @@ const Home = () => {
             {podcastEpisodes.map((episode, index) => (
               <div 
                 key={episode.videoId} 
-                className={`group transition-all duration-300 ${episode.featured ? 'scale-110 z-10' : ''}`}
+                className={`group transition-all duration-300 ${episode.featured ? 'md:scale-110 md:z-10' : ''}`}
               >
                 <div className="rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow bg-card">
                   {playingVideo === index ? (
