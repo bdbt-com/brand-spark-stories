@@ -41,42 +41,31 @@ const AdminList = () => {
     } catch {}
   }, []);
 
-  useEffect(() => {
-    const fetchSubscribers = async () => {
-      try {
-        const { data, error } = await supabase.functions.invoke("admin-email-stats");
-        if (error) throw error;
-        setSubscribers(data.subscribers || []);
-      } catch (err: any) {
-        setError(err.message || "Failed to load subscribers");
-      } finally {
-        setLoading(false);
-      }
-    };
+  const fetchSubscribers = useCallback(async () => {
+    try {
+      const { data, error } = await supabase.functions.invoke("admin-email-stats");
+      if (error) throw error;
+      setSubscribers(data.subscribers || []);
+    } catch (err: any) {
+      setError(err.message || "Failed to load subscribers");
+    } finally {
+      setLoading(false);
+    }
+  }, []);
 
+  useEffect(() => {
     fetchSubscribers();
     fetchVideoCounts();
     fetchDownloadCounts();
 
-    // Realtime subscription for video clicks
-    const channel = supabase
-      .channel("video-clicks-realtime")
-      .on("postgres_changes", { event: "INSERT", schema: "public", table: "video_clicks" }, (payload) => {
-        const videoId = payload.new?.video_id;
-        if (videoId) {
-          setVideoCounts((prev) => ({ ...prev, [videoId]: (prev[videoId] || 0) + 1 }));
-        }
-      })
-      .subscribe();
+    const interval = setInterval(() => {
+      fetchSubscribers();
+      fetchVideoCounts();
+      fetchDownloadCounts();
+    }, 15000);
 
-    // Poll download counts every 30s
-    const interval = setInterval(fetchDownloadCounts, 30000);
-
-    return () => {
-      supabase.removeChannel(channel);
-      clearInterval(interval);
-    };
-  }, [fetchVideoCounts, fetchDownloadCounts]);
+    return () => clearInterval(interval);
+  }, [fetchSubscribers, fetchVideoCounts, fetchDownloadCounts]);
 
   if (loading) {
     return (
