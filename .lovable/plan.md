@@ -1,26 +1,33 @@
 
 
-## Fix: Video Order on Mobile (Most Viewed First)
+## Fix: Admin List Analytics by Bypassing RLS with Edge Functions
 
-### Current state
-- Desktop: middle card is scaled up — already shows the most viewed (12.8K) in the center. Correct.
-- Mobile: videos stack top-to-bottom in array order: 8.4K → 12.8K → 5.7K. Wrong.
+### Problem
+The `page_views` RLS INSERT policy is still **RESTRICTIVE** despite two migration attempts. This means the `PageViewTracker` component (which uses the anon key client-side) silently fails on every insert. Zero data ever reaches the table, so the admin dashboard always shows 0.
 
-### Fix
-Simply reorder the `podcastEpisodes` array so most viewed comes first (12.8K → 8.4K → 5.7K), then use CSS `order` to put the most viewed back in the middle on desktop.
+### Root Cause
+The migrations to recreate the policies as permissive have not taken effect. The RLS info still shows `Permissive: No` on both INSERT and UPDATE policies.
 
-In `src/pages/Blueprint.tsx`:
+### Solution: Bypass RLS entirely with edge functions
 
-1. **Reorder the array** — most viewed first:
-   - "The Dangers of Screen-time Before Bed" (12.8K)
-   - "Why 70% of People Are Dehydrated..." (8.4K)  
-   - "BDBT Explained" (5.7K)
+Instead of fighting the RLS policies, route all page view tracking through an edge function that uses the **service role key** (which bypasses RLS).
 
-2. **Add CSS order classes** — on `md:` screens, reorder so index 0 goes to the middle:
-   - Index 0 (12.8K): `md:order-2` + scale effect
-   - Index 1 (8.4K): `md:order-1`
-   - Index 2 (5.7K): `md:order-3`
+**1. Create `track-page-view` edge function**
+- Accepts `{ page_path, session_id }` for inserts and `{ id, duration_seconds }` for updates
+- Uses `SUPABASE_SERVICE_ROLE_KEY` to insert/update `page_views`, bypassing RLS completely
+- Returns the inserted row ID
+
+**2. Update `PageViewTracker.tsx`**
+- Replace direct `supabase.from("page_views").insert(...)` with `supabase.functions.invoke("track-page-view", ...)`
+- Replace the raw `fetch` PATCH call for duration updates with the same edge function (passing update mode)
+- Keep the same session ID and duration tracking logic
+
+**3. No changes needed to:**
+- `get-page-analytics` edge function (already uses service role key for reads)
+- `AdminList.tsx` (already displays the data correctly)
+- Database schema or RLS policies
 
 ### Files changed
-- `src/pages/Blueprint.tsx` — reorder array + add responsive CSS order
+- `supabase/functions/track-page-view/index.ts` (new)
+- `src/components/PageViewTracker.tsx` (modified)
 
