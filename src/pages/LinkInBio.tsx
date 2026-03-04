@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { Play } from "lucide-react";
+import { Play, BookOpen } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 
 const podcastEpisodes = [
@@ -63,21 +63,32 @@ const links = [
     title: "Free Foundation Blueprint",
     href: "/blueprint",
     external: false,
-    thumbnail: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png",
+    icon: <BookOpen className="w-6 h-6 text-white" />,
+    iconBg: "bg-emerald-500",
   },
   {
     title: "BDBT Daily Podcast",
     subtitle: "(YouTube)",
     href: "https://www.youtube.com/@BigDaddysBigTips",
     external: true,
-    thumbnail: "/lovable-uploads/recording-setup-new.jpg",
+    icon: (
+      <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+      </svg>
+    ),
+    iconBg: "bg-red-600",
   },
   {
     title: "BDBT Daily Podcast",
     subtitle: "(Spotify)",
     href: "https://open.spotify.com/show/7AryqWOzeVCOC7WQ9wcBlk?si=2ede4b3121ea46c1&nd=1&dlsi=f03fd58680794b34",
     external: true,
-    thumbnail: "/lovable-uploads/75853635-930c-4fa5-9403-d0b58c6db83b.png",
+    icon: (
+      <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+      </svg>
+    ),
+    iconBg: "bg-green-500",
   },
 ];
 
@@ -154,16 +165,12 @@ const LinkInBio = () => {
                          flex items-center overflow-hidden"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
-                {link.thumbnail && (
-                  <div className="w-16 h-16 flex-shrink-0 overflow-hidden rounded-l-xl">
-                    <img 
-                      src={link.thumbnail} 
-                      alt={link.title}
-                      className="w-full h-full object-cover"
-                    />
+                {link.icon && (
+                  <div className={`w-14 h-14 flex-shrink-0 flex items-center justify-center rounded-l-xl ${link.iconBg}`}>
+                    {link.icon}
                   </div>
                 )}
-                <div className={`flex-1 py-4 ${link.thumbnail ? 'px-4' : 'px-5 text-center'}`}>
+                <div className={`flex-1 py-4 ${link.icon ? 'px-4' : 'px-5 text-center'}`}>
                   <span className="text-white font-medium text-sm block">
                     {link.title}
                   </span>
@@ -204,45 +211,57 @@ const LinkInBio = () => {
           })}
         </div>
         
-        {/* Podcast Episodes */}
-        <div className="w-full mt-6 space-y-3">
-          <p className="text-white/50 text-xs uppercase tracking-wider text-center mb-2">🎙 Top Episodes</p>
-          {podcastEpisodes.map((episode, index) => (
-            <div key={episode.videoId} className="rounded-xl bg-black/40 backdrop-blur-sm border border-white/10 overflow-hidden">
-              {playingVideo === index ? (
-                <div className="w-full aspect-video bg-black">
-                  <iframe
-                    src={`https://www.youtube.com/embed/${episode.videoId}?autoplay=1`}
-                    className="w-full h-full"
-                    allow="autoplay; encrypted-media"
-                  />
-                </div>
-              ) : (
-                <button
-                  onClick={() => {
-                    setPlayingVideo(index);
-                    supabase.functions.invoke("track-video-click", { body: { videoId: episode.videoId } });
-                  }}
-                  className="flex items-center w-full text-left cursor-pointer hover:bg-black/50 transition-colors"
-                >
-                  <div className="w-20 h-14 flex-shrink-0 relative">
-                    <img
-                      src={`https://img.youtube.com/vi/${episode.videoId}/mqdefault.jpg`}
-                      alt={episode.title}
-                      className="w-full h-full object-cover"
+        {/* Podcast Episodes — Home page style */}
+        <div className="w-full mt-8">
+          <p className="text-white/50 text-xs uppercase tracking-wider text-center mb-4">🎙 Top Episodes</p>
+          <div className="space-y-4">
+            {podcastEpisodes.map((episode, index) => (
+              <div key={episode.videoId} className="group rounded-2xl overflow-hidden shadow-lg bg-black/40 backdrop-blur-sm border border-white/10">
+                {playingVideo === index ? (
+                  <div className="w-full aspect-video bg-black">
+                    <iframe
+                      src={`https://www.youtube.com/embed/${episode.videoId}?autoplay=1`}
+                      className="w-full h-full"
+                      allow="autoplay; encrypted-media"
                     />
-                    <div className="absolute inset-0 flex items-center justify-center bg-black/30">
-                      <Play className="w-5 h-5 text-white" fill="white" />
+                  </div>
+                ) : (
+                  <button
+                    onClick={() => {
+                      setPlayingVideo(index);
+                      supabase.functions.invoke("track-video-click", { body: { videoId: episode.videoId } });
+                    }}
+                    className="relative w-full cursor-pointer"
+                  >
+                    <img
+                      src={`https://img.youtube.com/vi/${episode.videoId}/hqdefault.jpg`}
+                      alt={episode.title}
+                      className="w-full aspect-video object-cover"
+                    />
+                    <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition-colors">
+                      <div className="w-14 h-14 rounded-full bg-white/90 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                        <Play className="w-7 h-7 text-red-600 ml-0.5" fill="currentColor" />
+                      </div>
                     </div>
-                  </div>
-                  <div className="flex-1 px-3 py-2">
-                    <p className="text-white text-xs font-medium line-clamp-2 leading-tight">{episode.title}</p>
-                    <p className="text-white/40 text-[10px] mt-0.5">{episode.views}</p>
-                  </div>
-                </button>
-              )}
-            </div>
-          ))}
+                  </button>
+                )}
+                <a
+                  href={`https://www.youtube.com/watch?v=${episode.videoId}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block p-4 hover:bg-white/5 transition-colors"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    supabase.functions.invoke("track-video-click", { body: { videoId: episode.videoId } });
+                    openYouTube(episode.videoId);
+                  }}
+                >
+                  <h3 className="text-sm font-semibold text-white leading-snug line-clamp-2">{episode.title}</h3>
+                  <p className="text-white/40 text-xs mt-1">{episode.views}</p>
+                </a>
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* Footer */}
