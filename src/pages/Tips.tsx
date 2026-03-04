@@ -2043,6 +2043,230 @@ const Tips = () => {
       views: 0,
       dateAdded: "2026-02-16"
     },
+    {
+      icon: Heart,
+      title: "Appreciate the things around you",
+      description: "Cultivate daily gratitude by noticing the small things you normally overlook.",
+      items: [
+        "Health: Gratitude practice lowers cortisol and reduces stress",
+        "Wealth: Appreciation reduces desire for unnecessary purchases",
+        "Happiness: Shifts focus from what's missing to what's abundant"
+      ],
+      level: "Easy",
+      duration: "2 min read",
+      category: "mindfulness",
+      popularity: 42,
+      views: 0,
+      dateAdded: "2026-03-01"
+    },
+    {
+      icon: Footprints,
+      title: "Walk Backwards",
+      description: "Reverse walking strengthens muscles you rarely use and sharpens balance.",
+      items: [
+        "Health: Improves knee stability and activates different muscle groups",
+        "Wealth: Zero-cost exercise that prevents injury-related medical bills",
+        "Happiness: A fun, quirky habit that breaks monotony"
+      ],
+      level: "Easy",
+      duration: "2 min read",
+      category: "fitness",
+      popularity: 35,
+      views: 0,
+      dateAdded: "2026-03-01"
+    },
+    {
+      icon: Clock,
+      title: "Why Implement a 30-Day Rule for Big Purchases?",
+      description: "Wait 30 days before buying anything expensive to separate wants from needs.",
+      items: [
+        "Health: Reduces impulse-driven anxiety and buyer's remorse",
+        "Wealth: Eliminates most unnecessary big-ticket spending",
+        "Happiness: Builds confidence in your financial decisions"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "finance",
+      popularity: 44,
+      views: 0,
+      dateAdded: "2026-03-01"
+    },
+    {
+      icon: CheckCircle,
+      title: "Write Down 3 Things You Accomplished at the End of Each Day",
+      description: "End each day by recording three wins to build momentum and self-belief.",
+      items: [
+        "Health: Positive reflection lowers evening stress hormones",
+        "Wealth: Tracking progress keeps you focused on productive goals",
+        "Happiness: Daily acknowledgement boosts self-esteem and motivation"
+      ],
+      level: "Easy",
+      duration: "2 min read",
+      category: "productivity",
+      popularity: 46,
+      views: 0,
+      dateAdded: "2026-03-01"
+    },
+    {
+      icon: Trees,
+      title: "25 Ways to Introduce More Gardening",
+      description: "Simple ways to get your hands in the soil and reap the benefits of growing things.",
+      items: [
+        "Health: Gardening reduces blood pressure and provides vitamin D",
+        "Wealth: Growing your own herbs and vegetables saves money",
+        "Happiness: Nurturing plants provides calm and a sense of achievement"
+      ],
+      level: "Easy",
+      duration: "5 min read",
+      category: "wellness",
+      popularity: 40,
+      views: 0,
+      dateAdded: "2026-03-01"
+    },
+    {
+      icon: Users,
+      title: "30 Benefits of Blending Connection",
+      description: "Discover why mixing social circles and deepening relationships transforms your life.",
+      items: [
+        "Health: Strong social bonds boost immunity and reduce inflammation",
+        "Wealth: Diverse networks unlock unexpected opportunities",
+        "Happiness: Meaningful connections are the top predictor of life satisfaction"
+      ],
+      level: "Easy",
+      duration: "5 min read",
+      category: "social",
+      popularity: 43,
+      views: 0,
+      dateAdded: "2026-03-01"
+    },
+    {
+      icon: Apple,
+      title: "30 Foods to Fight Inflammation & Bloating",
+      description: "Stock your kitchen with anti-inflammatory powerhouses to feel lighter every day.",
+      items: [
+        "Health: Reduces chronic inflammation linked to heart disease and diabetes",
+        "Wealth: Whole-food swaps are often cheaper than processed alternatives",
+        "Happiness: Less bloating means more energy and daily comfort"
+      ],
+      level: "Easy",
+      duration: "5 min read",
+      category: "health",
+      popularity: 48,
+      views: 0,
+      dateAdded: "2026-03-01"
+    },
+    {
+      icon: Utensils,
+      title: "30 Reasons to Eat Natto Beans",
+      description: "The Japanese superfood packed with probiotics, vitamin K2, and powerful enzymes.",
+      items: [
+        "Health: Nattokinase supports cardiovascular health and blood flow",
+        "Wealth: One of the cheapest superfoods available per serving",
+        "Happiness: Gut health improvement positively impacts mood and energy"
+      ],
+      level: "Easy",
+      duration: "5 min read",
+      category: "health",
+      popularity: 38,
+      views: 0,
+      dateAdded: "2026-03-01"
+    },
+    {
+      icon: Leaf,
+      title: "30 Reasons to Sprinkle Seeds onto Your Meals",
+      description: "Tiny seeds deliver massive nutrition with minimal effort.",
+      items: [
+        "Health: Rich in omega-3s, fibre, and essential minerals",
+        "Wealth: A small bag lasts weeks and costs less than supplements",
+        "Happiness: Easy wins that make every meal feel healthier"
+      ],
+      level: "Easy",
+      duration: "5 min read",
+      category: "health",
+      popularity: 41,
+      views: 0,
+      dateAdded: "2026-03-01"
+    },
+    {
+      icon: Utensils,
+      title: "30 Reasons to Swap Your Existing Bread",
+      description: "Why switching to sourdough or whole-grain bread is a game-changer for your gut.",
+      items: [
+        "Health: Sourdough fermentation aids digestion and lowers glycemic impact",
+        "Wealth: Baking your own bread saves money long-term",
+        "Happiness: Better digestion means more comfort and energy daily"
+      ],
+      level: "Easy",
+      duration: "5 min read",
+      category: "health",
+      popularity: 39,
+      views: 0,
+      dateAdded: "2026-03-01"
+    },
+    {
+      icon: Activity,
+      title: "Learn to Do the Splits",
+      description: "A progressive flexibility goal that transforms hip mobility and body awareness.",
+      items: [
+        "Health: Dramatically improves hip flexibility and prevents injury",
+        "Wealth: No equipment or gym required for this challenge",
+        "Happiness: Achieving a milestone like the splits builds immense confidence"
+      ],
+      level: "Moderate",
+      duration: "4 min read",
+      category: "fitness",
+      popularity: 36,
+      views: 0,
+      dateAdded: "2026-03-01"
+    },
+    {
+      icon: Leaf,
+      title: "Your Daily Greens",
+      description: "Make leafy greens a non-negotiable part of every day for sustained vitality.",
+      items: [
+        "Health: Packed with vitamins, minerals, and disease-fighting antioxidants",
+        "Wealth: Frozen greens are budget-friendly and last for weeks",
+        "Happiness: Consistent nutrition stabilises mood and energy levels"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "health",
+      popularity: 45,
+      views: 0,
+      dateAdded: "2026-03-01"
+    },
+    {
+      icon: Utensils,
+      title: "Add Legumes to a Meal Once a Week",
+      description: "Beans, lentils and chickpeas are nutrition powerhouses that cost almost nothing.",
+      items: [
+        "Health: High in fibre, protein, and essential micronutrients",
+        "Wealth: Among the cheapest protein sources on the planet",
+        "Happiness: Versatile and satisfying in countless recipes"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "health",
+      popularity: 40,
+      views: 0,
+      dateAdded: "2026-03-01"
+    },
+    {
+      icon: Shield,
+      title: "Audit Your Insurance Policies Annually",
+      description: "A yearly review ensures you're not overpaying or under-covered.",
+      items: [
+        "Health: Proper health insurance means access to preventive care",
+        "Wealth: Switching providers or adjusting cover can save hundreds annually",
+        "Happiness: Peace of mind knowing you and your family are protected"
+      ],
+      level: "Easy",
+      duration: "4 min read",
+      category: "finance",
+      popularity: 37,
+      views: 0,
+      dateAdded: "2026-03-01"
+    },
   ];
 
   const sortedAndFilteredTips = useMemo(() => {
