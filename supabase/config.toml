@@ -11,3 +11,6 @@ verify_jwt = false
 
 [functions.get-download-counts]
 verify_jwt = false
+
+[functions.get-page-analytics]
+verify_jwt = false

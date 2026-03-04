@@ -18,6 +18,7 @@ import LinkInBio from "./pages/LinkInBio";
 import AdminList from "./pages/AdminList";
 import NotFound from "./pages/NotFound";
 import ScrollToTop from "./components/ScrollToTop";
+import PageViewTracker from "./components/PageViewTracker";
 
 const queryClient = new QueryClient();
 
@@ -28,6 +29,7 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <ScrollToTop />
+        <PageViewTracker />
         <Navigation />
         <Routes>
           <Route path="/" element={<Home />} />
