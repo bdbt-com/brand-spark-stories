@@ -150,6 +150,24 @@ export type Database = {
         }
         Relationships: []
       }
+      video_clicks: {
+        Row: {
+          clicked_at: string | null
+          id: string
+          video_id: string
+        }
+        Insert: {
+          clicked_at?: string | null
+          id?: string
+          video_id: string
+        }
+        Update: {
+          clicked_at?: string | null
+          id?: string
+          video_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

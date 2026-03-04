@@ -2,3 +2,12 @@ project_id = "xvqhkjgowlwfdosxmvba"
 
 [functions.youtube-videos]
 verify_jwt = false
+
+[functions.track-video-click]
+verify_jwt = false
+
+[functions.get-video-clicks]
+verify_jwt = false
+
+[functions.get-download-counts]
+verify_jwt = false
