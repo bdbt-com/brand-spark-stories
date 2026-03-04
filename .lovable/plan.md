@@ -1,23 +1,36 @@
 
 
-## Fix: Fallback When Popup Is Blocked
+## Fix: page_views RLS Policies Are Blocking All Inserts
 
-### Problem
-`window.open` returns `null` when the browser blocks the popup, so the user sees "popup blocked" and nothing happens.
+### Root cause
+The `page_views` table is completely empty (0 rows). The `PageViewTracker` component inserts data using the anon key, but the RLS policies `allow_public_insert` and `allow_public_update_own_session` were created as **RESTRICTIVE** (not PERMISSIVE). In Postgres, restrictive policies act as additional filters on top of permissive policies — but if there are **no permissive policies**, all access is denied. So every insert and update has been silently rejected.
 
 ### Fix
-Check the return value of `window.open`. If it's `null` (blocked), fall back to `window.location.href` to redirect in the current tab.
+Drop the two restrictive policies and recreate them as **PERMISSIVE** policies:
 
-### Changes in both `src/pages/Home.tsx` and `src/pages/Blueprint.tsx`:
+```sql
+-- Drop the broken restrictive policies
+DROP POLICY IF EXISTS "allow_public_insert" ON public.page_views;
+DROP POLICY IF EXISTS "allow_public_update_own_session" ON public.page_views;
 
-```ts
-setTimeout(() => {
-  const newWindow = window.open(webUrl, '_blank');
-  if (!newWindow) {
-    window.location.href = webUrl;
-  }
-}, 500);
+-- Recreate as PERMISSIVE
+CREATE POLICY "allow_public_insert"
+  ON public.page_views
+  FOR INSERT
+  TO anon, authenticated
+  WITH CHECK (true);
+
+CREATE POLICY "allow_public_update_own_session"
+  ON public.page_views
+  FOR UPDATE
+  TO anon, authenticated
+  USING (true)
+  WITH CHECK (true);
 ```
 
-Everything else stays the same.
+### No code changes needed
+The edge function and AdminList UI are correct. Once the policies are fixed, data will start flowing in and the "Today — Live" stats will show real numbers.
+
+### Files changed
+- Database migration only (RLS policy fix)
 
