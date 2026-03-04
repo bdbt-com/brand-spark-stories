@@ -1,18 +1,21 @@
 
 
-## Plan: Fix Today's Counter with Correct Baseline
+## Plan: Add Podcast Videos to /bio Page + Track /bio Clicks Separately
 
-The `get-page-analytics` edge function currently shows "today" with no baseline (only live tracked data: 3 visitors). The real stats from Lovable analytics show 76 visitors and 2m 12s (132s) avg duration today.
+### 1. Add Podcast Video Cards to LinkInBio Page
 
-### Change
+**`src/pages/LinkInBio.tsx`** — Add the 3 podcast episode cards (same data as Home page) below the existing link buttons, styled to fit the dark theme. Cards will show YouTube thumbnails with play buttons, titles, and simulated view counts. Clicking plays inline or opens YouTube. The section will be compact enough to be visible on the initial viewport on both mobile and desktop (smaller thumbnails, tighter spacing).
 
-**`supabase/functions/get-page-analytics/index.ts`** — Add a today baseline for March 4:
-- Add `"today"` to the BASELINES object: `{ visitors: 76, avg_duration: 132 }`
-- This means the "today" period will show 76 + live tracked visitors, and a weighted average duration
-- Tomorrow (March 5+), the today baseline won't match the current date, so it resets to 0 automatically
+### 2. Track /bio Clicks as Separate Metric in Admin Dashboard
 
-To make the baseline date-aware, add a check: only apply today's baseline when the current UTC date is `"2026-03-04"`. On any other day, today starts from 0 (pure live data).
+The `PageViewTracker` already records `page_path` for every visit (e.g., `/bio`, `/links`, `/`). The tracking is already happening — we just need to surface it.
 
-### Files
-- `supabase/functions/get-page-analytics/index.ts` — add today baseline with date guard
+**`supabase/functions/get-page-analytics/index.ts`** — Add a new field to the response: query `page_views` where `page_path IN ('/bio', '/links')` for today, and return a `bio_clicks` count alongside the existing analytics.
+
+**`src/pages/AdminList.tsx`** — In the "Today — Live" section, keep the Visitors card as the total, but add a small grey sub-line underneath showing "/bio clicks: X" as a separate number.
+
+### Files Changed
+- `src/pages/LinkInBio.tsx` — add podcast episodes section
+- `supabase/functions/get-page-analytics/index.ts` — add bio_clicks count to response
+- `src/pages/AdminList.tsx` — show /bio clicks beneath the visitor count
 
