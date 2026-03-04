@@ -1,65 +1,29 @@
 
 
-## Adding Analytics to Admin Dashboard
+## Use Lovable's Historical Analytics Data
 
-### The Challenge
+The custom `page_views` tracking only started today, so the admin dashboard shows zeros. The user wants the real historical data from Lovable's built-in analytics reflected in the dashboard.
 
-Lovable's built-in analytics are only available as an internal tool -- there is no public API endpoint that your admin page can call from the browser. This means we cannot poll Lovable analytics every 15 seconds from the client side.
+### Approach: Add Historical Baselines to the Edge Function
 
-### Options
+Since we can't backfill thousands of rows into `page_views`, the simplest approach is to add baseline constants to the `get-page-analytics` edge function. These represent the data recorded by Lovable analytics **before** custom tracking began (March 4, 2026). The live-tracked data from `page_views` will be added on top.
 
-**Option A: Build custom page-view tracking in Supabase (recommended)**
-- Create a `page_views` table in Supabase to log every visit (page path, timestamp, session duration)
-- Add a lightweight tracking snippet to your app that records each page load and time-on-page
-- Create an edge function to aggregate stats (visitors, avg session) for given date ranges
-- The admin dashboard polls this edge function every 15 seconds, just like the other sections
-- You get full control over the data and it works on the published site
+From the Lovable analytics data provided:
+- **Since Launch** (Dec 28): 4,684 visitors, 241s avg duration
+- **Last 30 days**: 3,100 visitors, 299s avg duration  
+- **Last 14 days**: 1,300 visitors, 351s avg duration
+- **Last 7 days**: 528 visitors, 284s avg duration
 
-**Option B: Integrate a third-party analytics provider**
-- Use something like Plausible, Umami, or Google Analytics
-- Would require embedding their script and using their API to pull data into your admin page
-- More complex setup, external dependency, and most free tiers don't offer a real-time API
+### Changes
 
-### Recommended Plan (Option A)
+**`supabase/functions/get-page-analytics/index.ts`**:
+- Add a `TRACKING_START` date constant (2026-03-04)
+- Add baseline data per period representing pre-tracking Lovable analytics
+- For each period, combine the baseline visitors/duration with the live `page_views` data
+- Use weighted average for duration (baseline weighted by baseline visitor count, live weighted by live count)
 
-**1. Create `page_views` table**
-```sql
-create table public.page_views (
-  id uuid primary key default gen_random_uuid(),
-  page_path text not null,
-  session_id text not null,
-  entered_at timestamptz default now(),
-  duration_seconds integer default 0
-);
-alter table public.page_views enable row level security;
--- Allow anonymous inserts
-create policy "allow_public_insert" on public.page_views for insert with check (true);
-```
-
-**2. Add a page-view tracker component**
-- A small React component included in the app layout that:
-  - On each route change, inserts a row into `page_views` with the current path and a random session ID
-  - On page unload (or route change), updates the row with `duration_seconds`
-  - Uses `navigator.sendBeacon` or a quick update call for reliability
-
-**3. Create `get-page-analytics` edge function**
-- Accepts no params, returns aggregated stats for 7d, 14d, 30d, and since launch (Dec 28)
-- For each period: total unique sessions (visitors), average duration
-- Uses the service role key to SELECT from `page_views`
-
-**4. Add analytics card to AdminList.tsx**
-- New section at the top showing 4 time-period cards (7d, 14d, 30d, since launch)
-- Each card shows visitor count and average stay
-- Polled every 15 seconds alongside the existing data
-
-### Important Note
-Since this is custom tracking, data collection starts from the moment we deploy this change. Historical data from before deployment won't be available. The "since launch" period will only show data from when tracking begins.
+This way the numbers match reality immediately, and going forward the live tracking adds to them naturally. As time passes and all data falls within the custom-tracking era, the baselines for shorter periods (7d, 14d) will naturally become irrelevant.
 
 ### Files Changed
-- New migration: `page_views` table
-- New file: `src/components/PageViewTracker.tsx`
-- Edit: `src/App.tsx` -- include the tracker
-- New edge function: `supabase/functions/get-page-analytics/index.ts`
-- Edit: `supabase/config.toml` -- add function config
-- Edit: `src/pages/AdminList.tsx` -- add analytics section + poll it
+- `supabase/functions/get-page-analytics/index.ts` -- add historical baselines
 
