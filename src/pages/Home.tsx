@@ -12,10 +12,19 @@ import { supabase } from "@/integrations/supabase/client";
 
 // YouTube podcast episodes
 const podcastEpisodes = [
-  { videoId: "ERXXO8mG5IY", title: "Why 70% of People Are Dehydrated & Don't Know It", views: "8.4K views" },
   { videoId: "OjwSKAXveN8", title: "The Dangers of Screen-time Before Bed", views: "12.8K views", featured: true },
+  { videoId: "ERXXO8mG5IY", title: "Why 70% of People Are Dehydrated & Don't Know It", views: "8.4K views" },
   { videoId: "TY1nkJsQtyw", title: "BDBT Explained", views: "5.7K views" },
 ];
+
+const openYouTube = (videoId: string) => {
+  const webUrl = `https://www.youtube.com/watch?v=${videoId}`;
+  const appUrl = `vnd.youtube://${videoId}`;
+  setTimeout(() => {
+    window.location.href = webUrl;
+  }, 500);
+  window.location.href = appUrl;
+};
 
 const Home = () => {
   const images = ["/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png",
@@ -58,7 +67,7 @@ const Home = () => {
     const episode = podcastEpisodes[playingVideo];
     if (!episode) return;
     const timer = setTimeout(() => {
-      window.open(`https://www.youtube.com/watch?v=${episode.videoId}`, '_blank');
+      openYouTube(episode.videoId);
       setPlayingVideo(null);
     }, 4000);
     return () => clearTimeout(timer);
@@ -246,7 +255,7 @@ const Home = () => {
                       </div>
                     </button>
                   )}
-                  <a href={`https://www.youtube.com/watch?v=${episode.videoId}`} target="_blank" rel="noopener noreferrer" className="block p-4 hover:bg-muted/50 transition-colors" onClick={() => supabase.functions.invoke("track-video-click", { body: { videoId: episode.videoId } })}>
+                  <a href={`https://www.youtube.com/watch?v=${episode.videoId}`} target="_blank" rel="noopener noreferrer" className="block p-4 hover:bg-muted/50 transition-colors" onClick={(e) => { e.preventDefault(); supabase.functions.invoke("track-video-click", { body: { videoId: episode.videoId } }); openYouTube(episode.videoId); }}>
                     <h3 className="text-sm font-semibold text-foreground leading-snug line-clamp-2">{episode.title}</h3>
                     <p className="text-xs text-muted-foreground mt-1">{episode.views}</p>
                   </a>
