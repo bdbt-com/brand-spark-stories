@@ -8,15 +8,12 @@ import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "@/com
 import { useEffect, useState, useRef } from "react";
 import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "@/components/ui/collapsible";
 import ChevronRipple from "@/components/ChevronRipple";
-import templateModernWorld from "@/assets/new-template-modern-world.png";
-import templateDailyWinDrift from "@/assets/new-template-daily-win-drift.png";
-import templateBdbtExplained from "@/assets/new-template-bdbt-explained.png";
 
-// TikTok video IDs for the reels
-const tiktokVideos = [
-  { id: "7589202047988239649", thumbnail: templateModernWorld, alt: "The Modern World is Designed to Keep You Stuck" },
-  { id: "7589207085095734561", thumbnail: templateBdbtExplained, alt: "BDBT Explained" },
-  { id: "7589204507263896865", thumbnail: templateDailyWinDrift, alt: "Every Choice is a Daily Win or a Daily Drift" },
+// YouTube podcast episodes
+const podcastEpisodes = [
+  { videoId: "ERXXO8mG5IY", title: "Why 70% of People Are Dehydrated & Don't Know It", views: "8.4K views" },
+  { videoId: "OjwSKAXveN8", title: "The Dangers of Screen-time Before Bed", views: "12.8K views", featured: true },
+  { videoId: "TY1nkJsQtyw", title: "BDBT Explained", views: "5.7K views" },
 ];
 
 const Home = () => {
@@ -197,18 +194,21 @@ const Home = () => {
         </button>
       </section>
 
-      {/* Pinned Reels Section */}
+      {/* Top Podcast Episodes Section */}
       <section className="py-24 bg-gradient-to-b from-primary/5 to-background">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16 max-w-5xl mx-auto">
-            {tiktokVideos.map((video, index) => (
-              <div key={video.id} className="group transform transition-all duration-300 hover:scale-105">
-                <div className="w-full max-w-[288px] mx-auto rounded-3xl overflow-hidden shadow-lg hover:shadow-xl relative">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+            {podcastEpisodes.map((episode, index) => (
+              <div 
+                key={episode.videoId} 
+                className={`group transition-all duration-300 ${episode.featured ? 'scale-110 z-10' : ''}`}
+              >
+                <div className="rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow bg-card">
                   {playingVideo === index ? (
-                    <div className="w-full aspect-[9/16] bg-black">
+                    <div className="w-full aspect-video bg-black">
                       <iframe
-                        src={`https://www.tiktok.com/embed/v2/${video.id}?autoplay=1`}
+                        src={`https://www.youtube.com/embed/${episode.videoId}?autoplay=1`}
                         className="w-full h-full"
                         allow="autoplay; encrypted-media"
                         allowFullScreen
@@ -220,18 +220,21 @@ const Home = () => {
                       className="relative w-full cursor-pointer"
                     >
                       <img 
-                        src={video.thumbnail} 
-                        alt={video.alt}
-                        className="w-full aspect-[9/16] object-cover"
+                        src={`https://img.youtube.com/vi/${episode.videoId}/maxresdefault.jpg`}
+                        alt={episode.title}
+                        className="w-full aspect-video object-cover"
                       />
-                      {/* Play button overlay */}
                       <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition-colors">
-                        <div className="w-16 h-16 rounded-full bg-white/90 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-                          <Play className="w-8 h-8 text-primary ml-1" fill="currentColor" />
+                        <div className="w-14 h-14 rounded-full bg-white/90 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                          <Play className="w-7 h-7 text-primary ml-0.5" fill="currentColor" />
                         </div>
                       </div>
                     </button>
                   )}
+                  <div className="p-4">
+                    <h3 className="text-sm font-semibold text-foreground leading-snug line-clamp-2">{episode.title}</h3>
+                    <p className="text-xs text-muted-foreground mt-1">{episode.views}</p>
+                  </div>
                 </div>
               </div>
             ))}
