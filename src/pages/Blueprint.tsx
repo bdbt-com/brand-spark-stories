@@ -108,7 +108,6 @@ const Blueprint = () => {
                         src={`https://www.youtube.com/embed/${episode.videoId}?autoplay=1`}
                         title={episode.title}
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
                         className="w-full h-full"
                       />
                     </div>
