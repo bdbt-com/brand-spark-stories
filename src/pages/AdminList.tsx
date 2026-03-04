@@ -153,11 +153,12 @@ const AdminList = () => {
           <h2 className="text-xl font-bold text-foreground mb-4 flex items-center gap-2">
             <BarChart3 className="w-5 h-5 text-primary" /> Bio Link Clicks
           </h2>
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
               { label: "Instagram", value: bioReferrers.instagram || 0 },
               { label: "TikTok", value: bioReferrers.tiktok || 0 },
               { label: "YouTube", value: bioReferrers.youtube || 0 },
+              { label: "Direct", value: bioReferrers.direct || 0 },
             ].map(({ label, value }) => (
               <Card key={label}>
                 <CardContent className="p-5 text-center">
