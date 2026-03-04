@@ -220,7 +220,7 @@ const Home = () => {
                       className="relative w-full cursor-pointer"
                     >
                       <img 
-                        src={`https://img.youtube.com/vi/${episode.videoId}/maxresdefault.jpg`}
+                        src={`https://img.youtube.com/vi/${episode.videoId}/hqdefault.jpg`}
                         alt={episode.title}
                         className="w-full aspect-video object-cover"
                       />
