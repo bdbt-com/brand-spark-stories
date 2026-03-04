@@ -9,8 +9,8 @@ import { useDownloadCounts } from "@/hooks/useDownloadCounts";
 import { supabase } from "@/integrations/supabase/client";
 
 const podcastEpisodes = [
-  { videoId: "ERXXO8mG5IY", title: "Why 70% of People Are Dehydrated...", views: "8.4K views" },
   { videoId: "OjwSKAXveN8", title: "The Dangers of Screen-time Before Bed", views: "12.8K views" },
+  { videoId: "ERXXO8mG5IY", title: "Why 70% of People Are Dehydrated...", views: "8.4K views" },
   { videoId: "TY1nkJsQtyw", title: "BDBT Explained", views: "5.7K views" },
 ];
 
@@ -124,7 +124,7 @@ const Blueprint = () => {
                 <div
                   key={episode.videoId}
                   className={`rounded-2xl overflow-hidden shadow-medium bg-background border border-border/50 transition-all duration-300 hover:shadow-strong ${
-                    index === 1 ? "md:scale-110 md:z-10" : ""
+                    index === 0 ? "md:order-2 md:scale-110 md:z-10" : index === 1 ? "md:order-1" : "md:order-3"
                   }`}
                 >
                   {playingVideo === episode.videoId ? (
