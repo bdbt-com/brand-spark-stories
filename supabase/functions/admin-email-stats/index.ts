@@ -39,9 +39,15 @@ serve(async (req) => {
     // Convert to array, sorted newest first
     const subscribers = Array.from(emailMap.values()).reverse();
 
+    // Count subscribers gained today
+    const todayMidnight = new Date();
+    todayMidnight.setUTCHours(0, 0, 0, 0);
+    const todayCount = subscribers.filter(s => s.created_at && new Date(s.created_at) >= todayMidnight).length;
+
     return new Response(JSON.stringify({ 
       subscribers,
       total: subscribers.length,
+      today_count: todayCount,
     }), {
       status: 200,
       headers: { ...corsHeaders, "Content-Type": "application/json" },

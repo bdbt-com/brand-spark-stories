@@ -29,7 +29,10 @@ Deno.serve(async (req) => {
     );
 
     const now = new Date();
+    const todayMidnight = new Date(now);
+    todayMidnight.setUTCHours(0, 0, 0, 0);
     const periods: Record<string, string> = {
+      today: todayMidnight.toISOString(),
       "7d": new Date(now.getTime() - 7 * 86400000).toISOString(),
       "14d": new Date(now.getTime() - 14 * 86400000).toISOString(),
       "30d": new Date(now.getTime() - 30 * 86400000).toISOString(),
@@ -59,8 +62,8 @@ Deno.serve(async (req) => {
       );
       const liveAvg = rows.length > 0 ? totalDuration / rows.length : 0;
 
-      // Combine with historical baseline
-      const baseline = BASELINES[key] || { visitors: 0, avg_duration: 0 };
+      // Combine with historical baseline (skip for "today" — no historical data)
+      const baseline = key === "today" ? { visitors: 0, avg_duration: 0 } : (BASELINES[key] || { visitors: 0, avg_duration: 0 });
       const combinedVisitors = baseline.visitors + liveVisitors;
       const combinedAvg = combinedVisitors > 0
         ? Math.round(
