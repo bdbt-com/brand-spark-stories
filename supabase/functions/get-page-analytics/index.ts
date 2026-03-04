@@ -8,6 +8,15 @@ const corsHeaders = {
 
 const LAUNCH_DATE = "2024-12-28T00:00:00Z";
 
+// Historical baselines from Lovable analytics (data before custom tracking started 2026-03-04)
+const BASELINES: Record<string, { visitors: number; avg_duration: number }> = {
+  "7d":          { visitors: 528,  avg_duration: 284 },
+  "14d":         { visitors: 1300, avg_duration: 351 },
+  "30d":         { visitors: 3100, avg_duration: 299 },
+  since_launch:  { visitors: 4684, avg_duration: 241 },
+};
+const TRACKING_START = new Date("2026-03-04T00:00:00Z");
+
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
@@ -37,21 +46,32 @@ Deno.serve(async (req) => {
 
       if (error) {
         console.error(`Error fetching ${key}:`, error);
-        results[key] = { visitors: 0, avg_duration: 0 };
+        results[key] = BASELINES[key] || { visitors: 0, avg_duration: 0 };
         continue;
       }
 
       const rows = data || [];
       const uniqueSessions = new Set(rows.map((r: any) => r.session_id));
+      const liveVisitors = uniqueSessions.size;
       const totalDuration = rows.reduce(
         (sum: number, r: any) => sum + (r.duration_seconds || 0),
         0
       );
-      const avgDuration = rows.length > 0 ? Math.round(totalDuration / rows.length) : 0;
+      const liveAvg = rows.length > 0 ? totalDuration / rows.length : 0;
+
+      // Combine with historical baseline
+      const baseline = BASELINES[key] || { visitors: 0, avg_duration: 0 };
+      const combinedVisitors = baseline.visitors + liveVisitors;
+      const combinedAvg = combinedVisitors > 0
+        ? Math.round(
+            (baseline.visitors * baseline.avg_duration + liveVisitors * liveAvg) /
+            combinedVisitors
+          )
+        : 0;
 
       results[key] = {
-        visitors: uniqueSessions.size,
-        avg_duration: avgDuration,
+        visitors: combinedVisitors,
+        avg_duration: combinedAvg,
       };
     }
 
