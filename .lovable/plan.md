@@ -1,26 +1,18 @@
 
 
-## Blueprint Page Layout Restructure + YouTube Podcast Section
+## Plan: YouTube Click-Through Behavior
 
-### Changes to `src/pages/Blueprint.tsx`
+### Changes to `src/pages/Home.tsx` and `src/pages/Blueprint.tsx`
 
-**1. Side-by-side layout for email form + blueprint info card**
-- Change the container from `max-w-2xl` to `max-w-5xl`
-- Place the email capture card (left) and the blueprint info card (right) in a 2-column grid (`grid md:grid-cols-2 gap-8`)
-- Remove the `mb-16` spacing between them since they'll be side-by-side
-- On mobile, they stack vertically
+**1. Title area click → open YouTube in new tab**
+- Wrap the title/views `div` below thumbnails with an `<a>` tag linking to `https://www.youtube.com/watch?v=${episode.videoId}` with `target="_blank"`
 
-**2. Add YouTube podcast episodes section below the two cards**
-- Copy the exact podcast episodes section from `Home.tsx` (the 3-video grid with play button overlays, titles, view counts, and the middle card at `scale-110`)
-- Add `useState` for `playingVideo` state
-- Import `Play` from lucide-react
-- Place it between the two-card row and the CTA section
-- Include the same `podcastEpisodes` array data
+**2. Play button click → embed starts, then redirect to YouTube after ~4 seconds**
+- Keep existing click-to-embed behavior
+- Add a `useEffect` that watches `playingVideo` state — when set, start a 4-second timeout
+- After timeout: open YouTube link in new tab, pause the embed by setting `playingVideo` back to `null` (which swaps iframe back to thumbnail, effectively stopping playback)
 
-### File: `src/pages/Blueprint.tsx`
-- Add imports: `Play` from lucide-react, `useState` already exists
-- Add `podcastEpisodes` array (same 3 videos)
-- Add `playingVideo` state
-- Restructure layout: widen container, put email card + info card in 2-col grid
-- Insert YouTube section below the grid, above CTA
+### Files to edit
+- `src/pages/Home.tsx`
+- `src/pages/Blueprint.tsx`
 
