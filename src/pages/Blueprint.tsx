@@ -43,6 +43,57 @@ const Blueprint = () => {
             </h1>
           </div>
 
+          {/* YouTube Podcast Episodes Section */}
+          <div className="mb-8">
+            <h2 className="text-2xl sm:text-3xl font-bold text-center text-primary mb-8">
+              Top Podcast Episodes
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-center px-4">
+              {podcastEpisodes.map((episode, index) => (
+                <div
+                  key={episode.videoId}
+                  className={`rounded-2xl overflow-hidden shadow-medium bg-background border border-border/50 transition-all duration-300 hover:shadow-strong ${
+                    index === 1 ? "md:scale-110 md:z-10" : ""
+                  }`}
+                >
+                  {playingVideo === episode.videoId ? (
+                    <div className="aspect-video">
+                      <iframe
+                        src={`https://www.youtube.com/embed/${episode.videoId}?autoplay=1`}
+                        title={episode.title}
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        className="w-full h-full"
+                      />
+                    </div>
+                  ) : (
+                    <div
+                      className="relative w-full cursor-pointer"
+                      onClick={() => {
+                        setPlayingVideo(episode.videoId);
+                        supabase.functions.invoke("track-video-click", { body: { videoId: episode.videoId } });
+                      }}
+                    >
+                      <img
+                        src={`https://img.youtube.com/vi/${episode.videoId}/hqdefault.jpg`}
+                        alt={episode.title}
+                        className="w-full aspect-video object-cover"
+                      />
+                      <div className="absolute inset-0 flex items-center justify-center bg-black/30 hover:bg-black/40 transition-colors">
+                        <div className="w-14 h-14 rounded-full bg-primary/90 flex items-center justify-center shadow-lg">
+                          <Play className="w-7 h-7 text-primary-foreground ml-1" />
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                  <a href={`https://www.youtube.com/watch?v=${episode.videoId}`} target="_blank" rel="noopener noreferrer" className="block p-4 hover:bg-muted/50 transition-colors" onClick={() => supabase.functions.invoke("track-video-click", { body: { videoId: episode.videoId } })}>
+                    <h3 className="font-semibold text-sm text-foreground line-clamp-2">{episode.title}</h3>
+                    <p className="text-xs text-muted-foreground mt-1">{episode.views}</p>
+                  </a>
+                </div>
+              ))}
+            </div>
+          </div>
+
           {/* Side-by-side: Email form + Blueprint info card */}
           <div className="grid md:grid-cols-2 gap-8 items-start">
             {/* Email capture form */}
@@ -102,56 +153,6 @@ const Blueprint = () => {
             </Card>
           </div>
 
-          {/* YouTube Podcast Episodes Section */}
-          <div className="mt-16 mb-16">
-            <h2 className="text-2xl sm:text-3xl font-bold text-center text-primary mb-8">
-              Top Podcast Episodes
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-center px-4">
-              {podcastEpisodes.map((episode, index) => (
-                <div
-                  key={episode.videoId}
-                  className={`rounded-2xl overflow-hidden shadow-medium bg-background border border-border/50 transition-all duration-300 hover:shadow-strong ${
-                    index === 1 ? "md:scale-110 md:z-10" : ""
-                  }`}
-                >
-                  {playingVideo === episode.videoId ? (
-                    <div className="aspect-video">
-                      <iframe
-                        src={`https://www.youtube.com/embed/${episode.videoId}?autoplay=1`}
-                        title={episode.title}
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        className="w-full h-full"
-                      />
-                    </div>
-                  ) : (
-                    <div
-                      className="relative w-full cursor-pointer"
-                      onClick={() => {
-                        setPlayingVideo(episode.videoId);
-                        supabase.functions.invoke("track-video-click", { body: { videoId: episode.videoId } });
-                      }}
-                    >
-                      <img
-                        src={`https://img.youtube.com/vi/${episode.videoId}/hqdefault.jpg`}
-                        alt={episode.title}
-                        className="w-full aspect-video object-cover"
-                      />
-                      <div className="absolute inset-0 flex items-center justify-center bg-black/30 hover:bg-black/40 transition-colors">
-                        <div className="w-14 h-14 rounded-full bg-primary/90 flex items-center justify-center shadow-lg">
-                          <Play className="w-7 h-7 text-primary-foreground ml-1" />
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                  <a href={`https://www.youtube.com/watch?v=${episode.videoId}`} target="_blank" rel="noopener noreferrer" className="block p-4 hover:bg-muted/50 transition-colors" onClick={() => supabase.functions.invoke("track-video-click", { body: { videoId: episode.videoId } })}>
-                    <h3 className="font-semibold text-sm text-foreground line-clamp-2">{episode.title}</h3>
-                    <p className="text-xs text-muted-foreground mt-1">{episode.views}</p>
-                  </a>
-                </div>
-              ))}
-            </div>
-          </div>
 
           {/* CTA Section */}
           <div className="mt-20 text-center bg-warning text-white rounded-2xl p-6 sm:p-12 border-4 border-warning/40">

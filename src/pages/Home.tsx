@@ -208,7 +208,7 @@ const Home = () => {
       </section>
 
       {/* Top Podcast Episodes Section */}
-      <section className="py-24 bg-gradient-to-b from-primary/5 to-background">
+      <section className="py-10 md:py-24 bg-gradient-to-b from-primary/5 to-background">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
