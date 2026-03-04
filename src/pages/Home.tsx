@@ -211,7 +211,6 @@ const Home = () => {
                         src={`https://www.youtube.com/embed/${episode.videoId}?autoplay=1`}
                         className="w-full h-full"
                         allow="autoplay; encrypted-media"
-                        allowFullScreen
                       />
                     </div>
                   ) : (
