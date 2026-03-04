@@ -181,7 +181,23 @@ export const guideMapping: Record<string, string> = {
   "Say goodbye to netflix, prime & binge watching": "https://drive.google.com/uc?export=download&id=1LzXz7Ey2_MITetWfi6tm83S5JQSj3AYT",
 
   // New - Wait 30 days
-  "Wait 30 days before any status spend": "https://drive.google.com/uc?export=download&id=16wQerj9mRBpOIloTQ3mnMq1uj_JzkvPl"
+  "Wait 30 days before any status spend": "https://drive.google.com/uc?export=download&id=16wQerj9mRBpOIloTQ3mnMq1uj_JzkvPl",
+
+  // New guides - March 2026
+  "Appreciate the things around you": "https://drive.google.com/uc?export=download&id=1kKeI1d7ewvZg_OLJde8tZnOT9nqZH4BR",
+  "Walk Backwards": "https://drive.google.com/uc?export=download&id=1cWU9sNc3z-rhtZPuIX_INJOkrnKrl_L8",
+  "Why Implement a 30-Day Rule for Big Purchases?": "https://drive.google.com/uc?export=download&id=1MsIuh6_KWosjlg0vbfLcpHbiagtwOJU_",
+  "Write Down 3 Things You Accomplished at the End of Each Day": "https://drive.google.com/uc?export=download&id=1B8yF5Pxsdmx7xAiGtSidwZInApGJiBw9",
+  "25 Ways to Introduce More Gardening": "https://drive.google.com/uc?export=download&id=11tKfToJrUZp1cpSMvRxrecRkxcG6Oyf2",
+  "30 Benefits of Blending Connection": "https://drive.google.com/uc?export=download&id=1lKkvCLBxpwse1pkQ0R6yt2qDbfNESZrR",
+  "30 Foods to Fight Inflammation & Bloating": "https://drive.google.com/uc?export=download&id=1KSUViJvROXX_zvIKuIIyJR5-brApq63A",
+  "30 Reasons to Eat Natto Beans": "https://drive.google.com/uc?export=download&id=1jN4C6t52xEH2fKiLGgSTHMzzouPKrQBX",
+  "30 Reasons to Sprinkle Seeds onto Your Meals": "https://drive.google.com/uc?export=download&id=15nOlSbAYgC9EGxgmdFrJOFl-zLOpo6sR",
+  "30 Reasons to Swap Your Existing Bread": "https://drive.google.com/uc?export=download&id=1xDVbeg7bsKh3qeu3WDLStYKwAF3n2T7Q",
+  "Learn to Do the Splits": "https://drive.google.com/uc?export=download&id=1VGqODPkmKFdckv64Q2OgCSfH7Pz9CVbB",
+  "Your Daily Greens": "https://drive.google.com/uc?export=download&id=1MTn7Z9HIKuazsXGW66UHAdwi-Ca4r5P6",
+  "Add Legumes to a Meal Once a Week": "https://drive.google.com/uc?export=download&id=1b1V7aanyasWKvF545MawJdWA3-p7uhSW",
+  "Audit Your Insurance Policies Annually": "https://drive.google.com/uc?export=download&id=1K-MRJgozem2wI7fw_TslfHYbj6I8Xjm3"
 };
 
 // Helper function to get guide URL by tip title
