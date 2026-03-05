@@ -349,7 +349,7 @@
   /* Gentle pulse for clickable elements */
   @keyframes gentle-pulse {
     0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.04); }
+    50% { transform: scale(1.02); }
   }
 
   .text-outline-white-thin {
