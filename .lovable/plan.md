@@ -1,19 +1,38 @@
 
 
-## Plan: Tighten spacing + equalize link buttons + shift video row up
+# Podcast 60 Thumbnails: "Reframe one Thing In Your Life Today"
 
-### 1. Shrink gap between tagline and social icons (make it equal to gap between icons and first button)
-- `src/pages/LinkInBio.tsx` line 138: Change tagline `mb-5` to `mb-3`
-- Social icons (line 148) already have `mb-5` on mobile — change to `mb-3` so both gaps match
+## What will be built
+Both YouTube (16:9) and TikTok/Instagram (9:16) thumbnail templates for Podcast 60 with the title "Reframe one Thing In Your Life Today".
 
-### 2. Make all 3 link buttons the same size
-- Currently each button auto-sizes based on content. Add a fixed height to the card wrapper (e.g. `h-16`) so all 3 buttons are identical height matching the Foundation Blueprint button.
+## Changes
 
-### 3. Shift video thumbnails row up
-- Line 225: Reduce `mt-5` to `mt-3` on the "Picked For You" section
-- Line 226: Reduce `mb-3` to `mb-2` on the header text
-- This shifts the entire video row upward so title + views are visible on first load
+### 1. `src/pages/ThumbnailTemplate.tsx`
 
-### Files changed
-- `src/pages/LinkInBio.tsx` — spacing adjustments only (4 line changes)
+**YouTube templates array** (after line 472, before the closing `];`):
+- Add entry `id: 64` with name/title "Reframe one Thing In Your Life Today", subtitle "Daily Wins Podcast 60"
+
+**TikTok templates array** (after line 553, before the closing `];`):
+- Add entry `id: 78` with name "Podcast 60 Reframe one Thing In Your Life Today"
+
+**YouTube rendering block** (after the template 63 block ending at line 3454):
+- Add `currentTemplateIndex === 64 && mode === 'youtube'` block
+- Standard podcast layout: gradient background, right-side image box with glassmorphism, podcast image, BDBT logo
+- Title split: "Reframe one Thing" (white) / "In Your Life Today" (gold accent)
+- Subtitle: "Daily Wins Podcast 60"
+
+**TikTok rendering block** (after the template 77 instagram block):
+- Add `currentTemplateIndex === 78 && mode === 'instagram'` block rendering `<TikTokTemplate templateIndex={78} />`
+
+### 2. `src/components/TikTokTemplate.tsx`
+
+**Type definition** (line 33):
+- Extend union type to include `78`
+
+**Backgrounds array** (line 38):
+- Append `tikTokBg24` (P60 is even-numbered, uses bg 24 per the mapping)
+
+**Title rendering** (after the templateIndex === 77 block, before the `: null}`):
+- Add `templateIndex === 78` case
+- "BDBT PODCAST 60" header, "REFRAME ONE THING" (white), "IN YOUR LIFE TODAY" (gold)
 
