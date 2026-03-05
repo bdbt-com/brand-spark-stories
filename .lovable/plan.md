@@ -1,25 +1,20 @@
 
 
-## Plan: Add Podcast 59 thumbnails — "Time in the Market Beats Timing the Market"
+## Plan: Make video thumbnails smaller on mobile for /bio page
 
-Podcast 59 = odd-numbered, so the TikTok/IG background uses **tikTokBg28** (tiktok-bg-template-32.png) per the alternating pattern.
+### Problem
+On mobile, each video card takes up too much vertical space, so only ~1 card is visible. We need at least 1.5 thumbnails visible on the opening screen.
+
+### Solution (`src/pages/LinkInBio.tsx`)
+
+Change the podcast episodes section on mobile to a horizontal scrollable row instead of a vertical stack:
+
+- Replace `grid grid-cols-1 md:grid-cols-3` with a horizontal scroll container on mobile
+- On mobile: use `flex overflow-x-auto snap-x` with each card set to ~60-65% width (`min-w-[60%]`) so 1.5 cards are visible
+- On desktop (md+): keep the existing 3-column grid layout unchanged
+- Reduce the video thumbnail `aspect-video` slightly on mobile if needed
+- Add `snap-center` to each card for nice scroll snapping
 
 ### Files Changed
-
-**1. `src/components/TikTokTemplate.tsx`**
-- Update `templateIndex` type union to include `77`
-- Add index 77 to `backgrounds` array with `tikTokBg28`
-- Add title rendering block for `templateIndex === 77`:
-  - "BDBT PODCAST 59"
-  - "TIME IN THE MARKET BEATS"
-  - "TIMING THE MARKET" (gold accent)
-
-**2. `src/pages/ThumbnailTemplate.tsx`**
-- Add YouTube `templates` entry: `{ id: 63, name: "Time in the Market Beats Timing the Market", title: "Time in the Market Beats Timing the Market", subtitle: "Daily Wins Podcast 59", image: "..." }`
-- Add `tikTokTemplates` entry: `{ id: 77, name: "Podcast 59 Time in the Market Beats Timing the Market", title: "Time in the Market Beats Timing the Market", ... }`
-- Add Instagram rendering block: `currentTemplateIndex === 77 && mode === 'instagram'` → `<TikTokTemplate templateIndex={77} />`
-- Add YouTube rendering block: `currentTemplateIndex === 63 && mode === 'youtube'` with title split:
-  - White: "Time in the Market Beats"
-  - Gold: "Timing the Market"
-  - Subtitle: "Daily Wins Podcast 59"
+- `src/pages/LinkInBio.tsx`
 
