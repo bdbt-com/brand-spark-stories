@@ -1,20 +1,13 @@
 
 
-## Plan: Make video thumbnails smaller on mobile for /bio page
+## Plan: Shrink video cards and add pulse animation on mobile /bio page
 
-### Problem
-On mobile, each video card takes up too much vertical space, so only ~1 card is visible. We need at least 1.5 thumbnails visible on the opening screen.
+### Changes to `src/pages/LinkInBio.tsx`
+- Reduce mobile card width from `min-w-[65%]` to `min-w-[45%]` so the full center card plus halves of the side cards are visible on screen
+- Add a subtle pulsating animation to the middle card (index 1) on mobile only
 
-### Solution (`src/pages/LinkInBio.tsx`)
+### Changes to `src/index.css`
+- Add `@keyframes gentle-pulse` animation: `scale(1) → scale(1.04) → scale(1)` over 2.5s, infinite, ease-in-out
 
-Change the podcast episodes section on mobile to a horizontal scrollable row instead of a vertical stack:
-
-- Replace `grid grid-cols-1 md:grid-cols-3` with a horizontal scroll container on mobile
-- On mobile: use `flex overflow-x-auto snap-x` with each card set to ~60-65% width (`min-w-[60%]`) so 1.5 cards are visible
-- On desktop (md+): keep the existing 3-column grid layout unchanged
-- Reduce the video thumbnail `aspect-video` slightly on mobile if needed
-- Add `snap-center` to each card for nice scroll snapping
-
-### Files Changed
-- `src/pages/LinkInBio.tsx`
+The middle card will pulse gently to draw attention, and all three cards will be small enough that the center one (plus partial side cards) fits fully on the opening screen.
 
