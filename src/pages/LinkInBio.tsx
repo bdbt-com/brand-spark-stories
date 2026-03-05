@@ -99,19 +99,21 @@ const LinkInBio = () => {
   useEffect(() => {
     if (window.innerWidth < 768) {
       const centerCard = () => {
-        const el = document.getElementById('episodes-scroll');
-        const cards = el?.children;
-        if (el && cards && cards.length >= 2) {
-          (cards[1] as HTMLElement).scrollIntoView({ behavior: 'instant', inline: 'center', block: 'nearest' });
+        const container = document.getElementById('episodes-scroll');
+        const card = container?.children[1] as HTMLElement;
+        if (container && card) {
+          const offset = card.offsetLeft - (container.clientWidth - card.clientWidth) / 2;
+          container.scrollTo({ left: offset, behavior: 'instant' as ScrollBehavior });
         }
       };
       centerCard();
       setTimeout(centerCard, 200);
+      setTimeout(centerCard, 500);
     }
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#36455A] flex flex-col items-center px-4 py-8">
+    <div className="min-h-screen bg-[#36455A] flex flex-col items-center px-4 py-5 md:py-8">
       {/* Background gradient overlay */}
       <div className="fixed inset-0 bg-gradient-to-b from-[#36455A] via-[#2d3a4d] to-[#1e2836] -z-10" />
       
@@ -143,7 +145,7 @@ const LinkInBio = () => {
         </div>
         
         {/* Social icons */}
-        <div className="flex items-center gap-6 mb-8">
+        <div className="flex items-center gap-6 mb-5 md:mb-8">
           {socialLinks.map((social) => (
             <a
               key={social.name}
@@ -159,7 +161,7 @@ const LinkInBio = () => {
         </div>
         
         {/* Links */}
-        <div className="w-full max-w-md space-y-3">
+        <div className="w-full max-w-md space-y-2.5 md:space-y-3">
           {links.map((link, index) => {
             const cardContent = (
               <div 
@@ -220,8 +222,8 @@ const LinkInBio = () => {
         </div>
         
         {/* Podcast Episodes — Home page style */}
-        <div className="w-full mt-8">
-          <p className="text-white/50 text-xs uppercase tracking-wider text-center mb-4">Picked For You</p>
+        <div className="w-full mt-5 md:mt-8">
+          <p className="text-white/50 text-xs uppercase tracking-wider text-center mb-3 md:mb-4">Picked For You</p>
           <div 
             id="episodes-scroll"
             className="flex md:grid overflow-x-auto md:overflow-x-visible snap-x snap-mandatory md:snap-none md:grid-cols-3 gap-2 md:gap-8 items-center pb-4 md:pb-0 -mx-4 px-4 md:mx-0 md:px-0 scrollbar-hide"
@@ -229,9 +231,9 @@ const LinkInBio = () => {
             {podcastEpisodes.map((episode, index) => (
               <div 
                 key={episode.videoId} 
-                className={`group transition-all duration-300 min-w-[42vw] max-w-[42vw] md:min-w-0 md:max-w-none snap-center flex-shrink-0 ${episode.videoId === 'OjwSKAXveN8' ? 'md:scale-110 md:z-10' : ''}`}
+                className={`group transition-all duration-300 w-[52vw] min-w-[52vw] max-w-[52vw] md:w-auto md:min-w-0 md:max-w-none snap-center flex-shrink-0 ${episode.videoId === 'OjwSKAXveN8' ? 'md:scale-110 md:z-10' : ''}`}
               >
-                <div className="rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow bg-card">
+                <div className="rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow bg-card flex flex-col h-full">
                 <div className={index === 1 ? 'animate-[gentle-pulse_6s_ease-in-out_infinite] md:animate-none transform-gpu origin-center will-change-transform' : ''}>
                 {playingVideo === index ? (
                   <div className="w-full aspect-video bg-black">
@@ -273,8 +275,8 @@ const LinkInBio = () => {
                     openYouTube(episode.videoId);
                   }}
                 >
-                  <h3 className="text-xs md:text-sm font-semibold text-foreground leading-snug line-clamp-2">{episode.title}</h3>
-                  <p className="text-xs text-muted-foreground mt-1">{episode.views}</p>
+                  <h3 className="text-xs md:text-sm font-semibold text-foreground leading-snug line-clamp-2 min-h-[2rem]">{episode.title}</h3>
+                  <p className="text-[10px] md:text-xs text-muted-foreground mt-0.5">{episode.views}</p>
                 </a>
                 </div>
               </div>
