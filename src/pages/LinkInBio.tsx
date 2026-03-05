@@ -135,7 +135,7 @@ const LinkInBio = () => {
         </h1>
         
         {/* Tagline */}
-        <div className="text-center mb-5">
+        <div className="text-center mb-3">
           <p className="text-white text-sm mb-1">
             🎵 Small daily steps 💥 Big life changes
           </p>
@@ -145,7 +145,7 @@ const LinkInBio = () => {
         </div>
         
         {/* Social icons */}
-        <div className="flex items-center gap-6 mb-5 md:mb-8">
+        <div className="flex items-center gap-6 mb-3 md:mb-8">
           {socialLinks.map((social) => (
             <a
               key={social.name}
@@ -165,7 +165,7 @@ const LinkInBio = () => {
           {links.map((link, index) => {
             const cardContent = (
               <div 
-                className="w-full rounded-xl bg-black/40 backdrop-blur-sm border border-white/10 
+                className="w-full h-16 rounded-xl bg-black/40 backdrop-blur-sm border border-white/10 
                          hover:bg-black/50 hover:scale-[1.02] hover:border-white/20
                          transition-all duration-300 ease-out cursor-pointer
                          flex items-center overflow-hidden"
@@ -222,8 +222,8 @@ const LinkInBio = () => {
         </div>
         
         {/* Podcast Episodes — Home page style */}
-        <div className="w-full mt-5 md:mt-8">
-          <p className="text-white/50 text-xs uppercase tracking-wider text-center mb-3 md:mb-4">Picked For You</p>
+        <div className="w-full mt-3 md:mt-8">
+          <p className="text-white/50 text-xs uppercase tracking-wider text-center mb-2 md:mb-4">Picked For You</p>
           <div 
             id="episodes-scroll"
             className="flex md:grid overflow-x-auto md:overflow-x-visible snap-x snap-mandatory md:snap-none md:grid-cols-3 gap-2 md:gap-8 items-center pb-4 md:pb-0 -mx-4 px-4 md:mx-0 md:px-0 scrollbar-hide"
