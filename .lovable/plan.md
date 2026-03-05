@@ -1,43 +1,19 @@
 
-Goal: make the “Picked For You” carousel look clean and uniform on mobile so the centered card shows full thumbnail + title + views at first load, with equal card sizing.
 
-Implementation plan
+## Plan: Tighten spacing + equalize link buttons + shift video row up
 
-1) Normalize mobile card dimensions (equal width + equal height)
-- File: `src/pages/LinkInBio.tsx`
-- Replace the current `min-w/max-w` sizing with a single fixed mobile width token for every card (e.g. `w-[52vw]` with matching `min-w`/`max-w`) so all 3 cards are identical.
-- Convert each card wrapper to a vertical flex layout (`flex flex-col h-full`) and set a consistent text area height (`min-h-*`) so title/views alignment is identical across all cards.
-- Keep `aspect-video` for thumbnail so media dimensions are always equal.
+### 1. Shrink gap between tagline and social icons (make it equal to gap between icons and first button)
+- `src/pages/LinkInBio.tsx` line 138: Change tagline `mb-5` to `mb-3`
+- Social icons (line 148) already have `mb-5` on mobile — change to `mb-3` so both gaps match
 
-2) Ensure center card is perfectly centered on load
-- File: `src/pages/LinkInBio.tsx`
-- Replace the current `scrollIntoView`-only centering with explicit container centering math:
-  - `scrollLeft = card.offsetLeft - (container.clientWidth - card.clientWidth) / 2`
-- Run this on mount + delayed second pass (after layout settles) + on resize/orientation change for iPhone Safari reliability.
+### 2. Make all 3 link buttons the same size
+- Currently each button auto-sizes based on content. Add a fixed height to the card wrapper (e.g. `h-16`) so all 3 buttons are identical height matching the Foundation Blueprint button.
 
-3) Move the section upward so full card content is visible in viewport
-- File: `src/pages/LinkInBio.tsx`
-- Reduce mobile-only vertical spacing above the carousel:
-  - Top container vertical padding (`py-*`) reduced on mobile
-  - Social icon bottom margin reduced
-  - Link list spacing tightened slightly
-  - “Picked For You” block `mt-*` reduced
-- Keep desktop spacing unchanged with `md:` overrides.
+### 3. Shift video thumbnails row up
+- Line 225: Reduce `mt-5` to `mt-3` on the "Picked For You" section
+- Line 226: Reduce `mb-3` to `mb-2` on the header text
+- This shifts the entire video row upward so title + views are visible on first load
 
-4) Keep ordering neat and consistent
-- File: `src/pages/LinkInBio.tsx`
-- Maintain same episode order.
-- Keep snap behavior (`snap-center`) and consistent gap so side cards peek evenly.
-- Preserve existing tap/click tracking behavior and links.
+### Files changed
+- `src/pages/LinkInBio.tsx` — spacing adjustments only (4 line changes)
 
-5) Keep pulse subtle and non-distracting
-- File: `src/index.css` and `src/pages/LinkInBio.tsx` (only if needed)
-- Keep pulse only on the thumbnail area (not whole card) and ensure it does not affect text layout.
-- If motion still feels strong, lower scale amplitude slightly while keeping timing slow.
-
-Acceptance criteria
-- On mobile initial load, middle episode card is centered.
-- Middle card shows full thumbnail + full title block + views without clipping.
-- All episode cards are visually equal in width and height.
-- Layout appears tighter (moved up) but still clean and ordered.
-- Desktop layout behavior remains unchanged.
