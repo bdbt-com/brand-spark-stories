@@ -207,11 +207,11 @@ const LinkInBio = () => {
         {/* Podcast Episodes — Home page style */}
         <div className="w-full mt-8">
           <p className="text-white/50 text-xs uppercase tracking-wider text-center mb-4">🎙 Top Episodes</p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+          <div className="flex md:grid overflow-x-auto md:overflow-x-visible snap-x snap-mandatory md:snap-none md:grid-cols-3 gap-4 md:gap-8 items-center pb-4 md:pb-0 -mx-4 px-4 md:mx-0 md:px-0 scrollbar-hide">
             {podcastEpisodes.map((episode, index) => (
               <div 
                 key={episode.videoId} 
-                className={`group transition-all duration-300 ${episode.videoId === 'OjwSKAXveN8' ? 'order-first md:order-none md:scale-110 md:z-10' : ''}`}
+                className={`group transition-all duration-300 min-w-[60%] md:min-w-0 snap-center ${episode.videoId === 'OjwSKAXveN8' ? 'order-first md:order-none md:scale-110 md:z-10' : ''}`}
               >
                 <div className="rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow bg-card">
                 {playingVideo === index ? (
