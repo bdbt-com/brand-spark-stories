@@ -95,6 +95,20 @@ const LinkInBio = () => {
     return () => clearTimeout(timer);
   }, [playingVideo]);
 
+  // Scroll to middle episode on mount (mobile)
+  useEffect(() => {
+    const el = document.getElementById('episodes-scroll');
+    if (el && window.innerWidth < 768) {
+      // Scroll to center the second card (index 1)
+      const cards = el.children;
+      if (cards.length >= 2) {
+        const card = cards[1] as HTMLElement;
+        const scrollLeft = card.offsetLeft - (el.clientWidth - card.offsetWidth) / 2;
+        el.scrollLeft = scrollLeft;
+      }
+    }
+  }, []);
+
   return (
     <div className="min-h-screen bg-[#36455A] flex flex-col items-center px-4 py-8">
       {/* Background gradient overlay */}
@@ -207,11 +221,14 @@ const LinkInBio = () => {
         {/* Podcast Episodes — Home page style */}
         <div className="w-full mt-8">
           <p className="text-white/50 text-xs uppercase tracking-wider text-center mb-4">🎙 Top Episodes</p>
-          <div className="flex md:grid overflow-x-auto md:overflow-x-visible snap-x snap-mandatory md:snap-none md:grid-cols-3 gap-4 md:gap-8 items-center pb-4 md:pb-0 -mx-4 px-4 md:mx-0 md:px-0 scrollbar-hide">
+          <div 
+            id="episodes-scroll"
+            className="flex md:grid overflow-x-auto md:overflow-x-visible snap-x snap-mandatory md:snap-none md:grid-cols-3 gap-4 md:gap-8 items-center pb-4 md:pb-0 -mx-4 px-4 md:mx-0 md:px-0 scrollbar-hide"
+          >
             {podcastEpisodes.map((episode, index) => (
               <div 
                 key={episode.videoId} 
-                className={`group transition-all duration-300 min-w-[60%] md:min-w-0 snap-center ${episode.videoId === 'OjwSKAXveN8' ? 'order-first md:order-none md:scale-110 md:z-10' : ''}`}
+                className={`group transition-all duration-300 min-w-[65%] md:min-w-0 snap-center flex-shrink-0 ${episode.videoId === 'OjwSKAXveN8' ? 'md:scale-110 md:z-10' : ''}`}
               >
                 <div className="rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow bg-card">
                 {playingVideo === index ? (
