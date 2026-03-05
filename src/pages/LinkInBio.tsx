@@ -220,7 +220,7 @@ const LinkInBio = () => {
         
         {/* Podcast Episodes — Home page style */}
         <div className="w-full mt-8">
-          <p className="text-white/50 text-xs uppercase tracking-wider text-center mb-4">🎙 Top Episodes</p>
+          <p className="text-white/50 text-xs uppercase tracking-wider text-center mb-4">Picked For You</p>
           <div 
             id="episodes-scroll"
             className="flex md:grid overflow-x-auto md:overflow-x-visible snap-x snap-mandatory md:snap-none md:grid-cols-3 gap-4 md:gap-8 items-center pb-4 md:pb-0 -mx-4 px-4 md:mx-0 md:px-0 scrollbar-hide"
@@ -228,7 +228,7 @@ const LinkInBio = () => {
             {podcastEpisodes.map((episode, index) => (
               <div 
                 key={episode.videoId} 
-                className={`group transition-all duration-300 min-w-[45%] md:min-w-0 snap-center flex-shrink-0 ${episode.videoId === 'OjwSKAXveN8' ? 'md:scale-110 md:z-10' : ''} ${index === 1 ? 'animate-[gentle-pulse_2.5s_ease-in-out_infinite] md:animate-none' : ''}`}
+                className={`group transition-all duration-300 min-w-[38%] md:min-w-0 snap-center flex-shrink-0 ${episode.videoId === 'OjwSKAXveN8' ? 'md:scale-110 md:z-10' : ''} ${index === 1 ? 'animate-[gentle-pulse_4s_ease-in-out_infinite] md:animate-none' : ''}`}
               >
                 <div className="rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow bg-card">
                 {playingVideo === index ? (
@@ -263,7 +263,7 @@ const LinkInBio = () => {
                   href={`https://www.youtube.com/watch?v=${episode.videoId}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block p-4 hover:bg-muted/50 transition-colors"
+                  className="block p-2 hover:bg-muted/50 transition-colors"
                   onClick={(e) => {
                     e.preventDefault();
                     supabase.functions.invoke("track-video-click", { body: { videoId: episode.videoId } });
