@@ -229,7 +229,7 @@ const LinkInBio = () => {
             {podcastEpisodes.map((episode, index) => (
               <div 
                 key={episode.videoId} 
-                className={`group transition-all duration-300 min-w-[clamp(108px,31vw,132px)] max-w-[clamp(108px,31vw,132px)] md:min-w-0 md:max-w-none snap-center flex-shrink-0 ${episode.videoId === 'OjwSKAXveN8' ? 'md:scale-110 md:z-10' : ''}`}
+                className={`group transition-all duration-300 min-w-[42vw] max-w-[42vw] md:min-w-0 md:max-w-none snap-center flex-shrink-0 ${episode.videoId === 'OjwSKAXveN8' ? 'md:scale-110 md:z-10' : ''}`}
               >
                 <div className="rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow bg-card">
                 <div className={index === 1 ? 'animate-[gentle-pulse_6s_ease-in-out_infinite] md:animate-none transform-gpu origin-center will-change-transform' : ''}>
