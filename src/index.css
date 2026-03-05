@@ -346,6 +346,12 @@
       1px 0 0 white;
   }
 
+  /* Gentle pulse for clickable elements */
+  @keyframes gentle-pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.04); }
+  }
+
   .text-outline-white-thin {
     text-shadow: 
       -0.5px -0.5px 0 white,
