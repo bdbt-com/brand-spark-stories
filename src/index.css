@@ -348,8 +348,8 @@
 
   /* Gentle pulse for clickable elements */
   @keyframes gentle-pulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.02); }
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.012); opacity: 0.95; }
   }
 
   .text-outline-white-thin {
