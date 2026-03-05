@@ -97,15 +97,16 @@ const LinkInBio = () => {
 
   // Scroll to middle episode on mount (mobile)
   useEffect(() => {
-    const el = document.getElementById('episodes-scroll');
-    if (el && window.innerWidth < 768) {
-      // Scroll to center the second card (index 1)
-      const cards = el.children;
-      if (cards.length >= 2) {
-        const card = cards[1] as HTMLElement;
-        const scrollLeft = card.offsetLeft - (el.clientWidth - card.offsetWidth) / 2;
-        el.scrollLeft = scrollLeft;
-      }
+    if (window.innerWidth < 768) {
+      const centerCard = () => {
+        const el = document.getElementById('episodes-scroll');
+        const cards = el?.children;
+        if (el && cards && cards.length >= 2) {
+          (cards[1] as HTMLElement).scrollIntoView({ behavior: 'instant', inline: 'center', block: 'nearest' });
+        }
+      };
+      centerCard();
+      setTimeout(centerCard, 200);
     }
   }, []);
 
@@ -223,14 +224,15 @@ const LinkInBio = () => {
           <p className="text-white/50 text-xs uppercase tracking-wider text-center mb-4">Picked For You</p>
           <div 
             id="episodes-scroll"
-            className="flex md:grid overflow-x-auto md:overflow-x-visible snap-x snap-mandatory md:snap-none md:grid-cols-3 gap-4 md:gap-8 items-center pb-4 md:pb-0 -mx-4 px-4 md:mx-0 md:px-0 scrollbar-hide"
+            className="flex md:grid overflow-x-auto md:overflow-x-visible snap-x snap-mandatory md:snap-none md:grid-cols-3 gap-2 md:gap-8 items-center pb-4 md:pb-0 -mx-4 px-4 md:mx-0 md:px-0 scrollbar-hide"
           >
             {podcastEpisodes.map((episode, index) => (
               <div 
                 key={episode.videoId} 
-                className={`group transition-all duration-300 min-w-[38%] md:min-w-0 snap-center flex-shrink-0 ${episode.videoId === 'OjwSKAXveN8' ? 'md:scale-110 md:z-10' : ''} ${index === 1 ? 'animate-[gentle-pulse_4s_ease-in-out_infinite] md:animate-none' : ''}`}
+                className={`group transition-all duration-300 min-w-[clamp(108px,31vw,132px)] max-w-[clamp(108px,31vw,132px)] md:min-w-0 md:max-w-none snap-center flex-shrink-0 ${episode.videoId === 'OjwSKAXveN8' ? 'md:scale-110 md:z-10' : ''}`}
               >
                 <div className="rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow bg-card">
+                <div className={index === 1 ? 'animate-[gentle-pulse_6s_ease-in-out_infinite] md:animate-none transform-gpu origin-center will-change-transform' : ''}>
                 {playingVideo === index ? (
                   <div className="w-full aspect-video bg-black">
                     <iframe
@@ -259,6 +261,7 @@ const LinkInBio = () => {
                     </div>
                   </button>
                 )}
+                </div>
                 <a
                   href={`https://www.youtube.com/watch?v=${episode.videoId}`}
                   target="_blank"
@@ -270,7 +273,7 @@ const LinkInBio = () => {
                     openYouTube(episode.videoId);
                   }}
                 >
-                  <h3 className="text-sm font-semibold text-foreground leading-snug line-clamp-2">{episode.title}</h3>
+                  <h3 className="text-xs md:text-sm font-semibold text-foreground leading-snug line-clamp-2">{episode.title}</h3>
                   <p className="text-xs text-muted-foreground mt-1">{episode.views}</p>
                 </a>
                 </div>
