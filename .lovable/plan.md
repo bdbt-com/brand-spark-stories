@@ -1,13 +1,22 @@
 
 
-## Plan: Shrink video cards and add pulse animation on mobile /bio page
+## Plan: Fix pulse animation, shrink cards, rename section
 
-### Changes to `src/pages/LinkInBio.tsx`
-- Reduce mobile card width from `min-w-[65%]` to `min-w-[45%]` so the full center card plus halves of the side cards are visible on screen
-- Add a subtle pulsating animation to the middle card (index 1) on mobile only
+Three issues to fix:
 
-### Changes to `src/index.css`
-- Add `@keyframes gentle-pulse` animation: `scale(1) → scale(1.04) → scale(1)` over 2.5s, infinite, ease-in-out
+### 1. Fix pulse animation (`src/index.css`)
+The current `scale(1.04)` at 2.5s is too fast/aggressive. Change to a much gentler animation:
+- `scale(1) → scale(1.02) → scale(1)` over **4s** — slow, breathing motion, not vibrating
 
-The middle card will pulse gently to draw attention, and all three cards will be small enough that the center one (plus partial side cards) fits fully on the opening screen.
+### 2. Shrink video cards (`src/pages/LinkInBio.tsx`)
+The user wants each card width to be roughly the width of the "Picked For You" header text plus ~50% padding on each side. Currently `min-w-[45%]` is still too big.
+- Change to `min-w-[38%]` so cards are noticeably smaller and the full center card (thumbnail + title) is visible on the opening screen
+- Reduce padding in the card text area (`p-4` → `p-2`) to keep things compact
+
+### 3. Rename section header (`src/pages/LinkInBio.tsx`)
+- Change "🎙 Top Episodes" to "Picked For You"
+
+### Files Changed
+- `src/index.css` — slow down and soften the pulse keyframes  
+- `src/pages/LinkInBio.tsx` — shrink cards, rename header text
 
