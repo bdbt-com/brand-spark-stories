@@ -6,7 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 const VIDEO_MAP: Record<string, string> = {
   ERXXO8mG5IY: "Why 70% of People Are Dehydrated",
   OjwSKAXveN8: "Dangers of Screen-time Before Bed",
-  TY1nkJsQtyw: "BDBT Explained",
+  bv27Bn6qWIo: "Why Most People Invest Completely Wrong",
 };
 
 interface AnalyticsPeriod {

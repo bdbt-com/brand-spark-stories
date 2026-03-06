@@ -11,7 +11,7 @@ import { supabase } from "@/integrations/supabase/client";
 const podcastEpisodes = [
   { videoId: "OjwSKAXveN8", title: "The Dangers of Screen-time Before Bed", views: "12.8K views" },
   { videoId: "ERXXO8mG5IY", title: "Why 70% of People Are Dehydrated...", views: "8.4K views" },
-  { videoId: "TY1nkJsQtyw", title: "BDBT Explained", views: "5.7K views" },
+  { videoId: "bv27Bn6qWIo", title: "Why Most People Invest Completely Wrong", views: "5.7K views" },
 ];
 
 const openYouTube = (videoId: string) => {
