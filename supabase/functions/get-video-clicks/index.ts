@@ -31,17 +31,30 @@ serve(async (req) => {
 
     const counts: Record<string, { total: number; today: number; "7d": number; "14d": number; "30d": number }> = {};
 
-    for (const row of data || []) {
-      if (!counts[row.video_id]) {
-        counts[row.video_id] = { total: 0, today: 0, "7d": 0, "14d": 0, "30d": 0 };
+    const addCount = (key: string, ts: string) => {
+      if (!counts[key]) {
+        counts[key] = { total: 0, today: 0, "7d": 0, "14d": 0, "30d": 0 };
       }
-      const c = counts[row.video_id];
+      const c = counts[key];
       c.total++;
-      const ts = row.clicked_at || "";
       if (ts >= todayStart) c.today++;
       if (ts >= d7) c["7d"]++;
       if (ts >= d14) c["14d"]++;
       if (ts >= d30) c["30d"]++;
+    };
+
+    for (const row of data || []) {
+      const vid = row.video_id || "";
+      const ts = row.clicked_at || "";
+
+      if (vid.startsWith("auto-redirect:")) {
+        // Count toward both "auto-redirect" total and specific video
+        const actualId = vid.replace("auto-redirect:", "");
+        addCount("auto-redirect", ts);
+        addCount(actualId, ts);
+      } else {
+        addCount(vid, ts);
+      }
     }
 
     return new Response(JSON.stringify({ counts }), {
