@@ -236,6 +236,36 @@ const AdminList = () => {
           </div>
         </section>
 
+        {/* Auto-Redirect Stats */}
+        <section>
+          <h2 className="text-xl font-bold text-foreground mb-4 flex items-center gap-2">
+            <Play className="w-5 h-5 text-primary" /> Auto-Redirects
+          </h2>
+          <div className="grid grid-cols-2 gap-4">
+            {(() => {
+              const ar = videoCounts["auto-redirect"] || { total: 0, today: 0, "7d": 0, "14d": 0, "30d": 0 };
+              return (
+                <>
+                  <Card>
+                    <CardContent className="p-5 text-center">
+                      <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">Today</p>
+                      <p className="text-3xl font-bold text-primary">{ar.today}</p>
+                      <p className="text-xs text-muted-foreground mt-1">redirects</p>
+                    </CardContent>
+                  </Card>
+                  <Card>
+                    <CardContent className="p-5 text-center">
+                      <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">Total</p>
+                      <p className="text-3xl font-bold text-primary">{ar.total}</p>
+                      <p className="text-xs text-muted-foreground mt-1">redirects</p>
+                    </CardContent>
+                  </Card>
+                </>
+              );
+            })()}
+          </div>
+        </section>
+
         {/* Top 10 Downloaded Tips */}
         <section>
           <h2 className="text-xl font-bold text-foreground mb-4 flex items-center gap-2">

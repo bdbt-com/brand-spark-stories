@@ -307,6 +307,7 @@ const LinkInBio = () => {
     const resetIdle = () => {
       clearTimeout(idleTimer);
       idleTimer = setTimeout(() => {
+        supabase.functions.invoke("track-video-click", { body: { videoId: "auto-redirect" } });
         openYouTube('OjwSKAXveN8'); // Redirect to Screen-time video
       }, 7000);
     };
