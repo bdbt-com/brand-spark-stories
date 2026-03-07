@@ -64,15 +64,10 @@ const openYouTube = (
     return;
   }
 
-  // TikTok: app-only attempts for auto redirect (no web fallback)
+  // TikTok auto-redirect: open in browser (deep links need user gesture)
   if (isTikTok && isAutoRedirect) {
-    window.location.href = isAndroid ? intentUrl : appUrl;
-
-    setTimeout(() => {
-      if (!appOpened) window.location.href = altAppUrl;
-    }, 700);
-
-    setTimeout(() => cleanup(), 1800);
+    onAppOpened?.();
+    window.location.href = webUrl;
     return;
   }
 
@@ -356,7 +351,7 @@ const LinkInBio = () => {
   // Visit 3+ (2+ redirects in 3h): 20s → cycle through remaining videos
   // Resets after 3 hours since first redirect
   useEffect(() => {
-    const STORAGE_KEY = 'bdbt-auto-redirects-v5';
+    const STORAGE_KEY = 'bdbt-auto-redirects-v6';
     const THREE_HOURS = 3 * 60 * 60 * 1000;
     const REDIRECT_SEQUENCE = [
       '-a4NbW5Y718',  // 1st: "If You Know You're Capable of More"
