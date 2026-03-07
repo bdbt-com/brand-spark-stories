@@ -83,6 +83,7 @@ const links = [
 
 const LinkInBio = () => {
   const [playingVideo, setPlayingVideo] = useState<number | null>(null);
+  const [rotationIndex, setRotationIndex] = useState(0);
 
   useEffect(() => {
     if (playingVideo === null) return;
@@ -93,6 +94,16 @@ const LinkInBio = () => {
       setPlayingVideo(null);
     }, 4000);
     return () => clearTimeout(timer);
+  }, [playingVideo]);
+
+  // Auto-rotate carousel every 4s (mobile only, paused when playing)
+  useEffect(() => {
+    if (playingVideo !== null) return;
+    if (window.innerWidth >= 768) return;
+    const interval = setInterval(() => {
+      setRotationIndex((prev) => (prev + 1) % podcastEpisodes.length);
+    }, 4000);
+    return () => clearInterval(interval);
   }, [playingVideo]);
 
   // Scroll to middle episode on mount (mobile)
@@ -110,7 +121,7 @@ const LinkInBio = () => {
       setTimeout(centerCard, 200);
       setTimeout(centerCard, 500);
     }
-  }, []);
+  }, [rotationIndex]);
 
   return (
     <div className="min-h-screen bg-[#36455A] flex flex-col items-center px-4 py-5 md:py-8">
@@ -228,10 +239,13 @@ const LinkInBio = () => {
             id="episodes-scroll"
             className="flex md:grid overflow-x-auto md:overflow-x-visible snap-x snap-mandatory md:snap-none md:grid-cols-3 gap-2 md:gap-8 items-center pb-4 md:pb-0 -mx-4 px-4 md:mx-0 md:px-0 scrollbar-hide"
           >
-            {podcastEpisodes.map((episode, index) => (
+            {podcastEpisodes.map((_, i) => {
+              const index = (i + rotationIndex) % podcastEpisodes.length;
+              const episode = podcastEpisodes[index];
+              return (
               <div 
                 key={episode.videoId} 
-                className={`group transition-all duration-300 w-[40vw] min-w-[40vw] max-w-[40vw] md:w-auto md:min-w-0 md:max-w-none snap-center flex-shrink-0 ${episode.videoId === 'OjwSKAXveN8' ? 'md:scale-110 md:z-10' : ''}`}
+                className={`group transition-all duration-700 w-[36vw] min-w-[36vw] max-w-[36vw] md:w-auto md:min-w-0 md:max-w-none snap-center flex-shrink-0 ${episode.videoId === 'OjwSKAXveN8' ? 'md:scale-110 md:z-10' : ''}`}
               >
                 <div className="rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow bg-card flex flex-col h-full">
                 <div>
@@ -257,8 +271,8 @@ const LinkInBio = () => {
                       className="w-full aspect-video object-cover"
                     />
                     <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition-colors">
-                        <div className="w-7 h-7 md:w-14 md:h-14 rounded-full bg-white/90 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-                         <Play className="w-3.5 h-3.5 md:w-7 md:h-7 text-primary ml-0.5" fill="currentColor" />
+                        <div className="w-6 h-6 md:w-14 md:h-14 rounded-full bg-white/90 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                         <Play className="w-3 h-3 md:w-7 md:h-7 text-primary ml-0.5" fill="currentColor" />
                       </div>
                     </div>
                   </button>
@@ -280,7 +294,8 @@ const LinkInBio = () => {
                 </a>
                 </div>
               </div>
-            ))}
+              );
+            })}
           </div>
         </div>
 
