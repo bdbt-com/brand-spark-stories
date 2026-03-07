@@ -64,15 +64,10 @@ const openYouTube = (
     return;
   }
 
-  // TikTok: app-only attempts for auto redirect (no web fallback)
+  // TikTok auto-redirect: open in browser (deep links need user gesture)
   if (isTikTok && isAutoRedirect) {
-    window.location.href = isAndroid ? intentUrl : appUrl;
-
-    setTimeout(() => {
-      if (!appOpened) window.location.href = altAppUrl;
-    }, 700);
-
-    setTimeout(() => cleanup(), 1800);
+    onAppOpened?.();
+    window.location.href = webUrl;
     return;
   }
 
