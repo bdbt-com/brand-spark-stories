@@ -7,9 +7,9 @@ const podcastEpisodes = [
   { videoId: "ERXXO8mG5IY", title: "Why 70% of People Are Dehydrated", views: "8.4K views" },
   { videoId: "OjwSKAXveN8", title: "The Dangers of Screen-time Before Bed", views: "12.8K views" },
   { videoId: "bv27Bn6qWIo", title: "Why Most People Invest Completely Wrong", views: "5.7K views" },
-  { videoId: "zz2rVKKt1l0", title: "Go Exploring", views: "9.9K views" },
-  { videoId: "-a4NbW5Y718", title: "If You Know You're Capable of More, This is for You", views: "4.4K views" },
   { videoId: "zz2rVKKt1l0", title: "Connect with More Animals", views: "6.7K views" },
+  { videoId: "-a4NbW5Y718", title: "If You Know You're Capable of More, This is for You", views: "4.4K views" },
+  { videoId: "zz2rVKKt1l0", title: "Go Exploring", views: "9.9K views" },
 ];
 
 const openYouTube = (videoId: string) => {
@@ -105,6 +105,7 @@ const LinkInBio = () => {
   const touchStartX = useRef(0);
   const touchStartTranslate = useRef(0);
   const isDragging = useRef(false);
+  const touchHistory = useRef<{ x: number; t: number }[]>([]);
 
   const getStep = useCallback(() => {
     if (!trackRef.current) return { cardW: 0, gap: 0, step: 0 };
@@ -140,27 +141,18 @@ const LinkInBio = () => {
     }, delay);
   }, [clearAutoplay, playingVideo]);
 
-  // First-impression effect
+  // Mount: show first slide centered, static, then start autoplay after delay
   useEffect(() => {
     if (window.innerWidth >= 768 || !isFirstMount) return;
-    const raf1 = requestAnimationFrame(() => {
+    const raf = requestAnimationFrame(() => {
       if (!trackRef.current) return;
-      const tx2 = getTranslateX(2);
-      const tx1 = getTranslateX(1);
-      const startTx = tx2 + 0.8 * (tx1 - tx2);
       trackRef.current.style.transition = 'none';
-      trackRef.current.style.transform = `translateX(${startTx}px)`;
-      const raf2 = requestAnimationFrame(() => {
-        if (!trackRef.current) return;
-        trackRef.current.style.transition = 'transform 0.8s ease-out';
-        trackRef.current.style.transform = `translateX(${tx1}px)`;
-        setCurrentIndex(1);
-        setIsFirstMount(false);
-        scheduleAutoplay(4000);
-      });
-      return () => cancelAnimationFrame(raf2);
+      trackRef.current.style.transform = `translateX(${getTranslateX(1)}px)`;
+      setCurrentIndex(1);
+      setIsFirstMount(false);
+      scheduleAutoplay(4000);
     });
-    return () => cancelAnimationFrame(raf1);
+    return () => cancelAnimationFrame(raf);
   }, [isFirstMount]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Normalize clone boundaries after transition
@@ -191,12 +183,13 @@ const LinkInBio = () => {
     }
   }, [currentIndex, totalSlides, scheduleAutoplay]);
 
-  // Touch handlers
+  // Touch handlers with inertia
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
     clearAutoplay();
     isDragging.current = true;
     touchStartX.current = e.touches[0].clientX;
     touchStartTranslate.current = getTranslateX(currentIndex);
+    touchHistory.current = [{ x: e.touches[0].clientX, t: Date.now() }];
     setTransitionEnabled(false);
   }, [clearAutoplay, currentIndex, getTranslateX]);
 
@@ -204,24 +197,41 @@ const LinkInBio = () => {
     if (!isDragging.current || !trackRef.current) return;
     const delta = e.touches[0].clientX - touchStartX.current;
     trackRef.current.style.transform = `translateX(${touchStartTranslate.current + delta}px)`;
+    // Keep last 5 positions for velocity calculation
+    const now = Date.now();
+    touchHistory.current.push({ x: e.touches[0].clientX, t: now });
+    if (touchHistory.current.length > 5) touchHistory.current.shift();
   }, []);
 
   const handleTouchEnd = useCallback((e: React.TouchEvent) => {
     if (!isDragging.current) return;
     isDragging.current = false;
-    const delta = e.changedTouches[0].clientX - touchStartX.current;
+    const endX = e.changedTouches[0].clientX;
+    const delta = endX - touchStartX.current;
     const threshold = 50;
 
-    let newIndex = currentIndex;
-    if (delta < -threshold) {
-      newIndex = currentIndex + 1; // swipe left → next
-    } else if (delta > threshold) {
-      newIndex = currentIndex - 1; // swipe right → prev
+    // Calculate velocity from touch history
+    let velocity = 0;
+    const history = touchHistory.current;
+    if (history.length >= 2) {
+      const oldest = history[0];
+      const newest = history[history.length - 1];
+      const dt = (newest.t - oldest.t) / 1000; // seconds
+      if (dt > 0) velocity = (newest.x - oldest.x) / dt; // px/s
     }
 
+    // Determine how many slides to advance based on velocity + distance
+    let slideDelta = 0;
+    if (Math.abs(delta) > threshold || Math.abs(velocity) > 300) {
+      // Base: 1 slide. Add extra slides for high velocity (inertia)
+      const direction = delta < 0 ? 1 : -1;
+      const extraSlides = Math.min(Math.floor(Math.abs(velocity) / 800), 2); // max 2 extra
+      slideDelta = direction * (1 + extraSlides);
+    }
+
+    const newIndex = currentIndex + slideDelta;
     setTransitionEnabled(true);
     setCurrentIndex(newIndex);
-    // handleTransitionEnd will normalize clones and restart autoplay
   }, [currentIndex]);
 
   // Pause autoplay when a video is playing
@@ -440,11 +450,11 @@ const LinkInBio = () => {
           </div>
 
           {/* Mobile: smooth clone-based carousel */}
-          <div className="md:hidden relative overflow-hidden -mx-[18vw] px-[18vw]" ref={containerRef}>
-            {/* Left edge mask */}
-            <div className="absolute left-[18vw] top-0 bottom-0 w-6 z-10 pointer-events-none bg-gradient-to-r from-[#36455A] to-transparent" />
+          <div className="md:hidden relative overflow-hidden -mx-[24vw] px-[24vw]" ref={containerRef}>
+            {/* Left edge mask — positioned at viewport edge, inside the extended container */}
+            <div className="absolute left-[24vw] top-0 bottom-0 w-3 z-10 pointer-events-none bg-gradient-to-r from-[#36455A]/80 to-transparent" />
             {/* Right edge mask */}
-            <div className="absolute right-[18vw] top-0 bottom-0 w-6 z-10 pointer-events-none bg-gradient-to-l from-[#36455A] to-transparent" />
+            <div className="absolute right-[24vw] top-0 bottom-0 w-3 z-10 pointer-events-none bg-gradient-to-l from-[#36455A]/80 to-transparent" />
             
             <div 
               ref={trackRef}
