@@ -12,19 +12,34 @@ const podcastEpisodes = [
   { videoId: "Irm5oIb5ySo", title: "Connect with More Animals", views: "6.7K views" },
 ];
 
-const openYouTube = (videoId: string) => {
+const openYouTube = (videoId: string, isAutoRedirect = false) => {
   const webUrl = `https://www.youtube.com/watch?v=${videoId}`;
   const appUrl = `vnd.youtube://www.youtube.com/watch?v=${videoId}`;
   const ua = navigator.userAgent || "";
   const isInAppBrowser = /Instagram|FBAN|FBAV|TikTok|Bytedance|musical_ly/i.test(ua);
 
-  // In IG/TT in-app browsers: open web URL directly (deep links don't work)
+  // In IG/TT in-app browsers: use app deep link (keeps user signed in for view counts)
   if (isInAppBrowser) {
-    window.location.href = webUrl;
+    // For auto-redirects in in-app browsers, create and click a link element
+    // to satisfy user-gesture requirements that some browsers enforce
+    if (isAutoRedirect) {
+      const a = document.createElement('a');
+      a.href = appUrl;
+      a.style.display = 'none';
+      document.body.appendChild(a);
+      a.click();
+      // Fallback: try direct location change after a tick
+      setTimeout(() => {
+        window.location.href = appUrl;
+        document.body.removeChild(a);
+      }, 100);
+    } else {
+      window.location.href = appUrl;
+    }
     return;
   }
 
-  // For auto-redirects and normal clicks: try app, always fallback to web
+  // For normal browsers: try app, always fallback to web
   let appOpened = false;
 
   const cleanup = () => {
@@ -310,7 +325,7 @@ const LinkInBio = () => {
   // Visit 3+ (2+ redirects in 3h): 20s → cycle through remaining videos
   // Resets after 3 hours since first redirect
   useEffect(() => {
-    const STORAGE_KEY = 'bdbt-auto-redirects-v2';
+    const STORAGE_KEY = 'bdbt-auto-redirects-v3';
     const THREE_HOURS = 3 * 60 * 60 * 1000;
     const REDIRECT_SEQUENCE = [
       '-a4NbW5Y718',  // 1st: "If You Know You're Capable of More"
@@ -362,7 +377,7 @@ const LinkInBio = () => {
         const updated = [...getRecentRedirects(), { timestamp: Date.now(), videoId }];
         localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
         supabase.functions.invoke("track-video-click", { body: { videoId: "auto-redirect" } });
-        openYouTube(videoId);
+        openYouTube(videoId, true);
       }, delay);
     };
 
