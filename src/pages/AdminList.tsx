@@ -183,29 +183,6 @@ const AdminList = () => {
             </div>
           </section>
 
-          {/* Bio Link Clicks */}
-          <section>
-            <h2 className="text-xl font-bold text-foreground mb-4 flex items-center gap-2">
-              <BarChart3 className="w-5 h-5 text-primary" /> Bio Link Clicks
-            </h2>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {[
-                { label: "Today", value: bioClicks.today || 0 },
-                { label: "7 Days", value: bioClicks["7d"] || 0 },
-                { label: "14 Days", value: bioClicks["14d"] || 0 },
-                { label: "30 Days", value: bioClicks["30d"] || 0 },
-              ].map(({ label, value }) => (
-                <Card key={label}>
-                  <CardContent className="p-5 text-center">
-                    <p className="text-xs font-medium text-muted-foreground mb-3 uppercase tracking-wider">{label}</p>
-                    <p className="text-3xl font-bold text-primary">{value}</p>
-                    <p className="text-xs text-muted-foreground mt-1">clicks</p>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </section>
-
           {/* Page Analytics */}
           <section>
             <h2 className="text-xl font-bold text-foreground mb-4 flex items-center gap-2">
@@ -240,33 +217,26 @@ const AdminList = () => {
             </div>
           </section>
 
-          {/* Video Click Counters */}
+          {/* Bio Link Clicks */}
           <section>
             <h2 className="text-xl font-bold text-foreground mb-4 flex items-center gap-2">
-              <Play className="w-5 h-5 text-primary" /> Video Clicks
+              <BarChart3 className="w-5 h-5 text-primary" /> Bio Link Clicks
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {Object.entries(VIDEO_MAP).map(([videoId, title]) => {
-                const c = videoCounts[videoId] || { total: 0, today: 0, "7d": 0, "14d": 0, "30d": 0 };
-                return (
-                  <Card key={videoId}>
-                    <CardContent className="p-5 text-center">
-                      <img
-                        src={`https://img.youtube.com/vi/${videoId}/mqdefault.jpg`}
-                        alt={title}
-                        className="w-full aspect-video object-cover rounded-lg mb-3"
-                      />
-                      <p className="text-sm font-medium text-foreground mb-3 line-clamp-2">{title}</p>
-                      <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-xs text-muted-foreground">
-                        <div>Today: <span className="font-semibold text-primary">{c.today}</span></div>
-                        <div>7 Days: <span className="font-semibold text-primary">{c["7d"]}</span></div>
-                        <div>14 Days: <span className="font-semibold text-primary">{c["14d"]}</span></div>
-                        <div>30 Days: <span className="font-semibold text-primary">{c["30d"]}</span></div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                );
-              })}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {[
+                { label: "Today", value: bioClicks.today || 0 },
+                { label: "7 Days", value: bioClicks["7d"] || 0 },
+                { label: "14 Days", value: bioClicks["14d"] || 0 },
+                { label: "30 Days", value: bioClicks["30d"] || 0 },
+              ].map(({ label, value }) => (
+                <Card key={label}>
+                  <CardContent className="p-5 text-center">
+                    <p className="text-xs font-medium text-muted-foreground mb-3 uppercase tracking-wider">{label}</p>
+                    <p className="text-3xl font-bold text-primary">{value}</p>
+                    <p className="text-xs text-muted-foreground mt-1">clicks</p>
+                  </CardContent>
+                </Card>
+              ))}
             </div>
           </section>
 
@@ -297,6 +267,36 @@ const AdminList = () => {
                   </>
                 );
               })()}
+            </div>
+          </section>
+
+          {/* Video Click Counters */}
+          <section>
+            <h2 className="text-xl font-bold text-foreground mb-4 flex items-center gap-2">
+              <Play className="w-5 h-5 text-primary" /> Video Clicks
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {Object.entries(VIDEO_MAP).map(([videoId, title]) => {
+                const c = videoCounts[videoId] || { total: 0, today: 0, "7d": 0, "14d": 0, "30d": 0 };
+                return (
+                  <Card key={videoId}>
+                    <CardContent className="p-5 text-center">
+                      <img
+                        src={`https://img.youtube.com/vi/${videoId}/mqdefault.jpg`}
+                        alt={title}
+                        className="w-full aspect-video object-cover rounded-lg mb-3"
+                      />
+                      <p className="text-sm font-medium text-foreground mb-3 line-clamp-2">{title}</p>
+                      <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-xs text-muted-foreground">
+                        <div>Today: <span className="font-semibold text-primary">{c.today}</span></div>
+                        <div>7 Days: <span className="font-semibold text-primary">{c["7d"]}</span></div>
+                        <div>14 Days: <span className="font-semibold text-primary">{c["14d"]}</span></div>
+                        <div>30 Days: <span className="font-semibold text-primary">{c["30d"]}</span></div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                );
+              })}
             </div>
           </section>
 
