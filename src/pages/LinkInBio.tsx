@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { Play } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -83,9 +83,136 @@ const links = [
 
 const LinkInBio = () => {
   const [playingVideo, setPlayingVideo] = useState<number | null>(null);
-  const [rotationIndex, setRotationIndex] = useState(0);
-  const [isSliding, setIsSliding] = useState(false);
 
+  // Mobile carousel state
+  const totalSlides = podcastEpisodes.length; // 3
+  // Clone track: [clone-last, 0, 1, 2, clone-first] → indices 0..4, real slides at 1..3
+  const clonedEpisodes = [
+    podcastEpisodes[totalSlides - 1], // clone of last
+    ...podcastEpisodes,
+    podcastEpisodes[0], // clone of first
+  ];
+  const trackRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [currentIndex, setCurrentIndex] = useState(1); // start at first real slide
+  const [transitionEnabled, setTransitionEnabled] = useState(false);
+  const [isFirstMount, setIsFirstMount] = useState(true);
+  const autoplayRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Measure card dimensions
+  const getStep = useCallback(() => {
+    if (!trackRef.current) return { cardW: 0, gap: 0, step: 0 };
+    const children = trackRef.current.children;
+    if (children.length < 2) return { cardW: 0, gap: 0, step: 0 };
+    const first = children[0] as HTMLElement;
+    const second = children[1] as HTMLElement;
+    const cardW = first.offsetWidth;
+    const gap = second.offsetLeft - first.offsetLeft - cardW;
+    return { cardW, gap, step: cardW + gap };
+  }, []);
+
+  const getTranslateX = useCallback((index: number) => {
+    const { cardW, step } = getStep();
+    if (!containerRef.current || cardW === 0) return 0;
+    const containerW = containerRef.current.offsetWidth;
+    // Center the card at `index`: container center - half card - index * step
+    return containerW / 2 - cardW / 2 - index * step;
+  }, [getStep]);
+
+  // First-impression: start at 80% through sliding from index 2 to index 1
+  // i.e. appear as if sliding right-to-left, almost done
+  useEffect(() => {
+    if (window.innerWidth >= 768) return;
+    if (!isFirstMount) return;
+
+    // Position at 80% between index 2 and index 1 (i.e. closer to index 1)
+    // We start at a position 80% of the way from index 2 toward index 1
+    // That means offset = getTranslateX(2) + 0.8 * (getTranslateX(1) - getTranslateX(2))
+    // = getTranslateX(2) + 0.8 * step = getTranslateX(1.2)
+    // Simplify: just set index to 2 visually offset 80% toward 1
+    const raf1 = requestAnimationFrame(() => {
+      if (!trackRef.current) return;
+      const { step } = getStep();
+      const tx2 = getTranslateX(2);
+      const tx1 = getTranslateX(1);
+      // Start at 80% done (20% remaining from position 2→1)
+      const startTx = tx2 + 0.8 * (tx1 - tx2);
+      trackRef.current.style.transition = 'none';
+      trackRef.current.style.transform = `translateX(${startTx}px)`;
+
+      // Next frame: animate the remaining 20% to land on index 1
+      const raf2 = requestAnimationFrame(() => {
+        if (!trackRef.current) return;
+        trackRef.current.style.transition = 'transform 0.8s ease-out';
+        trackRef.current.style.transform = `translateX(${tx1}px)`;
+        setCurrentIndex(1);
+        setIsFirstMount(false);
+
+        // After this initial animation, start the normal loop
+        autoplayRef.current = setTimeout(() => {
+          startAutoplay();
+        }, 4000); // pause 4s after landing
+      });
+
+      return () => cancelAnimationFrame(raf2);
+    });
+
+    return () => cancelAnimationFrame(raf1);
+  }, [isFirstMount]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const startAutoplay = useCallback(() => {
+    if (window.innerWidth >= 768) return;
+    if (playingVideo !== null) return;
+
+    setTransitionEnabled(true);
+    setCurrentIndex(prev => prev + 1);
+  }, [playingVideo]);
+
+  // Handle transition end for clone normalization + next cycle
+  const handleTransitionEnd = useCallback(() => {
+    let nextIndex = currentIndex;
+    let needsSnap = false;
+
+    // If we've landed on the clone-of-first (index = totalSlides + 1), snap to real first (index 1)
+    if (currentIndex >= totalSlides + 1) {
+      nextIndex = 1;
+      needsSnap = true;
+    }
+    // If somehow at clone-of-last (index 0), snap to real last (index totalSlides)
+    if (currentIndex <= 0) {
+      nextIndex = totalSlides;
+      needsSnap = true;
+    }
+
+    if (needsSnap) {
+      // Disable transition, snap, re-enable next frame
+      setTransitionEnabled(false);
+      setCurrentIndex(nextIndex);
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          // Pause then slide again
+          autoplayRef.current = setTimeout(() => {
+            startAutoplay();
+          }, 4000);
+        });
+      });
+    } else {
+      // Normal pause then slide
+      autoplayRef.current = setTimeout(() => {
+        startAutoplay();
+      }, 4000);
+    }
+  }, [currentIndex, totalSlides, startAutoplay]);
+
+  // Pause autoplay when a video is playing
+  useEffect(() => {
+    if (playingVideo !== null && autoplayRef.current) {
+      clearTimeout(autoplayRef.current);
+      autoplayRef.current = null;
+    }
+  }, [playingVideo]);
+
+  // Open YouTube after delay
   useEffect(() => {
     if (playingVideo === null) return;
     const episode = podcastEpisodes[playingVideo];
@@ -97,34 +224,14 @@ const LinkInBio = () => {
     return () => clearTimeout(timer);
   }, [playingVideo]);
 
-  // Smooth rolling carousel: 4s slide, 4s pause (mobile only)
+  // Cleanup
   useEffect(() => {
-    if (playingVideo !== null) return;
-    if (window.innerWidth >= 768) return;
+    return () => {
+      if (autoplayRef.current) clearTimeout(autoplayRef.current);
+    };
+  }, []);
 
-    // Wait 4s pause, then start sliding
-    const pauseTimer = setTimeout(() => {
-      setIsSliding(true);
-    }, 4000);
-
-    return () => clearTimeout(pauseTimer);
-  }, [rotationIndex, playingVideo]);
-
-  // When sliding starts, wait 4s for animation to finish then snap
-  useEffect(() => {
-    if (!isSliding) return;
-    const slideTimer = setTimeout(() => {
-      setIsSliding(false);
-      setRotationIndex((prev) => (prev + 1) % podcastEpisodes.length);
-    }, 4000);
-    return () => clearTimeout(slideTimer);
-  }, [isSliding]);
-
-  // Build carousel items: current order + clone of first for seamless wrap
-  const carouselEpisodes = [
-    ...podcastEpisodes.map((_, i) => podcastEpisodes[(i + rotationIndex) % podcastEpisodes.length]),
-    podcastEpisodes[rotationIndex % podcastEpisodes.length], // clone
-  ];
+  const translateX = getTranslateX(currentIndex);
 
   return (
     <div className="min-h-screen bg-[#36455A] flex flex-col items-center px-4 py-5 md:py-8">
@@ -300,20 +407,25 @@ const LinkInBio = () => {
             ))}
           </div>
 
-          {/* Mobile: smooth rolling carousel */}
-          <div className="md:hidden overflow-hidden">
+          {/* Mobile: smooth clone-based carousel */}
+          <div className="md:hidden relative overflow-hidden" ref={containerRef}>
+            {/* Left edge mask */}
+            <div className="absolute left-0 top-0 bottom-0 w-6 z-10 pointer-events-none bg-gradient-to-r from-[#36455A] to-transparent" />
+            {/* Right edge mask */}
+            <div className="absolute right-0 top-0 bottom-0 w-6 z-10 pointer-events-none bg-gradient-to-l from-[#36455A] to-transparent" />
+            
             <div 
-              className="flex gap-2"
+              ref={trackRef}
+              className="flex gap-2 transform-gpu will-change-transform"
               style={{
-                transform: isSliding 
-                  ? `translateX(calc(50vw - 18vw - ${rotationIndex + 1} * (36vw + 0.5rem)))` 
-                  : `translateX(calc(50vw - 18vw - ${rotationIndex} * (36vw + 0.5rem)))`,
-                transition: isSliding ? 'transform 4s ease-in-out' : 'none',
+                transform: `translateX(${translateX}px)`,
+                transition: transitionEnabled ? 'transform 4s ease-in-out' : 'none',
               }}
+              onTransitionEnd={handleTransitionEnd}
             >
-              {carouselEpisodes.map((episode, i) => (
+              {clonedEpisodes.map((episode, i) => (
                 <div 
-                  key={`${episode.videoId}-${i}`} 
+                  key={`carousel-${i}`} 
                   className="group w-[36vw] min-w-[36vw] max-w-[36vw] flex-shrink-0"
                 >
                   <div className="rounded-2xl overflow-hidden shadow-lg bg-card flex flex-col h-full">
@@ -330,7 +442,7 @@ const LinkInBio = () => {
                         <img
                           src={`https://img.youtube.com/vi/${episode.videoId}/hqdefault.jpg`}
                           alt={episode.title}
-                          className="w-full aspect-video object-cover"
+                          className="w-full aspect-video object-cover block"
                         />
                         <div className="absolute inset-0 flex items-center justify-center bg-black/20">
                           <div className="w-6 h-6 rounded-full bg-white/90 flex items-center justify-center shadow-lg">
