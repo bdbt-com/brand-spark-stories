@@ -81,135 +81,91 @@ const links = [
   },
 ];
 
+const SPEED_PX_PER_SEC = 30; // constant scroll speed — tune as needed
+const REPEAT_COUNT = 6; // repeat episodes this many times for seamless wrap
+
 const LinkInBio = () => {
   const [playingVideo, setPlayingVideo] = useState<number | null>(null);
 
-  // Mobile carousel state
-  const totalSlides = podcastEpisodes.length; // 3
-  // Clone track: [clone-last, 0, 1, 2, clone-first] → indices 0..4, real slides at 1..3
-  const clonedEpisodes = [
-    podcastEpisodes[totalSlides - 1], // clone of last
-    ...podcastEpisodes,
-    podcastEpisodes[0], // clone of first
-  ];
+  // Build a long repeated track so we never run out
+  const repeatedEpisodes = Array.from({ length: REPEAT_COUNT }, () => podcastEpisodes).flat();
+
+  // Continuous marquee refs
   const trackRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [currentIndex, setCurrentIndex] = useState(1); // start at first real slide
-  const [transitionEnabled, setTransitionEnabled] = useState(false);
-  const [isFirstMount, setIsFirstMount] = useState(true);
-  const autoplayRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const offsetRef = useRef(0);
+  const rafRef = useRef<number>(0);
+  const lastTimeRef = useRef<number>(0);
+  const patternWidthRef = useRef(0);
+  const isPausedRef = useRef(false);
 
-  // Measure card dimensions
-  const getStep = useCallback(() => {
-    if (!trackRef.current) return { cardW: 0, gap: 0, step: 0 };
+  // Measure one pattern width (3 cards + gaps)
+  const measurePattern = useCallback(() => {
+    if (!trackRef.current) return 0;
     const children = trackRef.current.children;
-    if (children.length < 2) return { cardW: 0, gap: 0, step: 0 };
+    if (children.length < podcastEpisodes.length + 1) return 0;
     const first = children[0] as HTMLElement;
-    const second = children[1] as HTMLElement;
-    const cardW = first.offsetWidth;
-    const gap = second.offsetLeft - first.offsetLeft - cardW;
-    return { cardW, gap, step: cardW + gap };
+    const nth = children[podcastEpisodes.length] as HTMLElement;
+    return nth.offsetLeft - first.offsetLeft;
   }, []);
 
-  const getTranslateX = useCallback((index: number) => {
-    const { cardW, step } = getStep();
-    if (!containerRef.current || cardW === 0) return 0;
-    const containerW = containerRef.current.offsetWidth;
-    // Center the card at `index`: container center - half card - index * step
-    return containerW / 2 - cardW / 2 - index * step;
-  }, [getStep]);
+  // rAF loop: constant linear motion, modulo wrap
+  const animate = useCallback((time: number) => {
+    if (!lastTimeRef.current) lastTimeRef.current = time;
+    const dt = (time - lastTimeRef.current) / 1000;
+    lastTimeRef.current = time;
 
-  // First-impression: start at 80% through sliding from index 2 to index 1
-  // i.e. appear as if sliding right-to-left, almost done
+    if (!isPausedRef.current && patternWidthRef.current > 0) {
+      offsetRef.current = (offsetRef.current + SPEED_PX_PER_SEC * dt) % patternWidthRef.current;
+    }
+
+    if (trackRef.current && containerRef.current) {
+      const containerW = containerRef.current.offsetWidth;
+      // Center: place the middle of the first card at the center, then subtract offset
+      const children = trackRef.current.children;
+      const cardW = children.length > 0 ? (children[0] as HTMLElement).offsetWidth : 0;
+      const centerOffset = containerW / 2 - cardW / 2;
+      trackRef.current.style.transform = `translateX(${centerOffset - offsetRef.current}px)`;
+    }
+
+    rafRef.current = requestAnimationFrame(animate);
+  }, []);
+
+  // Start animation on mount
   useEffect(() => {
     if (window.innerWidth >= 768) return;
-    if (!isFirstMount) return;
 
-    // Position at 80% between index 2 and index 1 (i.e. closer to index 1)
-    // We start at a position 80% of the way from index 2 toward index 1
-    // That means offset = getTranslateX(2) + 0.8 * (getTranslateX(1) - getTranslateX(2))
-    // = getTranslateX(2) + 0.8 * step = getTranslateX(1.2)
-    // Simplify: just set index to 2 visually offset 80% toward 1
-    const raf1 = requestAnimationFrame(() => {
-      if (!trackRef.current) return;
-      const { step } = getStep();
-      const tx2 = getTranslateX(2);
-      const tx1 = getTranslateX(1);
-      // Start at 80% done (20% remaining from position 2→1)
-      const startTx = tx2 + 0.8 * (tx1 - tx2);
-      trackRef.current.style.transition = 'none';
-      trackRef.current.style.transform = `translateX(${startTx}px)`;
+    // Wait one frame for layout
+    const startRaf = requestAnimationFrame(() => {
+      patternWidthRef.current = measurePattern();
 
-      // Next frame: animate the remaining 20% to land on index 1
-      const raf2 = requestAnimationFrame(() => {
-        if (!trackRef.current) return;
-        trackRef.current.style.transition = 'transform 0.8s ease-out';
-        trackRef.current.style.transform = `translateX(${tx1}px)`;
-        setCurrentIndex(1);
-        setIsFirstMount(false);
+      // First-impression: start 80% into the first pattern so viewer catches tail-end of motion
+      if (patternWidthRef.current > 0) {
+        offsetRef.current = patternWidthRef.current * 0.8;
+      }
 
-        // After this initial animation, start the normal loop
-        autoplayRef.current = setTimeout(() => {
-          startAutoplay();
-        }, 4000); // pause 4s after landing
-      });
-
-      return () => cancelAnimationFrame(raf2);
+      lastTimeRef.current = 0;
+      rafRef.current = requestAnimationFrame(animate);
     });
 
-    return () => cancelAnimationFrame(raf1);
-  }, [isFirstMount]); // eslint-disable-line react-hooks/exhaustive-deps
+    return () => {
+      cancelAnimationFrame(startRaf);
+      cancelAnimationFrame(rafRef.current);
+    };
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const startAutoplay = useCallback(() => {
-    if (window.innerWidth >= 768) return;
-    if (playingVideo !== null) return;
-
-    setTransitionEnabled(true);
-    setCurrentIndex(prev => prev + 1);
-  }, [playingVideo]);
-
-  // Handle transition end for clone normalization + next cycle
-  const handleTransitionEnd = useCallback(() => {
-    let nextIndex = currentIndex;
-    let needsSnap = false;
-
-    // If we've landed on the clone-of-first (index = totalSlides + 1), snap to real first (index 1)
-    if (currentIndex >= totalSlides + 1) {
-      nextIndex = 1;
-      needsSnap = true;
-    }
-    // If somehow at clone-of-last (index 0), snap to real last (index totalSlides)
-    if (currentIndex <= 0) {
-      nextIndex = totalSlides;
-      needsSnap = true;
-    }
-
-    if (needsSnap) {
-      // Disable transition, snap, re-enable next frame
-      setTransitionEnabled(false);
-      setCurrentIndex(nextIndex);
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          // Pause then slide again
-          autoplayRef.current = setTimeout(() => {
-            startAutoplay();
-          }, 4000);
-        });
-      });
-    } else {
-      // Normal pause then slide
-      autoplayRef.current = setTimeout(() => {
-        startAutoplay();
-      }, 4000);
-    }
-  }, [currentIndex, totalSlides, startAutoplay]);
-
-  // Pause autoplay when a video is playing
+  // Re-measure on resize
   useEffect(() => {
-    if (playingVideo !== null && autoplayRef.current) {
-      clearTimeout(autoplayRef.current);
-      autoplayRef.current = null;
-    }
+    const onResize = () => {
+      patternWidthRef.current = measurePattern();
+    };
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, [measurePattern]);
+
+  // Pause when video playing
+  useEffect(() => {
+    isPausedRef.current = playingVideo !== null;
   }, [playingVideo]);
 
   // Open YouTube after delay
@@ -223,15 +179,6 @@ const LinkInBio = () => {
     }, 4000);
     return () => clearTimeout(timer);
   }, [playingVideo]);
-
-  // Cleanup
-  useEffect(() => {
-    return () => {
-      if (autoplayRef.current) clearTimeout(autoplayRef.current);
-    };
-  }, []);
-
-  const translateX = getTranslateX(currentIndex);
 
   return (
     <div className="min-h-screen bg-[#36455A] flex flex-col items-center px-4 py-5 md:py-8">
@@ -407,25 +354,20 @@ const LinkInBio = () => {
             ))}
           </div>
 
-          {/* Mobile: smooth clone-based carousel */}
+          {/* Mobile: continuous infinite marquee */}
           <div className="md:hidden relative overflow-hidden" ref={containerRef}>
-            {/* Left edge mask */}
-            <div className="absolute left-0 top-0 bottom-0 w-6 z-10 pointer-events-none bg-gradient-to-r from-[#36455A] to-transparent" />
-            {/* Right edge mask */}
-            <div className="absolute right-0 top-0 bottom-0 w-6 z-10 pointer-events-none bg-gradient-to-l from-[#36455A] to-transparent" />
+            {/* Wide gradient masks to hide entries/exits well beyond viewport edge */}
+            <div className="absolute left-0 top-0 bottom-0 w-16 z-10 pointer-events-none bg-gradient-to-r from-[#36455A] via-[#36455A]/80 to-transparent" />
+            <div className="absolute right-0 top-0 bottom-0 w-16 z-10 pointer-events-none bg-gradient-to-l from-[#36455A] via-[#36455A]/80 to-transparent" />
             
             <div 
               ref={trackRef}
               className="flex gap-2 transform-gpu will-change-transform"
-              style={{
-                transform: `translateX(${translateX}px)`,
-                transition: transitionEnabled ? 'transform 4s ease-in-out' : 'none',
-              }}
-              onTransitionEnd={handleTransitionEnd}
+              style={{ transform: 'translateX(0px)' }}
             >
-              {clonedEpisodes.map((episode, i) => (
+              {repeatedEpisodes.map((episode, i) => (
                 <div 
-                  key={`carousel-${i}`} 
+                  key={`marquee-${i}`} 
                   className="group w-[36vw] min-w-[36vw] max-w-[36vw] flex-shrink-0"
                 >
                   <div className="rounded-2xl overflow-hidden shadow-lg bg-card flex flex-col h-full">
