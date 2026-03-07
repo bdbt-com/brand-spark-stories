@@ -18,8 +18,8 @@ const openYouTube = (
   onAppOpened?: () => void,
 ) => {
   const webUrl = `https://www.youtube.com/watch?v=${videoId}`;
-  const appUrl = `vnd.youtube://watch?v=${videoId}`;
-  const altAppUrl = `youtube://watch?v=${videoId}`;
+  const appUrl = `vnd.youtube://www.youtube.com/watch?v=${videoId}`;
+  const altAppUrl = `youtube://www.youtube.com/watch?v=${videoId}`;
   const intentUrl = `intent://www.youtube.com/watch?v=${videoId}#Intent;package=com.google.android.youtube;scheme=https;end`;
 
   const ua = navigator.userAgent || "";
