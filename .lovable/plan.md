@@ -1,21 +1,22 @@
 
 
-## Reorder Admin Dashboard Sections
+# Replace "BDBT Explained" video with "Why Most People Invest Completely Wrong"
 
-Swap and rearrange three sections in `src/pages/AdminList.tsx`:
+Replace the `TY1nkJsQtyw` ("BDBT Explained") video entry with `bv27Bn6qWIo` ("Why Most People Invest Completely Wrong") across all 3 pages that display the video trio, plus the admin mapping.
 
-### Current order (lines 186-301):
-1. Bio Link Clicks (lines 186-207)
-2. Page Analytics (lines 209-241)
-3. Video Clicks (lines 243-271)
-4. Auto-Redirects (lines 273-301)
+## Changes
 
-### New order:
-1. **Page Analytics** (move up from position 2)
-2. **Bio Link Clicks** (move down from position 1)
-3. **Auto-Redirects** (move up from position 4, now above video clicks)
-4. **Video Clicks** (move down from position 3)
+### 1. `src/pages/Home.tsx` (line 17)
+Replace `TY1nkJsQtyw` / "BDBT Explained" / "5.7K views" with `bv27Bn6qWIo` / "Why Most People Invest Completely Wrong" / new view count
 
-### Change
-Single file edit in `src/pages/AdminList.tsx` — cut and reorder the four `<section>` blocks (lines 186-301). No logic changes, purely reordering JSX sections.
+### 2. `src/pages/Blueprint.tsx` (line 14)
+Same replacement in the podcastEpisodes array
+
+### 3. `src/pages/LinkInBio.tsx` (line 9)
+Same replacement in the episodes array
+
+### 4. `src/pages/AdminList.tsx` (line 9)
+Replace the `TY1nkJsQtyw: "BDBT Explained"` mapping with `bv27Bn6qWIo: "Why Most People Invest Completely Wrong"`
+
+4 files, 1 line each. No other changes.
 
