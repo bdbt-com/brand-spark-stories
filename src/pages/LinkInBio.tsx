@@ -100,6 +100,7 @@ const LinkInBio = () => {
   const [transitionEnabled, setTransitionEnabled] = useState(false);
   const [isFirstMount, setIsFirstMount] = useState(true);
   const autoplayRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const isManualSwipe = useRef(false);
 
   // Touch/swipe state
   const touchStartX = useRef(0);
@@ -461,7 +462,7 @@ const LinkInBio = () => {
               className="flex gap-2 transform-gpu will-change-transform"
               style={{
                 transform: `translateX(${translateX}px)`,
-                transition: transitionEnabled ? 'transform 4s ease-in-out' : 'none',
+                transition: transitionEnabled ? (isManualSwipe.current ? 'transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)' : 'transform 4s ease-in-out') : 'none',
               }}
               onTransitionEnd={handleTransitionEnd}
               onTouchStart={handleTouchStart}
