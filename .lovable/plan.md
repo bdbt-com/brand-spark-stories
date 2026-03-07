@@ -1,22 +1,19 @@
 
 
-# Replace "BDBT Explained" video with "Why Most People Invest Completely Wrong"
+# Fix centering + slow down carousel
 
-Replace the `TY1nkJsQtyw` ("BDBT Explained") video entry with `bv27Bn6qWIo` ("Why Most People Invest Completely Wrong") across all 3 pages that display the video trio, plus the admin mapping.
+## Changes in `src/pages/LinkInBio.tsx`
 
-## Changes
+### 1. Center the paused card
+Currently the first card sits at the left edge. Fix by calculating a base offset to center the active card in the viewport, then each slide shifts by one card width + gap.
 
-### 1. `src/pages/Home.tsx` (line 17)
-Replace `TY1nkJsQtyw` / "BDBT Explained" / "5.7K views" with `bv27Bn6qWIo` / "Why Most People Invest Completely Wrong" / new view count
+- Remove `px-4` from inner flex div
+- Use a calculated base offset: `calc(50vw - 18vw)` = `32vw` (half viewport minus half card width) to center the first card
+- Slide offset: `calc(36vw + 0.5rem)` per step (card width + gap)
+- Transform formula: `translateX(calc(32vw - ${currentSlide} * (36vw + 0.5rem)))` where `currentSlide` is 0 when paused, 1 when sliding
 
-### 2. `src/pages/Blueprint.tsx` (line 14)
-Same replacement in the podcastEpisodes array
-
-### 3. `src/pages/LinkInBio.tsx` (line 9)
-Same replacement in the episodes array
-
-### 4. `src/pages/AdminList.tsx` (line 9)
-Replace the `TY1nkJsQtyw: "BDBT Explained"` mapping with `bv27Bn6qWIo: "Why Most People Invest Completely Wrong"`
-
-4 files, 1 line each. No other changes.
+### 2. Double all timings (100% slower)
+- Slide duration: 2s → 4s
+- Pause duration: 2s → 4s
+- Update both `setTimeout` values and the CSS `transition` duration
 
