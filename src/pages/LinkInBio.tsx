@@ -97,26 +97,26 @@ const LinkInBio = () => {
     return () => clearTimeout(timer);
   }, [playingVideo]);
 
-  // Smooth rolling carousel: 2s slide, 2s pause (mobile only)
+  // Smooth rolling carousel: 4s slide, 4s pause (mobile only)
   useEffect(() => {
     if (playingVideo !== null) return;
     if (window.innerWidth >= 768) return;
 
-    // Wait 2s pause, then start sliding
+    // Wait 4s pause, then start sliding
     const pauseTimer = setTimeout(() => {
       setIsSliding(true);
-    }, 2000);
+    }, 4000);
 
     return () => clearTimeout(pauseTimer);
   }, [rotationIndex, playingVideo]);
 
-  // When sliding starts, wait 2s for animation to finish then snap
+  // When sliding starts, wait 4s for animation to finish then snap
   useEffect(() => {
     if (!isSliding) return;
     const slideTimer = setTimeout(() => {
       setIsSliding(false);
       setRotationIndex((prev) => (prev + 1) % podcastEpisodes.length);
-    }, 2000);
+    }, 4000);
     return () => clearTimeout(slideTimer);
   }, [isSliding]);
 
@@ -301,12 +301,14 @@ const LinkInBio = () => {
           </div>
 
           {/* Mobile: smooth rolling carousel */}
-          <div className="md:hidden overflow-hidden -mx-4">
+          <div className="md:hidden overflow-hidden">
             <div 
-              className="flex gap-2 px-4"
+              className="flex gap-2"
               style={{
-                transform: `translateX(-${isSliding ? 38 : 0}vw)`,
-                transition: isSliding ? 'transform 2s ease-in-out' : 'none',
+                transform: isSliding 
+                  ? `translateX(calc(50vw - 18vw - ${rotationIndex + 1} * (36vw + 0.5rem)))` 
+                  : `translateX(calc(50vw - 18vw - ${rotationIndex} * (36vw + 0.5rem)))`,
+                transition: isSliding ? 'transform 4s ease-in-out' : 'none',
               }}
             >
               {carouselEpisodes.map((episode, i) => (
