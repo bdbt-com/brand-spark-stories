@@ -7,8 +7,9 @@ const podcastEpisodes = [
   { videoId: "ERXXO8mG5IY", title: "Why 70% of People Are Dehydrated", views: "8.4K views" },
   { videoId: "OjwSKAXveN8", title: "The Dangers of Screen-time Before Bed", views: "12.8K views" },
   { videoId: "bv27Bn6qWIo", title: "Why Most People Invest Completely Wrong", views: "5.7K views" },
-  { videoId: "zz2rVKKt1l0", title: "How to Actually Change Your Life", views: "New" },
-  { videoId: "-a4NbW5Y718", title: "The Truth About Daily Habits", views: "New" },
+  { videoId: "zz2rVKKt1l0", title: "Go Exploring", views: "9.9K views" },
+  { videoId: "-a4NbW5Y718", title: "If You Know You're Capable of More, This is for You", views: "4.4K views" },
+  { videoId: "zz2rVKKt1l0", title: "Connect with More Animals", views: "6.7K views" },
 ];
 
 const openYouTube = (videoId: string) => {
@@ -240,6 +241,23 @@ const LinkInBio = () => {
     return () => clearTimeout(timer);
   }, [playingVideo]);
 
+  // Pause carousel on page scroll, resume 200ms after scroll stops
+  const scrollTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+  useEffect(() => {
+    const handleScroll = () => {
+      clearAutoplay();
+      if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
+      scrollTimeout.current = setTimeout(() => {
+        scheduleAutoplay(4000);
+      }, 200);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
+    };
+  }, [clearAutoplay, scheduleAutoplay]);
+
   // Cleanup
   useEffect(() => {
     return () => clearAutoplay();
@@ -422,11 +440,11 @@ const LinkInBio = () => {
           </div>
 
           {/* Mobile: smooth clone-based carousel */}
-          <div className="md:hidden relative overflow-hidden" ref={containerRef}>
+          <div className="md:hidden relative overflow-hidden -mx-[18vw] px-[18vw]" ref={containerRef}>
             {/* Left edge mask */}
-            <div className="absolute left-0 top-0 bottom-0 w-6 z-10 pointer-events-none bg-gradient-to-r from-[#36455A] to-transparent" />
+            <div className="absolute left-[18vw] top-0 bottom-0 w-6 z-10 pointer-events-none bg-gradient-to-r from-[#36455A] to-transparent" />
             {/* Right edge mask */}
-            <div className="absolute right-0 top-0 bottom-0 w-6 z-10 pointer-events-none bg-gradient-to-l from-[#36455A] to-transparent" />
+            <div className="absolute right-[18vw] top-0 bottom-0 w-6 z-10 pointer-events-none bg-gradient-to-l from-[#36455A] to-transparent" />
             
             <div 
               ref={trackRef}
