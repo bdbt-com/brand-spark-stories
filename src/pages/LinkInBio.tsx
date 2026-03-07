@@ -12,13 +12,20 @@ const podcastEpisodes = [
   { videoId: "Irm5oIb5ySo", title: "Connect with More Animals", views: "6.7K views" },
 ];
 
-const openYouTube = (videoId: string, isAutoRedirect = false) => {
+const openYouTube = (
+  videoId: string,
+  isAutoRedirect = false,
+  onAppOpened?: () => void,
+) => {
   const webUrl = `https://www.youtube.com/watch?v=${videoId}`;
-  const deepLinks = [
-    `vnd.youtube://watch?v=${videoId}`,
-    `youtube://watch?v=${videoId}`,
-    `vnd.youtube://${videoId}`,
-  ];
+  const appUrl = `vnd.youtube://watch?v=${videoId}`;
+  const altAppUrl = `youtube://watch?v=${videoId}`;
+  const intentUrl = `intent://www.youtube.com/watch?v=${videoId}#Intent;package=com.google.android.youtube;scheme=https;end`;
+
+  const ua = navigator.userAgent || "";
+  const isInstagram = /Instagram|FBAN|FBAV/i.test(ua);
+  const isTikTok = /TikTok|Bytedance|musical_ly/i.test(ua);
+  const isAndroid = /Android/i.test(ua);
 
   let appOpened = false;
 
@@ -28,24 +35,50 @@ const openYouTube = (videoId: string, isAutoRedirect = false) => {
     document.removeEventListener("visibilitychange", onVisibility);
   };
 
-  const onBlur = () => {
+  const onOpen = () => {
+    if (appOpened) return;
     appOpened = true;
+    onAppOpened?.();
     cleanup();
   };
+
+  const onBlur = () => onOpen();
   const onVisibility = () => {
-    if (document.hidden) {
-      appOpened = true;
-      cleanup();
-    }
+    if (document.hidden) onOpen();
   };
 
   window.addEventListener("blur", onBlur, { once: true });
   window.addEventListener("pagehide", onBlur, { once: true });
   document.addEventListener("visibilitychange", onVisibility);
 
-  // First attempt: deep link via anchor click (works better in IG/TikTok in-app browsers)
+  // Instagram: single deep-link attempt only (prevents repeated open prompts)
+  if (isInstagram) {
+    window.location.href = appUrl;
+
+    setTimeout(() => {
+      cleanup();
+      if (!appOpened && !isAutoRedirect) {
+        window.location.href = webUrl;
+      }
+    }, 1500);
+    return;
+  }
+
+  // TikTok: app-only attempts for auto redirect (no web fallback)
+  if (isTikTok && isAutoRedirect) {
+    window.location.href = isAndroid ? intentUrl : appUrl;
+
+    setTimeout(() => {
+      if (!appOpened) window.location.href = altAppUrl;
+    }, 700);
+
+    setTimeout(() => cleanup(), 1800);
+    return;
+  }
+
+  // Manual click path + normal browsers
   const a = document.createElement("a");
-  a.href = deepLinks[0];
+  a.href = isAndroid ? intentUrl : appUrl;
   a.target = "_self";
   a.rel = "noopener";
   a.style.display = "none";
@@ -53,27 +86,16 @@ const openYouTube = (videoId: string, isAutoRedirect = false) => {
   a.click();
   document.body.removeChild(a);
 
-  // Second attempt with alternate scheme
   setTimeout(() => {
-    if (!appOpened) {
-      window.location.href = deepLinks[1];
-    }
+    if (!appOpened) window.location.href = altAppUrl;
   }, 450);
 
-  // Third attempt with alternate format
-  setTimeout(() => {
-    if (!appOpened) {
-      window.location.href = deepLinks[2];
-    }
-  }, 900);
-
-  // Final fallback to web only for manual clicks
   setTimeout(() => {
     cleanup();
     if (!appOpened && !isAutoRedirect) {
       window.location.href = webUrl;
     }
-  }, 1600);
+  }, 1500);
 };
 
 const socialLinks = [
@@ -334,7 +356,7 @@ const LinkInBio = () => {
   // Visit 3+ (2+ redirects in 3h): 20s → cycle through remaining videos
   // Resets after 3 hours since first redirect
   useEffect(() => {
-    const STORAGE_KEY = 'bdbt-auto-redirects-v4';
+    const STORAGE_KEY = 'bdbt-auto-redirects-v5';
     const THREE_HOURS = 3 * 60 * 60 * 1000;
     const REDIRECT_SEQUENCE = [
       '-a4NbW5Y718',  // 1st: "If You Know You're Capable of More"
@@ -382,11 +404,11 @@ const LinkInBio = () => {
       clearTimeout(idleTimer);
       idleTimer = setTimeout(() => {
         redirected = true;
-        // Save this redirect to localStorage
-        const updated = [...getRecentRedirects(), { timestamp: Date.now(), videoId }];
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
-        supabase.functions.invoke("track-video-click", { body: { videoId: "auto-redirect" } });
-        openYouTube(videoId, true);
+        openYouTube(videoId, true, () => {
+          const updated = [...getRecentRedirects(), { timestamp: Date.now(), videoId }];
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+          supabase.functions.invoke("track-video-click", { body: { videoId: "auto-redirect" } });
+        });
       }, delay);
     };
 
