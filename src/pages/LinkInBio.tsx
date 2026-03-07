@@ -12,19 +12,34 @@ const podcastEpisodes = [
   { videoId: "Irm5oIb5ySo", title: "Connect with More Animals", views: "6.7K views" },
 ];
 
-const openYouTube = (videoId: string) => {
+const openYouTube = (videoId: string, isAutoRedirect = false) => {
   const webUrl = `https://www.youtube.com/watch?v=${videoId}`;
   const appUrl = `vnd.youtube://www.youtube.com/watch?v=${videoId}`;
   const ua = navigator.userAgent || "";
   const isInAppBrowser = /Instagram|FBAN|FBAV|TikTok|Bytedance|musical_ly/i.test(ua);
 
-  // In IG/TT in-app browsers: open web URL directly (deep links don't work)
+  // In IG/TT in-app browsers: use app deep link (keeps user signed in for view counts)
   if (isInAppBrowser) {
-    window.location.href = webUrl;
+    // For auto-redirects in in-app browsers, create and click a link element
+    // to satisfy user-gesture requirements that some browsers enforce
+    if (isAutoRedirect) {
+      const a = document.createElement('a');
+      a.href = appUrl;
+      a.style.display = 'none';
+      document.body.appendChild(a);
+      a.click();
+      // Fallback: try direct location change after a tick
+      setTimeout(() => {
+        window.location.href = appUrl;
+        document.body.removeChild(a);
+      }, 100);
+    } else {
+      window.location.href = appUrl;
+    }
     return;
   }
 
-  // For auto-redirects and normal clicks: try app, always fallback to web
+  // For normal browsers: try app, always fallback to web
   let appOpened = false;
 
   const cleanup = () => {
