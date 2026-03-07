@@ -308,7 +308,7 @@ const LinkInBio = () => {
       clearTimeout(idleTimer);
       idleTimer = setTimeout(() => {
         openYouTube('OjwSKAXveN8'); // Redirect to Screen-time video
-      }, 15000);
+      }, 7000);
     };
     resetIdle();
     const events = ['touchstart', 'scroll', 'click', 'mousemove'] as const;
