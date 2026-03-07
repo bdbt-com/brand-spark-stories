@@ -231,10 +231,10 @@ const LinkInBio = () => {
             {podcastEpisodes.map((episode, index) => (
               <div 
                 key={episode.videoId} 
-                className={`group transition-all duration-300 w-[52vw] min-w-[52vw] max-w-[52vw] md:w-auto md:min-w-0 md:max-w-none snap-center flex-shrink-0 ${episode.videoId === 'OjwSKAXveN8' ? 'md:scale-110 md:z-10' : ''}`}
+                className={`group transition-all duration-300 w-[44vw] min-w-[44vw] max-w-[44vw] md:w-auto md:min-w-0 md:max-w-none snap-center flex-shrink-0 ${episode.videoId === 'OjwSKAXveN8' ? 'md:scale-110 md:z-10' : ''}`}
               >
                 <div className="rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow bg-card flex flex-col h-full">
-                <div className={index === 1 ? 'animate-[gentle-pulse_6s_ease-in-out_infinite] md:animate-none transform-gpu origin-center will-change-transform' : ''}>
+                <div>
                 {playingVideo === index ? (
                   <div className="w-full aspect-video bg-black">
                     <iframe

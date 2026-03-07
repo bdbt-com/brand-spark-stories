@@ -1,14 +1,22 @@
 
 
-# Shrink mobile video cards by 15% on /bio page
+# Replace "BDBT Explained" video with "Why Most People Invest Completely Wrong"
 
-## Change
+Replace the `TY1nkJsQtyw` ("BDBT Explained") video entry with `bv27Bn6qWIo` ("Why Most People Invest Completely Wrong") across all 3 pages that display the video trio, plus the admin mapping.
 
-### `src/pages/LinkInBio.tsx` (line 234)
+## Changes
 
-Change the mobile card width from `w-[52vw] min-w-[52vw] max-w-[52vw]` to `w-[44vw] min-w-[44vw] max-w-[44vw]` (52 × 0.85 ≈ 44vw). Desktop sizes remain unchanged.
+### 1. `src/pages/Home.tsx` (line 17)
+Replace `TY1nkJsQtyw` / "BDBT Explained" / "5.7K views" with `bv27Bn6qWIo` / "Why Most People Invest Completely Wrong" / new view count
 
-Also remove the gentle-pulse animation from the center card (line 237) since the user wants no animation.
+### 2. `src/pages/Blueprint.tsx` (line 14)
+Same replacement in the podcastEpisodes array
 
-One file, two small edits.
+### 3. `src/pages/LinkInBio.tsx` (line 9)
+Same replacement in the episodes array
+
+### 4. `src/pages/AdminList.tsx` (line 9)
+Replace the `TY1nkJsQtyw: "BDBT Explained"` mapping with `bv27Bn6qWIo: "Why Most People Invest Completely Wrong"`
+
+4 files, 1 line each. No other changes.
 
