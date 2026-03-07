@@ -121,9 +121,10 @@ const LinkInBio = () => {
 
   const getTranslateX = useCallback((index: number) => {
     const { cardW, step } = getStep();
-    if (!containerRef.current || cardW === 0) return 0;
-    const containerW = containerRef.current.offsetWidth;
-    return containerW / 2 - cardW / 2 - index * step;
+    if (cardW === 0) return 0;
+    // Use viewport width for centering, not container width (which includes -mx overflow)
+    const viewportW = window.innerWidth;
+    return viewportW / 2 - cardW / 2 - index * step;
   }, [getStep]);
 
   const clearAutoplay = useCallback(() => {
@@ -454,11 +455,7 @@ const LinkInBio = () => {
 
           {/* Mobile: smooth clone-based carousel */}
           <div className="md:hidden relative overflow-hidden -mx-[24vw] px-[24vw]" ref={containerRef}>
-            {/* Left edge mask — positioned at viewport edge, inside the extended container */}
-            <div className="absolute left-[24vw] top-0 bottom-0 w-3 z-10 pointer-events-none bg-gradient-to-r from-[#36455A]/80 to-transparent" />
-            {/* Right edge mask */}
-            <div className="absolute right-[24vw] top-0 bottom-0 w-3 z-10 pointer-events-none bg-gradient-to-l from-[#36455A]/80 to-transparent" />
-            
+
             <div 
               ref={trackRef}
               className="flex gap-2 transform-gpu will-change-transform"
