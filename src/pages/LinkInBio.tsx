@@ -9,7 +9,6 @@ const podcastEpisodes = [
   { videoId: "bv27Bn6qWIo", title: "Why Most People Invest Completely Wrong", views: "5.7K views" },
   { videoId: "zz2rVKKt1l0", title: "Connect with More Animals", views: "6.7K views" },
   { videoId: "-a4NbW5Y718", title: "If You Know You're Capable of More, This is for You", views: "4.4K views" },
-  { videoId: "zz2rVKKt1l0", title: "Go Exploring", views: "9.9K views" },
 ];
 
 const openYouTube = (videoId: string) => {
