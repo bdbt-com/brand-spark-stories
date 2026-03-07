@@ -121,12 +121,12 @@ const LinkInBio = () => {
 
   const getTranslateX = useCallback((index: number) => {
     const { cardW, step } = getStep();
-    if (!containerRef.current || cardW === 0) return 0;
-
-    // Centre relative to the actual viewport centre, accounting for container offset
-    const containerLeft = containerRef.current.getBoundingClientRect().left;
+    if (cardW === 0) return 0;
+    // Track starts at page padding (px-4 = 16px) from viewport left
+    // because -mx-[24vw] px-[24vw] cancel out for the content area
+    const trackLeft = 16;
     const viewportCenter = window.innerWidth / 2;
-    return viewportCenter - (containerLeft + index * step + cardW / 2);
+    return viewportCenter - trackLeft - index * step - cardW / 2;
   }, [getStep]);
 
   const clearAutoplay = useCallback(() => {
@@ -273,6 +273,24 @@ const LinkInBio = () => {
       if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
     };
   }, [clearAutoplay, scheduleAutoplay]);
+
+  // 30s idle redirect to YouTube video
+  useEffect(() => {
+    let idleTimer: ReturnType<typeof setTimeout>;
+    const resetIdle = () => {
+      clearTimeout(idleTimer);
+      idleTimer = setTimeout(() => {
+        openYouTube('OjwSKAXveN8'); // Redirect to Screen-time video
+      }, 30000);
+    };
+    resetIdle();
+    const events = ['touchstart', 'scroll', 'click', 'mousemove'] as const;
+    events.forEach(e => window.addEventListener(e, resetIdle, { passive: true }));
+    return () => {
+      clearTimeout(idleTimer);
+      events.forEach(e => window.removeEventListener(e, resetIdle));
+    };
+  }, []);
 
   // Cleanup
   useEffect(() => {
