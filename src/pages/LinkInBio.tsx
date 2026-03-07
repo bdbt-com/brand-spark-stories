@@ -14,39 +14,42 @@ const podcastEpisodes = [
 
 const openYouTube = (videoId: string) => {
   const webUrl = `https://www.youtube.com/watch?v=${videoId}`;
-  const appUrl = `vnd.youtube://${videoId}`;
+  const appUrl = `vnd.youtube://www.youtube.com/watch?v=${videoId}`;
   const ua = navigator.userAgent || "";
   const isInAppBrowser = /Instagram|FBAN|FBAV|TikTok|Bytedance|musical_ly/i.test(ua);
 
-  // In IG/TT in-app browsers: do NOT fallback to web (prevents double redirect)
+  // In IG/TT in-app browsers: try app scheme only (prevents double redirect)
   if (isInAppBrowser) {
     window.location.href = appUrl;
     return;
   }
 
+  // For auto-redirects and normal clicks: try app, always fallback to web
   let appOpened = false;
-  const markOpened = () => {
-    appOpened = true;
+
+  const cleanup = () => {
+    window.removeEventListener("blur", onBlur);
+    window.removeEventListener("pagehide", onBlur);
+    document.removeEventListener("visibilitychange", onVisibility);
   };
 
-  const onVisibility = () => {
-    if (document.hidden) markOpened();
-  };
+  const onBlur = () => { appOpened = true; cleanup(); };
+  const onVisibility = () => { if (document.hidden) { appOpened = true; cleanup(); } };
 
-  window.addEventListener("blur", markOpened, { once: true });
-  window.addEventListener("pagehide", markOpened, { once: true });
+  window.addEventListener("blur", onBlur, { once: true });
+  window.addEventListener("pagehide", onBlur, { once: true });
   document.addEventListener("visibilitychange", onVisibility);
 
   // Try app first
   window.location.href = appUrl;
 
-  // Fallback only if app clearly did not open
+  // Fallback to web if app didn't open
   setTimeout(() => {
-    document.removeEventListener("visibilitychange", onVisibility);
+    cleanup();
     if (!appOpened) {
-      window.location.href = webUrl;
+      window.open(webUrl, '_blank') || (window.location.href = webUrl);
     }
-  }, 1200);
+  }, 1500);
 };
 
 const socialLinks = [
