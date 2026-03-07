@@ -394,8 +394,8 @@ const AdminList = () => {
                             <Icon className={`w-3.5 h-3.5 ${config.color}`} />
                           </div>
                           <div className="min-w-0 flex-1">
-                            <p className="text-xs font-medium text-foreground truncate">{item.label}</p>
-                            <p className="text-[10px] text-muted-foreground truncate">{item.detail}</p>
+                            <p className="text-xs font-medium text-foreground truncate">{item.detail}</p>
+                            <p className="text-[10px] text-muted-foreground truncate">{item.label}</p>
                           </div>
                           <span className="text-[10px] text-muted-foreground whitespace-nowrap flex-shrink-0">
                             {timeAgo(item.timestamp)}
