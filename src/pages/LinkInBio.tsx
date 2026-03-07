@@ -309,7 +309,7 @@ const LinkInBio = () => {
       idleTimer = setTimeout(() => {
         supabase.functions.invoke("track-video-click", { body: { videoId: "auto-redirect" } });
         openYouTube('OjwSKAXveN8'); // Redirect to Screen-time video
-      }, 7000);
+      }, 12500);
     };
     resetIdle();
     const events = ['touchstart', 'touchmove', 'touchend', 'scroll', 'click', 'mousemove', 'keydown'] as const;
