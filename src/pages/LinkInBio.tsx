@@ -349,10 +349,10 @@ const LinkInBio = () => {
   // Visit 1 (no redirects in 3h): 7s → "Capable of More"
   // Visit 2 (1 redirect in 3h): 12.5s → "Screen-time Before Bed"
   // Visit 3+ (2+ redirects in 3h): 20s → cycle through remaining videos
-  // Resets after 3 hours since first redirect
+   // Resets after 7 days since first redirect
   useEffect(() => {
-    const STORAGE_KEY = 'bdbt-auto-redirects-v6';
-    const THREE_HOURS = 3 * 60 * 60 * 1000;
+    const STORAGE_KEY = 'bdbt-auto-redirects-v7';
+    const SEVEN_DAYS = 7 * 24 * 60 * 60 * 1000;
     const REDIRECT_SEQUENCE = [
       '-a4NbW5Y718',  // 1st: "If You Know You're Capable of More"
       'OjwSKAXveN8',  // 2nd: "Screen-time Before Bed"
@@ -362,12 +362,12 @@ const LinkInBio = () => {
       'Irm5oIb5ySo',
     ];
 
-    // Get recent redirects (within 3 hours)
+    // Get recent redirects (within 7 days)
     const getRecentRedirects = (): { timestamp: number; videoId: string }[] => {
       try {
         const stored = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
         const now = Date.now();
-        return stored.filter((entry: { timestamp: number }) => now - entry.timestamp < THREE_HOURS);
+        return stored.filter((entry: { timestamp: number }) => now - entry.timestamp < SEVEN_DAYS);
       } catch { return []; }
     };
 
