@@ -96,7 +96,7 @@ const LinkInBio = () => {
   ];
   const trackRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [currentIndex, setCurrentIndex] = useState(1);
+  const [currentIndex, setCurrentIndex] = useState(2);
   const [transitionEnabled, setTransitionEnabled] = useState(false);
   const [isFirstMount, setIsFirstMount] = useState(true);
   const autoplayRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -149,8 +149,8 @@ const LinkInBio = () => {
     const raf = requestAnimationFrame(() => {
       if (!trackRef.current) return;
       trackRef.current.style.transition = 'none';
-      trackRef.current.style.transform = `translateX(${getTranslateX(1)}px)`;
-      setCurrentIndex(1);
+      trackRef.current.style.transform = `translateX(${getTranslateX(2)}px)`;
+      setCurrentIndex(2);
       setIsFirstMount(false);
       scheduleAutoplay(4000);
     });
@@ -279,7 +279,7 @@ const LinkInBio = () => {
   const translateX = getTranslateX(currentIndex);
 
   return (
-    <div className="min-h-screen bg-[#36455A] flex flex-col items-center px-4 py-5 md:py-8">
+    <div className="min-h-screen bg-[#36455A] flex flex-col items-center px-4 py-5 md:py-8 overflow-x-hidden">
       {/* Background gradient overlay */}
       <div className="fixed inset-0 bg-gradient-to-b from-[#36455A] via-[#2d3a4d] to-[#1e2836] -z-10" />
       
