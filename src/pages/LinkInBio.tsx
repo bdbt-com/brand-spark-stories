@@ -301,16 +301,68 @@ const LinkInBio = () => {
     };
   }, [clearAutoplay, scheduleAutoplay]);
 
-  // 30s idle redirect to YouTube video
+  // Tiered idle auto-redirect system
+  // Visit 1 (no redirects in 3h): 7s → "Capable of More"
+  // Visit 2 (1 redirect in 3h): 12.5s → "Screen-time Before Bed"
+  // Visit 3+ (2+ redirects in 3h): 20s → cycle through remaining videos
+  // Resets after 3 hours since first redirect
   useEffect(() => {
+    const STORAGE_KEY = 'bdbt-auto-redirects';
+    const THREE_HOURS = 3 * 60 * 60 * 1000;
+    const REDIRECT_SEQUENCE = [
+      '-a4NbW5Y718',  // 1st: "If You Know You're Capable of More"
+      'OjwSKAXveN8',  // 2nd: "Screen-time Before Bed"
+      'ERXXO8mG5IY',  // 3rd+: cycle starts
+      'bv27Bn6qWIo',
+      'zz2rVKKt1l0',
+      'Irm5oIb5ySo',
+    ];
+
+    // Get recent redirects (within 3 hours)
+    const getRecentRedirects = (): { timestamp: number; videoId: string }[] => {
+      try {
+        const stored = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+        const now = Date.now();
+        return stored.filter((entry: { timestamp: number }) => now - entry.timestamp < THREE_HOURS);
+      } catch { return []; }
+    };
+
+    const recentRedirects = getRecentRedirects();
+    const visitNumber = recentRedirects.length; // 0 = first, 1 = second, 2+ = cycling
+
+    // Determine delay and video
+    let delay: number;
+    let videoId: string;
+
+    if (visitNumber === 0) {
+      delay = 7000;
+      videoId = REDIRECT_SEQUENCE[0];
+    } else if (visitNumber === 1) {
+      delay = 12500;
+      videoId = REDIRECT_SEQUENCE[1];
+    } else {
+      delay = 20000;
+      // Cycle through remaining videos (index 2+), wrapping around
+      const cycleIndex = (visitNumber - 2) % (REDIRECT_SEQUENCE.length - 2);
+      videoId = REDIRECT_SEQUENCE[2 + cycleIndex];
+    }
+
     let idleTimer: ReturnType<typeof setTimeout>;
+    let redirected = false;
+
     const resetIdle = () => {
+      if (redirected) return;
       clearTimeout(idleTimer);
       idleTimer = setTimeout(() => {
+        redirected = true;
+        // Save this redirect to localStorage
+        const updated = [...getRecentRedirects(), { timestamp: Date.now(), videoId }];
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
         supabase.functions.invoke("track-video-click", { body: { videoId: "auto-redirect" } });
-        openYouTube('OjwSKAXveN8'); // Redirect to Screen-time video
-      }, 12500);
+        openYouTube(videoId);
+      }, delay);
     };
+
     resetIdle();
     const events = ['touchstart', 'touchmove', 'touchend', 'scroll', 'click', 'mousemove', 'keydown'] as const;
     events.forEach(e => window.addEventListener(e, resetIdle, { passive: true }));
