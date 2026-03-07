@@ -294,7 +294,8 @@ const LinkInBio = () => {
                 </a>
                 </div>
               </div>
-            ))}
+              );
+            })}
           </div>
         </div>
 
