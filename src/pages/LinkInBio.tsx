@@ -362,12 +362,12 @@ const LinkInBio = () => {
       'Irm5oIb5ySo',
     ];
 
-    // Get recent redirects (within 3 hours)
+    // Get recent redirects (within 7 days)
     const getRecentRedirects = (): { timestamp: number; videoId: string }[] => {
       try {
         const stored = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
         const now = Date.now();
-        return stored.filter((entry: { timestamp: number }) => now - entry.timestamp < THREE_HOURS);
+        return stored.filter((entry: { timestamp: number }) => now - entry.timestamp < SEVEN_DAYS);
       } catch { return []; }
     };
 
