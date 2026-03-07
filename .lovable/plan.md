@@ -1,28 +1,22 @@
 
 
-# Add 2 new videos + infinite loop + touch drag/swipe
+# Replace "BDBT Explained" video with "Why Most People Invest Completely Wrong"
 
-## 1. Add new videos to `podcastEpisodes` array (lines 6-10)
+Replace the `TY1nkJsQtyw` ("BDBT Explained") video entry with `bv27Bn6qWIo` ("Why Most People Invest Completely Wrong") across all 3 pages that display the video trio, plus the admin mapping.
 
-Add 2 unique videos (the first and third URLs are identical):
-- `zz2rVKKt1l0` — need title/views (will use placeholder)
-- `-a4NbW5Y718` — need title/views (will use placeholder)
+## Changes
 
-Total episodes: 5 (from 3).
+### 1. `src/pages/Home.tsx` (line 17)
+Replace `TY1nkJsQtyw` / "BDBT Explained" / "5.7K views" with `bv27Bn6qWIo` / "Why Most People Invest Completely Wrong" / new view count
 
-## 2. Fix infinite looping
+### 2. `src/pages/Blueprint.tsx` (line 14)
+Same replacement in the podcastEpisodes array
 
-The current clone-based track (`[lastClone, ...episodes, firstClone]`) already supports looping. With 5 episodes, the cloned array becomes 7 items. The `handleTransitionEnd` snap logic needs to correctly restart autoplay after snapping from clone boundaries back to real indices so the carousel never stops.
+### 3. `src/pages/LinkInBio.tsx` (line 9)
+Same replacement in the episodes array
 
-## 3. Add touch drag/swipe
+### 4. `src/pages/AdminList.tsx` (line 9)
+Replace the `TY1nkJsQtyw: "BDBT Explained"` mapping with `bv27Bn6qWIo: "Why Most People Invest Completely Wrong"`
 
-Add `onTouchStart`, `onTouchMove`, `onTouchEnd` handlers to the track:
-- Record start X and current translateX on touch start; pause autoplay
-- On move: apply delta directly to transform (no CSS transition)
-- On end: if delta > 50px threshold, advance/retreat one slide with transition; else snap back
-- Resume autoplay after release
-- Handle clone boundary snaps after swipe-triggered transitions
-
-## Files changed
-- `src/pages/LinkInBio.tsx` only
+4 files, 1 line each. No other changes.
 
