@@ -1,17 +1,22 @@
 
 
-## Mobile Live Feed Bar
+# Replace "BDBT Explained" video with "Why Most People Invest Completely Wrong"
 
-### Change
-In `src/pages/AdminList.tsx`, add a mobile-only compact live feed strip at the top of the page (above all sections), showing the 5 most recent activities in a thin horizontal card. The existing sidebar feed (desktop, `hidden lg:block`) stays unchanged.
+Replace the `TY1nkJsQtyw` ("BDBT Explained") video entry with `bv27Bn6qWIo` ("Why Most People Invest Completely Wrong") across all 3 pages that display the video trio, plus the admin mapping.
 
-### Implementation
+## Changes
 
-**1. Add mobile feed block** — Insert right after the outer `<div>` opens (line ~142), before the flex container:
-- A `<div className="lg:hidden mb-6">` wrapping a thin `<Card>` 
-- Header: "Live Activity" with green dot, inline
-- Show `feed.slice(0, 5)` as compact single-line rows (icon + detail + label + time ago), smaller padding
-- Each row uses `flex items-center gap-2 py-1.5` for a tight layout
+### 1. `src/pages/Home.tsx` (line 17)
+Replace `TY1nkJsQtyw` / "BDBT Explained" / "5.7K views" with `bv27Bn6qWIo` / "Why Most People Invest Completely Wrong" / new view count
 
-**2. No changes to desktop sidebar** — it remains `hidden lg:block` with 10 items.
+### 2. `src/pages/Blueprint.tsx` (line 14)
+Same replacement in the podcastEpisodes array
+
+### 3. `src/pages/LinkInBio.tsx` (line 9)
+Same replacement in the episodes array
+
+### 4. `src/pages/AdminList.tsx` (line 9)
+Replace the `TY1nkJsQtyw: "BDBT Explained"` mapping with `bv27Bn6qWIo: "Why Most People Invest Completely Wrong"`
+
+4 files, 1 line each. No other changes.
 
