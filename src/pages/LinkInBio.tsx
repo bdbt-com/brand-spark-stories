@@ -84,6 +84,7 @@ const links = [
 const LinkInBio = () => {
   const [playingVideo, setPlayingVideo] = useState<number | null>(null);
   const [rotationIndex, setRotationIndex] = useState(0);
+  const [isSliding, setIsSliding] = useState(false);
 
   useEffect(() => {
     if (playingVideo === null) return;
@@ -96,32 +97,34 @@ const LinkInBio = () => {
     return () => clearTimeout(timer);
   }, [playingVideo]);
 
-  // Auto-rotate carousel every 4s (mobile only, paused when playing)
+  // Smooth rolling carousel: 2s slide, 2s pause (mobile only)
   useEffect(() => {
     if (playingVideo !== null) return;
     if (window.innerWidth >= 768) return;
-    const interval = setInterval(() => {
-      setRotationIndex((prev) => (prev + 1) % podcastEpisodes.length);
-    }, 4000);
-    return () => clearInterval(interval);
-  }, [playingVideo]);
 
-  // Scroll to middle episode on mount (mobile)
+    // Wait 2s pause, then start sliding
+    const pauseTimer = setTimeout(() => {
+      setIsSliding(true);
+    }, 2000);
+
+    return () => clearTimeout(pauseTimer);
+  }, [rotationIndex, playingVideo]);
+
+  // When sliding starts, wait 2s for animation to finish then snap
   useEffect(() => {
-    if (window.innerWidth < 768) {
-      const centerCard = () => {
-        const container = document.getElementById('episodes-scroll');
-        const card = container?.children[1] as HTMLElement;
-        if (container && card) {
-          const offset = card.offsetLeft - (container.clientWidth - card.clientWidth) / 2;
-          container.scrollTo({ left: offset, behavior: 'instant' as ScrollBehavior });
-        }
-      };
-      centerCard();
-      setTimeout(centerCard, 200);
-      setTimeout(centerCard, 500);
-    }
-  }, [rotationIndex]);
+    if (!isSliding) return;
+    const slideTimer = setTimeout(() => {
+      setIsSliding(false);
+      setRotationIndex((prev) => (prev + 1) % podcastEpisodes.length);
+    }, 2000);
+    return () => clearTimeout(slideTimer);
+  }, [isSliding]);
+
+  // Build carousel items: current order + clone of first for seamless wrap
+  const carouselEpisodes = [
+    ...podcastEpisodes.map((_, i) => podcastEpisodes[(i + rotationIndex) % podcastEpisodes.length]),
+    podcastEpisodes[rotationIndex % podcastEpisodes.length], // clone
+  ];
 
   return (
     <div className="min-h-screen bg-[#36455A] flex flex-col items-center px-4 py-5 md:py-8">
