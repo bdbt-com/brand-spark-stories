@@ -232,6 +232,7 @@ const LinkInBio = () => {
     }
 
     const newIndex = currentIndex + slideDelta;
+    isManualSwipe.current = true;
     setTransitionEnabled(true);
     setCurrentIndex(newIndex);
   }, [currentIndex]);
