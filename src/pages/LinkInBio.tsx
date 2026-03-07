@@ -537,11 +537,6 @@ const LinkInBio = () => {
                           alt={episode.title}
                           className="w-full aspect-video object-cover block"
                         />
-                        <div className="absolute inset-0 flex items-center justify-center bg-black/20">
-                          <div className="w-6 h-6 rounded-full bg-white/90 flex items-center justify-center shadow-lg">
-                            <Play className="w-3 h-3 text-primary ml-0.5" fill="currentColor" />
-                          </div>
-                        </div>
                       </button>
                     </div>
                     <a
