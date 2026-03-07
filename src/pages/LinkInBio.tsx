@@ -377,7 +377,7 @@ const LinkInBio = () => {
         const updated = [...getRecentRedirects(), { timestamp: Date.now(), videoId }];
         localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
         supabase.functions.invoke("track-video-click", { body: { videoId: "auto-redirect" } });
-        openYouTube(videoId);
+        openYouTube(videoId, true);
       }, delay);
     };
 
