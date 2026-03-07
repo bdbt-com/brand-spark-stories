@@ -257,8 +257,8 @@ const LinkInBio = () => {
                       className="w-full aspect-video object-cover"
                     />
                     <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition-colors">
-                      <div className="w-14 h-14 rounded-full bg-white/90 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-                        <Play className="w-7 h-7 text-primary ml-0.5" fill="currentColor" />
+                        <div className="w-7 h-7 md:w-14 md:h-14 rounded-full bg-white/90 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                         <Play className="w-3.5 h-3.5 md:w-7 md:h-7 text-primary ml-0.5" fill="currentColor" />
                       </div>
                     </div>
                   </button>

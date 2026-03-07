@@ -1,14 +1,22 @@
 
 
-# Shrink mobile play buttons by 50% on /bio page
+# Replace "BDBT Explained" video with "Why Most People Invest Completely Wrong"
 
-## Change
+Replace the `TY1nkJsQtyw` ("BDBT Explained") video entry with `bv27Bn6qWIo` ("Why Most People Invest Completely Wrong") across all 3 pages that display the video trio, plus the admin mapping.
 
-### `src/pages/LinkInBio.tsx` (lines 260-261)
+## Changes
 
-Change the play button circle and icon to use responsive sizes:
-- Circle: `w-7 h-7 md:w-14 md:h-14` (halved on mobile)
-- Icon: `w-3.5 h-3.5 md:w-7 md:h-7` (halved on mobile)
+### 1. `src/pages/Home.tsx` (line 17)
+Replace `TY1nkJsQtyw` / "BDBT Explained" / "5.7K views" with `bv27Bn6qWIo` / "Why Most People Invest Completely Wrong" / new view count
 
-One file, one line group.
+### 2. `src/pages/Blueprint.tsx` (line 14)
+Same replacement in the podcastEpisodes array
+
+### 3. `src/pages/LinkInBio.tsx` (line 9)
+Same replacement in the episodes array
+
+### 4. `src/pages/AdminList.tsx` (line 9)
+Replace the `TY1nkJsQtyw: "BDBT Explained"` mapping with `bv27Bn6qWIo: "Why Most People Invest Completely Wrong"`
+
+4 files, 1 line each. No other changes.
 
