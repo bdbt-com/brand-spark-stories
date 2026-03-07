@@ -338,7 +338,7 @@ const LinkInBio = () => {
     let videoId: string;
 
     if (visitNumber === 0) {
-      delay = 7000;
+      delay = 4000;
       videoId = REDIRECT_SEQUENCE[0];
     } else if (visitNumber === 1) {
       delay = 12500;
