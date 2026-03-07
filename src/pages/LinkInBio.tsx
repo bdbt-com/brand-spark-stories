@@ -446,7 +446,7 @@ const LinkInBio = () => {
                 key={episode.videoId} 
                 className={`group ${episode.videoId === 'OjwSKAXveN8' ? 'md:scale-110 md:z-10' : ''}`}
               >
-                <div className="rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow bg-card flex flex-col h-full">
+                <div className="rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow bg-[#212121] flex flex-col h-full">
                   <div>
                     {playingVideo !== null && podcastEpisodes[playingVideo]?.videoId === episode.videoId ? (
                       <div className="w-full aspect-video bg-black">
@@ -468,7 +468,7 @@ const LinkInBio = () => {
                         <img
                           src={`https://img.youtube.com/vi/${episode.videoId}/hqdefault.jpg`}
                           alt={episode.title}
-                          className="w-full aspect-video object-cover"
+                          className="w-full aspect-video object-cover rounded-t-xl"
                         />
                         <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition-colors">
                           <div className="w-14 h-14 rounded-full bg-white/90 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
@@ -482,17 +482,17 @@ const LinkInBio = () => {
                     href={`https://www.youtube.com/watch?v=${episode.videoId}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="block p-2 hover:bg-muted/50 transition-colors"
+                    className="block p-2.5 hover:bg-white/5 transition-colors"
                     onClick={(e) => {
                       e.preventDefault();
                       supabase.functions.invoke("track-video-click", { body: { videoId: episode.videoId } });
                       openYouTube(episode.videoId);
                     }}
                   >
-                    <h3 className="text-sm font-semibold text-foreground leading-snug line-clamp-2 min-h-[2rem]">{episode.title}</h3>
-                    <div className="flex justify-between items-center mt-0.5">
-                      <p className="text-xs text-muted-foreground">{episode.views}</p>
-                      <span className="text-xs text-muted-foreground">BDBT</span>
+                    <h3 className="text-sm font-medium text-white leading-snug line-clamp-2 min-h-[2rem]">{episode.title}</h3>
+                    <div className="flex justify-between items-center mt-1">
+                      <p className="text-xs text-white/50">{episode.views}</p>
+                      <span className="text-xs text-white/50">BDBT</span>
                     </div>
                   </a>
                 </div>
@@ -520,11 +520,10 @@ const LinkInBio = () => {
                   key={`carousel-${i}`} 
                   className="group w-[36vw] min-w-[36vw] max-w-[36vw] flex-shrink-0"
                 >
-                  <div className="rounded-2xl overflow-hidden shadow-lg bg-card flex flex-col h-full">
+                  <div className="rounded-xl overflow-hidden shadow-lg bg-[#212121] flex flex-col h-full">
                     <div>
                       <button
                         onClick={() => {
-                          // Map cloned index back to real episode index
                           const realIdx = i === 0 ? totalSlides - 1 : i > totalSlides ? 0 : i - 1;
                           setPlayingVideo(realIdx);
                           supabase.functions.invoke("track-video-click", { body: { videoId: episode.videoId } });
@@ -535,7 +534,7 @@ const LinkInBio = () => {
                         <img
                           src={`https://img.youtube.com/vi/${episode.videoId}/hqdefault.jpg`}
                           alt={episode.title}
-                          className="w-full aspect-video object-cover block"
+                          className="w-full aspect-video object-cover block rounded-t-xl"
                         />
                       </button>
                     </div>
@@ -543,17 +542,17 @@ const LinkInBio = () => {
                       href={`https://www.youtube.com/watch?v=${episode.videoId}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="block p-2 hover:bg-muted/50 transition-colors"
+                      className="block p-2 hover:bg-white/5 transition-colors"
                       onClick={(e) => {
                         e.preventDefault();
                         supabase.functions.invoke("track-video-click", { body: { videoId: episode.videoId } });
                         openYouTube(episode.videoId);
                       }}
                     >
-                      <h3 className="text-xs font-semibold text-foreground leading-snug line-clamp-2 min-h-[2rem]">{episode.title}</h3>
+                      <h3 className="text-xs font-medium text-white leading-snug line-clamp-2 min-h-[2rem]">{episode.title}</h3>
                       <div className="flex justify-between items-center mt-0.5">
-                        <p className="text-[10px] text-muted-foreground">{episode.views}</p>
-                        <span className="text-[10px] text-muted-foreground">BDBT</span>
+                        <p className="text-[10px] text-white/50">{episode.views}</p>
+                        <span className="text-[10px] text-white/50">BDBT</span>
                       </div>
                     </a>
                   </div>
