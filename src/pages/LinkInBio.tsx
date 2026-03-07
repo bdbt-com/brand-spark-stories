@@ -311,7 +311,7 @@ const LinkInBio = () => {
       }, 7000);
     };
     resetIdle();
-    const events = ['touchstart', 'scroll', 'click', 'mousemove'] as const;
+    const events = ['touchstart', 'touchmove', 'touchend', 'scroll', 'click', 'mousemove', 'keydown'] as const;
     events.forEach(e => window.addEventListener(e, resetIdle, { passive: true }));
     return () => {
       clearTimeout(idleTimer);
