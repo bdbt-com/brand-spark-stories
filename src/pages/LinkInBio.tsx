@@ -310,7 +310,7 @@ const LinkInBio = () => {
   // Visit 3+ (2+ redirects in 3h): 20s → cycle through remaining videos
   // Resets after 3 hours since first redirect
   useEffect(() => {
-    const STORAGE_KEY = 'bdbt-auto-redirects';
+    const STORAGE_KEY = 'bdbt-auto-redirects-v2';
     const THREE_HOURS = 3 * 60 * 60 * 1000;
     const REDIRECT_SEQUENCE = [
       '-a4NbW5Y718',  // 1st: "If You Know You're Capable of More"
