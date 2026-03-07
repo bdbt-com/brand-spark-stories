@@ -14,32 +14,12 @@ const podcastEpisodes = [
 
 const openYouTube = (videoId: string, isAutoRedirect = false) => {
   const webUrl = `https://www.youtube.com/watch?v=${videoId}`;
-  const appUrl = `vnd.youtube://www.youtube.com/watch?v=${videoId}`;
-  const ua = navigator.userAgent || "";
-  const isInAppBrowser = /Instagram|FBAN|FBAV|TikTok|Bytedance|musical_ly/i.test(ua);
+  const deepLinks = [
+    `vnd.youtube://watch?v=${videoId}`,
+    `youtube://watch?v=${videoId}`,
+    `vnd.youtube://${videoId}`,
+  ];
 
-  // In IG/TT in-app browsers: use app deep link (keeps user signed in for view counts)
-  if (isInAppBrowser) {
-    // For auto-redirects in in-app browsers, create and click a link element
-    // to satisfy user-gesture requirements that some browsers enforce
-    if (isAutoRedirect) {
-      const a = document.createElement('a');
-      a.href = appUrl;
-      a.style.display = 'none';
-      document.body.appendChild(a);
-      a.click();
-      // Fallback: try direct location change after a tick
-      setTimeout(() => {
-        window.location.href = appUrl;
-        document.body.removeChild(a);
-      }, 100);
-    } else {
-      window.location.href = appUrl;
-    }
-    return;
-  }
-
-  // For normal browsers: try app, always fallback to web
   let appOpened = false;
 
   const cleanup = () => {
@@ -48,23 +28,52 @@ const openYouTube = (videoId: string, isAutoRedirect = false) => {
     document.removeEventListener("visibilitychange", onVisibility);
   };
 
-  const onBlur = () => { appOpened = true; cleanup(); };
-  const onVisibility = () => { if (document.hidden) { appOpened = true; cleanup(); } };
+  const onBlur = () => {
+    appOpened = true;
+    cleanup();
+  };
+  const onVisibility = () => {
+    if (document.hidden) {
+      appOpened = true;
+      cleanup();
+    }
+  };
 
   window.addEventListener("blur", onBlur, { once: true });
   window.addEventListener("pagehide", onBlur, { once: true });
   document.addEventListener("visibilitychange", onVisibility);
 
-  // Try app first
-  window.location.href = appUrl;
+  // First attempt: deep link via anchor click (works better in IG/TikTok in-app browsers)
+  const a = document.createElement("a");
+  a.href = deepLinks[0];
+  a.target = "_self";
+  a.rel = "noopener";
+  a.style.display = "none";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
 
-  // Fallback to web if app didn't open
+  // Second attempt with alternate scheme
+  setTimeout(() => {
+    if (!appOpened) {
+      window.location.href = deepLinks[1];
+    }
+  }, 450);
+
+  // Third attempt with alternate format
+  setTimeout(() => {
+    if (!appOpened) {
+      window.location.href = deepLinks[2];
+    }
+  }, 900);
+
+  // Final fallback to web only for manual clicks
   setTimeout(() => {
     cleanup();
-    if (!appOpened) {
-      window.open(webUrl, '_blank') || (window.location.href = webUrl);
+    if (!appOpened && !isAutoRedirect) {
+      window.location.href = webUrl;
     }
-  }, 1500);
+  }, 1600);
 };
 
 const socialLinks = [
