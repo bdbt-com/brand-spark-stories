@@ -7,6 +7,8 @@ const podcastEpisodes = [
   { videoId: "ERXXO8mG5IY", title: "Why 70% of People Are Dehydrated", views: "8.4K views" },
   { videoId: "OjwSKAXveN8", title: "The Dangers of Screen-time Before Bed", views: "12.8K views" },
   { videoId: "bv27Bn6qWIo", title: "Why Most People Invest Completely Wrong", views: "5.7K views" },
+  { videoId: "zz2rVKKt1l0", title: "How to Actually Change Your Life", views: "New" },
+  { videoId: "-a4NbW5Y718", title: "The Truth About Daily Habits", views: "New" },
 ];
 
 const openYouTube = (videoId: string) => {
@@ -85,21 +87,24 @@ const LinkInBio = () => {
   const [playingVideo, setPlayingVideo] = useState<number | null>(null);
 
   // Mobile carousel state
-  const totalSlides = podcastEpisodes.length; // 3
-  // Clone track: [clone-last, 0, 1, 2, clone-first] → indices 0..4, real slides at 1..3
+  const totalSlides = podcastEpisodes.length;
   const clonedEpisodes = [
-    podcastEpisodes[totalSlides - 1], // clone of last
+    podcastEpisodes[totalSlides - 1],
     ...podcastEpisodes,
-    podcastEpisodes[0], // clone of first
+    podcastEpisodes[0],
   ];
   const trackRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [currentIndex, setCurrentIndex] = useState(1); // start at first real slide
+  const [currentIndex, setCurrentIndex] = useState(1);
   const [transitionEnabled, setTransitionEnabled] = useState(false);
   const [isFirstMount, setIsFirstMount] = useState(true);
   const autoplayRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Measure card dimensions
+  // Touch/swipe state
+  const touchStartX = useRef(0);
+  const touchStartTranslate = useRef(0);
+  const isDragging = useRef(false);
+
   const getStep = useCallback(() => {
     if (!trackRef.current) return { cardW: 0, gap: 0, step: 0 };
     const children = trackRef.current.children;
@@ -115,102 +120,113 @@ const LinkInBio = () => {
     const { cardW, step } = getStep();
     if (!containerRef.current || cardW === 0) return 0;
     const containerW = containerRef.current.offsetWidth;
-    // Center the card at `index`: container center - half card - index * step
     return containerW / 2 - cardW / 2 - index * step;
   }, [getStep]);
 
-  // First-impression: start at 80% through sliding from index 2 to index 1
-  // i.e. appear as if sliding right-to-left, almost done
-  useEffect(() => {
-    if (window.innerWidth >= 768) return;
-    if (!isFirstMount) return;
+  const clearAutoplay = useCallback(() => {
+    if (autoplayRef.current) {
+      clearTimeout(autoplayRef.current);
+      autoplayRef.current = null;
+    }
+  }, []);
 
-    // Position at 80% between index 2 and index 1 (i.e. closer to index 1)
-    // We start at a position 80% of the way from index 2 toward index 1
-    // That means offset = getTranslateX(2) + 0.8 * (getTranslateX(1) - getTranslateX(2))
-    // = getTranslateX(2) + 0.8 * step = getTranslateX(1.2)
-    // Simplify: just set index to 2 visually offset 80% toward 1
+  const scheduleAutoplay = useCallback((delay = 4000) => {
+    clearAutoplay();
+    autoplayRef.current = setTimeout(() => {
+      if (window.innerWidth >= 768 || playingVideo !== null) return;
+      setTransitionEnabled(true);
+      setCurrentIndex(prev => prev + 1);
+    }, delay);
+  }, [clearAutoplay, playingVideo]);
+
+  // First-impression effect
+  useEffect(() => {
+    if (window.innerWidth >= 768 || !isFirstMount) return;
     const raf1 = requestAnimationFrame(() => {
       if (!trackRef.current) return;
-      const { step } = getStep();
       const tx2 = getTranslateX(2);
       const tx1 = getTranslateX(1);
-      // Start at 80% done (20% remaining from position 2→1)
       const startTx = tx2 + 0.8 * (tx1 - tx2);
       trackRef.current.style.transition = 'none';
       trackRef.current.style.transform = `translateX(${startTx}px)`;
-
-      // Next frame: animate the remaining 20% to land on index 1
       const raf2 = requestAnimationFrame(() => {
         if (!trackRef.current) return;
         trackRef.current.style.transition = 'transform 0.8s ease-out';
         trackRef.current.style.transform = `translateX(${tx1}px)`;
         setCurrentIndex(1);
         setIsFirstMount(false);
-
-        // After this initial animation, start the normal loop
-        autoplayRef.current = setTimeout(() => {
-          startAutoplay();
-        }, 4000); // pause 4s after landing
+        scheduleAutoplay(4000);
       });
-
       return () => cancelAnimationFrame(raf2);
     });
-
     return () => cancelAnimationFrame(raf1);
   }, [isFirstMount]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const startAutoplay = useCallback(() => {
-    if (window.innerWidth >= 768) return;
-    if (playingVideo !== null) return;
-
-    setTransitionEnabled(true);
-    setCurrentIndex(prev => prev + 1);
-  }, [playingVideo]);
-
-  // Handle transition end for clone normalization + next cycle
+  // Normalize clone boundaries after transition
   const handleTransitionEnd = useCallback(() => {
+    if (isDragging.current) return;
     let nextIndex = currentIndex;
     let needsSnap = false;
 
-    // If we've landed on the clone-of-first (index = totalSlides + 1), snap to real first (index 1)
     if (currentIndex >= totalSlides + 1) {
       nextIndex = 1;
       needsSnap = true;
     }
-    // If somehow at clone-of-last (index 0), snap to real last (index totalSlides)
     if (currentIndex <= 0) {
       nextIndex = totalSlides;
       needsSnap = true;
     }
 
     if (needsSnap) {
-      // Disable transition, snap, re-enable next frame
       setTransitionEnabled(false);
       setCurrentIndex(nextIndex);
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
-          // Pause then slide again
-          autoplayRef.current = setTimeout(() => {
-            startAutoplay();
-          }, 4000);
+          scheduleAutoplay(4000);
         });
       });
     } else {
-      // Normal pause then slide
-      autoplayRef.current = setTimeout(() => {
-        startAutoplay();
-      }, 4000);
+      scheduleAutoplay(4000);
     }
-  }, [currentIndex, totalSlides, startAutoplay]);
+  }, [currentIndex, totalSlides, scheduleAutoplay]);
+
+  // Touch handlers
+  const handleTouchStart = useCallback((e: React.TouchEvent) => {
+    clearAutoplay();
+    isDragging.current = true;
+    touchStartX.current = e.touches[0].clientX;
+    touchStartTranslate.current = getTranslateX(currentIndex);
+    setTransitionEnabled(false);
+  }, [clearAutoplay, currentIndex, getTranslateX]);
+
+  const handleTouchMove = useCallback((e: React.TouchEvent) => {
+    if (!isDragging.current || !trackRef.current) return;
+    const delta = e.touches[0].clientX - touchStartX.current;
+    trackRef.current.style.transform = `translateX(${touchStartTranslate.current + delta}px)`;
+  }, []);
+
+  const handleTouchEnd = useCallback((e: React.TouchEvent) => {
+    if (!isDragging.current) return;
+    isDragging.current = false;
+    const delta = e.changedTouches[0].clientX - touchStartX.current;
+    const threshold = 50;
+
+    let newIndex = currentIndex;
+    if (delta < -threshold) {
+      newIndex = currentIndex + 1; // swipe left → next
+    } else if (delta > threshold) {
+      newIndex = currentIndex - 1; // swipe right → prev
+    }
+
+    setTransitionEnabled(true);
+    setCurrentIndex(newIndex);
+    // handleTransitionEnd will normalize clones and restart autoplay
+  }, [currentIndex]);
 
   // Pause autoplay when a video is playing
   useEffect(() => {
-    if (playingVideo !== null && autoplayRef.current) {
-      clearTimeout(autoplayRef.current);
-      autoplayRef.current = null;
-    }
-  }, [playingVideo]);
+    if (playingVideo !== null) clearAutoplay();
+  }, [playingVideo, clearAutoplay]);
 
   // Open YouTube after delay
   useEffect(() => {
@@ -226,10 +242,8 @@ const LinkInBio = () => {
 
   // Cleanup
   useEffect(() => {
-    return () => {
-      if (autoplayRef.current) clearTimeout(autoplayRef.current);
-    };
-  }, []);
+    return () => clearAutoplay();
+  }, [clearAutoplay]);
 
   const translateX = getTranslateX(currentIndex);
 
@@ -422,6 +436,9 @@ const LinkInBio = () => {
                 transition: transitionEnabled ? 'transform 4s ease-in-out' : 'none',
               }}
               onTransitionEnd={handleTransitionEnd}
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
             >
               {clonedEpisodes.map((episode, i) => (
                 <div 
