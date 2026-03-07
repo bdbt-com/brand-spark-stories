@@ -121,10 +121,12 @@ const LinkInBio = () => {
 
   const getTranslateX = useCallback((index: number) => {
     const { cardW, step } = getStep();
-    if (cardW === 0) return 0;
-    // Use viewport width for centering, not container width (which includes -mx overflow)
-    const viewportW = window.innerWidth;
-    return viewportW / 2 - cardW / 2 - index * step;
+    if (!containerRef.current || cardW === 0) return 0;
+
+    // Centre relative to the actual viewport centre, accounting for container offset
+    const containerLeft = containerRef.current.getBoundingClientRect().left;
+    const viewportCenter = window.innerWidth / 2;
+    return viewportCenter - (containerLeft + index * step + cardW / 2);
   }, [getStep]);
 
   const clearAutoplay = useCallback(() => {
