@@ -511,8 +511,9 @@ const LinkInBio = () => {
                     <div>
                       <button
                         onClick={() => {
-                          const idx = podcastEpisodes.findIndex(e => e.videoId === episode.videoId);
-                          setPlayingVideo(idx);
+                          // Map cloned index back to real episode index
+                          const realIdx = i === 0 ? totalSlides - 1 : i > totalSlides ? 0 : i - 1;
+                          setPlayingVideo(realIdx);
                           supabase.functions.invoke("track-video-click", { body: { videoId: episode.videoId } });
                           openYouTube(episode.videoId);
                         }}
