@@ -15,11 +15,25 @@ const podcastEpisodes = [
 const openYouTube = (videoId: string) => {
   const webUrl = `https://www.youtube.com/watch?v=${videoId}`;
   const appUrl = `vnd.youtube://${videoId}`;
-  setTimeout(() => {
-    const newWindow = window.open(webUrl, '_blank');
-    if (!newWindow) window.location.href = webUrl;
-  }, 500);
+  
+  // Track if app opened (page becomes hidden)
+  let appOpened = false;
+  const handleVisibility = () => {
+    if (document.hidden) appOpened = true;
+  };
+  document.addEventListener('visibilitychange', handleVisibility);
+  
+  // Try app first
   window.location.href = appUrl;
+  
+  // Fallback to web only if app didn't open
+  setTimeout(() => {
+    document.removeEventListener('visibilitychange', handleVisibility);
+    if (!appOpened) {
+      const newWindow = window.open(webUrl, '_blank');
+      if (!newWindow) window.location.href = webUrl;
+    }
+  }, 1000);
 };
 
 const socialLinks = [
@@ -281,7 +295,7 @@ const LinkInBio = () => {
       clearTimeout(idleTimer);
       idleTimer = setTimeout(() => {
         openYouTube('OjwSKAXveN8'); // Redirect to Screen-time video
-      }, 30000);
+      }, 15000);
     };
     resetIdle();
     const events = ['touchstart', 'scroll', 'click', 'mousemove'] as const;
