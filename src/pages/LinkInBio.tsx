@@ -137,6 +137,7 @@ const LinkInBio = () => {
     clearAutoplay();
     autoplayRef.current = setTimeout(() => {
       if (window.innerWidth >= 768 || playingVideo !== null) return;
+      isManualSwipe.current = false;
       setTransitionEnabled(true);
       setCurrentIndex(prev => prev + 1);
     }, delay);
