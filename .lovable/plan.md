@@ -1,33 +1,22 @@
 
 
-# Smooth rolling carousel + BDBT branding on video cards
+# Replace "BDBT Explained" video with "Why Most People Invest Completely Wrong"
 
-## 1. Smooth rolling carousel animation (mobile only)
+Replace the `TY1nkJsQtyw` ("BDBT Explained") video entry with `bv27Bn6qWIo` ("Why Most People Invest Completely Wrong") across all 3 pages that display the video trio, plus the admin mapping.
 
-Replace the current instant-swap rotation with a CSS `translateX` sliding approach:
+## Changes
 
-- Render 4 cards (3 episodes + clone of first) in an inner wrapper div
-- Use `overflow: hidden` on the outer container (mobile only)
-- Animate `translateX` over 2 seconds with `ease-in-out`, then pause 2 seconds
-- Two-phase cycle via `useEffect` with timeouts:
-  - Set `isSliding = true` → CSS transition kicks in for 2s
-  - After transition ends: increment `rotationIndex`, set `isSliding = false` instantly (no transition)
-  - Wait 2s pause, repeat
-- When reaching the clone card, instantly reset to index 0 without transition
-- Desktop grid remains static/unchanged
-- Remove old scroll-centering `useEffect`
+### 1. `src/pages/Home.tsx` (line 17)
+Replace `TY1nkJsQtyw` / "BDBT Explained" / "5.7K views" with `bv27Bn6qWIo` / "Why Most People Invest Completely Wrong" / new view count
 
-### In `src/pages/LinkInBio.tsx`:
-- New states: `isSliding` (boolean)
-- Replace interval with setTimeout chain
-- Inner wrapper: `style={{ transform: translateX(-${offset}%), transition: isSliding ? 'transform 2s ease-in-out' : 'none' }}`
-- Each card width: still `36vw` on mobile
+### 2. `src/pages/Blueprint.tsx` (line 14)
+Same replacement in the podcastEpisodes array
 
-## 2. Add "BDBT" text to bottom-right of each video card
+### 3. `src/pages/LinkInBio.tsx` (line 9)
+Same replacement in the episodes array
 
-In the info area below each video (the `<a>` block, lines 281-294), add "BDBT" text aligned to the right, on the same line as the views count.
+### 4. `src/pages/AdminList.tsx` (line 9)
+Replace the `TY1nkJsQtyw: "BDBT Explained"` mapping with `bv27Bn6qWIo: "Why Most People Invest Completely Wrong"`
 
-- Wrap the views `<p>` and new "BDBT" text in a `flex justify-between` container
-- "BDBT" uses same classes as views: `text-[10px] md:text-xs text-muted-foreground`
-- This places views on the left and "BDBT" on the right, same line
+4 files, 1 line each. No other changes.
 

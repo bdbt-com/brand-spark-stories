@@ -84,6 +84,7 @@ const links = [
 const LinkInBio = () => {
   const [playingVideo, setPlayingVideo] = useState<number | null>(null);
   const [rotationIndex, setRotationIndex] = useState(0);
+  const [isSliding, setIsSliding] = useState(false);
 
   useEffect(() => {
     if (playingVideo === null) return;
@@ -96,32 +97,34 @@ const LinkInBio = () => {
     return () => clearTimeout(timer);
   }, [playingVideo]);
 
-  // Auto-rotate carousel every 4s (mobile only, paused when playing)
+  // Smooth rolling carousel: 2s slide, 2s pause (mobile only)
   useEffect(() => {
     if (playingVideo !== null) return;
     if (window.innerWidth >= 768) return;
-    const interval = setInterval(() => {
-      setRotationIndex((prev) => (prev + 1) % podcastEpisodes.length);
-    }, 4000);
-    return () => clearInterval(interval);
-  }, [playingVideo]);
 
-  // Scroll to middle episode on mount (mobile)
+    // Wait 2s pause, then start sliding
+    const pauseTimer = setTimeout(() => {
+      setIsSliding(true);
+    }, 2000);
+
+    return () => clearTimeout(pauseTimer);
+  }, [rotationIndex, playingVideo]);
+
+  // When sliding starts, wait 2s for animation to finish then snap
   useEffect(() => {
-    if (window.innerWidth < 768) {
-      const centerCard = () => {
-        const container = document.getElementById('episodes-scroll');
-        const card = container?.children[1] as HTMLElement;
-        if (container && card) {
-          const offset = card.offsetLeft - (container.clientWidth - card.clientWidth) / 2;
-          container.scrollTo({ left: offset, behavior: 'instant' as ScrollBehavior });
-        }
-      };
-      centerCard();
-      setTimeout(centerCard, 200);
-      setTimeout(centerCard, 500);
-    }
-  }, [rotationIndex]);
+    if (!isSliding) return;
+    const slideTimer = setTimeout(() => {
+      setIsSliding(false);
+      setRotationIndex((prev) => (prev + 1) % podcastEpisodes.length);
+    }, 2000);
+    return () => clearTimeout(slideTimer);
+  }, [isSliding]);
+
+  // Build carousel items: current order + clone of first for seamless wrap
+  const carouselEpisodes = [
+    ...podcastEpisodes.map((_, i) => podcastEpisodes[(i + rotationIndex) % podcastEpisodes.length]),
+    podcastEpisodes[rotationIndex % podcastEpisodes.length], // clone
+  ];
 
   return (
     <div className="min-h-screen bg-[#36455A] flex flex-col items-center px-4 py-5 md:py-8">
@@ -235,67 +238,126 @@ const LinkInBio = () => {
         {/* Podcast Episodes — Home page style */}
         <div className="w-full mt-3 md:mt-8">
           <p className="text-white/50 text-xs uppercase tracking-wider text-center mb-2 md:mb-4">Picked For You</p>
-          <div 
-            id="episodes-scroll"
-            className="flex md:grid overflow-x-auto md:overflow-x-visible snap-x snap-mandatory md:snap-none md:grid-cols-3 gap-2 md:gap-8 items-center pb-4 md:pb-0 -mx-4 px-4 md:mx-0 md:px-0 scrollbar-hide"
-          >
-            {podcastEpisodes.map((_, i) => {
-              const index = (i + rotationIndex) % podcastEpisodes.length;
-              const episode = podcastEpisodes[index];
-              return (
+          
+          {/* Desktop: static grid */}
+          <div className="hidden md:grid md:grid-cols-3 gap-8 items-center">
+            {podcastEpisodes.map((episode) => (
               <div 
                 key={episode.videoId} 
-                className={`group transition-all duration-700 w-[36vw] min-w-[36vw] max-w-[36vw] md:w-auto md:min-w-0 md:max-w-none snap-center flex-shrink-0 ${episode.videoId === 'OjwSKAXveN8' ? 'md:scale-110 md:z-10' : ''}`}
+                className={`group ${episode.videoId === 'OjwSKAXveN8' ? 'md:scale-110 md:z-10' : ''}`}
               >
                 <div className="rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow bg-card flex flex-col h-full">
-                <div>
-                {playingVideo === index ? (
-                  <div className="w-full aspect-video bg-black">
-                    <iframe
-                      src={`https://www.youtube.com/embed/${episode.videoId}?autoplay=1`}
-                      className="w-full h-full"
-                      allow="autoplay; encrypted-media"
-                    />
-                  </div>
-                ) : (
-                  <button
-                    onClick={() => {
-                      setPlayingVideo(index);
-                      supabase.functions.invoke("track-video-click", { body: { videoId: episode.videoId } });
-                    }}
-                    className="relative w-full cursor-pointer"
-                  >
-                    <img
-                      src={`https://img.youtube.com/vi/${episode.videoId}/hqdefault.jpg`}
-                      alt={episode.title}
-                      className="w-full aspect-video object-cover"
-                    />
-                    <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition-colors">
-                        <div className="w-6 h-6 md:w-14 md:h-14 rounded-full bg-white/90 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-                         <Play className="w-3 h-3 md:w-7 md:h-7 text-primary ml-0.5" fill="currentColor" />
+                  <div>
+                    {playingVideo !== null && podcastEpisodes[playingVideo]?.videoId === episode.videoId ? (
+                      <div className="w-full aspect-video bg-black">
+                        <iframe
+                          src={`https://www.youtube.com/embed/${episode.videoId}?autoplay=1`}
+                          className="w-full h-full"
+                          allow="autoplay; encrypted-media"
+                        />
                       </div>
+                    ) : (
+                      <button
+                        onClick={() => {
+                          const idx = podcastEpisodes.findIndex(e => e.videoId === episode.videoId);
+                          setPlayingVideo(idx);
+                          supabase.functions.invoke("track-video-click", { body: { videoId: episode.videoId } });
+                        }}
+                        className="relative w-full cursor-pointer"
+                      >
+                        <img
+                          src={`https://img.youtube.com/vi/${episode.videoId}/hqdefault.jpg`}
+                          alt={episode.title}
+                          className="w-full aspect-video object-cover"
+                        />
+                        <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition-colors">
+                          <div className="w-14 h-14 rounded-full bg-white/90 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                            <Play className="w-7 h-7 text-primary ml-0.5" fill="currentColor" />
+                          </div>
+                        </div>
+                      </button>
+                    )}
+                  </div>
+                  <a
+                    href={`https://www.youtube.com/watch?v=${episode.videoId}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block p-2 hover:bg-muted/50 transition-colors"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      supabase.functions.invoke("track-video-click", { body: { videoId: episode.videoId } });
+                      openYouTube(episode.videoId);
+                    }}
+                  >
+                    <h3 className="text-sm font-semibold text-foreground leading-snug line-clamp-2 min-h-[2rem]">{episode.title}</h3>
+                    <div className="flex justify-between items-center mt-0.5">
+                      <p className="text-xs text-muted-foreground">{episode.views}</p>
+                      <span className="text-xs text-muted-foreground">BDBT</span>
                     </div>
-                  </button>
-                )}
-                </div>
-                <a
-                  href={`https://www.youtube.com/watch?v=${episode.videoId}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block p-2 hover:bg-muted/50 transition-colors"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    supabase.functions.invoke("track-video-click", { body: { videoId: episode.videoId } });
-                    openYouTube(episode.videoId);
-                  }}
-                >
-                  <h3 className="text-xs md:text-sm font-semibold text-foreground leading-snug line-clamp-2 min-h-[2rem]">{episode.title}</h3>
-                  <p className="text-[10px] md:text-xs text-muted-foreground mt-0.5">{episode.views}</p>
-                </a>
+                  </a>
                 </div>
               </div>
-              );
-            })}
+            ))}
+          </div>
+
+          {/* Mobile: smooth rolling carousel */}
+          <div className="md:hidden overflow-hidden -mx-4">
+            <div 
+              className="flex gap-2 px-4"
+              style={{
+                transform: `translateX(-${isSliding ? 38 : 0}vw)`,
+                transition: isSliding ? 'transform 2s ease-in-out' : 'none',
+              }}
+            >
+              {carouselEpisodes.map((episode, i) => (
+                <div 
+                  key={`${episode.videoId}-${i}`} 
+                  className="group w-[36vw] min-w-[36vw] max-w-[36vw] flex-shrink-0"
+                >
+                  <div className="rounded-2xl overflow-hidden shadow-lg bg-card flex flex-col h-full">
+                    <div>
+                      <button
+                        onClick={() => {
+                          const idx = podcastEpisodes.findIndex(e => e.videoId === episode.videoId);
+                          setPlayingVideo(idx);
+                          supabase.functions.invoke("track-video-click", { body: { videoId: episode.videoId } });
+                          openYouTube(episode.videoId);
+                        }}
+                        className="relative w-full cursor-pointer"
+                      >
+                        <img
+                          src={`https://img.youtube.com/vi/${episode.videoId}/hqdefault.jpg`}
+                          alt={episode.title}
+                          className="w-full aspect-video object-cover"
+                        />
+                        <div className="absolute inset-0 flex items-center justify-center bg-black/20">
+                          <div className="w-6 h-6 rounded-full bg-white/90 flex items-center justify-center shadow-lg">
+                            <Play className="w-3 h-3 text-primary ml-0.5" fill="currentColor" />
+                          </div>
+                        </div>
+                      </button>
+                    </div>
+                    <a
+                      href={`https://www.youtube.com/watch?v=${episode.videoId}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block p-2 hover:bg-muted/50 transition-colors"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        supabase.functions.invoke("track-video-click", { body: { videoId: episode.videoId } });
+                        openYouTube(episode.videoId);
+                      }}
+                    >
+                      <h3 className="text-xs font-semibold text-foreground leading-snug line-clamp-2 min-h-[2rem]">{episode.title}</h3>
+                      <div className="flex justify-between items-center mt-0.5">
+                        <p className="text-[10px] text-muted-foreground">{episode.views}</p>
+                        <span className="text-[10px] text-muted-foreground">BDBT</span>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
