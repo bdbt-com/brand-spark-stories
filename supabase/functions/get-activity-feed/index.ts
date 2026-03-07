@@ -26,14 +26,12 @@ serve(async (req) => {
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
     );
 
-    // Fetch recent video clicks
     const { data: clicks } = await supabase
       .from("video_clicks")
       .select("video_id, clicked_at")
       .order("clicked_at", { ascending: false })
       .limit(50);
 
-    // Fetch recent email signups
     const { data: signups } = await supabase
       .from("email_subscriptions")
       .select("first_name, email, created_at, guide_title, email_sent, email_sent_at")
@@ -42,37 +40,40 @@ serve(async (req) => {
 
     const items: { type: string; label: string; detail: string; timestamp: string }[] = [];
 
-    // Process clicks
     for (const c of clicks || []) {
-      if (c.video_id === "auto-redirect") {
-        // Skip generic auto-redirect entries (they're duplicated with specific video)
-        continue;
-      }
-      // Check if this video_id has a corresponding auto-redirect nearby
-      const title = VIDEO_MAP[c.video_id] || c.video_id;
-      // We can't distinguish click vs auto-redirect from video_clicks alone for specific videos
-      // So we label all as "click"
-      items.push({
-        type: "click",
-        label: title,
-        detail: "Video click",
-        timestamp: c.clicked_at || new Date().toISOString(),
-      });
-    }
+      const vid = c.video_id || "";
+      const ts = c.clicked_at || new Date().toISOString();
 
-    // Process auto-redirects separately
-    for (const c of clicks || []) {
-      if (c.video_id === "auto-redirect") {
+      if (vid.startsWith("auto-redirect:")) {
+        // New composite format: auto-redirect:VIDEO_ID
+        const actualId = vid.replace("auto-redirect:", "");
+        const title = VIDEO_MAP[actualId] || actualId;
+        items.push({
+          type: "redirect",
+          label: title,
+          detail: "Auto-redirect",
+          timestamp: ts,
+        });
+      } else if (vid === "auto-redirect") {
+        // Legacy format (no video info)
         items.push({
           type: "redirect",
           label: "Auto-redirect",
           detail: "Idle redirect from /bio",
-          timestamp: c.clicked_at || new Date().toISOString(),
+          timestamp: ts,
+        });
+      } else {
+        // Manual click
+        const title = VIDEO_MAP[vid] || vid;
+        items.push({
+          type: "click",
+          label: title,
+          detail: "Video click",
+          timestamp: ts,
         });
       }
     }
 
-    // Process signups
     for (const s of signups || []) {
       items.push({
         type: "signup",
@@ -81,7 +82,6 @@ serve(async (req) => {
         timestamp: s.created_at || new Date().toISOString(),
       });
 
-      // If guide was downloaded
       if (s.email_sent && s.email_sent_at) {
         items.push({
           type: "download",
@@ -92,7 +92,6 @@ serve(async (req) => {
       }
     }
 
-    // Sort by timestamp descending, take top 10
     items.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
     const feed = items.slice(0, 10);
 

@@ -1,29 +1,22 @@
 
 
-## Fix Activity Feed: Distinguish Clicks from Auto-Redirects
+# Replace "BDBT Explained" video with "Why Most People Invest Completely Wrong"
 
-### Problem
-1. Auto-redirects fire two `track-video-click` calls (one for `"auto-redirect"`, one for the specific videoId), so the feed shows a paired "click" + "redirect" for every auto-redirect — but it should be one or the other.
-2. The "Auto-redirect" feed entry doesn't say which video it redirected to.
+Replace the `TY1nkJsQtyw` ("BDBT Explained") video entry with `bv27Bn6qWIo` ("Why Most People Invest Completely Wrong") across all 3 pages that display the video trio, plus the admin mapping.
 
-### Solution
-Use a single tracking call for auto-redirects with a composite ID format: `auto-redirect:VIDEO_ID`. Manual clicks continue using just the videoId. The edge function parses this to produce correct feed entries.
+## Changes
 
-### Changes
+### 1. `src/pages/Home.tsx` (line 17)
+Replace `TY1nkJsQtyw` / "BDBT Explained" / "5.7K views" with `bv27Bn6qWIo` / "Why Most People Invest Completely Wrong" / new view count
 
-**1. `src/pages/LinkInBio.tsx`** — Auto-redirect tracking
-- Replace the two `track-video-click` calls with a single call: `{ videoId: "auto-redirect:" + videoId }`
+### 2. `src/pages/Blueprint.tsx` (line 14)
+Same replacement in the podcastEpisodes array
 
-**2. `supabase/functions/get-activity-feed/index.ts`** — Feed processing
-- Detect `auto-redirect:VIDEO_ID` entries: type = "redirect", label = video title, detail = "Auto-redirect"
-- Keep handling legacy `"auto-redirect"` (no colon) as before
-- All other video_ids become type = "click"
+### 3. `src/pages/LinkInBio.tsx` (line 9)
+Same replacement in the episodes array
 
-**3. `supabase/functions/get-video-clicks/index.ts`** — Click counting
-- When aggregating counts, entries with `auto-redirect:VIDEO_ID` should count toward both the `auto-redirect` total AND the specific video's total (preserving existing dashboard counters)
+### 4. `src/pages/AdminList.tsx` (line 9)
+Replace the `TY1nkJsQtyw: "BDBT Explained"` mapping with `bv27Bn6qWIo: "Why Most People Invest Completely Wrong"`
 
-### Result
-- Feed shows either "Auto-redirect → [Video Title]" OR "Video click → [Video Title]", never both for the same event
-- Each video's click counter still includes auto-redirect views
-- The global auto-redirect counter still works
+4 files, 1 line each. No other changes.
 
