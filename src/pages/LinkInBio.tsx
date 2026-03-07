@@ -18,9 +18,9 @@ const openYouTube = (videoId: string) => {
   const ua = navigator.userAgent || "";
   const isInAppBrowser = /Instagram|FBAN|FBAV|TikTok|Bytedance|musical_ly/i.test(ua);
 
-  // In IG/TT in-app browsers: try app scheme only (prevents double redirect)
+  // In IG/TT in-app browsers: open web URL directly (deep links don't work)
   if (isInAppBrowser) {
-    window.location.href = appUrl;
+    window.location.href = webUrl;
     return;
   }
 
