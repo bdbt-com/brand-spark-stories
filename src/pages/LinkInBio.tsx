@@ -51,27 +51,23 @@ const openYouTube = (
   window.addEventListener("pagehide", onBlur, { once: true });
   document.addEventListener("visibilitychange", onVisibility);
 
-  // Instagram: single deep-link attempt only (prevents repeated open prompts)
+  // Instagram: always deep-link to YouTube app (no web fallback)
   if (isInstagram) {
+    onAppOpened?.();
     window.location.href = appUrl;
-
-    setTimeout(() => {
-      cleanup();
-      if (!appOpened && !isAutoRedirect) {
-        window.location.href = webUrl;
-      }
-    }, 1500);
+    cleanup();
     return;
   }
 
-  // TikTok auto-redirect: open in browser (deep links need user gesture)
-  if (isTikTok && isAutoRedirect) {
+  // TikTok: always open in mobile web (deep links don't work reliably)
+  if (isTikTok) {
     onAppOpened?.();
     window.location.href = webUrl;
+    cleanup();
     return;
   }
 
-  // Manual click path + normal browsers
+  // Normal browsers: try app deep link with web fallback
   const a = document.createElement("a");
   a.href = isAndroid ? intentUrl : appUrl;
   a.target = "_self";
