@@ -1,23 +1,22 @@
 
 
-## New Bonus Episode Thumbnails — "The Choices We Make: Choosing Wins or Drifts"
+# Replace "BDBT Explained" video with "Why Most People Invest Completely Wrong"
 
-This adds both a TikTok (index 80) and YouTube (index 66) thumbnail for a bonus episode.
+Replace the `TY1nkJsQtyw` ("BDBT Explained") video entry with `bv27Bn6qWIo` ("Why Most People Invest Completely Wrong") across all 3 pages that display the video trio, plus the admin mapping.
 
-### Changes across 3 files:
+## Changes
 
-**1. `src/pages/ThumbnailTemplate.tsx`**
-- Add YouTube template metadata at id 66: name "The Choices We Make: Choosing Wins or Drifts", subtitle "Daily Wins Podcast — Bonus Episode"
-- Add TikTok template metadata at id 80: same title
-- Add YouTube rendering block (index 66): standard layout with white "The Choices We Make" / gold "Choosing Wins or Drifts", subtitle "Daily Wins Podcast — Bonus Episode"
-- Add TikTok rendering block (index 80, `mode === 'instagram'`): `<TikTokTemplate templateIndex={80} />`
+### 1. `src/pages/Home.tsx` (line 17)
+Replace `TY1nkJsQtyw` / "BDBT Explained" / "5.7K views" with `bv27Bn6qWIo` / "Why Most People Invest Completely Wrong" / new view count
 
-**2. `src/components/TikTokTemplate.tsx`**
-- Extend the `backgrounds` array with one more entry at index 80 (use `tikTokBg24` — even pattern)
-- Add JSX title block for `templateIndex === 80`:
-  - "BDBT PODCAST — BONUS" (small header)
-  - "THE CHOICES WE MAKE" (white)
-  - "CHOOSING WINS OR DRIFTS" (gold)
+### 2. `src/pages/Blueprint.tsx` (line 14)
+Same replacement in the podcastEpisodes array
 
-### No backend or data changes required.
+### 3. `src/pages/LinkInBio.tsx` (line 9)
+Same replacement in the episodes array
+
+### 4. `src/pages/AdminList.tsx` (line 9)
+Replace the `TY1nkJsQtyw: "BDBT Explained"` mapping with `bv27Bn6qWIo: "Why Most People Invest Completely Wrong"`
+
+4 files, 1 line each. No other changes.
 
