@@ -581,7 +581,8 @@ const ThumbnailTemplate = () => {
     { id: 77, name: "Podcast 59 Time in the Market Beats Timing the Market", title: "Time in the Market Beats Timing the Market", subtitle: "", image: "" },
     { id: 78, name: "Podcast 60 Reframe one Thing In Your Life Today", title: "Reframe one Thing In Your Life Today", subtitle: "", image: "" },
     { id: 79, name: "Podcast 61 Hide Your Savings From Yourself", title: "Hide Your Savings From Yourself", subtitle: "", image: "" },
-    { id: 80, name: "Bonus — The Choices We Make: Choosing Wins or Drifts", title: "The Choices We Make: Choosing Wins or Drifts", subtitle: "", image: "" }
+    { id: 80, name: "Bonus — The Choices We Make: Choosing Wins or Drifts", title: "The Choices We Make: Choosing Wins or Drifts", subtitle: "", image: "" },
+    { id: 81, name: "Podcast 63 Review your Tip Progress", title: "Review your Tip Progress", subtitle: "", image: "" }
   ];
 
   const phrases = [
