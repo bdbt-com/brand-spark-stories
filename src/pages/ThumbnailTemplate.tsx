@@ -490,6 +490,13 @@ const ThumbnailTemplate = () => {
       title: "The Choices We Make: Choosing Wins or Drifts",
       subtitle: "Daily Wins Podcast — Bonus Episode",
       image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+    },
+    {
+      id: 67,
+      name: "Review your Tip Progress",
+      title: "Review your Tip Progress",
+      subtitle: "Daily Wins Podcast 63",
+      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
     }
   ];
 
@@ -574,7 +581,8 @@ const ThumbnailTemplate = () => {
     { id: 77, name: "Podcast 59 Time in the Market Beats Timing the Market", title: "Time in the Market Beats Timing the Market", subtitle: "", image: "" },
     { id: 78, name: "Podcast 60 Reframe one Thing In Your Life Today", title: "Reframe one Thing In Your Life Today", subtitle: "", image: "" },
     { id: 79, name: "Podcast 61 Hide Your Savings From Yourself", title: "Hide Your Savings From Yourself", subtitle: "", image: "" },
-    { id: 80, name: "Bonus — The Choices We Make: Choosing Wins or Drifts", title: "The Choices We Make: Choosing Wins or Drifts", subtitle: "", image: "" }
+    { id: 80, name: "Bonus — The Choices We Make: Choosing Wins or Drifts", title: "The Choices We Make: Choosing Wins or Drifts", subtitle: "", image: "" },
+    { id: 81, name: "Podcast 63 Review your Tip Progress", title: "Review your Tip Progress", subtitle: "", image: "" }
   ];
 
   const phrases = [
@@ -1413,6 +1421,12 @@ const ThumbnailTemplate = () => {
         {currentTemplateIndex === 80 && mode === 'instagram' && (
           <div className="relative">
             <TikTokTemplate templateIndex={80} />
+          </div>
+        )}
+        {/* Template 81 - Podcast 63 Review your Tip Progress */}
+        {currentTemplateIndex === 81 && mode === 'instagram' && (
+          <div className="relative">
+            <TikTokTemplate templateIndex={81} />
           </div>
         )}
         {/* Template 5 - Healthy Snacks */}
@@ -3561,6 +3575,30 @@ const ThumbnailTemplate = () => {
                     <span className="block" style={{ color: 'hsl(35, 45%, 75%)' }}>Choosing Wins or Drifts</span>
                   </h1>
                   <p className="text-white/80 text-3xl font-medium">Daily Wins Podcast — Bonus Episode</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {currentTemplateIndex === 67 && mode === 'youtube' && (
+          <div className="relative">
+            <div id="thumbnail-67" key="template-67" className="w-[1280px] h-[720px] relative overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
+              <div className="h-full flex items-center p-16 relative">
+                <div className="absolute right-16 top-16 bottom-16 flex items-center">
+                  <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
+                    <img src="/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png" alt="Podcast thumbnail" className="w-full h-full object-cover border-4 border-white/20" />
+                    <div className="absolute bottom-4 left-4">
+                      <img src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" alt="BDBT Logo" className="h-16 opacity-90" />
+                    </div>
+                  </div>
+                </div>
+                <div className="absolute left-8 top-16 bottom-24 right-[35%] pr-4 z-10 flex flex-col justify-center">
+                  <h1 className="text-6xl xl:text-7xl 2xl:text-8xl font-bold leading-tight mb-6">
+                    <span className="text-white block mb-2">Review Your Tip</span>
+                    <span className="block" style={{ color: 'hsl(35, 45%, 75%)' }}>Progress</span>
+                  </h1>
+                  <p className="text-white/80 text-3xl font-medium">Daily Wins Podcast 63</p>
                 </div>
               </div>
             </div>
