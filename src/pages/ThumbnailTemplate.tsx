@@ -490,6 +490,13 @@ const ThumbnailTemplate = () => {
       title: "The Choices We Make: Choosing Wins or Drifts",
       subtitle: "Daily Wins Podcast — Bonus Episode",
       image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+    },
+    {
+      id: 67,
+      name: "Review your Tip Progress",
+      title: "Review your Tip Progress",
+      subtitle: "Daily Wins Podcast 63",
+      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
     }
   ];
 
