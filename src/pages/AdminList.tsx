@@ -310,7 +310,36 @@ const AdminList = () => {
             </div>
           </section>
 
-          {/* Video Click Counters */}
+          {/* Bio Button Clicks */}
+          <section>
+            <h2 className="text-xl font-bold text-foreground mb-4 flex items-center gap-2">
+              <MousePointerClick className="w-5 h-5 text-primary" /> Bio Button Clicks
+            </h2>
+            <div className="grid grid-cols-3 gap-4">
+              {[
+                { id: "button-blueprint", label: "Blueprint" },
+                { id: "button-youtube", label: "YouTube" },
+                { id: "button-spotify", label: "Spotify" },
+              ].map(({ id, label }) => {
+                const c = videoCounts[id] || { total: 0, today: 0, "7d": 0, "14d": 0, "30d": 0 };
+                return (
+                  <Card key={id}>
+                    <CardContent className="p-5 text-center">
+                      <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">{label}</p>
+                      <p className="text-3xl font-bold text-primary">{c.total}</p>
+                      <div className="grid grid-cols-2 gap-x-3 gap-y-1 text-xs text-muted-foreground mt-2">
+                        <div>Today: <span className="font-semibold text-primary">{c.today}</span></div>
+                        <div>7d: <span className="font-semibold text-primary">{c["7d"]}</span></div>
+                        <div>14d: <span className="font-semibold text-primary">{c["14d"]}</span></div>
+                        <div>30d: <span className="font-semibold text-primary">{c["30d"]}</span></div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                );
+              })}
+            </div>
+          </section>
+
           <section>
             <h2 className="text-xl font-bold text-foreground mb-4 flex items-center gap-2">
               <Play className="w-5 h-5 text-primary" /> Video Clicks

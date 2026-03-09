@@ -133,6 +133,7 @@ const links = [
     title: "Free Foundation Blueprint",
     href: "/blueprint",
     external: false,
+    trackId: "button-blueprint",
     thumbnail: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png",
   },
   {
@@ -140,6 +141,7 @@ const links = [
     subtitle: "(YouTube)",
     href: "https://www.youtube.com/@BigDaddysBigTips",
     external: true,
+    trackId: "button-youtube",
     thumbnail: "/lovable-uploads/recording-setup-new.jpg",
   },
   {
@@ -147,6 +149,7 @@ const links = [
     subtitle: "(Spotify)",
     href: "https://open.spotify.com/show/7AryqWOzeVCOC7WQ9wcBlk?si=2ede4b3121ea46c1&nd=1&dlsi=f03fd58680794b34",
     external: true,
+    trackId: "button-spotify",
     thumbnail: "/lovable-uploads/75853635-930c-4fa5-9403-d0b58c6db83b.png",
   },
 ];
@@ -509,6 +512,7 @@ const LinkInBio = () => {
                   rel="noopener noreferrer"
                   className="block animate-fade-in"
                   style={{ animationDelay: `${index * 100}ms` }}
+                  onClick={() => supabase.functions.invoke("track-video-click", { body: { videoId: link.trackId } })}
                 >
                   {cardContent}
                 </a>
@@ -521,6 +525,7 @@ const LinkInBio = () => {
                 to={link.href}
                 className="block animate-fade-in"
                 style={{ animationDelay: `${index * 100}ms` }}
+                onClick={() => supabase.functions.invoke("track-video-click", { body: { videoId: link.trackId } })}
               >
                 {cardContent}
               </Link>
