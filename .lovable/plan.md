@@ -1,22 +1,13 @@
 
 
-# Replace "BDBT Explained" video with "Why Most People Invest Completely Wrong"
+## Sync Guide Data and Add "Blend" Keyword
 
-Replace the `TY1nkJsQtyw` ("BDBT Explained") video entry with `bv27Bn6qWIo` ("Why Most People Invest Completely Wrong") across all 3 pages that display the video trio, plus the admin mapping.
+After comparing the uploaded spreadsheet against `guideMapping.ts` and `tipKeywords.ts`, the guide URLs all match correctly. The one issue is that the **"Blend" keyword is missing** from `tipKeywords.ts`, so visiting `/tips/blend` or `/tips/Blend` won't route to the "30 Benefits of Blending Connection" tip.
 
-## Changes
+### Changes
 
-### 1. `src/pages/Home.tsx` (line 17)
-Replace `TY1nkJsQtyw` / "BDBT Explained" / "5.7K views" with `bv27Bn6qWIo` / "Why Most People Invest Completely Wrong" / new view count
+**`src/data/tipKeywords.ts`** -- Add "Blend" keyword mapping:
+- Add `"blend": "30 Benefits of Blending Connection"`, `"Blend": "30 Benefits of Blending Connection"`, and `"BLEND": "30 Benefits of Blending Connection"` entries alongside the other March 2026 keywords.
 
-### 2. `src/pages/Blueprint.tsx` (line 14)
-Same replacement in the podcastEpisodes array
-
-### 3. `src/pages/LinkInBio.tsx` (line 9)
-Same replacement in the episodes array
-
-### 4. `src/pages/AdminList.tsx` (line 9)
-Replace the `TY1nkJsQtyw: "BDBT Explained"` mapping with `bv27Bn6qWIo: "Why Most People Invest Completely Wrong"`
-
-4 files, 1 line each. No other changes.
+No other file changes needed -- all guide download URLs in `guideMapping.ts` already match the spreadsheet File IDs, and all other keyword routes are already present.
 
