@@ -512,6 +512,7 @@ const LinkInBio = () => {
                   rel="noopener noreferrer"
                   className="block animate-fade-in"
                   style={{ animationDelay: `${index * 100}ms` }}
+                  onClick={() => supabase.functions.invoke("track-video-click", { body: { videoId: link.trackId } })}
                 >
                   {cardContent}
                 </a>
@@ -524,6 +525,7 @@ const LinkInBio = () => {
                 to={link.href}
                 className="block animate-fade-in"
                 style={{ animationDelay: `${index * 100}ms` }}
+                onClick={() => supabase.functions.invoke("track-video-click", { body: { videoId: link.trackId } })}
               >
                 {cardContent}
               </Link>
