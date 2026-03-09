@@ -41,6 +41,12 @@ export const tipKeywordMap: Record<string, string> = {
   "Binge": "Say goodbye to netflix, prime & binge watching",
   "binge": "Say goodbye to netflix, prime & binge watching",
   
+  // Blend -> 30 Benefits of Blending Connection
+  "Blend": "30 Benefits of Blending Connection",
+  "blend": "30 Benefits of Blending Connection",
+  "BLEND": "30 Benefits of Blending Connection",
+  
+
   // Blueprint -> BDBT Foundation Blueprint
   "Blueprint": "BDBT Foundation Blueprint",
   "blueprint": "BDBT Foundation Blueprint",
