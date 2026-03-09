@@ -3618,6 +3618,34 @@ const ThumbnailTemplate = () => {
             </div>
           </div>
         )}
+        {/* Template 68 - Podcast 64 Create an Accountability Group Chat (YouTube) */}
+        {currentTemplateIndex === 68 && mode === 'youtube' && (
+          <div className="relative">
+            <div id="thumbnail-68" key="template-68" className="w-[1280px] h-[720px] relative overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
+              <div className="h-full flex items-center p-16 relative">
+                <div className="absolute right-16 top-16 bottom-16 flex items-center">
+                  <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
+                    <img 
+                      src={templates.find(t => t.id === 68)?.image} 
+                      alt="Podcast 64"
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute bottom-4 left-4">
+                      <img src="/lovable-uploads/bdbt-logo-transparent.png" alt="BDBT" className="w-16 h-16 object-contain" />
+                    </div>
+                  </div>
+                </div>
+                <div className="absolute left-8 top-16 bottom-24 right-[35%] pr-4 z-10 flex flex-col justify-center">
+                  <h1 className="text-6xl xl:text-7xl 2xl:text-8xl font-bold leading-tight mb-6">
+                    <span className="text-white block mb-2">Create an Accountability</span>
+                    <span className="block" style={{ color: 'hsl(35, 45%, 75%)' }}>Group Chat</span>
+                  </h1>
+                  <p className="text-white/80 text-3xl font-medium">Daily Wins Podcast 64</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
 
       </div>
 
