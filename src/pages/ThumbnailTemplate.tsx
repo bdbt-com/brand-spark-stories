@@ -1437,6 +1437,12 @@ const ThumbnailTemplate = () => {
             <TikTokTemplate templateIndex={81} />
           </div>
         )}
+        {/* Template 82 - Podcast 64 Create an Accountability Group Chat */}
+        {currentTemplateIndex === 82 && mode === 'instagram' && (
+          <div className="relative">
+            <TikTokTemplate templateIndex={82} />
+          </div>
+        )}
         {/* Template 5 - Healthy Snacks */}
         {currentTemplateIndex === 4 && mode === 'youtube' && (
           <div className="relative">
