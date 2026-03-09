@@ -439,15 +439,16 @@ const AdminList = () => {
           <div className="sticky top-24">
             <Card className="border-primary/20">
               <CardContent className="p-4">
-                <h3 className="text-sm font-bold text-foreground mb-4 flex items-center gap-2">
+                <h3 className="text-sm font-bold text-foreground mb-3 flex items-center gap-2">
                   <Activity className="w-4 h-4 text-primary" />
-                  Live Activity
+                  Last 24 Hours
+                  <span className="text-[10px] font-normal text-muted-foreground ml-1">({feed.length})</span>
                   <span className="ml-auto relative flex h-2 w-2">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                     <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
                   </span>
                 </h3>
-                <div className="space-y-2">
+                <div className="max-h-[calc(100vh-10rem)] overflow-y-auto space-y-2 pr-1 scrollbar-thin">
                   {feed.length === 0 ? (
                     <p className="text-xs text-muted-foreground text-center py-8">No recent activity</p>
                   ) : (
