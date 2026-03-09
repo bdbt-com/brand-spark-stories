@@ -497,6 +497,13 @@ const ThumbnailTemplate = () => {
       title: "Review your Tip Progress",
       subtitle: "Daily Wins Podcast 63",
       image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+    },
+    {
+      id: 68,
+      name: "Create an Accountability Group Chat",
+      title: "Create an Accountability Group Chat",
+      subtitle: "Daily Wins Podcast 64",
+      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
     }
   ];
 
