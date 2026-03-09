@@ -26,17 +26,21 @@ serve(async (req) => {
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
     );
 
+    const since = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
+
     const { data: clicks } = await supabase
       .from("video_clicks")
       .select("video_id, clicked_at")
+      .gte("clicked_at", since)
       .order("clicked_at", { ascending: false })
-      .limit(50);
+      .limit(200);
 
     const { data: signups } = await supabase
       .from("email_subscriptions")
       .select("first_name, email, created_at, guide_title, email_sent, email_sent_at")
+      .gte("created_at", since)
       .order("created_at", { ascending: false })
-      .limit(50);
+      .limit(200);
 
     const items: { type: string; label: string; detail: string; timestamp: string }[] = [];
 
