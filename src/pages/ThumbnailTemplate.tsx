@@ -597,7 +597,8 @@ const ThumbnailTemplate = () => {
     { id: 79, name: "Podcast 61 Hide Your Savings From Yourself", title: "Hide Your Savings From Yourself", subtitle: "", image: "" },
     { id: 80, name: "Bonus — The Choices We Make: Choosing Wins or Drifts", title: "The Choices We Make: Choosing Wins or Drifts", subtitle: "", image: "" },
     { id: 81, name: "Podcast 63 Review your Tip Progress", title: "Review your Tip Progress", subtitle: "", image: "" },
-    { id: 82, name: "Podcast 64 Create an Accountability Group Chat", title: "Create an Accountability Group Chat", subtitle: "", image: "" }
+    { id: 82, name: "Podcast 64 Create an Accountability Group Chat", title: "Create an Accountability Group Chat", subtitle: "", image: "" },
+    { id: 83, name: "Podcast 65 Use a Handbasket Instead of a Trolley", title: "Use a Handbasket Instead of a Trolley", subtitle: "", image: "" }
   ];
 
   const phrases = [
