@@ -504,6 +504,13 @@ const ThumbnailTemplate = () => {
       title: "Create an Accountability Group Chat",
       subtitle: "Daily Wins Podcast 64",
       image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+    },
+    {
+      id: 69,
+      name: "Use a Handbasket Instead of a Trolley",
+      title: "Use a Handbasket Instead of a Trolley",
+      subtitle: "Daily Wins Podcast 65",
+      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
     }
   ];
 
