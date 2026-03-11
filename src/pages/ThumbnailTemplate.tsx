@@ -511,6 +511,13 @@ const ThumbnailTemplate = () => {
       title: "Use a Handbasket Instead of a Trolley",
       subtitle: "Daily Wins Podcast 65",
       image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+    },
+    {
+      id: 70,
+      name: "Build a 6-Month Emergency Buffer",
+      title: "Build a 6-Month Emergency Buffer",
+      subtitle: "Daily Wins Podcast 66",
+      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
     }
   ];
 
