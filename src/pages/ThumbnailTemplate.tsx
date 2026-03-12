@@ -518,6 +518,13 @@ const ThumbnailTemplate = () => {
       title: "Build a 6-Month Emergency Buffer",
       subtitle: "Daily Wins Podcast 66",
       image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+    },
+    {
+      id: 71,
+      name: "Swap Butter for Peanut Butter",
+      title: "Swap Butter for Peanut Butter",
+      subtitle: "Daily Wins Podcast 67",
+      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
     }
   ];
 
