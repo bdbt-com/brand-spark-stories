@@ -1,24 +1,22 @@
 
 
-# Add Podcast 67 — "Swap Butter for Peanut Butter"
+# Replace "BDBT Explained" video with "Why Most People Invest Completely Wrong"
 
-P67 is odd → TikTok uses **Bg 28**. New indices: **TikTok = 85**, **YouTube = 71**.
+Replace the `TY1nkJsQtyw` ("BDBT Explained") video entry with `bv27Bn6qWIo` ("Why Most People Invest Completely Wrong") across all 3 pages that display the video trio, plus the admin mapping.
 
 ## Changes
 
-### 1. `src/components/TikTokTemplate.tsx`
-- **Type**: Add `| 85`
-- **Backgrounds array**: Append `tikTokBg28`
-- **JSX title block**: Add `templateIndex === 85`:
-  - Header: `BDBT PODCAST 67`
-  - Line 1 (white): `SWAP BUTTER FOR`
-  - Line 2 (gold): `PEANUT BUTTER`
+### 1. `src/pages/Home.tsx` (line 17)
+Replace `TY1nkJsQtyw` / "BDBT Explained" / "5.7K views" with `bv27Bn6qWIo` / "Why Most People Invest Completely Wrong" / new view count
 
-### 2. `src/pages/ThumbnailTemplate.tsx`
-- **TikTok metadata**: `{ id: 85, name: "Podcast 67 Swap Butter for Peanut Butter", title: "Swap Butter for Peanut Butter", subtitle: "", image: "" }`
-- **TikTok rendering**: Block for `currentTemplateIndex === 85 && mode === 'instagram'` → `<TikTokTemplate templateIndex={85} />`
-- **YouTube metadata**: `{ id: 71, name: "Swap Butter for Peanut Butter", title: "Swap Butter for Peanut Butter", subtitle: "Daily Wins Podcast 67", image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png" }`
-- **YouTube rendering**: Block for `currentTemplateIndex === 71 && mode === 'youtube'` with white "Swap Butter for" / gold "Peanut Butter", subtitle "Daily Wins Podcast 67"
+### 2. `src/pages/Blueprint.tsx` (line 14)
+Same replacement in the podcastEpisodes array
 
-4 locations across 2 files.
+### 3. `src/pages/LinkInBio.tsx` (line 9)
+Same replacement in the episodes array
+
+### 4. `src/pages/AdminList.tsx` (line 9)
+Replace the `TY1nkJsQtyw: "BDBT Explained"` mapping with `bv27Bn6qWIo: "Why Most People Invest Completely Wrong"`
+
+4 files, 1 line each. No other changes.
 
