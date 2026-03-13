@@ -1493,6 +1493,12 @@ const ThumbnailTemplate = () => {
             <TikTokTemplate templateIndex={85} />
           </div>
         )}
+        {/* Template 86 - Podcast 68 Wait 30 Days Before Any Status Spend */}
+        {currentTemplateIndex === 86 && mode === 'instagram' && (
+          <div className="relative">
+            <TikTokTemplate templateIndex={86} />
+          </div>
+        )}
         {/* Template 5 - Healthy Snacks */}
         {currentTemplateIndex === 4 && mode === 'youtube' && (
           <div className="relative">
