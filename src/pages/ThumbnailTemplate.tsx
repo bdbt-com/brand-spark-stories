@@ -525,6 +525,13 @@ const ThumbnailTemplate = () => {
       title: "Swap Butter for Peanut Butter",
       subtitle: "Daily Wins Podcast 67",
       image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+    },
+    {
+      id: 72,
+      name: "Wait 30 Days Before Any Status Spend",
+      title: "Wait 30 Days Before Any Status Spend",
+      subtitle: "Daily Wins Podcast 68",
+      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
     }
   ];
 
