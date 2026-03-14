@@ -629,7 +629,8 @@ const ThumbnailTemplate = () => {
      { id: 83, name: "Podcast 65 Use a Handbasket Instead of a Trolley", title: "Use a Handbasket Instead of a Trolley", subtitle: "", image: "" },
      { id: 84, name: "Podcast 66 Build a 6-Month Emergency Buffer", title: "Build a 6-Month Emergency Buffer", subtitle: "", image: "" },
      { id: 85, name: "Podcast 67 Swap Butter for Peanut Butter", title: "Swap Butter for Peanut Butter", subtitle: "", image: "" },
-     { id: 86, name: "Podcast 68 Wait 30 Days Before Any Status Spend", title: "Wait 30 Days Before Any Status Spend", subtitle: "", image: "" }
+     { id: 86, name: "Podcast 68 Wait 30 Days Before Any Status Spend", title: "Wait 30 Days Before Any Status Spend", subtitle: "", image: "" },
+     { id: 87, name: "Podcast 69 Hug Daily", title: "Hug Daily", subtitle: "", image: "" }
   ];
 
   const phrases = [
