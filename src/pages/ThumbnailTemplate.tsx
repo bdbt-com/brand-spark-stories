@@ -532,6 +532,13 @@ const ThumbnailTemplate = () => {
       title: "Wait 30 Days Before Any Status Spend",
       subtitle: "Daily Wins Podcast 68",
       image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+    },
+    {
+      id: 73,
+      name: "Hug Daily",
+      title: "Hug Daily",
+      subtitle: "Daily Wins Podcast 69",
+      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
     }
   ];
 
