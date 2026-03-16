@@ -546,6 +546,13 @@ const ThumbnailTemplate = () => {
       title: "Your 5 Minute Daily Reset",
       subtitle: "Daily Wins Podcast 70",
       image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+    },
+    {
+      id: 75,
+      name: "Drink Warm Lemon Water and Cayenne Pepper",
+      title: "Drink Warm Lemon Water and Cayenne Pepper",
+      subtitle: "Daily Wins Podcast 71",
+      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
     }
   ];
 
