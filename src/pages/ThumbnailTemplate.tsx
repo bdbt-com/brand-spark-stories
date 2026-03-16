@@ -1535,6 +1535,12 @@ const ThumbnailTemplate = () => {
             <TikTokTemplate templateIndex={88} />
           </div>
         )}
+        {/* Template 89 - Podcast 71 Drink Warm Lemon Water and Cayenne Pepper */}
+        {currentTemplateIndex === 89 && mode === 'instagram' && (
+          <div className="relative">
+            <TikTokTemplate templateIndex={89} />
+          </div>
+        )}
         {/* Template 5 - Healthy Snacks */}
         {currentTemplateIndex === 4 && mode === 'youtube' && (
           <div className="relative">
