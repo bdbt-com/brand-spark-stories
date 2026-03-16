@@ -1,22 +1,27 @@
 
 
-# Replace "BDBT Explained" video with "Why Most People Invest Completely Wrong"
+# Add Podcast 71 — "Drink Warm Lemon Water and Cayenne Pepper"
 
-Replace the `TY1nkJsQtyw` ("BDBT Explained") video entry with `bv27Bn6qWIo` ("Why Most People Invest Completely Wrong") across all 3 pages that display the video trio, plus the admin mapping.
+Spelling correction: "cayanne papper" → **Cayenne Pepper**.
+
+P71 is odd → TikTok uses **Bg 28**. New indices: **TikTok = 89**, **YouTube = 75**.
 
 ## Changes
 
-### 1. `src/pages/Home.tsx` (line 17)
-Replace `TY1nkJsQtyw` / "BDBT Explained" / "5.7K views" with `bv27Bn6qWIo` / "Why Most People Invest Completely Wrong" / new view count
+### 1. `src/components/TikTokTemplate.tsx`
+- **Type**: Add `| 89`
+- **Backgrounds array**: Append `tikTokBg28`
+- **JSX title block**: Add `templateIndex === 89`:
+  - Header: `BDBT PODCAST 71`
+  - Line 1 (white): `DRINK WARM LEMON`
+  - Line 2 (white): `WATER AND CAYENNE`
+  - Line 3 (gold): `PEPPER`
 
-### 2. `src/pages/Blueprint.tsx` (line 14)
-Same replacement in the podcastEpisodes array
+### 2. `src/pages/ThumbnailTemplate.tsx`
+- **TikTok metadata**: `{ id: 89, name: "Podcast 71 Drink Warm Lemon Water and Cayenne Pepper", ... }`
+- **TikTok rendering**: Block for `currentTemplateIndex === 89 && mode === 'instagram'`
+- **YouTube metadata**: `{ id: 75, name: "Drink Warm Lemon Water and Cayenne Pepper", subtitle: "Daily Wins Podcast 71", image: profile photo }`
+- **YouTube rendering**: Block for `currentTemplateIndex === 75 && mode === 'youtube'` with white "Drink Warm Lemon Water" / gold "and Cayenne Pepper", subtitle "Daily Wins Podcast 71"
 
-### 3. `src/pages/LinkInBio.tsx` (line 9)
-Same replacement in the episodes array
-
-### 4. `src/pages/AdminList.tsx` (line 9)
-Replace the `TY1nkJsQtyw: "BDBT Explained"` mapping with `bv27Bn6qWIo: "Why Most People Invest Completely Wrong"`
-
-4 files, 1 line each. No other changes.
+4 locations across 2 files.
 
