@@ -392,8 +392,8 @@ const AdminList = () => {
                       <p className="text-sm font-medium text-foreground mb-3 line-clamp-2">{title}</p>
                       <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-xs text-muted-foreground">
                         <div>Today: <span className="font-semibold text-primary">{c.today}</span></div>
-                        <div>7 Days: <span className="font-semibold text-primary">{c["7d"]}</span></div>
-                        <div>14 Days: <span className="font-semibold text-primary">{c["14d"]}</span></div>
+                        <div className="flex items-center gap-1">7 Days: <span className="font-semibold text-primary">{c["7d"]}</span> <TrendBadge current={c["7d"]} currentDays={7} outer={c["14d"]} outerDays={14} /></div>
+                        <div className="flex items-center gap-1">14 Days: <span className="font-semibold text-primary">{c["14d"]}</span> <TrendBadge current={c["14d"]} currentDays={14} outer={c["30d"]} outerDays={30} /></div>
                         <div>30 Days: <span className="font-semibold text-primary">{c["30d"]}</span></div>
                       </div>
                     </CardContent>
