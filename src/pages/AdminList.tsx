@@ -349,7 +349,7 @@ const AdminList = () => {
                     <Card>
                       <CardContent className="p-5 text-center">
                         <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">Today</p>
-                        <p className="text-3xl font-bold text-primary">{ar.today}</p>
+                        <p className="text-3xl font-bold text-primary inline-flex items-center gap-2 justify-center">{ar.today} <TodayTrendBadge today={ar.today} sevenDay={ar["7d"]} /></p>
                         <p className="text-xs text-muted-foreground mt-1">redirects</p>
                       </CardContent>
                     </Card>
