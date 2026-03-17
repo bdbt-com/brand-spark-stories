@@ -257,20 +257,24 @@ const AdminList = () => {
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {[
-                { key: "7d", label: "Last 7 Days" },
-                { key: "14d", label: "Last 14 Days" },
-                { key: "30d", label: "Last 30 Days" },
-                { key: "since_launch", label: "Since Launch" },
-              ].map(({ key, label }) => {
+                { key: "7d", label: "Last 7 Days", days: 7, outerKey: "14d", outerDays: 14 },
+                { key: "14d", label: "Last 14 Days", days: 14, outerKey: "30d", outerDays: 30 },
+                { key: "30d", label: "Last 30 Days", days: 30, outerKey: null, outerDays: 0 },
+                { key: "since_launch", label: "Since Launch", days: 0, outerKey: null, outerDays: 0 },
+              ].map(({ key, label, days, outerKey, outerDays }) => {
                 const period = analytics[key];
                 const avgMins = period ? Math.floor(period.avg_duration / 60) : 0;
                 const avgSecs = period ? period.avg_duration % 60 : 0;
+                const outer = outerKey ? analytics[outerKey] : null;
                 return (
                   <Card key={key}>
                     <CardContent className="p-5 text-center">
                       <p className="text-xs font-medium text-muted-foreground mb-3 uppercase tracking-wider">{label}</p>
                       <p className="text-3xl font-bold text-primary">{period?.visitors || 0}</p>
-                      <p className="text-xs text-muted-foreground mb-2">visitors</p>
+                      <div className="flex items-center justify-center gap-1 mb-2">
+                        <p className="text-xs text-muted-foreground">visitors</p>
+                        {outer && days > 0 && <TrendBadge current={period?.visitors || 0} currentDays={days} outer={outer.visitors || 0} outerDays={outerDays} />}
+                      </div>
                       <div className="flex items-center justify-center gap-1 text-muted-foreground">
                         <Clock className="w-3 h-3" />
                         <span className="text-xs">
