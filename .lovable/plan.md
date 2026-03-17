@@ -1,22 +1,21 @@
 
 
-# Replace "BDBT Explained" video with "Why Most People Invest Completely Wrong"
+# Add "Unsubscribe from paid streaming services" tip
 
-Replace the `TY1nkJsQtyw` ("BDBT Explained") video entry with `bv27Bn6qWIo` ("Why Most People Invest Completely Wrong") across all 3 pages that display the video trio, plus the admin mapping.
+The new guide from the spreadsheet is **"Unsubscribe for paid streaming services"** (keyword: `unsubscribe`, file ID: `1W_vFiEDC6mFMyqoNo3dqFQ6IjNuPIUt-`).
 
-## Changes
+## Changes needed across 3 files:
 
-### 1. `src/pages/Home.tsx` (line 17)
-Replace `TY1nkJsQtyw` / "BDBT Explained" / "5.7K views" with `bv27Bn6qWIo` / "Why Most People Invest Completely Wrong" / new view count
+### 1. `src/data/guideMapping.ts`
+Add entry:
+```
+"Unsubscribe from paid streaming services": "https://drive.google.com/uc?export=download&id=1W_vFiEDC6mFMyqoNo3dqFQ6IjNuPIUt-"
+```
 
-### 2. `src/pages/Blueprint.tsx` (line 14)
-Same replacement in the podcastEpisodes array
+### 2. `src/pages/Tips.tsx`
+Add new tip object before the closing `];` (after "Audit Your Insurance Policies Annually"), using `XCircle` icon (already imported), category `finance`, with relevant H/W/H bullet points.
 
-### 3. `src/pages/LinkInBio.tsx` (line 9)
-Same replacement in the episodes array
-
-### 4. `src/pages/AdminList.tsx` (line 9)
-Replace the `TY1nkJsQtyw: "BDBT Explained"` mapping with `bv27Bn6qWIo: "Why Most People Invest Completely Wrong"`
-
-4 files, 1 line each. No other changes.
+### 3. `src/data/tipKeywords.ts`
+Add keyword mappings:
+- `"unsubscribe"` / `"Unsubscribe"` / `"UNSUBSCRIBE"` → tip title
 
