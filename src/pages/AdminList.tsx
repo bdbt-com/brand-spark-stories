@@ -295,16 +295,19 @@ const AdminList = () => {
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {[
-                { label: "Today", value: bioClicks.today || 0 },
-                { label: "7 Days", value: bioClicks["7d"] || 0 },
-                { label: "14 Days", value: bioClicks["14d"] || 0 },
-                { label: "30 Days", value: bioClicks["30d"] || 0 },
-              ].map(({ label, value }) => (
+                { label: "Today", value: bioClicks.today || 0, days: 0, outerVal: 0, outerDays: 0 },
+                { label: "7 Days", value: bioClicks["7d"] || 0, days: 7, outerVal: bioClicks["14d"] || 0, outerDays: 14 },
+                { label: "14 Days", value: bioClicks["14d"] || 0, days: 14, outerVal: bioClicks["30d"] || 0, outerDays: 30 },
+                { label: "30 Days", value: bioClicks["30d"] || 0, days: 0, outerVal: 0, outerDays: 0 },
+              ].map(({ label, value, days, outerVal, outerDays }) => (
                 <Card key={label}>
                   <CardContent className="p-5 text-center">
                     <p className="text-xs font-medium text-muted-foreground mb-3 uppercase tracking-wider">{label}</p>
                     <p className="text-3xl font-bold text-primary">{value}</p>
-                    <p className="text-xs text-muted-foreground mt-1">clicks</p>
+                    <div className="flex items-center justify-center gap-1 mt-1">
+                      <p className="text-xs text-muted-foreground">clicks</p>
+                      {days > 0 && outerDays > 0 && <TrendBadge current={value} currentDays={days} outer={outerVal} outerDays={outerDays} />}
+                    </div>
                   </CardContent>
                 </Card>
               ))}
