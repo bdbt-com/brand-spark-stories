@@ -360,12 +360,21 @@ const AdminList = () => {
                   <Card key={id}>
                     <CardContent className="p-5 text-center">
                       <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">{label}</p>
-                      <p className="text-3xl font-bold text-primary">{c.total}</p>
-                      <div className="grid grid-cols-2 gap-x-3 gap-y-1 text-xs text-muted-foreground mt-2">
-                        <div>Today: <span className="font-semibold text-primary">{c.today}</span></div>
-                        <div className="flex items-center gap-1">7d: <span className="font-semibold text-primary">{c["7d"]}</span> <TrendBadge current={c["7d"]} currentDays={7} outer={c["14d"]} outerDays={14} /></div>
-                        <div className="flex items-center gap-1">14d: <span className="font-semibold text-primary">{c["14d"]}</span> <TrendBadge current={c["14d"]} currentDays={14} outer={c["30d"]} outerDays={30} /></div>
-                        <div>30d: <span className="font-semibold text-primary">{c["30d"]}</span></div>
+                      <p className="text-3xl font-bold text-primary">{c.today}</p>
+                      <p className="text-[10px] text-muted-foreground mb-1">today</p>
+                      <div className="grid grid-cols-3 gap-x-2 text-xs text-muted-foreground mt-2">
+                        <div className="flex flex-col items-center gap-0.5">
+                          <span className="font-semibold text-primary">{c["7d"]}</span>
+                          <span className="flex items-center gap-0.5">7d <TrendBadge current={c["7d"]} currentDays={7} outer={c["14d"]} outerDays={14} /></span>
+                        </div>
+                        <div className="flex flex-col items-center gap-0.5">
+                          <span className="font-semibold text-primary">{c["14d"]}</span>
+                          <span className="flex items-center gap-0.5">14d <TrendBadge current={c["14d"]} currentDays={14} outer={c["30d"]} outerDays={30} /></span>
+                        </div>
+                        <div className="flex flex-col items-center gap-0.5">
+                          <span className="font-semibold text-primary">{c["30d"]}</span>
+                          <span>30d</span>
+                        </div>
                       </div>
                     </CardContent>
                   </Card>
@@ -390,11 +399,21 @@ const AdminList = () => {
                         className="w-full aspect-video object-cover rounded-lg mb-3"
                       />
                       <p className="text-sm font-medium text-foreground mb-3 line-clamp-2">{title}</p>
-                      <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-xs text-muted-foreground">
-                        <div>Today: <span className="font-semibold text-primary">{c.today}</span></div>
-                        <div className="flex items-center gap-1">7 Days: <span className="font-semibold text-primary">{c["7d"]}</span> <TrendBadge current={c["7d"]} currentDays={7} outer={c["14d"]} outerDays={14} /></div>
-                        <div className="flex items-center gap-1">14 Days: <span className="font-semibold text-primary">{c["14d"]}</span> <TrendBadge current={c["14d"]} currentDays={14} outer={c["30d"]} outerDays={30} /></div>
-                        <div>30 Days: <span className="font-semibold text-primary">{c["30d"]}</span></div>
+                      <p className="text-2xl font-bold text-primary">{c.today}</p>
+                      <p className="text-[10px] text-muted-foreground mb-1">today</p>
+                      <div className="grid grid-cols-3 gap-x-2 text-xs text-muted-foreground mt-2">
+                        <div className="flex flex-col items-center gap-0.5">
+                          <span className="font-semibold text-primary">{c["7d"]}</span>
+                          <span className="flex items-center gap-0.5">7d <TrendBadge current={c["7d"]} currentDays={7} outer={c["14d"]} outerDays={14} /></span>
+                        </div>
+                        <div className="flex flex-col items-center gap-0.5">
+                          <span className="font-semibold text-primary">{c["14d"]}</span>
+                          <span className="flex items-center gap-0.5">14d <TrendBadge current={c["14d"]} currentDays={14} outer={c["30d"]} outerDays={30} /></span>
+                        </div>
+                        <div className="flex flex-col items-center gap-0.5">
+                          <span className="font-semibold text-primary">{c["30d"]}</span>
+                          <span>30d</span>
+                        </div>
                       </div>
                     </CardContent>
                   </Card>
