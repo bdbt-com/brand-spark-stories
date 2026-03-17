@@ -15,6 +15,28 @@ function calcTrend(current: number, currentDays: number, outer: number, outerDay
   return { pct: Math.abs(pct), direction: pct > 0 ? 'up' : 'down' };
 }
 
+// Compare today's count to the avg daily rate of the prior 6 days (from the 7d total)
+function calcTodayTrend(today: number, sevenDay: number): { pct: number; direction: 'up' | 'down' | 'flat' } {
+  const prior6 = sevenDay - today;
+  if (prior6 <= 0) return { pct: 0, direction: 'flat' };
+  const avg = prior6 / 6;
+  const pct = Math.round(((today - avg) / avg) * 100);
+  if (pct === 0) return { pct: 0, direction: 'flat' };
+  return { pct: Math.abs(pct), direction: pct > 0 ? 'up' : 'down' };
+}
+
+function TodayTrendBadge({ today, sevenDay }: { today: number; sevenDay: number }) {
+  const { pct, direction } = calcTodayTrend(today, sevenDay);
+  if (direction === 'flat') return <span className="inline-flex items-center gap-0.5 text-[10px] text-muted-foreground"><Minus className="w-2.5 h-2.5" />—</span>;
+  const isUp = direction === 'up';
+  return (
+    <span className={`inline-flex items-center gap-0.5 text-[10px] font-semibold ${isUp ? 'text-green-500' : 'text-red-500'}`}>
+      {isUp ? <TrendingUp className="w-2.5 h-2.5" /> : <TrendingDown className="w-2.5 h-2.5" />}
+      {pct}%
+    </span>
+  );
+}
+
 function TrendBadge({ current, currentDays, outer, outerDays }: { current: number; currentDays: number; outer: number; outerDays: number }) {
   const { pct, direction } = calcTrend(current, currentDays, outer, outerDays);
   if (direction === 'flat') return <span className="inline-flex items-center gap-0.5 text-[10px] text-muted-foreground"><Minus className="w-2.5 h-2.5" />—</span>;
@@ -226,8 +248,8 @@ const AdminList = () => {
                      <Card className="border-primary/30 bg-primary/5">
                       <CardContent className="p-5 text-center">
                         <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">Visitors</p>
-                        <p className="text-3xl font-bold text-primary">{today?.visitors || 0}</p>
-                        <p className="text-xs text-muted-foreground mt-1">/bio clicks: {bioClicks.today || 0}</p>
+                        <p className="text-3xl font-bold text-primary inline-flex items-center gap-2 justify-center">{today?.visitors || 0} <TodayTrendBadge today={today?.visitors || 0} sevenDay={analytics["7d"]?.visitors || 0} /></p>
+                        <p className="text-xs text-muted-foreground mt-1 inline-flex items-center gap-1 justify-center">/bio clicks: {bioClicks.today || 0} <TodayTrendBadge today={bioClicks.today || 0} sevenDay={bioClicks["7d"] || 0} /></p>
                       </CardContent>
                     </Card>
                     <Card className="border-primary/30 bg-primary/5">
@@ -327,7 +349,7 @@ const AdminList = () => {
                     <Card>
                       <CardContent className="p-5 text-center">
                         <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">Today</p>
-                        <p className="text-3xl font-bold text-primary">{ar.today}</p>
+                        <p className="text-3xl font-bold text-primary inline-flex items-center gap-2 justify-center">{ar.today} <TodayTrendBadge today={ar.today} sevenDay={ar["7d"]} /></p>
                         <p className="text-xs text-muted-foreground mt-1">redirects</p>
                       </CardContent>
                     </Card>
