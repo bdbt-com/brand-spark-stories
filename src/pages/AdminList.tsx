@@ -1,7 +1,31 @@
 import { useEffect, useState, useCallback } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { Loader2, Play, TrendingDown, BarChart3, Clock, MousePointerClick, ArrowRightLeft, UserPlus, Download, Activity } from "lucide-react";
+import { Loader2, Play, TrendingDown, TrendingUp, BarChart3, Clock, MousePointerClick, ArrowRightLeft, UserPlus, Download, Activity, Minus } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+
+// Calculate % change between current period rate and prior period rate
+function calcTrend(current: number, currentDays: number, outer: number, outerDays: number): { pct: number; direction: 'up' | 'down' | 'flat' } {
+  const prior = outer - current;
+  const priorDays = outerDays - currentDays;
+  if (priorDays <= 0 || prior <= 0) return { pct: 0, direction: 'flat' };
+  const currentRate = current / currentDays;
+  const priorRate = prior / priorDays;
+  const pct = Math.round(((currentRate - priorRate) / priorRate) * 100);
+  if (pct === 0) return { pct: 0, direction: 'flat' };
+  return { pct: Math.abs(pct), direction: pct > 0 ? 'up' : 'down' };
+}
+
+function TrendBadge({ current, currentDays, outer, outerDays }: { current: number; currentDays: number; outer: number; outerDays: number }) {
+  const { pct, direction } = calcTrend(current, currentDays, outer, outerDays);
+  if (direction === 'flat') return <span className="inline-flex items-center gap-0.5 text-[10px] text-muted-foreground"><Minus className="w-2.5 h-2.5" />—</span>;
+  const isUp = direction === 'up';
+  return (
+    <span className={`inline-flex items-center gap-0.5 text-[10px] font-semibold ${isUp ? 'text-green-500' : 'text-red-500'}`}>
+      {isUp ? <TrendingUp className="w-2.5 h-2.5" /> : <TrendingDown className="w-2.5 h-2.5" />}
+      {pct}%
+    </span>
+  );
+}
 
 const VIDEO_MAP: Record<string, string> = {
   ERXXO8mG5IY: "Why 70% of People Are Dehydrated",
@@ -233,20 +257,24 @@ const AdminList = () => {
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {[
-                { key: "7d", label: "Last 7 Days" },
-                { key: "14d", label: "Last 14 Days" },
-                { key: "30d", label: "Last 30 Days" },
-                { key: "since_launch", label: "Since Launch" },
-              ].map(({ key, label }) => {
+                { key: "7d", label: "Last 7 Days", days: 7, outerKey: "14d", outerDays: 14 },
+                { key: "14d", label: "Last 14 Days", days: 14, outerKey: "30d", outerDays: 30 },
+                { key: "30d", label: "Last 30 Days", days: 30, outerKey: null, outerDays: 0 },
+                { key: "since_launch", label: "Since Launch", days: 0, outerKey: null, outerDays: 0 },
+              ].map(({ key, label, days, outerKey, outerDays }) => {
                 const period = analytics[key];
                 const avgMins = period ? Math.floor(period.avg_duration / 60) : 0;
                 const avgSecs = period ? period.avg_duration % 60 : 0;
+                const outer = outerKey ? analytics[outerKey] : null;
                 return (
                   <Card key={key}>
                     <CardContent className="p-5 text-center">
                       <p className="text-xs font-medium text-muted-foreground mb-3 uppercase tracking-wider">{label}</p>
                       <p className="text-3xl font-bold text-primary">{period?.visitors || 0}</p>
-                      <p className="text-xs text-muted-foreground mb-2">visitors</p>
+                      <div className="flex items-center justify-center gap-1 mb-2">
+                        <p className="text-xs text-muted-foreground">visitors</p>
+                        {outer && days > 0 && <TrendBadge current={period?.visitors || 0} currentDays={days} outer={outer.visitors || 0} outerDays={outerDays} />}
+                      </div>
                       <div className="flex items-center justify-center gap-1 text-muted-foreground">
                         <Clock className="w-3 h-3" />
                         <span className="text-xs">
@@ -267,16 +295,19 @@ const AdminList = () => {
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {[
-                { label: "Today", value: bioClicks.today || 0 },
-                { label: "7 Days", value: bioClicks["7d"] || 0 },
-                { label: "14 Days", value: bioClicks["14d"] || 0 },
-                { label: "30 Days", value: bioClicks["30d"] || 0 },
-              ].map(({ label, value }) => (
+                { label: "Today", value: bioClicks.today || 0, days: 0, outerVal: 0, outerDays: 0 },
+                { label: "7 Days", value: bioClicks["7d"] || 0, days: 7, outerVal: bioClicks["14d"] || 0, outerDays: 14 },
+                { label: "14 Days", value: bioClicks["14d"] || 0, days: 14, outerVal: bioClicks["30d"] || 0, outerDays: 30 },
+                { label: "30 Days", value: bioClicks["30d"] || 0, days: 0, outerVal: 0, outerDays: 0 },
+              ].map(({ label, value, days, outerVal, outerDays }) => (
                 <Card key={label}>
                   <CardContent className="p-5 text-center">
                     <p className="text-xs font-medium text-muted-foreground mb-3 uppercase tracking-wider">{label}</p>
                     <p className="text-3xl font-bold text-primary">{value}</p>
-                    <p className="text-xs text-muted-foreground mt-1">clicks</p>
+                    <div className="flex items-center justify-center gap-1 mt-1">
+                      <p className="text-xs text-muted-foreground">clicks</p>
+                      {days > 0 && outerDays > 0 && <TrendBadge current={value} currentDays={days} outer={outerVal} outerDays={outerDays} />}
+                    </div>
                   </CardContent>
                 </Card>
               ))}
@@ -332,8 +363,8 @@ const AdminList = () => {
                       <p className="text-3xl font-bold text-primary">{c.total}</p>
                       <div className="grid grid-cols-2 gap-x-3 gap-y-1 text-xs text-muted-foreground mt-2">
                         <div>Today: <span className="font-semibold text-primary">{c.today}</span></div>
-                        <div>7d: <span className="font-semibold text-primary">{c["7d"]}</span></div>
-                        <div>14d: <span className="font-semibold text-primary">{c["14d"]}</span></div>
+                        <div className="flex items-center gap-1">7d: <span className="font-semibold text-primary">{c["7d"]}</span> <TrendBadge current={c["7d"]} currentDays={7} outer={c["14d"]} outerDays={14} /></div>
+                        <div className="flex items-center gap-1">14d: <span className="font-semibold text-primary">{c["14d"]}</span> <TrendBadge current={c["14d"]} currentDays={14} outer={c["30d"]} outerDays={30} /></div>
                         <div>30d: <span className="font-semibold text-primary">{c["30d"]}</span></div>
                       </div>
                     </CardContent>
@@ -361,8 +392,8 @@ const AdminList = () => {
                       <p className="text-sm font-medium text-foreground mb-3 line-clamp-2">{title}</p>
                       <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-xs text-muted-foreground">
                         <div>Today: <span className="font-semibold text-primary">{c.today}</span></div>
-                        <div>7 Days: <span className="font-semibold text-primary">{c["7d"]}</span></div>
-                        <div>14 Days: <span className="font-semibold text-primary">{c["14d"]}</span></div>
+                        <div className="flex items-center gap-1">7 Days: <span className="font-semibold text-primary">{c["7d"]}</span> <TrendBadge current={c["7d"]} currentDays={7} outer={c["14d"]} outerDays={14} /></div>
+                        <div className="flex items-center gap-1">14 Days: <span className="font-semibold text-primary">{c["14d"]}</span> <TrendBadge current={c["14d"]} currentDays={14} outer={c["30d"]} outerDays={30} /></div>
                         <div>30 Days: <span className="font-semibold text-primary">{c["30d"]}</span></div>
                       </div>
                     </CardContent>
