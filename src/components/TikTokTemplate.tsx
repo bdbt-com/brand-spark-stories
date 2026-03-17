@@ -1240,6 +1240,18 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
                   PEPPER
                 </span>
               </>
+            ) : templateIndex === 90 ? (
+              <>
+                <span className="text-white/90 block text-2xl tracking-wider">
+                  BDBT PODCAST 72
+                </span>
+                <span className="block mt-3 text-white">
+                  DO REVERSE LUNGES
+                </span>
+                <span className="block mt-1" style={{ color: 'hsl(35, 45%, 75%)' }}>
+                  WHILE WATCHING TV
+                </span>
+              </>
             ) : null}
           </h1>
         </div>
