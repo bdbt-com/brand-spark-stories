@@ -1,22 +1,20 @@
 
 
-# Replace "BDBT Explained" video with "Why Most People Invest Completely Wrong"
+# Add "Today vs Recent Average" Trend Badges
 
-Replace the `TY1nkJsQtyw` ("BDBT Explained") video entry with `bv27Bn6qWIo` ("Why Most People Invest Completely Wrong") across all 3 pages that display the video trio, plus the admin mapping.
+For "today" stats, we can't compare to yesterday (no data). Instead, compare today's count to the **average daily rate from the 7d period** (excluding today). This gives a "today vs your recent daily average" comparison.
 
-## Changes
+## New helper: `calcTodayTrend(today, sevenDay)`
+- `recentDailyAvg = (sevenDay - today) / 6` (prior 6 days excluding today)
+- If avg is 0 → flat. Otherwise `pct = ((today - avg) / avg) * 100`
 
-### 1. `src/pages/Home.tsx` (line 17)
-Replace `TY1nkJsQtyw` / "BDBT Explained" / "5.7K views" with `bv27Bn6qWIo` / "Why Most People Invest Completely Wrong" / new view count
+## 3 locations in `src/pages/AdminList.tsx`:
 
-### 2. `src/pages/Blueprint.tsx` (line 14)
-Same replacement in the podcastEpisodes array
+1. **Today's Visitors** (~line 229): Add `TrendBadge`-style indicator comparing `analytics.today.visitors` vs `analytics["7d"].visitors`
 
-### 3. `src/pages/LinkInBio.tsx` (line 9)
-Same replacement in the episodes array
+2. **Today's /bio clicks** (~line 230): Add trend comparing `bioClicks.today` vs `bioClicks["7d"]`
 
-### 4. `src/pages/AdminList.tsx` (line 9)
-Replace the `TY1nkJsQtyw: "BDBT Explained"` mapping with `bv27Bn6qWIo: "Why Most People Invest Completely Wrong"`
+3. **Today's Auto-Redirects** (~line 330): Add trend comparing `ar.today` vs `ar["7d"]`
 
-4 files, 1 line each. No other changes.
+All use the same `calcTodayTrend` helper and render the same green/red badge style. One file, ~15 lines of new code.
 
