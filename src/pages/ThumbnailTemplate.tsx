@@ -653,7 +653,8 @@ const ThumbnailTemplate = () => {
      { id: 86, name: "Podcast 68 Wait 30 Days Before Any Status Spend", title: "Wait 30 Days Before Any Status Spend", subtitle: "", image: "" },
      { id: 87, name: "Podcast 69 Hug Daily", title: "Hug Daily", subtitle: "", image: "" },
      { id: 88, name: "Podcast 70 Your 5 Minute Daily Reset", title: "Your 5 Minute Daily Reset", subtitle: "", image: "" },
-     { id: 89, name: "Podcast 71 Drink Warm Lemon Water and Cayenne Pepper", title: "Drink Warm Lemon Water and Cayenne Pepper", subtitle: "", image: "" }
+     { id: 89, name: "Podcast 71 Drink Warm Lemon Water and Cayenne Pepper", title: "Drink Warm Lemon Water and Cayenne Pepper", subtitle: "", image: "" },
+     { id: 90, name: "Podcast 72 Do Reverse Lunges While Watching TV", title: "Do Reverse Lunges While Watching TV", subtitle: "", image: "" }
   ];
 
   const phrases = [
