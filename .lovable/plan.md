@@ -1,22 +1,32 @@
 
 
-# Replace "BDBT Explained" video with "Why Most People Invest Completely Wrong"
+# Add % Change Indicators to Admin Dashboard Stats
 
-Replace the `TY1nkJsQtyw` ("BDBT Explained") video entry with `bv27Bn6qWIo` ("Why Most People Invest Completely Wrong") across all 3 pages that display the video trio, plus the admin mapping.
+All calculations done **client-side** using existing data — no backend changes needed.
 
-## Changes
+## Approach
 
-### 1. `src/pages/Home.tsx` (line 17)
-Replace `TY1nkJsQtyw` / "BDBT Explained" / "5.7K views" with `bv27Bn6qWIo` / "Why Most People Invest Completely Wrong" / new view count
+Compare the "daily rate" of each period against the next-longer period to derive a trend. For example:
+- **7d**: `(7d_count / 7)` vs `((14d_count - 7d_count) / 7)` → "this week vs last week"
+- **14d**: `(14d_count / 14)` vs `((30d_count - 14d_count) / 16)` → "these 2 weeks vs prior 16 days"
+- **30d**: `(30d_count / 30)` vs `((since_launch_count - 30d_count) / remaining_days)` (where applicable)
+- **Today / Since Launch**: no comparison shown (no prior reference)
 
-### 2. `src/pages/Blueprint.tsx` (line 14)
-Same replacement in the podcastEpisodes array
+Green ↑ for positive, red ↓ for negative, gray "—" for no data or zero baseline.
 
-### 3. `src/pages/LinkInBio.tsx` (line 9)
-Same replacement in the episodes array
+## Changes — `src/pages/AdminList.tsx` only
 
-### 4. `src/pages/AdminList.tsx` (line 9)
-Replace the `TY1nkJsQtyw: "BDBT Explained"` mapping with `bv27Bn6qWIo: "Why Most People Invest Completely Wrong"`
+1. **Add a helper function** `calcPctChange(current, currentDays, prior, priorDays)` that returns a `{ pct: number, direction: 'up' | 'down' | 'flat' }` object.
 
-4 files, 1 line each. No other changes.
+2. **Add a small `TrendBadge` component** inline that renders e.g. `↑ 23%` in green or `↓ 12%` in red.
+
+3. **Page Analytics section** (lines 235–259): Below each visitor count, show the trend badge comparing daily visitor rate to the prior period.
+
+4. **Bio Link Clicks section** (lines 268–283): Same pattern — compare 7d vs prior-7d, 14d vs prior-16d, 30d vs remaining.
+
+5. **Bio Button Clicks section** (lines 321–343): Add trend badges next to the 7d/14d/30d sub-stats within each button card.
+
+6. **Video Clicks section** (lines 350–372): Add trend badges next to the 7d/14d/30d sub-stats for each video.
+
+No new dependencies, no backend changes. Pure UI addition.
 
