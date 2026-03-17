@@ -553,6 +553,13 @@ const ThumbnailTemplate = () => {
       title: "Drink Warm Lemon Water and Cayenne Pepper",
       subtitle: "Daily Wins Podcast 71",
       image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+    },
+    {
+      id: 76,
+      name: "Do Reverse Lunges While Watching TV",
+      title: "Do Reverse Lunges While Watching TV",
+      subtitle: "Daily Wins Podcast 72",
+      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
     }
   ];
 
