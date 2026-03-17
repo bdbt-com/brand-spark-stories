@@ -1,7 +1,31 @@
 import { useEffect, useState, useCallback } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { Loader2, Play, TrendingDown, BarChart3, Clock, MousePointerClick, ArrowRightLeft, UserPlus, Download, Activity } from "lucide-react";
+import { Loader2, Play, TrendingDown, TrendingUp, BarChart3, Clock, MousePointerClick, ArrowRightLeft, UserPlus, Download, Activity, Minus } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+
+// Calculate % change between current period rate and prior period rate
+function calcTrend(current: number, currentDays: number, outer: number, outerDays: number): { pct: number; direction: 'up' | 'down' | 'flat' } {
+  const prior = outer - current;
+  const priorDays = outerDays - currentDays;
+  if (priorDays <= 0 || prior <= 0) return { pct: 0, direction: 'flat' };
+  const currentRate = current / currentDays;
+  const priorRate = prior / priorDays;
+  const pct = Math.round(((currentRate - priorRate) / priorRate) * 100);
+  if (pct === 0) return { pct: 0, direction: 'flat' };
+  return { pct: Math.abs(pct), direction: pct > 0 ? 'up' : 'down' };
+}
+
+function TrendBadge({ current, currentDays, outer, outerDays }: { current: number; currentDays: number; outer: number; outerDays: number }) {
+  const { pct, direction } = calcTrend(current, currentDays, outer, outerDays);
+  if (direction === 'flat') return <span className="inline-flex items-center gap-0.5 text-[10px] text-muted-foreground"><Minus className="w-2.5 h-2.5" />—</span>;
+  const isUp = direction === 'up';
+  return (
+    <span className={`inline-flex items-center gap-0.5 text-[10px] font-semibold ${isUp ? 'text-green-500' : 'text-red-500'}`}>
+      {isUp ? <TrendingUp className="w-2.5 h-2.5" /> : <TrendingDown className="w-2.5 h-2.5" />}
+      {pct}%
+    </span>
+  );
+}
 
 const VIDEO_MAP: Record<string, string> = {
   ERXXO8mG5IY: "Why 70% of People Are Dehydrated",
