@@ -197,7 +197,8 @@ export const guideMapping: Record<string, string> = {
   "Learn to Do the Splits": "https://drive.google.com/uc?export=download&id=1VGqODPkmKFdckv64Q2OgCSfH7Pz9CVbB",
   "Your Daily Greens": "https://drive.google.com/uc?export=download&id=1MTn7Z9HIKuazsXGW66UHAdwi-Ca4r5P6",
   "Add Legumes to a Meal Once a Week": "https://drive.google.com/uc?export=download&id=1b1V7aanyasWKvF545MawJdWA3-p7uhSW",
-  "Audit Your Insurance Policies Annually": "https://drive.google.com/uc?export=download&id=1K-MRJgozem2wI7fw_TslfHYbj6I8Xjm3"
+  "Audit Your Insurance Policies Annually": "https://drive.google.com/uc?export=download&id=1K-MRJgozem2wI7fw_TslfHYbj6I8Xjm3",
+  "Unsubscribe from paid streaming services": "https://drive.google.com/uc?export=download&id=1W_vFiEDC6mFMyqoNo3dqFQ6IjNuPIUt-"
 };
 
 // Helper function to get guide URL by tip title

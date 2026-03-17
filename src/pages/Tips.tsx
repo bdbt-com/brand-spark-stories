@@ -2267,6 +2267,22 @@ const Tips = () => {
       views: 0,
       dateAdded: "2026-03-01"
     },
+    {
+      icon: XCircle,
+      title: "Unsubscribe from paid streaming services",
+      description: "Cut unused subscriptions to save money and reclaim your time.",
+      items: [
+        "Health: Less screen time means more time for movement and sleep",
+        "Wealth: Cancelling even 2-3 services can save £20-£40+ per month",
+        "Happiness: Breaking the binge cycle frees time for meaningful activities"
+      ],
+      level: "Easy",
+      duration: "3 min read",
+      category: "finance",
+      popularity: 38,
+      views: 0,
+      dateAdded: "2026-03-17"
+    },
   ];
 
   const sortedAndFilteredTips = useMemo(() => {

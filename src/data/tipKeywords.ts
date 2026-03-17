@@ -577,6 +577,9 @@ export const tipKeywordMap: Record<string, string> = {
   "INSURANCE": "Audit Your Insurance Policies Annually",
   "insurance": "Audit Your Insurance Policies Annually",
   "Insurance": "Audit Your Insurance Policies Annually",
+  "unsubscribe": "Unsubscribe from paid streaming services",
+  "Unsubscribe": "Unsubscribe from paid streaming services",
+  "UNSUBSCRIBE": "Unsubscribe from paid streaming services",
 };
 
 // Export reverse map for reference (title to keywords)
