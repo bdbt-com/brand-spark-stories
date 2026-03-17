@@ -1,22 +1,14 @@
 
 
-# Replace "BDBT Explained" video with "Why Most People Invest Completely Wrong"
+# Make Bio Button Clicks show Today's count as the big number
 
-Replace the `TY1nkJsQtyw` ("BDBT Explained") video entry with `bv27Bn6qWIo` ("Why Most People Invest Completely Wrong") across all 3 pages that display the video trio, plus the admin mapping.
+Currently the big number shows `c.total`. Change it to show `c.today`, and add the 7d/14d/30d stats underneath (same as now, just removing the "Today" sub-stat since it's now the hero number).
 
-## Changes
+## Change — `src/pages/AdminList.tsx` (lines 362-369)
 
-### 1. `src/pages/Home.tsx` (line 17)
-Replace `TY1nkJsQtyw` / "BDBT Explained" / "5.7K views" with `bv27Bn6qWIo` / "Why Most People Invest Completely Wrong" / new view count
+In the Bio Button Clicks card:
+- **Line 363**: Change `{c.total}` → `{c.today}`
+- **Lines 364-369**: Remove the "Today" sub-item from the 2x2 grid, replace with 7d / 14d / 30d in a 3-column layout (keeping trend badges on 7d and 14d).
 
-### 2. `src/pages/Blueprint.tsx` (line 14)
-Same replacement in the podcastEpisodes array
-
-### 3. `src/pages/LinkInBio.tsx` (line 9)
-Same replacement in the episodes array
-
-### 4. `src/pages/AdminList.tsx` (line 9)
-Replace the `TY1nkJsQtyw: "BDBT Explained"` mapping with `bv27Bn6qWIo: "Why Most People Invest Completely Wrong"`
-
-4 files, 1 line each. No other changes.
+Result: Big number = today's count, with 7d/14d/30d underneath — matching the screenshot reference.
 
