@@ -661,7 +661,8 @@ const ThumbnailTemplate = () => {
      { id: 87, name: "Podcast 69 Hug Daily", title: "Hug Daily", subtitle: "", image: "" },
      { id: 88, name: "Podcast 70 Your 5 Minute Daily Reset", title: "Your 5 Minute Daily Reset", subtitle: "", image: "" },
      { id: 89, name: "Podcast 71 Drink Warm Lemon Water and Cayenne Pepper", title: "Drink Warm Lemon Water and Cayenne Pepper", subtitle: "", image: "" },
-     { id: 90, name: "Podcast 72 Do Reverse Lunges While Watching TV", title: "Do Reverse Lunges While Watching TV", subtitle: "", image: "" }
+     { id: 90, name: "Podcast 72 Do Reverse Lunges While Watching TV", title: "Do Reverse Lunges While Watching TV", subtitle: "", image: "" },
+     { id: 91, name: "Podcast 73 Don't Upgrade Your Lifestyle with Every Pay Rise", title: "Don't Upgrade Your Lifestyle with Every Pay Rise", subtitle: "", image: "" }
   ];
 
   const phrases = [
