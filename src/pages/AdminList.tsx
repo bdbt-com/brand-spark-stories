@@ -299,7 +299,7 @@ const AdminList = () => {
                       <p className="text-3xl font-bold text-primary">{period?.visitors || 0}</p>
                       <div className="flex items-center justify-center gap-1 mb-2">
                         <p className="text-xs text-muted-foreground">visitors</p>
-                        {outer && days > 0 && <TrendBadge current={period?.visitors || 0} currentDays={days} outer={outer.visitors || 0} outerDays={outerDays} />}
+                        {outer && days > 0 && <TrendBadge current={liveVal} currentDays={days} outer={outerLiveVal} outerDays={outerDays} />}
                       </div>
                       <div className="flex items-center justify-center gap-1 text-muted-foreground">
                         <Clock className="w-3 h-3" />
