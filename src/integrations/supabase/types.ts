@@ -215,6 +215,13 @@ export type Database = {
         Args: { guide_id: number; valid_seconds?: number }
         Returns: string
       }
+      get_visitor_stats: {
+        Args: { since_ts: string }
+        Returns: {
+          avg_duration: number
+          unique_visitors: number
+        }[]
+      }
       http: {
         Args: { request: Database["public"]["CompositeTypes"]["http_request"] }
         Returns: Database["public"]["CompositeTypes"]["http_response"]
