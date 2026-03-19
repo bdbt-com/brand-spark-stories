@@ -76,6 +76,7 @@ Deno.serve(async (req) => {
       results[key] = {
         visitors: combinedVisitors,
         avg_duration: combinedAvg,
+        live_visitors: liveVisitors,
       };
     }
 

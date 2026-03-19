@@ -61,6 +61,7 @@ const VIDEO_MAP: Record<string, string> = {
 interface AnalyticsPeriod {
   visitors: number;
   avg_duration: number;
+  live_visitors?: number;
 }
 
 interface Subscriber {
@@ -248,7 +249,7 @@ const AdminList = () => {
                      <Card className="border-primary/30 bg-primary/5">
                       <CardContent className="p-5 text-center">
                         <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">Visitors</p>
-                        <p className="text-3xl font-bold text-primary inline-flex items-center gap-2 justify-center">{today?.visitors || 0} <TodayTrendBadge today={today?.visitors || 0} sevenDay={analytics["7d"]?.visitors || 0} /></p>
+                        <p className="text-3xl font-bold text-primary inline-flex items-center gap-2 justify-center">{today?.visitors || 0} <TodayTrendBadge today={today?.live_visitors ?? today?.visitors ?? 0} sevenDay={analytics["7d"]?.live_visitors ?? analytics["7d"]?.visitors ?? 0} /></p>
                         <p className="text-xs text-muted-foreground mt-1 inline-flex items-center gap-1 justify-center">/bio clicks: {bioClicks.today || 0} <TodayTrendBadge today={bioClicks.today || 0} sevenDay={bioClicks["7d"] || 0} /></p>
                       </CardContent>
                     </Card>
@@ -288,6 +289,9 @@ const AdminList = () => {
                 const avgMins = period ? Math.floor(period.avg_duration / 60) : 0;
                 const avgSecs = period ? period.avg_duration % 60 : 0;
                 const outer = outerKey ? analytics[outerKey] : null;
+                // Use live-only data for trend calculations (baselines break nested-window math)
+                const liveVal = period?.live_visitors ?? 0;
+                const outerLiveVal = outer?.live_visitors ?? 0;
                 return (
                   <Card key={key}>
                     <CardContent className="p-5 text-center">
@@ -295,7 +299,7 @@ const AdminList = () => {
                       <p className="text-3xl font-bold text-primary">{period?.visitors || 0}</p>
                       <div className="flex items-center justify-center gap-1 mb-2">
                         <p className="text-xs text-muted-foreground">visitors</p>
-                        {outer && days > 0 && <TrendBadge current={period?.visitors || 0} currentDays={days} outer={outer.visitors || 0} outerDays={outerDays} />}
+                        {outer && days > 0 && <TrendBadge current={liveVal} currentDays={days} outer={outerLiveVal} outerDays={outerDays} />}
                       </div>
                       <div className="flex items-center justify-center gap-1 text-muted-foreground">
                         <Clock className="w-3 h-3" />
@@ -345,9 +349,9 @@ const AdminList = () => {
               <Play className="w-5 h-5 text-primary" /> Auto-Redirects
             </h2>
             {(() => {
-              const ar = videoCounts["auto-redirect"] || { total: 0, today: 0, "7d": 0, "14d": 0, "30d": 0 };
-              const launchDays = Math.round((Date.now() - new Date("2024-12-28").getTime()) / 86400000);
-              return (
+               const ar = videoCounts["auto-redirect"] || { total: 0, today: 0, "7d": 0, "14d": 0, "30d": 0 };
+               const trackingDays = Math.max(1, Math.round((Date.now() - new Date("2026-03-04").getTime()) / 86400000));
+               return (
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   <Card>
                     <CardContent className="p-5 text-center">
@@ -382,7 +386,7 @@ const AdminList = () => {
                       <p className="text-3xl font-bold text-primary">{ar["30d"]}</p>
                       <div className="flex items-center justify-center gap-1 mt-1">
                         <p className="text-xs text-muted-foreground">redirects</p>
-                        <TrendBadge current={ar["30d"]} currentDays={30} outer={ar.total} outerDays={launchDays} />
+                        {trackingDays > 30 && <TrendBadge current={ar["30d"]} currentDays={30} outer={ar.total} outerDays={trackingDays} />}
                       </div>
                     </CardContent>
                   </Card>
@@ -409,7 +413,7 @@ const AdminList = () => {
                       <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">{label}</p>
                       <p className="text-3xl font-bold text-primary inline-flex items-center gap-2 justify-center">{c.today} <TodayTrendBadge today={c.today} sevenDay={c["7d"]} /></p>
                       <p className="text-[10px] text-muted-foreground mb-1">today</p>
-                      {(() => { const launchDays = Math.round((Date.now() - new Date("2024-12-28").getTime()) / 86400000); return (
+                      {(() => { const trackingDays = Math.max(1, Math.round((Date.now() - new Date("2026-03-04").getTime()) / 86400000)); return (
                       <div className="grid grid-cols-3 gap-x-2 text-xs text-muted-foreground mt-2">
                         <div className="flex flex-col items-center gap-0.5">
                           <span className="font-semibold text-primary">{c["7d"]}</span>
@@ -421,7 +425,7 @@ const AdminList = () => {
                         </div>
                         <div className="flex flex-col items-center gap-0.5">
                           <span className="font-semibold text-primary">{c["30d"]}</span>
-                          <span className="flex items-center gap-0.5">30d <TrendBadge current={c["30d"]} currentDays={30} outer={c.total} outerDays={launchDays} /></span>
+                          <span className="flex items-center gap-0.5">30d {trackingDays > 30 && <TrendBadge current={c["30d"]} currentDays={30} outer={c.total} outerDays={trackingDays} />}</span>
                         </div>
                       </div>
                       ); })()}
@@ -439,7 +443,7 @@ const AdminList = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {Object.entries(VIDEO_MAP).map(([videoId, title]) => {
                 const c = videoCounts[videoId] || { total: 0, today: 0, "7d": 0, "14d": 0, "30d": 0 };
-                const launchDays = Math.round((Date.now() - new Date("2024-12-28").getTime()) / 86400000);
+                const launchDaysTracking = Math.max(1, Math.round((Date.now() - new Date("2026-03-04").getTime()) / 86400000));
                 return (
                   <Card key={videoId}>
                     <CardContent className="p-5 text-center">
@@ -462,7 +466,7 @@ const AdminList = () => {
                         </div>
                         <div className="flex flex-col items-center gap-0.5">
                           <span className="font-semibold text-primary">{c["30d"]}</span>
-                          <span className="flex items-center gap-0.5">30d <TrendBadge current={c["30d"]} currentDays={30} outer={c.total} outerDays={launchDays} /></span>
+                          <span className="flex items-center gap-0.5">30d {launchDaysTracking > 30 && <TrendBadge current={c["30d"]} currentDays={30} outer={c.total} outerDays={launchDaysTracking} />}</span>
                         </div>
                       </div>
                     </CardContent>
