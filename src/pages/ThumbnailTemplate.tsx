@@ -567,6 +567,13 @@ const ThumbnailTemplate = () => {
       title: "Don't Upgrade Your Lifestyle with Every Pay Rise",
       subtitle: "Daily Wins Podcast 73",
       image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+    },
+    {
+      id: 78,
+      name: "Learn These Words: Body Composition",
+      title: "Learn These Words: Body Composition",
+      subtitle: "Daily Wins Podcast 74",
+      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
     }
   ];
 
@@ -662,7 +669,8 @@ const ThumbnailTemplate = () => {
      { id: 88, name: "Podcast 70 Your 5 Minute Daily Reset", title: "Your 5 Minute Daily Reset", subtitle: "", image: "" },
      { id: 89, name: "Podcast 71 Drink Warm Lemon Water and Cayenne Pepper", title: "Drink Warm Lemon Water and Cayenne Pepper", subtitle: "", image: "" },
      { id: 90, name: "Podcast 72 Do Reverse Lunges While Watching TV", title: "Do Reverse Lunges While Watching TV", subtitle: "", image: "" },
-     { id: 91, name: "Podcast 73 Don't Upgrade Your Lifestyle with Every Pay Rise", title: "Don't Upgrade Your Lifestyle with Every Pay Rise", subtitle: "", image: "" }
+     { id: 91, name: "Podcast 73 Don't Upgrade Your Lifestyle with Every Pay Rise", title: "Don't Upgrade Your Lifestyle with Every Pay Rise", subtitle: "", image: "" },
+     { id: 92, name: "Podcast 74 Learn These Words: Body Composition", title: "Learn These Words: Body Composition", subtitle: "", image: "" }
   ];
 
   const phrases = [
@@ -1567,6 +1575,12 @@ const ThumbnailTemplate = () => {
         {currentTemplateIndex === 91 && mode === 'instagram' && (
           <div className="relative">
             <TikTokTemplate templateIndex={91} />
+          </div>
+        )}
+        {/* Template 92 - Podcast 74 Learn These Words: Body Composition */}
+        {currentTemplateIndex === 92 && mode === 'instagram' && (
+          <div className="relative">
+            <TikTokTemplate templateIndex={92} />
           </div>
         )}
         {/* Template 5 - Healthy Snacks */}
@@ -3984,6 +3998,30 @@ const ThumbnailTemplate = () => {
                     <span className="block" style={{ color: 'hsl(35, 45%, 75%)' }}>Every Pay Rise</span>
                   </h1>
                   <p className="text-white/80 text-3xl font-medium">Daily Wins Podcast 73</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+        {/* Template 78 - Podcast 74 Learn These Words: Body Composition (YouTube) */}
+        {currentTemplateIndex === 78 && mode === 'youtube' && (
+          <div className="relative">
+            <div id="thumbnail-78" key="template-78" className="w-[1280px] h-[720px] relative overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
+              <div className="h-full flex items-center p-16 relative">
+                <div className="absolute right-16 top-16 bottom-16 flex items-center">
+                  <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
+                    <img src="/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png" alt="Podcast thumbnail" className="w-full h-full object-cover border-4 border-white/20" />
+                    <div className="absolute bottom-4 left-4">
+                      <img src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" alt="BDBT Logo" className="h-16 opacity-90" />
+                    </div>
+                  </div>
+                </div>
+                <div className="absolute left-8 top-16 bottom-24 right-[35%] pr-4 z-10 flex flex-col justify-center">
+                  <h1 className="text-6xl xl:text-7xl 2xl:text-8xl font-bold leading-tight mb-6">
+                    <span className="text-white block mb-2">Learn These Words:</span>
+                    <span className="block" style={{ color: 'hsl(35, 45%, 75%)' }}>Body Composition</span>
+                  </h1>
+                  <p className="text-white/80 text-3xl font-medium">Daily Wins Podcast 74</p>
                 </div>
               </div>
             </div>
