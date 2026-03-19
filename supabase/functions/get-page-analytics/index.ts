@@ -46,10 +46,9 @@ Deno.serve(async (req) => {
     const results: Record<string, { visitors: number; avg_duration: number }> = {};
 
     for (const [key, since] of Object.entries(periods)) {
-      const { data, error } = await supabase
-        .from("page_views")
-        .select("session_id, duration_seconds")
-        .gte("entered_at", since);
+      const { data, error } = await supabase.rpc("get_visitor_stats", {
+        since_ts: since,
+      });
 
       if (error) {
         console.error(`Error fetching ${key}:`, error);
@@ -57,14 +56,9 @@ Deno.serve(async (req) => {
         continue;
       }
 
-      const rows = data || [];
-      const uniqueSessions = new Set(rows.map((r: any) => r.session_id));
-      const liveVisitors = uniqueSessions.size;
-      const totalDuration = rows.reduce(
-        (sum: number, r: any) => sum + (r.duration_seconds || 0),
-        0
-      );
-      const liveAvg = rows.length > 0 ? totalDuration / rows.length : 0;
+      const row = Array.isArray(data) ? data[0] : data;
+      const liveVisitors = Number(row?.unique_visitors || 0);
+      const liveAvg = Number(row?.avg_duration || 0);
 
       // For "today": apply date-aware baseline
       const todayDate = new Date().toISOString().split("T")[0];
