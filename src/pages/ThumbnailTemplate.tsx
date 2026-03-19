@@ -669,7 +669,8 @@ const ThumbnailTemplate = () => {
      { id: 88, name: "Podcast 70 Your 5 Minute Daily Reset", title: "Your 5 Minute Daily Reset", subtitle: "", image: "" },
      { id: 89, name: "Podcast 71 Drink Warm Lemon Water and Cayenne Pepper", title: "Drink Warm Lemon Water and Cayenne Pepper", subtitle: "", image: "" },
      { id: 90, name: "Podcast 72 Do Reverse Lunges While Watching TV", title: "Do Reverse Lunges While Watching TV", subtitle: "", image: "" },
-     { id: 91, name: "Podcast 73 Don't Upgrade Your Lifestyle with Every Pay Rise", title: "Don't Upgrade Your Lifestyle with Every Pay Rise", subtitle: "", image: "" }
+     { id: 91, name: "Podcast 73 Don't Upgrade Your Lifestyle with Every Pay Rise", title: "Don't Upgrade Your Lifestyle with Every Pay Rise", subtitle: "", image: "" },
+     { id: 92, name: "Podcast 74 Learn These Words: Body Composition", title: "Learn These Words: Body Composition", subtitle: "", image: "" }
   ];
 
   const phrases = [
