@@ -344,29 +344,51 @@ const AdminList = () => {
             <h2 className="text-xl font-bold text-foreground mb-4 flex items-center gap-2">
               <Play className="w-5 h-5 text-primary" /> Auto-Redirects
             </h2>
-            <div className="grid grid-cols-2 gap-4">
-              {(() => {
-                const ar = videoCounts["auto-redirect"] || { total: 0, today: 0, "7d": 0, "14d": 0, "30d": 0 };
-                return (
-                  <>
-                    <Card>
-                      <CardContent className="p-5 text-center">
-                        <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">Today</p>
-                        <p className="text-3xl font-bold text-primary inline-flex items-center gap-2 justify-center">{ar.today} <TodayTrendBadge today={ar.today} sevenDay={ar["7d"]} /></p>
-                        <p className="text-xs text-muted-foreground mt-1">redirects</p>
-                      </CardContent>
-                    </Card>
-                    <Card>
-                      <CardContent className="p-5 text-center">
-                        <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">Total</p>
-                        <p className="text-3xl font-bold text-primary">{ar.total}</p>
-                        <p className="text-xs text-muted-foreground mt-1">redirects</p>
-                      </CardContent>
-                    </Card>
-                  </>
-                );
-              })()}
-            </div>
+            {(() => {
+              const ar = videoCounts["auto-redirect"] || { total: 0, today: 0, "7d": 0, "14d": 0, "30d": 0 };
+              const launchDays = Math.round((Date.now() - new Date("2024-12-28").getTime()) / 86400000);
+              return (
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  <Card>
+                    <CardContent className="p-5 text-center">
+                      <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">Today</p>
+                      <p className="text-3xl font-bold text-primary inline-flex items-center gap-2 justify-center">{ar.today} <TodayTrendBadge today={ar.today} sevenDay={ar["7d"]} /></p>
+                      <p className="text-xs text-muted-foreground mt-1">redirects</p>
+                    </CardContent>
+                  </Card>
+                  <Card>
+                    <CardContent className="p-5 text-center">
+                      <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">7 Days</p>
+                      <p className="text-3xl font-bold text-primary">{ar["7d"]}</p>
+                      <div className="flex items-center justify-center gap-1 mt-1">
+                        <p className="text-xs text-muted-foreground">redirects</p>
+                        <TrendBadge current={ar["7d"]} currentDays={7} outer={ar["14d"]} outerDays={14} />
+                      </div>
+                    </CardContent>
+                  </Card>
+                  <Card>
+                    <CardContent className="p-5 text-center">
+                      <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">14 Days</p>
+                      <p className="text-3xl font-bold text-primary">{ar["14d"]}</p>
+                      <div className="flex items-center justify-center gap-1 mt-1">
+                        <p className="text-xs text-muted-foreground">redirects</p>
+                        <TrendBadge current={ar["14d"]} currentDays={14} outer={ar["30d"]} outerDays={30} />
+                      </div>
+                    </CardContent>
+                  </Card>
+                  <Card>
+                    <CardContent className="p-5 text-center">
+                      <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">30 Days</p>
+                      <p className="text-3xl font-bold text-primary">{ar["30d"]}</p>
+                      <div className="flex items-center justify-center gap-1 mt-1">
+                        <p className="text-xs text-muted-foreground">redirects</p>
+                        <TrendBadge current={ar["30d"]} currentDays={30} outer={ar.total} outerDays={launchDays} />
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+              );
+            })()}
           </section>
 
           {/* Bio Button Clicks */}
