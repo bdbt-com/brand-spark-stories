@@ -281,7 +281,7 @@ const AdminList = () => {
               {[
                 { key: "7d", label: "Last 7 Days", days: 7, outerKey: "14d", outerDays: 14 },
                 { key: "14d", label: "Last 14 Days", days: 14, outerKey: "30d", outerDays: 30 },
-                { key: "30d", label: "Last 30 Days", days: 30, outerKey: null, outerDays: 0 },
+                { key: "30d", label: "Last 30 Days", days: 30, outerKey: "since_launch", outerDays: Math.round((Date.now() - new Date("2024-12-28").getTime()) / 86400000) },
                 { key: "since_launch", label: "Since Launch", days: 0, outerKey: null, outerDays: 0 },
               ].map(({ key, label, days, outerKey, outerDays }) => {
                 const period = analytics[key];
