@@ -349,9 +349,9 @@ const AdminList = () => {
               <Play className="w-5 h-5 text-primary" /> Auto-Redirects
             </h2>
             {(() => {
-              const ar = videoCounts["auto-redirect"] || { total: 0, today: 0, "7d": 0, "14d": 0, "30d": 0 };
-              const launchDays = Math.round((Date.now() - new Date("2024-12-28").getTime()) / 86400000);
-              return (
+               const ar = videoCounts["auto-redirect"] || { total: 0, today: 0, "7d": 0, "14d": 0, "30d": 0 };
+               const trackingDays = Math.max(1, Math.round((Date.now() - new Date("2026-03-04").getTime()) / 86400000));
+               return (
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   <Card>
                     <CardContent className="p-5 text-center">
@@ -386,7 +386,7 @@ const AdminList = () => {
                       <p className="text-3xl font-bold text-primary">{ar["30d"]}</p>
                       <div className="flex items-center justify-center gap-1 mt-1">
                         <p className="text-xs text-muted-foreground">redirects</p>
-                        <TrendBadge current={ar["30d"]} currentDays={30} outer={ar.total} outerDays={launchDays} />
+                        {trackingDays > 30 && <TrendBadge current={ar["30d"]} currentDays={30} outer={ar.total} outerDays={trackingDays} />}
                       </div>
                     </CardContent>
                   </Card>
