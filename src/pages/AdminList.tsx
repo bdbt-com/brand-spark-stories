@@ -289,6 +289,9 @@ const AdminList = () => {
                 const avgMins = period ? Math.floor(period.avg_duration / 60) : 0;
                 const avgSecs = period ? period.avg_duration % 60 : 0;
                 const outer = outerKey ? analytics[outerKey] : null;
+                // Use live-only data for trend calculations (baselines break nested-window math)
+                const liveVal = period?.live_visitors ?? 0;
+                const outerLiveVal = outer?.live_visitors ?? 0;
                 return (
                   <Card key={key}>
                     <CardContent className="p-5 text-center">
