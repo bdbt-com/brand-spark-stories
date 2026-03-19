@@ -443,7 +443,7 @@ const AdminList = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {Object.entries(VIDEO_MAP).map(([videoId, title]) => {
                 const c = videoCounts[videoId] || { total: 0, today: 0, "7d": 0, "14d": 0, "30d": 0 };
-                const launchDays = Math.round((Date.now() - new Date("2024-12-28").getTime()) / 86400000);
+                const launchDaysTracking = Math.max(1, Math.round((Date.now() - new Date("2026-03-04").getTime()) / 86400000));
                 return (
                   <Card key={videoId}>
                     <CardContent className="p-5 text-center">
@@ -466,7 +466,7 @@ const AdminList = () => {
                         </div>
                         <div className="flex flex-col items-center gap-0.5">
                           <span className="font-semibold text-primary">{c["30d"]}</span>
-                          <span className="flex items-center gap-0.5">30d <TrendBadge current={c["30d"]} currentDays={30} outer={c.total} outerDays={launchDays} /></span>
+                          <span className="flex items-center gap-0.5">30d {launchDaysTracking > 30 && <TrendBadge current={c["30d"]} currentDays={30} outer={c.total} outerDays={launchDaysTracking} />}</span>
                         </div>
                       </div>
                     </CardContent>
