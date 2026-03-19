@@ -110,12 +110,12 @@ const AITipFinder = ({ tips, onTipHighlight }: AITipFinderProps) => {
           const element = document.querySelector(`[data-tip-title="${tipTitle}"]`);
           if (element) {
             element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          } else if (attempts < 5) {
-            setTimeout(() => scrollToTip(attempts + 1), 200);
+          } else if (attempts < 30) {
+            setTimeout(() => scrollToTip(attempts + 1), 300);
           }
         };
         
-        setTimeout(scrollToTip, 300);
+        setTimeout(scrollToTip, 100);
         
         toast({
           title: "Tip Found!",
