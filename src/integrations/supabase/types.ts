@@ -202,6 +202,13 @@ export type Database = {
     Functions: {
       bytea_to_text: { Args: { data: string }; Returns: string }
       generate_signed_urls: { Args: never; Returns: undefined }
+      get_download_counts_by_guide: {
+        Args: never
+        Returns: {
+          download_count: number
+          guide_title: string
+        }[]
+      }
       get_guide_signed_url:
         | {
             Args: { guide_id: number; valid_seconds?: number }
@@ -214,6 +221,17 @@ export type Database = {
       get_guide_signed_url_int: {
         Args: { guide_id: number; valid_seconds?: number }
         Returns: string
+      }
+      get_video_click_counts: {
+        Args: never
+        Returns: {
+          d14: number
+          d30: number
+          d7: number
+          today: number
+          total: number
+          video_id: string
+        }[]
       }
       get_visitor_stats: {
         Args: { since_ts: string }
