@@ -413,7 +413,7 @@ const AdminList = () => {
                       <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">{label}</p>
                       <p className="text-3xl font-bold text-primary inline-flex items-center gap-2 justify-center">{c.today} <TodayTrendBadge today={c.today} sevenDay={c["7d"]} /></p>
                       <p className="text-[10px] text-muted-foreground mb-1">today</p>
-                      {(() => { const launchDays = Math.round((Date.now() - new Date("2024-12-28").getTime()) / 86400000); return (
+                      {(() => { const trackingDays = Math.max(1, Math.round((Date.now() - new Date("2026-03-04").getTime()) / 86400000)); return (
                       <div className="grid grid-cols-3 gap-x-2 text-xs text-muted-foreground mt-2">
                         <div className="flex flex-col items-center gap-0.5">
                           <span className="font-semibold text-primary">{c["7d"]}</span>
@@ -425,7 +425,7 @@ const AdminList = () => {
                         </div>
                         <div className="flex flex-col items-center gap-0.5">
                           <span className="font-semibold text-primary">{c["30d"]}</span>
-                          <span className="flex items-center gap-0.5">30d <TrendBadge current={c["30d"]} currentDays={30} outer={c.total} outerDays={launchDays} /></span>
+                          <span className="flex items-center gap-0.5">30d {trackingDays > 30 && <TrendBadge current={c["30d"]} currentDays={30} outer={c.total} outerDays={trackingDays} />}</span>
                         </div>
                       </div>
                       ); })()}
