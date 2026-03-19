@@ -281,7 +281,7 @@ const AdminList = () => {
               {[
                 { key: "7d", label: "Last 7 Days", days: 7, outerKey: "14d", outerDays: 14 },
                 { key: "14d", label: "Last 14 Days", days: 14, outerKey: "30d", outerDays: 30 },
-                { key: "30d", label: "Last 30 Days", days: 30, outerKey: null, outerDays: 0 },
+                { key: "30d", label: "Last 30 Days", days: 30, outerKey: "since_launch", outerDays: Math.round((Date.now() - new Date("2024-12-28").getTime()) / 86400000) },
                 { key: "since_launch", label: "Since Launch", days: 0, outerKey: null, outerDays: 0 },
               ].map(({ key, label, days, outerKey, outerDays }) => {
                 const period = analytics[key];
@@ -317,18 +317,21 @@ const AdminList = () => {
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {[
-                { label: "Today", value: bioClicks.today || 0, days: 0, outerVal: 0, outerDays: 0 },
-                { label: "7 Days", value: bioClicks["7d"] || 0, days: 7, outerVal: bioClicks["14d"] || 0, outerDays: 14 },
-                { label: "14 Days", value: bioClicks["14d"] || 0, days: 14, outerVal: bioClicks["30d"] || 0, outerDays: 30 },
-                { label: "30 Days", value: bioClicks["30d"] || 0, days: 0, outerVal: 0, outerDays: 0 },
-              ].map(({ label, value, days, outerVal, outerDays }) => (
+                { label: "Today", value: bioClicks.today || 0, isToday: true, sevenDay: bioClicks["7d"] || 0, days: 0, outerVal: 0, outerDays: 0 },
+                { label: "7 Days", value: bioClicks["7d"] || 0, isToday: false, sevenDay: 0, days: 7, outerVal: bioClicks["14d"] || 0, outerDays: 14 },
+                { label: "14 Days", value: bioClicks["14d"] || 0, isToday: false, sevenDay: 0, days: 14, outerVal: bioClicks["30d"] || 0, outerDays: 30 },
+                { label: "30 Days", value: bioClicks["30d"] || 0, isToday: false, sevenDay: 0, days: 30, outerVal: bioClicks["30d"] || 0, outerDays: 30 },
+              ].map(({ label, value, isToday, sevenDay, days, outerVal, outerDays }) => (
                 <Card key={label}>
                   <CardContent className="p-5 text-center">
                     <p className="text-xs font-medium text-muted-foreground mb-3 uppercase tracking-wider">{label}</p>
-                    <p className="text-3xl font-bold text-primary">{value}</p>
+                    <p className="text-3xl font-bold text-primary inline-flex items-center gap-2 justify-center">
+                      {value}
+                      {isToday && <TodayTrendBadge today={value} sevenDay={sevenDay} />}
+                    </p>
                     <div className="flex items-center justify-center gap-1 mt-1">
                       <p className="text-xs text-muted-foreground">clicks</p>
-                      {days > 0 && outerDays > 0 && <TrendBadge current={value} currentDays={days} outer={outerVal} outerDays={outerDays} />}
+                      {!isToday && days > 0 && outerDays > 0 && days < 30 && <TrendBadge current={value} currentDays={days} outer={outerVal} outerDays={outerDays} />}
                     </div>
                   </CardContent>
                 </Card>
@@ -341,29 +344,51 @@ const AdminList = () => {
             <h2 className="text-xl font-bold text-foreground mb-4 flex items-center gap-2">
               <Play className="w-5 h-5 text-primary" /> Auto-Redirects
             </h2>
-            <div className="grid grid-cols-2 gap-4">
-              {(() => {
-                const ar = videoCounts["auto-redirect"] || { total: 0, today: 0, "7d": 0, "14d": 0, "30d": 0 };
-                return (
-                  <>
-                    <Card>
-                      <CardContent className="p-5 text-center">
-                        <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">Today</p>
-                        <p className="text-3xl font-bold text-primary inline-flex items-center gap-2 justify-center">{ar.today} <TodayTrendBadge today={ar.today} sevenDay={ar["7d"]} /></p>
-                        <p className="text-xs text-muted-foreground mt-1">redirects</p>
-                      </CardContent>
-                    </Card>
-                    <Card>
-                      <CardContent className="p-5 text-center">
-                        <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">Total</p>
-                        <p className="text-3xl font-bold text-primary">{ar.total}</p>
-                        <p className="text-xs text-muted-foreground mt-1">redirects</p>
-                      </CardContent>
-                    </Card>
-                  </>
-                );
-              })()}
-            </div>
+            {(() => {
+              const ar = videoCounts["auto-redirect"] || { total: 0, today: 0, "7d": 0, "14d": 0, "30d": 0 };
+              const launchDays = Math.round((Date.now() - new Date("2024-12-28").getTime()) / 86400000);
+              return (
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  <Card>
+                    <CardContent className="p-5 text-center">
+                      <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">Today</p>
+                      <p className="text-3xl font-bold text-primary inline-flex items-center gap-2 justify-center">{ar.today} <TodayTrendBadge today={ar.today} sevenDay={ar["7d"]} /></p>
+                      <p className="text-xs text-muted-foreground mt-1">redirects</p>
+                    </CardContent>
+                  </Card>
+                  <Card>
+                    <CardContent className="p-5 text-center">
+                      <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">7 Days</p>
+                      <p className="text-3xl font-bold text-primary">{ar["7d"]}</p>
+                      <div className="flex items-center justify-center gap-1 mt-1">
+                        <p className="text-xs text-muted-foreground">redirects</p>
+                        <TrendBadge current={ar["7d"]} currentDays={7} outer={ar["14d"]} outerDays={14} />
+                      </div>
+                    </CardContent>
+                  </Card>
+                  <Card>
+                    <CardContent className="p-5 text-center">
+                      <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">14 Days</p>
+                      <p className="text-3xl font-bold text-primary">{ar["14d"]}</p>
+                      <div className="flex items-center justify-center gap-1 mt-1">
+                        <p className="text-xs text-muted-foreground">redirects</p>
+                        <TrendBadge current={ar["14d"]} currentDays={14} outer={ar["30d"]} outerDays={30} />
+                      </div>
+                    </CardContent>
+                  </Card>
+                  <Card>
+                    <CardContent className="p-5 text-center">
+                      <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">30 Days</p>
+                      <p className="text-3xl font-bold text-primary">{ar["30d"]}</p>
+                      <div className="flex items-center justify-center gap-1 mt-1">
+                        <p className="text-xs text-muted-foreground">redirects</p>
+                        <TrendBadge current={ar["30d"]} currentDays={30} outer={ar.total} outerDays={launchDays} />
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+              );
+            })()}
           </section>
 
           {/* Bio Button Clicks */}
@@ -382,8 +407,9 @@ const AdminList = () => {
                   <Card key={id}>
                     <CardContent className="p-5 text-center">
                       <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">{label}</p>
-                      <p className="text-3xl font-bold text-primary">{c.today}</p>
+                      <p className="text-3xl font-bold text-primary inline-flex items-center gap-2 justify-center">{c.today} <TodayTrendBadge today={c.today} sevenDay={c["7d"]} /></p>
                       <p className="text-[10px] text-muted-foreground mb-1">today</p>
+                      {(() => { const launchDays = Math.round((Date.now() - new Date("2024-12-28").getTime()) / 86400000); return (
                       <div className="grid grid-cols-3 gap-x-2 text-xs text-muted-foreground mt-2">
                         <div className="flex flex-col items-center gap-0.5">
                           <span className="font-semibold text-primary">{c["7d"]}</span>
@@ -395,9 +421,10 @@ const AdminList = () => {
                         </div>
                         <div className="flex flex-col items-center gap-0.5">
                           <span className="font-semibold text-primary">{c["30d"]}</span>
-                          <span>30d</span>
+                          <span className="flex items-center gap-0.5">30d <TrendBadge current={c["30d"]} currentDays={30} outer={c.total} outerDays={launchDays} /></span>
                         </div>
                       </div>
+                      ); })()}
                     </CardContent>
                   </Card>
                 );
@@ -412,6 +439,7 @@ const AdminList = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {Object.entries(VIDEO_MAP).map(([videoId, title]) => {
                 const c = videoCounts[videoId] || { total: 0, today: 0, "7d": 0, "14d": 0, "30d": 0 };
+                const launchDays = Math.round((Date.now() - new Date("2024-12-28").getTime()) / 86400000);
                 return (
                   <Card key={videoId}>
                     <CardContent className="p-5 text-center">
@@ -421,7 +449,7 @@ const AdminList = () => {
                         className="w-full aspect-video object-cover rounded-lg mb-3"
                       />
                       <p className="text-sm font-medium text-foreground mb-3 line-clamp-2">{title}</p>
-                      <p className="text-2xl font-bold text-primary">{c.today}</p>
+                      <p className="text-2xl font-bold text-primary inline-flex items-center gap-2 justify-center">{c.today} <TodayTrendBadge today={c.today} sevenDay={c["7d"]} /></p>
                       <p className="text-[10px] text-muted-foreground mb-1">today</p>
                       <div className="grid grid-cols-3 gap-x-2 text-xs text-muted-foreground mt-2">
                         <div className="flex flex-col items-center gap-0.5">
@@ -434,7 +462,7 @@ const AdminList = () => {
                         </div>
                         <div className="flex flex-col items-center gap-0.5">
                           <span className="font-semibold text-primary">{c["30d"]}</span>
-                          <span>30d</span>
+                          <span className="flex items-center gap-0.5">30d <TrendBadge current={c["30d"]} currentDays={30} outer={c.total} outerDays={launchDays} /></span>
                         </div>
                       </div>
                     </CardContent>

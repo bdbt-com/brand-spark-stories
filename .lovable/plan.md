@@ -1,30 +1,22 @@
 
 
-# Add trend indicators to all stat cards consistently
+# Replace "BDBT Explained" video with "Why Most People Invest Completely Wrong"
 
-## Current gaps
+Replace the `TY1nkJsQtyw` ("BDBT Explained") video entry with `bv27Bn6qWIo` ("Why Most People Invest Completely Wrong") across all 3 pages that display the video trio, plus the admin mapping.
 
-| Section | Today trend | 7d trend | 14d trend | 30d trend |
-|---------|------------|----------|-----------|-----------|
-| Page Analytics | ✅ (visitors) | ✅ | ✅ | ❌ missing |
-| Bio Link Clicks | ❌ missing | ✅ | ✅ | ❌ missing |
-| Auto-Redirects | ✅ | ❌ no 7d/14d/30d cards at all | — | — |
-| Bio Button Clicks | ❌ missing | ✅ | ✅ | ❌ missing |
-| Video Clicks | ❌ missing | ✅ | ✅ | ❌ missing |
+## Changes
 
-## Plan
+### 1. `src/pages/Home.tsx` (line 17)
+Replace `TY1nkJsQtyw` / "BDBT Explained" / "5.7K views" with `bv27Bn6qWIo` / "Why Most People Invest Completely Wrong" / new view count
 
-### 1. Auto-Redirects — expand to full 4-column layout
-Currently only shows "Today" and "Total". Change to match other sections: Today (with TodayTrendBadge), 7d, 14d, 30d — all with trend badges. The data already exists in `videoCounts["auto-redirect"]`.
+### 2. `src/pages/Blueprint.tsx` (line 14)
+Same replacement in the podcastEpisodes array
 
-### 2. Add TodayTrendBadge to all "today" hero numbers
-- Bio Button Clicks: each card's today number gets `TodayTrendBadge`
-- Video Clicks: each card's today number gets `TodayTrendBadge`
-- Bio Link Clicks: Today card gets `TodayTrendBadge`
+### 3. `src/pages/LinkInBio.tsx` (line 9)
+Same replacement in the episodes array
 
-### 3. Add 30d trend using since_launch as outer period
-For Page Analytics 30d: compare against since_launch as the outer period. For Bio Link Clicks 30d: no since_launch data available, so we skip (or show flat). For Bio Button / Video / Auto-Redirect 30d: the `total` count serves as the outer — use `total` with estimated total days since launch (~447 days since Dec 28 2024).
+### 4. `src/pages/AdminList.tsx` (line 9)
+Replace the `TY1nkJsQtyw: "BDBT Explained"` mapping with `bv27Bn6qWIo: "Why Most People Invest Completely Wrong"`
 
-### File changed
-- `src/pages/AdminList.tsx` — UI updates only, no backend changes needed
+4 files, 1 line each. No other changes.
 
