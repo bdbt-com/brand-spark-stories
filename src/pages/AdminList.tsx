@@ -407,8 +407,9 @@ const AdminList = () => {
                   <Card key={id}>
                     <CardContent className="p-5 text-center">
                       <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">{label}</p>
-                      <p className="text-3xl font-bold text-primary">{c.today}</p>
+                      <p className="text-3xl font-bold text-primary inline-flex items-center gap-2 justify-center">{c.today} <TodayTrendBadge today={c.today} sevenDay={c["7d"]} /></p>
                       <p className="text-[10px] text-muted-foreground mb-1">today</p>
+                      {(() => { const launchDays = Math.round((Date.now() - new Date("2024-12-28").getTime()) / 86400000); return (
                       <div className="grid grid-cols-3 gap-x-2 text-xs text-muted-foreground mt-2">
                         <div className="flex flex-col items-center gap-0.5">
                           <span className="font-semibold text-primary">{c["7d"]}</span>
@@ -420,9 +421,10 @@ const AdminList = () => {
                         </div>
                         <div className="flex flex-col items-center gap-0.5">
                           <span className="font-semibold text-primary">{c["30d"]}</span>
-                          <span>30d</span>
+                          <span className="flex items-center gap-0.5">30d <TrendBadge current={c["30d"]} currentDays={30} outer={c.total} outerDays={launchDays} /></span>
                         </div>
                       </div>
+                      ); })()}
                     </CardContent>
                   </Card>
                 );
@@ -437,6 +439,7 @@ const AdminList = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {Object.entries(VIDEO_MAP).map(([videoId, title]) => {
                 const c = videoCounts[videoId] || { total: 0, today: 0, "7d": 0, "14d": 0, "30d": 0 };
+                const launchDays = Math.round((Date.now() - new Date("2024-12-28").getTime()) / 86400000);
                 return (
                   <Card key={videoId}>
                     <CardContent className="p-5 text-center">
@@ -446,7 +449,7 @@ const AdminList = () => {
                         className="w-full aspect-video object-cover rounded-lg mb-3"
                       />
                       <p className="text-sm font-medium text-foreground mb-3 line-clamp-2">{title}</p>
-                      <p className="text-2xl font-bold text-primary">{c.today}</p>
+                      <p className="text-2xl font-bold text-primary inline-flex items-center gap-2 justify-center">{c.today} <TodayTrendBadge today={c.today} sevenDay={c["7d"]} /></p>
                       <p className="text-[10px] text-muted-foreground mb-1">today</p>
                       <div className="grid grid-cols-3 gap-x-2 text-xs text-muted-foreground mt-2">
                         <div className="flex flex-col items-center gap-0.5">
@@ -459,7 +462,7 @@ const AdminList = () => {
                         </div>
                         <div className="flex flex-col items-center gap-0.5">
                           <span className="font-semibold text-primary">{c["30d"]}</span>
-                          <span>30d</span>
+                          <span className="flex items-center gap-0.5">30d <TrendBadge current={c["30d"]} currentDays={30} outer={c.total} outerDays={launchDays} /></span>
                         </div>
                       </div>
                     </CardContent>
