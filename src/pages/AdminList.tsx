@@ -61,6 +61,7 @@ const VIDEO_MAP: Record<string, string> = {
 interface AnalyticsPeriod {
   visitors: number;
   avg_duration: number;
+  live_visitors?: number;
 }
 
 interface Subscriber {
