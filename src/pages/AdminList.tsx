@@ -249,7 +249,7 @@ const AdminList = () => {
                      <Card className="border-primary/30 bg-primary/5">
                       <CardContent className="p-5 text-center">
                         <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">Visitors</p>
-                        <p className="text-3xl font-bold text-primary inline-flex items-center gap-2 justify-center">{today?.visitors || 0} <TodayTrendBadge today={today?.visitors || 0} sevenDay={analytics["7d"]?.visitors || 0} /></p>
+                        <p className="text-3xl font-bold text-primary inline-flex items-center gap-2 justify-center">{today?.visitors || 0} <TodayTrendBadge today={today?.live_visitors ?? today?.visitors ?? 0} sevenDay={analytics["7d"]?.live_visitors ?? analytics["7d"]?.visitors ?? 0} /></p>
                         <p className="text-xs text-muted-foreground mt-1 inline-flex items-center gap-1 justify-center">/bio clicks: {bioClicks.today || 0} <TodayTrendBadge today={bioClicks.today || 0} sevenDay={bioClicks["7d"] || 0} /></p>
                       </CardContent>
                     </Card>
