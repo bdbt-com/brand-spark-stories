@@ -567,6 +567,13 @@ const ThumbnailTemplate = () => {
       title: "Don't Upgrade Your Lifestyle with Every Pay Rise",
       subtitle: "Daily Wins Podcast 73",
       image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+    },
+    {
+      id: 78,
+      name: "Learn These Words: Body Composition",
+      title: "Learn These Words: Body Composition",
+      subtitle: "Daily Wins Podcast 74",
+      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
     }
   ];
 
