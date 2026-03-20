@@ -1,46 +1,63 @@
 
 
-# Fix broken trend percentage calculations
+# Add All-Time Daily Line Graphs to Admin Dashboard
 
-## Root Causes
+## Overview
+Add three line graphs to the left side of the admin page (above the existing stat cards) showing daily counts since tracking began (March 4, 2026): **Page Analytics (visitors)**, **Bio Link Clicks**, and **Auto-Redirects**.
 
-### 1. Page Analytics: baselines break nested-window math
-The trend function assumes `14d_total - 7d_total = clicks from days 8-14`. But baselines add fixed historical numbers (7d: +528, 14d: +1300), so the subtraction produces `772 + actual_difference` — a meaningless number.
+## Data Source
 
-### 2. Video/Bio/Auto-redirect 30d: wrong outer period
-The 30d trend compares against `total / launchDays` where launchDays = 447. But tracking only started ~15 days ago, so `total` ≈ `30d`. The "prior" becomes near-zero over 400+ days, producing thousands-of-percent swings.
+### New DB function: `get_daily_stats`
+A single PostgreSQL function that returns three daily series in one query:
 
-## Fix
-
-### 1. Edge function: return live-only counts separately for Page Analytics
-Add a `live` object alongside the existing combined totals so the frontend can use clean data for trend math while still displaying the combined number.
-
-```ts
-// In get-page-analytics response:
-results[key] = {
-  visitors: combinedVisitors,      // display number (with baseline)
-  avg_duration: combinedAvg,
-  live_visitors: liveVisitors,     // NEW — for trend calculations
-};
+```sql
+CREATE OR REPLACE FUNCTION public.get_daily_stats()
+RETURNS TABLE(day date, visitors bigint, bio_clicks bigint, auto_redirects bigint)
+LANGUAGE sql STABLE SECURITY DEFINER SET search_path = public
+AS $$
+  SELECT 
+    d.day,
+    COALESCE(v.cnt, 0) AS visitors,
+    COALESCE(b.cnt, 0) AS bio_clicks,
+    COALESCE(a.cnt, 0) AS auto_redirects
+  FROM generate_series(
+    '2026-03-04'::date,
+    (now() AT TIME ZONE 'UTC')::date,
+    '1 day'
+  ) AS d(day)
+  LEFT JOIN (
+    SELECT entered_at::date AS day, COUNT(DISTINCT session_id)::bigint AS cnt
+    FROM page_views GROUP BY 1
+  ) v ON v.day = d.day
+  LEFT JOIN (
+    SELECT entered_at::date AS day, COUNT(*)::bigint AS cnt
+    FROM page_views WHERE page_path IN ('/bio', '/links') GROUP BY 1
+  ) b ON b.day = d.day
+  LEFT JOIN (
+    SELECT clicked_at::date AS day, COUNT(*)::bigint AS cnt
+    FROM video_clicks WHERE video_id = 'auto-redirect' GROUP BY 1
+  ) a ON a.day = d.day;
+$$;
 ```
 
-### 2. Frontend: use live-only data for Page Analytics trends
-`TrendBadge` for Page Analytics uses `live_visitors` instead of `visitors` for the trend math.
+### New edge function: `get-daily-stats`
+Simple wrapper that calls the RPC and returns the array.
 
-### 3. Frontend: fix 30d outer period for video/bio/auto-redirect
-Replace `launchDays` (~447) with actual tracking age (~15 days from March 4, 2026). Since `total` only contains data since tracking started, `outerDays` should reflect that.
+## Frontend Changes (`src/pages/AdminList.tsx`)
 
-```ts
-const TRACKING_START = new Date("2026-03-04");
-const trackingDays = Math.max(1, Math.round((Date.now() - TRACKING_START.getTime()) / 86400000));
-```
-
-Use `trackingDays` instead of `launchDays` for all 30d trend comparisons on video clicks, bio button clicks, and auto-redirects. If `trackingDays <= 30`, hide the 30d trend badge (not enough data for a meaningful comparison).
+- Import `LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer` from recharts
+- Add state `dailyStats` and fetch from `get-daily-stats` on mount (no polling — once per load is fine for historical graphs)
+- Render 3 line charts in a vertical stack above the "Today — Live" section, each in a Card with a title
+- X-axis: date (formatted as "Mar 5", "Mar 10", etc.)
+- Y-axis: count
+- Line color: primary theme color
+- Charts are responsive and compact (~200px height each)
 
 ### Files changed
 
 | File | Change |
 |------|--------|
-| `supabase/functions/get-page-analytics/index.ts` | Add `live_visitors` field to response |
-| `src/pages/AdminList.tsx` | Use `live_visitors` for Page Analytics trends; replace `launchDays` with `trackingDays` for video/bio/auto-redirect 30d; hide 30d badge when insufficient data |
+| Migration SQL | Create `get_daily_stats()` function |
+| `supabase/functions/get-daily-stats/index.ts` | New edge function calling the RPC |
+| `src/pages/AdminList.tsx` | Add recharts line graphs, new fetch + state |
 
