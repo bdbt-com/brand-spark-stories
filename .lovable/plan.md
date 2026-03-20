@@ -1,26 +1,37 @@
 
 
-# Add Time Range Filter to Daily Trend Graphs
+# Inline Graphs with Their Corresponding Stat Sections
 
-## Change
+## Problem
+All three graphs are stacked in a separate left sidebar column, disconnected from the stats they represent.
 
-Add a row of 4 toggle buttons (7d, 14d, 30d, All Time) below the three line graphs in the left sidebar (and mobile view). Clicking a button filters the `dailyStats` array to show only that time range.
+## Fix
+Remove the dedicated left sidebar column. Instead, place each graph inline next to its corresponding stat section using a two-column row layout per section:
 
-## Implementation
+```text
+┌──────────────┬────────────────────────────┐
+│ Visitors     │ Page Analytics             │
+│ [line graph] │ [7d] [14d] [30d] [launch]  │
+├──────────────┼────────────────────────────┤
+│ Bio Clicks   │ Bio Link Clicks            │
+│ [line graph] │ [Today] [7d] [14d] [30d]   │
+├──────────────┼────────────────────────────┤
+│ Auto-Redir   │ Auto-Redirects             │
+│ [line graph] │ [Today] [7d] [14d] [30d]   │
+└──────────────┴────────────────────────────┘
+```
 
-### File: `src/pages/AdminList.tsx`
+On `xl+` screens: each section becomes a flex row with the graph card on the left (~w-80) and the stat cards grid on the right (flex-1). On smaller screens: graph stacks above the stat cards.
 
-1. Add state: `const [graphRange, setGraphRange] = useState<'7d' | '14d' | '30d' | 'all'>('all');`
+### Layout change
+- Remove the left sidebar column (`hidden xl:block w-80`) entirely
+- Revert to the previous two-column layout (main content + activity feed)
+- For Page Analytics, Bio Link Clicks, and Auto-Redirects sections: wrap each in a `flex` row with the graph card on the left and stats on the right
+- Move the range toggle (7d/14d/30d/All Time) to sit above the first graph or as a shared control above all three sections
+- Mobile graphs section also removed (replaced by inline stacking)
 
-2. Add a `useMemo` that filters `dailyStats` based on `graphRange`:
-   - `7d`: last 7 days
-   - `14d`: last 14 days
-   - `30d`: last 30 days
-   - `all`: no filter (full array)
-
-3. Add a row of 4 small buttons below the "Daily Trends" heading (both in the desktop left sidebar and the mobile section), styled as toggle pills — the active one gets a filled primary style, others get an outline/muted style.
-
-4. Pass `filteredDailyStats` instead of `dailyStats` to all 6 `LineChart` instances (3 desktop, 3 mobile).
-
-No backend changes needed — the data is already fetched in full from the `get_daily_stats` RPC.
+### File changed
+| File | Change |
+|------|--------|
+| `src/pages/AdminList.tsx` | Remove left sidebar; embed each graph card inline beside its stat section |
 
