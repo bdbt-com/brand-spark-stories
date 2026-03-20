@@ -20,3 +20,6 @@ verify_jwt = false
 
 [functions.get-activity-feed]
 verify_jwt = false
+
+[functions.get-daily-stats]
+verify_jwt = false
