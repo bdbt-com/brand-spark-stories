@@ -1279,6 +1279,18 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
                   BODY COMPOSITION
                 </span>
               </>
+            ) : templateIndex === 93 ? (
+              <>
+                <span className="text-white/90 block text-2xl tracking-wider">
+                  BDBT PODCAST 75
+                </span>
+                <span className="block mt-3 text-white">
+                  DO A
+                </span>
+                <span className="block mt-1" style={{ color: 'hsl(35, 45%, 75%)' }}>
+                  SPENDING FREEZE
+                </span>
+              </>
             ) : null}
           </h1>
         </div>
