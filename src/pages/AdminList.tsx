@@ -280,7 +280,7 @@ const AdminList = () => {
                     <p className="text-[10px] font-medium text-muted-foreground mb-1 uppercase tracking-wider">{label}</p>
                     <div className="h-[140px]">
                       <ResponsiveContainer width="100%" height="100%">
-                        <LineChart data={dailyStats}>
+                        <LineChart data={filteredDailyStats}>
                           <XAxis
                             dataKey="day"
                             tick={{ fontSize: 9, fill: "hsl(var(--muted-foreground))" }}
