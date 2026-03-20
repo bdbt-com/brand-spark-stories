@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useMemo } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Loader2, Play, TrendingDown, TrendingUp, BarChart3, Clock, MousePointerClick, ArrowRightLeft, UserPlus, Download, Activity, Minus } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
@@ -104,6 +104,13 @@ const AdminList = () => {
   const [todaySubscribers, setTodaySubscribers] = useState(0);
   const [feed, setFeed] = useState<FeedItem[]>([]);
   const [dailyStats, setDailyStats] = useState<{ day: string; visitors: number; bio_clicks: number; auto_redirects: number }[]>([]);
+  const [graphRange, setGraphRange] = useState<'7d' | '14d' | '30d' | 'all'>('all');
+
+  const filteredDailyStats = useMemo(() => {
+    if (graphRange === 'all') return dailyStats;
+    const days = graphRange === '7d' ? 7 : graphRange === '14d' ? 14 : 30;
+    return dailyStats.slice(-days);
+  }, [dailyStats, graphRange]);
 
   const fetchVideoCounts = useCallback(async () => {
     try {
@@ -247,7 +254,22 @@ const AdminList = () => {
             <h2 className="text-sm font-bold text-foreground flex items-center gap-2">
               <BarChart3 className="w-4 h-4 text-primary" /> Daily Trends
             </h2>
-            {dailyStats.length > 0 ? (
+            <div className="flex gap-1">
+              {(['7d', '14d', '30d', 'all'] as const).map((r) => (
+                <button
+                  key={r}
+                  onClick={() => setGraphRange(r)}
+                  className={`px-2.5 py-1 text-[10px] font-semibold rounded-md transition-colors ${
+                    graphRange === r
+                      ? 'bg-primary text-primary-foreground'
+                      : 'bg-secondary text-muted-foreground hover:text-foreground'
+                  }`}
+                >
+                  {r === 'all' ? 'All Time' : r.toUpperCase()}
+                </button>
+              ))}
+            </div>
+            {filteredDailyStats.length > 0 ? (
               ([
                 { key: "visitors" as const, label: "Visitors", color: "hsl(var(--primary))" },
                 { key: "bio_clicks" as const, label: "Bio Link Clicks", color: "hsl(142, 71%, 45%)" },
@@ -258,7 +280,7 @@ const AdminList = () => {
                     <p className="text-[10px] font-medium text-muted-foreground mb-1 uppercase tracking-wider">{label}</p>
                     <div className="h-[140px]">
                       <ResponsiveContainer width="100%" height="100%">
-                        <LineChart data={dailyStats}>
+                        <LineChart data={filteredDailyStats}>
                           <XAxis
                             dataKey="day"
                             tick={{ fontSize: 9, fill: "hsl(var(--muted-foreground))" }}
@@ -310,11 +332,26 @@ const AdminList = () => {
         <div className="flex-1 min-w-0 space-y-12">
 
           {/* Mobile-only graphs (below xl) */}
-          {dailyStats.length > 0 && (
+          {filteredDailyStats.length > 0 && (
             <section className="xl:hidden">
-              <h2 className="text-xl font-bold text-foreground mb-4 flex items-center gap-2">
+              <h2 className="text-xl font-bold text-foreground mb-2 flex items-center gap-2">
                 <BarChart3 className="w-5 h-5 text-primary" /> Daily Trends
               </h2>
+              <div className="flex gap-1.5 mb-4">
+                {(['7d', '14d', '30d', 'all'] as const).map((r) => (
+                  <button
+                    key={r}
+                    onClick={() => setGraphRange(r)}
+                    className={`px-3 py-1.5 text-xs font-semibold rounded-md transition-colors ${
+                      graphRange === r
+                        ? 'bg-primary text-primary-foreground'
+                        : 'bg-secondary text-muted-foreground hover:text-foreground'
+                    }`}
+                  >
+                    {r === 'all' ? 'All Time' : r.toUpperCase()}
+                  </button>
+                ))}
+              </div>
               <div className="space-y-4">
                 {([
                   { key: "visitors" as const, label: "Visitors", color: "hsl(var(--primary))" },
@@ -326,7 +363,7 @@ const AdminList = () => {
                       <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">{label}</p>
                       <div className="h-[180px]">
                         <ResponsiveContainer width="100%" height="100%">
-                          <LineChart data={dailyStats}>
+                          <LineChart data={filteredDailyStats}>
                             <XAxis
                               dataKey="day"
                               tick={{ fontSize: 10, fill: "hsl(var(--muted-foreground))" }}
