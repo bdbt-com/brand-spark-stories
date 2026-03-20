@@ -1,37 +1,28 @@
 
 
-# Inline Graphs with Their Corresponding Stat Sections
+# Fix Auto-Redirects Graph + Add Missing TikTok Thumbnail
 
-## Problem
-All three graphs are stacked in a separate left sidebar column, disconnected from the stats they represent.
+## Issue 1: Auto-Redirects graph shows no/wrong data
 
-## Fix
-Remove the dedicated left sidebar column. Instead, place each graph inline next to its corresponding stat section using a two-column row layout per section:
+The `get_daily_stats()` SQL function filters with `WHERE video_id = 'auto-redirect'` (exact match), but auto-redirects are stored as `'auto-redirect:VIDEO_ID'` (e.g. `auto-redirect:capable-of-more`). No rows ever match, so the graph is always zero.
 
-```text
-┌──────────────┬────────────────────────────┐
-│ Visitors     │ Page Analytics             │
-│ [line graph] │ [7d] [14d] [30d] [launch]  │
-├──────────────┼────────────────────────────┤
-│ Bio Clicks   │ Bio Link Clicks            │
-│ [line graph] │ [Today] [7d] [14d] [30d]   │
-├──────────────┼────────────────────────────┤
-│ Auto-Redir   │ Auto-Redirects             │
-│ [line graph] │ [Today] [7d] [14d] [30d]   │
-└──────────────┴────────────────────────────┘
-```
+**Fix**: Update the SQL function to use `WHERE video_id LIKE 'auto-redirect:%'`.
 
-On `xl+` screens: each section becomes a flex row with the graph card on the left (~w-80) and the stat cards grid on the right (flex-1). On smaller screens: graph stacks above the stat cards.
-
-### Layout change
-- Remove the left sidebar column (`hidden xl:block w-80`) entirely
-- Revert to the previous two-column layout (main content + activity feed)
-- For Page Analytics, Bio Link Clicks, and Auto-Redirects sections: wrap each in a `flex` row with the graph card on the left and stats on the right
-- Move the range toggle (7d/14d/30d/All Time) to sit above the first graph or as a shared control above all three sections
-- Mobile graphs section also removed (replaced by inline stacking)
-
-### File changed
 | File | Change |
 |------|--------|
-| `src/pages/AdminList.tsx` | Remove left sidebar; embed each graph card inline beside its stat section |
+| Migration SQL | `CREATE OR REPLACE FUNCTION get_daily_stats()` — change `= 'auto-redirect'` to `LIKE 'auto-redirect:%'` |
+
+## Issue 2: Missing TikTok thumbnail for Podcast 75
+
+Only the YouTube template (id 79) was created for "Do a Spending Freeze". The TikTok version was never added.
+
+**Fix**: Add TikTok template entry and rendering block:
+- Add `{ id: 93, name: "Podcast 75 Do a Spending Freeze", title: "DO A / SPENDING FREEZE", subtitle: "" }` to `tikTokTemplates` array
+- Add `TikTokTemplate` background entry (Podcast 75 is odd → uses Bg 28 / `tiktok-bg-template-32.png`)
+- Add conditional rendering block for `currentTemplateIndex === 93` in TikTok mode with the standard layout: white top line "DO A", gold bottom line "SPENDING FREEZE"
+
+| File | Change |
+|------|--------|
+| `src/pages/ThumbnailTemplate.tsx` | Add tikTok template metadata (id 93), TikTokTemplate background, and rendering block |
+| `src/components/TikTokTemplate.tsx` | Add title entry for index 93 |
 
