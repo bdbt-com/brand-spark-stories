@@ -254,7 +254,22 @@ const AdminList = () => {
             <h2 className="text-sm font-bold text-foreground flex items-center gap-2">
               <BarChart3 className="w-4 h-4 text-primary" /> Daily Trends
             </h2>
-            {dailyStats.length > 0 ? (
+            <div className="flex gap-1">
+              {(['7d', '14d', '30d', 'all'] as const).map((r) => (
+                <button
+                  key={r}
+                  onClick={() => setGraphRange(r)}
+                  className={`px-2.5 py-1 text-[10px] font-semibold rounded-md transition-colors ${
+                    graphRange === r
+                      ? 'bg-primary text-primary-foreground'
+                      : 'bg-secondary text-muted-foreground hover:text-foreground'
+                  }`}
+                >
+                  {r === 'all' ? 'All Time' : r.toUpperCase()}
+                </button>
+              ))}
+            </div>
+            {filteredDailyStats.length > 0 ? (
               ([
                 { key: "visitors" as const, label: "Visitors", color: "hsl(var(--primary))" },
                 { key: "bio_clicks" as const, label: "Bio Link Clicks", color: "hsl(142, 71%, 45%)" },
