@@ -239,16 +239,81 @@ const AdminList = () => {
         </Card>
       </div>
 
-      <div className="max-w-7xl mx-auto flex gap-6">
+      <div className="max-w-[120rem] mx-auto flex gap-6">
 
-        {/* Left column — existing dashboard */}
+        {/* Left column — Daily Graphs */}
+        <div className="hidden xl:block w-80 flex-shrink-0">
+          <div className="sticky top-24 space-y-4">
+            <h2 className="text-sm font-bold text-foreground flex items-center gap-2">
+              <BarChart3 className="w-4 h-4 text-primary" /> Daily Trends
+            </h2>
+            {dailyStats.length > 0 ? (
+              ([
+                { key: "visitors" as const, label: "Visitors", color: "hsl(var(--primary))" },
+                { key: "bio_clicks" as const, label: "Bio Link Clicks", color: "hsl(142, 71%, 45%)" },
+                { key: "auto_redirects" as const, label: "Auto-Redirects", color: "hsl(25, 95%, 53%)" },
+              ] as const).map(({ key, label, color }) => (
+                <Card key={key}>
+                  <CardContent className="p-3">
+                    <p className="text-[10px] font-medium text-muted-foreground mb-1 uppercase tracking-wider">{label}</p>
+                    <div className="h-[140px]">
+                      <ResponsiveContainer width="100%" height="100%">
+                        <LineChart data={dailyStats}>
+                          <XAxis
+                            dataKey="day"
+                            tick={{ fontSize: 9, fill: "hsl(var(--muted-foreground))" }}
+                            tickFormatter={(v: string) => {
+                              const d = new Date(v);
+                              return d.toLocaleDateString("en-GB", { day: "numeric", month: "short" });
+                            }}
+                            interval="preserveStartEnd"
+                            minTickGap={30}
+                          />
+                          <YAxis
+                            tick={{ fontSize: 9, fill: "hsl(var(--muted-foreground))" }}
+                            width={30}
+                            allowDecimals={false}
+                          />
+                          <Tooltip
+                            contentStyle={{
+                              background: "hsl(var(--background))",
+                              border: "1px solid hsl(var(--border))",
+                              borderRadius: "8px",
+                              fontSize: "11px",
+                            }}
+                            labelFormatter={(v: string) => {
+                              const d = new Date(v);
+                              return d.toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
+                            }}
+                          />
+                          <Line
+                            type="monotone"
+                            dataKey={key}
+                            stroke={color}
+                            strokeWidth={1.5}
+                            dot={false}
+                            activeDot={{ r: 3, strokeWidth: 0 }}
+                          />
+                        </LineChart>
+                      </ResponsiveContainer>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))
+            ) : (
+              <p className="text-xs text-muted-foreground">Loading graphs…</p>
+            )}
+          </div>
+        </div>
+
+        {/* Center column — existing dashboard */}
         <div className="flex-1 min-w-0 space-y-12">
 
-        {/* Daily Graphs */}
+          {/* Mobile-only graphs (below xl) */}
           {dailyStats.length > 0 && (
-            <section>
+            <section className="xl:hidden">
               <h2 className="text-xl font-bold text-foreground mb-4 flex items-center gap-2">
-                <BarChart3 className="w-5 h-5 text-primary" /> Daily Trends (All Time)
+                <BarChart3 className="w-5 h-5 text-primary" /> Daily Trends
               </h2>
               <div className="space-y-4">
                 {([
