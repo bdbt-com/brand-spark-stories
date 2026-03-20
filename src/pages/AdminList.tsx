@@ -332,11 +332,26 @@ const AdminList = () => {
         <div className="flex-1 min-w-0 space-y-12">
 
           {/* Mobile-only graphs (below xl) */}
-          {dailyStats.length > 0 && (
+          {filteredDailyStats.length > 0 && (
             <section className="xl:hidden">
-              <h2 className="text-xl font-bold text-foreground mb-4 flex items-center gap-2">
+              <h2 className="text-xl font-bold text-foreground mb-2 flex items-center gap-2">
                 <BarChart3 className="w-5 h-5 text-primary" /> Daily Trends
               </h2>
+              <div className="flex gap-1.5 mb-4">
+                {(['7d', '14d', '30d', 'all'] as const).map((r) => (
+                  <button
+                    key={r}
+                    onClick={() => setGraphRange(r)}
+                    className={`px-3 py-1.5 text-xs font-semibold rounded-md transition-colors ${
+                      graphRange === r
+                        ? 'bg-primary text-primary-foreground'
+                        : 'bg-secondary text-muted-foreground hover:text-foreground'
+                    }`}
+                  >
+                    {r === 'all' ? 'All Time' : r.toUpperCase()}
+                  </button>
+                ))}
+              </div>
               <div className="space-y-4">
                 {([
                   { key: "visitors" as const, label: "Visitors", color: "hsl(var(--primary))" },
@@ -348,7 +363,7 @@ const AdminList = () => {
                       <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">{label}</p>
                       <div className="h-[180px]">
                         <ResponsiveContainer width="100%" height="100%">
-                          <LineChart data={dailyStats}>
+                          <LineChart data={filteredDailyStats}>
                             <XAxis
                               dataKey="day"
                               tick={{ fontSize: 10, fill: "hsl(var(--muted-foreground))" }}
