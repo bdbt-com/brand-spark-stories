@@ -152,12 +152,20 @@ const AdminList = () => {
     } catch {}
   }, []);
 
+  const fetchDailyStats = useCallback(async () => {
+    try {
+      const { data } = await supabase.functions.invoke("get-daily-stats");
+      if (data?.daily) setDailyStats(data.daily);
+    } catch {}
+  }, []);
+
   useEffect(() => {
     fetchSubscribers();
     fetchVideoCounts();
     fetchDownloadCounts();
     fetchAnalytics();
     fetchFeed();
+    fetchDailyStats();
 
     const interval = setInterval(() => {
       fetchSubscribers();
@@ -168,7 +176,7 @@ const AdminList = () => {
     }, 15000);
 
     return () => clearInterval(interval);
-  }, [fetchSubscribers, fetchVideoCounts, fetchDownloadCounts, fetchAnalytics, fetchFeed]);
+  }, [fetchSubscribers, fetchVideoCounts, fetchDownloadCounts, fetchAnalytics, fetchFeed, fetchDailyStats]);
 
   if (loading) {
     return (
