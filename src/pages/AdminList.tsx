@@ -103,6 +103,7 @@ const AdminList = () => {
   const [bioClicks, setBioClicks] = useState<Record<string, number>>({});
   const [todaySubscribers, setTodaySubscribers] = useState(0);
   const [feed, setFeed] = useState<FeedItem[]>([]);
+  const [dailyStats, setDailyStats] = useState<{ day: string; visitors: number; bio_clicks: number; auto_redirects: number }[]>([]);
 
   const fetchVideoCounts = useCallback(async () => {
     try {
