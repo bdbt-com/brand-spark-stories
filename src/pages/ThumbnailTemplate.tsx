@@ -574,6 +574,13 @@ const ThumbnailTemplate = () => {
       title: "Learn These Words: Body Composition",
       subtitle: "Daily Wins Podcast 74",
       image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+    },
+    {
+      id: 79,
+      name: "Do a Spending Freeze",
+      title: "Do a Spending Freeze",
+      subtitle: "Daily Wins Podcast 75",
+      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
     }
   ];
 
