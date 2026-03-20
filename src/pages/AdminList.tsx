@@ -4,7 +4,6 @@ import { Loader2, Play, TrendingDown, TrendingUp, BarChart3, Clock, MousePointer
 import { Card, CardContent } from "@/components/ui/card";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 
-// Calculate % change between current period rate and prior period rate
 function calcTrend(current: number, currentDays: number, outer: number, outerDays: number): { pct: number; direction: 'up' | 'down' | 'flat' } {
   const prior = outer - current;
   const priorDays = outerDays - currentDays;
@@ -16,7 +15,6 @@ function calcTrend(current: number, currentDays: number, outer: number, outerDay
   return { pct: Math.abs(pct), direction: pct > 0 ? 'up' : 'down' };
 }
 
-// Compare today's count to the avg daily rate of the prior 6 days (from the 7d total)
 function calcTodayTrend(today: number, sevenDay: number): { pct: number; direction: 'up' | 'down' | 'flat' } {
   const prior6 = sevenDay - today;
   if (prior6 <= 0) return { pct: 0, direction: 'flat' };
@@ -47,6 +45,26 @@ function TrendBadge({ current, currentDays, outer, outerDays }: { current: numbe
       {isUp ? <TrendingUp className="w-2.5 h-2.5" /> : <TrendingDown className="w-2.5 h-2.5" />}
       {pct}%
     </span>
+  );
+}
+
+function InlineGraph({ data, dataKey, label, color }: { data: any[]; dataKey: string; label: string; color: string }) {
+  return (
+    <Card className="w-full xl:w-80 flex-shrink-0">
+      <CardContent className="p-3">
+        <p className="text-[10px] font-medium text-muted-foreground mb-1 uppercase tracking-wider">{label}</p>
+        <div className="h-[180px]">
+          <ResponsiveContainer width="100%" height="100%">
+            <LineChart data={data}>
+              <XAxis dataKey="day" tick={{ fontSize: 9, fill: "hsl(var(--muted-foreground))" }} tickFormatter={(v: string) => new Date(v).toLocaleDateString("en-GB", { day: "numeric", month: "short" })} interval="preserveStartEnd" minTickGap={30} />
+              <YAxis tick={{ fontSize: 9, fill: "hsl(var(--muted-foreground))" }} width={30} allowDecimals={false} />
+              <Tooltip contentStyle={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))", borderRadius: "8px", fontSize: "11px" }} labelFormatter={(v: string) => new Date(v).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" })} />
+              <Line type="monotone" dataKey={dataKey} stroke={color} strokeWidth={1.5} dot={false} activeDot={{ r: 3, strokeWidth: 0 }} />
+            </LineChart>
+          </ResponsiveContainer>
+        </div>
+      </CardContent>
+    </Card>
   );
 }
 
@@ -248,101 +266,20 @@ const AdminList = () => {
 
       <div className="max-w-[120rem] mx-auto flex gap-6">
 
-        {/* Left column — Daily Graphs */}
-        <div className="hidden xl:block w-80 flex-shrink-0">
-          <div className="sticky top-24 space-y-4">
-            <h2 className="text-sm font-bold text-foreground flex items-center gap-2">
-              <BarChart3 className="w-4 h-4 text-primary" /> Daily Trends
-            </h2>
-            <div className="flex gap-1">
-              {(['7d', '14d', '30d', 'all'] as const).map((r) => (
-                <button
-                  key={r}
-                  onClick={() => setGraphRange(r)}
-                  className={`px-2.5 py-1 text-[10px] font-semibold rounded-md transition-colors ${
-                    graphRange === r
-                      ? 'bg-primary text-primary-foreground'
-                      : 'bg-secondary text-muted-foreground hover:text-foreground'
-                  }`}
-                >
-                  {r === 'all' ? 'All Time' : r.toUpperCase()}
-                </button>
-              ))}
-            </div>
-            {filteredDailyStats.length > 0 ? (
-              ([
-                { key: "visitors" as const, label: "Visitors", color: "hsl(var(--primary))" },
-                { key: "bio_clicks" as const, label: "Bio Link Clicks", color: "hsl(142, 71%, 45%)" },
-                { key: "auto_redirects" as const, label: "Auto-Redirects", color: "hsl(25, 95%, 53%)" },
-              ] as const).map(({ key, label, color }) => (
-                <Card key={key}>
-                  <CardContent className="p-3">
-                    <p className="text-[10px] font-medium text-muted-foreground mb-1 uppercase tracking-wider">{label}</p>
-                    <div className="h-[140px]">
-                      <ResponsiveContainer width="100%" height="100%">
-                        <LineChart data={filteredDailyStats}>
-                          <XAxis
-                            dataKey="day"
-                            tick={{ fontSize: 9, fill: "hsl(var(--muted-foreground))" }}
-                            tickFormatter={(v: string) => {
-                              const d = new Date(v);
-                              return d.toLocaleDateString("en-GB", { day: "numeric", month: "short" });
-                            }}
-                            interval="preserveStartEnd"
-                            minTickGap={30}
-                          />
-                          <YAxis
-                            tick={{ fontSize: 9, fill: "hsl(var(--muted-foreground))" }}
-                            width={30}
-                            allowDecimals={false}
-                          />
-                          <Tooltip
-                            contentStyle={{
-                              background: "hsl(var(--background))",
-                              border: "1px solid hsl(var(--border))",
-                              borderRadius: "8px",
-                              fontSize: "11px",
-                            }}
-                            labelFormatter={(v: string) => {
-                              const d = new Date(v);
-                              return d.toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
-                            }}
-                          />
-                          <Line
-                            type="monotone"
-                            dataKey={key}
-                            stroke={color}
-                            strokeWidth={1.5}
-                            dot={false}
-                            activeDot={{ r: 3, strokeWidth: 0 }}
-                          />
-                        </LineChart>
-                      </ResponsiveContainer>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))
-            ) : (
-              <p className="text-xs text-muted-foreground">Loading graphs…</p>
-            )}
-          </div>
-        </div>
-
-        {/* Center column — existing dashboard */}
+        {/* Main column */}
         <div className="flex-1 min-w-0 space-y-12">
 
-          {/* Mobile-only graphs (below xl) */}
+          {/* Graph range toggle */}
           {filteredDailyStats.length > 0 && (
-            <section className="xl:hidden">
-              <h2 className="text-xl font-bold text-foreground mb-2 flex items-center gap-2">
-                <BarChart3 className="w-5 h-5 text-primary" /> Daily Trends
-              </h2>
-              <div className="flex gap-1.5 mb-4">
+            <div className="flex items-center gap-2">
+              <BarChart3 className="w-4 h-4 text-primary" />
+              <span className="text-xs font-bold text-foreground uppercase tracking-wider">Graph Range:</span>
+              <div className="flex gap-1">
                 {(['7d', '14d', '30d', 'all'] as const).map((r) => (
                   <button
                     key={r}
                     onClick={() => setGraphRange(r)}
-                    className={`px-3 py-1.5 text-xs font-semibold rounded-md transition-colors ${
+                    className={`px-2.5 py-1 text-[10px] font-semibold rounded-md transition-colors ${
                       graphRange === r
                         ? 'bg-primary text-primary-foreground'
                         : 'bg-secondary text-muted-foreground hover:text-foreground'
@@ -352,61 +289,7 @@ const AdminList = () => {
                   </button>
                 ))}
               </div>
-              <div className="space-y-4">
-                {([
-                  { key: "visitors" as const, label: "Visitors", color: "hsl(var(--primary))" },
-                  { key: "bio_clicks" as const, label: "Bio Link Clicks", color: "hsl(142, 71%, 45%)" },
-                  { key: "auto_redirects" as const, label: "Auto-Redirects", color: "hsl(25, 95%, 53%)" },
-                ] as const).map(({ key, label, color }) => (
-                  <Card key={key}>
-                    <CardContent className="p-4">
-                      <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">{label}</p>
-                      <div className="h-[180px]">
-                        <ResponsiveContainer width="100%" height="100%">
-                          <LineChart data={filteredDailyStats}>
-                            <XAxis
-                              dataKey="day"
-                              tick={{ fontSize: 10, fill: "hsl(var(--muted-foreground))" }}
-                              tickFormatter={(v: string) => {
-                                const d = new Date(v);
-                                return d.toLocaleDateString("en-GB", { day: "numeric", month: "short" });
-                              }}
-                              interval="preserveStartEnd"
-                              minTickGap={40}
-                            />
-                            <YAxis
-                              tick={{ fontSize: 10, fill: "hsl(var(--muted-foreground))" }}
-                              width={35}
-                              allowDecimals={false}
-                            />
-                            <Tooltip
-                              contentStyle={{
-                                background: "hsl(var(--background))",
-                                border: "1px solid hsl(var(--border))",
-                                borderRadius: "8px",
-                                fontSize: "12px",
-                              }}
-                              labelFormatter={(v: string) => {
-                                const d = new Date(v);
-                                return d.toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
-                              }}
-                            />
-                            <Line
-                              type="monotone"
-                              dataKey={key}
-                              stroke={color}
-                              strokeWidth={2}
-                              dot={false}
-                              activeDot={{ r: 4, strokeWidth: 0 }}
-                            />
-                          </LineChart>
-                        </ResponsiveContainer>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </section>
+            </div>
           )}
 
           {/* Today's Live Stats */}
@@ -448,126 +331,140 @@ const AdminList = () => {
             </div>
           </section>
 
-          {/* Page Analytics */}
+          {/* Page Analytics — graph inline */}
           <section>
             <h2 className="text-xl font-bold text-foreground mb-4 flex items-center gap-2">
               <BarChart3 className="w-5 h-5 text-primary" /> Page Analytics
             </h2>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {[
-                { key: "7d", label: "Last 7 Days", days: 7, outerKey: "14d", outerDays: 14 },
-                { key: "14d", label: "Last 14 Days", days: 14, outerKey: "30d", outerDays: 30 },
-                { key: "30d", label: "Last 30 Days", days: 30, outerKey: "since_launch", outerDays: Math.round((Date.now() - new Date("2024-12-28").getTime()) / 86400000) },
-                { key: "since_launch", label: "Since Launch", days: 0, outerKey: null, outerDays: 0 },
-              ].map(({ key, label, days, outerKey, outerDays }) => {
-                const period = analytics[key];
-                const avgMins = period ? Math.floor(period.avg_duration / 60) : 0;
-                const avgSecs = period ? period.avg_duration % 60 : 0;
-                const outer = outerKey ? analytics[outerKey] : null;
-                // Use live-only data for trend calculations (baselines break nested-window math)
-                const liveVal = period?.live_visitors ?? 0;
-                const outerLiveVal = outer?.live_visitors ?? 0;
-                return (
-                  <Card key={key}>
-                    <CardContent className="p-5 text-center">
-                      <p className="text-xs font-medium text-muted-foreground mb-3 uppercase tracking-wider">{label}</p>
-                      <p className="text-3xl font-bold text-primary">{period?.visitors || 0}</p>
-                      <div className="flex items-center justify-center gap-1 mb-2">
-                        <p className="text-xs text-muted-foreground">visitors</p>
-                        {outer && days > 0 && <TrendBadge current={liveVal} currentDays={days} outer={outerLiveVal} outerDays={outerDays} />}
-                      </div>
-                      <div className="flex items-center justify-center gap-1 text-muted-foreground">
-                        <Clock className="w-3 h-3" />
-                        <span className="text-xs">
-                          {avgMins > 0 ? `${avgMins}m ` : ""}{avgSecs}s avg
-                        </span>
-                      </div>
-                    </CardContent>
-                  </Card>
-                );
-              })}
+            <div className="flex flex-col xl:flex-row gap-4">
+              {filteredDailyStats.length > 0 && (
+                <InlineGraph data={filteredDailyStats} dataKey="visitors" label="Visitors" color="hsl(var(--primary))" />
+              )}
+              <div className="flex-1 grid grid-cols-2 md:grid-cols-4 gap-4">
+                {[
+                  { key: "7d", label: "Last 7 Days", days: 7, outerKey: "14d", outerDays: 14 },
+                  { key: "14d", label: "Last 14 Days", days: 14, outerKey: "30d", outerDays: 30 },
+                  { key: "30d", label: "Last 30 Days", days: 30, outerKey: "since_launch", outerDays: Math.round((Date.now() - new Date("2024-12-28").getTime()) / 86400000) },
+                  { key: "since_launch", label: "Since Launch", days: 0, outerKey: null, outerDays: 0 },
+                ].map(({ key, label, days, outerKey, outerDays }) => {
+                  const period = analytics[key];
+                  const avgMins = period ? Math.floor(period.avg_duration / 60) : 0;
+                  const avgSecs = period ? period.avg_duration % 60 : 0;
+                  const outer = outerKey ? analytics[outerKey] : null;
+                  const liveVal = period?.live_visitors ?? 0;
+                  const outerLiveVal = outer?.live_visitors ?? 0;
+                  return (
+                    <Card key={key}>
+                      <CardContent className="p-5 text-center">
+                        <p className="text-xs font-medium text-muted-foreground mb-3 uppercase tracking-wider">{label}</p>
+                        <p className="text-3xl font-bold text-primary">{period?.visitors || 0}</p>
+                        <div className="flex items-center justify-center gap-1 mb-2">
+                          <p className="text-xs text-muted-foreground">visitors</p>
+                          {outer && days > 0 && <TrendBadge current={liveVal} currentDays={days} outer={outerLiveVal} outerDays={outerDays} />}
+                        </div>
+                        <div className="flex items-center justify-center gap-1 text-muted-foreground">
+                          <Clock className="w-3 h-3" />
+                          <span className="text-xs">
+                            {avgMins > 0 ? `${avgMins}m ` : ""}{avgSecs}s avg
+                          </span>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  );
+                })}
+              </div>
             </div>
           </section>
 
-          {/* Bio Link Clicks */}
+          {/* Bio Link Clicks — graph inline */}
           <section>
             <h2 className="text-xl font-bold text-foreground mb-4 flex items-center gap-2">
               <BarChart3 className="w-5 h-5 text-primary" /> Bio Link Clicks
             </h2>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {[
-                { label: "Today", value: bioClicks.today || 0, isToday: true, sevenDay: bioClicks["7d"] || 0, days: 0, outerVal: 0, outerDays: 0 },
-                { label: "7 Days", value: bioClicks["7d"] || 0, isToday: false, sevenDay: 0, days: 7, outerVal: bioClicks["14d"] || 0, outerDays: 14 },
-                { label: "14 Days", value: bioClicks["14d"] || 0, isToday: false, sevenDay: 0, days: 14, outerVal: bioClicks["30d"] || 0, outerDays: 30 },
-                { label: "30 Days", value: bioClicks["30d"] || 0, isToday: false, sevenDay: 0, days: 30, outerVal: bioClicks["30d"] || 0, outerDays: 30 },
-              ].map(({ label, value, isToday, sevenDay, days, outerVal, outerDays }) => (
-                <Card key={label}>
-                  <CardContent className="p-5 text-center">
-                    <p className="text-xs font-medium text-muted-foreground mb-3 uppercase tracking-wider">{label}</p>
-                    <p className="text-3xl font-bold text-primary inline-flex items-center gap-2 justify-center">
-                      {value}
-                      {isToday && <TodayTrendBadge today={value} sevenDay={sevenDay} />}
-                    </p>
-                    <div className="flex items-center justify-center gap-1 mt-1">
-                      <p className="text-xs text-muted-foreground">clicks</p>
-                      {!isToday && days > 0 && outerDays > 0 && days < 30 && <TrendBadge current={value} currentDays={days} outer={outerVal} outerDays={outerDays} />}
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
+            <div className="flex flex-col xl:flex-row gap-4">
+              {filteredDailyStats.length > 0 && (
+                <InlineGraph data={filteredDailyStats} dataKey="bio_clicks" label="Bio Link Clicks" color="hsl(142, 71%, 45%)" />
+              )}
+              <div className="flex-1 grid grid-cols-2 md:grid-cols-4 gap-4">
+                {[
+                  { label: "Today", value: bioClicks.today || 0, isToday: true, sevenDay: bioClicks["7d"] || 0, days: 0, outerVal: 0, outerDays: 0 },
+                  { label: "7 Days", value: bioClicks["7d"] || 0, isToday: false, sevenDay: 0, days: 7, outerVal: bioClicks["14d"] || 0, outerDays: 14 },
+                  { label: "14 Days", value: bioClicks["14d"] || 0, isToday: false, sevenDay: 0, days: 14, outerVal: bioClicks["30d"] || 0, outerDays: 30 },
+                  { label: "30 Days", value: bioClicks["30d"] || 0, isToday: false, sevenDay: 0, days: 30, outerVal: bioClicks["30d"] || 0, outerDays: 30 },
+                ].map(({ label, value, isToday, sevenDay, days, outerVal, outerDays }) => (
+                  <Card key={label}>
+                    <CardContent className="p-5 text-center">
+                      <p className="text-xs font-medium text-muted-foreground mb-3 uppercase tracking-wider">{label}</p>
+                      <p className="text-3xl font-bold text-primary inline-flex items-center gap-2 justify-center">
+                        {value}
+                        {isToday && <TodayTrendBadge today={value} sevenDay={sevenDay} />}
+                      </p>
+                      <div className="flex items-center justify-center gap-1 mt-1">
+                        <p className="text-xs text-muted-foreground">clicks</p>
+                        {!isToday && days > 0 && outerDays > 0 && days < 30 && <TrendBadge current={value} currentDays={days} outer={outerVal} outerDays={outerDays} />}
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
             </div>
           </section>
 
-          {/* Auto-Redirect Stats */}
+          {/* Auto-Redirect Stats — graph inline */}
           <section>
             <h2 className="text-xl font-bold text-foreground mb-4 flex items-center gap-2">
               <Play className="w-5 h-5 text-primary" /> Auto-Redirects
             </h2>
-            {(() => {
-               const ar = videoCounts["auto-redirect"] || { total: 0, today: 0, "7d": 0, "14d": 0, "30d": 0 };
-               const trackingDays = Math.max(1, Math.round((Date.now() - new Date("2026-03-04").getTime()) / 86400000));
-               return (
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  <Card>
-                    <CardContent className="p-5 text-center">
-                      <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">Today</p>
-                      <p className="text-3xl font-bold text-primary inline-flex items-center gap-2 justify-center">{ar.today} <TodayTrendBadge today={ar.today} sevenDay={ar["7d"]} /></p>
-                      <p className="text-xs text-muted-foreground mt-1">redirects</p>
-                    </CardContent>
-                  </Card>
-                  <Card>
-                    <CardContent className="p-5 text-center">
-                      <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">7 Days</p>
-                      <p className="text-3xl font-bold text-primary">{ar["7d"]}</p>
-                      <div className="flex items-center justify-center gap-1 mt-1">
-                        <p className="text-xs text-muted-foreground">redirects</p>
-                        <TrendBadge current={ar["7d"]} currentDays={7} outer={ar["14d"]} outerDays={14} />
-                      </div>
-                    </CardContent>
-                  </Card>
-                  <Card>
-                    <CardContent className="p-5 text-center">
-                      <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">14 Days</p>
-                      <p className="text-3xl font-bold text-primary">{ar["14d"]}</p>
-                      <div className="flex items-center justify-center gap-1 mt-1">
-                        <p className="text-xs text-muted-foreground">redirects</p>
-                        <TrendBadge current={ar["14d"]} currentDays={14} outer={ar["30d"]} outerDays={30} />
-                      </div>
-                    </CardContent>
-                  </Card>
-                  <Card>
-                    <CardContent className="p-5 text-center">
-                      <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">30 Days</p>
-                      <p className="text-3xl font-bold text-primary">{ar["30d"]}</p>
-                      <div className="flex items-center justify-center gap-1 mt-1">
-                        <p className="text-xs text-muted-foreground">redirects</p>
-                        {trackingDays > 30 && <TrendBadge current={ar["30d"]} currentDays={30} outer={ar.total} outerDays={trackingDays} />}
-                      </div>
-                    </CardContent>
-                  </Card>
-                </div>
-              );
-            })()}
+            <div className="flex flex-col xl:flex-row gap-4">
+              {filteredDailyStats.length > 0 && (
+                <InlineGraph data={filteredDailyStats} dataKey="auto_redirects" label="Auto-Redirects" color="hsl(25, 95%, 53%)" />
+              )}
+              {(() => {
+                const ar = videoCounts["auto-redirect"] || { total: 0, today: 0, "7d": 0, "14d": 0, "30d": 0 };
+                const trackingDays = Math.max(1, Math.round((Date.now() - new Date("2026-03-04").getTime()) / 86400000));
+                return (
+                  <div className="flex-1 grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <Card>
+                      <CardContent className="p-5 text-center">
+                        <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">Today</p>
+                        <p className="text-3xl font-bold text-primary inline-flex items-center gap-2 justify-center">{ar.today} <TodayTrendBadge today={ar.today} sevenDay={ar["7d"]} /></p>
+                        <p className="text-xs text-muted-foreground mt-1">redirects</p>
+                      </CardContent>
+                    </Card>
+                    <Card>
+                      <CardContent className="p-5 text-center">
+                        <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">7 Days</p>
+                        <p className="text-3xl font-bold text-primary">{ar["7d"]}</p>
+                        <div className="flex items-center justify-center gap-1 mt-1">
+                          <p className="text-xs text-muted-foreground">redirects</p>
+                          <TrendBadge current={ar["7d"]} currentDays={7} outer={ar["14d"]} outerDays={14} />
+                        </div>
+                      </CardContent>
+                    </Card>
+                    <Card>
+                      <CardContent className="p-5 text-center">
+                        <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">14 Days</p>
+                        <p className="text-3xl font-bold text-primary">{ar["14d"]}</p>
+                        <div className="flex items-center justify-center gap-1 mt-1">
+                          <p className="text-xs text-muted-foreground">redirects</p>
+                          <TrendBadge current={ar["14d"]} currentDays={14} outer={ar["30d"]} outerDays={30} />
+                        </div>
+                      </CardContent>
+                    </Card>
+                    <Card>
+                      <CardContent className="p-5 text-center">
+                        <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">30 Days</p>
+                        <p className="text-3xl font-bold text-primary">{ar["30d"]}</p>
+                        <div className="flex items-center justify-center gap-1 mt-1">
+                          <p className="text-xs text-muted-foreground">redirects</p>
+                          {trackingDays > 30 && <TrendBadge current={ar["30d"]} currentDays={30} outer={ar.total} outerDays={trackingDays} />}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </div>
+                );
+              })()}
+            </div>
           </section>
 
           {/* Bio Button Clicks */}
