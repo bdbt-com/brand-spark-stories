@@ -244,6 +244,69 @@ const AdminList = () => {
         {/* Left column — existing dashboard */}
         <div className="flex-1 min-w-0 space-y-12">
 
+        {/* Daily Graphs */}
+          {dailyStats.length > 0 && (
+            <section>
+              <h2 className="text-xl font-bold text-foreground mb-4 flex items-center gap-2">
+                <BarChart3 className="w-5 h-5 text-primary" /> Daily Trends (All Time)
+              </h2>
+              <div className="space-y-4">
+                {([
+                  { key: "visitors" as const, label: "Visitors", color: "hsl(var(--primary))" },
+                  { key: "bio_clicks" as const, label: "Bio Link Clicks", color: "hsl(142, 71%, 45%)" },
+                  { key: "auto_redirects" as const, label: "Auto-Redirects", color: "hsl(25, 95%, 53%)" },
+                ] as const).map(({ key, label, color }) => (
+                  <Card key={key}>
+                    <CardContent className="p-4">
+                      <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">{label}</p>
+                      <div className="h-[180px]">
+                        <ResponsiveContainer width="100%" height="100%">
+                          <LineChart data={dailyStats}>
+                            <XAxis
+                              dataKey="day"
+                              tick={{ fontSize: 10, fill: "hsl(var(--muted-foreground))" }}
+                              tickFormatter={(v: string) => {
+                                const d = new Date(v);
+                                return d.toLocaleDateString("en-GB", { day: "numeric", month: "short" });
+                              }}
+                              interval="preserveStartEnd"
+                              minTickGap={40}
+                            />
+                            <YAxis
+                              tick={{ fontSize: 10, fill: "hsl(var(--muted-foreground))" }}
+                              width={35}
+                              allowDecimals={false}
+                            />
+                            <Tooltip
+                              contentStyle={{
+                                background: "hsl(var(--background))",
+                                border: "1px solid hsl(var(--border))",
+                                borderRadius: "8px",
+                                fontSize: "12px",
+                              }}
+                              labelFormatter={(v: string) => {
+                                const d = new Date(v);
+                                return d.toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
+                              }}
+                            />
+                            <Line
+                              type="monotone"
+                              dataKey={key}
+                              stroke={color}
+                              strokeWidth={2}
+                              dot={false}
+                              activeDot={{ r: 4, strokeWidth: 0 }}
+                            />
+                          </LineChart>
+                        </ResponsiveContainer>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </section>
+          )}
+
           {/* Today's Live Stats */}
           <section>
             <h2 className="text-xl font-bold text-foreground mb-4 flex items-center gap-2">
