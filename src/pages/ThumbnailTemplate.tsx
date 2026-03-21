@@ -581,6 +581,13 @@ const ThumbnailTemplate = () => {
       title: "Do a Spending Freeze",
       subtitle: "Daily Wins Podcast 75",
       image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+    },
+    {
+      id: 80,
+      name: "Eat the Fibre on Your Plate First",
+      title: "Eat the Fibre on Your Plate First",
+      subtitle: "Daily Wins Podcast 76",
+      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
     }
   ];
 
