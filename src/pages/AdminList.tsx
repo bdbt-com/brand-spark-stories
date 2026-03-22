@@ -446,8 +446,8 @@ const AdminList = () => {
               <Play className="w-5 h-5 text-primary" /> Auto-Redirects
             </h2>
             <div className="flex flex-col xl:flex-row gap-4">
-              {filteredDailyStats.length > 0 && (
-                <InlineGraph data={filteredDailyStats} dataKey="auto_redirects" label="Auto-Redirects" color="hsl(25, 95%, 53%)" />
+              {(graphRange === 'today' ? hourlyStats.length > 0 : filteredDailyStats.length > 0) && (
+                <InlineGraph data={graphRange === 'today' ? hourlyStats : filteredDailyStats} dataKey="auto_redirects" label="Auto-Redirects" color="hsl(25, 95%, 53%)" hourly={graphRange === 'today'} />
               )}
               {(() => {
                 const ar = videoCounts["auto-redirect"] || { total: 0, today: 0, "7d": 0, "14d": 0, "30d": 0 };
