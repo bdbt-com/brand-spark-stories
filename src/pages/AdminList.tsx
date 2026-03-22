@@ -385,12 +385,13 @@ const AdminList = () => {
               {filteredDailyStats.length > 0 && (
                 <InlineGraph data={filteredDailyStats} dataKey="bio_clicks" label="Bio Link Clicks" color="hsl(142, 71%, 45%)" />
               )}
-              <div className="flex-1 grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="flex-1 grid grid-cols-2 md:grid-cols-5 gap-4">
                 {[
                   { label: "Today", value: bioClicks.today || 0, isToday: true, sevenDay: bioClicks["7d"] || 0, days: 0, outerVal: 0, outerDays: 0 },
                   { label: "7 Days", value: bioClicks["7d"] || 0, isToday: false, sevenDay: 0, days: 7, outerVal: bioClicks["14d"] || 0, outerDays: 14 },
                   { label: "14 Days", value: bioClicks["14d"] || 0, isToday: false, sevenDay: 0, days: 14, outerVal: bioClicks["30d"] || 0, outerDays: 30 },
                   { label: "30 Days", value: bioClicks["30d"] || 0, isToday: false, sevenDay: 0, days: 30, outerVal: bioClicks["30d"] || 0, outerDays: 30 },
+                  { label: "Total", value: bioClicks.since_launch || 0, isToday: false, sevenDay: 0, days: 0, outerVal: 0, outerDays: 0 },
                 ].map(({ label, value, isToday, sevenDay, days, outerVal, outerDays }) => (
                   <Card key={label}>
                     <CardContent className="p-5 text-center">
