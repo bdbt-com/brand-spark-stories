@@ -122,11 +122,11 @@ const AdminList = () => {
   const [todaySubscribers, setTodaySubscribers] = useState(0);
   const [feed, setFeed] = useState<FeedItem[]>([]);
   const [dailyStats, setDailyStats] = useState<{ day: string; visitors: number; bio_clicks: number; auto_redirects: number }[]>([]);
-  const [graphRange, setGraphRange] = useState<'7d' | '14d' | '30d' | 'all'>('all');
+  const [graphRange, setGraphRange] = useState<'today' | '7d' | '14d' | '30d' | 'all'>('all');
 
   const filteredDailyStats = useMemo(() => {
     if (graphRange === 'all') return dailyStats;
-    const days = graphRange === '7d' ? 7 : graphRange === '14d' ? 14 : 30;
+    const days = graphRange === 'today' ? 1 : graphRange === '7d' ? 7 : graphRange === '14d' ? 14 : 30;
     return dailyStats.slice(-days);
   }, [dailyStats, graphRange]);
 
@@ -275,7 +275,7 @@ const AdminList = () => {
               <BarChart3 className="w-4 h-4 text-primary" />
               <span className="text-xs font-bold text-foreground uppercase tracking-wider">Graph Range:</span>
               <div className="flex gap-1">
-                {(['7d', '14d', '30d', 'all'] as const).map((r) => (
+                {(['today', '7d', '14d', '30d', 'all'] as const).map((r) => (
                   <button
                     key={r}
                     onClick={() => setGraphRange(r)}
@@ -285,7 +285,7 @@ const AdminList = () => {
                         : 'bg-secondary text-muted-foreground hover:text-foreground'
                     }`}
                   >
-                    {r === 'all' ? 'All Time' : r.toUpperCase()}
+                    {r === 'all' ? 'All Time' : r === 'today' ? 'Today' : r.toUpperCase()}
                   </button>
                 ))}
               </div>
@@ -385,12 +385,13 @@ const AdminList = () => {
               {filteredDailyStats.length > 0 && (
                 <InlineGraph data={filteredDailyStats} dataKey="bio_clicks" label="Bio Link Clicks" color="hsl(142, 71%, 45%)" />
               )}
-              <div className="flex-1 grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="flex-1 grid grid-cols-2 md:grid-cols-5 gap-4">
                 {[
                   { label: "Today", value: bioClicks.today || 0, isToday: true, sevenDay: bioClicks["7d"] || 0, days: 0, outerVal: 0, outerDays: 0 },
                   { label: "7 Days", value: bioClicks["7d"] || 0, isToday: false, sevenDay: 0, days: 7, outerVal: bioClicks["14d"] || 0, outerDays: 14 },
                   { label: "14 Days", value: bioClicks["14d"] || 0, isToday: false, sevenDay: 0, days: 14, outerVal: bioClicks["30d"] || 0, outerDays: 30 },
                   { label: "30 Days", value: bioClicks["30d"] || 0, isToday: false, sevenDay: 0, days: 30, outerVal: bioClicks["30d"] || 0, outerDays: 30 },
+                  { label: "Total", value: bioClicks.since_launch || 0, isToday: false, sevenDay: 0, days: 0, outerVal: 0, outerDays: 0 },
                 ].map(({ label, value, isToday, sevenDay, days, outerVal, outerDays }) => (
                   <Card key={label}>
                     <CardContent className="p-5 text-center">
@@ -423,7 +424,7 @@ const AdminList = () => {
                 const ar = videoCounts["auto-redirect"] || { total: 0, today: 0, "7d": 0, "14d": 0, "30d": 0 };
                 const trackingDays = Math.max(1, Math.round((Date.now() - new Date("2026-03-04").getTime()) / 86400000));
                 return (
-                  <div className="flex-1 grid grid-cols-2 md:grid-cols-4 gap-4">
+                  <div className="flex-1 grid grid-cols-2 md:grid-cols-5 gap-4">
                     <Card>
                       <CardContent className="p-5 text-center">
                         <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">Today</p>
@@ -461,6 +462,13 @@ const AdminList = () => {
                         </div>
                       </CardContent>
                     </Card>
+                    <Card>
+                      <CardContent className="p-5 text-center">
+                        <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">Total</p>
+                        <p className="text-3xl font-bold text-primary">{ar.total}</p>
+                        <p className="text-xs text-muted-foreground mt-1">redirects</p>
+                      </CardContent>
+                    </Card>
                   </div>
                 );
               })()}
@@ -486,7 +494,7 @@ const AdminList = () => {
                       <p className="text-3xl font-bold text-primary inline-flex items-center gap-2 justify-center">{c.today} <TodayTrendBadge today={c.today} sevenDay={c["7d"]} /></p>
                       <p className="text-[10px] text-muted-foreground mb-1">today</p>
                       {(() => { const trackingDays = Math.max(1, Math.round((Date.now() - new Date("2026-03-04").getTime()) / 86400000)); return (
-                      <div className="grid grid-cols-3 gap-x-2 text-xs text-muted-foreground mt-2">
+                      <div className="grid grid-cols-4 gap-x-2 text-xs text-muted-foreground mt-2">
                         <div className="flex flex-col items-center gap-0.5">
                           <span className="font-semibold text-primary">{c["7d"]}</span>
                           <span className="flex items-center gap-0.5">7d <TrendBadge current={c["7d"]} currentDays={7} outer={c["14d"]} outerDays={14} /></span>
@@ -498,6 +506,10 @@ const AdminList = () => {
                         <div className="flex flex-col items-center gap-0.5">
                           <span className="font-semibold text-primary">{c["30d"]}</span>
                           <span className="flex items-center gap-0.5">30d {trackingDays > 30 && <TrendBadge current={c["30d"]} currentDays={30} outer={c.total} outerDays={trackingDays} />}</span>
+                        </div>
+                        <div className="flex flex-col items-center gap-0.5">
+                          <span className="font-semibold text-primary">{c.total}</span>
+                          <span>Total</span>
                         </div>
                       </div>
                       ); })()}
@@ -527,7 +539,7 @@ const AdminList = () => {
                       <p className="text-sm font-medium text-foreground mb-3 line-clamp-2">{title}</p>
                       <p className="text-2xl font-bold text-primary inline-flex items-center gap-2 justify-center">{c.today} <TodayTrendBadge today={c.today} sevenDay={c["7d"]} /></p>
                       <p className="text-[10px] text-muted-foreground mb-1">today</p>
-                      <div className="grid grid-cols-3 gap-x-2 text-xs text-muted-foreground mt-2">
+                      <div className="grid grid-cols-4 gap-x-2 text-xs text-muted-foreground mt-2">
                         <div className="flex flex-col items-center gap-0.5">
                           <span className="font-semibold text-primary">{c["7d"]}</span>
                           <span className="flex items-center gap-0.5">7d <TrendBadge current={c["7d"]} currentDays={7} outer={c["14d"]} outerDays={14} /></span>
@@ -539,6 +551,10 @@ const AdminList = () => {
                         <div className="flex flex-col items-center gap-0.5">
                           <span className="font-semibold text-primary">{c["30d"]}</span>
                           <span className="flex items-center gap-0.5">30d {launchDaysTracking > 30 && <TrendBadge current={c["30d"]} currentDays={30} outer={c.total} outerDays={launchDaysTracking} />}</span>
+                        </div>
+                        <div className="flex flex-col items-center gap-0.5">
+                          <span className="font-semibold text-primary">{c.total}</span>
+                          <span>Total</span>
                         </div>
                       </div>
                     </CardContent>
