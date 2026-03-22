@@ -588,6 +588,13 @@ const ThumbnailTemplate = () => {
       title: "Eat the Fibre on Your Plate First",
       subtitle: "Daily Wins Podcast 76",
       image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+    },
+    {
+      id: 81,
+      name: "Read for 20 Minutes Every Day",
+      title: "Read for 20 Minutes Every Day",
+      subtitle: "Daily Wins Podcast 77",
+      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
     }
   ];
 
