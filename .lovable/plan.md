@@ -1,28 +1,48 @@
 
 
-# Add "Total Since Launch" to Video/Bio Cards + "Today" Graph Setting
+# Show Hourly Data for "Today" Graph Range
 
-## Changes
+## Problem
+When "Today" is selected, the graph shows a single data point (one dot) because `get_daily_stats` returns daily granularity. The user wants an hourly line graph for the current day.
 
-### 1. Add "Total" column to Video Clicks cards
-Currently each video card shows a 3-column grid: 7d, 14d, 30d. Add a 4th column showing `c.total` labelled "Total". Change grid from `grid-cols-3` to `grid-cols-4`.
+## Solution
 
-### 2. Add "Total" column to Bio Button Clicks cards
-Same change — add a 4th column with `c.total` labelled "Total". Change grid from `grid-cols-3` to `grid-cols-4`.
+### 1. New DB function: `get_hourly_stats_today`
+Returns hourly buckets (0-23) for today's date with visitors, bio clicks, and auto-redirects per hour.
 
-### 3. Add "Total" to Auto-Redirects section
-Already has 4 cards (Today, 7d, 14d, 30d). Add a 5th "Total" card showing `ar.total`. Change grid to `grid-cols-2 md:grid-cols-5`.
+```sql
+CREATE OR REPLACE FUNCTION public.get_hourly_stats_today()
+RETURNS TABLE(hour timestamptz, visitors bigint, bio_clicks bigint, auto_redirects bigint)
+LANGUAGE sql STABLE SECURITY DEFINER SET search_path = public
+AS $$
+  SELECT
+    h.hour,
+    COALESCE(v.cnt, 0),
+    COALESCE(b.cnt, 0),
+    COALESCE(a.cnt, 0)
+  FROM generate_series(
+    date_trunc('day', now() AT TIME ZONE 'UTC'),
+    date_trunc('hour', now() AT TIME ZONE 'UTC'),
+    '1 hour'
+  ) AS h(hour)
+  LEFT JOIN (...) -- same pattern as get_daily_stats but grouped by hour
+$$;
+```
 
-### 4. Add "Total" to Bio Link Clicks section
-Currently has Today, 7d, 14d, 30d (4 cards). Add a 5th "Total" card. This requires fetching a total bio clicks count — but we don't currently have a "total" or "since_launch" bio clicks value. The simplest fix: add a `since_launch` key to the `bioPeriods` loop in `get-page-analytics` using the launch date, and display it as "Total".
+### 2. Update edge function: `get-daily-stats`
+Also call `get_hourly_stats_today` RPC and return both `daily` and `hourly` arrays in the response.
 
-### 5. Add "Today" option to graph range toggle
-Add `'today'` to the `graphRange` state type and the toggle buttons. When selected, filter `dailyStats` to only the last 1 day (today's entry).
+### 3. Frontend: `src/pages/AdminList.tsx`
+- Add `hourlyStats` state, populated from the edge function response
+- When `graphRange === 'today'`, pass `hourlyStats` to `InlineGraph` instead of `filteredDailyStats`
+- Update `InlineGraph` to accept an optional `xFormatter` prop — for hourly data, format as "6am", "2pm" etc. instead of "22 Mar"
+- The hourly data will have multiple points throughout the day, producing a proper line graph
 
 ### Files changed
 
 | File | Change |
 |------|--------|
-| `src/pages/AdminList.tsx` | Add Total columns to Video Clicks, Bio Button Clicks, Auto-Redirects, Bio Link Clicks; add "Today" graph range option |
-| `supabase/functions/get-page-analytics/index.ts` | Add `since_launch` to `bioPeriods` for total bio clicks |
+| Migration SQL | Create `get_hourly_stats_today()` function |
+| `supabase/functions/get-daily-stats/index.ts` | Call both RPCs, return `{ daily, hourly }` |
+| `src/pages/AdminList.tsx` | Add hourly state; swap data source when "Today" selected; update `InlineGraph` x-axis formatting |
 
