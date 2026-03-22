@@ -275,7 +275,7 @@ const AdminList = () => {
               <BarChart3 className="w-4 h-4 text-primary" />
               <span className="text-xs font-bold text-foreground uppercase tracking-wider">Graph Range:</span>
               <div className="flex gap-1">
-                {(['7d', '14d', '30d', 'all'] as const).map((r) => (
+                {(['today', '7d', '14d', '30d', 'all'] as const).map((r) => (
                   <button
                     key={r}
                     onClick={() => setGraphRange(r)}
@@ -285,7 +285,7 @@ const AdminList = () => {
                         : 'bg-secondary text-muted-foreground hover:text-foreground'
                     }`}
                   >
-                    {r === 'all' ? 'All Time' : r.toUpperCase()}
+                    {r === 'all' ? 'All Time' : r === 'today' ? 'Today' : r.toUpperCase()}
                   </button>
                 ))}
               </div>
