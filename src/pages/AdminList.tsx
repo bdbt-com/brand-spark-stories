@@ -48,7 +48,7 @@ function TrendBadge({ current, currentDays, outer, outerDays }: { current: numbe
   );
 }
 
-function InlineGraph({ data, dataKey, label, color }: { data: any[]; dataKey: string; label: string; color: string }) {
+function InlineGraph({ data, dataKey, label, color, hourly }: { data: any[]; dataKey: string; label: string; color: string; hourly?: boolean }) {
   return (
     <Card className="w-full xl:w-80 flex-shrink-0">
       <CardContent className="p-3">
@@ -56,9 +56,36 @@ function InlineGraph({ data, dataKey, label, color }: { data: any[]; dataKey: st
         <div className="h-[180px]">
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={data}>
-              <XAxis dataKey="day" tick={{ fontSize: 9, fill: "hsl(var(--muted-foreground))" }} tickFormatter={(v: string) => new Date(v).toLocaleDateString("en-GB", { day: "numeric", month: "short" })} interval="preserveStartEnd" minTickGap={30} />
+              <XAxis
+                dataKey={hourly ? "hour" : "day"}
+                tick={{ fontSize: 9, fill: "hsl(var(--muted-foreground))" }}
+                tickFormatter={(v: string) => {
+                  if (hourly) {
+                    const d = new Date(v);
+                    const h = d.getUTCHours();
+                    const suffix = h >= 12 ? 'pm' : 'am';
+                    const h12 = h % 12 || 12;
+                    return `${h12}${suffix}`;
+                  }
+                  return new Date(v).toLocaleDateString("en-GB", { day: "numeric", month: "short" });
+                }}
+                interval="preserveStartEnd"
+                minTickGap={hourly ? 20 : 30}
+              />
               <YAxis tick={{ fontSize: 9, fill: "hsl(var(--muted-foreground))" }} width={30} allowDecimals={false} />
-              <Tooltip contentStyle={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))", borderRadius: "8px", fontSize: "11px" }} labelFormatter={(v: string) => new Date(v).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" })} />
+              <Tooltip
+                contentStyle={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))", borderRadius: "8px", fontSize: "11px" }}
+                labelFormatter={(v: string) => {
+                  if (hourly) {
+                    const d = new Date(v);
+                    const h = d.getUTCHours();
+                    const suffix = h >= 12 ? 'pm' : 'am';
+                    const h12 = h % 12 || 12;
+                    return `${h12}:00${suffix}`;
+                  }
+                  return new Date(v).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
+                }}
+              />
               <Line type="monotone" dataKey={dataKey} stroke={color} strokeWidth={1.5} dot={false} activeDot={{ r: 3, strokeWidth: 0 }} />
             </LineChart>
           </ResponsiveContainer>
