@@ -17,10 +17,15 @@ Deno.serve(async (req) => {
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
     );
 
-    const { data, error } = await supabase.rpc("get_daily_stats");
-    if (error) throw error;
+    const [dailyRes, hourlyRes] = await Promise.all([
+      supabase.rpc("get_daily_stats"),
+      supabase.rpc("get_hourly_stats_today"),
+    ]);
 
-    return new Response(JSON.stringify({ daily: data }), {
+    if (dailyRes.error) throw dailyRes.error;
+    if (hourlyRes.error) throw hourlyRes.error;
+
+    return new Response(JSON.stringify({ daily: dailyRes.data, hourly: hourlyRes.data }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
   } catch (err) {

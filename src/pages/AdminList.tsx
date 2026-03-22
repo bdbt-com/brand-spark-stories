@@ -48,7 +48,7 @@ function TrendBadge({ current, currentDays, outer, outerDays }: { current: numbe
   );
 }
 
-function InlineGraph({ data, dataKey, label, color }: { data: any[]; dataKey: string; label: string; color: string }) {
+function InlineGraph({ data, dataKey, label, color, hourly }: { data: any[]; dataKey: string; label: string; color: string; hourly?: boolean }) {
   return (
     <Card className="w-full xl:w-80 flex-shrink-0">
       <CardContent className="p-3">
@@ -56,9 +56,36 @@ function InlineGraph({ data, dataKey, label, color }: { data: any[]; dataKey: st
         <div className="h-[180px]">
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={data}>
-              <XAxis dataKey="day" tick={{ fontSize: 9, fill: "hsl(var(--muted-foreground))" }} tickFormatter={(v: string) => new Date(v).toLocaleDateString("en-GB", { day: "numeric", month: "short" })} interval="preserveStartEnd" minTickGap={30} />
+              <XAxis
+                dataKey={hourly ? "hour" : "day"}
+                tick={{ fontSize: 9, fill: "hsl(var(--muted-foreground))" }}
+                tickFormatter={(v: string) => {
+                  if (hourly) {
+                    const d = new Date(v);
+                    const h = d.getUTCHours();
+                    const suffix = h >= 12 ? 'pm' : 'am';
+                    const h12 = h % 12 || 12;
+                    return `${h12}${suffix}`;
+                  }
+                  return new Date(v).toLocaleDateString("en-GB", { day: "numeric", month: "short" });
+                }}
+                interval="preserveStartEnd"
+                minTickGap={hourly ? 20 : 30}
+              />
               <YAxis tick={{ fontSize: 9, fill: "hsl(var(--muted-foreground))" }} width={30} allowDecimals={false} />
-              <Tooltip contentStyle={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))", borderRadius: "8px", fontSize: "11px" }} labelFormatter={(v: string) => new Date(v).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" })} />
+              <Tooltip
+                contentStyle={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))", borderRadius: "8px", fontSize: "11px" }}
+                labelFormatter={(v: string) => {
+                  if (hourly) {
+                    const d = new Date(v);
+                    const h = d.getUTCHours();
+                    const suffix = h >= 12 ? 'pm' : 'am';
+                    const h12 = h % 12 || 12;
+                    return `${h12}:00${suffix}`;
+                  }
+                  return new Date(v).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
+                }}
+              />
               <Line type="monotone" dataKey={dataKey} stroke={color} strokeWidth={1.5} dot={false} activeDot={{ r: 3, strokeWidth: 0 }} />
             </LineChart>
           </ResponsiveContainer>
@@ -122,6 +149,7 @@ const AdminList = () => {
   const [todaySubscribers, setTodaySubscribers] = useState(0);
   const [feed, setFeed] = useState<FeedItem[]>([]);
   const [dailyStats, setDailyStats] = useState<{ day: string; visitors: number; bio_clicks: number; auto_redirects: number }[]>([]);
+  const [hourlyStats, setHourlyStats] = useState<{ hour: string; visitors: number; bio_clicks: number; auto_redirects: number }[]>([]);
   const [graphRange, setGraphRange] = useState<'today' | '7d' | '14d' | '30d' | 'all'>('all');
 
   const filteredDailyStats = useMemo(() => {
@@ -181,6 +209,7 @@ const AdminList = () => {
     try {
       const { data } = await supabase.functions.invoke("get-daily-stats");
       if (data?.daily) setDailyStats(data.daily);
+      if (data?.hourly) setHourlyStats(data.hourly);
     } catch {}
   }, []);
 
@@ -337,8 +366,8 @@ const AdminList = () => {
               <BarChart3 className="w-5 h-5 text-primary" /> Page Analytics
             </h2>
             <div className="flex flex-col xl:flex-row gap-4">
-              {filteredDailyStats.length > 0 && (
-                <InlineGraph data={filteredDailyStats} dataKey="visitors" label="Visitors" color="hsl(var(--primary))" />
+              {(graphRange === 'today' ? hourlyStats.length > 0 : filteredDailyStats.length > 0) && (
+                <InlineGraph data={graphRange === 'today' ? hourlyStats : filteredDailyStats} dataKey="visitors" label="Visitors" color="hsl(var(--primary))" hourly={graphRange === 'today'} />
               )}
               <div className="flex-1 grid grid-cols-2 md:grid-cols-4 gap-4">
                 {[
@@ -382,8 +411,8 @@ const AdminList = () => {
               <BarChart3 className="w-5 h-5 text-primary" /> Bio Link Clicks
             </h2>
             <div className="flex flex-col xl:flex-row gap-4">
-              {filteredDailyStats.length > 0 && (
-                <InlineGraph data={filteredDailyStats} dataKey="bio_clicks" label="Bio Link Clicks" color="hsl(142, 71%, 45%)" />
+              {(graphRange === 'today' ? hourlyStats.length > 0 : filteredDailyStats.length > 0) && (
+                <InlineGraph data={graphRange === 'today' ? hourlyStats : filteredDailyStats} dataKey="bio_clicks" label="Bio Link Clicks" color="hsl(142, 71%, 45%)" hourly={graphRange === 'today'} />
               )}
               <div className="flex-1 grid grid-cols-2 md:grid-cols-5 gap-4">
                 {[
@@ -417,8 +446,8 @@ const AdminList = () => {
               <Play className="w-5 h-5 text-primary" /> Auto-Redirects
             </h2>
             <div className="flex flex-col xl:flex-row gap-4">
-              {filteredDailyStats.length > 0 && (
-                <InlineGraph data={filteredDailyStats} dataKey="auto_redirects" label="Auto-Redirects" color="hsl(25, 95%, 53%)" />
+              {(graphRange === 'today' ? hourlyStats.length > 0 : filteredDailyStats.length > 0) && (
+                <InlineGraph data={graphRange === 'today' ? hourlyStats : filteredDailyStats} dataKey="auto_redirects" label="Auto-Redirects" color="hsl(25, 95%, 53%)" hourly={graphRange === 'today'} />
               )}
               {(() => {
                 const ar = videoCounts["auto-redirect"] || { total: 0, today: 0, "7d": 0, "14d": 0, "30d": 0 };
