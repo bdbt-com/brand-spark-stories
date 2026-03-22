@@ -81,7 +81,7 @@ Deno.serve(async (req) => {
     }
 
     // Count /bio and /links page views for each time period
-    const bioPeriods = { today: periods["today"], "7d": periods["7d"], "14d": periods["14d"], "30d": periods["30d"] };
+    const bioPeriods = { today: periods["today"], "7d": periods["7d"], "14d": periods["14d"], "30d": periods["30d"], since_launch: LAUNCH_DATE };
     const bioClicks: Record<string, number> = {};
     for (const [key, since] of Object.entries(bioPeriods)) {
       const { count } = await supabase
