@@ -411,8 +411,8 @@ const AdminList = () => {
               <BarChart3 className="w-5 h-5 text-primary" /> Bio Link Clicks
             </h2>
             <div className="flex flex-col xl:flex-row gap-4">
-              {filteredDailyStats.length > 0 && (
-                <InlineGraph data={filteredDailyStats} dataKey="bio_clicks" label="Bio Link Clicks" color="hsl(142, 71%, 45%)" />
+              {(graphRange === 'today' ? hourlyStats.length > 0 : filteredDailyStats.length > 0) && (
+                <InlineGraph data={graphRange === 'today' ? hourlyStats : filteredDailyStats} dataKey="bio_clicks" label="Bio Link Clicks" color="hsl(142, 71%, 45%)" hourly={graphRange === 'today'} />
               )}
               <div className="flex-1 grid grid-cols-2 md:grid-cols-5 gap-4">
                 {[
