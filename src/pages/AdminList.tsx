@@ -424,7 +424,7 @@ const AdminList = () => {
                 const ar = videoCounts["auto-redirect"] || { total: 0, today: 0, "7d": 0, "14d": 0, "30d": 0 };
                 const trackingDays = Math.max(1, Math.round((Date.now() - new Date("2026-03-04").getTime()) / 86400000));
                 return (
-                  <div className="flex-1 grid grid-cols-2 md:grid-cols-4 gap-4">
+                  <div className="flex-1 grid grid-cols-2 md:grid-cols-5 gap-4">
                     <Card>
                       <CardContent className="p-5 text-center">
                         <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">Today</p>
@@ -460,6 +460,13 @@ const AdminList = () => {
                           <p className="text-xs text-muted-foreground">redirects</p>
                           {trackingDays > 30 && <TrendBadge current={ar["30d"]} currentDays={30} outer={ar.total} outerDays={trackingDays} />}
                         </div>
+                      </CardContent>
+                    </Card>
+                    <Card>
+                      <CardContent className="p-5 text-center">
+                        <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">Total</p>
+                        <p className="text-3xl font-bold text-primary">{ar.total}</p>
+                        <p className="text-xs text-muted-foreground mt-1">redirects</p>
                       </CardContent>
                     </Card>
                   </div>
