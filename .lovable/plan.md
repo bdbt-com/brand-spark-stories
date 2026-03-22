@@ -1,28 +1,28 @@
 
 
-# Fix Auto-Redirects Graph + Add Missing TikTok Thumbnail
+# Add "Total Since Launch" to Video/Bio Cards + "Today" Graph Setting
 
-## Issue 1: Auto-Redirects graph shows no/wrong data
+## Changes
 
-The `get_daily_stats()` SQL function filters with `WHERE video_id = 'auto-redirect'` (exact match), but auto-redirects are stored as `'auto-redirect:VIDEO_ID'` (e.g. `auto-redirect:capable-of-more`). No rows ever match, so the graph is always zero.
+### 1. Add "Total" column to Video Clicks cards
+Currently each video card shows a 3-column grid: 7d, 14d, 30d. Add a 4th column showing `c.total` labelled "Total". Change grid from `grid-cols-3` to `grid-cols-4`.
 
-**Fix**: Update the SQL function to use `WHERE video_id LIKE 'auto-redirect:%'`.
+### 2. Add "Total" column to Bio Button Clicks cards
+Same change — add a 4th column with `c.total` labelled "Total". Change grid from `grid-cols-3` to `grid-cols-4`.
+
+### 3. Add "Total" to Auto-Redirects section
+Already has 4 cards (Today, 7d, 14d, 30d). Add a 5th "Total" card showing `ar.total`. Change grid to `grid-cols-2 md:grid-cols-5`.
+
+### 4. Add "Total" to Bio Link Clicks section
+Currently has Today, 7d, 14d, 30d (4 cards). Add a 5th "Total" card. This requires fetching a total bio clicks count — but we don't currently have a "total" or "since_launch" bio clicks value. The simplest fix: add a `since_launch` key to the `bioPeriods` loop in `get-page-analytics` using the launch date, and display it as "Total".
+
+### 5. Add "Today" option to graph range toggle
+Add `'today'` to the `graphRange` state type and the toggle buttons. When selected, filter `dailyStats` to only the last 1 day (today's entry).
+
+### Files changed
 
 | File | Change |
 |------|--------|
-| Migration SQL | `CREATE OR REPLACE FUNCTION get_daily_stats()` — change `= 'auto-redirect'` to `LIKE 'auto-redirect:%'` |
-
-## Issue 2: Missing TikTok thumbnail for Podcast 75
-
-Only the YouTube template (id 79) was created for "Do a Spending Freeze". The TikTok version was never added.
-
-**Fix**: Add TikTok template entry and rendering block:
-- Add `{ id: 93, name: "Podcast 75 Do a Spending Freeze", title: "DO A / SPENDING FREEZE", subtitle: "" }` to `tikTokTemplates` array
-- Add `TikTokTemplate` background entry (Podcast 75 is odd → uses Bg 28 / `tiktok-bg-template-32.png`)
-- Add conditional rendering block for `currentTemplateIndex === 93` in TikTok mode with the standard layout: white top line "DO A", gold bottom line "SPENDING FREEZE"
-
-| File | Change |
-|------|--------|
-| `src/pages/ThumbnailTemplate.tsx` | Add tikTok template metadata (id 93), TikTokTemplate background, and rendering block |
-| `src/components/TikTokTemplate.tsx` | Add title entry for index 93 |
+| `src/pages/AdminList.tsx` | Add Total columns to Video Clicks, Bio Button Clicks, Auto-Redirects, Bio Link Clicks; add "Today" graph range option |
+| `supabase/functions/get-page-analytics/index.ts` | Add `since_launch` to `bioPeriods` for total bio clicks |
 
