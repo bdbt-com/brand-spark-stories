@@ -182,6 +182,7 @@ const AdminList = () => {
     try {
       const { data } = await supabase.functions.invoke("get-daily-stats");
       if (data?.daily) setDailyStats(data.daily);
+      if (data?.hourly) setHourlyStats(data.hourly);
     } catch {}
   }, []);
 
