@@ -231,6 +231,15 @@ export type Database = {
         Args: { guide_id: number; valid_seconds?: number }
         Returns: string
       }
+      get_hourly_stats_today: {
+        Args: never
+        Returns: {
+          auto_redirects: number
+          bio_clicks: number
+          hour: string
+          visitors: number
+        }[]
+      }
       get_video_click_counts: {
         Args: never
         Returns: {
