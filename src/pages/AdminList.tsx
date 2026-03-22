@@ -122,6 +122,7 @@ const AdminList = () => {
   const [todaySubscribers, setTodaySubscribers] = useState(0);
   const [feed, setFeed] = useState<FeedItem[]>([]);
   const [dailyStats, setDailyStats] = useState<{ day: string; visitors: number; bio_clicks: number; auto_redirects: number }[]>([]);
+  const [hourlyStats, setHourlyStats] = useState<{ hour: string; visitors: number; bio_clicks: number; auto_redirects: number }[]>([]);
   const [graphRange, setGraphRange] = useState<'today' | '7d' | '14d' | '30d' | 'all'>('all');
 
   const filteredDailyStats = useMemo(() => {
