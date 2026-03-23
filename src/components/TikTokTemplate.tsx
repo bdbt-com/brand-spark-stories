@@ -1315,6 +1315,18 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
                   EVERY DAY
                 </span>
               </>
+            ) : templateIndex === 96 ? (
+              <>
+                <span className="text-white/90 block text-2xl tracking-wider">
+                  BDBT PODCAST 78
+                </span>
+                <span className="block mt-3 text-white">
+                  WALK FOR 20 MINUTES
+                </span>
+                <span className="block mt-1" style={{ color: 'hsl(35, 45%, 75%)' }}>
+                  EVERY DAY
+                </span>
+              </>
             ) : null}
           </h1>
         </div>
