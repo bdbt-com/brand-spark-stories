@@ -595,6 +595,13 @@ const ThumbnailTemplate = () => {
       title: "Read for 20 Minutes Every Day",
       subtitle: "Daily Wins Podcast 77",
       image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+    },
+    {
+      id: 82,
+      name: "Walk for 20 Minutes Every Day",
+      title: "Walk for 20 Minutes Every Day",
+      subtitle: "Daily Wins Podcast 78",
+      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
     }
   ];
 
