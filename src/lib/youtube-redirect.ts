@@ -79,9 +79,13 @@ export function navigateToYouTube(videoId: string) {
     return;
   }
 
-  // TikTok: web URL only (deep links don't work in their sandbox)
+  // TikTok: open in system browser (their in-app browser blocks location.href to external sites)
   if (isTikTok) {
-    window.location.href = webUrl;
+    const opened = window.open(webUrl, '_blank');
+    if (!opened) {
+      // Fallback: try location.href if popup blocked
+      window.location.href = webUrl;
+    }
     return;
   }
 
