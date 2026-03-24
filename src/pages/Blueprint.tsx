@@ -25,7 +25,7 @@ const Blueprint = () => {
     const episode = podcastEpisodes.find(e => e.videoId === playingVideo);
     if (!episode) return;
     const timer = setTimeout(() => {
-      trackAndRedirect(episode.videoId);
+      startTrackedRedirect(episode.videoId);
       setPlayingVideo(null);
     }, 4000);
     return () => clearTimeout(timer);
@@ -145,7 +145,7 @@ const Blueprint = () => {
                       </div>
                     </div>
                   )}
-                  <a href={`https://www.youtube.com/watch?v=${episode.videoId}`} target="_blank" rel="noopener noreferrer" className="block p-4 hover:bg-muted/50 transition-colors" onClick={(e) => { e.preventDefault(); trackAndRedirect(episode.videoId); }}>
+                  <a href={`https://www.youtube.com/watch?v=${episode.videoId}`} target="_blank" rel="noopener noreferrer" className="block p-4 hover:bg-muted/50 transition-colors" onClick={(e) => { e.preventDefault(); startTrackedRedirect(episode.videoId); }}>
                     <h3 className="font-semibold text-sm text-foreground line-clamp-2">{episode.title}</h3>
                     <p className="text-xs text-muted-foreground mt-1">{episode.views}</p>
                   </a>
