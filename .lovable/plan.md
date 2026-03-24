@@ -1,57 +1,93 @@
 
-# Make Redirect Tracking Reliable Everywhere
+# Fix TikTok Redirect Tracking Properly
 
-## What’s broken
-Redirect tracking is currently based on fragile browser events (`blur`, `visibilitychange`, `pagehide`) in `/bio`, and other pages use separate YouTube-opening logic with no proper redirect tracking at all. That makes TikTok/Instagram/in-app browsers inconsistent.
+## What’s actually wrong
+The current approach still tries to record the redirect at the exact moment the app leaves the page:
 
-## Fix
-Replace the current heuristic approach with one standard redirect-tracking flow used everywhere:
+- `trackAndRedirect()` sends `navigator.sendBeacon(...)`
+- then TikTok uses `window.open(webUrl, "_blank")`
 
-1. Create one shared YouTube redirect helper
-- Centralize platform detection + navigation logic in a reusable helper
-- Use it from:
-  - `/bio`
-  - Home
-  - Blueprint
+That is fragile in TikTok’s in-app browser. `sendBeacon` can return `true` even when the request never fully reaches the edge function before TikTok hands control to the system browser. Also, because the beacon path returns early, the `fetch(...keepalive)` fallback never runs.
 
-2. Record redirects before navigation using an unload-safe request
-- Stop relying on `blur` / `visibilitychange` as the source of truth
-- Send tracking with `navigator.sendBeacon(...)` first
-- Fall back to `fetch(..., { keepalive: true })` if needed
-- Then perform the redirect
+That matches what I found:
+- the `/bio` page still tracks before leaving
+- TikTok navigation is still an immediate handoff
+- recent `track-video-click` logs don’t show real traffic coming through during these failures
 
-3. Make the tracking edge function accept beacon-style requests
-- Update `track-video-click` so it can accept:
-  - normal JSON POSTs
-  - beacon/plain-text or lightweight payloads
-- Return quickly so redirects are not delayed
+## Correct fix
+Stop trying to race the tracking request against the external redirect.
 
-4. Keep analytics format compatible
-- Continue storing:
-  - `auto-redirect:VIDEO_ID` for idle `/bio` redirects
-  - plain `VIDEO_ID` for normal video clicks
-- If we also want “timed redirect” tracking from Home/Blueprint separated from manual clicks, use a compatible prefix like `redirect:VIDEO_ID`
+Instead, use a **same-site redirect bridge page**:
 
-5. Update `/bio` timer logic
-- When the idle timer fires, immediately log the redirect with the unload-safe call
-- Only after that trigger the YouTube navigation
-- Keep local redirect history updates in the same successful redirect path so the visit sequence stays accurate
+```text
+/bio  ->  /redirect?video=...&trackId=auto-redirect:...
+         -> record tracking on our own site first
+         -> then open YouTube with platform-specific logic
+```
 
-6. Update Home + Blueprint redirect flows
-- Their “play then open YouTube after 4 seconds” flow should use the same shared helper
-- This ensures those redirects are tracked too, not just clicks
+This is much more reliable because TikTok is only leaving the app **after** the tracking request has already been made from your own page.
+
+## Plan
+
+### 1. Add a dedicated internal redirect page
+Create a lightweight route/page whose only job is:
+- read `videoId` and optional `trackId`
+- call `track-video-click` with a normal request
+- once that request resolves (or times out after a short fallback), send user to YouTube
+
+This page can show a simple “Opening YouTube…” message for a split second.
+
+### 2. Change the shared redirect helper
+Refactor `src/lib/youtube-redirect.ts` so it supports two phases:
+- `startTrackedRedirect(videoId, trackId?)` → navigate internally to `/redirect?...`
+- `navigateToYouTube(videoId)` → keep the platform-specific outbound logic here
+
+This removes the unreliable “track while unloading” pattern from the main pages.
+
+### 3. Update `/bio` to use the bridge flow
+In `src/pages/LinkInBio.tsx`:
+- replace direct `trackAndRedirect(...)` calls with the new internal redirect starter
+- use it for:
+  - idle auto-redirect
+  - manual episode clicks
+  - 4-second “play then open YouTube” flow
+
+### 4. Update Home and Blueprint too
+In:
+- `src/pages/Home.tsx`
+- `src/pages/Blueprint.tsx`
+
+route all YouTube opens through the same internal redirect page so every tracked redirect follows one standard path.
+
+### 5. Make TikTok navigation itself safer
+Inside `navigateToYouTube(videoId)`:
+- keep TikTok on the web URL path
+- prefer the method that opens cleanly from the bridge page
+- avoid depending on pre-unload tracking entirely
+
+The key improvement is not just changing TikTok navigation again — it’s making sure tracking happens **before** TikTok tries to hand off.
+
+### 6. Keep analytics format unchanged
+Continue storing:
+- `auto-redirect:VIDEO_ID` for idle redirects
+- plain `VIDEO_ID` for normal video opens
+- existing admin graphs and live feed should keep working without schema changes
+
+### 7. Optional hardening
+While implementing, also improve the edge function slightly:
+- accept both JSON and plain text as it already does
+- optionally add lightweight request logging around received `videoId` for easier debugging if needed
 
 ## Files to change
 | File | Change |
 |------|--------|
-| `src/pages/LinkInBio.tsx` | Remove event-based redirect confirmation logic; use shared tracked redirect helper |
-| `src/pages/Home.tsx` | Route 4-second YouTube open through shared tracked redirect helper |
-| `src/pages/Blueprint.tsx` | Route 4-second YouTube open through shared tracked redirect helper |
-| `src/lib/...` | Add shared YouTube redirect/tracking utility |
-| `supabase/functions/track-video-click/index.ts` | Support beacon/keepalive-friendly payload handling |
+| `src/lib/youtube-redirect.ts` | Replace unload-time tracking flow with internal redirect starter + keep outbound YouTube logic |
+| `src/pages/LinkInBio.tsx` | Route all YouTube opens through internal redirect page |
+| `src/pages/Home.tsx` | Route tracked opens through internal redirect page |
+| `src/pages/Blueprint.tsx` | Route tracked opens through internal redirect page |
+| `src/App.tsx` | Add route for redirect bridge page |
+| `src/pages/...` new redirect page | Track first, then send user to YouTube |
+| `supabase/functions/track-video-click/index.ts` | Optional logging/hardening only; no schema change required |
 
-## Technical details
-- The current event-listener approach is the main problem; it is not reliable across TikTok, Instagram, app deep links, and mobile webviews.
-- `sendBeacon` / `keepalive` is the standard pattern for outbound-click / redirect tracking because it survives page unload much better.
-- This change makes redirect counting consistent without needing fragile focus-loss detection.
-- Admin graphs and live feed should continue working because they already read from `video_clicks`; only the write path becomes reliable.
+## Technical note
+The real issue is not “TikTok vs Instagram” by itself. The problem is trying to complete analytics **during page exit** in a hostile in-app browser. A short first-party redirect bridge is the standard reliable solution here.
