@@ -7,8 +7,8 @@ const podcastEpisodes = [
   { videoId: "ERXXO8mG5IY", title: "Why 70% of People Are Dehydrated", views: "8.4K views" },
   { videoId: "OjwSKAXveN8", title: "The Dangers of Screen-time Before Bed", views: "12.8K views" },
   { videoId: "bv27Bn6qWIo", title: "Why Most People Invest Completely Wrong", views: "5.7K views" },
-  { videoId: "zz2rVKKt1l0", title: "Go Exploring", views: "9.9K views" },
-  { videoId: "-a4NbW5Y718", title: "If You Know You're Capable of More, This is for You", views: "4.4K views" },
+  { videoId: "vPd9pieng58", title: "Read For 20 Minutes Every Day", views: "2.1K views" },
+  { videoId: "cfLHVIIp4o0", title: "Build a Life You Don't Need to Escape From", views: "3.2K views" },
   { videoId: "Irm5oIb5ySo", title: "Connect with More Animals", views: "6.7K views" },
 ];
 
@@ -353,11 +353,11 @@ const LinkInBio = () => {
     const STORAGE_KEY = 'bdbt-auto-redirects-v7';
     const SEVEN_DAYS = 7 * 24 * 60 * 60 * 1000;
     const REDIRECT_SEQUENCE = [
-      '-a4NbW5Y718',  // 1st: "If You Know You're Capable of More"
+      'cfLHVIIp4o0',  // 1st: "Build a Life You Don't Need to Escape From"
       'OjwSKAXveN8',  // 2nd: "Screen-time Before Bed"
       'ERXXO8mG5IY',  // 3rd+: cycle starts
       'bv27Bn6qWIo',
-      'zz2rVKKt1l0',
+      'vPd9pieng58',
       'Irm5oIb5ySo',
     ];
 

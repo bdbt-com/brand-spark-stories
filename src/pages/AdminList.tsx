@@ -99,9 +99,14 @@ const VIDEO_MAP: Record<string, string> = {
   ERXXO8mG5IY: "Why 70% of People Are Dehydrated",
   OjwSKAXveN8: "Dangers of Screen-time Before Bed",
   bv27Bn6qWIo: "Why Most People Invest Completely Wrong",
+  vPd9pieng58: "Read For 20 Minutes Every Day",
+  cfLHVIIp4o0: "Build a Life You Don't Need to Escape From",
+  Irm5oIb5ySo: "Connect with More Animals",
+};
+
+const PREVIOUS_VIDEO_MAP: Record<string, string> = {
   zz2rVKKt1l0: "Go Exploring",
   "-a4NbW5Y718": "If You Know You're Capable of More",
-  Irm5oIb5ySo: "Connect with More Animals",
 };
 
 interface AnalyticsPeriod {
@@ -151,6 +156,7 @@ const AdminList = () => {
   const [dailyStats, setDailyStats] = useState<{ day: string; visitors: number; bio_clicks: number; auto_redirects: number }[]>([]);
   const [hourlyStats, setHourlyStats] = useState<{ hour: string; visitors: number; bio_clicks: number; auto_redirects: number }[]>([]);
   const [graphRange, setGraphRange] = useState<'today' | '7d' | '14d' | '30d' | 'all'>('all');
+  const [showPreviousVideos, setShowPreviousVideos] = useState(false);
 
   const filteredDailyStats = useMemo(() => {
     if (graphRange === 'all') return dailyStats;
@@ -552,9 +558,19 @@ const AdminList = () => {
           <section>
             <h2 className="text-xl font-bold text-foreground mb-4 flex items-center gap-2">
               <Play className="w-5 h-5 text-primary" /> Video Clicks
+              <button
+                onClick={() => setShowPreviousVideos(prev => !prev)}
+                className={`ml-auto px-2.5 py-1 text-[10px] font-semibold rounded-md transition-colors ${
+                  showPreviousVideos
+                    ? 'bg-primary text-primary-foreground'
+                    : 'bg-secondary text-muted-foreground hover:text-foreground'
+                }`}
+              >
+                {showPreviousVideos ? 'Current' : 'Previous'}
+              </button>
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {Object.entries(VIDEO_MAP).map(([videoId, title]) => {
+              {Object.entries(showPreviousVideos ? PREVIOUS_VIDEO_MAP : VIDEO_MAP).map(([videoId, title]) => {
                 const c = videoCounts[videoId] || { total: 0, today: 0, "7d": 0, "14d": 0, "30d": 0 };
                 const launchDaysTracking = Math.max(1, Math.round((Date.now() - new Date("2026-03-04").getTime()) / 86400000));
                 return (
