@@ -13,7 +13,7 @@ import { startTrackedRedirect } from "@/lib/youtube-redirect";
 
 // YouTube podcast episodes
 const podcastEpisodes = [
-  { videoId: "ERXXO8mG5IY", title: "Why 70% of People Are Dehydrated & Don't Know It", views: "8.4K views" },
+  { videoId: "cfLHVIIp4o0", title: "Build a Life You Don't Need to Escape From", views: "3.2K views" },
   { videoId: "OjwSKAXveN8", title: "The Dangers of Screen-time Before Bed", views: "12.8K views", featured: true },
   { videoId: "bv27Bn6qWIo", title: "Why Most People Invest Completely Wrong", views: "5.7K views" },
 ];
