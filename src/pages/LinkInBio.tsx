@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useState, useEffect, useRef, useCallback } from "react";
 import { Play } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import { trackAndRedirect, trackVideoClick, navigateToYouTube } from "@/lib/youtube-redirect";
+import { startTrackedRedirect } from "@/lib/youtube-redirect";
 
 const podcastEpisodes = [
   { videoId: "ERXXO8mG5IY", title: "Why 70% of People Are Dehydrated", views: "8.4K views" },
@@ -245,7 +245,7 @@ const LinkInBio = () => {
     const episode = podcastEpisodes[playingVideo];
     if (!episode) return;
     const timer = setTimeout(() => {
-      trackAndRedirect(episode.videoId);
+      startTrackedRedirect(episode.videoId);
       setPlayingVideo(null);
     }, 4000);
     return () => clearTimeout(timer);
@@ -325,7 +325,7 @@ const LinkInBio = () => {
         // Track + update localStorage BEFORE navigating
         const updated = [...getRecentRedirects(), { timestamp: Date.now(), videoId }];
         localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
-        trackAndRedirect(videoId, "auto-redirect:" + videoId);
+        startTrackedRedirect(videoId, "auto-redirect:" + videoId);
       }, delay);
     };
 
@@ -506,7 +506,7 @@ const LinkInBio = () => {
                     className="block p-2.5 hover:bg-white/5 transition-colors"
                     onClick={(e) => {
                       e.preventDefault();
-                      trackAndRedirect(episode.videoId);
+                      startTrackedRedirect(episode.videoId);
                     }}
                   >
                     <h3 className="text-sm font-medium text-white leading-snug line-clamp-2 min-h-[2rem]">{episode.title}</h3>
@@ -546,7 +546,7 @@ const LinkInBio = () => {
                         onClick={() => {
                           const realIdx = i === 0 ? totalSlides - 1 : i > totalSlides ? 0 : i - 1;
                           setPlayingVideo(realIdx);
-                          trackAndRedirect(episode.videoId);
+                          startTrackedRedirect(episode.videoId);
                         }}
                         className="relative w-full cursor-pointer"
                       >
@@ -564,7 +564,7 @@ const LinkInBio = () => {
                       className="block p-2 hover:bg-white/5 transition-colors"
                       onClick={(e) => {
                         e.preventDefault();
-                        trackAndRedirect(episode.videoId);
+                        startTrackedRedirect(episode.videoId);
                       }}
                     >
                       <h3 className="text-xs font-medium text-white leading-snug line-clamp-2 min-h-[2rem]">{episode.title}</h3>

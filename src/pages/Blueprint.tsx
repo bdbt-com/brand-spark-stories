@@ -7,7 +7,7 @@ import EmailCaptureForm from "@/components/EmailCaptureForm";
 import { getGuideUrl } from "@/data/guideMapping";
 import { useDownloadCounts } from "@/hooks/useDownloadCounts";
 import { supabase } from "@/integrations/supabase/client";
-import { trackAndRedirect, trackVideoClick } from "@/lib/youtube-redirect";
+import { startTrackedRedirect } from "@/lib/youtube-redirect";
 
 const podcastEpisodes = [
   { videoId: "OjwSKAXveN8", title: "The Dangers of Screen-time Before Bed", views: "12.8K views" },
@@ -25,7 +25,7 @@ const Blueprint = () => {
     const episode = podcastEpisodes.find(e => e.videoId === playingVideo);
     if (!episode) return;
     const timer = setTimeout(() => {
-      trackAndRedirect(episode.videoId);
+      startTrackedRedirect(episode.videoId);
       setPlayingVideo(null);
     }, 4000);
     return () => clearTimeout(timer);
@@ -145,7 +145,7 @@ const Blueprint = () => {
                       </div>
                     </div>
                   )}
-                  <a href={`https://www.youtube.com/watch?v=${episode.videoId}`} target="_blank" rel="noopener noreferrer" className="block p-4 hover:bg-muted/50 transition-colors" onClick={(e) => { e.preventDefault(); trackAndRedirect(episode.videoId); }}>
+                  <a href={`https://www.youtube.com/watch?v=${episode.videoId}`} target="_blank" rel="noopener noreferrer" className="block p-4 hover:bg-muted/50 transition-colors" onClick={(e) => { e.preventDefault(); startTrackedRedirect(episode.videoId); }}>
                     <h3 className="font-semibold text-sm text-foreground line-clamp-2">{episode.title}</h3>
                     <p className="text-xs text-muted-foreground mt-1">{episode.views}</p>
                   </a>
