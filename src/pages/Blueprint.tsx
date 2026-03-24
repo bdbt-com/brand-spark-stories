@@ -7,24 +7,13 @@ import EmailCaptureForm from "@/components/EmailCaptureForm";
 import { getGuideUrl } from "@/data/guideMapping";
 import { useDownloadCounts } from "@/hooks/useDownloadCounts";
 import { supabase } from "@/integrations/supabase/client";
+import { trackAndRedirect, trackVideoClick } from "@/lib/youtube-redirect";
 
 const podcastEpisodes = [
   { videoId: "OjwSKAXveN8", title: "The Dangers of Screen-time Before Bed", views: "12.8K views" },
   { videoId: "ERXXO8mG5IY", title: "Why 70% of People Are Dehydrated...", views: "8.4K views" },
   { videoId: "bv27Bn6qWIo", title: "Why Most People Invest Completely Wrong", views: "5.7K views" },
 ];
-
-const openYouTube = (videoId: string) => {
-  const webUrl = `https://www.youtube.com/watch?v=${videoId}`;
-  const appUrl = `vnd.youtube://${videoId}`;
-  setTimeout(() => {
-    const newWindow = window.open(webUrl, '_blank');
-    if (!newWindow) {
-      window.location.href = webUrl;
-    }
-  }, 500);
-  window.location.href = appUrl;
-};
 
 const Blueprint = () => {
   const [showEmailForm, setShowEmailForm] = useState(true);

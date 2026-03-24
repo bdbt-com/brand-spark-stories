@@ -9,6 +9,7 @@ import { useEffect, useState, useRef } from "react";
 import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "@/components/ui/collapsible";
 import ChevronRipple from "@/components/ChevronRipple";
 import { supabase } from "@/integrations/supabase/client";
+import { trackAndRedirect, trackVideoClick } from "@/lib/youtube-redirect";
 
 // YouTube podcast episodes
 const podcastEpisodes = [
@@ -16,18 +17,6 @@ const podcastEpisodes = [
   { videoId: "OjwSKAXveN8", title: "The Dangers of Screen-time Before Bed", views: "12.8K views", featured: true },
   { videoId: "bv27Bn6qWIo", title: "Why Most People Invest Completely Wrong", views: "5.7K views" },
 ];
-
-const openYouTube = (videoId: string) => {
-  const webUrl = `https://www.youtube.com/watch?v=${videoId}`;
-  const appUrl = `vnd.youtube://${videoId}`;
-  setTimeout(() => {
-    const newWindow = window.open(webUrl, '_blank');
-    if (!newWindow) {
-      window.location.href = webUrl;
-    }
-  }, 500);
-  window.location.href = appUrl;
-};
 
 const Home = () => {
   const images = ["/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png",
