@@ -245,7 +245,7 @@ const LinkInBio = () => {
     const episode = podcastEpisodes[playingVideo];
     if (!episode) return;
     const timer = setTimeout(() => {
-      openYouTube(episode.videoId);
+      trackAndRedirect(episode.videoId);
       setPlayingVideo(null);
     }, 4000);
     return () => clearTimeout(timer);
@@ -322,11 +322,10 @@ const LinkInBio = () => {
       clearTimeout(idleTimer);
       idleTimer = setTimeout(() => {
         redirected = true;
-        openYouTube(videoId, true, () => {
-          const updated = [...getRecentRedirects(), { timestamp: Date.now(), videoId }];
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
-          supabase.functions.invoke("track-video-click", { body: { videoId: "auto-redirect:" + videoId } });
-        });
+        // Track + update localStorage BEFORE navigating
+        const updated = [...getRecentRedirects(), { timestamp: Date.now(), videoId }];
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+        trackAndRedirect(videoId, "auto-redirect:" + videoId);
       }, delay);
     };
 
@@ -507,8 +506,7 @@ const LinkInBio = () => {
                     className="block p-2.5 hover:bg-white/5 transition-colors"
                     onClick={(e) => {
                       e.preventDefault();
-                      supabase.functions.invoke("track-video-click", { body: { videoId: episode.videoId } });
-                      openYouTube(episode.videoId);
+                      trackAndRedirect(episode.videoId);
                     }}
                   >
                     <h3 className="text-sm font-medium text-white leading-snug line-clamp-2 min-h-[2rem]">{episode.title}</h3>
@@ -548,8 +546,7 @@ const LinkInBio = () => {
                         onClick={() => {
                           const realIdx = i === 0 ? totalSlides - 1 : i > totalSlides ? 0 : i - 1;
                           setPlayingVideo(realIdx);
-                          supabase.functions.invoke("track-video-click", { body: { videoId: episode.videoId } });
-                          openYouTube(episode.videoId);
+                          trackAndRedirect(episode.videoId);
                         }}
                         className="relative w-full cursor-pointer"
                       >
@@ -567,8 +564,7 @@ const LinkInBio = () => {
                       className="block p-2 hover:bg-white/5 transition-colors"
                       onClick={(e) => {
                         e.preventDefault();
-                        supabase.functions.invoke("track-video-click", { body: { videoId: episode.videoId } });
-                        openYouTube(episode.videoId);
+                        trackAndRedirect(episode.videoId);
                       }}
                     >
                       <h3 className="text-xs font-medium text-white leading-snug line-clamp-2 min-h-[2rem]">{episode.title}</h3>
