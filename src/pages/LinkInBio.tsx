@@ -64,7 +64,9 @@ const openYouTube = (
   }
 
   // TikTok: always open in mobile web (deep links don't work reliably)
+  // Web URLs always succeed in TikTok's browser, so track immediately
   if (isTikTok) {
+    onOpen();
     window.location.href = webUrl;
     return;
   }
