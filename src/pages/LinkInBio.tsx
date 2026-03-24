@@ -30,6 +30,7 @@ const openYouTube = (
   let appOpened = false;
 
   const cleanup = () => {
+    clearTimeout(safetyTimer);
     window.removeEventListener("blur", onBlur);
     window.removeEventListener("pagehide", onBlur);
     document.removeEventListener("visibilitychange", onVisibility);
@@ -55,35 +56,6 @@ const openYouTube = (
   const safetyTimer = setTimeout(() => {
     if (!appOpened) cleanup();
   }, 5000);
-
-  const originalCleanup = cleanup;
-  const cleanupWithTimer = () => {
-    clearTimeout(safetyTimer);
-    originalCleanup();
-  };
-
-  // Override cleanup to also clear safety timer
-  const onOpenWithTimer = () => {
-    if (appOpened) return;
-    appOpened = true;
-    clearTimeout(safetyTimer);
-    onAppOpened?.();
-    originalCleanup();
-  };
-
-  // Re-bind listeners with timer-aware handler
-  window.removeEventListener("blur", onBlur);
-  window.removeEventListener("pagehide", onBlur);
-  document.removeEventListener("visibilitychange", onVisibility);
-
-  const onBlurFinal = () => onOpenWithTimer();
-  const onVisibilityFinal = () => {
-    if (document.hidden) onOpenWithTimer();
-  };
-
-  window.addEventListener("blur", onBlurFinal, { once: true });
-  window.addEventListener("pagehide", onBlurFinal, { once: true });
-  document.addEventListener("visibilitychange", onVisibilityFinal);
 
   // Instagram: always deep-link to YouTube app (no web fallback)
   if (isInstagram) {
