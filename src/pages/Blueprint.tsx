@@ -7,7 +7,7 @@ import EmailCaptureForm from "@/components/EmailCaptureForm";
 import { getGuideUrl } from "@/data/guideMapping";
 import { useDownloadCounts } from "@/hooks/useDownloadCounts";
 import { supabase } from "@/integrations/supabase/client";
-import { trackAndRedirect, trackVideoClick } from "@/lib/youtube-redirect";
+import { startTrackedRedirect } from "@/lib/youtube-redirect";
 
 const podcastEpisodes = [
   { videoId: "OjwSKAXveN8", title: "The Dangers of Screen-time Before Bed", views: "12.8K views" },

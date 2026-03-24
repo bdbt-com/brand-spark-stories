@@ -9,7 +9,7 @@ import { useEffect, useState, useRef } from "react";
 import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "@/components/ui/collapsible";
 import ChevronRipple from "@/components/ChevronRipple";
 import { supabase } from "@/integrations/supabase/client";
-import { trackAndRedirect, trackVideoClick } from "@/lib/youtube-redirect";
+import { startTrackedRedirect } from "@/lib/youtube-redirect";
 
 // YouTube podcast episodes
 const podcastEpisodes = [

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useState, useEffect, useRef, useCallback } from "react";
 import { Play } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import { trackAndRedirect, trackVideoClick, navigateToYouTube } from "@/lib/youtube-redirect";
+import { startTrackedRedirect } from "@/lib/youtube-redirect";
 
 const podcastEpisodes = [
   { videoId: "ERXXO8mG5IY", title: "Why 70% of People Are Dehydrated", views: "8.4K views" },
