@@ -30,6 +30,7 @@ const openYouTube = (
   let appOpened = false;
 
   const cleanup = () => {
+    clearTimeout(safetyTimer);
     window.removeEventListener("blur", onBlur);
     window.removeEventListener("pagehide", onBlur);
     document.removeEventListener("visibilitychange", onVisibility);
@@ -51,19 +52,20 @@ const openYouTube = (
   window.addEventListener("pagehide", onBlur, { once: true });
   document.addEventListener("visibilitychange", onVisibility);
 
+  // Safety timeout: clean up listeners if user stays on page
+  const safetyTimer = setTimeout(() => {
+    if (!appOpened) cleanup();
+  }, 5000);
+
   // Instagram: always deep-link to YouTube app (no web fallback)
   if (isInstagram) {
-    onAppOpened?.();
     window.location.href = appUrl;
-    cleanup();
     return;
   }
 
   // TikTok: always open in mobile web (deep links don't work reliably)
   if (isTikTok) {
-    onAppOpened?.();
     window.location.href = webUrl;
-    cleanup();
     return;
   }
 
