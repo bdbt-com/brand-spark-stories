@@ -1,36 +1,31 @@
 
 
-# Swap 2 Videos Across Site + Add Previous Choices Button to Admin
+# Fix: Only Count Auto-Redirects When User Actually Follows Through
 
-## Overview
-Replace two of the six featured videos everywhere they appear, update the auto-redirect sequence, and add a small "Previous" toggle button on the admin video cards so old video stats remain visible but separate.
+## Problem
+The `openYouTube` function calls `onAppOpened()` (which triggers tracking) too eagerly:
+1. **Instagram/TikTok paths** (lines 56, 64): `onAppOpened?.()` fires immediately before `window.location.href` — even if the redirect is blocked or fails
+2. **Normal browsers**: The `blur`/`visibilitychange` listeners fire the callback, which is correct — but if the page loses focus for any other reason, it still counts
 
-## Video Swaps
+For auto-redirects, the tracking callback saves to localStorage AND calls `track-video-click`. If the user doesn't actually leave, it still gets counted.
 
-| Old Video | New Video |
-|-----------|-----------|
-| `-a4NbW5Y718` "If You Know You're Capable of More" | `cfLHVIIp4o0` "Build a Life You Don't Need to Escape From" |
-| `zz2rVKKt1l0` "Go Exploring" | `vPd9pieng58` "Read For 20 Minutes Every Day" |
+## Fix
 
-## Files Changed
+### File: `src/pages/LinkInBio.tsx` — `openYouTube` function
 
-### 1. `src/pages/LinkInBio.tsx`
-- Update `CAROUSEL_VIDEOS` array: swap `zz2rVKKt1l0` → `vPd9pieng58` and `-a4NbW5Y718` → `cfLHVIIp4o0` with new titles/views
-- Update `REDIRECT_SEQUENCE`: 1st visit now redirects to `cfLHVIIp4o0` instead of `-a4NbW5Y718`; replace `zz2rVKKt1l0` with `vPd9pieng58` in the cycle list
+**Instagram/TikTok paths**: Remove the immediate `onAppOpened?.()` call. Instead, rely on the existing `visibilitychange`/`blur` listeners (already set up on lines 50-52) to detect when the page actually loses focus after `window.location.href` is set. The listeners are added before the redirect, so they will fire if the navigation succeeds.
 
-### 2. `src/pages/AdminList.tsx`
-- Update `VIDEO_MAP` to include the 2 new video IDs with their titles
-- Keep old video IDs in a separate `PREVIOUS_VIDEO_MAP` so their stats are still fetched and displayable
-- Add a small toggle button (e.g. "Previous" / "Current") at the top-right of the Video Clicks section header that switches between showing the current 6 videos and the retired ones
-- Old video cards show with a muted/greyed style to distinguish them
+- Line 56: Remove `onAppOpened?.();` from the Instagram block
+- Line 64: Remove `onAppOpened?.();` from the TikTok block  
+- Remove `cleanup()` from both blocks so the blur/visibility listeners remain active to detect actual navigation
 
-### 3. `supabase/functions/get-activity-feed/index.ts`
-- Add the 2 new video IDs to the `VIDEO_NAMES` map so activity feed shows correct names
-- Keep old IDs in the map too (they may still appear in historical data)
+**Normal browsers**: No change needed — the blur/visibilitychange approach already correctly detects when the user leaves.
 
-### 4. `src/pages/Home.tsx`
-- No change needed — Home only features Dehydrated, Screen-time, and Invest (none being swapped)
+**Add a safety timeout**: Add a cleanup timeout (e.g. 5 seconds) after which, if the user hasn't left the page, the listeners are cleaned up without firing the callback. This prevents stale listeners.
 
-### 5. `src/pages/Blueprint.tsx`
-- No change needed — Blueprint only features Screen-time, Dehydrated, and Invest (none being swapped)
+### Files changed
+
+| File | Change |
+|------|--------|
+| `src/pages/LinkInBio.tsx` | Remove immediate `onAppOpened()` calls in Instagram/TikTok paths; let blur/visibility listeners handle detection; add safety cleanup timeout |
 
