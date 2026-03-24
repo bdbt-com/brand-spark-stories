@@ -7,24 +7,13 @@ import EmailCaptureForm from "@/components/EmailCaptureForm";
 import { getGuideUrl } from "@/data/guideMapping";
 import { useDownloadCounts } from "@/hooks/useDownloadCounts";
 import { supabase } from "@/integrations/supabase/client";
+import { trackAndRedirect, trackVideoClick } from "@/lib/youtube-redirect";
 
 const podcastEpisodes = [
   { videoId: "OjwSKAXveN8", title: "The Dangers of Screen-time Before Bed", views: "12.8K views" },
   { videoId: "ERXXO8mG5IY", title: "Why 70% of People Are Dehydrated...", views: "8.4K views" },
   { videoId: "bv27Bn6qWIo", title: "Why Most People Invest Completely Wrong", views: "5.7K views" },
 ];
-
-const openYouTube = (videoId: string) => {
-  const webUrl = `https://www.youtube.com/watch?v=${videoId}`;
-  const appUrl = `vnd.youtube://${videoId}`;
-  setTimeout(() => {
-    const newWindow = window.open(webUrl, '_blank');
-    if (!newWindow) {
-      window.location.href = webUrl;
-    }
-  }, 500);
-  window.location.href = appUrl;
-};
 
 const Blueprint = () => {
   const [showEmailForm, setShowEmailForm] = useState(true);
@@ -36,7 +25,7 @@ const Blueprint = () => {
     const episode = podcastEpisodes.find(e => e.videoId === playingVideo);
     if (!episode) return;
     const timer = setTimeout(() => {
-      openYouTube(episode.videoId);
+      trackAndRedirect(episode.videoId);
       setPlayingVideo(null);
     }, 4000);
     return () => clearTimeout(timer);
@@ -156,7 +145,7 @@ const Blueprint = () => {
                       </div>
                     </div>
                   )}
-                  <a href={`https://www.youtube.com/watch?v=${episode.videoId}`} target="_blank" rel="noopener noreferrer" className="block p-4 hover:bg-muted/50 transition-colors" onClick={(e) => { e.preventDefault(); supabase.functions.invoke("track-video-click", { body: { videoId: episode.videoId } }); openYouTube(episode.videoId); }}>
+                  <a href={`https://www.youtube.com/watch?v=${episode.videoId}`} target="_blank" rel="noopener noreferrer" className="block p-4 hover:bg-muted/50 transition-colors" onClick={(e) => { e.preventDefault(); trackAndRedirect(episode.videoId); }}>
                     <h3 className="font-semibold text-sm text-foreground line-clamp-2">{episode.title}</h3>
                     <p className="text-xs text-muted-foreground mt-1">{episode.views}</p>
                   </a>

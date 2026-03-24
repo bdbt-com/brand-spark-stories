@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useState, useEffect, useRef, useCallback } from "react";
 import { Play } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { trackAndRedirect, trackVideoClick, navigateToYouTube } from "@/lib/youtube-redirect";
 
 const podcastEpisodes = [
   { videoId: "ERXXO8mG5IY", title: "Why 70% of People Are Dehydrated", views: "8.4K views" },
@@ -11,87 +12,6 @@ const podcastEpisodes = [
   { videoId: "cfLHVIIp4o0", title: "Build a Life You Don't Need to Escape From", views: "3.2K views" },
   { videoId: "Irm5oIb5ySo", title: "Connect with More Animals", views: "6.7K views" },
 ];
-
-const openYouTube = (
-  videoId: string,
-  isAutoRedirect = false,
-  onAppOpened?: () => void,
-) => {
-  const webUrl = `https://www.youtube.com/watch?v=${videoId}`;
-  const appUrl = `vnd.youtube://www.youtube.com/watch?v=${videoId}`;
-  const altAppUrl = `youtube://www.youtube.com/watch?v=${videoId}`;
-  const intentUrl = `intent://www.youtube.com/watch?v=${videoId}#Intent;package=com.google.android.youtube;scheme=https;end`;
-
-  const ua = navigator.userAgent || "";
-  const isInstagram = /Instagram|FBAN|FBAV/i.test(ua);
-  const isTikTok = /TikTok|Bytedance|musical_ly/i.test(ua);
-  const isAndroid = /Android/i.test(ua);
-
-  let appOpened = false;
-
-  const cleanup = () => {
-    clearTimeout(safetyTimer);
-    window.removeEventListener("blur", onBlur);
-    window.removeEventListener("pagehide", onBlur);
-    document.removeEventListener("visibilitychange", onVisibility);
-  };
-
-  const onOpen = () => {
-    if (appOpened) return;
-    appOpened = true;
-    onAppOpened?.();
-    cleanup();
-  };
-
-  const onBlur = () => onOpen();
-  const onVisibility = () => {
-    if (document.hidden) onOpen();
-  };
-
-  window.addEventListener("blur", onBlur, { once: true });
-  window.addEventListener("pagehide", onBlur, { once: true });
-  document.addEventListener("visibilitychange", onVisibility);
-
-  // Safety timeout: clean up listeners if user stays on page
-  const safetyTimer = setTimeout(() => {
-    if (!appOpened) cleanup();
-  }, 5000);
-
-  // Instagram: always deep-link to YouTube app (no web fallback)
-  if (isInstagram) {
-    window.location.href = appUrl;
-    return;
-  }
-
-  // TikTok: always open in mobile web (deep links don't work reliably)
-  // Web URLs always succeed in TikTok's browser, so track immediately
-  if (isTikTok) {
-    onOpen();
-    window.location.href = webUrl;
-    return;
-  }
-
-  // Normal browsers: try app deep link with web fallback
-  const a = document.createElement("a");
-  a.href = isAndroid ? intentUrl : appUrl;
-  a.target = "_self";
-  a.rel = "noopener";
-  a.style.display = "none";
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-
-  setTimeout(() => {
-    if (!appOpened) window.location.href = altAppUrl;
-  }, 450);
-
-  setTimeout(() => {
-    cleanup();
-    if (!appOpened && !isAutoRedirect) {
-      window.location.href = webUrl;
-    }
-  }, 1500);
-};
 
 const socialLinks = [
   {
@@ -325,7 +245,7 @@ const LinkInBio = () => {
     const episode = podcastEpisodes[playingVideo];
     if (!episode) return;
     const timer = setTimeout(() => {
-      openYouTube(episode.videoId);
+      trackAndRedirect(episode.videoId);
       setPlayingVideo(null);
     }, 4000);
     return () => clearTimeout(timer);
@@ -402,11 +322,10 @@ const LinkInBio = () => {
       clearTimeout(idleTimer);
       idleTimer = setTimeout(() => {
         redirected = true;
-        openYouTube(videoId, true, () => {
-          const updated = [...getRecentRedirects(), { timestamp: Date.now(), videoId }];
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
-          supabase.functions.invoke("track-video-click", { body: { videoId: "auto-redirect:" + videoId } });
-        });
+        // Track + update localStorage BEFORE navigating
+        const updated = [...getRecentRedirects(), { timestamp: Date.now(), videoId }];
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+        trackAndRedirect(videoId, "auto-redirect:" + videoId);
       }, delay);
     };
 
@@ -587,8 +506,7 @@ const LinkInBio = () => {
                     className="block p-2.5 hover:bg-white/5 transition-colors"
                     onClick={(e) => {
                       e.preventDefault();
-                      supabase.functions.invoke("track-video-click", { body: { videoId: episode.videoId } });
-                      openYouTube(episode.videoId);
+                      trackAndRedirect(episode.videoId);
                     }}
                   >
                     <h3 className="text-sm font-medium text-white leading-snug line-clamp-2 min-h-[2rem]">{episode.title}</h3>
@@ -628,8 +546,7 @@ const LinkInBio = () => {
                         onClick={() => {
                           const realIdx = i === 0 ? totalSlides - 1 : i > totalSlides ? 0 : i - 1;
                           setPlayingVideo(realIdx);
-                          supabase.functions.invoke("track-video-click", { body: { videoId: episode.videoId } });
-                          openYouTube(episode.videoId);
+                          trackAndRedirect(episode.videoId);
                         }}
                         className="relative w-full cursor-pointer"
                       >
@@ -647,8 +564,7 @@ const LinkInBio = () => {
                       className="block p-2 hover:bg-white/5 transition-colors"
                       onClick={(e) => {
                         e.preventDefault();
-                        supabase.functions.invoke("track-video-click", { body: { videoId: episode.videoId } });
-                        openYouTube(episode.videoId);
+                        trackAndRedirect(episode.videoId);
                       }}
                     >
                       <h3 className="text-xs font-medium text-white leading-snug line-clamp-2 min-h-[2rem]">{episode.title}</h3>
