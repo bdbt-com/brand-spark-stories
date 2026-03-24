@@ -1,35 +1,13 @@
-const SUPABASE_URL = "https://xvqhkjgowlwfdosxmvba.supabase.co";
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh2cWhramdvd2x3ZmRvc3htdmJhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTMxNDUxNDIsImV4cCI6MjA2ODcyMTE0Mn0.J4KIuQ5m-F2MOYEpiMNWxQrfyUWqUF1JrzObQZBVTko";
-
 /**
- * Fire-and-forget tracking via sendBeacon (survives page unload).
- * Falls back to fetch with keepalive.
+ * Navigate to the internal redirect bridge page, which tracks the click
+ * on our own domain first, then sends the user to YouTube.
+ *
+ * This is the ONLY function pages should call for tracked YouTube opens.
  */
-export function trackVideoClick(videoId: string) {
-  const url = `${SUPABASE_URL}/functions/v1/track-video-click`;
-  const body = JSON.stringify({ videoId });
-
-  // sendBeacon is the most reliable for pre-navigation tracking
-  if (navigator.sendBeacon) {
-    const blob = new Blob([body], { type: "application/json" });
-    const sent = navigator.sendBeacon(url, blob);
-    if (sent) return;
-  }
-
-  // Fallback: fetch with keepalive
-  try {
-    fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "apikey": SUPABASE_ANON_KEY,
-      },
-      body,
-      keepalive: true,
-    }).catch(() => {});
-  } catch {
-    // Silently fail — best effort
-  }
+export function startTrackedRedirect(videoId: string, trackId?: string) {
+  const params = new URLSearchParams({ video: videoId });
+  if (trackId) params.set("trackId", trackId);
+  window.location.href = `/redirect?${params.toString()}`;
 }
 
 /**
@@ -45,25 +23,8 @@ function getPlatform() {
 }
 
 /**
- * Track a video click then navigate to YouTube.
- * Uses sendBeacon for reliable pre-unload tracking.
- *
- * @param videoId  - YouTube video ID
- * @param trackId  - ID to store in video_clicks (e.g. "auto-redirect:VIDEO_ID" or plain video ID)
- */
-export function trackAndRedirect(videoId: string, trackId?: string) {
-  const id = trackId || videoId;
-
-  // Track FIRST, then navigate
-  trackVideoClick(id);
-
-  // Navigate
-  navigateToYouTube(videoId);
-}
-
-/**
  * Navigate to YouTube using platform-appropriate method.
- * Does NOT track — use trackAndRedirect() or trackVideoClick() separately.
+ * Called ONLY from the RedirectBridge page after tracking is already done.
  */
 export function navigateToYouTube(videoId: string) {
   const webUrl = `https://www.youtube.com/watch?v=${videoId}`;
@@ -79,11 +40,10 @@ export function navigateToYouTube(videoId: string) {
     return;
   }
 
-  // TikTok: open in system browser (their in-app browser blocks location.href to external sites)
+  // TikTok: open in system browser to bypass sandbox
   if (isTikTok) {
     const opened = window.open(webUrl, '_blank');
     if (!opened) {
-      // Fallback: try location.href if popup blocked
       window.location.href = webUrl;
     }
     return;
