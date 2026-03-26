@@ -616,6 +616,13 @@ const ThumbnailTemplate = () => {
       title: "Create a Capsule Wardrobe",
       subtitle: "Daily Wins Podcast 80",
       image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+    },
+    {
+      id: 85,
+      name: "Do a Chore with a Friend",
+      title: "Do a Chore with a Friend",
+      subtitle: "Daily Wins Podcast 81",
+      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
     }
   ];
 
