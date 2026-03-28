@@ -630,6 +630,13 @@ const ThumbnailTemplate = () => {
       title: "Stock Up On Cosmetics When on Sale",
       subtitle: "Daily Wins Podcast 82",
       image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+    },
+    {
+      id: 87,
+      name: "Podcast 83",
+      title: "Walk a Different Route Occasionally",
+      subtitle: "Daily Wins Podcast 83",
+      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
     }
   ];
 
@@ -734,7 +741,8 @@ const ThumbnailTemplate = () => {
        { id: 97, name: "Podcast 79 Have a Cold Shower Every Day", title: "Have a Cold Shower Every Day", subtitle: "", image: "" },
        { id: 98, name: "Podcast 80 Create a Capsule Wardrobe", title: "Create a Capsule Wardrobe", subtitle: "", image: "" },
        { id: 99, name: "Podcast 81 Do a Chore with a Friend", title: "Do a Chore with a Friend", subtitle: "", image: "" },
-       { id: 100, name: "Podcast 82 Stock Up On Cosmetics When on Sale", title: "Stock Up On Cosmetics When on Sale", subtitle: "", image: "" }
+       { id: 100, name: "Podcast 82 Stock Up On Cosmetics When on Sale", title: "Stock Up On Cosmetics When on Sale", subtitle: "", image: "" },
+       { id: 101, name: "Podcast 83 Walk a Different Route Occasionally", title: "Walk a Different Route Occasionally", subtitle: "", image: "" }
   ];
 
   const phrases = [
@@ -1693,6 +1701,12 @@ const ThumbnailTemplate = () => {
         {currentTemplateIndex === 100 && mode === 'instagram' && (
           <div className="relative">
             <TikTokTemplate templateIndex={100} />
+          </div>
+        )}
+        {/* Template 101 - Podcast 83 Walk a Different Route Occasionally */}
+        {currentTemplateIndex === 101 && mode === 'instagram' && (
+          <div className="relative">
+            <TikTokTemplate templateIndex={101} />
           </div>
         )}
         {/* Template 5 - Healthy Snacks */}
@@ -4331,6 +4345,31 @@ const ThumbnailTemplate = () => {
             </div>
           </div>
         )}
+        {/* Template 87 - Podcast 83 Walk a Different Route Occasionally (YouTube) */}
+        {currentTemplateIndex === 87 && mode === 'youtube' && (
+          <div className="relative">
+            <div id="thumbnail-87" key="template-87" className="w-[1280px] h-[720px] relative overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
+              <div className="h-full flex items-center p-16 relative">
+                <div className="absolute right-16 top-16 bottom-16 flex items-center">
+                  <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
+                    <img src="/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png" alt="Podcast thumbnail" className="w-full h-full object-cover border-4 border-white/20" />
+                    <div className="absolute bottom-4 left-4">
+                      <img src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" alt="BDBT Logo" className="h-16 opacity-90" />
+                    </div>
+                  </div>
+                </div>
+                <div className="absolute left-8 top-16 bottom-24 right-[35%] pr-4 z-10 flex flex-col justify-center">
+                  <h1 className="text-6xl xl:text-7xl 2xl:text-8xl font-bold leading-tight mb-6">
+                    <span className="text-white block mb-2">Walk a Different</span>
+                    <span className="block" style={{ color: 'hsl(35, 45%, 75%)' }}>Route Occasionally</span>
+                  </h1>
+                  <p className="text-white/80 text-3xl font-medium">Daily Wins Podcast 83</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
 
       </div>
 
