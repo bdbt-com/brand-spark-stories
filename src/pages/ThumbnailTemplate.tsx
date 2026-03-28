@@ -4371,6 +4371,7 @@ const ThumbnailTemplate = () => {
         )}
 
 
+      </div>
 
       {/* Template Selection Carousel */}
       <div className="pb-16 px-8">
