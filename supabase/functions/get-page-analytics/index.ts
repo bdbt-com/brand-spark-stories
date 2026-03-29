@@ -87,7 +87,7 @@ Deno.serve(async (req) => {
       const { count } = await supabase
         .from("page_views")
         .select("*", { count: "exact", head: true })
-        .in("page_path", ["/bio", "/links"])
+        .or("page_path.ilike./bio,page_path.ilike./links")
         .gte("entered_at", since);
       bioClicks[key] = count || 0;
     }

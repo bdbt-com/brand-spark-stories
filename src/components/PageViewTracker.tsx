@@ -26,7 +26,7 @@ const PageViewTracker = () => {
   const trackPageView = async (path: string) => {
     await updateDuration();
 
-    if (path === "/admin-list") {
+    if (path === "/admin-list" || path === "/redirect") {
       currentRowId.current = null;
       return;
     }
@@ -49,7 +49,7 @@ const PageViewTracker = () => {
   };
 
   useEffect(() => {
-    trackPageView(location.pathname);
+    trackPageView(location.pathname.toLowerCase());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname]);
 
