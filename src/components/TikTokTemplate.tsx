@@ -271,7 +271,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
                   NEW EPISODE
                 </span>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 1
+                  DAILY WINS PODCAST 1
                 </span>
                 <span className="block mt-3 text-white">
                   PARK FURTHER AWAY
@@ -289,7 +289,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
                   NEW EPISODE
                 </span>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 2
+                  DAILY WINS PODCAST 2
                 </span>
                 <span className="block mt-3 text-white">
                   DO CALF RAISES WHILE
@@ -307,7 +307,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
                   NEW EPISODE
                 </span>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 3
+                  DAILY WINS PODCAST 3
                 </span>
                 <span className="block mt-3 text-white">
                   PUT IT IN YOUR BASKET
@@ -325,7 +325,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
                   NEW EPISODE
                 </span>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 4
+                  DAILY WINS PODCAST 4
                 </span>
                 <span className="block mt-3 text-white">
                   DRINK ONE EXTRA
@@ -346,7 +346,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
                   NEW EPISODE
                 </span>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 5
+                  DAILY WINS PODCAST 5
                 </span>
                 <span className="block mt-3 text-white">
                   BUY CASHEW NUTS
@@ -364,7 +364,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
                   NEW EPISODE
                 </span>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 6
+                  DAILY WINS PODCAST 6
                 </span>
                 <span className="block mt-3 text-white">
                   SMILE AT YOURSELF
@@ -385,7 +385,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
                   NEW EPISODE
                 </span>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 7
+                  DAILY WINS PODCAST 7
                 </span>
                 <span className="block mt-3 text-white">
                   STRETCH
@@ -403,7 +403,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
                   NEW EPISODE
                 </span>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 8
+                  DAILY WINS PODCAST 8
                 </span>
                 <span className="block mt-3 text-white">
                   YOUR 2 MINUTE
@@ -421,7 +421,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
                   NEW EPISODE
                 </span>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 9
+                  DAILY WINS PODCAST 9
                 </span>
                 <span className="block mt-3 text-white">
                   DO 1 MINUTE OF SQUATS
@@ -439,7 +439,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
                   NEW EPISODE
                 </span>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 10
+                  DAILY WINS PODCAST 10
                 </span>
                 <span className="block mt-3 text-white">
                   KEEP FROZEN FRUIT AND VEG
@@ -457,7 +457,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
                   NEW EPISODE
                 </span>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 11
+                  DAILY WINS PODCAST 11
                 </span>
                 <span className="block mt-3 text-white">
                   SWAP NETFLIX
@@ -475,7 +475,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
                   NEW EPISODE
                 </span>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 12
+                  DAILY WINS PODCAST 12
                 </span>
                 <span className="block mt-3 text-white">
                   ALWAYS USE A
@@ -526,7 +526,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             ) : templateIndex === 31 ? (
               <>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 13
+                  DAILY WINS PODCAST 13
                 </span>
                 <span className="block mt-3 text-white">
                   TAKE A SHORT WALK
@@ -538,7 +538,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             ) : templateIndex === 32 ? (
               <>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 14
+                  DAILY WINS PODCAST 14
                 </span>
                 <span className="block mt-3 text-white">
                   INCORPORATE MORE NATURE
@@ -550,7 +550,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             ) : templateIndex === 33 ? (
               <>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 15
+                  DAILY WINS PODCAST 15
                 </span>
                 <span className="block mt-3 text-white">
                   TRY AND EAT PROTEIN
@@ -562,7 +562,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             ) : templateIndex === 34 ? (
               <>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 16
+                  DAILY WINS PODCAST 16
                 </span>
                 <span className="block mt-3 text-white">
                   ALWAYS TAKE
@@ -574,7 +574,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             ) : templateIndex === 35 ? (
               <>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 17
+                  DAILY WINS PODCAST 17
                 </span>
                 <span className="block mt-3 text-white">
                   TRY STORE BRAND
@@ -586,7 +586,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             ) : templateIndex === 36 ? (
               <>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 18
+                  DAILY WINS PODCAST 18
                 </span>
                 <span className="block mt-3 text-white">
                   REPLACE ONE SUGARY SNACK
@@ -598,7 +598,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             ) : templateIndex === 37 ? (
               <>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 19
+                  DAILY WINS PODCAST 19
                 </span>
                 <span className="block mt-3 text-white">
                   USE AMAZON SUBSCRIBE
@@ -610,7 +610,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             ) : templateIndex === 38 ? (
               <>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 20
+                  DAILY WINS PODCAST 20
                 </span>
                 <span className="block mt-3 text-white">
                   CHECK YOUR POSTURE
@@ -622,7 +622,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             ) : templateIndex === 39 ? (
               <>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 21
+                  DAILY WINS PODCAST 21
                 </span>
                 <span className="block mt-3 text-white">
                   DO 60 SECONDS DEEP BREATHING
@@ -634,7 +634,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             ) : templateIndex === 40 ? (
               <>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 22
+                  DAILY WINS PODCAST 22
                 </span>
                 <span className="block mt-3 text-white">
                   LOOK UP AT THE SKY
@@ -646,7 +646,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             ) : templateIndex === 41 ? (
               <>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 23
+                  DAILY WINS PODCAST 23
                 </span>
                 <span className="block mt-3 text-white">
                   BOX JUMPING
@@ -658,7 +658,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             ) : templateIndex === 42 ? (
               <>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 24
+                  DAILY WINS PODCAST 24
                 </span>
                 <span className="block mt-3 text-white">
                   HAVE A WEEKLY
@@ -670,7 +670,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             ) : templateIndex === 43 ? (
               <>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 25
+                  DAILY WINS PODCAST 25
                 </span>
                 <span className="block mt-3 text-white">
                   TRY ONE NEW FOOD
@@ -682,7 +682,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             ) : templateIndex === 44 ? (
               <>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 26
+                  DAILY WINS PODCAST 26
                 </span>
                 <span className="block mt-3 text-white">
                   USE ENERGY EFFICIENT DEVICES
@@ -694,7 +694,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             ) : templateIndex === 45 ? (
               <>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 27
+                  DAILY WINS PODCAST 27
                 </span>
                 <span className="block mt-3 text-white">
                   USE PUBLIC TRANSPORT
@@ -706,7 +706,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             ) : templateIndex === 46 ? (
               <>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 28
+                  DAILY WINS PODCAST 28
                 </span>
                 <span className="block mt-3 text-white">
                   CONNECT WITH
@@ -718,7 +718,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             ) : templateIndex === 47 ? (
               <>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 29
+                  DAILY WINS PODCAST 29
                 </span>
                 <span className="block mt-3 text-white">
                   KEEP A NOTEBOOK BY YOUR BED
@@ -730,7 +730,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             ) : templateIndex === 48 ? (
               <>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 30
+                  DAILY WINS PODCAST 30
                 </span>
                 <span className="block mt-3 text-white">
                   WALK DURING
@@ -742,7 +742,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             ) : templateIndex === 49 ? (
               <>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 31
+                  DAILY WINS PODCAST 31
                 </span>
                 <span className="block mt-3 text-white">
                   STOP BUYING BOOKS
@@ -754,7 +754,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             ) : templateIndex === 50 ? (
               <>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 32
+                  DAILY WINS PODCAST 32
                 </span>
                 <span className="block mt-3 text-white">
                   JOIN A
@@ -766,7 +766,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             ) : templateIndex === 51 ? (
               <>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 33
+                  DAILY WINS PODCAST 33
                 </span>
                 <span className="block mt-3 text-white">
                   WAIT FOR THE NEXT
@@ -778,7 +778,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             ) : templateIndex === 52 ? (
               <>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 34
+                  DAILY WINS PODCAST 34
                 </span>
                 <span className="block mt-3 text-white">
                   TRY SOMETHING
@@ -790,7 +790,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             ) : templateIndex === 53 ? (
               <>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 35
+                  DAILY WINS PODCAST 35
                 </span>
                 <span className="block mt-3 text-white">
                   TRY NATURAL
@@ -802,7 +802,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             ) : templateIndex === 54 ? (
               <>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 36
+                  DAILY WINS PODCAST 36
                 </span>
                 <span className="block mt-3 text-white">
                   LEARN THESE
@@ -817,7 +817,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             ) : templateIndex === 55 ? (
               <>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 37
+                  DAILY WINS PODCAST 37
                 </span>
                 <span className="block mt-3 text-white">
                   SIT AND STAND
@@ -832,7 +832,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             ) : templateIndex === 56 ? (
               <>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 38
+                  DAILY WINS PODCAST 38
                 </span>
                 <span className="block mt-3 text-white">
                   FIND FREE LOCAL EVENTS
@@ -844,7 +844,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             ) : templateIndex === 57 ? (
               <>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 39
+                  DAILY WINS PODCAST 39
                 </span>
                 <span className="block mt-3 text-white">
                   USE A STANDING DESK
@@ -856,7 +856,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             ) : templateIndex === 58 ? (
               <>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 40
+                  DAILY WINS PODCAST 40
                 </span>
                 <span className="block mt-3 text-white">
                   BUY IN BULK
@@ -868,7 +868,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             ) : templateIndex === 59 ? (
               <>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 41
+                  DAILY WINS PODCAST 41
                 </span>
                 <span className="block mt-3 text-white">
                   SPEND TIME IN ZONE 2
@@ -880,7 +880,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             ) : templateIndex === 60 ? (
               <>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 42
+                  DAILY WINS PODCAST 42
                 </span>
                 <span className="block mt-3 text-white">
                   GO
@@ -892,7 +892,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             ) : templateIndex === 61 ? (
               <>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 43
+                  DAILY WINS PODCAST 43
                 </span>
                 <span className="block mt-3 text-white">
                   HAVE MORE
@@ -904,7 +904,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             ) : templateIndex === 62 ? (
               <>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 44
+                  DAILY WINS PODCAST 44
                 </span>
                 <span className="block mt-3 text-white">
                   HANG TOUGH FOR
@@ -916,7 +916,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             ) : templateIndex === 63 ? (
               <>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 45
+                  DAILY WINS PODCAST 45
                 </span>
                 <span className="block mt-3 text-white">
                   USE BIKE OR FEET
@@ -928,7 +928,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             ) : templateIndex === 64 ? (
               <>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 46
+                  DAILY WINS PODCAST 46
                 </span>
                 <span className="block mt-3 text-white">
                   DRINK MORE
@@ -940,7 +940,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             ) : templateIndex === 65 ? (
               <>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 47
+                  DAILY WINS PODCAST 47
                 </span>
                 <span className="block mt-3 text-white">
                   GET DELIVEROO+ FOR FREE
@@ -952,7 +952,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             ) : templateIndex === 66 ? (
               <>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 48
+                  DAILY WINS PODCAST 48
                 </span>
                 <span className="block mt-3 text-white">
                   CONNECT MORE
@@ -964,7 +964,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             ) : templateIndex === 67 ? (
               <>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 49
+                  DAILY WINS PODCAST 49
                 </span>
                 <span className="block mt-3 text-white">
                   APPRECIATE THE THINGS
@@ -976,7 +976,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             ) : templateIndex === 68 ? (
               <>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 50
+                  DAILY WINS PODCAST 50
                 </span>
                 <span className="block mt-3 text-white">
                   LEARN THIS WORD:
@@ -988,7 +988,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             ) : templateIndex === 69 ? (
               <>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 51
+                  DAILY WINS PODCAST 51
                 </span>
                 <span className="block mt-3 text-white">
                   START YOUR DAY
@@ -1000,7 +1000,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             ) : templateIndex === 70 ? (
               <>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 52
+                  DAILY WINS PODCAST 52
                 </span>
                 <span className="block mt-3 text-white">
                   SELL UNUSED
@@ -1012,7 +1012,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             ) : templateIndex === 71 ? (
               <>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 53
+                  DAILY WINS PODCAST 53
                 </span>
                 <span className="block mt-3 text-white">
                   USE A
@@ -1024,7 +1024,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             ) : templateIndex === 72 ? (
               <>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 54
+                  DAILY WINS PODCAST 54
                 </span>
                 <span className="block mt-3 text-white">
                   TAKE A FREE
@@ -1036,7 +1036,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             ) : templateIndex === 73 ? (
               <>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 55
+                  DAILY WINS PODCAST 55
                 </span>
                 <span className="block mt-3 text-white">
                   SET A DAILY WATER
@@ -1048,7 +1048,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             ) : templateIndex === 74 ? (
               <>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 56
+                  DAILY WINS PODCAST 56
                 </span>
                 <span className="block mt-3 text-white">
                   LIMIT YOUR SCREENTIME
@@ -1060,7 +1060,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             ) : templateIndex === 75 ? (
               <>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 57
+                  DAILY WINS PODCAST 57
                 </span>
                 <span className="block mt-3 text-white">
                   LEARN THIS WORD:
@@ -1072,7 +1072,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             ) : templateIndex === 76 ? (
               <>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 58
+                  DAILY WINS PODCAST 58
                 </span>
                 <span className="block mt-3 text-white">
                   DO ONE EXTRA FLIGHT OF
@@ -1084,7 +1084,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             ) : templateIndex === 77 ? (
               <>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 59
+                  DAILY WINS PODCAST 59
                 </span>
                 <span className="block mt-3 text-white">
                   TIME IN THE MARKET BEATS
@@ -1096,7 +1096,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             ) : templateIndex === 78 ? (
               <>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 60
+                  DAILY WINS PODCAST 60
                 </span>
                 <span className="block mt-3 text-white">
                   REFRAME ONE THING
@@ -1108,7 +1108,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             ) : templateIndex === 79 ? (
               <>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 61
+                  DAILY WINS PODCAST 61
                 </span>
                 <span className="block mt-3 text-white">
                   HIDE YOUR SAVINGS
@@ -1120,7 +1120,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             ) : templateIndex === 80 ? (
               <>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST — BONUS
+                  DAILY WINS PODCAST — BONUS
                 </span>
                 <span className="block mt-3 text-white">
                   THE CHOICES WE MAKE
@@ -1132,7 +1132,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             ) : templateIndex === 81 ? (
               <>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 63
+                  DAILY WINS PODCAST 63
                 </span>
                 <span className="block mt-3 text-white">
                   REVIEW YOUR TIP
@@ -1144,7 +1144,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             ) : templateIndex === 82 ? (
               <>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 64
+                  DAILY WINS PODCAST 64
                 </span>
                 <span className="block mt-3 text-white">
                   CREATE AN ACCOUNTABILITY
@@ -1156,7 +1156,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             ) : templateIndex === 83 ? (
               <>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 65
+                  DAILY WINS PODCAST 65
                 </span>
                 <span className="block mt-3 text-white">
                   USE A HANDBASKET
@@ -1168,7 +1168,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             ) : templateIndex === 84 ? (
               <>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 66
+                  DAILY WINS PODCAST 66
                 </span>
                 <span className="block mt-3 text-white">
                   BUILD A 6-MONTH
@@ -1180,7 +1180,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             ) : templateIndex === 85 ? (
               <>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 67
+                  DAILY WINS PODCAST 67
                 </span>
                 <span className="block mt-3 text-white">
                   SWAP BUTTER FOR
@@ -1192,7 +1192,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             ) : templateIndex === 86 ? (
               <>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 68
+                  DAILY WINS PODCAST 68
                 </span>
                 <span className="block mt-3 text-white">
                   WAIT 30 DAYS BEFORE
@@ -1204,7 +1204,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             ) : templateIndex === 87 ? (
               <>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 69
+                  DAILY WINS PODCAST 69
                 </span>
                 <span className="block mt-3 text-white">
                   HUG
@@ -1216,7 +1216,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             ) : templateIndex === 88 ? (
               <>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 70
+                  DAILY WINS PODCAST 70
                 </span>
                 <span className="block mt-3 text-white">
                   YOUR 5 MINUTE
@@ -1228,7 +1228,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             ) : templateIndex === 89 ? (
               <>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 71
+                  DAILY WINS PODCAST 71
                 </span>
                 <span className="block mt-3 text-white">
                   DRINK WARM LEMON
@@ -1243,7 +1243,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             ) : templateIndex === 90 ? (
               <>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 72
+                  DAILY WINS PODCAST 72
                 </span>
                 <span className="block mt-3 text-white">
                   DO REVERSE LUNGES
@@ -1255,7 +1255,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             ) : templateIndex === 91 ? (
               <>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 73
+                  DAILY WINS PODCAST 73
                 </span>
                 <span className="block mt-3 text-white">
                   DON'T UPGRADE YOUR
@@ -1270,7 +1270,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             ) : templateIndex === 92 ? (
               <>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 74
+                  DAILY WINS PODCAST 74
                 </span>
                 <span className="block mt-3 text-white">
                   LEARN THESE WORDS:
@@ -1282,7 +1282,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             ) : templateIndex === 93 ? (
               <>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 75
+                  DAILY WINS PODCAST 75
                 </span>
                 <span className="block mt-3 text-white">
                   DO A
@@ -1294,7 +1294,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             ) : templateIndex === 94 ? (
               <>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 76
+                  DAILY WINS PODCAST 76
                 </span>
                 <span className="block mt-3 text-white">
                   EAT THE FIBRE ON
@@ -1306,7 +1306,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             ) : templateIndex === 95 ? (
               <>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 77
+                  DAILY WINS PODCAST 77
                 </span>
                 <span className="block mt-3 text-white">
                   READ FOR 20 MINUTES
@@ -1318,7 +1318,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             ) : templateIndex === 96 ? (
               <>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 78
+                  DAILY WINS PODCAST 78
                 </span>
                 <span className="block mt-3 text-white">
                   WALK FOR 20 MINUTES
@@ -1330,7 +1330,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             ) : templateIndex === 97 ? (
               <>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 79
+                  DAILY WINS PODCAST 79
                 </span>
                 <span className="block mt-3 text-white">
                   HAVE A COLD SHOWER
@@ -1342,7 +1342,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             ) : templateIndex === 98 ? (
               <>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 80
+                  DAILY WINS PODCAST 80
                 </span>
                 <span className="block mt-3 text-white">
                   CREATE A CAPSULE
@@ -1354,7 +1354,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             ) : templateIndex === 99 ? (
               <>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 81
+                  DAILY WINS PODCAST 81
                 </span>
                 <span className="block mt-3 text-white">
                   DO A CHORE WITH
@@ -1366,7 +1366,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             ) : templateIndex === 100 ? (
               <>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 82
+                  DAILY WINS PODCAST 82
                 </span>
                 <span className="block mt-3 text-white">
                   STOCK UP ON COSMETICS
@@ -1378,7 +1378,7 @@ export function TikTokTemplate({ templateIndex, className = "" }: TikTokTemplate
             ) : templateIndex === 101 ? (
               <>
                 <span className="text-white/90 block text-2xl tracking-wider">
-                  BDBT PODCAST 83
+                  DAILY WINS PODCAST 83
                 </span>
                 <span className="block mt-3 text-white">
                   WALK A DIFFERENT
