@@ -644,6 +644,13 @@ const ThumbnailTemplate = () => {
       title: "Use Saffron As An Anti-Depressant",
       subtitle: "Daily Wins Podcast 84",
       image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+    },
+    {
+      id: 89,
+      name: "Podcast 85",
+      title: "Blend Two Goals Into One",
+      subtitle: "Daily Wins Podcast 85",
+      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
     }
   ];
 
