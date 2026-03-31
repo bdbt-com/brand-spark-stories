@@ -651,6 +651,13 @@ const ThumbnailTemplate = () => {
       title: "Blend Two Goals Into One",
       subtitle: "Daily Wins Podcast 85",
       image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+    },
+    {
+      id: 90,
+      name: "Podcast 86",
+      title: "Sit. Stand. Sit.",
+      subtitle: "Daily Wins Podcast 86",
+      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
     }
   ];
 
