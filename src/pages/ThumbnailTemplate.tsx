@@ -658,6 +658,13 @@ const ThumbnailTemplate = () => {
       title: "Sit. Stand. Sit.",
       subtitle: "Daily Wins Podcast 86",
       image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+    },
+    {
+      id: 91,
+      name: "Podcast 87",
+      title: "Turn Off Appliances At The Plug",
+      subtitle: "Daily Wins Podcast 87",
+      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
     }
   ];
 
