@@ -773,7 +773,8 @@ const ThumbnailTemplate = () => {
        { id: 101, name: "Podcast 83 Walk a Different Route Occasionally", title: "Walk a Different Route Occasionally", subtitle: "", image: "" },
        { id: 102, name: "Podcast 84 Use Saffron As An Anti-Depressant", title: "Use Saffron As An Anti-Depressant", subtitle: "", image: "" },
       { id: 103, name: "Podcast 85 Blend Two Goals Into One", title: "Blend Two Goals Into One", subtitle: "", image: "" },
-      { id: 104, name: "Podcast 86 Sit. Stand. Sit.", title: "Sit. Stand. Sit.", subtitle: "", image: "" }
+      { id: 104, name: "Podcast 86 Sit. Stand. Sit.", title: "Sit. Stand. Sit.", subtitle: "", image: "" },
+      { id: 105, name: "Podcast 87 Turn Off Appliances At The Plug", title: "Turn Off Appliances At The Plug", subtitle: "", image: "" }
   ];
 
   const phrases = [
