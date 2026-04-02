@@ -665,6 +665,13 @@ const ThumbnailTemplate = () => {
       title: "Turn Off Appliances At The Plug",
       subtitle: "Daily Wins Podcast 87",
       image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+    },
+    {
+      id: 92,
+      name: "Podcast 88",
+      title: "Write Down 3 Things You Accomplished Every Day",
+      subtitle: "Daily Wins Podcast 88",
+      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
     }
   ];
 
