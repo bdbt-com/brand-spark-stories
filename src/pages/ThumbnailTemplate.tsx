@@ -1773,6 +1773,12 @@ const ThumbnailTemplate = () => {
             <TikTokTemplate templateIndex={105} />
           </div>
         )}
+        {/* Template 106 - Podcast 88 Write Down 3 Things You Accomplished Every Day */}
+        {currentTemplateIndex === 106 && mode === 'instagram' && (
+          <div className="relative">
+            <TikTokTemplate templateIndex={106} />
+          </div>
+        )}
         {/* Template 5 - Healthy Snacks */}
         {currentTemplateIndex === 4 && mode === 'youtube' && (
           <div className="relative">
