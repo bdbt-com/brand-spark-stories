@@ -789,7 +789,8 @@ const ThumbnailTemplate = () => {
       { id: 103, name: "Podcast 85 Blend Two Goals Into One", title: "Blend Two Goals Into One", subtitle: "", image: "" },
       { id: 104, name: "Podcast 86 Sit. Stand. Sit.", title: "Sit. Stand. Sit.", subtitle: "", image: "" },
       { id: 105, name: "Podcast 87 Turn Off Appliances At The Plug", title: "Turn Off Appliances At The Plug", subtitle: "", image: "" },
-      { id: 106, name: "Podcast 88 Write Down 3 Things You Accomplished Every Day", title: "Write Down 3 Things You Accomplished Every Day", subtitle: "", image: "" }
+      { id: 106, name: "Podcast 88 Write Down 3 Things You Accomplished Every Day", title: "Write Down 3 Things You Accomplished Every Day", subtitle: "", image: "" },
+      { id: 107, name: "Podcast 89 Take Advantage of Retail Loyalty Schemes", title: "Take Advantage of Retail Loyalty Schemes", subtitle: "", image: "" }
   ];
 
   const phrases = [
