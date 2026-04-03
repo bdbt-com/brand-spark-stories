@@ -672,6 +672,13 @@ const ThumbnailTemplate = () => {
       title: "Write Down 3 Things You Accomplished Every Day",
       subtitle: "Daily Wins Podcast 88",
       image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+    },
+    {
+      id: 93,
+      name: "Podcast 89",
+      title: "Take Advantage of Retail Loyalty Schemes",
+      subtitle: "Daily Wins Podcast 89",
+      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
     }
   ];
 
