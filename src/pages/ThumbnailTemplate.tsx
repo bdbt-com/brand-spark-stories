@@ -679,6 +679,13 @@ const ThumbnailTemplate = () => {
       title: "Take Advantage of Retail Loyalty Schemes",
       subtitle: "Daily Wins Podcast 89",
       image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+    },
+    {
+      id: 94,
+      name: "Podcast 90",
+      title: "Stretch for 5 Minutes Before Bed",
+      subtitle: "Daily Wins Podcast 90",
+      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
     }
   ];
 
