@@ -4678,7 +4678,7 @@ const ThumbnailTemplate = () => {
         )}
 
         {/* Podcast 92 - Replace One Sugary Drink with Water */}
-        {currentTemplateIndex === 109 && mode === 'tiktok' && (
+        {currentTemplateIndex === 109 && mode === 'instagram' && (
           <div className="flex justify-center">
             <TikTokTemplate templateIndex={109} />
           </div>
