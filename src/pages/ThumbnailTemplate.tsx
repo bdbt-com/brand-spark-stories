@@ -813,7 +813,8 @@ const ThumbnailTemplate = () => {
       { id: 106, name: "Podcast 88 Write Down 3 Things You Accomplished Every Day", title: "Write Down 3 Things You Accomplished Every Day", subtitle: "", image: "" },
       { id: 107, name: "Podcast 89 Take Advantage of Retail Loyalty Schemes", title: "Take Advantage of Retail Loyalty Schemes", subtitle: "", image: "" },
       { id: 108, name: "Podcast 90 Stretch for 5 Minutes Before Bed", title: "Stretch for 5 Minutes Before Bed", subtitle: "", image: "" },
-      { id: 109, name: "Podcast 92 Replace One Sugary Drink with Water", title: "Replace One Sugary Drink with Water", subtitle: "", image: "" }
+      { id: 109, name: "Podcast 92 Replace One Sugary Drink with Water", title: "Replace One Sugary Drink with Water", subtitle: "", image: "" },
+      { id: 110, name: "Podcast 93 Set an Hourly Reminder to Stand Up", title: "Set an Hourly Reminder to Stand Up", subtitle: "", image: "" }
   ];
 
   const phrases = [
