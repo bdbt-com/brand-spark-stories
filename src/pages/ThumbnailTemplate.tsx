@@ -700,6 +700,13 @@ const ThumbnailTemplate = () => {
       title: "Replace One Sugary Drink with Water",
       subtitle: "Daily Wins Podcast 92",
       image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+    },
+    {
+      id: 97,
+      name: "Podcast 93",
+      title: "Set an Hourly Reminder to Stand Up",
+      subtitle: "Daily Wins Podcast 93",
+      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
     }
   ];
 
