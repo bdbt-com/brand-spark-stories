@@ -700,6 +700,13 @@ const ThumbnailTemplate = () => {
       title: "Replace One Sugary Drink with Water",
       subtitle: "Daily Wins Podcast 92",
       image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
+    },
+    {
+      id: 97,
+      name: "Podcast 93",
+      title: "Set an Hourly Reminder to Stand Up",
+      subtitle: "Daily Wins Podcast 93",
+      image: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png"
     }
   ];
 
@@ -813,7 +820,8 @@ const ThumbnailTemplate = () => {
       { id: 106, name: "Podcast 88 Write Down 3 Things You Accomplished Every Day", title: "Write Down 3 Things You Accomplished Every Day", subtitle: "", image: "" },
       { id: 107, name: "Podcast 89 Take Advantage of Retail Loyalty Schemes", title: "Take Advantage of Retail Loyalty Schemes", subtitle: "", image: "" },
       { id: 108, name: "Podcast 90 Stretch for 5 Minutes Before Bed", title: "Stretch for 5 Minutes Before Bed", subtitle: "", image: "" },
-      { id: 109, name: "Podcast 92 Replace One Sugary Drink with Water", title: "Replace One Sugary Drink with Water", subtitle: "", image: "" }
+      { id: 109, name: "Podcast 92 Replace One Sugary Drink with Water", title: "Replace One Sugary Drink with Water", subtitle: "", image: "" },
+      { id: 110, name: "Podcast 93 Set an Hourly Reminder to Stand Up", title: "Set an Hourly Reminder to Stand Up", subtitle: "", image: "" }
   ];
 
   const phrases = [
@@ -4702,6 +4710,37 @@ const ThumbnailTemplate = () => {
                     <span className="block" style={{ color: 'hsl(35, 45%, 75%)' }}>Drink with Water</span>
                   </h1>
                   <p className="text-white/80 text-3xl font-medium">Daily Wins Podcast 92</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Podcast 93 - Set an Hourly Reminder to Stand Up */}
+        {currentTemplateIndex === 110 && mode === 'instagram' && (
+          <div className="flex justify-center">
+            <TikTokTemplate templateIndex={110} />
+          </div>
+        )}
+
+        {currentTemplateIndex === 97 && mode === 'youtube' && (
+          <div className="flex justify-center">
+            <div id="thumbnail-97" key="template-97" className="w-[1280px] h-[720px] relative overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-primary/80 shadow-2xl animate-fade-in border-2 border-white">
+              <div className="h-full flex items-center p-16 relative">
+                <div className="absolute right-16 top-16 bottom-16 flex items-center">
+                  <div className="w-[650px] h-[650px] bg-white/10 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-xl overflow-hidden relative">
+                    <img src="/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png" alt="Podcast thumbnail" className="w-full h-full object-cover border-4 border-white/20" />
+                    <div className="absolute bottom-4 left-4">
+                      <img src="/lovable-uploads/5e436d55-85a6-48ef-bef9-69ba7502f2a9.png" alt="BDBT Logo" className="h-16 opacity-90" />
+                    </div>
+                  </div>
+                </div>
+                <div className="absolute left-8 top-16 bottom-24 right-[35%] pr-4 z-10 flex flex-col justify-center">
+                  <h1 className="text-6xl xl:text-7xl 2xl:text-8xl font-bold leading-tight mb-6">
+                    <span className="text-white block mb-2">Set an Hourly Reminder</span>
+                    <span className="block" style={{ color: 'hsl(35, 45%, 75%)' }}>to Stand Up</span>
+                  </h1>
+                  <p className="text-white/80 text-3xl font-medium">Daily Wins Podcast 93</p>
                 </div>
               </div>
             </div>
