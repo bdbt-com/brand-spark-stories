@@ -116,8 +116,6 @@ const LinkInBio = () => {
   const getTranslateX = useCallback((index: number) => {
     const { cardW, step } = getStep();
     if (cardW === 0) return 0;
-    // Track starts at page padding (px-4 = 16px) from viewport left
-    // because -mx-[24vw] px-[24vw] cancel out for the content area
     const trackLeft = 16;
     const viewportCenter = window.innerWidth / 2;
     return viewportCenter - trackLeft - index * step - cardW / 2;
@@ -130,7 +128,7 @@ const LinkInBio = () => {
     }
   }, []);
 
-  const scheduleAutoplay = useCallback((delay = 4000) => {
+  const scheduleAutoplay = useCallback((delay = 3000) => {
     clearAutoplay();
     autoplayRef.current = setTimeout(() => {
       if (window.innerWidth >= 768 || playingVideo !== null) return;
@@ -140,7 +138,7 @@ const LinkInBio = () => {
     }, delay);
   }, [clearAutoplay, playingVideo]);
 
-  // Mount: show first slide centered, static, then start autoplay after delay
+  // Mount: show first slide centered, static, then start autoplay quickly
   useEffect(() => {
     if (window.innerWidth >= 768 || !isFirstMount) return;
     const raf = requestAnimationFrame(() => {
@@ -149,7 +147,7 @@ const LinkInBio = () => {
       trackRef.current.style.transform = `translateX(${getTranslateX(2)}px)`;
       setCurrentIndex(2);
       setIsFirstMount(false);
-      scheduleAutoplay(4000);
+      scheduleAutoplay(1500);
     });
     return () => cancelAnimationFrame(raf);
   }, [isFirstMount]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -174,11 +172,11 @@ const LinkInBio = () => {
       setCurrentIndex(nextIndex);
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
-          scheduleAutoplay(4000);
+          scheduleAutoplay(3000);
         });
       });
     } else {
-      scheduleAutoplay(4000);
+      scheduleAutoplay(3000);
     }
   }, [currentIndex, totalSlides, scheduleAutoplay]);
 
@@ -196,7 +194,6 @@ const LinkInBio = () => {
     if (!isDragging.current || !trackRef.current) return;
     const delta = e.touches[0].clientX - touchStartX.current;
     trackRef.current.style.transform = `translateX(${touchStartTranslate.current + delta}px)`;
-    // Keep last 5 positions for velocity calculation
     const now = Date.now();
     touchHistory.current.push({ x: e.touches[0].clientX, t: now });
     if (touchHistory.current.length > 5) touchHistory.current.shift();
@@ -209,22 +206,19 @@ const LinkInBio = () => {
     const delta = endX - touchStartX.current;
     const threshold = 50;
 
-    // Calculate velocity from touch history
     let velocity = 0;
     const history = touchHistory.current;
     if (history.length >= 2) {
       const oldest = history[0];
       const newest = history[history.length - 1];
-      const dt = (newest.t - oldest.t) / 1000; // seconds
-      if (dt > 0) velocity = (newest.x - oldest.x) / dt; // px/s
+      const dt = (newest.t - oldest.t) / 1000;
+      if (dt > 0) velocity = (newest.x - oldest.x) / dt;
     }
 
-    // Determine how many slides to advance based on velocity + distance
     let slideDelta = 0;
     if (Math.abs(delta) > threshold || Math.abs(velocity) > 300) {
-      // Base: 1 slide. Add extra slides for high velocity (inertia)
       const direction = delta < 0 ? 1 : -1;
-      const extraSlides = Math.min(Math.floor(Math.abs(velocity) / 800), 2); // max 2 extra
+      const extraSlides = Math.min(Math.floor(Math.abs(velocity) / 800), 2);
       slideDelta = direction * (1 + extraSlides);
     }
 
@@ -251,14 +245,14 @@ const LinkInBio = () => {
     return () => clearTimeout(timer);
   }, [playingVideo]);
 
-  // Pause carousel on page scroll, resume 200ms after scroll stops
+  // Pause carousel on page scroll, resume after scroll stops
   const scrollTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
   useEffect(() => {
     const handleScroll = () => {
       clearAutoplay();
       if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
       scrollTimeout.current = setTimeout(() => {
-        scheduleAutoplay(4000);
+        scheduleAutoplay(3000);
       }, 200);
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -272,20 +266,19 @@ const LinkInBio = () => {
   // Visit 1 (no redirects in 3h): 7s → "Build a Life You Don't Need to Escape From"
   // Visit 2 (1 redirect in 3h): 12.5s → "Reduce Decision Fatigue Wherever Possible"
   // Visit 3+ (2+ redirects in 3h): 20s → cycle through remaining videos
-   // Resets after 7 days since first redirect
+  // Resets after 7 days since first redirect
   useEffect(() => {
     const STORAGE_KEY = 'bdbt-auto-redirects-v8';
     const SEVEN_DAYS = 7 * 24 * 60 * 60 * 1000;
     const REDIRECT_SEQUENCE = [
-      'cfLHVIIp4o0',  // 1st: "Build a Life You Don't Need to Escape From"
-      '-3_zj_Q_1kI',  // 2nd: "Reduce Decision Fatigue Wherever Possible"
-      'TJTe4wtW158',  // 3rd+: cycle starts
+      'cfLHVIIp4o0',
+      '-3_zj_Q_1kI',
+      'TJTe4wtW158',
       'WNf06ZLUIJw',
       'pRRSGS7eLJM',
       'OjwSKAXveN8',
     ];
 
-    // Get recent redirects (within 7 days)
     const getRecentRedirects = (): { timestamp: number; videoId: string }[] => {
       try {
         const stored = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
@@ -295,9 +288,8 @@ const LinkInBio = () => {
     };
 
     const recentRedirects = getRecentRedirects();
-    const visitNumber = recentRedirects.length; // 0 = first, 1 = second, 2+ = cycling
+    const visitNumber = recentRedirects.length;
 
-    // Determine delay and video
     let delay: number;
     let videoId: string;
 
@@ -309,7 +301,6 @@ const LinkInBio = () => {
       videoId = REDIRECT_SEQUENCE[1];
     } else {
       delay = 20000;
-      // Cycle through remaining videos (index 2+), wrapping around
       const cycleIndex = (visitNumber - 2) % (REDIRECT_SEQUENCE.length - 2);
       videoId = REDIRECT_SEQUENCE[2 + cycleIndex];
     }
@@ -322,7 +313,6 @@ const LinkInBio = () => {
       clearTimeout(idleTimer);
       idleTimer = setTimeout(() => {
         redirected = true;
-        // Track + update localStorage BEFORE navigating
         const updated = [...getRecentRedirects(), { timestamp: Date.now(), videoId }];
         localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
         startTrackedRedirect(videoId, "auto-redirect:" + videoId);
@@ -345,20 +335,29 @@ const LinkInBio = () => {
 
   const translateX = getTranslateX(currentIndex);
 
+  // Determine if a carousel card is the "active" (centered) one
+  const getRealIndex = (i: number) => {
+    if (i === 0) return totalSlides - 1;
+    if (i > totalSlides) return 0;
+    return i - 1;
+  };
+
   return (
-    <div className="min-h-screen bg-[#36455A] flex flex-col items-center px-4 py-5 md:py-8 overflow-x-hidden">
-      {/* Background gradient overlay */}
-      <div className="fixed inset-0 bg-gradient-to-b from-[#36455A] via-[#2d3a4d] to-[#1e2836] -z-10" />
+    <div className="min-h-screen bg-[#1a1a1e] flex flex-col items-center px-4 py-5 md:py-8 overflow-x-hidden">
+      {/* Background gradient overlay — Midnight charcoal */}
+      <div className="fixed inset-0 bg-gradient-to-b from-[#1a1a1e] via-[#141416] to-[#0d0d0f] -z-10" />
       
       {/* Main content container */}
       <div className="w-full max-w-md md:max-w-4xl flex flex-col items-center animate-fade-in">
-        {/* Profile Photo */}
-        <div className="w-24 h-24 rounded-full overflow-hidden border-2 border-white/20 mb-4 relative">
-          <img 
-            src="/lovable-uploads/profile-photo.png" 
-            alt="Big Daddy"
-            className="absolute inset-0 w-full h-full object-cover object-[center_15%] scale-125 rounded-full"
-          />
+        {/* Profile Photo — gradient ring */}
+        <div className="w-24 h-24 rounded-full bg-gradient-to-br from-white/20 to-white/5 p-[1.5px] mb-4">
+          <div className="w-full h-full rounded-full overflow-hidden relative">
+            <img 
+              src="/lovable-uploads/profile-photo.png" 
+              alt="Big Daddy"
+              className="absolute inset-0 w-full h-full object-cover object-[center_15%] scale-125 rounded-full"
+            />
+          </div>
         </div>
         
         {/* Handle */}
@@ -369,10 +368,10 @@ const LinkInBio = () => {
         
         {/* Tagline */}
         <div className="text-center mb-3">
-          <p className="text-white text-sm mb-1">
+          <p className="text-white/90 text-sm mb-1">
             🎵 Small daily steps 💥 Big life changes
           </p>
-          <p className="text-white/80 text-sm">
+          <p className="text-white/50 text-sm font-light">
             Replace Daily Drifts with Daily Wins
           </p>
         </div>
@@ -385,7 +384,7 @@ const LinkInBio = () => {
               href={social.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-white/70 hover:text-white hover:scale-110 transition-all duration-200"
+              className="text-white/40 hover:text-white/90 hover:drop-shadow-[0_0_6px_rgba(255,255,255,0.15)] transition-all duration-300"
               aria-label={social.name}
             >
               {social.icon}
@@ -393,19 +392,20 @@ const LinkInBio = () => {
           ))}
         </div>
         
-        {/* Links */}
+        {/* Links — MacBook keyboard-key style */}
         <div className="w-full max-w-md space-y-2.5 md:space-y-3">
           {links.map((link, index) => {
             const cardContent = (
               <div 
-                className="w-full h-16 rounded-xl bg-black/40 backdrop-blur-sm border border-white/10 
-                         hover:bg-black/50 hover:scale-[1.02] hover:border-white/20
+                className="w-full h-16 rounded-2xl bg-white/[0.04] backdrop-blur-xl border border-white/[0.06] 
+                         hover:bg-white/[0.07] hover:border-white/[0.12]
+                         active:scale-[0.98] active:bg-white/[0.03]
                          transition-all duration-300 ease-out cursor-pointer
                          flex items-center overflow-hidden"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
                 {link.thumbnail && (
-                  <div className="w-16 h-16 flex-shrink-0 overflow-hidden rounded-l-xl">
+                  <div className="w-16 h-16 flex-shrink-0 overflow-hidden rounded-l-2xl">
                     <img 
                       src={link.thumbnail} 
                       alt={link.title}
@@ -414,11 +414,11 @@ const LinkInBio = () => {
                   </div>
                 )}
                 <div className={`flex-1 py-4 ${link.thumbnail ? 'px-4' : 'px-5 text-center'}`}>
-                  <span className="text-white font-medium text-sm block">
+                  <span className="text-white/90 font-medium text-sm block">
                     {link.title}
                   </span>
                   {link.subtitle && (
-                    <span className="text-white/60 text-xs">
+                    <span className="text-white/40 text-xs">
                       {link.subtitle}
                     </span>
                   )}
@@ -456,9 +456,9 @@ const LinkInBio = () => {
           })}
         </div>
         
-        {/* Podcast Episodes — Home page style */}
+        {/* Podcast Episodes */}
         <div className="w-full mt-3 md:mt-8">
-          <p className="text-white/50 text-xs uppercase tracking-wider text-center mb-2 md:mb-4">Picked For You</p>
+          <p className="text-white/25 text-xs uppercase tracking-[0.2em] text-center mb-2 md:mb-4 font-light">Picked For You</p>
           
           {/* Desktop: static grid */}
           <div className="hidden md:grid md:grid-cols-3 gap-8 items-center">
@@ -467,7 +467,7 @@ const LinkInBio = () => {
                 key={episode.videoId} 
                 className={`group ${episode.videoId === 'OjwSKAXveN8' ? 'md:scale-110 md:z-10' : ''}`}
               >
-                <div className="rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow bg-[#212121] flex flex-col h-full">
+                <div className="rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 bg-white/[0.04] backdrop-blur-sm border border-white/[0.05] flex flex-col h-full">
                   <div>
                     {playingVideo !== null && podcastEpisodes[playingVideo]?.videoId === episode.videoId ? (
                       <div className="w-full aspect-video bg-black">
@@ -489,11 +489,11 @@ const LinkInBio = () => {
                         <img
                           src={`https://img.youtube.com/vi/${episode.videoId}/hqdefault.jpg`}
                           alt={episode.title}
-                          className="w-full aspect-video object-cover rounded-t-xl"
+                          className="w-full aspect-video object-cover rounded-t-2xl"
                         />
-                        <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition-colors">
-                          <div className="w-14 h-14 rounded-full bg-white/90 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-                            <Play className="w-7 h-7 text-primary ml-0.5" fill="currentColor" />
+                        <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/40 transition-colors duration-300">
+                          <div className="w-14 h-14 rounded-full bg-white/10 backdrop-blur-md border border-white/10 flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:bg-white/15 transition-all duration-300">
+                            <Play className="w-7 h-7 text-white ml-0.5" fill="currentColor" />
                           </div>
                         </div>
                       </button>
@@ -503,16 +503,16 @@ const LinkInBio = () => {
                     href={`https://www.youtube.com/watch?v=${episode.videoId}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="block p-2.5 hover:bg-white/5 transition-colors"
+                    className="block p-2.5 hover:bg-white/[0.03] transition-colors duration-300"
                     onClick={(e) => {
                       e.preventDefault();
                       startTrackedRedirect(episode.videoId);
                     }}
                   >
-                    <h3 className="text-sm font-medium text-white leading-snug line-clamp-2 min-h-[2rem]">{episode.title}</h3>
+                    <h3 className="text-sm font-medium text-white/90 leading-snug line-clamp-2 min-h-[2rem]">{episode.title}</h3>
                     <div className="flex justify-between items-center mt-1">
-                      <p className="text-xs text-white/50">{episode.views}</p>
-                      <span className="text-xs text-white/50">BDBT</span>
+                      <p className="text-xs text-white/30">{episode.views}</p>
+                      <span className="text-xs text-white/30">BDBT</span>
                     </div>
                   </a>
                 </div>
@@ -528,60 +528,67 @@ const LinkInBio = () => {
               className="flex gap-2 transform-gpu will-change-transform"
               style={{
                 transform: `translateX(${translateX}px)`,
-                transition: transitionEnabled ? (isManualSwipe.current ? 'transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)' : 'transform 4s ease-in-out') : 'none',
+                transition: transitionEnabled ? (isManualSwipe.current ? 'transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)' : 'transform 1.2s cubic-bezier(0.4, 0, 0.2, 1)') : 'none',
               }}
               onTransitionEnd={handleTransitionEnd}
               onTouchStart={handleTouchStart}
               onTouchMove={handleTouchMove}
               onTouchEnd={handleTouchEnd}
             >
-              {clonedEpisodes.map((episode, i) => (
-                <div 
-                  key={`carousel-${i}`} 
-                  className="group w-[36vw] min-w-[36vw] max-w-[36vw] flex-shrink-0"
-                >
-                  <div className="rounded-xl overflow-hidden shadow-lg bg-[#212121] flex flex-col h-full">
-                    <div>
-                      <button
-                        onClick={() => {
-                          const realIdx = i === 0 ? totalSlides - 1 : i > totalSlides ? 0 : i - 1;
-                          setPlayingVideo(realIdx);
+              {clonedEpisodes.map((episode, i) => {
+                const isActive = i === currentIndex;
+                return (
+                  <div 
+                    key={`carousel-${i}`} 
+                    className="group w-[36vw] min-w-[36vw] max-w-[36vw] flex-shrink-0 transition-all duration-500 ease-out"
+                    style={{
+                      opacity: isActive ? 1 : 0.5,
+                      transform: isActive ? 'scale(1)' : 'scale(0.92)',
+                    }}
+                  >
+                    <div className="rounded-2xl overflow-hidden shadow-lg bg-white/[0.04] backdrop-blur-sm border border-white/[0.05] flex flex-col h-full">
+                      <div>
+                        <button
+                          onClick={() => {
+                            const realIdx = getRealIndex(i);
+                            setPlayingVideo(realIdx);
+                            startTrackedRedirect(episode.videoId);
+                          }}
+                          className="relative w-full cursor-pointer"
+                        >
+                          <img
+                            src={`https://img.youtube.com/vi/${episode.videoId}/hqdefault.jpg`}
+                            alt={episode.title}
+                            className="w-full aspect-video object-cover block rounded-t-2xl"
+                          />
+                        </button>
+                      </div>
+                      <a
+                        href={`https://www.youtube.com/watch?v=${episode.videoId}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block p-2 hover:bg-white/[0.03] transition-colors duration-300"
+                        onClick={(e) => {
+                          e.preventDefault();
                           startTrackedRedirect(episode.videoId);
                         }}
-                        className="relative w-full cursor-pointer"
                       >
-                        <img
-                          src={`https://img.youtube.com/vi/${episode.videoId}/hqdefault.jpg`}
-                          alt={episode.title}
-                          className="w-full aspect-video object-cover block rounded-t-xl"
-                        />
-                      </button>
+                        <h3 className="text-xs font-medium text-white/80 leading-snug line-clamp-2 min-h-[2rem]">{episode.title}</h3>
+                        <div className="flex justify-between items-center mt-0.5">
+                          <p className="text-[10px] text-white/30">{episode.views}</p>
+                          <span className="text-[10px] text-white/30">BDBT</span>
+                        </div>
+                      </a>
                     </div>
-                    <a
-                      href={`https://www.youtube.com/watch?v=${episode.videoId}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="block p-2 hover:bg-white/5 transition-colors"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        startTrackedRedirect(episode.videoId);
-                      }}
-                    >
-                      <h3 className="text-xs font-medium text-white leading-snug line-clamp-2 min-h-[2rem]">{episode.title}</h3>
-                      <div className="flex justify-between items-center mt-0.5">
-                        <p className="text-[10px] text-white/50">{episode.views}</p>
-                        <span className="text-[10px] text-white/50">BDBT</span>
-                      </div>
-                    </a>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </div>
 
         {/* Footer */}
-        <p className="text-white/40 text-xs mt-10">
+        <p className="text-white/20 text-xs mt-10 font-light">
           © Big Daddy's Big Tips
         </p>
       </div>
