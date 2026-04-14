@@ -1,39 +1,44 @@
 
 
-## Update AdminList Video Maps & Ensure Mobile Compatibility
+## Fix Google Search Appearance & Brand Image
 
-### What's changing
+### Problem
+Google shows "Big Daddy's Big Tips Logo" because:
+- The OG (Open Graph) image points to a generic Lovable placeholder
+- The `twitter:site` references `@lovable_dev`
+- There's no proper branded social sharing image
 
-**`src/pages/AdminList.tsx`** — Update the video tracking maps to reflect the current rotation:
+### Changes — `index.html`
 
-**Current `VIDEO_MAP`** (active videos being tracked):
-```ts
-const VIDEO_MAP: Record<string, string> = {
-  cfLHVIIp4o0: "Build a Life You Don't Need to Escape From",
-  "-3_zj_Q_1kI": "Reduce Decision Fatigue Wherever Possible",
-  TJTe4wtW158: "Skip for 5 Minutes Daily",
-  WNf06ZLUIJw: "Expose Yourself to Sunlight Daily",
-  pRRSGS7eLJM: "Capitalise on Benefits Offered by Your Employer",
-  OjwSKAXveN8: "Dangers of Screen-time Before Bed",
-};
+**1. Update `og:image` and `twitter:image`** to use your actual logo (`/lovable-uploads/bdbt-logo-transparent.png`) with a full absolute URL pointing to your published domain:
+```html
+<meta property="og:image" content="https://bdbt.lovable.app/lovable-uploads/bdbt-logo-transparent.png" />
+<meta name="twitter:image" content="https://bdbt.lovable.app/lovable-uploads/bdbt-logo-transparent.png" />
 ```
 
-**Updated `PREVIOUS_VIDEO_MAP`** (retired videos — add the 4 removed ones):
-```ts
-const PREVIOUS_VIDEO_MAP: Record<string, string> = {
-  zz2rVKKt1l0: "Go Exploring",
-  "-a4NbW5Y718": "If You Know You're Capable of More",
-  ERXXO8mG5IY: "Why 70% of People Are Dehydrated",
-  bv27Bn6qWIo: "Why Most People Invest Completely Wrong",
-  vPd9pieng58: "Read For 20 Minutes Every Day",
-  Irm5oIb5ySo: "Connect with More Animals",
-};
+**2. Update `twitter:site`** from `@lovable_dev` to your brand handle (or remove it if you don't have a Twitter/X account).
+
+**3. Add `og:url`** so Google knows the canonical URL:
+```html
+<meta property="og:url" content="https://bdbt.lovable.app" />
 ```
 
-**Mobile compatibility check** — I'll review the Home and LinkInBio pages for any layout issues at mobile breakpoints and fix if needed (both pages already use responsive classes, but I'll verify the video cards/carousel render properly).
+**4. Add structured data (JSON-LD)** so Google explicitly shows your site name and logo:
+```html
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "BigDaddy'sBigTips",
+  "url": "https://bdbt.lovable.app",
+  "image": "https://bdbt.lovable.app/lovable-uploads/bdbt-logo-transparent.png"
+}
+</script>
+```
+
+### Important note
+Google takes days/weeks to re-crawl and update search results. These changes will fix the underlying issue, but the Google listing won't update instantly. You can speed it up by submitting your URL in [Google Search Console](https://search.google.com/search-console).
 
 ### Files
-- `src/pages/AdminList.tsx` — Update `VIDEO_MAP` and `PREVIOUS_VIDEO_MAP`
-- `src/pages/Home.tsx` — Verify mobile layout (fix if needed)
-- `src/pages/LinkInBio.tsx` — Verify mobile layout (fix if needed)
+- `index.html` — one file, meta tag updates + JSON-LD block
 
