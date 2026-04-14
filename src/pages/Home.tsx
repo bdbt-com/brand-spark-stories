@@ -14,7 +14,7 @@ import { startTrackedRedirect } from "@/lib/youtube-redirect";
 // YouTube podcast episodes
 const podcastEpisodes = [
   { videoId: "cfLHVIIp4o0", title: "Build a Life You Don't Need to Escape From", views: "3.2K views" },
-  { videoId: "-3_zj_Q_1kI", title: "Reduce Decision Fatigue Wherever Possible", views: "New", featured: true },
+  { videoId: "-3_zj_Q_1kI", title: "Reduce Decision Fatigue Wherever Possible", views: "4.1K views", featured: true },
   { videoId: "OjwSKAXveN8", title: "The Dangers of Screen-time Before Bed", views: "12.8K views" },
 ];
 
