@@ -1,26 +1,28 @@
 
 
-# Fix Bio Click Undercounting + Redirect Inflation
+## Home Page Video Swap
 
-## Problem
-1. `/BIO` (uppercase) visits aren't counted as bio clicks — 62 missed in 30 days
-2. `/redirect` page views inflate total visitor count (171 extra "visitors" in 7 days)
+### Current layout (left → center → right)
+1. **Left:** "Build a Life You Don't Need to Escape From" (`cfLHVIIp4o0`)
+2. **Center (featured):** "The Dangers of Screen-time Before Bed" (`OjwSKAXveN8`)
+3. **Right:** "Why Most People Invest Completely Wrong" (`bv27Bn6qWIo`)
 
-## Changes
+### New layout
+1. **Left:** "Build a Life You Don't Need to Escape From" (`cfLHVIIp4o0`) — stays
+2. **Center (featured):** "Reduce Decision Fatigue Wherever Possible" (`-3_zj_Q_1kI`) — NEW
+3. **Right:** "The Dangers of Screen-time Before Bed" (`OjwSKAXveN8`) — moved from center
 
-### 1. `src/components/PageViewTracker.tsx` — Normalise path to lowercase
-Before tracking, convert `location.pathname` to lowercase so `/BIO` is recorded as `/bio`.
+"Why Most People Invest Completely Wrong" is removed entirely from the home page.
 
-### 2. `src/components/PageViewTracker.tsx` — Skip `/redirect` path
-Don't track the redirect bridge page as a page view (same as `/admin-list` is already skipped). This stops auto-redirects from inflating visitor counts.
+### File change
+**`src/pages/Home.tsx`** — Update the `podcastEpisodes` array (lines 15-19):
+```ts
+const podcastEpisodes = [
+  { videoId: "cfLHVIIp4o0", title: "Build a Life You Don't Need to Escape From", views: "3.2K views" },
+  { videoId: "-3_zj_Q_1kI", title: "Reduce Decision Fatigue Wherever Possible", views: "New", featured: true },
+  { videoId: "OjwSKAXveN8", title: "The Dangers of Screen-time Before Bed", views: "12.8K views" },
+];
+```
 
-### 3. `supabase/functions/get-page-analytics/index.ts` — Case-insensitive bio query
-Use `ilike` or `.in()` with lowercase + uppercase variants, or use `.or()` with `ilike` to catch any future case variations in historical data.
-
-### Files changed
-
-| File | Change |
-|------|--------|
-| `src/components/PageViewTracker.tsx` | Lowercase path before tracking; skip `/redirect` |
-| `supabase/functions/get-page-analytics/index.ts` | Case-insensitive bio click counting |
+One file, one array edit. No other pages affected (Blueprint page keeps its own trio).
 
