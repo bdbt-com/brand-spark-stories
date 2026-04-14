@@ -6,11 +6,11 @@ import { startTrackedRedirect } from "@/lib/youtube-redirect";
 
 const podcastEpisodes = [
   { videoId: "cfLHVIIp4o0", title: "Build a Life You Don't Need to Escape From", views: "3.2K views" },
-  { videoId: "vPd9pieng58", title: "Read For 20 Minutes Every Day", views: "2.1K views" },
-  { videoId: "ERXXO8mG5IY", title: "Why 70% of People Are Dehydrated", views: "8.4K views" },
+  { videoId: "-3_zj_Q_1kI", title: "Reduce Decision Fatigue Wherever Possible", views: "New" },
+  { videoId: "TJTe4wtW158", title: "Skip for 5 Minutes Daily", views: "New" },
+  { videoId: "WNf06ZLUIJw", title: "Expose Yourself to Sunlight Daily", views: "New" },
+  { videoId: "pRRSGS7eLJM", title: "Capitalise on Benefits Offered by Your Employer", views: "New" },
   { videoId: "OjwSKAXveN8", title: "The Dangers of Screen-time Before Bed", views: "12.8K views" },
-  { videoId: "bv27Bn6qWIo", title: "Why Most People Invest Completely Wrong", views: "5.7K views" },
-  { videoId: "Irm5oIb5ySo", title: "Connect with More Animals", views: "6.7K views" },
 ];
 
 const socialLinks = [
@@ -269,20 +269,20 @@ const LinkInBio = () => {
   }, [clearAutoplay, scheduleAutoplay]);
 
   // Tiered idle auto-redirect system
-  // Visit 1 (no redirects in 3h): 7s → "Capable of More"
-  // Visit 2 (1 redirect in 3h): 12.5s → "Screen-time Before Bed"
+  // Visit 1 (no redirects in 3h): 7s → "Build a Life You Don't Need to Escape From"
+  // Visit 2 (1 redirect in 3h): 12.5s → "Reduce Decision Fatigue Wherever Possible"
   // Visit 3+ (2+ redirects in 3h): 20s → cycle through remaining videos
    // Resets after 7 days since first redirect
   useEffect(() => {
-    const STORAGE_KEY = 'bdbt-auto-redirects-v7';
+    const STORAGE_KEY = 'bdbt-auto-redirects-v8';
     const SEVEN_DAYS = 7 * 24 * 60 * 60 * 1000;
     const REDIRECT_SEQUENCE = [
       'cfLHVIIp4o0',  // 1st: "Build a Life You Don't Need to Escape From"
-      'OjwSKAXveN8',  // 2nd: "Screen-time Before Bed"
-      'ERXXO8mG5IY',  // 3rd+: cycle starts
-      'bv27Bn6qWIo',
-      'vPd9pieng58',
-      'Irm5oIb5ySo',
+      '-3_zj_Q_1kI',  // 2nd: "Reduce Decision Fatigue Wherever Possible"
+      'TJTe4wtW158',  // 3rd+: cycle starts
+      'WNf06ZLUIJw',
+      'pRRSGS7eLJM',
+      'OjwSKAXveN8',
     ];
 
     // Get recent redirects (within 7 days)
