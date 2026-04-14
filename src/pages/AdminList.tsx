@@ -96,17 +96,21 @@ function InlineGraph({ data, dataKey, label, color, hourly }: { data: any[]; dat
 }
 
 const VIDEO_MAP: Record<string, string> = {
-  ERXXO8mG5IY: "Why 70% of People Are Dehydrated",
-  OjwSKAXveN8: "Dangers of Screen-time Before Bed",
-  bv27Bn6qWIo: "Why Most People Invest Completely Wrong",
-  vPd9pieng58: "Read For 20 Minutes Every Day",
   cfLHVIIp4o0: "Build a Life You Don't Need to Escape From",
-  Irm5oIb5ySo: "Connect with More Animals",
+  "-3_zj_Q_1kI": "Reduce Decision Fatigue Wherever Possible",
+  TJTe4wtW158: "Skip for 5 Minutes Daily",
+  WNf06ZLUIJw: "Expose Yourself to Sunlight Daily",
+  pRRSGS7eLJM: "Capitalise on Benefits Offered by Your Employer",
+  OjwSKAXveN8: "Dangers of Screen-time Before Bed",
 };
 
 const PREVIOUS_VIDEO_MAP: Record<string, string> = {
   zz2rVKKt1l0: "Go Exploring",
   "-a4NbW5Y718": "If You Know You're Capable of More",
+  ERXXO8mG5IY: "Why 70% of People Are Dehydrated",
+  bv27Bn6qWIo: "Why Most People Invest Completely Wrong",
+  vPd9pieng58: "Read For 20 Minutes Every Day",
+  Irm5oIb5ySo: "Connect with More Animals",
 };
 
 interface AnalyticsPeriod {
