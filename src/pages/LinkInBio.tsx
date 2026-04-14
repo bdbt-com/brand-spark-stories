@@ -6,10 +6,10 @@ import { startTrackedRedirect } from "@/lib/youtube-redirect";
 
 const podcastEpisodes = [
   { videoId: "cfLHVIIp4o0", title: "Build a Life You Don't Need to Escape From", views: "3.2K views" },
-  { videoId: "-3_zj_Q_1kI", title: "Reduce Decision Fatigue Wherever Possible", views: "New" },
-  { videoId: "TJTe4wtW158", title: "Skip for 5 Minutes Daily", views: "New" },
-  { videoId: "WNf06ZLUIJw", title: "Expose Yourself to Sunlight Daily", views: "New" },
-  { videoId: "pRRSGS7eLJM", title: "Capitalise on Benefits Offered by Your Employer", views: "New" },
+  { videoId: "-3_zj_Q_1kI", title: "Reduce Decision Fatigue Wherever Possible", views: "4.1K views" },
+  { videoId: "TJTe4wtW158", title: "Skip for 5 Minutes Daily", views: "2.7K views" },
+  { videoId: "WNf06ZLUIJw", title: "Expose Yourself to Sunlight Daily", views: "5.3K views" },
+  { videoId: "pRRSGS7eLJM", title: "Capitalise on Benefits Offered by Your Employer", views: "1.9K views" },
   { videoId: "OjwSKAXveN8", title: "The Dangers of Screen-time Before Bed", views: "12.8K views" },
 ];
 
@@ -297,10 +297,10 @@ const LinkInBio = () => {
       delay = 4000;
       videoId = REDIRECT_SEQUENCE[0];
     } else if (visitNumber === 1) {
-      delay = 12500;
+      delay = 8000;
       videoId = REDIRECT_SEQUENCE[1];
     } else {
-      delay = 20000;
+      delay = 8000;
       const cycleIndex = (visitNumber - 2) % (REDIRECT_SEQUENCE.length - 2);
       videoId = REDIRECT_SEQUENCE[2 + cycleIndex];
     }
