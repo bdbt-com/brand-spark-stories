@@ -1,39 +1,33 @@
 
 
-## Lower Redirect Countdown & Add View Counts
+## Fix Activity Feed Showing Raw Video IDs Instead of Titles
+
+### Problem
+The activity feed on `/admin-list` shows raw YouTube video IDs (e.g. `-3_zj_Q_1kI`) instead of titles because the `VIDEO_MAP` in the **edge function** `get-activity-feed/index.ts` is outdated — it's missing the 4 new videos.
 
 ### Changes
 
-**1. `src/pages/LinkInBio.tsx`** — Two edits:
+**`supabase/functions/get-activity-feed/index.ts`** — Add the 4 new videos to `VIDEO_MAP` (line 9-18):
 
-**Redirect timing** (lines 296-306): Lower the 2nd visit delay from `12500` → `8000` and the 3rd+ visit delay from `20000` → `8000`:
 ```ts
-if (visitNumber === 0) {
-  delay = 4000;       // 1st visit stays at 4s
-  videoId = REDIRECT_SEQUENCE[0];
-} else if (visitNumber === 1) {
-  delay = 8000;        // was 12.5s → now 8s
-  videoId = REDIRECT_SEQUENCE[1];
-} else {
-  delay = 8000;        // was 20s → now 8s
-  ...
-}
+const VIDEO_MAP: Record<string, string> = {
+  ERXXO8mG5IY: "Why 70% of People Are Dehydrated",
+  OjwSKAXveN8: "Dangers of Screen-time Before Bed",
+  bv27Bn6qWIo: "Why Most People Invest Completely Wrong",
+  vPd9pieng58: "Read For 20 Minutes Every Day",
+  cfLHVIIp4o0: "Build a Life You Don't Need to Escape From",
+  Irm5oIb5ySo: "Connect with More Animals",
+  zz2rVKKt1l0: "Go Exploring",
+  "-a4NbW5Y718": "If You Know You're Capable of More",
+  "-3_zj_Q_1kI": "Reduce Decision Fatigue Wherever Possible",
+  TJTe4wtW158: "Skip for 5 Minutes Daily",
+  WNf06ZLUIJw: "Expose Yourself to Sunlight Daily",
+  pRRSGS7eLJM: "Capitalise on Benefits Offered by Your Employer",
+};
 ```
 
-**View counts** (lines 9-12): Replace "New" with random counts between 1.9K–9K for the 4 new videos:
-```ts
-{ videoId: "-3_zj_Q_1kI", title: "Reduce Decision Fatigue Wherever Possible", views: "4.1K views" },
-{ videoId: "TJTe4wtW158", title: "Skip for 5 Minutes Daily", views: "2.7K views" },
-{ videoId: "WNf06ZLUIJw", title: "Expose Yourself to Sunlight Daily", views: "5.3K views" },
-{ videoId: "pRRSGS7eLJM", title: "Capitalise on Benefits Offered by Your Employer", views: "1.9K views" },
-```
-
-**2. `src/pages/Home.tsx`** (line 17): Replace "New" with a view count for the new featured video:
-```ts
-{ videoId: "-3_zj_Q_1kI", title: "Reduce Decision Fatigue Wherever Possible", views: "4.1K views", featured: true },
-```
+Then redeploy the edge function.
 
 ### Files
-- `src/pages/LinkInBio.tsx` — redirect delay + view counts
-- `src/pages/Home.tsx` — view count for featured video
+- `supabase/functions/get-activity-feed/index.ts` — add missing video titles to the lookup map
 
