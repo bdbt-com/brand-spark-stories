@@ -15,6 +15,10 @@ const VIDEO_MAP: Record<string, string> = {
   Irm5oIb5ySo: "Connect with More Animals",
   zz2rVKKt1l0: "Go Exploring",
   "-a4NbW5Y718": "If You Know You're Capable of More",
+  "-3_zj_Q_1kI": "Reduce Decision Fatigue Wherever Possible",
+  TJTe4wtW158: "Skip for 5 Minutes Daily",
+  WNf06ZLUIJw: "Expose Yourself to Sunlight Daily",
+  pRRSGS7eLJM: "Capitalise on Benefits Offered by Your Employer",
 };
 
 serve(async (req) => {
