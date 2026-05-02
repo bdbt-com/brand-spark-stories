@@ -63,7 +63,7 @@ const links = [
   {
     title: "BDBT Daily Podcast",
     subtitle: "(YouTube)",
-    href: "https://www.youtube.com/@BigDaddysBigTips",
+    href: "https://www.youtube.com/@bigdaddysbigtips/playlists",
     external: true,
     trackId: "button-youtube",
     thumbnail: "/lovable-uploads/recording-setup-new.jpg",
