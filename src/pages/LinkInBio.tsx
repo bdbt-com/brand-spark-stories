@@ -61,7 +61,7 @@ const links = [
     thumbnail: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png",
   },
   {
-    title: "BDBT Daily Podcast",
+    title: "Daily Wins Podcast",
     subtitle: "(YouTube)",
     href: "https://www.youtube.com/@bigdaddysbigtips/playlists",
     external: true,
@@ -69,7 +69,7 @@ const links = [
     thumbnail: "/lovable-uploads/recording-setup-new.jpg",
   },
   {
-    title: "BDBT Daily Podcast",
+    title: "Daily Wins Podcast",
     subtitle: "(Spotify)",
     href: "https://open.spotify.com/show/7AryqWOzeVCOC7WQ9wcBlk?si=2ede4b3121ea46c1&nd=1&dlsi=f03fd58680794b34",
     external: true,
