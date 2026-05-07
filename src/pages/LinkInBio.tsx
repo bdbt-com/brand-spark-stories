@@ -314,12 +314,12 @@ const LinkInBio = () => {
     const STORAGE_KEY = 'bdbt-auto-redirects-v8';
     const SEVEN_DAYS = 7 * 24 * 60 * 60 * 1000;
     const REDIRECT_SEQUENCE = [
-      'cfLHVIIp4o0',
-      '-3_zj_Q_1kI',
-      'TJTe4wtW158',
-      'WNf06ZLUIJw',
-      'pRRSGS7eLJM',
       'OjwSKAXveN8',
+      'pdjVnhCUwA8',
+      'SioUIPf4Sls',
+      'L6cqky7TLpE',
+      'D4dzO5rfBfs',
+      'EhpmrICLRK8',
     ];
 
     const getRecentRedirects = (): { timestamp: number; videoId: string }[] => {
