@@ -4,14 +4,17 @@ import { Play } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { startTrackedRedirect } from "@/lib/youtube-redirect";
 
-const podcastEpisodes = [
-  { videoId: "cfLHVIIp4o0", title: "Build a Life You Don't Need to Escape From", views: "3.2K views" },
-  { videoId: "-3_zj_Q_1kI", title: "Reduce Decision Fatigue Wherever Possible", views: "4.1K views" },
-  { videoId: "TJTe4wtW158", title: "Skip for 5 Minutes Daily", views: "2.7K views" },
-  { videoId: "WNf06ZLUIJw", title: "Expose Yourself to Sunlight Daily", views: "5.3K views" },
-  { videoId: "pRRSGS7eLJM", title: "Capitalise on Benefits Offered by Your Employer", views: "1.9K views" },
-  { videoId: "OjwSKAXveN8", title: "The Dangers of Screen-time Before Bed", views: "12.8K views" },
+const INITIAL_EPISODES = [
+  { videoId: "pdjVnhCUwA8", title: "", views: "" },
+  { videoId: "SioUIPf4Sls", title: "", views: "" },
+  { videoId: "L6cqky7TLpE", title: "", views: "" },
+  { videoId: "OjwSKAXveN8", title: "The Dangers of Screen-time Before Bed", views: "" },
+  { videoId: "D4dzO5rfBfs", title: "", views: "" },
+  { videoId: "EhpmrICLRK8", title: "", views: "" },
 ];
+
+const STATS_CACHE_KEY = "bdbt-podcast-stats-v1";
+const STATS_TTL_MS = 24 * 60 * 60 * 1000;
 
 const socialLinks = [
   {
