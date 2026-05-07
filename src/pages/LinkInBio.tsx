@@ -85,6 +85,46 @@ const LinkInBio = () => {
   const [playingVideo, setPlayingVideo] = useState<number | null>(null);
 
   // Mobile carousel state
+  const [podcastEpisodes, setPodcastEpisodes] = useState(INITIAL_EPISODES);
+
+  // Fetch live YouTube titles + view counts (cached for 24h)
+  useEffect(() => {
+    const ids = INITIAL_EPISODES.map(e => e.videoId);
+
+    const applyStats = (stats: { videoId: string; title: string; views: string }[]) => {
+      setPodcastEpisodes(prev => prev.map(ep => {
+        const live = stats.find(s => s.videoId === ep.videoId);
+        if (!live) return ep;
+        return {
+          videoId: ep.videoId,
+          title: live.title || ep.title,
+          views: live.views || ep.views,
+        };
+      }));
+    };
+
+    try {
+      const cached = localStorage.getItem(STATS_CACHE_KEY);
+      if (cached) {
+        const { ts, stats } = JSON.parse(cached);
+        if (Date.now() - ts < STATS_TTL_MS && Array.isArray(stats)) {
+          applyStats(stats);
+        }
+      }
+    } catch { /* ignore */ }
+
+    supabase.functions.invoke("get-podcast-stats", {
+      body: null,
+    }).then(({ data, error }) => {
+      if (error || !data?.stats) return;
+      applyStats(data.stats);
+      try {
+        localStorage.setItem(STATS_CACHE_KEY, JSON.stringify({ ts: Date.now(), stats: data.stats }));
+      } catch { /* ignore */ }
+    }).catch(() => {});
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const totalSlides = podcastEpisodes.length;
   const clonedEpisodes = [
     podcastEpisodes[totalSlides - 1],
