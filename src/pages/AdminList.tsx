@@ -97,14 +97,19 @@ function InlineGraph({ data, dataKey, label, color, hourly }: { data: any[]; dat
 
 const VIDEO_MAP: Record<string, string> = {
   cfLHVIIp4o0: "Build a Life You Don't Need to Escape From",
+  pdjVnhCUwA8: "Daily Wins Podcast 120 - You Service Your Car But Not Your Own Body",
+  SioUIPf4Sls: "Daily Wins Podcast 118 - Intentional Comfort vs Default Comfort",
+  L6cqky7TLpE: "Daily Wins Podcast 115 - Why a £10 Decision is Actually a £100,000 Decision",
+  D4dzO5rfBfs: "Daily Wins Podcast 112 - Why Choosing Discomfort Feels So Hard",
+  EhpmrICLRK8: "Daily Wins Podcast 113 - Why Challenging Social Norms Polarises People",
+};
+
+const PREVIOUS_VIDEO_MAP: Record<string, string> = {
+  OjwSKAXveN8: "Dangers of Screen-time Before Bed",
   "-3_zj_Q_1kI": "Reduce Decision Fatigue Wherever Possible",
   TJTe4wtW158: "Skip for 5 Minutes Daily",
   WNf06ZLUIJw: "Expose Yourself to Sunlight Daily",
   pRRSGS7eLJM: "Capitalise on Benefits Offered by Your Employer",
-  OjwSKAXveN8: "Dangers of Screen-time Before Bed",
-};
-
-const PREVIOUS_VIDEO_MAP: Record<string, string> = {
   zz2rVKKt1l0: "Go Exploring",
   "-a4NbW5Y718": "If You Know You're Capable of More",
   ERXXO8mG5IY: "Why 70% of People Are Dehydrated",
