@@ -8,7 +8,7 @@ const INITIAL_EPISODES = [
   { videoId: "pdjVnhCUwA8", title: "Daily Wins Podcast 120 - You Service Your Car But Not Your Own Body", views: "1.2K views" },
   { videoId: "SioUIPf4Sls", title: "Daily Wins Podcast 118 - Intentional Comfort vs Default Comfort", views: "1.4K views" },
   { videoId: "L6cqky7TLpE", title: "Daily Wins Podcast 115 - Why a £10 Decision is Actually a £100,000 Decision", views: "1.6K views" },
-  { videoId: "OjwSKAXveN8", title: "The Dangers of Screen-time Before Bed", views: "980 views" },
+  { videoId: "cfLHVIIp4o0", title: "Build a Life You Don't Need to Escape From", views: "3.2K views" },
   { videoId: "D4dzO5rfBfs", title: "Daily Wins Podcast 112 - Why Choosing Discomfort Feels So Hard", views: "2.1K views" },
   { videoId: "EhpmrICLRK8", title: "Daily Wins Podcast 113 - Why Challenging Social Norms Polarises People", views: "1.8K views" },
 ];
@@ -273,7 +273,7 @@ const LinkInBio = () => {
     const STORAGE_KEY = 'bdbt-auto-redirects-v8';
     const SEVEN_DAYS = 7 * 24 * 60 * 60 * 1000;
     const REDIRECT_SEQUENCE = [
-      'OjwSKAXveN8',
+      'cfLHVIIp4o0',
       'pdjVnhCUwA8',
       'SioUIPf4Sls',
       'L6cqky7TLpE',
@@ -467,7 +467,7 @@ const LinkInBio = () => {
             {podcastEpisodes.map((episode) => (
               <div 
                 key={episode.videoId} 
-                className={`group ${episode.videoId === 'OjwSKAXveN8' ? 'md:scale-110 md:z-10' : ''}`}
+                className={`group ${episode.videoId === 'cfLHVIIp4o0' ? 'md:scale-110 md:z-10' : ''}`}
               >
                 <div className="rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 bg-white/[0.04] backdrop-blur-sm border border-white/[0.05] flex flex-col h-full">
                   <div>

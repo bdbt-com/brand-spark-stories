@@ -1,18 +1,35 @@
-Hardcode the 6 podcast titles + view counts on `/bio` and use the top 3 by views on `/`.
+## Problem
 
-### Numbers
+The `/bio` grid shows "The Dangers of Screen-time Before Bed" (`OjwSKAXveN8`), but the **first** auto-redirect target in the visit sequence — per the code comments and `AdminList` mapping — is supposed to be **"Build a Life You Don't Need to Escape From"** (`cfLHVIIp4o0`). That video is missing from the grid entirely, which is the mismatch you're seeing.
 
-| Video | Title | Views |
-|---|---|---|
-| `D4dzO5rfBfs` | Daily Wins Podcast 112 — Why Choosing Discomfort Feels So Hard | 2.1K |
-| `EhpmrICLRK8` | Daily Wins Podcast 113 — Why Challenging Social Norms Polarises People | 1.8K |
-| `L6cqky7TLpE` | Daily Wins Podcast 115 — Why a £10 Decision is Actually a £100,000 Decision | 1.6K |
-| `SioUIPf4Sls` | Daily Wins Podcast 118 — Intentional Comfort vs Default Comfort | 1.4K |
-| `pdjVnhCUwA8` | Daily Wins Podcast 120 — You Service Your Car But Not Your Own Body | 1.2K |
-| `OjwSKAXveN8` | The Dangers of Screen-time Before Bed | 980 |
+(The current code starts the sequence with `OjwSKAXveN8`, which contradicts its own comments. We'll fix that too so the auto-redirect target and the grid stay in sync.)
 
-### Changes
+## Changes
 
-1. **`src/pages/LinkInBio.tsx`** — populate `INITIAL_EPISODES` with all 6 titles + views; remove the `get-podcast-stats` fetch effect, localStorage cache, `STATS_CACHE_KEY`/`STATS_TTL_MS`, and the `useState` wrapper (replace with `const podcastEpisodes = INITIAL_EPISODES`).
-2. **`src/pages/Home.tsx`** — replace `PODCAST_EPISODES` with the top 3 by views: `EhpmrICLRK8` (left), `D4dzO5rfBfs` (featured/middle), `L6cqky7TLpE` (right).
-3. **Delete** `supabase/functions/get-podcast-stats/` and remove its entry from `supabase/config.toml`; call `delete_edge_functions` to remove the deployed function.
+### 1. `src/pages/LinkInBio.tsx`
+- Replace `OjwSKAXveN8` entry in `INITIAL_EPISODES` with:
+  - `cfLHVIIp4o0` — "Build a Life You Don't Need to Escape From" — `3.2K views` (matches Blueprint)
+- Update `REDIRECT_SEQUENCE` (lines 275–282) so the first slot is `cfLHVIIp4o0` (matching the comment), with `OjwSKAXveN8` removed from the cycle. New order:
+  ```
+  cfLHVIIp4o0,  // visit 1
+  pdjVnhCUwA8,  // visit 2
+  SioUIPf4Sls,  // visit 3+
+  L6cqky7TLpE,
+  D4dzO5rfBfs,
+  EhpmrICLRK8,
+  ```
+- Update the `md:scale-110 md:z-10` featured-card check on line 470 from `OjwSKAXveN8` → `cfLHVIIp4o0` so the auto-redirect video gets the highlighted middle spot.
+
+### 2. `src/pages/Home.tsx`
+- Top 3 by views become:
+  - `cfLHVIIp4o0` (3.2K, **featured/middle**) — Build a Life You Don't Need to Escape From
+  - `D4dzO5rfBfs` (2.1K) — left
+  - `EhpmrICLRK8` (1.8K) — right
+
+### 3. `src/pages/AdminList.tsx`
+- No change needed — `cfLHVIIp4o0` is already in the title map.
+
+### Result
+- 6 grid videos on `/bio` = the 5 podcast episodes + the auto-redirect video (`cfLHVIIp4o0`).
+- Home shows the top 3 of those 6 by view count.
+- Auto-redirect first hit lands on the highlighted card the user sees on `/bio`.
