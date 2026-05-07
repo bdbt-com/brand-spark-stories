@@ -8,7 +8,7 @@ const INITIAL_EPISODES = [
   { videoId: "pdjVnhCUwA8", title: "Daily Wins Podcast 120 - You Service Your Car But Not Your Own Body", views: "1.2K views" },
   { videoId: "SioUIPf4Sls", title: "Daily Wins Podcast 118 - Intentional Comfort vs Default Comfort", views: "1.4K views" },
   { videoId: "L6cqky7TLpE", title: "Daily Wins Podcast 115 - Why a £10 Decision is Actually a £100,000 Decision", views: "1.6K views" },
-  { videoId: "OjwSKAXveN8", title: "The Dangers of Screen-time Before Bed", views: "980 views" },
+  { videoId: "cfLHVIIp4o0", title: "Build a Life You Don't Need to Escape From", views: "3.2K views" },
   { videoId: "D4dzO5rfBfs", title: "Daily Wins Podcast 112 - Why Choosing Discomfort Feels So Hard", views: "2.1K views" },
   { videoId: "EhpmrICLRK8", title: "Daily Wins Podcast 113 - Why Challenging Social Norms Polarises People", views: "1.8K views" },
 ];
