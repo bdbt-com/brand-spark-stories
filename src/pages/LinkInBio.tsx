@@ -273,7 +273,7 @@ const LinkInBio = () => {
     const STORAGE_KEY = 'bdbt-auto-redirects-v8';
     const SEVEN_DAYS = 7 * 24 * 60 * 60 * 1000;
     const REDIRECT_SEQUENCE = [
-      'OjwSKAXveN8',
+      'cfLHVIIp4o0',
       'pdjVnhCUwA8',
       'SioUIPf4Sls',
       'L6cqky7TLpE',
