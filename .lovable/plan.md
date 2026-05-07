@@ -1,33 +1,53 @@
-## Replace Homepage "Top Podcast Episodes" with top 3 most-viewed from /bio
+## The real problem
 
-### What changes
+Two separate things are happening:
 
-The 3 episode cards on the Home page (currently `cfLHVIIp4o0`, `-3_zj_Q_1kI`, `OjwSKAXveN8` with hardcoded titles + view counts) will be replaced with the **top 3 most-viewed videos** from the 6 episodes shown on `/bio`:
+### 1. View counts + titles are blank — YouTube API key is invalid
 
+The runtime error from the `/bio` page says:
 ```
-OjwSKAXveN8, pdjVnhCUwA8, SioUIPf4Sls, L6cqky7TLpE, D4dzO5rfBfs, EhpmrICLRK8
+Edge function returned 400: {"error":"API key not valid. Please pass a valid API key."}
 ```
 
-Titles and view counts will be pulled live from YouTube (same edge function `/bio` uses) and the cards will re-rank automatically as view counts change. The middle (highest-viewed) card stays visually featured (`md:scale-110`) — same layout as today.
+The `YOUTUBE_API_KEY` secret exists in Supabase, but Google is rejecting it. This is why:
+- No titles appear under any card on `/bio` or homepage
+- No view counts appear anywhere
+- The cards just show blank labels
 
-### Technical changes
+The fix is **not in code** — the key itself needs to be replaced. Likely causes:
+- The key was rotated / deleted in Google Cloud Console
+- "YouTube Data API v3" is not enabled for that Google Cloud project
+- The key has HTTP-referrer restrictions that block calls from the Supabase edge function
 
-**1. `supabase/functions/get-podcast-stats/index.ts`**
-- Also return raw numeric `viewCountRaw` alongside the formatted `views` string, so the client can sort by views without parsing the "12.8K" string.
+### 2. "Dangers of Screen-time" appearing IS the current intended behaviour
 
-**2. `src/pages/Home.tsx`**
-- Replace the static `podcastEpisodes` constant with `useState` seeded from the same 6 IDs as `/bio` (titles/views blank).
-- On mount, call `supabase.functions.invoke("get-podcast-stats")` with the 6 IDs.
-  - Reuse the `bdbt-podcast-stats-v1` localStorage cache (24h TTL) that `/bio` already writes — no duplicate network calls when the user visits both pages.
-- Sort the 6 results by `viewCountRaw` descending, slice the top 3.
-- Reorder so the highest-viewed sits in the middle slot and gets the `featured` flag (preserves the existing scaled-up centre layout). The other two go left/right by view count.
-- While stats are loading (first ever visit, no cache), render 3 skeleton cards using the first 3 IDs so layout doesn't shift; titles fill in once the fetch resolves.
-- `setPlayingVideo` / auto-redirect logic stays unchanged — it already reads from `podcastEpisodes[index]`.
+Last round you said *"leave the current episode that autoredirects please"*. The auto-redirect video is `OjwSKAXveN8` = **"The Dangers of Screen-time Before Bed"**. So it stayed in the `/bio` carousel by design. The other 5 episodes (`pdjVnhCUwA8`, `SioUIPf4Sls`, `L6cqky7TLpE`, `D4dzO5rfBfs`, `EhpmrICLRK8`) — the ones from your YouTube links — *are* in there now.
 
-### Files
-- `supabase/functions/get-podcast-stats/index.ts` (add `viewCountRaw` to response)
-- `src/pages/Home.tsx` (dynamic top-3 selection + live data fetch)
+So the cards on `/bio` right now are: Screen-time + your 5 new videos = 6 total. That matches what you asked for.
 
-### Notes
-- "Most viewed" reflects YouTube's lifetime view count, refreshed daily via the existing 24h client cache.
-- If the API call fails and there is no cache, the first 3 IDs render with thumbnails only (no titles/views) — page never breaks.
+## What I'll do
+
+**Step A — Get a working YouTube API key (you need to do this part)**
+
+1. Go to https://console.cloud.google.com/apis/credentials
+2. Either create a new API key or check the existing one
+3. Make sure **YouTube Data API v3** is enabled for the project
+4. Either remove HTTP-referrer restrictions, or switch the key to "None" / "IP addresses" (Supabase edge functions don't send a referrer)
+5. Paste the new key into the `YOUTUBE_API_KEY` secret in Lovable Cloud
+
+Once you do that, titles and view counts will appear within seconds on both `/bio` and the homepage — no code change needed. The fetching logic is already wired up correctly.
+
+**Step B — Confirm what to do with Screen-time**
+
+Pick one:
+- **Keep it** as the auto-redirect (current behaviour) — nothing changes
+- **Replace it** — tell me which of the 5 new videos should become the auto-redirect, and I'll swap `OjwSKAXveN8` out of `INITIAL_EPISODES`, `REDIRECT_SEQUENCE`, `ALL_EPISODE_IDS` (homepage), and the edge function `DEFAULT_IDS`
+
+**Step C — Make blank states less confusing while the key is broken**
+
+Small code improvement so this doesn't look like a silent failure again: when titles/views can't be fetched, log the edge function error to the browser console (currently it's swallowed by `.catch(() => {})`). That way next time the key breaks, the cause is obvious from console logs instead of looking like the videos weren't updated.
+
+## Files touched (Step C only — Steps A & B need your input)
+
+- `src/pages/LinkInBio.tsx` — surface fetch error to console instead of silently swallowing
+- `src/pages/Home.tsx` — same
