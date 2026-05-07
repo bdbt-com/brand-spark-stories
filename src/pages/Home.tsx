@@ -14,9 +14,9 @@ import { startTrackedRedirect } from "@/lib/youtube-redirect";
 type Episode = { videoId: string; title: string; views: string; featured?: boolean };
 
 const PODCAST_EPISODES: Episode[] = [
+  { videoId: "D4dzO5rfBfs", title: "Daily Wins Podcast 112 - Why Choosing Discomfort Feels So Hard", views: "2.1K views" },
+  { videoId: "cfLHVIIp4o0", title: "Build a Life You Don't Need to Escape From", views: "3.2K views", featured: true },
   { videoId: "EhpmrICLRK8", title: "Daily Wins Podcast 113 - Why Challenging Social Norms Polarises People", views: "1.8K views" },
-  { videoId: "D4dzO5rfBfs", title: "Daily Wins Podcast 112 - Why Choosing Discomfort Feels So Hard", views: "2.1K views", featured: true },
-  { videoId: "L6cqky7TLpE", title: "Daily Wins Podcast 115 - Why a £10 Decision is Actually a £100,000 Decision", views: "1.6K views" },
 ];
 
 const Home = () => {
