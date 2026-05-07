@@ -1,35 +1,17 @@
-## Problem
+## Changes to `src/pages/LinkInBio.tsx`
 
-The `/bio` grid shows "The Dangers of Screen-time Before Bed" (`OjwSKAXveN8`), but the **first** auto-redirect target in the visit sequence — per the code comments and `AdminList` mapping — is supposed to be **"Build a Life You Don't Need to Escape From"** (`cfLHVIIp4o0`). That video is missing from the grid entirely, which is the mismatch you're seeing.
+**1. Remove the bigger sizing on the auto-redirect card** (line 470)
+- Change className from `` `group ${episode.videoId === 'cfLHVIIp4o0' ? 'md:scale-110 md:z-10' : ''}` `` to just `"group"` so all 6 cards render identically.
 
-(The current code starts the sequence with `OjwSKAXveN8`, which contradicts its own comments. We'll fix that too so the auto-redirect target and the grid stay in sync.)
+**2. Randomise the auto-redirect target (50/50 split)**
+Replace the tiered visit-number logic (lines 295–308) with a coin flip:
+- 50% chance → `cfLHVIIp4o0` (the current "primary" auto-redirect)
+- 50% chance → uniformly pick one of the other 5 episodes (`pdjVnhCUwA8`, `SioUIPf4Sls`, `L6cqky7TLpE`, `D4dzO5rfBfs`, `EhpmrICLRK8`) — 10% each.
 
-## Changes
+Delay stays at the existing first-visit value (4s) — or we keep the visit-tier delay schedule. **Question:** keep the escalating delay (4s → 8s → 8s) based on prior redirects, or always use one delay (e.g. 7s)? I'll default to keeping the existing tiered delay (4s for first idle visit, 8s afterward) since that just controls timing, not destination — only the chosen video becomes random.
 
-### 1. `src/pages/LinkInBio.tsx`
-- Replace `OjwSKAXveN8` entry in `INITIAL_EPISODES` with:
-  - `cfLHVIIp4o0` — "Build a Life You Don't Need to Escape From" — `3.2K views` (matches Blueprint)
-- Update `REDIRECT_SEQUENCE` (lines 275–282) so the first slot is `cfLHVIIp4o0` (matching the comment), with `OjwSKAXveN8` removed from the cycle. New order:
-  ```
-  cfLHVIIp4o0,  // visit 1
-  pdjVnhCUwA8,  // visit 2
-  SioUIPf4Sls,  // visit 3+
-  L6cqky7TLpE,
-  D4dzO5rfBfs,
-  EhpmrICLRK8,
-  ```
-- Update the `md:scale-110 md:z-10` featured-card check on line 470 from `OjwSKAXveN8` → `cfLHVIIp4o0` so the auto-redirect video gets the highlighted middle spot.
-
-### 2. `src/pages/Home.tsx`
-- Top 3 by views become:
-  - `cfLHVIIp4o0` (3.2K, **featured/middle**) — Build a Life You Don't Need to Escape From
-  - `D4dzO5rfBfs` (2.1K) — left
-  - `EhpmrICLRK8` (1.8K) — right
-
-### 3. `src/pages/AdminList.tsx`
-- No change needed — `cfLHVIIp4o0` is already in the title map.
+The `STORAGE_KEY` / 7-day reset / recent-redirects tracking stays so delay tiering still works.
 
 ### Result
-- 6 grid videos on `/bio` = the 5 podcast episodes + the auto-redirect video (`cfLHVIIp4o0`).
-- Home shows the top 3 of those 6 by view count.
-- Auto-redirect first hit lands on the highlighted card the user sees on `/bio`.
+- All 6 grid cards are the same size.
+- Each idle auto-redirect: 50% chance lands on the "Build a Life…" video, 10% chance each on the other 5.

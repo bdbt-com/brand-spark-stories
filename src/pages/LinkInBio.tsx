@@ -292,19 +292,14 @@ const LinkInBio = () => {
     const recentRedirects = getRecentRedirects();
     const visitNumber = recentRedirects.length;
 
-    let delay: number;
+    const delay = visitNumber === 0 ? 4000 : 8000;
+    // 50% primary auto-redirect target, 50% split evenly across the other 5 episodes (10% each)
     let videoId: string;
-
-    if (visitNumber === 0) {
-      delay = 4000;
+    if (Math.random() < 0.5) {
       videoId = REDIRECT_SEQUENCE[0];
-    } else if (visitNumber === 1) {
-      delay = 8000;
-      videoId = REDIRECT_SEQUENCE[1];
     } else {
-      delay = 8000;
-      const cycleIndex = (visitNumber - 2) % (REDIRECT_SEQUENCE.length - 2);
-      videoId = REDIRECT_SEQUENCE[2 + cycleIndex];
+      const others = REDIRECT_SEQUENCE.slice(1);
+      videoId = others[Math.floor(Math.random() * others.length)];
     }
 
     let idleTimer: ReturnType<typeof setTimeout>;
@@ -467,7 +462,7 @@ const LinkInBio = () => {
             {podcastEpisodes.map((episode) => (
               <div 
                 key={episode.videoId} 
-                className={`group ${episode.videoId === 'cfLHVIIp4o0' ? 'md:scale-110 md:z-10' : ''}`}
+                className="group"
               >
                 <div className="rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 bg-white/[0.04] backdrop-blur-sm border border-white/[0.05] flex flex-col h-full">
                   <div>
