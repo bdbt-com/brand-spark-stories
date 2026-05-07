@@ -116,12 +116,22 @@ const LinkInBio = () => {
     supabase.functions.invoke("get-podcast-stats", {
       body: null,
     }).then(({ data, error }) => {
-      if (error || !data?.stats) return;
+      if (error) {
+        console.error("[get-podcast-stats] invoke error:", error);
+        return;
+      }
+      if (data?.error) {
+        console.error("[get-podcast-stats] YouTube API error:", data.error);
+        return;
+      }
+      if (!data?.stats) return;
       applyStats(data.stats);
       try {
         localStorage.setItem(STATS_CACHE_KEY, JSON.stringify({ ts: Date.now(), stats: data.stats }));
       } catch { /* ignore */ }
-    }).catch(() => {});
+    }).catch((err) => {
+      console.error("[get-podcast-stats] fetch failed:", err);
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
