@@ -467,7 +467,7 @@ const LinkInBio = () => {
             {podcastEpisodes.map((episode) => (
               <div 
                 key={episode.videoId} 
-                className={`group ${episode.videoId === 'OjwSKAXveN8' ? 'md:scale-110 md:z-10' : ''}`}
+                className={`group ${episode.videoId === 'cfLHVIIp4o0' ? 'md:scale-110 md:z-10' : ''}`}
               >
                 <div className="rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 bg-white/[0.04] backdrop-blur-sm border border-white/[0.05] flex flex-col h-full">
                   <div>
