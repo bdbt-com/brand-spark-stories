@@ -14,9 +14,9 @@ import { startTrackedRedirect } from "@/lib/youtube-redirect";
 type Episode = { videoId: string; title: string; views: string; featured?: boolean };
 
 const PODCAST_EPISODES: Episode[] = [
-  { videoId: "ERXXO8mG5IY", title: "Why 70% of People Are Dehydrated", views: "8.4K views" },
-  { videoId: "OjwSKAXveN8", title: "The Dangers of Screen-time Before Bed", views: "12.8K views", featured: true },
-  { videoId: "TY1nkJsQtyw", title: "BDBT Explained", views: "5.7K views" },
+  { videoId: "EhpmrICLRK8", title: "Daily Wins Podcast 113 - Why Challenging Social Norms Polarises People", views: "1.8K views" },
+  { videoId: "D4dzO5rfBfs", title: "Daily Wins Podcast 112 - Why Choosing Discomfort Feels So Hard", views: "2.1K views", featured: true },
+  { videoId: "L6cqky7TLpE", title: "Daily Wins Podcast 115 - Why a £10 Decision is Actually a £100,000 Decision", views: "1.6K views" },
 ];
 
 const Home = () => {

@@ -23,6 +23,3 @@ verify_jwt = false
 
 [functions.get-daily-stats]
 verify_jwt = false
-
-[functions.get-podcast-stats]
-verify_jwt = false
