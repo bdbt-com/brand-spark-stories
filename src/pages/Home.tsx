@@ -11,12 +11,42 @@ import ChevronRipple from "@/components/ChevronRipple";
 import { supabase } from "@/integrations/supabase/client";
 import { startTrackedRedirect } from "@/lib/youtube-redirect";
 
-// YouTube podcast episodes
-const podcastEpisodes = [
-  { videoId: "cfLHVIIp4o0", title: "Build a Life You Don't Need to Escape From", views: "3.2K views" },
-  { videoId: "-3_zj_Q_1kI", title: "Reduce Decision Fatigue Wherever Possible", views: "4.1K views", featured: true },
-  { videoId: "OjwSKAXveN8", title: "The Dangers of Screen-time Before Bed", views: "12.8K views" },
+// All 6 candidate episodes (must mirror /bio). Top 3 by view count are shown.
+const ALL_EPISODE_IDS = [
+  "OjwSKAXveN8",
+  "pdjVnhCUwA8",
+  "SioUIPf4Sls",
+  "L6cqky7TLpE",
+  "D4dzO5rfBfs",
+  "EhpmrICLRK8",
 ];
+
+type Episode = { videoId: string; title: string; views: string; featured?: boolean; viewCountRaw?: number };
+
+const INITIAL_EPISODES: Episode[] = ALL_EPISODE_IDS.slice(0, 3).map((id, i) => ({
+  videoId: id,
+  title: "",
+  views: "",
+  featured: i === 1,
+}));
+
+const STATS_CACHE_KEY = "bdbt-podcast-stats-v1";
+const STATS_TTL_MS = 24 * 60 * 60 * 1000;
+
+function pickTopThree(stats: Episode[]): Episode[] {
+  const sorted = [...stats].sort((a, b) => (b.viewCountRaw ?? 0) - (a.viewCountRaw ?? 0));
+  const top3 = sorted.slice(0, 3);
+  // Place highest-viewed in middle; next two on the sides (2nd left, 3rd right).
+  const [first, second, third] = top3;
+  if (!first) return INITIAL_EPISODES;
+  const left = second ?? first;
+  const right = third ?? first;
+  return [
+    { ...left, featured: false },
+    { ...first, featured: true },
+    { ...right, featured: false },
+  ];
+}
 
 const Home = () => {
   const images = ["/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png",
@@ -52,6 +82,37 @@ const Home = () => {
   const [isHowOpen, setIsHowOpen] = useState(false);
   const [isHowWorkOpen, setIsHowWorkOpen] = useState(false);
   const [playingVideo, setPlayingVideo] = useState<number | null>(null);
+  const [podcastEpisodes, setPodcastEpisodes] = useState<Episode[]>(INITIAL_EPISODES);
+
+  // Fetch live stats and pick top 3 most-viewed (with 24h localStorage cache shared with /bio).
+  useEffect(() => {
+    let cancelled = false;
+    const apply = (stats: Episode[]) => {
+      if (cancelled) return;
+      setPodcastEpisodes(pickTopThree(stats));
+    };
+    try {
+      const raw = localStorage.getItem(STATS_CACHE_KEY);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (parsed?.ts && Date.now() - parsed.ts < STATS_TTL_MS && Array.isArray(parsed.stats)) {
+          apply(parsed.stats);
+        }
+      }
+    } catch {}
+    supabase.functions
+      .invoke("get-podcast-stats", { body: { ids: ALL_EPISODE_IDS.join(",") } })
+      .then(({ data }) => {
+        const stats = data?.stats;
+        if (!Array.isArray(stats)) return;
+        try {
+          localStorage.setItem(STATS_CACHE_KEY, JSON.stringify({ ts: Date.now(), stats }));
+        } catch {}
+        apply(stats);
+      })
+      .catch(() => {});
+    return () => { cancelled = true; };
+  }, []);
 
   // Auto-redirect to YouTube after 4 seconds of playing
   useEffect(() => {

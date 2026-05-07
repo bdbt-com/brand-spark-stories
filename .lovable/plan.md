@@ -1,43 +1,33 @@
-## Replace /bio Podcast Episodes + Add Live View Counts
+## Replace Homepage "Top Podcast Episodes" with top 3 most-viewed from /bio
 
 ### What changes
 
-**Keep** the auto-redirect / featured episode: `OjwSKAXveN8` ("The Dangers of Screen-time Before Bed") — the scaled-up centre card.
+The 3 episode cards on the Home page (currently `cfLHVIIp4o0`, `-3_zj_Q_1kI`, `OjwSKAXveN8` with hardcoded titles + view counts) will be replaced with the **top 3 most-viewed videos** from the 6 episodes shown on `/bio`:
 
-**Replace** the other 5 episodes with:
-- `pdjVnhCUwA8`
-- `SioUIPf4Sls`
-- `L6cqky7TLpE`
-- `D4dzO5rfBfs`
-- `EhpmrICLRK8`
+```
+OjwSKAXveN8, pdjVnhCUwA8, SioUIPf4Sls, L6cqky7TLpE, D4dzO5rfBfs, EhpmrICLRK8
+```
 
-Titles and view counts will be pulled live from the YouTube Data API (so they're always real and refresh whenever the page is loaded — effectively daily, with a 24h client cache to avoid quota burn).
+Titles and view counts will be pulled live from YouTube (same edge function `/bio` uses) and the cards will re-rank automatically as view counts change. The middle (highest-viewed) card stays visually featured (`md:scale-110`) — same layout as today.
 
 ### Technical changes
 
-**1. New edge function** `supabase/functions/get-podcast-stats/index.ts`
-- `verify_jwt = false` (added to `supabase/config.toml`)
-- Uses existing `YOUTUBE_API_KEY` secret
-- Accepts `?ids=id1,id2,...` (or hardcodes the 6 IDs as a default)
-- Calls `https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&id=...`
-- Returns `[{ videoId, title, viewCount }]` with viewCount formatted (`12.8K`, `1.2M`)
-- CORS headers as in other functions
+**1. `supabase/functions/get-podcast-stats/index.ts`**
+- Also return raw numeric `viewCountRaw` alongside the formatted `views` string, so the client can sort by views without parsing the "12.8K" string.
 
-**2. `src/pages/LinkInBio.tsx`**
-- Update `podcastEpisodes` array: keep `OjwSKAXveN8` in its current centre position, replace the other 5 with the new IDs. Seed with placeholder titles + `"— views"` as fallback.
-- Update `REDIRECT_SEQUENCE` (inside the auto-redirect `useEffect`) to use the new ID list so tiered idle redirects use real episodes.
-- Add a `useEffect` on mount that:
-  - Reads cached stats from `localStorage` key `bdbt-podcast-stats-v1` (TTL 24h). If valid, use immediately.
-  - Calls `supabase.functions.invoke("get-podcast-stats")` and merges live `title` + `viewCount` into the episodes state.
-  - Writes fresh result + timestamp back to `localStorage`.
-- Convert `podcastEpisodes` from a constant to a `useState` so the carousel re-renders with live data.
-- Both desktop grid and mobile carousel already read from the same array — no layout changes needed.
+**2. `src/pages/Home.tsx`**
+- Replace the static `podcastEpisodes` constant with `useState` seeded from the same 6 IDs as `/bio` (titles/views blank).
+- On mount, call `supabase.functions.invoke("get-podcast-stats")` with the 6 IDs.
+  - Reuse the `bdbt-podcast-stats-v1` localStorage cache (24h TTL) that `/bio` already writes — no duplicate network calls when the user visits both pages.
+- Sort the 6 results by `viewCountRaw` descending, slice the top 3.
+- Reorder so the highest-viewed sits in the middle slot and gets the `featured` flag (preserves the existing scaled-up centre layout). The other two go left/right by view count.
+- While stats are loading (first ever visit, no cache), render 3 skeleton cards using the first 3 IDs so layout doesn't shift; titles fill in once the fetch resolves.
+- `setPlayingVideo` / auto-redirect logic stays unchanged — it already reads from `podcastEpisodes[index]`.
 
 ### Files
-- `supabase/functions/get-podcast-stats/index.ts` (new)
-- `supabase/config.toml` (register new function with `verify_jwt = false`)
-- `src/pages/LinkInBio.tsx` (replace IDs, add live-stats fetch + cache)
+- `supabase/functions/get-podcast-stats/index.ts` (add `viewCountRaw` to response)
+- `src/pages/Home.tsx` (dynamic top-3 selection + live data fetch)
 
 ### Notes
-- View counts refresh on every page load, capped to once per 24h via cache → "updates daily" requirement met without a cron job.
-- If the API call fails, the last cached values (or placeholders) remain visible — page never shows broken/empty counts.
+- "Most viewed" reflects YouTube's lifetime view count, refreshed daily via the existing 24h client cache.
+- If the API call fails and there is no cache, the first 3 IDs render with thumbnails only (no titles/views) — page never breaks.

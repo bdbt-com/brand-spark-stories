@@ -46,16 +46,18 @@ serve(async (req) => {
       });
     }
 
-    const map = new Map<string, { videoId: string; title: string; views: string }>();
+    const map = new Map<string, { videoId: string; title: string; views: string; viewCountRaw: number }>();
     for (const item of data.items ?? []) {
+      const raw = parseInt(item.statistics?.viewCount ?? "0", 10);
       map.set(item.id, {
         videoId: item.id,
         title: item.snippet?.title ?? "",
         views: formatViews(item.statistics?.viewCount ?? "0"),
+        viewCountRaw: isNaN(raw) ? 0 : raw,
       });
     }
 
-    const stats = ids.map(id => map.get(id) ?? { videoId: id, title: "", views: "" });
+    const stats = ids.map(id => map.get(id) ?? { videoId: id, title: "", views: "", viewCountRaw: 0 });
 
     return new Response(JSON.stringify({ stats }), {
       status: 200,
