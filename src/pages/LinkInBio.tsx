@@ -4,14 +4,17 @@ import { Play } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { startTrackedRedirect } from "@/lib/youtube-redirect";
 
-const podcastEpisodes = [
-  { videoId: "cfLHVIIp4o0", title: "Build a Life You Don't Need to Escape From", views: "3.2K views" },
-  { videoId: "-3_zj_Q_1kI", title: "Reduce Decision Fatigue Wherever Possible", views: "4.1K views" },
-  { videoId: "TJTe4wtW158", title: "Skip for 5 Minutes Daily", views: "2.7K views" },
-  { videoId: "WNf06ZLUIJw", title: "Expose Yourself to Sunlight Daily", views: "5.3K views" },
-  { videoId: "pRRSGS7eLJM", title: "Capitalise on Benefits Offered by Your Employer", views: "1.9K views" },
-  { videoId: "OjwSKAXveN8", title: "The Dangers of Screen-time Before Bed", views: "12.8K views" },
+const INITIAL_EPISODES = [
+  { videoId: "pdjVnhCUwA8", title: "", views: "" },
+  { videoId: "SioUIPf4Sls", title: "", views: "" },
+  { videoId: "L6cqky7TLpE", title: "", views: "" },
+  { videoId: "OjwSKAXveN8", title: "The Dangers of Screen-time Before Bed", views: "" },
+  { videoId: "D4dzO5rfBfs", title: "", views: "" },
+  { videoId: "EhpmrICLRK8", title: "", views: "" },
 ];
+
+const STATS_CACHE_KEY = "bdbt-podcast-stats-v1";
+const STATS_TTL_MS = 24 * 60 * 60 * 1000;
 
 const socialLinks = [
   {
@@ -82,6 +85,46 @@ const LinkInBio = () => {
   const [playingVideo, setPlayingVideo] = useState<number | null>(null);
 
   // Mobile carousel state
+  const [podcastEpisodes, setPodcastEpisodes] = useState(INITIAL_EPISODES);
+
+  // Fetch live YouTube titles + view counts (cached for 24h)
+  useEffect(() => {
+    const ids = INITIAL_EPISODES.map(e => e.videoId);
+
+    const applyStats = (stats: { videoId: string; title: string; views: string }[]) => {
+      setPodcastEpisodes(prev => prev.map(ep => {
+        const live = stats.find(s => s.videoId === ep.videoId);
+        if (!live) return ep;
+        return {
+          videoId: ep.videoId,
+          title: live.title || ep.title,
+          views: live.views || ep.views,
+        };
+      }));
+    };
+
+    try {
+      const cached = localStorage.getItem(STATS_CACHE_KEY);
+      if (cached) {
+        const { ts, stats } = JSON.parse(cached);
+        if (Date.now() - ts < STATS_TTL_MS && Array.isArray(stats)) {
+          applyStats(stats);
+        }
+      }
+    } catch { /* ignore */ }
+
+    supabase.functions.invoke("get-podcast-stats", {
+      body: null,
+    }).then(({ data, error }) => {
+      if (error || !data?.stats) return;
+      applyStats(data.stats);
+      try {
+        localStorage.setItem(STATS_CACHE_KEY, JSON.stringify({ ts: Date.now(), stats: data.stats }));
+      } catch { /* ignore */ }
+    }).catch(() => {});
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const totalSlides = podcastEpisodes.length;
   const clonedEpisodes = [
     podcastEpisodes[totalSlides - 1],
@@ -271,12 +314,12 @@ const LinkInBio = () => {
     const STORAGE_KEY = 'bdbt-auto-redirects-v8';
     const SEVEN_DAYS = 7 * 24 * 60 * 60 * 1000;
     const REDIRECT_SEQUENCE = [
-      'cfLHVIIp4o0',
-      '-3_zj_Q_1kI',
-      'TJTe4wtW158',
-      'WNf06ZLUIJw',
-      'pRRSGS7eLJM',
       'OjwSKAXveN8',
+      'pdjVnhCUwA8',
+      'SioUIPf4Sls',
+      'L6cqky7TLpE',
+      'D4dzO5rfBfs',
+      'EhpmrICLRK8',
     ];
 
     const getRecentRedirects = (): { timestamp: number; videoId: string }[] => {
