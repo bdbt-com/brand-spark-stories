@@ -102,7 +102,15 @@ const Home = () => {
     } catch {}
     supabase.functions
       .invoke("get-podcast-stats", { body: { ids: ALL_EPISODE_IDS.join(",") } })
-      .then(({ data }) => {
+      .then(({ data, error }) => {
+        if (error) {
+          console.error("[get-podcast-stats] invoke error:", error);
+          return;
+        }
+        if (data?.error) {
+          console.error("[get-podcast-stats] YouTube API error:", data.error);
+          return;
+        }
         const stats = data?.stats;
         if (!Array.isArray(stats)) return;
         try {
@@ -110,7 +118,9 @@ const Home = () => {
         } catch {}
         apply(stats);
       })
-      .catch(() => {});
+      .catch((err) => {
+        console.error("[get-podcast-stats] fetch failed:", err);
+      });
     return () => { cancelled = true; };
   }, []);
 
