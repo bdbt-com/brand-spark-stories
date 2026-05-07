@@ -53,47 +53,8 @@ const Home = () => {
   const [isHowOpen, setIsHowOpen] = useState(false);
   const [isHowWorkOpen, setIsHowWorkOpen] = useState(false);
   const [playingVideo, setPlayingVideo] = useState<number | null>(null);
-  const [podcastEpisodes, setPodcastEpisodes] = useState<Episode[]>(INITIAL_EPISODES);
+  const podcastEpisodes = PODCAST_EPISODES;
 
-  // Fetch live stats and pick top 3 most-viewed (with 24h localStorage cache shared with /bio).
-  useEffect(() => {
-    let cancelled = false;
-    const apply = (stats: Episode[]) => {
-      if (cancelled) return;
-      setPodcastEpisodes(pickTopThree(stats));
-    };
-    try {
-      const raw = localStorage.getItem(STATS_CACHE_KEY);
-      if (raw) {
-        const parsed = JSON.parse(raw);
-        if (parsed?.ts && Date.now() - parsed.ts < STATS_TTL_MS && Array.isArray(parsed.stats)) {
-          apply(parsed.stats);
-        }
-      }
-    } catch {}
-    supabase.functions
-      .invoke("get-podcast-stats", { body: { ids: ALL_EPISODE_IDS.join(",") } })
-      .then(({ data, error }) => {
-        if (error) {
-          console.error("[get-podcast-stats] invoke error:", error);
-          return;
-        }
-        if (data?.error) {
-          console.error("[get-podcast-stats] YouTube API error:", data.error);
-          return;
-        }
-        const stats = data?.stats;
-        if (!Array.isArray(stats)) return;
-        try {
-          localStorage.setItem(STATS_CACHE_KEY, JSON.stringify({ ts: Date.now(), stats }));
-        } catch {}
-        apply(stats);
-      })
-      .catch((err) => {
-        console.error("[get-podcast-stats] fetch failed:", err);
-      });
-    return () => { cancelled = true; };
-  }, []);
 
   // Auto-redirect to YouTube after 4 seconds of playing
   useEffect(() => {
