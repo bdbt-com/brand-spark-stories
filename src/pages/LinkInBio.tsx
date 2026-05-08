@@ -63,7 +63,7 @@ const links = [
   {
     title: "Daily Wins Podcast",
     subtitle: "(YouTube)",
-    href: "https://www.youtube.com/@bigdaddysbigtips/playlists",
+    href: "https://www.youtube.com/watch?v=zUGM3gZbNY8&list=PL2q3OZKMoax29U1mD6BoUs53UUIqcbEL6&pp=sAgC",
     external: true,
     trackId: "button-youtube",
     thumbnail: "/lovable-uploads/recording-setup-new.jpg",
