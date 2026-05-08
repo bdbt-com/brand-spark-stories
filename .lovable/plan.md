@@ -1,10 +1,22 @@
-## Update YouTube Button on LinkInBio Page
+## Update Video View Counts on Home and /bio Pages
 
 ### Goal
-Change the destination of the YouTube button on `/links` so it opens a specific playlist instead of the channel playlists page.
+Update the hardcoded view-count strings for all podcast episode cards so each shows a value between 9K and 23K.
 
-### Changes
-- In `src/pages/LinkInBio.tsx`, line 66: update the `href` of the "Daily Wins Podcast (YouTube)" link from `https://www.youtube.com/@bigdaddysbigtips/playlists` to `https://www.youtube.com/watch?v=zUGM3gZbNY8&list=PL2q3OZKMoax29U1mD6BoUs53UUIqcbEL6&pp=sAgC`.
+### Files & Changes
 
-### Technical note
-Since this is a plain external YouTube URL (not a single video ID), it bypasses the internal `/redirect` bridge and opens directly — no tracking hit will fire. This is fine if the goal is simply sending users to the playlist. If tracking is also needed, we can route through `/redirect` with the full URL as a parameter, but that requires a small change to `RedirectBridge.tsx` to handle full URLs.
+**`src/pages/Home.tsx`** — `PODCAST_EPISODES` array (3 episodes)
+- `D4dzO5rfBfs` → 14K views
+- `cfLHVIIp4o0` → 23K views
+- `EhpmrICLRK8` → 9.5K views
+
+**`src/pages/LinkInBio.tsx`** — `INITIAL_EPISODES` array (6 episodes)
+- `pdjVnhCUwA8` → 9K views
+- `SioUIPf4Sls` → 11K views
+- `L6cqky7TLpE` → 17K views
+- `cfLHVIIp4o0` → 23K views (shared with Home)
+- `D4dzO5rfBfs` → 14K views (shared with Home)
+- `EhpmrICLRK8` → 9.5K views (shared with Home)
+
+### Note
+Overlapping episodes across pages will use identical view counts for consistency.
