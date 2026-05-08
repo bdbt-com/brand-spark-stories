@@ -1,17 +1,10 @@
-## Changes to `src/pages/LinkInBio.tsx`
+## Update YouTube Button on LinkInBio Page
 
-**1. Remove the bigger sizing on the auto-redirect card** (line 470)
-- Change className from `` `group ${episode.videoId === 'cfLHVIIp4o0' ? 'md:scale-110 md:z-10' : ''}` `` to just `"group"` so all 6 cards render identically.
+### Goal
+Change the destination of the YouTube button on `/links` so it opens a specific playlist instead of the channel playlists page.
 
-**2. Randomise the auto-redirect target (50/50 split)**
-Replace the tiered visit-number logic (lines 295–308) with a coin flip:
-- 50% chance → `cfLHVIIp4o0` (the current "primary" auto-redirect)
-- 50% chance → uniformly pick one of the other 5 episodes (`pdjVnhCUwA8`, `SioUIPf4Sls`, `L6cqky7TLpE`, `D4dzO5rfBfs`, `EhpmrICLRK8`) — 10% each.
+### Changes
+- In `src/pages/LinkInBio.tsx`, line 66: update the `href` of the "Daily Wins Podcast (YouTube)" link from `https://www.youtube.com/@bigdaddysbigtips/playlists` to `https://www.youtube.com/watch?v=zUGM3gZbNY8&list=PL2q3OZKMoax29U1mD6BoUs53UUIqcbEL6&pp=sAgC`.
 
-Delay stays at the existing first-visit value (4s) — or we keep the visit-tier delay schedule. **Question:** keep the escalating delay (4s → 8s → 8s) based on prior redirects, or always use one delay (e.g. 7s)? I'll default to keeping the existing tiered delay (4s for first idle visit, 8s afterward) since that just controls timing, not destination — only the chosen video becomes random.
-
-The `STORAGE_KEY` / 7-day reset / recent-redirects tracking stays so delay tiering still works.
-
-### Result
-- All 6 grid cards are the same size.
-- Each idle auto-redirect: 50% chance lands on the "Build a Life…" video, 10% chance each on the other 5.
+### Technical note
+Since this is a plain external YouTube URL (not a single video ID), it bypasses the internal `/redirect` bridge and opens directly — no tracking hit will fire. This is fine if the goal is simply sending users to the playlist. If tracking is also needed, we can route through `/redirect` with the full URL as a parameter, but that requires a small change to `RedirectBridge.tsx` to handle full URLs.
