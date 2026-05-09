@@ -63,10 +63,11 @@ const links = [
   {
     title: "Daily Wins Podcast",
     subtitle: "(YouTube)",
-    href: "https://www.youtube.com/watch?v=zUGM3gZbNY8&list=PL2q3OZKMoax29U1mD6BoUs53UUIqcbEL6&pp=sAgC",
+    href: "https://www.youtube.com/@BigDaddysBigTips",
     external: true,
     trackId: "button-youtube",
     thumbnail: "/lovable-uploads/recording-setup-new.jpg",
+    randomYoutube: true,
   },
   {
     title: "Daily Wins Podcast",
@@ -424,6 +425,15 @@ const LinkInBio = () => {
             );
 
             if (link.external) {
+              const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+                if ((link as any).randomYoutube) {
+                  e.preventDefault();
+                  const pick = INITIAL_EPISODES[Math.floor(Math.random() * INITIAL_EPISODES.length)];
+                  startTrackedRedirect(pick.videoId, `${link.trackId}-random:${pick.videoId}`);
+                  return;
+                }
+                supabase.functions.invoke("track-video-click", { body: { videoId: link.trackId } });
+              };
               return (
                 <a 
                   key={link.title + (link.subtitle || '')} 
@@ -432,7 +442,7 @@ const LinkInBio = () => {
                   rel="noopener noreferrer"
                   className="block animate-fade-in"
                   style={{ animationDelay: `${index * 100}ms` }}
-                  onClick={() => supabase.functions.invoke("track-video-click", { body: { videoId: link.trackId } })}
+                  onClick={handleClick}
                 >
                   {cardContent}
                 </a>
