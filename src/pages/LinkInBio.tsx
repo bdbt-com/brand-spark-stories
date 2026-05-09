@@ -294,14 +294,8 @@ const LinkInBio = () => {
     const visitNumber = recentRedirects.length;
 
     const delay = visitNumber === 0 ? 4000 : 8000;
-    // 50% primary auto-redirect target, 50% split evenly across the other 5 episodes (10% each)
-    let videoId: string;
-    if (Math.random() < 0.5) {
-      videoId = REDIRECT_SEQUENCE[0];
-    } else {
-      const others = REDIRECT_SEQUENCE.slice(1);
-      videoId = others[Math.floor(Math.random() * others.length)];
-    }
+    // Equal 1-in-6 chance across all episodes
+    const videoId = REDIRECT_SEQUENCE[Math.floor(Math.random() * REDIRECT_SEQUENCE.length)];
 
     let idleTimer: ReturnType<typeof setTimeout>;
     let redirected = false;
