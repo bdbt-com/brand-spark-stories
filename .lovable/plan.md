@@ -1,27 +1,28 @@
-# Fix cookie banner blocking content on /bio (mobile)
+# Randomise YouTube button on /bio
 
-## Cause
+## Goal
+Instead of the YouTube social icon on `/bio` going to the fixed playlist URL, it should pick **one of the 6 episode videos at random** each click and route through our tracked `/redirect` bridge (so analytics still fire).
 
-The "privacy & cookies" popup isn't from our app code — there is no cookie banner component in the project. It's coming from the **Google AdSense script** in `index.html` (line 30-31, `adsbygoogle.js`), which auto-injects an EU/UK consent banner pinned to the bottom of the screen. On mobile this overlay sits on top of the text under the video on `/bio`.
+## The 6 videos (already defined in `INITIAL_EPISODES`)
+- pdjVnhCUwA8
+- SioUIPf4Sls
+- L6cqky7TLpE
+- cfLHVIIp4o0
+- D4dzO5rfBfs
+- EhpmrICLRK8
 
-We can't reposition Google's banner (it's rendered inside their own iframe), so the options are either remove it or push our content above it.
+## Changes
 
-## Options
+**`src/pages/LinkInBio.tsx`**
+1. Remove the playlist `href` from the YouTube entry in `socialLinks` (or repurpose it as a fallback).
+2. Add an `onClick` handler on the YouTube social link that:
+   - Picks a random `videoId` from `INITIAL_EPISODES`.
+   - Calls `startTrackedRedirect(videoId, "social-youtube-random:" + videoId)` so the click is tracked under a distinct trackId.
+   - Calls `e.preventDefault()` to stop the anchor's default navigation.
+3. Leave Instagram, TikTok, Spotify untouched.
 
-**Option A — Remove the AdSense script entirely (recommended if you're not actively running ads)**
-- Delete the `adsbygoogle.js` `<script>` tag from `index.html`.
-- The cookie banner disappears everywhere on the site.
-- Downside: no AdSense ads will load. Google Ads (AW- gtag) tracking is unaffected.
+No backend or other page changes needed. The existing `/redirect` bridge already handles tracking + opening YouTube (app deep link with web fallback).
 
-**Option B — Keep AdSense, add bottom spacing on `/bio` so nothing is hidden behind the banner**
-- Add `pb-32` (or similar) to the bottom of the `/bio` page content in `src/pages/LinkInBio.tsx` so the text under each video clears the banner on mobile.
-- Banner still shows, but no longer covers content.
-
-**Option C — Keep AdSense but hide its consent UI via CSS**
-- Not recommended: violates Google's policies and may get the AdSense account flagged.
-
-## Recommendation
-
-Go with **Option A** unless you're actively monetising with AdSense. It's a one-line removal and cleans up the experience site-wide, not just on `/bio`.
-
-Let me know which option you want and I'll implement it.
+## Out of scope
+- Home page YouTube links (not mentioned).
+- Changing the 6 video list or the view counts.
