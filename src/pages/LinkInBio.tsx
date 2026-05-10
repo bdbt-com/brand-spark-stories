@@ -265,10 +265,9 @@ const LinkInBio = () => {
     };
   }, [clearAutoplay, scheduleAutoplay]);
 
-  // Tiered idle auto-redirect system
-  // Visit 1 (no redirects in 3h): 7s → "Build a Life You Don't Need to Escape From"
-  // Visit 2 (1 redirect in 3h): 12.5s → "Reduce Decision Fatigue Wherever Possible"
-  // Visit 3+ (2+ redirects in 3h): 20s → cycle through remaining videos
+  // Idle auto-redirect system
+  // Visit 1 (no redirects in 7d): 8s idle → random episode
+  // Visit 2+ (1+ redirects in 7d): 17.5s idle → random episode
   // Resets after 7 days since first redirect
   useEffect(() => {
     const STORAGE_KEY = 'bdbt-auto-redirects-v8';
@@ -293,7 +292,7 @@ const LinkInBio = () => {
     const recentRedirects = getRecentRedirects();
     const visitNumber = recentRedirects.length;
 
-    const delay = visitNumber === 0 ? 4000 : 8000;
+    const delay = visitNumber === 0 ? 8000 : 17500;
     // Equal 1-in-6 chance across all episodes
     const videoId = REDIRECT_SEQUENCE[Math.floor(Math.random() * REDIRECT_SEQUENCE.length)];
 
