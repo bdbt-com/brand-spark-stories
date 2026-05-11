@@ -1,22 +1,36 @@
-# Auto-Redirect to Most Recent Video on /bio
+# Add "Latest Video Redirects" stat box to /admin-list
 
 ## Goal
-The idle auto-redirect on `/bio` should always send visitors to the **most recent** YouTube upload (new video posted daily at 8pm UK), instead of randomly picking one of the 6 featured videos. The 6 featured videos remain visible and clickable as manual options.
+Show a stat box on `/admin-list` that tracks how many auto-redirects have gone to the **most recent YouTube upload** (i.e. the dynamic newest video that the `/bio` auto-redirect now sends visitors to). Keep the existing 6 video cards in the "Video Clicks" section exactly as they are. Mobile-friendly.
 
-## Why this works without a cron job
-`useYouTubeVideos` already calls the `youtube-videos` edge function on every page load. That function returns the channel's full uploads playlist, newest first. So "most recent video" is simply `videos[0]` at the moment the user lands on `/bio` — it auto-updates the instant a new video is published, with no scheduled job required.
+## Why this works with no extra plumbing
+The `/bio` auto-redirect already tracks each redirect under the composite ID `auto-redirect:<videoId>`. The `get-video-clicks` edge function already aggregates that into both:
+- the overall `auto-redirect` bucket (already shown), and
+- the per-video bucket under `<videoId>` (already shown for the 6 featured videos).
+
+So redirects to "the latest video" are already in `videoCounts[latestVideoId]` — we just need to know which `videoId` is currently latest. We get that from `useYouTubeVideos()` (same hook `/bio` uses) and read `videos[0]`.
 
 ## Changes
 
-**`src/pages/LinkInBio.tsx`**
+**`src/pages/AdminList.tsx`**
 
-1. In the auto-redirect effect (around lines 260–320), replace the current logic that picks a video from the 6 featured options with: use the first item from the `useYouTubeVideos` hook's `videos` array (newest upload).
-2. Wait for `videos` to be loaded before starting the 8s / 17.5s timer — if the hook is still loading, defer the timer until the latest video is known. If the fetch fails, fall back to the current behaviour (one of the 6 featured videos) so the redirect still works.
-3. The 6 featured video cards rendered on the page stay exactly as they are — same layout, same click handlers, same `/redirect` bridge.
-4. Keep the existing 8s (first visit) / 17.5s (return visit) timing and 7-day reset logic unchanged.
-5. Bump `STORAGE_KEY` to `'bdbt-auto-redirects-v9'` so existing visitors get a fresh first-visit timer under the new behaviour.
+1. Import `useYouTubeVideos` and call it inside `AdminList`. Derive `latestVideo = ytVideos[0]` and `latestVideoId = latestVideo?.videoId`.
+2. In the **Auto-Redirects** section (around lines 458–520), add a new highlighted stat card placed alongside the existing 5 cards (Today / 7d / 14d / 30d / Total):
+   - Heading: "Latest Video"
+   - Sub-line: the latest video title (truncated, 1–2 lines) so it's clear which video this is counting.
+   - Optional small thumbnail (`https://img.youtube.com/vi/<id>/mqdefault.jpg`) above or beside the numbers.
+   - Numbers: today + 7d + 14d + 30d + total redirects to that specific video, pulled from `videoCounts[latestVideoId]`. Use the same `TodayTrendBadge` / `TrendBadge` pattern the other cards use.
+3. Layout: change the Auto-Redirects grid so the 5 existing stat cards stay in a row and the new "Latest Video" card sits to the **right** of them on desktop, and **stacks above** them on mobile.
+   - Desktop (xl): wrap the right-side stat cards in a flex row — `[Latest Video card | 5-card grid]` — Latest Video card fixed width (~`xl:w-72`), 5-card grid `flex-1`.
+   - Mobile / tablet: stack vertically — Latest Video card on top (full width), then the existing 5-card grid below in its current 2-col / md:5-col layout.
+   - Inline graph behaviour stays as-is on the far left (xl) / top (mobile).
+4. Styling: match existing cards (same `Card` / `CardContent` paddings, same primary-coloured numbers, same uppercase label). Highlight slightly with `border-primary/30 bg-primary/5` like the "Today — Live" cards so it stands out as the headline number.
+5. If `useYouTubeVideos` is still loading or fails, render the card with a "Loading latest video…" placeholder instead of numbers — no crash, no layout shift on desktop because the card has a fixed width.
+
+## What stays unchanged
+- The existing 5 Auto-Redirect stat cards (Today / 7d / 14d / 30d / Total) — same numbers, same trends.
+- The 6 video cards in the "Video Clicks" section — same layout, same data.
+- `/bio` auto-redirect logic, tracking IDs, edge functions, and DB — no changes.
 
 ## Outcome
-- Every idle auto-redirect on `/bio` opens the newest podcast episode via the `/redirect` tracking bridge.
-- The list of 6 featured videos remains untouched as manual choices.
-- Updates automatically each day once the new 8pm upload appears in the channel's uploads playlist — no scheduled task to maintain.
+A single new stat tile on `/admin-list` shows redirects to whatever the channel's newest upload currently is, auto-updating each day after the 8pm UK upload — no schema, edge-function, or tracking changes required.
