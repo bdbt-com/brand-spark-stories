@@ -271,13 +271,14 @@ const LinkInBio = () => {
   }, [clearAutoplay, scheduleAutoplay]);
 
   // Idle auto-redirect system
-  // Visit 1 (no redirects in 7d): 8s idle → random episode
-  // Visit 2+ (1+ redirects in 7d): 17.5s idle → random episode
-  // Resets after 7 days since first redirect
+  // Visit 1 (no redirects in 7d): 8s idle → newest YouTube upload
+  // Visit 2+ (1+ redirects in 7d): 17.5s idle → newest YouTube upload
+  // If the latest video can't be fetched yet, falls back to a random featured episode.
+  // Resets after 7 days since first redirect.
   useEffect(() => {
-    const STORAGE_KEY = 'bdbt-auto-redirects-v8';
+    const STORAGE_KEY = 'bdbt-auto-redirects-v9';
     const SEVEN_DAYS = 7 * 24 * 60 * 60 * 1000;
-    const REDIRECT_SEQUENCE = [
+    const FALLBACK_SEQUENCE = [
       'cfLHVIIp4o0',
       'pdjVnhCUwA8',
       'SioUIPf4Sls',
@@ -298,8 +299,8 @@ const LinkInBio = () => {
     const visitNumber = recentRedirects.length;
 
     const delay = visitNumber === 0 ? 8000 : 17500;
-    // Equal 1-in-6 chance across all episodes
-    const videoId = REDIRECT_SEQUENCE[Math.floor(Math.random() * REDIRECT_SEQUENCE.length)];
+    // Prefer the newest channel upload; fall back to a featured episode if the API hasn't returned yet.
+    const videoId = latestVideoId ?? FALLBACK_SEQUENCE[Math.floor(Math.random() * FALLBACK_SEQUENCE.length)];
 
     let idleTimer: ReturnType<typeof setTimeout>;
     let redirected = false;
@@ -322,7 +323,7 @@ const LinkInBio = () => {
       clearTimeout(idleTimer);
       events.forEach(e => window.removeEventListener(e, resetIdle));
     };
-  }, []);
+  }, [latestVideoId]);
 
   // Cleanup
   useEffect(() => {
