@@ -83,6 +83,10 @@ const links = [
 const LinkInBio = () => {
   const [playingVideo, setPlayingVideo] = useState<number | null>(null);
 
+  // Latest YouTube upload (newest video on the channel) — auto-refreshes per page load
+  const { videos: ytVideos } = useYouTubeVideos();
+  const latestVideoId = ytVideos[0]?.videoId ?? null;
+
   // Mobile carousel state
   const podcastEpisodes = INITIAL_EPISODES;
 
