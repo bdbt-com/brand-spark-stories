@@ -3,6 +3,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { Play } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { startTrackedRedirect } from "@/lib/youtube-redirect";
+import { useYouTubeVideos } from "@/hooks/useYouTubeVideos";
 
 const INITIAL_EPISODES = [
   { videoId: "pdjVnhCUwA8", title: "Daily Wins Podcast 120 - You Service Your Car But Not Your Own Body", views: "9K views" },
