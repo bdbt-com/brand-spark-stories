@@ -167,7 +167,9 @@ const AdminList = () => {
   const [hourlyStats, setHourlyStats] = useState<{ hour: string; visitors: number; bio_clicks: number; auto_redirects: number }[]>([]);
   const [graphRange, setGraphRange] = useState<'today' | '7d' | '14d' | '30d' | 'all'>('all');
   const [showPreviousVideos, setShowPreviousVideos] = useState(false);
-
+  const { videos: ytVideos } = useYouTubeVideos();
+  const latestVideo = ytVideos[0];
+  const latestVideoId = latestVideo?.videoId;
   const filteredDailyStats = useMemo(() => {
     if (graphRange === 'all') return dailyStats;
     const days = graphRange === 'today' ? 1 : graphRange === '7d' ? 7 : graphRange === '14d' ? 14 : 30;
