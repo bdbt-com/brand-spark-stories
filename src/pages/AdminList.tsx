@@ -3,6 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Loader2, Play, TrendingDown, TrendingUp, BarChart3, Clock, MousePointerClick, ArrowRightLeft, UserPlus, Download, Activity, Minus } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
+import { useYouTubeVideos } from "@/hooks/useYouTubeVideos";
 
 function calcTrend(current: number, currentDays: number, outer: number, outerDays: number): { pct: number; direction: 'up' | 'down' | 'flat' } {
   const prior = outer - current;
@@ -166,7 +167,9 @@ const AdminList = () => {
   const [hourlyStats, setHourlyStats] = useState<{ hour: string; visitors: number; bio_clicks: number; auto_redirects: number }[]>([]);
   const [graphRange, setGraphRange] = useState<'today' | '7d' | '14d' | '30d' | 'all'>('all');
   const [showPreviousVideos, setShowPreviousVideos] = useState(false);
-
+  const { videos: ytVideos } = useYouTubeVideos();
+  const latestVideo = ytVideos[0];
+  const latestVideoId = latestVideo?.videoId;
   const filteredDailyStats = useMemo(() => {
     if (graphRange === 'all') return dailyStats;
     const days = graphRange === 'today' ? 1 : graphRange === '7d' ? 7 : graphRange === '14d' ? 14 : 30;
@@ -468,6 +471,51 @@ const AdminList = () => {
                 const ar = videoCounts["auto-redirect"] || { total: 0, today: 0, "7d": 0, "14d": 0, "30d": 0 };
                 const trackingDays = Math.max(1, Math.round((Date.now() - new Date("2026-03-04").getTime()) / 86400000));
                 return (
+                  <div className="flex-1 flex flex-col xl:flex-row gap-4">
+                    {(() => {
+                      const lc = latestVideoId ? (videoCounts[`auto-redirect:${latestVideoId}`] || videoCounts[latestVideoId] || { total: 0, today: 0, "7d": 0, "14d": 0, "30d": 0 }) : null;
+                      return (
+                        <Card className="border-primary/30 bg-primary/5 w-full xl:w-72 flex-shrink-0">
+                          <CardContent className="p-4">
+                            <p className="text-[10px] font-medium text-muted-foreground mb-2 uppercase tracking-wider text-center">Latest Video Redirects</p>
+                            {!latestVideoId ? (
+                              <p className="text-xs text-muted-foreground text-center py-4">Loading latest video…</p>
+                            ) : (
+                              <>
+                                <img
+                                  src={`https://img.youtube.com/vi/${latestVideoId}/mqdefault.jpg`}
+                                  alt={latestVideo?.title || ""}
+                                  className="w-full aspect-video object-cover rounded-md mb-2"
+                                />
+                                <p className="text-[11px] font-medium text-foreground line-clamp-2 text-center mb-2 min-h-[28px]">{latestVideo?.title}</p>
+                                <p className="text-3xl font-bold text-primary inline-flex items-center gap-2 justify-center w-full">
+                                  {lc!.today} <TodayTrendBadge today={lc!.today} sevenDay={lc!["7d"]} />
+                                </p>
+                                <p className="text-[10px] text-muted-foreground text-center mb-2">today</p>
+                                <div className="grid grid-cols-4 gap-x-2 text-xs text-muted-foreground">
+                                  <div className="flex flex-col items-center gap-0.5">
+                                    <span className="font-semibold text-primary">{lc!["7d"]}</span>
+                                    <span className="flex items-center gap-0.5">7d <TrendBadge current={lc!["7d"]} currentDays={7} outer={lc!["14d"]} outerDays={14} /></span>
+                                  </div>
+                                  <div className="flex flex-col items-center gap-0.5">
+                                    <span className="font-semibold text-primary">{lc!["14d"]}</span>
+                                    <span className="flex items-center gap-0.5">14d <TrendBadge current={lc!["14d"]} currentDays={14} outer={lc!["30d"]} outerDays={30} /></span>
+                                  </div>
+                                  <div className="flex flex-col items-center gap-0.5">
+                                    <span className="font-semibold text-primary">{lc!["30d"]}</span>
+                                    <span>30d</span>
+                                  </div>
+                                  <div className="flex flex-col items-center gap-0.5">
+                                    <span className="font-semibold text-primary">{lc!.total}</span>
+                                    <span>Total</span>
+                                  </div>
+                                </div>
+                              </>
+                            )}
+                          </CardContent>
+                        </Card>
+                      );
+                    })()}
                   <div className="flex-1 grid grid-cols-2 md:grid-cols-5 gap-4">
                     <Card>
                       <CardContent className="p-5 text-center">
@@ -513,6 +561,7 @@ const AdminList = () => {
                         <p className="text-xs text-muted-foreground mt-1">redirects</p>
                       </CardContent>
                     </Card>
+                  </div>
                   </div>
                 );
               })()}
