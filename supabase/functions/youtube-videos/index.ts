@@ -83,19 +83,44 @@ serve(async (req) => {
       });
     }
 
-    const res = await fetch(RSS_URL, { headers: { 'User-Agent': 'bdbt-rss-fetcher/1.0' } });
-    if (!res.ok) {
-      const body = await res.text();
-      console.error('RSS fetch failed:', res.status, body.slice(0, 200));
-      return new Response(JSON.stringify({ error: `RSS fetch failed: ${res.status}`, videos: [] }), {
+    const UAS = [
+      'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Safari/605.1.15',
+      'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36',
+      'feedfetcher-google',
+    ];
+
+    let xml: string | null = null;
+    let lastErr = '';
+    for (let i = 0; i < UAS.length; i++) {
+      try {
+        const res = await fetch(RSS_URL, { headers: { 'User-Agent': UAS[i], 'Accept': 'application/atom+xml,application/xml,text/xml,*/*' } });
+        if (res.ok) {
+          xml = await res.text();
+          break;
+        }
+        lastErr = `status ${res.status}`;
+        console.warn(`RSS attempt ${i + 1} failed: ${lastErr}`);
+      } catch (e: any) {
+        lastErr = e.message;
+        console.warn(`RSS attempt ${i + 1} threw: ${lastErr}`);
+      }
+    }
+
+    if (!xml) {
+      // Serve stale cache if we have one
+      if (cache) {
+        return new Response(JSON.stringify({ videos: cache.videos, cached: true, stale: true }), {
+          status: 200,
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        });
+      }
+      return new Response(JSON.stringify({ error: `RSS fetch failed: ${lastErr}`, videos: [] }), {
         status: 502,
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       });
     }
 
-    const xml = await res.text();
     const videos = parseFeed(xml);
-
     cache = { videos, expiresAt: Date.now() + CACHE_TTL_MS };
 
     return new Response(JSON.stringify({ videos }), {
@@ -104,6 +129,12 @@ serve(async (req) => {
     });
   } catch (error: any) {
     console.error('Error in youtube-videos function:', error);
+    if (cache) {
+      return new Response(JSON.stringify({ videos: cache.videos, cached: true, stale: true }), {
+        status: 200,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
+    }
     return new Response(JSON.stringify({ error: error.message, videos: [] }), {
       status: 500,
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
