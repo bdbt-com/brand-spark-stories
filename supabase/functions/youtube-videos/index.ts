@@ -120,7 +120,9 @@ serve(async (req) => {
       });
     }
 
-    const videos = parseFeed(xml);
+    // Only include full Daily Wins Podcast episodes — exclude Shorts and other uploads.
+    const PODCAST_TITLE_RE = /^\s*daily wins podcast\s+\d+/i;
+    const videos = parseFeed(xml).filter((v) => PODCAST_TITLE_RE.test(v.title));
     cache = { videos, expiresAt: Date.now() + CACHE_TTL_MS };
 
     return new Response(JSON.stringify({ videos }), {
