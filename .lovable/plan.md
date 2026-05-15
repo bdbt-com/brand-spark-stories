@@ -1,23 +1,23 @@
 ## Goal
-Exclude YouTube Shorts from the "latest video" used by `/bio` redirect and the `/admin-list` "Latest Video Redirects" card. Only Daily Wins Podcast episodes should qualify.
 
-## Approach
-The RSS feed mixes regular uploads and Shorts and does not expose duration or a `#shorts` flag. The reliable signal we already have is the title — every full episode follows the convention `Daily Wins Podcast [Number]` (per project memory). Shorts do not.
-
-Filter in the edge function so every consumer (bio redirect, admin card, hooks) gets a clean list automatically.
+Strip the platform-specific (Instagram / TikTok / Android intent / multi-stage fallback) branches out of the redirect flow. All tracked redirects should attempt the YouTube app first, then fall back to the YouTube web URL if the app isn't installed. IG/TikTok bio traffic still works fine via the same generic flow — it just no longer gets special-cased code.
 
 ## Changes
 
-1. `supabase/functions/youtube-videos/index.ts`
-   - After `parseFeed(xml)`, filter out entries whose title does not match the podcast convention.
-   - Regex: `/^\s*daily wins podcast\s+\d+/i` (case-insensitive, allows trailing em-dash/title text).
-   - Apply filter before caching so cached payload is also clean.
-   - Keep response shape identical (`{ videos }`).
+**`src/lib/youtube-redirect.ts`** — replace `navigateToYouTube` with a simple two-step:
+- Mobile (iOS/Android): set `window.location.href = "vnd.youtube://www.youtube.com/watch?v={id}"` to trigger the YouTube app.
+- After ~1500ms (if the page is still visible, i.e. the app didn't open), fall back to `https://www.youtube.com/watch?v={id}`.
+- Desktop: go straight to the web URL in the same tab.
+- Delete: `getPlatform()`, Instagram branch, TikTok `window.open`, Android `intent://` URL, `altAppUrl` retry timer.
 
-2. No frontend changes required — `useYouTubeVideos`, `LinkInBio` (`ytVideos[0]`), and the admin card all consume the filtered list.
+**`src/pages/RedirectBridge.tsx`** — no logic change needed; it already calls `navigateToYouTube` after tracking. Keep the 1.5s tracking timeout race as-is.
 
-3. Redeploy `youtube-videos` edge function and verify with `curl_edge_functions` that the first returned video is episode #127 (or newer) and no Shorts appear.
+**`src/pages/LinkInBio.tsx`** — keep the 8-second idle auto-redirect on `/bio` exactly as it is (already 8s on first visit). No change needed.
+
+## Out of scope
+- Bridge page, tracking logic, fallback video sequence, admin counters — untouched.
+- IG/TikTok bio links keep working through the same simplified path.
 
 ## Technical notes
-- The 5-minute in-memory cache will still serve old (unfiltered) data until expiry or cold start; redeploy resets it.
-- If a future episode breaks the naming convention, it will be excluded — acceptable given the strict naming rule already in memory.
+- Page-visibility check (`document.hidden`) before firing the web fallback prevents the browser from loading youtube.com in a background tab after the app has already taken over.
+- A simple iOS/Android UA test decides whether to attempt the deep link at all; desktop skips it entirely.

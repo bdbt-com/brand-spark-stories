@@ -1,8 +1,6 @@
 /**
  * Navigate to the internal redirect bridge page, which tracks the click
  * on our own domain first, then sends the user to YouTube.
- *
- * This is the ONLY function pages should call for tracked YouTube opens.
  */
 export function startTrackedRedirect(videoId: string, trackId?: string) {
   const params = new URLSearchParams({ video: videoId });
@@ -11,59 +9,27 @@ export function startTrackedRedirect(videoId: string, trackId?: string) {
 }
 
 /**
- * Platform detection helpers
- */
-function getPlatform() {
-  const ua = navigator.userAgent || "";
-  return {
-    isInstagram: /Instagram|FBAN|FBAV/i.test(ua),
-    isTikTok: /TikTok|Bytedance|musical_ly/i.test(ua),
-    isAndroid: /Android/i.test(ua),
-  };
-}
-
-/**
- * Navigate to YouTube using platform-appropriate method.
- * Called ONLY from the RedirectBridge page after tracking is already done.
+ * Open the YouTube app on mobile (with web fallback if not installed),
+ * or open youtube.com directly on desktop. Called from the RedirectBridge
+ * page after tracking has completed.
  */
 export function navigateToYouTube(videoId: string) {
   const webUrl = `https://www.youtube.com/watch?v=${videoId}`;
-  const appUrl = `vnd.youtube://www.youtube.com/watch?v=${videoId}`;
-  const altAppUrl = `youtube://www.youtube.com/watch?v=${videoId}`;
-  const intentUrl = `intent://www.youtube.com/watch?v=${videoId}#Intent;package=com.google.android.youtube;scheme=https;end`;
+  const ua = navigator.userAgent || "";
+  const isMobile = /Android|iPhone|iPad|iPod/i.test(ua);
 
-  const { isInstagram, isTikTok, isAndroid } = getPlatform();
-
-  // Instagram: deep link only (their browser blocks window.open)
-  if (isInstagram) {
-    window.location.href = appUrl;
+  if (!isMobile) {
+    window.location.href = webUrl;
     return;
   }
 
-  // TikTok: open in system browser to bypass sandbox
-  if (isTikTok) {
-    const opened = window.open(webUrl, '_blank');
-    if (!opened) {
+  // Try the YouTube app deep link
+  window.location.href = `vnd.youtube://www.youtube.com/watch?v=${videoId}`;
+
+  // If the app didn't take over (page still visible after 1.5s), fall back to web
+  setTimeout(() => {
+    if (!document.hidden) {
       window.location.href = webUrl;
     }
-    return;
-  }
-
-  // Standard browsers: try app deep link with web fallback
-  const a = document.createElement("a");
-  a.href = isAndroid ? intentUrl : appUrl;
-  a.target = "_self";
-  a.rel = "noopener";
-  a.style.display = "none";
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-
-  setTimeout(() => {
-    window.location.href = altAppUrl;
-  }, 450);
-
-  setTimeout(() => {
-    window.location.href = webUrl;
   }, 1500);
 }
