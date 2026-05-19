@@ -1,23 +1,32 @@
-## Goal
+## What's broken
 
-Strip the platform-specific (Instagram / TikTok / Android intent / multi-stage fallback) branches out of the redirect flow. All tracked redirects should attempt the YouTube app first, then fall back to the YouTube web URL if the app isn't installed. IG/TikTok bio traffic still works fine via the same generic flow — it just no longer gets special-cased code.
+The `/bio` 8-second idle auto-redirect is supposed to send users to your **newest YouTube upload**. Right now it's falling back to a random older episode instead.
 
-## Changes
+**Root cause:** YouTube has broken/deprecated their public RSS feed. The `youtube-videos` edge function calls `https://www.youtube.com/feeds/videos.xml?channel_id=...` and gets back `HTTP 404` on every attempt (all 3 User-Agent retries fail). I confirmed this isn't channel-specific — even MrBeast's and Google's RSS feeds now return 404. The endpoint is dead globally.
 
-**`src/lib/youtube-redirect.ts`** — replace `navigateToYouTube` with a simple two-step:
-- Mobile (iOS/Android): set `window.location.href = "vnd.youtube://www.youtube.com/watch?v={id}"` to trigger the YouTube app.
-- After ~1500ms (if the page is still visible, i.e. the app didn't open), fall back to `https://www.youtube.com/watch?v={id}`.
-- Desktop: go straight to the web URL in the same tab.
-- Delete: `getPlatform()`, Instagram branch, TikTok `window.open`, Android `intent://` URL, `altAppUrl` retry timer.
+When the function fails, the frontend's `latestVideoId` is `null`, so `LinkInBio.tsx` falls back to picking a random video from `FALLBACK_SEQUENCE`. That's why redirects still happen, but to old episodes — not the newest one.
 
-**`src/pages/RedirectBridge.tsx`** — no logic change needed; it already calls `navigateToYouTube` after tracking. Keep the 1.5s tracking timeout race as-is.
+## Fix
 
-**`src/pages/LinkInBio.tsx`** — keep the 8-second idle auto-redirect on `/bio` exactly as it is (already 8s on first visit). No change needed.
+Replace the RSS approach with **channel-page HTML scraping**, which still works (I tested it and got the latest video ID back cleanly).
 
-## Out of scope
-- Bridge page, tracking logic, fallback video sequence, admin counters — untouched.
-- IG/TikTok bio links keep working through the same simplified path.
+### `supabase/functions/youtube-videos/index.ts`
 
-## Technical notes
-- Page-visibility check (`document.hidden`) before firing the web fallback prevents the browser from loading youtube.com in a background tab after the app has already taken over.
-- A simple iOS/Android UA test decides whether to attempt the deep link at all; desktop skips it entirely.
+- Change `RSS_URL` → `CHANNEL_URL = https://www.youtube.com/channel/UCUjFNTMKnaeP5TyN-cOF5bw/videos`
+- Replace `parseFeed(xml)` with `parseChannelHtml(html)`:
+  - Extract the `ytInitialData` JSON blob (regex: `var ytInitialData = (\{.*?\});`)
+  - Walk to `contents.twoColumnBrowseResultsRenderer.tabs[…videos].content.richGridRenderer.contents[]`
+  - For each `richItemRenderer.content.videoRenderer`, pull `videoId`, `title.runs[0].text`, `publishedTimeText`, and the highest-res `thumbnail.thumbnails[]`
+- Keep the same filter: `^daily wins podcast \d+` so Shorts and non-podcast uploads are excluded
+- Keep the same 5-minute in-memory cache and the stale-cache fallback on fetch failure
+- Keep the same response shape (`{ videos: VideoItem[] }`) so `useYouTubeVideos` and `LinkInBio` need no frontend changes
+
+### Out of scope
+
+- No frontend changes — `LinkInBio.tsx`, `useYouTubeVideos.ts`, `youtube-redirect.ts`, `RedirectBridge.tsx` are all untouched.
+- Fallback sequence stays as-is (still useful if YouTube also blocks the HTML scrape one day).
+- No new secrets needed — this is a public endpoint, same as the RSS feed was.
+
+## Verification
+
+After deploy, hit the edge function once and confirm `videos[0].videoId` matches the newest "Daily Wins Podcast" episode on the channel, then load `/bio`, wait 8 seconds, and confirm the redirect goes to that same video.
