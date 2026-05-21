@@ -628,7 +628,13 @@ const AdminList = () => {
               </button>
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {Object.entries(showPreviousVideos ? PREVIOUS_VIDEO_MAP : VIDEO_MAP).map(([videoId, title]) => {
+              {Object.entries(
+                showPreviousVideos
+                  ? PREVIOUS_VIDEO_MAP
+                  : (ytVideos.length > 0
+                      ? Object.fromEntries(ytVideos.slice(0, 6).map(v => [v.videoId, v.title]))
+                      : VIDEO_MAP)
+              ).map(([videoId, title]) => {
                 const c = videoCounts[videoId] || { total: 0, today: 0, "7d": 0, "14d": 0, "30d": 0 };
                 const launchDaysTracking = Math.max(1, Math.round((Date.now() - new Date("2026-03-04").getTime()) / 86400000));
                 return (
