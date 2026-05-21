@@ -1,32 +1,35 @@
-## What's broken
+## Goal
 
-The `/bio` 8-second idle auto-redirect is supposed to send users to your **newest YouTube upload**. Right now it's falling back to a random older episode instead.
+Make the "Picked For You" section on `/bio` show the **6 most recent Daily Wins Podcast uploads** from the channel, auto-updating. When a new episode drops, it appears as #1 and pushes the oldest off the list — no manual updates needed.
 
-**Root cause:** YouTube has broken/deprecated their public RSS feed. The `youtube-videos` edge function calls `https://www.youtube.com/feeds/videos.xml?channel_id=...` and gets back `HTTP 404` on every attempt (all 3 User-Agent retries fail). I confirmed this isn't channel-specific — even MrBeast's and Google's RSS feeds now return 404. The endpoint is dead globally.
+## How it works today
 
-When the function fails, the frontend's `latestVideoId` is `null`, so `LinkInBio.tsx` falls back to picking a random video from `FALLBACK_SEQUENCE`. That's why redirects still happen, but to old episodes — not the newest one.
+- The `youtube-videos` edge function already scrapes the channel page and returns videos sorted newest-first, filtered to `Daily Wins Podcast N` titles. This is the same data source already powering the 8-second idle auto-redirect (which correctly hits the newest upload).
+- `LinkInBio.tsx` currently ignores that list for "Picked For You" and renders a hard-coded `INITIAL_EPISODES` array of 6 older episodes.
 
-## Fix
+## Change
 
-Replace the RSS approach with **channel-page HTML scraping**, which still works (I tested it and got the latest video ID back cleanly).
+### `src/pages/LinkInBio.tsx`
 
-### `supabase/functions/youtube-videos/index.ts`
+- Replace the hard-coded `podcastEpisodes = INITIAL_EPISODES` with:
+  - `podcastEpisodes = ytVideos.slice(0, 6).map(v => ({ videoId, title, views: '' }))`
+  - If `ytVideos` is empty (first paint / fetch failed), fall back to `INITIAL_EPISODES` so the section never renders blank.
+- Keep `INITIAL_EPISODES` in the file purely as the fallback.
+- View counts: the channel-page scrape doesn't expose view counts, so the "9K views" line under each card will be hidden when showing live data (only shown when falling back to `INITIAL_EPISODES`, which has them baked in).
+- Mobile carousel: already loops over `podcastEpisodes` and clones the first/last — works unchanged with the new dynamic list as long as length stays at 6.
+- Desktop grid: already `md:grid-cols-3` over `podcastEpisodes` — works unchanged.
+- The carousel uses video IDs as React `key`s in some places and array indexes in others — confirmed safe with dynamic data since the list re-mounts on first load when `ytVideos` arrives.
 
-- Change `RSS_URL` → `CHANNEL_URL = https://www.youtube.com/channel/UCUjFNTMKnaeP5TyN-cOF5bw/videos`
-- Replace `parseFeed(xml)` with `parseChannelHtml(html)`:
-  - Extract the `ytInitialData` JSON blob (regex: `var ytInitialData = (\{.*?\});`)
-  - Walk to `contents.twoColumnBrowseResultsRenderer.tabs[…videos].content.richGridRenderer.contents[]`
-  - For each `richItemRenderer.content.videoRenderer`, pull `videoId`, `title.runs[0].text`, `publishedTimeText`, and the highest-res `thumbnail.thumbnails[]`
-- Keep the same filter: `^daily wins podcast \d+` so Shorts and non-podcast uploads are excluded
-- Keep the same 5-minute in-memory cache and the stale-cache fallback on fetch failure
-- Keep the same response shape (`{ videos: VideoItem[] }`) so `useYouTubeVideos` and `LinkInBio` need no frontend changes
+### Caching / refresh cadence
+
+- Edge function already has a 5-minute in-memory cache, so the list refreshes within ~5 min of a new upload (per warm function instance). No new infra needed for "daily" updates — it's effectively near-realtime.
+- No frontend caching beyond React state. Every page load re-fetches.
 
 ### Out of scope
 
-- No frontend changes — `LinkInBio.tsx`, `useYouTubeVideos.ts`, `youtube-redirect.ts`, `RedirectBridge.tsx` are all untouched.
-- Fallback sequence stays as-is (still useful if YouTube also blocks the HTML scrape one day).
-- No new secrets needed — this is a public endpoint, same as the RSS feed was.
+- No changes to the edge function, the redirect logic, the carousel mechanics, or the top "Free Foundation Blueprint / Spotify / YouTube" link cards.
+- No view-count backfill — accepting the trade-off of hiding views when showing live data. (If you want view counts later, we'd need to either call the YouTube Data API per video, or scrape each watch page — both are heavier; happy to add as a follow-up.)
 
 ## Verification
 
-After deploy, hit the edge function once and confirm `videos[0].videoId` matches the newest "Daily Wins Podcast" episode on the channel, then load `/bio`, wait 8 seconds, and confirm the redirect goes to that same video.
+After deploy: load `/bio`, confirm the 6 thumbnails match the 6 newest Daily Wins Podcast episodes on the channel (top-left = newest). Wait for a new upload, reload after ~5 min, confirm it appears first and the previous 6th drops off.
