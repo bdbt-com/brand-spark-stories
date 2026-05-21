@@ -87,8 +87,11 @@ const LinkInBio = () => {
   const { videos: ytVideos } = useYouTubeVideos();
   const latestVideoId = ytVideos[0]?.videoId ?? null;
 
-  // Mobile carousel state
-  const podcastEpisodes = INITIAL_EPISODES;
+  // Mobile carousel state — use 6 most recent uploads, fall back to INITIAL_EPISODES while loading/failed
+  const podcastEpisodes = ytVideos.length > 0
+    ? ytVideos.slice(0, 6).map(v => ({ videoId: v.videoId, title: v.title, views: '' }))
+    : INITIAL_EPISODES;
+
 
   const totalSlides = podcastEpisodes.length;
   const clonedEpisodes = [
