@@ -30,7 +30,7 @@ export const useYouTubeVideos = (): UseYouTubeVideosReturn => {
       setError(null);
 
       const response = await fetch(
-        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/youtube-videos`,
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/youtube-videos?fresh=1`,
         {
           method: 'GET',
           headers: {
