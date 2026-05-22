@@ -68,7 +68,7 @@ async function fetchVideosFromYouTubeApi(): Promise<VideoItem[]> {
 
   const res = await fetch(`https://www.googleapis.com/youtube/v3/search?${params.toString()}`);
   if (!res.ok) {
-    console.warn(`YouTube API fetch failed: status ${res.status}`);
+    console.warn(`YouTube API fetch failed: status ${res.status} ${await res.text()}`);
     return [];
   }
 
