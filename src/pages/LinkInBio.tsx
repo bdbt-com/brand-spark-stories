@@ -276,19 +276,12 @@ const LinkInBio = () => {
   // Idle auto-redirect system
   // Visit 1 (no redirects in 7d): 8s idle → newest YouTube upload
   // Visit 2+ (1+ redirects in 7d): 17.5s idle → newest YouTube upload
-  // If the latest video can't be fetched yet, falls back to a random featured episode.
+  // Wait for the latest channel upload before redirecting; never send ad-funnel traffic to old fallback videos.
   // Resets after 7 days since first redirect.
   useEffect(() => {
     const STORAGE_KEY = 'bdbt-auto-redirects-v9';
     const SEVEN_DAYS = 7 * 24 * 60 * 60 * 1000;
-    const FALLBACK_SEQUENCE = [
-      'cfLHVIIp4o0',
-      'pdjVnhCUwA8',
-      'SioUIPf4Sls',
-      'L6cqky7TLpE',
-      'D4dzO5rfBfs',
-      'EhpmrICLRK8',
-    ];
+    if (!latestVideoId) return;
 
     const getRecentRedirects = (): { timestamp: number; videoId: string }[] => {
       try {
@@ -302,8 +295,7 @@ const LinkInBio = () => {
     const visitNumber = recentRedirects.length;
 
     const delay = visitNumber === 0 ? 8000 : 17500;
-    // Prefer the newest channel upload; fall back to a featured episode if the API hasn't returned yet.
-    const videoId = latestVideoId ?? FALLBACK_SEQUENCE[Math.floor(Math.random() * FALLBACK_SEQUENCE.length)];
+    const videoId = latestVideoId;
 
     let idleTimer: ReturnType<typeof setTimeout>;
     let redirected = false;
