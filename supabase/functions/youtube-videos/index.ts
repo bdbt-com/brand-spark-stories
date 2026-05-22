@@ -157,6 +157,19 @@ serve(async (req) => {
       });
     }
 
+    // Use the official API first: channel HTML can lag behind scheduled daily uploads.
+    const apiVideos = await fetchVideosFromYouTubeApi();
+    const PODCAST_TITLE_RE = /^\s*(daily wins )?podcast\s+\d+/i;
+    const apiPodcastVideos = apiVideos.filter((v) => PODCAST_TITLE_RE.test(v.title));
+
+    if (apiPodcastVideos.length > 0) {
+      cache = { videos: apiPodcastVideos, expiresAt: Date.now() + CACHE_TTL_MS };
+      return new Response(JSON.stringify({ videos: apiPodcastVideos, source: 'youtube-api' }), {
+        status: 200,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
+    }
+
     const UAS = [
       'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Safari/605.1.15',
       'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36',
@@ -201,7 +214,6 @@ serve(async (req) => {
 
     // Only include full Daily Wins Podcast episodes — exclude Shorts and other uploads.
     // Match both "Daily Wins Podcast 132" and the occasional "Podcast 133" titling.
-    const PODCAST_TITLE_RE = /^\s*(daily wins )?podcast\s+\d+/i;
     const all = parseChannelHtml(html);
     const videos = all.filter((v) => PODCAST_TITLE_RE.test(v.title));
 
