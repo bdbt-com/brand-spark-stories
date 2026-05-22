@@ -153,7 +153,7 @@ serve(async (req) => {
 
   try {
     const url = new URL(req.url);
-    const includeAllUploads = url.searchParams.get('include') === 'all';
+    const podcastOnly = url.searchParams.get('filter') === 'podcast';
     const bypassCache = url.searchParams.get('fresh') === '1';
 
     if (!bypassCache && cache && cache.expiresAt > Date.now()) {
@@ -180,7 +180,7 @@ serve(async (req) => {
 
     const all = await Promise.all(parseChannelHtml(html).slice(0, 12).map(hydrateTitleFromOEmbed));
     const PODCAST_TITLE_RE = /\b(daily wins\s+)?podcast\s+\d+\b/i;
-    const videos = (includeAllUploads ? all : all.filter((v) => PODCAST_TITLE_RE.test(v.title))).slice(0, 6);
+    const videos = (podcastOnly ? all.filter((v) => PODCAST_TITLE_RE.test(v.title)) : all).slice(0, 6);
 
     if (videos.length === 0) {
       console.warn('Channel HTML parsed but produced 0 podcast videos');
