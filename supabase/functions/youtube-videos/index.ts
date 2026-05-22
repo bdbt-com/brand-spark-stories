@@ -7,7 +7,7 @@ const corsHeaders = {
 
 const CHANNEL_ID = 'UCUjFNTMKnaeP5TyN-cOF5bw';
 const CHANNEL_URL = `https://www.youtube.com/channel/${CHANNEL_ID}/videos`;
-const CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes
+const CACHE_TTL_MS = 60 * 1000; // 1 minute, so the 8pm daily upload becomes live quickly
 
 interface VideoItem {
   id: string;
@@ -22,6 +22,59 @@ interface VideoItem {
 }
 
 let cache: { videos: VideoItem[]; expiresAt: number } | null = null;
+
+function toVideoItemsFromYouTubeApi(items: any[]): VideoItem[] {
+  return items
+    .map((item: any) => {
+      const videoId = item?.id?.videoId;
+      const snippet = item?.snippet ?? {};
+      if (!videoId || !snippet.title) return null;
+
+      const thumbnails = snippet.thumbnails ?? {};
+      const thumbnail =
+        thumbnails.maxres?.url ??
+        thumbnails.high?.url ??
+        thumbnails.medium?.url ??
+        thumbnails.default?.url ??
+        `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
+
+      return {
+        id: videoId,
+        videoId,
+        title: snippet.title,
+        description: snippet.description ?? '',
+        thumbnail,
+        publishedAt: snippet.publishedAt ?? '',
+        duration: '',
+        viewCount: '0',
+        channelTitle: snippet.channelTitle ?? '',
+      } satisfies VideoItem;
+    })
+    .filter(Boolean) as VideoItem[];
+}
+
+async function fetchVideosFromYouTubeApi(): Promise<VideoItem[]> {
+  const apiKey = Deno.env.get('YOUTUBE_API_KEY');
+  if (!apiKey) return [];
+
+  const params = new URLSearchParams({
+    part: 'snippet',
+    channelId: CHANNEL_ID,
+    maxResults: '25',
+    order: 'date',
+    type: 'video',
+    key: apiKey,
+  });
+
+  const res = await fetch(`https://www.googleapis.com/youtube/v3/search?${params.toString()}`);
+  if (!res.ok) {
+    console.warn(`YouTube API fetch failed: status ${res.status}`);
+    return [];
+  }
+
+  const data = await res.json();
+  return toVideoItemsFromYouTubeApi(data?.items ?? []);
+}
 
 function parseChannelHtml(html: string): VideoItem[] {
   const m = html.match(/var ytInitialData = (\{[\s\S]*?\});\s*<\/script>/);
