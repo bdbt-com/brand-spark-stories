@@ -152,100 +152,63 @@ serve(async (req) => {
   }
 
   try {
-    if (cache && cache.expiresAt > Date.now()) {
+    const url = new URL(req.url);
+    const includeAllUploads = url.searchParams.get('include') === 'all';
+    const bypassCache = url.searchParams.get('fresh') === '1';
+
+    if (!bypassCache && cache && cache.expiresAt > Date.now()) {
       return new Response(JSON.stringify({ videos: cache.videos, cached: true }), {
         status: 200,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        headers: jsonHeaders,
       });
     }
 
-    // Use the official API first: channel HTML can lag behind scheduled daily uploads.
-    const apiVideos = await fetchVideosFromYouTubeApi();
-    const PODCAST_TITLE_RE = /^\s*(daily wins )?podcast\s+\d+/i;
-    const apiPodcastVideos = apiVideos.filter((v) => PODCAST_TITLE_RE.test(v.title));
-
-    if (apiPodcastVideos.length > 0) {
-      cache = { videos: apiPodcastVideos, expiresAt: Date.now() + CACHE_TTL_MS };
-      return new Response(JSON.stringify({ videos: apiPodcastVideos, source: 'youtube-api' }), {
-        status: 200,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      });
-    }
-
-    const UAS = [
-      'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Safari/605.1.15',
-      'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36',
-      'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36',
-    ];
-
-    let html: string | null = null;
-    let lastErr = '';
-    for (let i = 0; i < UAS.length; i++) {
-      try {
-        const res = await fetch(CHANNEL_URL, {
-          headers: {
-            'User-Agent': UAS[i],
-            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-            'Accept-Language': 'en-US,en;q=0.9',
-          },
-        });
-        if (res.ok) {
-          html = await res.text();
-          break;
-        }
-        lastErr = `status ${res.status}`;
-        console.warn(`Channel fetch attempt ${i + 1} failed: ${lastErr}`);
-      } catch (e: any) {
-        lastErr = e.message;
-        console.warn(`Channel fetch attempt ${i + 1} threw: ${lastErr}`);
-      }
-    }
+    const { html, sourceUrl, lastErr } = await fetchChannelHtml();
 
     if (!html) {
       if (cache) {
         return new Response(JSON.stringify({ videos: cache.videos, cached: true, stale: true }), {
           status: 200,
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+          headers: jsonHeaders,
         });
       }
       return new Response(JSON.stringify({ error: `Channel fetch failed: ${lastErr}`, videos: [] }), {
         status: 502,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        headers: jsonHeaders,
       });
     }
 
-    // Only include full Daily Wins Podcast episodes — exclude Shorts and other uploads.
-    // Match both "Daily Wins Podcast 132" and the occasional "Podcast 133" titling.
-    const all = parseChannelHtml(html);
-    const videos = all.filter((v) => PODCAST_TITLE_RE.test(v.title));
+    const all = await Promise.all(parseChannelHtml(html).slice(0, 12).map(hydrateTitleFromOEmbed));
+    const PODCAST_TITLE_RE = /\b(daily wins\s+)?podcast\s+\d+\b/i;
+    const videos = (includeAllUploads ? all : all.filter((v) => PODCAST_TITLE_RE.test(v.title))).slice(0, 6);
 
     if (videos.length === 0) {
       console.warn('Channel HTML parsed but produced 0 podcast videos');
       if (cache) {
         return new Response(JSON.stringify({ videos: cache.videos, cached: true, stale: true }), {
           status: 200,
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+          headers: jsonHeaders,
         });
       }
     } else {
       cache = { videos, expiresAt: Date.now() + CACHE_TTL_MS };
     }
 
-    return new Response(JSON.stringify({ videos }), {
+    return new Response(JSON.stringify({ videos, source: 'youtube-channel-html', sourceUrl }), {
       status: 200,
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      headers: jsonHeaders,
     });
   } catch (error: any) {
     console.error('Error in youtube-videos function:', error);
     if (cache) {
       return new Response(JSON.stringify({ videos: cache.videos, cached: true, stale: true }), {
         status: 200,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        headers: jsonHeaders,
       });
     }
     return new Response(JSON.stringify({ error: error.message, videos: [] }), {
       status: 500,
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      headers: jsonHeaders,
     });
   }
 });
