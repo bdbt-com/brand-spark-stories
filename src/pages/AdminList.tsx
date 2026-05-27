@@ -132,18 +132,21 @@ interface Subscriber {
 }
 
 interface FeedItem {
-  type: "click" | "redirect" | "signup" | "download";
+  type: "click" | "redirect" | "signup" | "download" | "visitor";
   label: string;
   detail: string;
   timestamp: string;
 }
 
-const FEED_CONFIG: Record<string, { icon: typeof Play; color: string; bg: string }> = {
-  click: { icon: MousePointerClick, color: "text-blue-400", bg: "bg-blue-500/10" },
-  redirect: { icon: ArrowRightLeft, color: "text-orange-400", bg: "bg-orange-500/10" },
-  signup: { icon: UserPlus, color: "text-green-400", bg: "bg-green-500/10" },
-  download: { icon: Download, color: "text-purple-400", bg: "bg-purple-500/10" },
+const FEED_CONFIG: Record<string, { icon: typeof Play; color: string; bg: string; label: string }> = {
+  click: { icon: MousePointerClick, color: "text-blue-400", bg: "bg-blue-500/10", label: "Clicks" },
+  redirect: { icon: ArrowRightLeft, color: "text-orange-400", bg: "bg-orange-500/10", label: "Redirects" },
+  signup: { icon: UserPlus, color: "text-green-400", bg: "bg-green-500/10", label: "Signups" },
+  download: { icon: Download, color: "text-purple-400", bg: "bg-purple-500/10", label: "Downloads" },
+  visitor: { icon: Eye, color: "text-cyan-400", bg: "bg-cyan-500/10", label: "Visitors" },
 };
+
+type FeedFilter = "all" | "click" | "redirect" | "signup" | "download" | "visitor";
 
 function timeAgo(ts: string): string {
   const diff = Date.now() - new Date(ts).getTime();
