@@ -111,7 +111,7 @@ const Navigation = () => {
                 className={`relative py-2 px-3 text-sm font-semibold transition-all duration-200 hover:text-primary focus-enhanced rounded-lg hover:bg-primary/5 ${
                   isActive(item.path)
                     ? "text-primary bg-primary/10"
-                    : "text-primary"
+                    : "text-neutral-800"
                 }`}
               >
                 {item.name}
