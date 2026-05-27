@@ -180,6 +180,16 @@ const AdminList = () => {
     return dailyStats.slice(-days);
   }, [dailyStats, graphRange]);
 
+  const filteredFeed = useMemo(
+    () => (feedFilter === "all" ? feed : feed.filter((f) => f.type === feedFilter)),
+    [feed, feedFilter]
+  );
+  const feedCounts = useMemo(() => {
+    const counts: Record<string, number> = { all: feed.length };
+    for (const item of feed) counts[item.type] = (counts[item.type] || 0) + 1;
+    return counts;
+  }, [feed]);
+
   const fetchVideoCounts = useCallback(async () => {
     try {
       const { data } = await supabase.functions.invoke("get-video-clicks");
