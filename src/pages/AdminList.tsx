@@ -168,6 +168,7 @@ const AdminList = () => {
   const [feed, setFeed] = useState<FeedItem[]>([]);
   const [dailyStats, setDailyStats] = useState<{ day: string; visitors: number; bio_clicks: number; auto_redirects: number }[]>([]);
   const [hourlyStats, setHourlyStats] = useState<{ hour: string; visitors: number; bio_clicks: number; auto_redirects: number }[]>([]);
+  const [feedFilter, setFeedFilter] = useState<FeedFilter>("all");
   const [graphRange, setGraphRange] = useState<'today' | '7d' | '14d' | '30d' | 'all'>('all');
   const [showPreviousVideos, setShowPreviousVideos] = useState(false);
   const { videos: ytVideos } = useYouTubeVideos();
