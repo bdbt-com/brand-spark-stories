@@ -273,7 +273,7 @@ const Home = () => {
                   <Trophy className="w-8 h-8 text-white" />
                 </div>
                 <h3 className="text-2xl font-semibold text-primary mb-4">Daily Wins</h3>
-                <p className="text-primary leading-relaxed">
+                <p className="text-foreground leading-relaxed">
                   Actions that invest in your future self. Tiny daily choices that create powerful ripple effects across your entire life. Stack them together to compound your confidence, freedom, and momentum.
                 </p>
               </CardContent>
@@ -286,7 +286,7 @@ const Home = () => {
                   <AlertTriangle className="w-8 h-8 text-white" />
                 </div>
                 <h3 className="text-2xl font-semibold text-primary mb-4">Daily Drifts</h3>
-                <p className="text-primary leading-relaxed">
+                <p className="text-foreground leading-relaxed">
                   The easy choices that feel harmless in the moment but quietly drain your energy, money, and peace of mind. Drifts are the invisible currents that keep you stuck exactly where you don't want to be.
                 </p>
               </CardContent>
@@ -344,7 +344,7 @@ const Home = () => {
                   <h3 className="text-xl font-semibold text-primary mb-2 group-hover:text-primary transition-colors">
                     {step.title}
                   </h3>
-                  <p className="text-primary leading-relaxed">
+                  <p className="text-foreground leading-relaxed">
                     {step.description}
                   </p>
                 </CardContent>
@@ -634,7 +634,7 @@ const Home = () => {
             <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-primary">
               Your Daily Transformation Toolkit
             </h2>
-            <p className="text-xl text-primary max-w-3xl mx-auto">My supply of Daily Wins that quietly transform your health, wealth, and happiness through small daily actions.</p>
+            <p className="text-xl text-foreground max-w-3xl mx-auto">My supply of Daily Wins that quietly transform your health, wealth, and happiness through small daily actions.</p>
           </div>
           
           <TipsCarousel />

@@ -232,10 +232,10 @@ const About = () => {
 
                       {/* The Promise */}
                       <div className="text-center py-8 bg-primary/5 rounded-lg">
-                        <p className="text-2xl font-bold text-primary mb-4">
+                        <p className="text-2xl font-bold text-foreground mb-4">
                           If you show up consistently you will see results. Not because I said so. But because the system works. It worked for me. It's worked for thousands of others. And it will work for you.
                         </p>
-                        <p className="text-lg text-primary">
+                        <p className="text-lg text-foreground">
                           Welcome to Big Daddy's Big Tips. Let's build something that lasts.
                         </p>
                       </div>
@@ -264,7 +264,7 @@ const About = () => {
             <h2 className="text-4xl lg:text-6xl font-bold mb-8 text-primary tracking-tight">
               The Problem
             </h2>
-            <p className="text-xl text-primary font-light max-w-2xl mx-auto">
+            <p className="text-xl text-foreground font-light max-w-2xl mx-auto">
               We live in a world obsessed with doing more
             </p>
           </div>
@@ -278,7 +278,7 @@ const About = () => {
               <h3 className="text-4xl lg:text-5xl font-bold leading-tight text-primary mb-8">
                 Why do traditional approaches fail to create lasting change?
               </h3>
-              <p className="text-xl text-primary font-light">
+              <p className="text-xl text-foreground font-light">
                 More workouts. More goals. More hustle. Yet most people feel stuck, drained, and uncertain.
               </p>
             </div>
@@ -291,7 +291,7 @@ const About = () => {
               <h3 className="text-4xl lg:text-5xl font-bold leading-tight text-primary mb-8">
                 We're told to fix our lives one isolated tip at a time.
               </h3>
-              <p className="text-xl text-primary font-light">
+              <p className="text-xl text-foreground font-light">
                 A budgeting app here. A gym membership there. A meditation streak that lasts three days.
               </p>
             </div>
@@ -304,10 +304,10 @@ const About = () => {
               <h3 className="text-4xl lg:text-5xl font-bold leading-tight text-primary mb-8">
                 But nothing sticks.
               </h3>
-              <p className="text-xl text-primary font-light mb-4">
+              <p className="text-xl text-foreground font-light mb-4">
                 Not because people are lazy. Not because they're broken.
               </p>
-              <p className="text-xl text-primary font-semibold">
+              <p className="text-xl text-foreground font-semibold">
                 But because the old model is broken.
               </p>
             </div>
@@ -320,7 +320,7 @@ const About = () => {
               <h3 className="text-4xl lg:text-5xl font-bold leading-tight text-primary mb-8">
                 Meanwhile, modern life pushes us further behind.
               </h3>
-              <p className="text-xl text-primary font-light">
+              <p className="text-xl text-foreground font-light">
                 Sit more. Scroll more. Consume more. With every new demand, we feel more overwhelmed.
               </p>
             </div>
@@ -339,7 +339,7 @@ const About = () => {
             <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-primary">
               Welcome to the World of Daily Wins
             </h2>
-            <p className="text-xl text-primary max-w-4xl mx-auto leading-relaxed">
+            <p className="text-xl text-foreground max-w-4xl mx-auto leading-relaxed">
               A system that's simple enough to start today, smart enough to compound over time 
               and strong enough to rebuild your identity from the inside out.
             </p>
@@ -351,7 +351,7 @@ const About = () => {
                 <p className="leading-relaxed text-lg">
                   You don't need another goal. You need an achievable daily win that creates a ripple effect across your entire life.
                 </p>
-                <p className="leading-relaxed text-lg font-semibold text-primary">
+                <p className="leading-relaxed text-lg font-semibold text-foreground">
                   If you feel stuck, scattered, or just know you're capable of more, this is your next step.
                 </p>
                 <p className="leading-relaxed text-lg">
@@ -406,7 +406,7 @@ const About = () => {
             <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-primary">
               Why Daily Wins Work
             </h2>
-            <p className="text-xl text-primary max-w-3xl mx-auto">
+            <p className="text-xl text-foreground max-w-3xl mx-auto">
               Compare the old approach with the BDBT system that creates lasting change
             </p>
           </div>
@@ -493,7 +493,7 @@ const About = () => {
             <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-primary">
               Life Isn't Lived in Silos
             </h2>
-            <p className="text-xl text-primary max-w-3xl mx-auto leading-relaxed">
+            <p className="text-xl text-foreground max-w-3xl mx-auto leading-relaxed">
               Your health affects your wealth. Your wealth affects your happiness. Your happiness affects your health.
             </p>
           </div>
@@ -504,7 +504,7 @@ const About = () => {
                 <p className="leading-relaxed text-lg">
                   Trying to fix one without the others creates imbalance. Trying to fix everything at once creates overwhelm.
                 </p>
-                <p className="leading-relaxed text-lg font-semibold text-primary">
+                <p className="leading-relaxed text-lg font-semibold text-foreground">
                   That's where BDBT comes in.
                 </p>
                 <p className="leading-relaxed text-lg">
@@ -531,7 +531,7 @@ const About = () => {
               <Card className="bg-gradient-to-r from-primary/10 to-secondary/10 border-primary/20 max-w-md mx-auto">
                 <CardContent className="p-8">
                   <h3 className="text-2xl font-bold text-primary mb-4">Get Your Free Foundation Blueprint</h3>
-                  <p className="text-primary/80 mb-6">Start building your life-changing habits today</p>
+                  <p className="text-foreground/80 mb-6">Start building your life-changing habits today</p>
                   <Button asChild size="lg" className="w-full">
                     <Link to="/blueprint">Get Foundation Blueprint <ArrowRight className="w-5 h-5 ml-2" /></Link>
                   </Button>

@@ -158,7 +158,7 @@ const TipsCarousel = () => {
                   <h3 className="text-xl font-semibold text-primary mb-2 group-hover:text-primary transition-colors flex-shrink-0">
                     {tip.title}
                   </h3>
-                  <p className="text-primary mb-4 leading-relaxed flex-grow">
+                  <p className="text-foreground mb-4 leading-relaxed flex-grow">
                     {tip.description}
                   </p>
                 </CardContent>
