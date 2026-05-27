@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback, useMemo } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { Loader2, Play, TrendingDown, TrendingUp, BarChart3, Clock, MousePointerClick, ArrowRightLeft, UserPlus, Download, Activity, Minus } from "lucide-react";
+import { Loader2, Play, TrendingDown, TrendingUp, BarChart3, Clock, MousePointerClick, ArrowRightLeft, UserPlus, Download, Activity, Minus, Eye } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 import { useYouTubeVideos } from "@/hooks/useYouTubeVideos";
@@ -132,18 +132,21 @@ interface Subscriber {
 }
 
 interface FeedItem {
-  type: "click" | "redirect" | "signup" | "download";
+  type: "click" | "redirect" | "signup" | "download" | "visitor";
   label: string;
   detail: string;
   timestamp: string;
 }
 
-const FEED_CONFIG: Record<string, { icon: typeof Play; color: string; bg: string }> = {
-  click: { icon: MousePointerClick, color: "text-blue-400", bg: "bg-blue-500/10" },
-  redirect: { icon: ArrowRightLeft, color: "text-orange-400", bg: "bg-orange-500/10" },
-  signup: { icon: UserPlus, color: "text-green-400", bg: "bg-green-500/10" },
-  download: { icon: Download, color: "text-purple-400", bg: "bg-purple-500/10" },
+const FEED_CONFIG: Record<string, { icon: typeof Play; color: string; bg: string; label: string }> = {
+  click: { icon: MousePointerClick, color: "text-blue-400", bg: "bg-blue-500/10", label: "Clicks" },
+  redirect: { icon: ArrowRightLeft, color: "text-orange-400", bg: "bg-orange-500/10", label: "Redirects" },
+  signup: { icon: UserPlus, color: "text-green-400", bg: "bg-green-500/10", label: "Signups" },
+  download: { icon: Download, color: "text-purple-400", bg: "bg-purple-500/10", label: "Downloads" },
+  visitor: { icon: Eye, color: "text-cyan-400", bg: "bg-cyan-500/10", label: "Visitors" },
 };
+
+type FeedFilter = "all" | "click" | "redirect" | "signup" | "download" | "visitor";
 
 function timeAgo(ts: string): string {
   const diff = Date.now() - new Date(ts).getTime();
@@ -152,6 +155,40 @@ function timeAgo(ts: string): string {
   if (diff < 86400000) return `${Math.floor(diff / 3600000)}h ago`;
   return `${Math.floor(diff / 86400000)}d ago`;
 }
+
+const FeedFilterBar = ({
+  filter,
+  setFilter,
+  counts,
+}: {
+  filter: FeedFilter;
+  setFilter: (f: FeedFilter) => void;
+  counts: Record<string, number>;
+}) => {
+  const options: FeedFilter[] = ["all", "visitor", "click", "redirect", "signup", "download"];
+  return (
+    <div className="flex flex-wrap gap-1.5">
+      {options.map((opt) => {
+        const isActive = filter === opt;
+        const label = opt === "all" ? "All" : FEED_CONFIG[opt].label;
+        const count = counts[opt] || 0;
+        return (
+          <button
+            key={opt}
+            onClick={() => setFilter(opt)}
+            className={`text-[10px] px-2 py-1 rounded-md border transition-colors ${
+              isActive
+                ? "bg-primary text-primary-foreground border-primary"
+                : "bg-muted/30 text-muted-foreground border-border hover:bg-muted/60"
+            }`}
+          >
+            {label} <span className="opacity-70">{count}</span>
+          </button>
+        );
+      })}
+    </div>
+  );
+};
 
 const AdminList = () => {
   const [subscribers, setSubscribers] = useState<Subscriber[]>([]);
@@ -165,6 +202,7 @@ const AdminList = () => {
   const [feed, setFeed] = useState<FeedItem[]>([]);
   const [dailyStats, setDailyStats] = useState<{ day: string; visitors: number; bio_clicks: number; auto_redirects: number }[]>([]);
   const [hourlyStats, setHourlyStats] = useState<{ hour: string; visitors: number; bio_clicks: number; auto_redirects: number }[]>([]);
+  const [feedFilter, setFeedFilter] = useState<FeedFilter>("all");
   const [graphRange, setGraphRange] = useState<'today' | '7d' | '14d' | '30d' | 'all'>('all');
   const [showPreviousVideos, setShowPreviousVideos] = useState(false);
   const { videos: ytVideos } = useYouTubeVideos();
@@ -175,6 +213,16 @@ const AdminList = () => {
     const days = graphRange === 'today' ? 1 : graphRange === '7d' ? 7 : graphRange === '14d' ? 14 : 30;
     return dailyStats.slice(-days);
   }, [dailyStats, graphRange]);
+
+  const filteredFeed = useMemo(
+    () => (feedFilter === "all" ? feed : feed.filter((f) => f.type === feedFilter)),
+    [feed, feedFilter]
+  );
+  const feedCounts = useMemo(() => {
+    const counts: Record<string, number> = { all: feed.length };
+    for (const item of feed) counts[item.type] = (counts[item.type] || 0) + 1;
+    return counts;
+  }, [feed]);
 
   const fetchVideoCounts = useCallback(async () => {
     try {
@@ -276,17 +324,18 @@ const AdminList = () => {
             <div className="flex items-center gap-2 mb-2">
               <Activity className="w-3.5 h-3.5 text-primary" />
               <span className="text-xs font-bold text-foreground">Last 24 Hours</span>
-              <span className="text-[10px] text-muted-foreground">({feed.length})</span>
+              <span className="text-[10px] text-muted-foreground">({filteredFeed.length}/{feed.length})</span>
               <span className="relative flex h-2 w-2 ml-auto">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
               </span>
             </div>
-            <div className="max-h-60 overflow-y-auto pr-1">
-              {feed.length === 0 ? (
+            <FeedFilterBar filter={feedFilter} setFilter={setFeedFilter} counts={feedCounts} />
+            <div className="max-h-60 overflow-y-auto pr-1 mt-2">
+              {filteredFeed.length === 0 ? (
                 <p className="text-[10px] text-muted-foreground text-center py-2">No recent activity</p>
               ) : (
-                feed.map((item, i) => {
+                filteredFeed.map((item, i) => {
                   const config = FEED_CONFIG[item.type] || FEED_CONFIG.click;
                   const Icon = config.icon;
                   return (
@@ -746,17 +795,18 @@ const AdminList = () => {
                 <h3 className="text-sm font-bold text-foreground mb-3 flex items-center gap-2">
                   <Activity className="w-4 h-4 text-primary" />
                   Last 24 Hours
-                  <span className="text-[10px] font-normal text-muted-foreground ml-1">({feed.length})</span>
+                  <span className="text-[10px] font-normal text-muted-foreground ml-1">({filteredFeed.length}/{feed.length})</span>
                   <span className="ml-auto relative flex h-2 w-2">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                     <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
                   </span>
                 </h3>
-                <div className="max-h-[calc(100vh-10rem)] overflow-y-auto space-y-2 pr-1 scrollbar-thin">
-                  {feed.length === 0 ? (
+                <FeedFilterBar filter={feedFilter} setFilter={setFeedFilter} counts={feedCounts} />
+                <div className="max-h-[calc(100vh-12rem)] overflow-y-auto space-y-2 pr-1 scrollbar-thin mt-3">
+                  {filteredFeed.length === 0 ? (
                     <p className="text-xs text-muted-foreground text-center py-8">No recent activity</p>
                   ) : (
-                    feed.map((item, i) => {
+                    filteredFeed.map((item, i) => {
                       const config = FEED_CONFIG[item.type] || FEED_CONFIG.click;
                       const Icon = config.icon;
                       return (
