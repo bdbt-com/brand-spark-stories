@@ -22,10 +22,24 @@ interface VideoItem {
   publishedAt: string;
   duration: string;
   viewCount: string;
+  viewCountText: string;
+  viewCountNumber: number;
   channelTitle: string;
 }
 
-let cache: { videos: VideoItem[]; expiresAt: number } | null = null;
+const cache = new Map<string, { videos: VideoItem[]; expiresAt: number }>();
+
+function parseViewCount(text: string): number {
+  if (!text) return 0;
+  const m = text.match(/([\d.,]+)\s*([KMB])?/i);
+  if (!m) return 0;
+  const n = parseFloat(m[1].replace(/,/g, ''));
+  if (isNaN(n)) return 0;
+  const suf = (m[2] || '').toUpperCase();
+  const mult = suf === 'K' ? 1_000 : suf === 'M' ? 1_000_000 : suf === 'B' ? 1_000_000_000 : 1;
+  return Math.round(n * mult);
+}
+
 
 function parseChannelHtml(html: string): VideoItem[] {
   const m = html.match(/var ytInitialData = (\{[\s\S]*?\});\s*<\/script>/);
@@ -63,20 +77,20 @@ function parseChannelHtml(html: string): VideoItem[] {
         ? sources[sources.length - 1].url
         : `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
 
-    // Try to extract "Streamed/Published X ago" string from metadata rows
+    // Try to extract "Streamed/Published X ago" and "12K views" strings
     const rows =
       lv?.metadata?.lockupMetadataViewModel?.metadata?.contentMetadataViewModel?.metadataRows ?? [];
     let publishedText = '';
+    let viewCountText = '';
     for (const row of rows) {
       const parts = row?.metadataParts ?? [];
       for (const p of parts) {
         const t = p?.text?.content;
-        if (t && /ago$/i.test(t)) {
-          publishedText = t;
-          break;
-        }
+        if (!t) continue;
+        if (!publishedText && /ago$/i.test(t)) publishedText = t;
+        if (!viewCountText && /views?$/i.test(t)) viewCountText = t;
       }
-      if (publishedText) break;
+      if (publishedText && viewCountText) break;
     }
 
     videos.push({
@@ -87,13 +101,16 @@ function parseChannelHtml(html: string): VideoItem[] {
       thumbnail,
       publishedAt: publishedText,
       duration: '',
-      viewCount: '0',
+      viewCount: viewCountText || '0',
+      viewCountText,
+      viewCountNumber: parseViewCount(viewCountText),
       channelTitle,
     });
   }
 
   return videos;
 }
+
 
 async function fetchChannelHtml(): Promise<{ html: string | null; sourceUrl: string; lastErr: string }> {
   const userAgents = [
@@ -154,10 +171,15 @@ serve(async (req) => {
   try {
     const url = new URL(req.url);
     const podcastOnly = url.searchParams.get('filter') === 'podcast';
+    const sortByViews = url.searchParams.get('sort') === 'views';
+    const limitParam = parseInt(url.searchParams.get('limit') || '6', 10);
+    const limit = Math.min(Math.max(isNaN(limitParam) ? 6 : limitParam, 1), 12);
     const bypassCache = url.searchParams.get('fresh') === '1';
+    const cacheKey = `${podcastOnly ? 'pod' : 'all'}:${sortByViews ? 'views' : 'recent'}:${limit}`;
 
-    if (!bypassCache && cache && cache.expiresAt > Date.now()) {
-      return new Response(JSON.stringify({ videos: cache.videos, cached: true }), {
+    const cached = cache.get(cacheKey);
+    if (!bypassCache && cached && cached.expiresAt > Date.now()) {
+      return new Response(JSON.stringify({ videos: cached.videos, cached: true }), {
         status: 200,
         headers: jsonHeaders,
       });
@@ -166,8 +188,8 @@ serve(async (req) => {
     const { html, sourceUrl, lastErr } = await fetchChannelHtml();
 
     if (!html) {
-      if (cache) {
-        return new Response(JSON.stringify({ videos: cache.videos, cached: true, stale: true }), {
+      if (cached) {
+        return new Response(JSON.stringify({ videos: cached.videos, cached: true, stale: true }), {
           status: 200,
           headers: jsonHeaders,
         });
@@ -178,20 +200,24 @@ serve(async (req) => {
       });
     }
 
-    const all = await Promise.all(parseChannelHtml(html).slice(0, 12).map(hydrateTitleFromOEmbed));
+    const parsed = parseChannelHtml(html);
     const PODCAST_TITLE_RE = /\b(daily wins\s+)?podcast\s+\d+\b/i;
-    const videos = (podcastOnly ? all.filter((v) => PODCAST_TITLE_RE.test(v.title)) : all).slice(0, 6);
+    let pool = podcastOnly ? parsed.filter((v) => PODCAST_TITLE_RE.test(v.title)) : parsed;
+    if (sortByViews) {
+      pool = [...pool].sort((a, b) => b.viewCountNumber - a.viewCountNumber);
+    }
+    const videos = await Promise.all(pool.slice(0, limit).map(hydrateTitleFromOEmbed));
 
     if (videos.length === 0) {
-      console.warn('Channel HTML parsed but produced 0 podcast videos');
-      if (cache) {
-        return new Response(JSON.stringify({ videos: cache.videos, cached: true, stale: true }), {
+      console.warn('Channel HTML parsed but produced 0 videos for', cacheKey);
+      if (cached) {
+        return new Response(JSON.stringify({ videos: cached.videos, cached: true, stale: true }), {
           status: 200,
           headers: jsonHeaders,
         });
       }
     } else {
-      cache = { videos, expiresAt: Date.now() + CACHE_TTL_MS };
+      cache.set(cacheKey, { videos, expiresAt: Date.now() + CACHE_TTL_MS });
     }
 
     return new Response(JSON.stringify({ videos, source: 'youtube-channel-html', sourceUrl }), {
@@ -200,8 +226,9 @@ serve(async (req) => {
     });
   } catch (error: any) {
     console.error('Error in youtube-videos function:', error);
-    if (cache) {
-      return new Response(JSON.stringify({ videos: cache.videos, cached: true, stale: true }), {
+    const anyCached = cache.values().next().value;
+    if (anyCached) {
+      return new Response(JSON.stringify({ videos: anyCached.videos, cached: true, stale: true }), {
         status: 200,
         headers: jsonHeaders,
       });
@@ -212,3 +239,4 @@ serve(async (req) => {
     });
   }
 });
+

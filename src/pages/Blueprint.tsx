@@ -8,16 +8,19 @@ import { getGuideUrl } from "@/data/guideMapping";
 import { useDownloadCounts } from "@/hooks/useDownloadCounts";
 import { supabase } from "@/integrations/supabase/client";
 import { startTrackedRedirect } from "@/lib/youtube-redirect";
+import { useTopVideos } from "@/hooks/useTopVideos";
 
-const podcastEpisodes = [
-  { videoId: "OjwSKAXveN8", title: "The Dangers of Screen-time Before Bed", views: "12.8K views" },
-  { videoId: "cfLHVIIp4o0", title: "Build a Life You Don't Need to Escape From", views: "3.2K views" },
-  { videoId: "bv27Bn6qWIo", title: "Why Most People Invest Completely Wrong", views: "5.7K views" },
+const FALLBACK_EPISODES = [
+  { videoId: "OjwSKAXveN8", title: "The Dangers of Screen-time Before Bed", viewCountText: "12K views" },
+  { videoId: "cfLHVIIp4o0", title: "Build a Life You Don't Need to Escape From", viewCountText: "3.2K views" },
+  { videoId: "bv27Bn6qWIo", title: "Why Most People Invest Completely Wrong", viewCountText: "5.7K views" },
 ];
 
 const Blueprint = () => {
   const [showEmailForm, setShowEmailForm] = useState(true);
   const [playingVideo, setPlayingVideo] = useState<string | null>(null);
+  const { videos: topVideos, loading: topLoading } = useTopVideos(3);
+  const podcastEpisodes = topVideos.length >= 3 ? topVideos : FALLBACK_EPISODES;
 
   // Auto-redirect to YouTube after 4 seconds of playing
   useEffect(() => {
@@ -29,10 +32,11 @@ const Blueprint = () => {
       setPlayingVideo(null);
     }, 4000);
     return () => clearTimeout(timer);
-  }, [playingVideo]);
+  }, [playingVideo, podcastEpisodes]);
   const guideUrl = getGuideUrl("BDBT Foundation Blueprint");
   const { data: downloadCounts } = useDownloadCounts();
   const blueprintCount = downloadCounts?.["BDBT Foundation Blueprint"] || 0;
+
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-muted/50 py-16">
@@ -147,7 +151,7 @@ const Blueprint = () => {
                   )}
                   <a href={`https://www.youtube.com/watch?v=${episode.videoId}`} target="_blank" rel="noopener noreferrer" className="block p-4 hover:bg-muted/50 transition-colors" onClick={(e) => { e.preventDefault(); startTrackedRedirect(episode.videoId); }}>
                     <h3 className="font-semibold text-sm text-foreground line-clamp-2">{episode.title}</h3>
-                    <p className="text-xs text-muted-foreground mt-1">{episode.views}</p>
+                    <p className="text-xs text-muted-foreground mt-1">{episode.viewCountText}</p>
                   </a>
                 </div>
               ))}
