@@ -195,8 +195,9 @@
 
   p {
     line-height: var(--line-height-relaxed);
-    color: hsl(var(--primary));
+    color: hsl(var(--foreground));
   }
+
 
   /* Focus styles */
   *:focus-visible {
