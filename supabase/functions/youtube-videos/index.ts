@@ -77,20 +77,20 @@ function parseChannelHtml(html: string): VideoItem[] {
         ? sources[sources.length - 1].url
         : `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
 
-    // Try to extract "Streamed/Published X ago" string from metadata rows
+    // Try to extract "Streamed/Published X ago" and "12K views" strings
     const rows =
       lv?.metadata?.lockupMetadataViewModel?.metadata?.contentMetadataViewModel?.metadataRows ?? [];
     let publishedText = '';
+    let viewCountText = '';
     for (const row of rows) {
       const parts = row?.metadataParts ?? [];
       for (const p of parts) {
         const t = p?.text?.content;
-        if (t && /ago$/i.test(t)) {
-          publishedText = t;
-          break;
-        }
+        if (!t) continue;
+        if (!publishedText && /ago$/i.test(t)) publishedText = t;
+        if (!viewCountText && /views?$/i.test(t)) viewCountText = t;
       }
-      if (publishedText) break;
+      if (publishedText && viewCountText) break;
     }
 
     videos.push({
@@ -101,13 +101,16 @@ function parseChannelHtml(html: string): VideoItem[] {
       thumbnail,
       publishedAt: publishedText,
       duration: '',
-      viewCount: '0',
+      viewCount: viewCountText || '0',
+      viewCountText,
+      viewCountNumber: parseViewCount(viewCountText),
       channelTitle,
     });
   }
 
   return videos;
 }
+
 
 async function fetchChannelHtml(): Promise<{ html: string | null; sourceUrl: string; lastErr: string }> {
   const userAgents = [
