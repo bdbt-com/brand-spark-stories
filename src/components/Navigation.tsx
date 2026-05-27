@@ -149,7 +149,7 @@ const Navigation = () => {
 
         {/* Mobile Navigation */}
         {isOpen && (
-          <div className="md:hidden border-t border-border/50 glass-strong animate-fade-in">
+          <div className="md:hidden border-t border-neutral-200 bg-white animate-fade-in">
             <div className="px-2 pt-2 pb-3 space-y-1">
               {navItems.map((item, index) => (
                 <Link
@@ -158,7 +158,7 @@ const Navigation = () => {
                   className={`block px-4 py-3 rounded-xl text-base font-semibold transition-all duration-200 focus-enhanced hover-lift ${
                     isActive(item.path)
                       ? "text-primary bg-primary/10 border-2 border-primary/20 shadow-xs"
-                      : "text-muted-foreground hover:text-primary hover:bg-primary/5 border-2 border-transparent hover:border-primary/10"
+                      : "text-neutral-800 hover:text-primary hover:bg-primary/5 border-2 border-transparent hover:border-primary/10"
                   }`}
                   style={{ animationDelay: `${index * 50}ms` }}
                   onClick={() => setIsOpen(false)}
