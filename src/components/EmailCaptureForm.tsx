@@ -96,7 +96,7 @@ const EmailCaptureForm = ({ title, description, guideDownloadUrl, onClose, compa
         <h4 className="text-lg font-semibold text-foreground mb-2">
           Guide Sent! 🎉
         </h4>
-        <p className="text-sm text-primary mb-3">
+        <p className="text-sm text-foreground mb-3">
           Check your email - it should arrive within minutes (also please check your spam just in case our system or your email is having a bad day!).
         </p>
         <div className="flex items-center justify-center text-xs text-primary">
@@ -126,7 +126,7 @@ const EmailCaptureForm = ({ title, description, guideDownloadUrl, onClose, compa
       </div>
       
       {!compact && description && (
-        <p className="text-sm text-primary">
+        <p className="text-sm text-foreground">
           {description}
         </p>
       )}

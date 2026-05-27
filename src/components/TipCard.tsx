@@ -88,7 +88,7 @@ const TipCard = ({ tip, index, downloadCount }: TipCardProps) => {
           <CardContent className="flex-1 flex flex-col p-6 pt-0">
             {/* Description Section */}
             <div className="mb-6 h-auto">
-              <p className="text-primary text-sm leading-relaxed">
+              <p className="text-foreground text-sm leading-relaxed">
                 {tip.description}
               </p>
             </div>

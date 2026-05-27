@@ -39,14 +39,14 @@ serve(async (req) => {
       .select("video_id, clicked_at")
       .gte("clicked_at", since)
       .order("clicked_at", { ascending: false })
-      .limit(200);
+      .limit(10000);
 
     const { data: signups } = await supabase
       .from("email_subscriptions")
       .select("first_name, email, created_at, guide_title, email_sent, email_sent_at")
       .gte("created_at", since)
       .order("created_at", { ascending: false })
-      .limit(200);
+      .limit(10000);
 
     const items: { type: string; label: string; detail: string; timestamp: string }[] = [];
 

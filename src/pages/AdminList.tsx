@@ -354,14 +354,14 @@ const AdminList = () => {
                      <Card className="border-primary/30 bg-primary/5">
                       <CardContent className="p-5 text-center">
                         <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">Visitors</p>
-                        <p className="text-3xl font-bold text-primary inline-flex items-center gap-2 justify-center">{today?.visitors || 0} <TodayTrendBadge today={today?.live_visitors ?? today?.visitors ?? 0} sevenDay={analytics["7d"]?.live_visitors ?? analytics["7d"]?.visitors ?? 0} /></p>
+                        <p className="text-3xl font-bold text-foreground inline-flex items-center gap-2 justify-center">{today?.visitors || 0} <TodayTrendBadge today={today?.live_visitors ?? today?.visitors ?? 0} sevenDay={analytics["7d"]?.live_visitors ?? analytics["7d"]?.visitors ?? 0} /></p>
                         <p className="text-xs text-muted-foreground mt-1 inline-flex items-center gap-1 justify-center">/bio clicks: {bioClicks.today || 0} <TodayTrendBadge today={bioClicks.today || 0} sevenDay={bioClicks["7d"] || 0} /></p>
                       </CardContent>
                     </Card>
                     <Card className="border-primary/30 bg-primary/5">
                       <CardContent className="p-5 text-center">
                         <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">Avg Time</p>
-                        <p className="text-3xl font-bold text-primary">
+                        <p className="text-3xl font-bold text-foreground">
                           {avgMins > 0 ? `${avgMins}m ` : ""}{avgSecs}s
                         </p>
                       </CardContent>
@@ -369,7 +369,7 @@ const AdminList = () => {
                     <Card className="border-primary/30 bg-primary/5">
                       <CardContent className="p-5 text-center">
                         <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">New Subs</p>
-                        <p className="text-3xl font-bold text-primary">{todaySubscribers}</p>
+                        <p className="text-3xl font-bold text-foreground">{todaySubscribers}</p>
                       </CardContent>
                     </Card>
                   </>
@@ -404,7 +404,7 @@ const AdminList = () => {
                     <Card key={key}>
                       <CardContent className="p-5 text-center">
                         <p className="text-xs font-medium text-muted-foreground mb-3 uppercase tracking-wider">{label}</p>
-                        <p className="text-3xl font-bold text-primary">{period?.visitors || 0}</p>
+                        <p className="text-3xl font-bold text-foreground">{period?.visitors || 0}</p>
                         <div className="flex items-center justify-center gap-1 mb-2">
                           <p className="text-xs text-muted-foreground">visitors</p>
                           {outer && days > 0 && <TrendBadge current={liveVal} currentDays={days} outer={outerLiveVal} outerDays={outerDays} />}
@@ -443,7 +443,7 @@ const AdminList = () => {
                   <Card key={label}>
                     <CardContent className="p-5 text-center">
                       <p className="text-xs font-medium text-muted-foreground mb-3 uppercase tracking-wider">{label}</p>
-                      <p className="text-3xl font-bold text-primary inline-flex items-center gap-2 justify-center">
+                      <p className="text-3xl font-bold text-foreground inline-flex items-center gap-2 justify-center">
                         {value}
                         {isToday && <TodayTrendBadge today={value} sevenDay={sevenDay} />}
                       </p>
@@ -488,7 +488,7 @@ const AdminList = () => {
                                   className="w-full aspect-video object-cover rounded-md mb-2"
                                 />
                                 <p className="text-[11px] font-medium text-foreground line-clamp-2 text-center mb-2 min-h-[28px]">{latestVideo?.title}</p>
-                                <p className="text-3xl font-bold text-primary inline-flex items-center gap-2 justify-center w-full">
+                                <p className="text-3xl font-bold text-foreground inline-flex items-center gap-2 justify-center w-full">
                                   {lc!.today} <TodayTrendBadge today={lc!.today} sevenDay={lc!["7d"]} />
                                 </p>
                                 <p className="text-[10px] text-muted-foreground text-center mb-2">today</p>
@@ -520,14 +520,14 @@ const AdminList = () => {
                     <Card>
                       <CardContent className="p-5 text-center">
                         <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">Today</p>
-                        <p className="text-3xl font-bold text-primary inline-flex items-center gap-2 justify-center">{ar.today} <TodayTrendBadge today={ar.today} sevenDay={ar["7d"]} /></p>
+                        <p className="text-3xl font-bold text-foreground inline-flex items-center gap-2 justify-center">{ar.today} <TodayTrendBadge today={ar.today} sevenDay={ar["7d"]} /></p>
                         <p className="text-xs text-muted-foreground mt-1">redirects</p>
                       </CardContent>
                     </Card>
                     <Card>
                       <CardContent className="p-5 text-center">
                         <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">7 Days</p>
-                        <p className="text-3xl font-bold text-primary">{ar["7d"]}</p>
+                        <p className="text-3xl font-bold text-foreground">{ar["7d"]}</p>
                         <div className="flex items-center justify-center gap-1 mt-1">
                           <p className="text-xs text-muted-foreground">redirects</p>
                           <TrendBadge current={ar["7d"]} currentDays={7} outer={ar["14d"]} outerDays={14} />
@@ -537,7 +537,7 @@ const AdminList = () => {
                     <Card>
                       <CardContent className="p-5 text-center">
                         <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">14 Days</p>
-                        <p className="text-3xl font-bold text-primary">{ar["14d"]}</p>
+                        <p className="text-3xl font-bold text-foreground">{ar["14d"]}</p>
                         <div className="flex items-center justify-center gap-1 mt-1">
                           <p className="text-xs text-muted-foreground">redirects</p>
                           <TrendBadge current={ar["14d"]} currentDays={14} outer={ar["30d"]} outerDays={30} />
@@ -547,7 +547,7 @@ const AdminList = () => {
                     <Card>
                       <CardContent className="p-5 text-center">
                         <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">30 Days</p>
-                        <p className="text-3xl font-bold text-primary">{ar["30d"]}</p>
+                        <p className="text-3xl font-bold text-foreground">{ar["30d"]}</p>
                         <div className="flex items-center justify-center gap-1 mt-1">
                           <p className="text-xs text-muted-foreground">redirects</p>
                           {trackingDays > 30 && <TrendBadge current={ar["30d"]} currentDays={30} outer={ar.total} outerDays={trackingDays} />}
@@ -557,7 +557,7 @@ const AdminList = () => {
                     <Card>
                       <CardContent className="p-5 text-center">
                         <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">Total</p>
-                        <p className="text-3xl font-bold text-primary">{ar.total}</p>
+                        <p className="text-3xl font-bold text-foreground">{ar.total}</p>
                         <p className="text-xs text-muted-foreground mt-1">redirects</p>
                       </CardContent>
                     </Card>
@@ -584,7 +584,7 @@ const AdminList = () => {
                   <Card key={id}>
                     <CardContent className="p-5 text-center">
                       <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">{label}</p>
-                      <p className="text-3xl font-bold text-primary inline-flex items-center gap-2 justify-center">{c.today} <TodayTrendBadge today={c.today} sevenDay={c["7d"]} /></p>
+                      <p className="text-3xl font-bold text-foreground inline-flex items-center gap-2 justify-center">{c.today} <TodayTrendBadge today={c.today} sevenDay={c["7d"]} /></p>
                       <p className="text-[10px] text-muted-foreground mb-1">today</p>
                       {(() => { const trackingDays = Math.max(1, Math.round((Date.now() - new Date("2026-03-04").getTime()) / 86400000)); return (
                       <div className="grid grid-cols-4 gap-x-2 text-xs text-muted-foreground mt-2">
@@ -646,7 +646,7 @@ const AdminList = () => {
                         className="w-full aspect-video object-cover rounded-lg mb-3"
                       />
                       <p className="text-sm font-medium text-foreground mb-3 line-clamp-2">{title}</p>
-                      <p className="text-2xl font-bold text-primary inline-flex items-center gap-2 justify-center">{c.today} <TodayTrendBadge today={c.today} sevenDay={c["7d"]} /></p>
+                      <p className="text-2xl font-bold text-foreground inline-flex items-center gap-2 justify-center">{c.today} <TodayTrendBadge today={c.today} sevenDay={c["7d"]} /></p>
                       <p className="text-[10px] text-muted-foreground mb-1">today</p>
                       <div className="grid grid-cols-4 gap-x-2 text-xs text-muted-foreground mt-2">
                         <div className="flex flex-col items-center gap-0.5">

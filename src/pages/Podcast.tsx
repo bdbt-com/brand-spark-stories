@@ -143,7 +143,7 @@ const Podcast = () => {
           {loading && (
             <div className="text-center py-20">
               <Loader2 className="w-8 h-8 animate-spin mx-auto mb-4 text-primary" />
-              <p className="text-primary">Loading your latest videos...</p>
+              <p className="text-foreground">Loading your latest videos...</p>
             </div>
           )}
 
@@ -204,7 +204,7 @@ const Podcast = () => {
                           <h3 className="text-2xl lg:text-3xl font-bold mb-4 text-primary line-clamp-2">
                             {video.title}
                           </h3>
-                          <p className="text-primary mb-6 leading-relaxed line-clamp-3">
+                          <p className="text-foreground mb-6 leading-relaxed line-clamp-3">
                             {video.description}
                           </p>
                           <div className="flex items-center gap-6 text-sm text-primary mb-6">
@@ -293,7 +293,7 @@ const Podcast = () => {
                       <h3 className="font-semibold mb-2 text-primary group-hover:text-primary transition-colors line-clamp-2">
                         {video.title}
                       </h3>
-                      <p className="text-sm text-primary mb-4 line-clamp-2">
+                      <p className="text-sm text-foreground mb-4 line-clamp-2">
                         {video.description}
                       </p>
                       <div className="flex items-center justify-between text-xs text-primary mb-4">

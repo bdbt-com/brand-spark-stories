@@ -13,7 +13,7 @@ const Community = () => {
           <h1 className="text-5xl lg:text-7xl font-bold mb-8 text-primary">
             Become a Baddy
           </h1>
-          <p className="text-xl lg:text-2xl text-primary/80 mb-8 leading-relaxed">
+          <p className="text-xl lg:text-2xl text-foreground/80 mb-8 leading-relaxed">
             The World Won't Always Clap For Your Wins
           </p>
         </div>
@@ -27,7 +27,7 @@ const Community = () => {
             <p>When you eat the food that nourishes you, people may call you boring.</p>
             <p>When you save money instead of spending it to keep up, people may say you're missing out.</p>
             <p>When you go for a run while others stay sedentary, people may tell you to just relax.</p>
-            <p className="font-semibold text-primary">
+            <p className="font-semibold text-foreground">
               That's the reality of growth. The very people around you, friends, family, colleagues and acquaintances can become the biggest obstacles to your progress.
             </p>
             <p>Not because they're bad people, but because your choices remind them of their own.</p>
@@ -46,7 +46,7 @@ const Community = () => {
             <p>A Baddy is someone who chooses daily wins over daily drifts, even when it makes them the outsider.</p>
             <p>A Baddy is brave enough to be labelled the bad guy or the boring one, for making better choices. The one who chooses the "boring" healthy option, even when it's easier to give in.</p>
             <p>A Baddy is someone who rises above social pressure, peer pressure, and self-doubt because they know that every small win ripples into health, wealth, and happiness.</p>
-            <p className="font-semibold text-primary">Being a Baddy is not about perfection.</p>
+            <p className="font-semibold text-foreground">Being a Baddy is not about perfection.</p>
             <p>It's about being courageous enough to stand out today so you (and the people you love) can live better tomorrow.</p>
             <p>A Baddy stacks daily wins for their health, wealth, and happiness while the world around them keeps drifting.</p>
             <p>A Baddy is someone who finds the courage to stay true to themself and BDBT is here to help give you that courage.</p>
@@ -61,7 +61,7 @@ const Community = () => {
             Why "Baddy"?
           </h2>
           <div className="space-y-8">
-            <p className="text-lg text-primary/80 leading-relaxed">
+            <p className="text-lg text-foreground/80 leading-relaxed">
               Most people see discipline as dull. They call you the bad guy for:
             </p>
             
@@ -92,11 +92,11 @@ const Community = () => {
             </div>
 
             <div className="mt-12">
-              <p className="text-xl font-semibold text-primary mb-4">
+              <p className="text-xl font-semibold text-foreground mb-4">
                 But here's the truth. Those "boring" choices are what create freedom, energy, wealth, and happiness.
               </p>
-              <p className="text-lg text-primary/80">So we wear the label proudly.</p>
-              <p className="text-lg text-primary/80 mt-4">
+              <p className="text-lg text-foreground/80">So we wear the label proudly.</p>
+              <p className="text-lg text-foreground/80 mt-4">
                 If being disciplined makes you the bad guy, then you're exactly where you need to be.
               </p>
             </div>
@@ -161,7 +161,7 @@ const Community = () => {
             <Card className="p-8">
               <CardContent className="p-0 text-center">
                 <Badge className="mb-4 text-lg px-4 py-2">Phase 1</Badge>
-                <p className="text-lg text-primary/80 leading-relaxed">
+                <p className="text-lg text-foreground/80 leading-relaxed">
                   You choose differently. You break free from the drift and start stacking small wins. Identity shifts to "I'm not doing what everyone else is doing, and that's my strength."
                 </p>
               </CardContent>
@@ -170,7 +170,7 @@ const Community = () => {
             <Card className="p-8">
               <CardContent className="p-0 text-center">
                 <Badge className="mb-4 text-lg px-4 py-2">Phase 2</Badge>
-                <p className="text-lg text-primary/80 leading-relaxed">
+                <p className="text-lg text-foreground/80 leading-relaxed">
                   Your wins start to show. People notice the difference. Your choices influence your circle. Identity shifts to "I'm not just changing myself, I'm changing the people around me."
                 </p>
               </CardContent>
@@ -179,7 +179,7 @@ const Community = () => {
             <Card className="p-8">
               <CardContent className="p-0 text-center">
                 <Badge className="mb-4 text-lg px-4 py-2">Phase 3</Badge>
-                <p className="text-lg text-primary/80 leading-relaxed">
+                <p className="text-lg text-foreground/80 leading-relaxed">
                   You become the leader. The one others look up to. The proof that discipline beats drift. You build systems, mentor others, and show people how to design a lifestyle instead of chasing hacks. Identity shifts to "I create the environment where wins are the default, not the exception."
                 </p>
               </CardContent>
@@ -199,7 +199,7 @@ const Community = () => {
             <p>Every drift looks harmless in the moment; another drink, another scroll, another day wasted.</p>
             <p>But drifts compound. They steal your energy, your money, your time, your happiness.</p>
             <p>Daily wins compound too. They give you freedom, confidence, health, wealth, and joy.</p>
-            <p className="text-xl font-semibold text-primary">
+            <p className="text-xl font-semibold text-foreground">
               The difference? Having the courage to be the Baddy when it matters most.
             </p>
           </div>
@@ -218,7 +218,7 @@ const Community = () => {
             <p>The one who "takes things too seriously."</p>
             <p>The one who doesn't drink, who exercises more, who eats differently, who saves instead of spends.</p>
             <p>I know what it feels like to be the odd one out and to be ridiculed for being true to yourself.</p>
-            <p className="font-semibold text-primary">
+            <p className="font-semibold text-foreground">
               But I also know the payoff. The freedom, the resilience, the pride, and the life you get to design when you choose daily wins.
             </p>
             <p>That's why I created Big Daddy's Big Tips.</p>
@@ -235,10 +235,10 @@ const Community = () => {
           </h2>
           
           <div className="space-y-8">
-            <p className="text-lg text-primary/80 mb-8">
+            <p className="text-lg text-foreground/80 mb-8">
               The community isn't live yet. The courses aren't open yet.
             </p>
-            <p className="text-lg text-primary/80 mb-8">
+            <p className="text-lg text-foreground/80 mb-8">
               But that doesn't matter because your journey starts today.
             </p>
             
@@ -266,13 +266,13 @@ const Community = () => {
             </div>
 
             <div className="mt-12">
-              <p className="text-xl font-semibold text-primary mb-8">
+              <p className="text-xl font-semibold text-foreground mb-8">
                 Because the moment you decide to be a Baddy is the moment your life begins to shift.
               </p>
               
               <div className="space-y-4">
-                <p className="text-2xl font-bold text-primary">Become a Baddy today.</p>
-                <p className="text-2xl font-bold text-primary">Become the leader tomorrow.</p>
+                <p className="text-2xl font-bold text-foreground">Become a Baddy today.</p>
+                <p className="text-2xl font-bold text-foreground">Become the leader tomorrow.</p>
               </div>
               
               <div className="mt-12">

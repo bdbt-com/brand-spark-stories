@@ -89,7 +89,7 @@ const Blueprint = () => {
                   </ul>
                 </div>
                 <div className="space-y-3">
-                  <p className="text-sm font-medium text-primary text-center">Key Takeaways:</p>
+                  <p className="text-sm font-medium text-foreground text-center">Key Takeaways:</p>
                   <ul className="space-y-2 max-w-md mx-auto">
                     {["Momentum is greater than motivation", "A system that works even when your motivation doesn't", "Apply to your unique life", "Benefit from the positive ripple effects"].map((item) => (
                       <li key={item} className="text-sm text-primary flex items-start">
