@@ -459,7 +459,7 @@ const LinkInBio = () => {
         
         {/* Podcast Episodes */}
         <div className="w-full mt-3 md:mt-8">
-          <p className="text-white/25 text-xs uppercase tracking-[0.2em] text-center mb-2 md:mb-4 font-light">Picked For You</p>
+          <p className="text-primary/70 text-xs uppercase tracking-[0.2em] text-center mb-2 md:mb-4 font-light">Picked For You</p>
           
           {/* Desktop: static grid */}
           <div className="hidden md:grid md:grid-cols-3 gap-8 items-center">
