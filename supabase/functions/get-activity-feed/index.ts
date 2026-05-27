@@ -48,6 +48,13 @@ serve(async (req) => {
       .order("created_at", { ascending: false })
       .limit(10000);
 
+    const { data: views } = await supabase
+      .from("page_views")
+      .select("page_path, session_id, entered_at, referrer")
+      .gte("entered_at", since)
+      .order("entered_at", { ascending: false })
+      .limit(10000);
+
     const items: { type: string; label: string; detail: string; timestamp: string }[] = [];
 
     for (const c of clicks || []) {
