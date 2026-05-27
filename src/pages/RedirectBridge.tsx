@@ -36,8 +36,8 @@ const RedirectBridge = () => {
   }, [params]);
 
   return (
-    <div className="min-h-screen bg-[#36455A] flex items-center justify-center">
-      <p className="text-white text-lg animate-pulse">Opening YouTube…</p>
+    <div className="min-h-screen bg-background flex items-center justify-center">
+      <div className="h-12 w-12 rounded-full border-2 border-primary/20 border-t-primary animate-spin" />
     </div>
   );
 };
