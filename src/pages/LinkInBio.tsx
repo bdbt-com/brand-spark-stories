@@ -335,14 +335,14 @@ const LinkInBio = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#1a1a1e] flex flex-col items-center px-4 py-5 md:py-8 overflow-x-hidden">
-      {/* Background gradient overlay — Midnight charcoal */}
-      <div className="fixed inset-0 bg-gradient-to-b from-[#1a1a1e] via-[#141416] to-[#0d0d0f] -z-10" />
+    <div className="min-h-screen bg-background flex flex-col items-center px-4 py-5 md:py-8 overflow-x-hidden">
+      {/* Background gradient overlay — brand black */}
+      <div className="fixed inset-0 bg-gradient-to-b from-background via-[hsl(0_0%_8%)] to-[hsl(0_0%_4%)] -z-10" />
       
       {/* Main content container */}
       <div className="w-full max-w-md md:max-w-4xl flex flex-col items-center animate-fade-in">
         {/* Profile Photo — gradient ring */}
-        <div className="w-24 h-24 rounded-full bg-gradient-to-br from-white/20 to-white/5 p-[1.5px] mb-4">
+        <div className="w-24 h-24 rounded-full bg-gradient-to-br from-primary/40 to-primary/10 p-[1.5px] mb-4">
           <div className="w-full h-full rounded-full overflow-hidden relative">
             <img 
               src="/lovable-uploads/profile-photo.png" 
@@ -354,8 +354,8 @@ const LinkInBio = () => {
         
         {/* Handle */}
         <h1 className="text-xl font-semibold mb-3">
-          <span className="text-[hsl(35_45%_75%)]">BigDaddy's</span>
-          <span className="text-white">BigTips</span>
+          <span className="text-primary">BigDaddy's</span>
+          <span className="text-foreground">BigTips</span>
         </h1>
         
         {/* Tagline */}
