@@ -171,10 +171,15 @@ serve(async (req) => {
   try {
     const url = new URL(req.url);
     const podcastOnly = url.searchParams.get('filter') === 'podcast';
+    const sortByViews = url.searchParams.get('sort') === 'views';
+    const limitParam = parseInt(url.searchParams.get('limit') || '6', 10);
+    const limit = Math.min(Math.max(isNaN(limitParam) ? 6 : limitParam, 1), 12);
     const bypassCache = url.searchParams.get('fresh') === '1';
+    const cacheKey = `${podcastOnly ? 'pod' : 'all'}:${sortByViews ? 'views' : 'recent'}:${limit}`;
 
-    if (!bypassCache && cache && cache.expiresAt > Date.now()) {
-      return new Response(JSON.stringify({ videos: cache.videos, cached: true }), {
+    const cached = cache.get(cacheKey);
+    if (!bypassCache && cached && cached.expiresAt > Date.now()) {
+      return new Response(JSON.stringify({ videos: cached.videos, cached: true }), {
         status: 200,
         headers: jsonHeaders,
       });
@@ -183,8 +188,8 @@ serve(async (req) => {
     const { html, sourceUrl, lastErr } = await fetchChannelHtml();
 
     if (!html) {
-      if (cache) {
-        return new Response(JSON.stringify({ videos: cache.videos, cached: true, stale: true }), {
+      if (cached) {
+        return new Response(JSON.stringify({ videos: cached.videos, cached: true, stale: true }), {
           status: 200,
           headers: jsonHeaders,
         });
@@ -195,20 +200,24 @@ serve(async (req) => {
       });
     }
 
-    const all = await Promise.all(parseChannelHtml(html).slice(0, 12).map(hydrateTitleFromOEmbed));
+    const parsed = parseChannelHtml(html);
     const PODCAST_TITLE_RE = /\b(daily wins\s+)?podcast\s+\d+\b/i;
-    const videos = (podcastOnly ? all.filter((v) => PODCAST_TITLE_RE.test(v.title)) : all).slice(0, 6);
+    let pool = podcastOnly ? parsed.filter((v) => PODCAST_TITLE_RE.test(v.title)) : parsed;
+    if (sortByViews) {
+      pool = [...pool].sort((a, b) => b.viewCountNumber - a.viewCountNumber);
+    }
+    const videos = await Promise.all(pool.slice(0, limit).map(hydrateTitleFromOEmbed));
 
     if (videos.length === 0) {
-      console.warn('Channel HTML parsed but produced 0 podcast videos');
-      if (cache) {
-        return new Response(JSON.stringify({ videos: cache.videos, cached: true, stale: true }), {
+      console.warn('Channel HTML parsed but produced 0 videos for', cacheKey);
+      if (cached) {
+        return new Response(JSON.stringify({ videos: cached.videos, cached: true, stale: true }), {
           status: 200,
           headers: jsonHeaders,
         });
       }
     } else {
-      cache = { videos, expiresAt: Date.now() + CACHE_TTL_MS };
+      cache.set(cacheKey, { videos, expiresAt: Date.now() + CACHE_TTL_MS });
     }
 
     return new Response(JSON.stringify({ videos, source: 'youtube-channel-html', sourceUrl }), {
@@ -217,8 +226,9 @@ serve(async (req) => {
     });
   } catch (error: any) {
     console.error('Error in youtube-videos function:', error);
-    if (cache) {
-      return new Response(JSON.stringify({ videos: cache.videos, cached: true, stale: true }), {
+    const anyCached = cache.values().next().value;
+    if (anyCached) {
+      return new Response(JSON.stringify({ videos: anyCached.videos, cached: true, stale: true }), {
         status: 200,
         headers: jsonHeaders,
       });
@@ -229,3 +239,4 @@ serve(async (req) => {
     });
   }
 });
+
