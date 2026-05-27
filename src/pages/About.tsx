@@ -36,7 +36,7 @@ const About = () => {
   
   return <div className="min-h-screen">
       {/* Hero Section - Owner Story */}
-      <section id="story" className="py-32 lg:py-40 bg-primary relative overflow-hidden">
+      <section id="story" className="py-32 lg:py-40 bg-background relative overflow-hidden">
         <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -44,14 +44,14 @@ const About = () => {
               <div className="space-y-4">
                 <h1 className="text-5xl lg:text-6xl font-bold leading-tight">
                   <span className="block text-white">The Story Behind</span>
-                  <span className="block text-[hsl(35_45%_75%)]">The System</span>
+                  <span className="block text-primary">The System</span>
                 </h1>
               </div>
               <div className="space-y-6">
-                <p className="text-xl text-white leading-relaxed">
+                <p className="text-xl text-foreground leading-relaxed">
                   How one dad turned daily overwhelm into a life-changing ripple effect.
                 </p>
-                <p className="text-xl text-white leading-relaxed">
+                <p className="text-xl text-foreground leading-relaxed">
                   From financial services to single parenting, discover the real story behind 
                   Big Daddy's Big Tips and why I'm sharing it with you.
                 </p>
@@ -59,7 +59,7 @@ const About = () => {
               <div className="flex justify-center mt-12">
                 <Collapsible open={isStoryOpen} onOpenChange={handleStoryToggle}>
                   <CollapsibleTrigger asChild>
-                    <Button variant="outline" size="lg" className="relative hover:scale-105 transition-transform text-lg h-16 px-12 py-6 bg-background/95 backdrop-blur-sm border-primary/30 rounded-xl">
+                    <Button variant="outline" size="lg" className="relative hover:scale-105 transition-transform text-lg h-16 px-12 py-6 bg-card backdrop-blur-sm border-primary/30 rounded-xl">
                       <BookOpen className="w-6 h-6 mr-3" />
                       Read My Story
                       <ChevronDown className={`w-5 h-5 ml-3 transition-transform ${isStoryOpen ? 'rotate-180' : ''}`} />
@@ -72,7 +72,7 @@ const About = () => {
               animationDelay: "200ms"
             }}>
               <div className="relative">
-                <img src="/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png" alt="Big Daddy - BDBT Founder" className="w-full h-96 lg:h-[500px] object-cover rounded-3xl shadow-strong border-4 border-white/20" />
+                <img src="/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png" alt="Big Daddy - BDBT Founder" className="w-full h-96 lg:h-[500px] object-cover rounded-3xl shadow-strong border-4 border-primary/20" />
               </div>
             </div>
           </div>
