@@ -22,10 +22,24 @@ interface VideoItem {
   publishedAt: string;
   duration: string;
   viewCount: string;
+  viewCountText: string;
+  viewCountNumber: number;
   channelTitle: string;
 }
 
-let cache: { videos: VideoItem[]; expiresAt: number } | null = null;
+const cache = new Map<string, { videos: VideoItem[]; expiresAt: number }>();
+
+function parseViewCount(text: string): number {
+  if (!text) return 0;
+  const m = text.match(/([\d.,]+)\s*([KMB])?/i);
+  if (!m) return 0;
+  const n = parseFloat(m[1].replace(/,/g, ''));
+  if (isNaN(n)) return 0;
+  const suf = (m[2] || '').toUpperCase();
+  const mult = suf === 'K' ? 1_000 : suf === 'M' ? 1_000_000 : suf === 'B' ? 1_000_000_000 : 1;
+  return Math.round(n * mult);
+}
+
 
 function parseChannelHtml(html: string): VideoItem[] {
   const m = html.match(/var ytInitialData = (\{[\s\S]*?\});\s*<\/script>/);
