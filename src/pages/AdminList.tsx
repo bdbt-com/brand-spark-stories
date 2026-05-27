@@ -156,6 +156,40 @@ function timeAgo(ts: string): string {
   return `${Math.floor(diff / 86400000)}d ago`;
 }
 
+const FeedFilterBar = ({
+  filter,
+  setFilter,
+  counts,
+}: {
+  filter: FeedFilter;
+  setFilter: (f: FeedFilter) => void;
+  counts: Record<string, number>;
+}) => {
+  const options: FeedFilter[] = ["all", "visitor", "click", "redirect", "signup", "download"];
+  return (
+    <div className="flex flex-wrap gap-1.5">
+      {options.map((opt) => {
+        const isActive = filter === opt;
+        const label = opt === "all" ? "All" : FEED_CONFIG[opt].label;
+        const count = counts[opt] || 0;
+        return (
+          <button
+            key={opt}
+            onClick={() => setFilter(opt)}
+            className={`text-[10px] px-2 py-1 rounded-md border transition-colors ${
+              isActive
+                ? "bg-primary text-primary-foreground border-primary"
+                : "bg-muted/30 text-muted-foreground border-border hover:bg-muted/60"
+            }`}
+          >
+            {label} <span className="opacity-70">{count}</span>
+          </button>
+        );
+      })}
+    </div>
+  );
+};
+
 const AdminList = () => {
   const [subscribers, setSubscribers] = useState<Subscriber[]>([]);
   const [loading, setLoading] = useState(true);
