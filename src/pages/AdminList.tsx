@@ -290,17 +290,18 @@ const AdminList = () => {
             <div className="flex items-center gap-2 mb-2">
               <Activity className="w-3.5 h-3.5 text-primary" />
               <span className="text-xs font-bold text-foreground">Last 24 Hours</span>
-              <span className="text-[10px] text-muted-foreground">({feed.length})</span>
+              <span className="text-[10px] text-muted-foreground">({filteredFeed.length}/{feed.length})</span>
               <span className="relative flex h-2 w-2 ml-auto">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
               </span>
             </div>
-            <div className="max-h-60 overflow-y-auto pr-1">
-              {feed.length === 0 ? (
+            <FeedFilterBar filter={feedFilter} setFilter={setFeedFilter} counts={feedCounts} />
+            <div className="max-h-60 overflow-y-auto pr-1 mt-2">
+              {filteredFeed.length === 0 ? (
                 <p className="text-[10px] text-muted-foreground text-center py-2">No recent activity</p>
               ) : (
-                feed.map((item, i) => {
+                filteredFeed.map((item, i) => {
                   const config = FEED_CONFIG[item.type] || FEED_CONFIG.click;
                   const Icon = config.icon;
                   return (
