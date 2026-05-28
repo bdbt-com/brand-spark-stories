@@ -4,6 +4,7 @@ import { Loader2, Play, TrendingDown, TrendingUp, BarChart3, Clock, MousePointer
 import { Card, CardContent } from "@/components/ui/card";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 import { useYouTubeVideos } from "@/hooks/useYouTubeVideos";
+import { PINNED_TOP_VIDEOS } from "@/data/pinnedTopVideos";
 
 function calcTrend(current: number, currentDays: number, outer: number, outerDays: number): { pct: number; direction: 'up' | 'down' | 'flat' } {
   const prior = outer - current;
@@ -679,9 +680,19 @@ const AdminList = () => {
               {Object.entries(
                 showPreviousVideos
                   ? PREVIOUS_VIDEO_MAP
-                  : (ytVideos.length > 0
-                      ? Object.fromEntries(ytVideos.slice(0, 6).map(v => [v.videoId, v.title]))
-                      : VIDEO_MAP)
+                  : (() => {
+                      // 3 most recent (excluding pinned) + 3 most viewed (pinned), matching /bio
+                      const pinnedIds = new Set(PINNED_TOP_VIDEOS.map(p => p.videoId));
+                      const recent = ytVideos
+                        .filter(v => !pinnedIds.has(v.videoId))
+                        .slice(0, 3)
+                        .map(v => [v.videoId, v.title] as [string, string]);
+                      const pinned = PINNED_TOP_VIDEOS.map(p => [p.videoId, p.title] as [string, string]);
+                      const combined = [...recent, ...pinned];
+                      return Object.fromEntries(
+                        combined.length > 0 ? combined : Object.entries(VIDEO_MAP)
+                      );
+                    })()
               ).map(([videoId, title]) => {
                 const c = videoCounts[videoId] || { total: 0, today: 0, "7d": 0, "14d": 0, "30d": 0 };
                 const launchDaysTracking = Math.max(1, Math.round((Date.now() - new Date("2026-03-04").getTime()) / 86400000));
