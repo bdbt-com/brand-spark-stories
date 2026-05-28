@@ -1,13 +1,23 @@
-## Changes to Admin List activity feed
+No API key needed — the `youtube-videos` edge function already scrapes view counts from the channel HTML and returns them as `viewCount` (e.g. "12K views", "1.4M views") on every video.
 
-**1. `supabase/functions/get-activity-feed/index.ts`**
-- Remove the `page_views` query and the loop that pushes `visitor` items into the feed (it clogs the feed).
-- Keep `video_clicks` and `email_subscriptions` queries, both at `.limit(10000)`.
+## The bug
 
-**2. `src/pages/AdminList.tsx`**
-- Remove the `visitor` filter pill from `FeedFilterBar`.
-- Remove `"visitor"` from the `FeedFilter` union and from `FEED_CONFIG`.
-- Remove the unused `Eye` icon import.
-- Leave filters: All / Clicks / Redirects / Signups / Downloads.
+In `src/pages/LinkInBio.tsx` line 92, the mapping hard-codes `views: ''`, throwing the scraped count away:
 
-No other behaviour changes — feed still shows last 24h, capped at 10,000 per source.
+```ts
+ytVideos.slice(0, 6).map(v => ({ videoId: v.videoId, title: v.title, views: '' }))
+```
+
+## Fix
+
+Forward the real value:
+
+```ts
+ytVideos.slice(0, 6).map(v => ({ videoId: v.videoId, title: v.title, views: v.viewCount || '' }))
+```
+
+That's the only change — the carousel card already renders `episode.views` (the `INITIAL_EPISODES` fallback uses the same shape).
+
+## "Update every 24 hours"
+
+The hook calls the edge function with `?fresh=1` on every page load, which bypasses the 30s in-memory cache and re-scrapes YouTube live. So counts are already as fresh as possible per visit — no cron job needed, no API key needed.

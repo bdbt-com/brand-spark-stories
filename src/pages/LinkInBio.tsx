@@ -89,7 +89,7 @@ const LinkInBio = () => {
 
   // Mobile carousel state — use 6 most recent uploads, fall back to INITIAL_EPISODES while loading/failed
   const podcastEpisodes = ytVideos.length > 0
-    ? ytVideos.slice(0, 6).map(v => ({ videoId: v.videoId, title: v.title, views: '' }))
+    ? ytVideos.slice(0, 6).map(v => ({ videoId: v.videoId, title: v.title, views: v.viewCount || '' }))
     : INITIAL_EPISODES;
 
 
