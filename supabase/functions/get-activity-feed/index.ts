@@ -48,12 +48,6 @@ serve(async (req) => {
       .order("created_at", { ascending: false })
       .limit(10000);
 
-    const { data: views } = await supabase
-      .from("page_views")
-      .select("page_path, session_id, entered_at, referrer")
-      .gte("entered_at", since)
-      .order("entered_at", { ascending: false })
-      .limit(10000);
 
     const items: { type: string; label: string; detail: string; timestamp: string }[] = [];
 
@@ -109,14 +103,8 @@ serve(async (req) => {
       }
     }
 
-    for (const v of views || []) {
-      items.push({
-        type: "visitor",
-        label: v.page_path || "/",
-        detail: "Page view",
-        timestamp: v.entered_at || new Date().toISOString(),
-      });
-    }
+
+
 
     items.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
     const feed = items;

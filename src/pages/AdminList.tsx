@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback, useMemo } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { Loader2, Play, TrendingDown, TrendingUp, BarChart3, Clock, MousePointerClick, ArrowRightLeft, UserPlus, Download, Activity, Minus, Eye } from "lucide-react";
+import { Loader2, Play, TrendingDown, TrendingUp, BarChart3, Clock, MousePointerClick, ArrowRightLeft, UserPlus, Download, Activity, Minus } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 import { useYouTubeVideos } from "@/hooks/useYouTubeVideos";
@@ -132,7 +132,7 @@ interface Subscriber {
 }
 
 interface FeedItem {
-  type: "click" | "redirect" | "signup" | "download" | "visitor";
+  type: "click" | "redirect" | "signup" | "download";
   label: string;
   detail: string;
   timestamp: string;
@@ -143,10 +143,9 @@ const FEED_CONFIG: Record<string, { icon: typeof Play; color: string; bg: string
   redirect: { icon: ArrowRightLeft, color: "text-orange-400", bg: "bg-orange-500/10", label: "Redirects" },
   signup: { icon: UserPlus, color: "text-green-400", bg: "bg-green-500/10", label: "Signups" },
   download: { icon: Download, color: "text-purple-400", bg: "bg-purple-500/10", label: "Downloads" },
-  visitor: { icon: Eye, color: "text-cyan-400", bg: "bg-cyan-500/10", label: "Visitors" },
 };
 
-type FeedFilter = "all" | "click" | "redirect" | "signup" | "download" | "visitor";
+type FeedFilter = "all" | "click" | "redirect" | "signup" | "download";
 
 function timeAgo(ts: string): string {
   const diff = Date.now() - new Date(ts).getTime();
@@ -165,7 +164,7 @@ const FeedFilterBar = ({
   setFilter: (f: FeedFilter) => void;
   counts: Record<string, number>;
 }) => {
-  const options: FeedFilter[] = ["all", "visitor", "click", "redirect", "signup", "download"];
+  const options: FeedFilter[] = ["all", "click", "redirect", "signup", "download"];
   return (
     <div className="flex flex-wrap gap-1.5">
       {options.map((opt) => {
