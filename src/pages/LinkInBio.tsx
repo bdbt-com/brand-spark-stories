@@ -92,9 +92,17 @@ const LinkInBio = () => {
   const latestVideoId = ytVideos[0]?.videoId ?? null;
 
   // Mobile carousel state — use 6 most recent uploads, fall back to INITIAL_EPISODES while loading/failed
-  const podcastEpisodes = ytVideos.length > 0
-    ? ytVideos.slice(0, 6).map(v => ({ videoId: v.videoId, title: v.title, views: v.viewCount || '' }))
-    : INITIAL_EPISODES;
+  const podcastEpisodes = (() => {
+    const pinnedIds = new Set(PINNED_TOP.map(p => p.videoId));
+    const newest = ytVideos.length > 0
+      ? ytVideos.filter(v => !pinnedIds.has(v.videoId)).slice(0, 3).map(v => ({ videoId: v.videoId, title: v.title, views: v.viewCount || '' }))
+      : INITIAL_NEW;
+    const news = [...newest];
+    while (news.length < 3) news.push(INITIAL_NEW[news.length]);
+    // Interleave: [new, top, new, top, new, top]
+    return [news[0], PINNED_TOP[0], news[1], PINNED_TOP[1], news[2], PINNED_TOP[2]];
+  })();
+
 
 
   const totalSlides = podcastEpisodes.length;
