@@ -132,7 +132,7 @@ interface Subscriber {
 }
 
 interface FeedItem {
-  type: "click" | "redirect" | "signup" | "download" | "visitor";
+  type: "click" | "redirect" | "signup" | "download";
   label: string;
   detail: string;
   timestamp: string;
@@ -143,10 +143,9 @@ const FEED_CONFIG: Record<string, { icon: typeof Play; color: string; bg: string
   redirect: { icon: ArrowRightLeft, color: "text-orange-400", bg: "bg-orange-500/10", label: "Redirects" },
   signup: { icon: UserPlus, color: "text-green-400", bg: "bg-green-500/10", label: "Signups" },
   download: { icon: Download, color: "text-purple-400", bg: "bg-purple-500/10", label: "Downloads" },
-  visitor: { icon: Eye, color: "text-cyan-400", bg: "bg-cyan-500/10", label: "Visitors" },
 };
 
-type FeedFilter = "all" | "click" | "redirect" | "signup" | "download" | "visitor";
+type FeedFilter = "all" | "click" | "redirect" | "signup" | "download";
 
 function timeAgo(ts: string): string {
   const diff = Date.now() - new Date(ts).getTime();
