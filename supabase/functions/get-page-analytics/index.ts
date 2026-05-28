@@ -80,16 +80,17 @@ Deno.serve(async (req) => {
       };
     }
 
-    // Count /bio and /links page views for each time period
+    // Count unique sessions that visited /bio or /links for each time period
     const bioPeriods = { today: periods["today"], "7d": periods["7d"], "14d": periods["14d"], "30d": periods["30d"], since_launch: LAUNCH_DATE };
     const bioClicks: Record<string, number> = {};
     for (const [key, since] of Object.entries(bioPeriods)) {
-      const { count } = await supabase
-        .from("page_views")
-        .select("*", { count: "exact", head: true })
-        .or("page_path.ilike./bio,page_path.ilike./links")
-        .gte("entered_at", since);
-      bioClicks[key] = count || 0;
+      const { data, error } = await supabase.rpc("get_bio_click_sessions", { since_ts: since });
+      if (error) {
+        console.error(`Bio sessions error ${key}:`, error);
+        bioClicks[key] = 0;
+        continue;
+      }
+      bioClicks[key] = Number(data) || 0;
     }
 
     return new Response(JSON.stringify({ analytics: results, bio_clicks: bioClicks }), {
