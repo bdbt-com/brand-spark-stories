@@ -164,7 +164,7 @@ const FeedFilterBar = ({
   setFilter: (f: FeedFilter) => void;
   counts: Record<string, number>;
 }) => {
-  const options: FeedFilter[] = ["all", "visitor", "click", "redirect", "signup", "download"];
+  const options: FeedFilter[] = ["all", "click", "redirect", "signup", "download"];
   return (
     <div className="flex flex-wrap gap-1.5">
       {options.map((opt) => {
