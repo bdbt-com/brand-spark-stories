@@ -459,7 +459,8 @@ const LinkInBio = () => {
               const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
                 if ((link as any).randomYoutube) {
                   e.preventDefault();
-                  const pick = INITIAL_EPISODES[Math.floor(Math.random() * INITIAL_EPISODES.length)];
+                  const pool = [...PINNED_TOP, ...INITIAL_NEW];
+                  const pick = pool[Math.floor(Math.random() * pool.length)];
                   startTrackedRedirect(pick.videoId, `${link.trackId}-random:${pick.videoId}`);
                   return;
                 }
