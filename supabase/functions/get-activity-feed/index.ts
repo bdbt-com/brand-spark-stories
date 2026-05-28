@@ -103,14 +103,8 @@ serve(async (req) => {
       }
     }
 
-    for (const v of views || []) {
-      items.push({
-        type: "visitor",
-        label: v.page_path || "/",
-        detail: "Page view",
-        timestamp: v.entered_at || new Date().toISOString(),
-      });
-    }
+
+
 
     items.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
     const feed = items;
