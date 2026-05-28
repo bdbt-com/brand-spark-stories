@@ -325,7 +325,7 @@ const LinkInBio = () => {
   }, [clearAutoplay, scheduleAutoplay]);
 
   // Idle auto-redirect system
-  // Visit 1 (no redirects in 7d): 8s idle → newest YouTube upload
+  // Visit 1 (no redirects in 7d): 4s idle → newest YouTube upload
   // Visit 2+ (1+ redirects in 7d): 17.5s idle → newest YouTube upload
   // Wait for the latest channel upload before redirecting; never send ad-funnel traffic to old fallback videos.
   // Resets after 7 days since first redirect.
@@ -345,7 +345,7 @@ const LinkInBio = () => {
     const recentRedirects = getRecentRedirects();
     const visitNumber = recentRedirects.length;
 
-    const delay = visitNumber === 0 ? 8000 : 17500;
+    const delay = visitNumber === 0 ? 4000 : 17500;
     const videoId = latestVideoId;
 
     let idleTimer: ReturnType<typeof setTimeout>;
