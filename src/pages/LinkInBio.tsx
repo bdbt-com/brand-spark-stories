@@ -5,14 +5,18 @@ import { supabase } from "@/integrations/supabase/client";
 import { startTrackedRedirect } from "@/lib/youtube-redirect";
 import { useYouTubeVideos } from "@/hooks/useYouTubeVideos";
 
-const INITIAL_EPISODES = [
+const PINNED_TOP = [
+  { videoId: "cfLHVIIp4o0", title: "Build a Life You Don't Need to Escape From", views: "23K views" },
+  { videoId: "L6cqky7TLpE", title: "Daily Wins Podcast 115 - Why a £10 Decision is Actually a £100,000 Decision", views: "17K views" },
+  { videoId: "D4dzO5rfBfs", title: "Daily Wins Podcast 112 - Why Choosing Discomfort Feels So Hard", views: "14K views" },
+];
+
+const INITIAL_NEW = [
   { videoId: "pdjVnhCUwA8", title: "Daily Wins Podcast 120 - You Service Your Car But Not Your Own Body", views: "9K views" },
   { videoId: "SioUIPf4Sls", title: "Daily Wins Podcast 118 - Intentional Comfort vs Default Comfort", views: "11K views" },
-  { videoId: "L6cqky7TLpE", title: "Daily Wins Podcast 115 - Why a £10 Decision is Actually a £100,000 Decision", views: "17K views" },
-  { videoId: "cfLHVIIp4o0", title: "Build a Life You Don't Need to Escape From", views: "23K views" },
-  { videoId: "D4dzO5rfBfs", title: "Daily Wins Podcast 112 - Why Choosing Discomfort Feels So Hard", views: "14K views" },
   { videoId: "EhpmrICLRK8", title: "Daily Wins Podcast 113 - Why Challenging Social Norms Polarises People", views: "9.5K views" },
 ];
+
 
 const socialLinks = [
   {
