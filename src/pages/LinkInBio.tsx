@@ -91,17 +91,34 @@ const LinkInBio = () => {
   const { videos: ytVideos } = useYouTubeVideos();
   const latestVideoId = ytVideos[0]?.videoId ?? null;
 
-  // Mobile carousel state — use 6 most recent uploads, fall back to INITIAL_EPISODES while loading/failed
+  // Build 6 cards: 3 newest YouTube uploads interleaved with 3 pinned top-viewed.
+  // Order: [new, top, new, top, new, top]. De-duped by videoId, hard-capped at 6.
   const podcastEpisodes = (() => {
     const pinnedIds = new Set(PINNED_TOP.map(p => p.videoId));
-    const newest = ytVideos.length > 0
-      ? ytVideos.filter(v => !pinnedIds.has(v.videoId)).slice(0, 3).map(v => ({ videoId: v.videoId, title: v.title, views: v.viewCount || '' }))
-      : INITIAL_NEW;
-    const news = [...newest];
-    while (news.length < 3) news.push(INITIAL_NEW[news.length]);
-    // Interleave: [new, top, new, top, new, top]
-    return [news[0], PINNED_TOP[0], news[1], PINNED_TOP[1], news[2], PINNED_TOP[2]];
+    const sourceNew = ytVideos.length > 0
+      ? ytVideos.filter(v => !pinnedIds.has(v.videoId)).map(v => ({ videoId: v.videoId, title: v.title, views: v.viewCount || '' }))
+      : INITIAL_NEW.filter(v => !pinnedIds.has(v.videoId));
+    const news: typeof PINNED_TOP = [];
+    for (const v of sourceNew) {
+      if (news.length >= 3) break;
+      if (!news.some(n => n.videoId === v.videoId)) news.push(v);
+    }
+    while (news.length < 3) {
+      const fb = INITIAL_NEW.find(v => !pinnedIds.has(v.videoId) && !news.some(n => n.videoId === v.videoId));
+      if (!fb) break;
+      news.push(fb);
+    }
+    const interleaved = [news[0], PINNED_TOP[0], news[1], PINNED_TOP[1], news[2], PINNED_TOP[2]].filter(Boolean);
+    // Final safety net: unique by videoId, cap at 6
+    const seen = new Set<string>();
+    const out: typeof PINNED_TOP = [];
+    for (const e of interleaved) {
+      if (!seen.has(e.videoId)) { seen.add(e.videoId); out.push(e); }
+      if (out.length >= 6) break;
+    }
+    return out;
   })();
+
 
 
 
