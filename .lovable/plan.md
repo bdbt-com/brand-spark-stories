@@ -1,15 +1,38 @@
-## Issue
+# Fix: bio clicks > visitors
 
-I picked the wrong "most viewed" trio on `/bio`. The screenshot shows "Build a Life You Don't Need to Escape From" — that's from the old INITIAL_EPISODES list, not the trio you set on the Blueprint page.
+## Root cause
 
-## The correct pinned trio (from `src/pages/Blueprint.tsx` lines 13-15)
+In `supabase/functions/get-page-analytics/index.ts` (lines 86-92), the "bio clicks" metric is computed as a raw `count: exact` over `page_views` where `page_path` is `/bio` or `/links`. Every navigation, refresh, or SPA re-mount inserts a new `page_views` row, so a single visitor can produce many "bio clicks".
 
-1. `SioUIPf4Sls` — "Which Comfort Are You Choosing? - Daily Wins Podcast 118" — 111K views
-2. `L6cqky7TLpE` — "Do This And Turn £10 Into £100,000 - Daily Wins Podcast 115" — 108K views
-3. `zUGM3gZbNY8` — "Most People Stop here. Are You Most People? Daily Wins Podcast 116" — 92K views
+Meanwhile, "visitors" is a unique-session count from the `get_visitor_stats` RPC. So `bio_clicks > visitors` is expected with the current logic — it's an apples-to-oranges comparison.
 
-## Fix (single file: `src/pages/LinkInBio.tsx`)
+The UI on `/admin-list` presents them side-by-side as if they're comparable ("VISITORS 5998 / bio clicks: 6017"), which is misleading.
 
-Replace the `PINNED_TOP` constant with the Blueprint trio above (same shape: `{ videoId, title, views }`). The 3 most-recent slots (pulled live from `ytVideos`) and the `[new, top, new, top, new, top]` interleave stay exactly as they are.
+## Fix
 
-To stay in sync going forward, I'll import the trio from Blueprint (or extract it to a shared module like `src/data/topVideos.ts`) so updating one updates both — let me know which you prefer; otherwise I'll just hardcode the same 3 in LinkInBio for now.
+Change "bio clicks" to **unique sessions that viewed `/bio` or `/links`**, matching how visitors are counted. Two options — recommending Option A:
+
+### Option A (recommended): unique sessions in the edge function
+
+In `supabase/functions/get-page-analytics/index.ts`, replace the `count: "exact", head: true` query with a distinct-session count for each period. Two viable implementations:
+
+1. Add a small SQL RPC `get_bio_click_sessions(since_ts timestamptz)` that returns `count(distinct session_id)` from `page_views` where `page_path in ('/bio','/links')` and `entered_at >= since_ts`. Call it in the same loop. (Cleanest, scales best.)
+2. Or, page through `page_views` rows for the period selecting only `session_id`, dedupe in TS, return the size. (No migration, but heavier on row transfer — fine at current volume.)
+
+Either way the returned `bio_clicks[key]` becomes "unique bio visitors in period", which is ≤ total visitors by construction.
+
+### Option B: relabel only
+
+Keep the raw count but rename the UI label on `AdminList.tsx` line 407 from `/bio clicks` to something like `/bio views` and add a tooltip explaining it counts every page load. Cheaper but doesn't fix the actual signal the user wants.
+
+## Files touched (Option A.1)
+
+- `supabase/functions/get-page-analytics/index.ts` — swap the bio loop to call the new RPC.
+- New migration adding `public.get_bio_click_sessions(since_ts timestamptz)` (SECURITY DEFINER, returns bigint).
+- No frontend changes needed; `AdminList.tsx` keeps reading `bio_clicks[key]`.
+
+## Sanity check after deploy
+
+On `/admin-list`, today's `bio clicks` should now be ≤ `visitors` for every period. If you also want the trend % to recalculate against the new unique-session baseline, the existing `TodayTrendBadge` already does this automatically since it reads the same field.
+
+Let me know if you'd rather go with Option A.2 (no migration) or Option B (relabel).

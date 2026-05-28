@@ -202,6 +202,7 @@ export type Database = {
     Functions: {
       bytea_to_text: { Args: { data: string }; Returns: string }
       generate_signed_urls: { Args: never; Returns: undefined }
+      get_bio_click_sessions: { Args: { since_ts: string }; Returns: number }
       get_daily_stats: {
         Args: never
         Returns: {
