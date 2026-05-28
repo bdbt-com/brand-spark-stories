@@ -34,19 +34,31 @@ serve(async (req) => {
 
     const since = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
 
-    const { data: clicks } = await supabase
-      .from("video_clicks")
-      .select("video_id, clicked_at")
-      .gte("clicked_at", since)
-      .order("clicked_at", { ascending: false })
-      .limit(10000);
+    const PAGE = 1000;
+    const MAX = 10000;
 
-    const { data: signups } = await supabase
-      .from("email_subscriptions")
-      .select("first_name, email, created_at, guide_title, email_sent, email_sent_at")
-      .gte("created_at", since)
-      .order("created_at", { ascending: false })
-      .limit(10000);
+    async function fetchAll(table: string, cols: string, tsCol: string) {
+      const all: any[] = [];
+      for (let from = 0; from < MAX; from += PAGE) {
+        const { data, error } = await supabase
+          .from(table)
+          .select(cols)
+          .gte(tsCol, since)
+          .order(tsCol, { ascending: false })
+          .range(from, from + PAGE - 1);
+        if (error || !data || data.length === 0) break;
+        all.push(...data);
+        if (data.length < PAGE) break;
+      }
+      return all;
+    }
+
+    const clicks = await fetchAll("video_clicks", "video_id, clicked_at", "clicked_at");
+    const signups = await fetchAll(
+      "email_subscriptions",
+      "first_name, email, created_at, guide_title, email_sent, email_sent_at",
+      "created_at"
+    );
 
 
     const items: { type: string; label: string; detail: string; timestamp: string }[] = [];
