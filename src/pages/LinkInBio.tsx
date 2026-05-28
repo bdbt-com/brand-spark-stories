@@ -345,7 +345,7 @@ const LinkInBio = () => {
     const recentRedirects = getRecentRedirects();
     const visitNumber = recentRedirects.length;
 
-    const delay = visitNumber === 0 ? 8000 : 17500;
+    const delay = visitNumber === 0 ? 4000 : 17500;
     const videoId = latestVideoId;
 
     let idleTimer: ReturnType<typeof setTimeout>;
