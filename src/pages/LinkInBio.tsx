@@ -4,12 +4,9 @@ import { Play } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { startTrackedRedirect } from "@/lib/youtube-redirect";
 import { useYouTubeVideos } from "@/hooks/useYouTubeVideos";
+import { PINNED_TOP_VIDEOS } from "@/data/pinnedTopVideos";
 
-const PINNED_TOP = [
-  { videoId: "SioUIPf4Sls", title: "Which Comfort Are You Choosing? - Daily Wins Podcast 118", views: "111K views" },
-  { videoId: "L6cqky7TLpE", title: "Do This And Turn £10 Into £100,000 - Daily Wins Podcast 115", views: "108K views" },
-  { videoId: "zUGM3gZbNY8", title: "Most People Stop here. Are You Most People? Daily Wins Podcast 116", views: "92K views" },
-];
+const PINNED_TOP = PINNED_TOP_VIDEOS.map(v => ({ ...v }));
 
 const INITIAL_NEW = [
   { videoId: "pdjVnhCUwA8", title: "Daily Wins Podcast 120 - You Service Your Car But Not Your Own Body", views: "9K views" },
