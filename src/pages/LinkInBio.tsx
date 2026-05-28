@@ -149,19 +149,44 @@ const LinkInBio = () => {
     }, delay);
   }, [clearAutoplay, playingVideo]);
 
-  // Mount: show first slide centered, static, then start autoplay quickly
-  useEffect(() => {
+  // Mount: synchronously center the first slide BEFORE paint, then start autoplay once data is ready
+  useLayoutEffect(() => {
     if (window.innerWidth >= 768 || !isFirstMount) return;
-    const raf = requestAnimationFrame(() => {
-      if (!trackRef.current) return;
-      trackRef.current.style.transition = 'none';
-      trackRef.current.style.transform = `translateX(${getTranslateX(2)}px)`;
-      setCurrentIndex(2);
-      setIsFirstMount(false);
-      scheduleAutoplay(1500);
-    });
-    return () => cancelAnimationFrame(raf);
+    if (!trackRef.current) return;
+    trackRef.current.style.transition = 'none';
+    trackRef.current.style.transform = `translateX(${getTranslateX(2)}px)`;
+    setCurrentIndex(2);
+    setIsFirstMount(false);
   }, [isFirstMount]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // When podcast data swaps in (ytVideos loads), snap back to centred first slide without transition
+  const lastFirstId = useRef<string | null>(null);
+  useLayoutEffect(() => {
+    if (window.innerWidth >= 768) return;
+    const firstId = podcastEpisodes[0]?.videoId ?? null;
+    if (lastFirstId.current === null) {
+      lastFirstId.current = firstId;
+      return;
+    }
+    if (firstId !== lastFirstId.current) {
+      lastFirstId.current = firstId;
+      clearAutoplay();
+      if (trackRef.current) {
+        trackRef.current.style.transition = 'none';
+        trackRef.current.style.transform = `translateX(${getTranslateX(2)}px)`;
+      }
+      setTransitionEnabled(false);
+      setCurrentIndex(2);
+    }
+  }, [podcastEpisodes]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Kick off autoplay after the initial centred slide has had time to settle and data has loaded
+  useEffect(() => {
+    if (window.innerWidth >= 768 || isFirstMount) return;
+    if (ytVideos.length === 0) return; // wait for real data so cards don't swap mid-animation
+    const t = setTimeout(() => scheduleAutoplay(2000), 600);
+    return () => clearTimeout(t);
+  }, [isFirstMount, ytVideos.length]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Normalize clone boundaries after transition
   const handleTransitionEnd = useCallback(() => {
