@@ -5,14 +5,18 @@ import { supabase } from "@/integrations/supabase/client";
 import { startTrackedRedirect } from "@/lib/youtube-redirect";
 import { useYouTubeVideos } from "@/hooks/useYouTubeVideos";
 
-const INITIAL_EPISODES = [
+const PINNED_TOP = [
+  { videoId: "cfLHVIIp4o0", title: "Build a Life You Don't Need to Escape From", views: "23K views" },
+  { videoId: "L6cqky7TLpE", title: "Daily Wins Podcast 115 - Why a £10 Decision is Actually a £100,000 Decision", views: "17K views" },
+  { videoId: "D4dzO5rfBfs", title: "Daily Wins Podcast 112 - Why Choosing Discomfort Feels So Hard", views: "14K views" },
+];
+
+const INITIAL_NEW = [
   { videoId: "pdjVnhCUwA8", title: "Daily Wins Podcast 120 - You Service Your Car But Not Your Own Body", views: "9K views" },
   { videoId: "SioUIPf4Sls", title: "Daily Wins Podcast 118 - Intentional Comfort vs Default Comfort", views: "11K views" },
-  { videoId: "L6cqky7TLpE", title: "Daily Wins Podcast 115 - Why a £10 Decision is Actually a £100,000 Decision", views: "17K views" },
-  { videoId: "cfLHVIIp4o0", title: "Build a Life You Don't Need to Escape From", views: "23K views" },
-  { videoId: "D4dzO5rfBfs", title: "Daily Wins Podcast 112 - Why Choosing Discomfort Feels So Hard", views: "14K views" },
   { videoId: "EhpmrICLRK8", title: "Daily Wins Podcast 113 - Why Challenging Social Norms Polarises People", views: "9.5K views" },
 ];
+
 
 const socialLinks = [
   {
@@ -88,9 +92,17 @@ const LinkInBio = () => {
   const latestVideoId = ytVideos[0]?.videoId ?? null;
 
   // Mobile carousel state — use 6 most recent uploads, fall back to INITIAL_EPISODES while loading/failed
-  const podcastEpisodes = ytVideos.length > 0
-    ? ytVideos.slice(0, 6).map(v => ({ videoId: v.videoId, title: v.title, views: v.viewCount || '' }))
-    : INITIAL_EPISODES;
+  const podcastEpisodes = (() => {
+    const pinnedIds = new Set(PINNED_TOP.map(p => p.videoId));
+    const newest = ytVideos.length > 0
+      ? ytVideos.filter(v => !pinnedIds.has(v.videoId)).slice(0, 3).map(v => ({ videoId: v.videoId, title: v.title, views: v.viewCount || '' }))
+      : INITIAL_NEW;
+    const news = [...newest];
+    while (news.length < 3) news.push(INITIAL_NEW[news.length]);
+    // Interleave: [new, top, new, top, new, top]
+    return [news[0], PINNED_TOP[0], news[1], PINNED_TOP[1], news[2], PINNED_TOP[2]];
+  })();
+
 
 
   const totalSlides = podcastEpisodes.length;
@@ -447,7 +459,8 @@ const LinkInBio = () => {
               const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
                 if ((link as any).randomYoutube) {
                   e.preventDefault();
-                  const pick = INITIAL_EPISODES[Math.floor(Math.random() * INITIAL_EPISODES.length)];
+                  const pool = [...PINNED_TOP, ...INITIAL_NEW];
+                  const pick = pool[Math.floor(Math.random() * pool.length)];
                   startTrackedRedirect(pick.videoId, `${link.trackId}-random:${pick.videoId}`);
                   return;
                 }

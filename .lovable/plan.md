@@ -1,23 +1,32 @@
-No API key needed — the `youtube-videos` edge function already scrapes view counts from the channel HTML and returns them as `viewCount` (e.g. "12K views", "1.4M views") on every video.
+## Goal
 
-## The bug
+On `/bio`, show 6 carousel cards = 3 newest YouTube uploads + 3 fixed "most viewed" pinned episodes, interleaved as:
 
-In `src/pages/LinkInBio.tsx` line 92, the mapping hard-codes `views: ''`, throwing the scraped count away:
+`[new, top, new, top, new, top]`
 
-```ts
-ytVideos.slice(0, 6).map(v => ({ videoId: v.videoId, title: v.title, views: '' }))
-```
+The 3 pinned never change. The 3 newest auto-refresh from YouTube on every page load (already live via `useYouTubeVideos` + `?fresh=1`). When a brand new upload hits the channel, it bumps the oldest of the 3 "new" slots out automatically — no manual work.
 
-## Fix
+## Pinned top 3 (from current INITIAL_EPISODES, ordered by views)
 
-Forward the real value:
+1. `cfLHVIIp4o0` — "Build a Life You Don't Need to Escape From" — 23K views
+2. `L6cqky7TLpE` — "Daily Wins Podcast 115 — Why a £10 Decision is Actually a £100,000 Decision" — 17K views
+3. `D4dzO5rfBfs` — "Daily Wins Podcast 112 — Why Choosing Discomfort Feels So Hard" — 14K views
 
-```ts
-ytVideos.slice(0, 6).map(v => ({ videoId: v.videoId, title: v.title, views: v.viewCount || '' }))
-```
+## Change (single file: `src/pages/LinkInBio.tsx`)
 
-That's the only change — the carousel card already renders `episode.views` (the `INITIAL_EPISODES` fallback uses the same shape).
+1. Split `INITIAL_EPISODES` into:
+   - `PINNED_TOP` (the 3 above, with views) — always rendered.
+   - `INITIAL_NEW` (3 fallback "newest" episodes for when the YouTube fetch hasn't returned yet).
 
-## "Update every 24 hours"
+2. Replace the current `podcastEpisodes` builder:
+   - Take `ytVideos.slice(0, 3)` (the 3 most recent uploads) when available, else fall back to `INITIAL_NEW`.
+   - De-dupe against `PINNED_TOP` videoIds so a pinned video doesn't accidentally appear twice (skip + take next).
+   - Build the final array by interleaving: `[new0, top0, new1, top1, new2, top2]`.
+   - Forward real view counts from `ytVideos` (already done for the top 6 — keep that behaviour for the new 3).
 
-The hook calls the edge function with `?fresh=1` on every page load, which bypasses the 30s in-memory cache and re-scrapes YouTube live. So counts are already as fresh as possible per visit — no cron job needed, no API key needed.
+3. Carousel mechanics (`totalSlides`, `clonedEpisodes`, indices, autoplay) stay unchanged — array length stays at 6.
+
+## Notes
+
+- No edge-function or backend changes. The "update when new video added" behaviour is already free: each page load re-scrapes the channel, so `ytVideos[0..2]` is always the live latest 3.
+- Pinned trio is hardcoded per your instruction; easy to swap later if you want different ones.
