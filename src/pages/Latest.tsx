@@ -6,7 +6,7 @@ import { useYouTubeVideos } from "@/hooks/useYouTubeVideos";
 import { useTopVideos } from "@/hooks/useTopVideos";
 import { startTrackedRedirect } from "@/lib/youtube-redirect";
 
-const AUTO_REDIRECT_SECONDS = 20;
+const AUTO_REDIRECT_SECONDS = 8;
 
 interface GridEpisode {
   videoId: string;
