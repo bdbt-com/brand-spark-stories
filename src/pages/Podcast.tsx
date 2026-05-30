@@ -1,434 +1,220 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import { Card, CardContent } from "@/components/ui/card";
+import { useEffect, useMemo, useState } from "react";
+import { Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Alert, AlertDescription } from "@/components/ui/alert";
-import { 
-  Play, 
-  Clock, 
-  Calendar, 
-  Users, 
-  ArrowLeft, 
-  ArrowRight,
-  ExternalLink,
-  Download,
-  Heart,
-  Share2,
-  Instagram,
-  Youtube,
-  Facebook,
-  Loader2,
-  AlertCircle
-} from "lucide-react";
-
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import { useLatestVideo } from "@/hooks/useLatestVideo";
 import { useYouTubeVideos } from "@/hooks/useYouTubeVideos";
+import { useTopVideos } from "@/hooks/useTopVideos";
+import { startTrackedRedirect } from "@/lib/youtube-redirect";
+
+const AUTO_REDIRECT_SECONDS = 8;
+
+interface GridEpisode {
+  videoId: string;
+  title: string;
+  thumbnail: string;
+  viewCountText: string;
+  duration?: string;
+}
 
 const Podcast = () => {
-  const [currentSlide, setCurrentSlide] = useState(0);
+  const { video, loading } = useLatestVideo();
+  const { videos: recentVideos } = useYouTubeVideos();
+  const { videos: topVideos } = useTopVideos(3);
+  const [secondsLeft, setSecondsLeft] = useState(AUTO_REDIRECT_SECONDS);
+  const [redirected, setRedirected] = useState(false);
 
-  const { videos, loading, error, refreshVideos } = useYouTubeVideos();
+  // noindex this page
+  useEffect(() => {
+    const meta = document.createElement("meta");
+    meta.name = "robots";
+    meta.content = "noindex,nofollow";
+    document.head.appendChild(meta);
+    const originalTitle = document.title;
+    document.title = "Latest Episode — Daily Wins";
+    return () => {
+      document.head.removeChild(meta);
+      document.title = originalTitle;
+    };
+  }, []);
 
-  const featuredVideos = videos.slice(0, 6);
-  const allVideos = videos;
+  const goToVideo = (auto = false) => {
+    if (!video || redirected) return;
+    setRedirected(true);
+    const trackPrefix = auto ? "latest-auto" : "latest-page";
+    startTrackedRedirect(video.videoId, `${trackPrefix}:${video.videoId}`);
+  };
 
-  const nextSlide = () => {
-    if (featuredVideos.length > 0) {
-      setCurrentSlide((prev) => (prev + 1) % featuredVideos.length);
+  const goToGridVideo = (videoId: string) => {
+    setRedirected(true); // cancel hero countdown
+    startTrackedRedirect(videoId, `latest-grid:${videoId}`);
+  };
+
+  // Countdown + auto-redirect — PAUSED
+  useEffect(() => {
+    // Auto-redirect paused during development
+  }, []);
+
+  // Build the 6-card grid: interleave [new1, top1, new2, top2, new3, top3]
+  const gridEpisodes = useMemo<GridEpisode[]>(() => {
+    const heroId = video?.videoId;
+    const topIds = new Set(topVideos.map((t) => t.videoId));
+
+    const recents: GridEpisode[] = [];
+    for (const v of recentVideos) {
+      if (recents.length >= 3) break;
+      if (v.videoId === heroId) continue;
+      if (topIds.has(v.videoId)) continue;
+      recents.push({
+        videoId: v.videoId,
+        title: v.title,
+        thumbnail: v.thumbnail,
+        viewCountText: v.viewCount || "",
+        duration: v.duration,
+      });
     }
-  };
 
-  const prevSlide = () => {
-    if (featuredVideos.length > 0) {
-      setCurrentSlide((prev) => (prev - 1 + featuredVideos.length) % featuredVideos.length);
+    const tops: GridEpisode[] = topVideos.map((t) => ({
+      videoId: t.videoId,
+      title: t.title,
+      thumbnail: t.thumbnail,
+      viewCountText: t.viewCountText || "",
+    }));
+
+    const interleaved: GridEpisode[] = [];
+    for (let i = 0; i < 3; i++) {
+      if (recents[i]) interleaved.push(recents[i]);
+      if (tops[i]) interleaved.push(tops[i]);
     }
-  };
 
-  const openVideo = (videoId: string) => {
-    window.open(`https://www.youtube.com/watch?v=${videoId}`, '_blank');
-  };
-
+    const seen = new Set<string>();
+    const out: GridEpisode[] = [];
+    for (const e of interleaved) {
+      if (seen.has(e.videoId)) continue;
+      seen.add(e.videoId);
+      out.push(e);
+      if (out.length >= 6) break;
+    }
+    return out;
+  }, [recentVideos, topVideos, video?.videoId]);
 
   return (
-    <div className="min-h-screen bg-gradient-subtle">
-      {/* Smaller Hero Section */}
-      <section className="py-12 bg-gradient-hero text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="animate-fade-in">
-            <h1 className="text-3xl lg:text-4xl font-bold mb-4 leading-tight">
-              <span className="block text-white">Podcasts &</span>
-              <span className="block text-[hsl(35_45%_75%)]">Videos</span>
-            </h1>
-            <p className="text-lg lg:text-xl mb-6 text-white/90 leading-relaxed max-w-3xl mx-auto">
-              Latest videos from Big Daddy's Big Tips.
-            </p>
-            
-            {/* Status indicator */}
-            {videos.length > 0 && (
-              <div className="flex items-center justify-center gap-2 mb-4">
-                <div className="text-white/80 text-sm">
-                  {videos.length} videos • Last updated: {new Date().toLocaleDateString()}
-                </div>
-              </div>
-            )}
+    <main className="min-h-[100dvh] bg-background flex flex-col items-center px-3 sm:px-4 pt-4 pb-[max(1.5rem,env(safe-area-inset-bottom))] sm:pt-8">
+      <div className="w-full max-w-2xl">
+        {loading || !video ? (
+          <div className="flex flex-col items-center gap-4 text-foreground/70 py-16">
+            <div className="h-10 w-10 rounded-full border-2 border-primary/20 border-t-primary animate-spin" />
+            <p className="text-sm">Loading today's episode…</p>
           </div>
-          
-          {/* Social Media Icons */}
-          <div className="flex justify-center items-center gap-6 mb-8">
-            <div className="flex items-center gap-4">
-              <span className="text-sm text-white/80 font-medium">Follow @BigDaddysBigTips</span>
-              <div className="flex gap-3">
-                <a 
-                  href="https://instagram.com/BigDaddysBigTips" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="p-2 rounded-full bg-white/20 hover:bg-white/30 text-white transition-all duration-300 hover:scale-110"
-                >
-                  <Instagram className="w-5 h-5" />
-                </a>
-                <a 
-                  href="https://tiktok.com/@BigDaddysBigTips" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="p-2 rounded-full bg-white/20 hover:bg-white/30 text-white transition-all duration-300 hover:scale-110"
-                >
-                  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
-                  </svg>
-                </a>
-                <a 
-                  href="https://youtube.com/@BigDaddysBigTips" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="p-2 rounded-full bg-white/20 hover:bg-white/30 text-white transition-all duration-300 hover:scale-110"
-                >
-                  <Youtube className="w-5 h-5" />
-                </a>
-                <a 
-                  href="https://facebook.com/BigDaddysBigTips" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="p-2 rounded-full bg-white/20 hover:bg-white/30 text-white transition-all duration-300 hover:scale-110"
-                >
-                  <Facebook className="w-5 h-5" />
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <div className="py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Error State */}
-          {error && videos.length === 0 && (
-            <Alert className="mb-8 border-destructive">
-              <AlertCircle className="h-4 w-4" />
-              <AlertDescription>
-                Unable to load videos at this time.
-                <Button 
-                  variant="outline" 
-                  size="sm" 
-                  onClick={refreshVideos}
-                  className="ml-2"
-                >
-                  Retry
-                </Button>
-              </AlertDescription>
-            </Alert>
-          )}
-
-          {/* Loading State */}
-          {loading && (
-            <div className="text-center py-20">
-              <Loader2 className="w-8 h-8 animate-spin mx-auto mb-4 text-primary" />
-              <p className="text-foreground">Loading your latest videos...</p>
-            </div>
-          )}
-
-          {/* Featured Carousel */}
-          {!loading && featuredVideos.length > 0 && (
-            <div className="mb-20">
-              <div className="flex items-center justify-between mb-8">
-                <h2 className="text-2xl lg:text-3xl font-bold text-primary">Latest Videos</h2>
-                <div className="flex gap-2">
-                  <Button 
-                    variant="outline" 
-                    size="icon"
-                    onClick={prevSlide}
-                    className="hover:bg-primary hover:text-primary-foreground"
-                    disabled={featuredVideos.length === 0}
-                  >
-                    <ArrowLeft className="w-4 h-4" />
-                  </Button>
-                  <Button 
-                    variant="outline" 
-                    size="icon"
-                    onClick={nextSlide}
-                    className="hover:bg-primary hover:text-primary-foreground"
-                    disabled={featuredVideos.length === 0}
-                  >
-                    <ArrowRight className="w-4 h-4" />
-                  </Button>
+        ) : (
+          <article className="flex flex-col gap-3 sm:gap-5">
+            {/* Thumbnail card */}
+            <button
+              type="button"
+              onClick={() => goToVideo(false)}
+              className="group relative block w-full overflow-hidden rounded-2xl border border-border bg-card focus:outline-none focus:ring-2 focus:ring-primary active:scale-[0.995] transition-transform"
+              aria-label={`Watch ${video.title} on YouTube`}
+            >
+              <div className="relative aspect-video w-full">
+                <img
+                  src={video.thumbnail}
+                  alt={video.title}
+                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+                  loading="eager"
+                />
+                <div className="absolute inset-0 bg-black/15 group-hover:bg-black/5 transition-colors" />
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <span className="flex h-14 w-20 sm:h-20 sm:w-28 items-center justify-center rounded-2xl bg-black/80 group-hover:bg-black/90 transition-colors">
+                    <Play className="h-7 w-7 sm:h-10 sm:w-10 fill-white text-white" />
+                  </span>
                 </div>
+                {video.duration && (
+                  <span className="absolute bottom-2 right-2 rounded bg-black/85 px-1.5 py-0.5 text-[11px] sm:text-xs font-medium text-white">
+                    {video.duration}
+                  </span>
+                )}
               </div>
+            </button>
 
-              <div className="relative overflow-hidden rounded-2xl shadow-strong">
-                <div 
-                  className="flex transition-transform duration-500 ease-in-out"
-                  style={{ transform: `translateX(-${currentSlide * 100}%)` }}
-                >
-                  {featuredVideos.map((video) => (
-                    <div key={video.id} className="w-full flex-shrink-0">
-                      <div className="grid lg:grid-cols-2 gap-0 bg-card">
-                        <div className="relative group">
-                          <img 
-                            src={video.thumbnail} 
-                            alt={video.title}
-                            className="w-full h-96 object-cover"
-                          />
-                          <div className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            <Button 
-                              variant="accent" 
-                              size="lg" 
-                              className="animate-bounce"
-                              onClick={() => openVideo(video.videoId)}
-                            >
-                              <Play className="w-6 h-6 mr-2" />
-                              Watch Now
-                            </Button>
-                          </div>
-                        </div>
-                        <div className="p-8 lg:p-12 flex flex-col justify-center">
-                          <h3 className="text-2xl lg:text-3xl font-bold mb-4 text-primary line-clamp-2">
-                            {video.title}
-                          </h3>
-                          <p className="text-foreground mb-6 leading-relaxed line-clamp-3">
-                            {video.description}
-                          </p>
-                          <div className="flex items-center gap-6 text-sm text-primary mb-6">
-                            <span className="flex items-center">
-                              <Calendar className="w-4 h-4 mr-1" />
-                              {new Date(video.publishedAt).toLocaleDateString()}
-                            </span>
-                            <span className="flex items-center">
-                              <Clock className="w-4 h-4 mr-1" />
-                              {video.duration}
-                            </span>
-                            <span className="flex items-center">
-                              <Users className="w-4 h-4 mr-1" />
-                              {video.viewCount} views
-                            </span>
-                          </div>
-                          <div className="flex gap-3">
-                            <Button 
-                              variant="hero"
-                              onClick={() => openVideo(video.videoId)}
-                            >
-                              <Play className="w-4 h-4 mr-2" />
-                              Watch on YouTube
-                            </Button>
-                            <Button 
-                              variant="outline"
-                              onClick={() => window.open(`https://www.youtube.com/watch?v=${video.videoId}`, '_blank')}
-                            >
-                              <ExternalLink className="w-4 h-4 mr-2" />
-                              Open
-                            </Button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Carousel Indicators */}
-              {featuredVideos.length > 1 && (
-                <div className="flex justify-center mt-6 gap-2">
-                  {featuredVideos.map((_, index) => (
-                    <button
-                      key={index}
-                      onClick={() => setCurrentSlide(index)}
-                      className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                        index === currentSlide 
-                          ? "bg-primary scale-110" 
-                          : "bg-muted hover:bg-muted-foreground/50"
-                      }`}
-                    />
-                  ))}
-                </div>
-              )}
-            </div>
-          )}
-
-          {/* All Videos Grid */}
-          {!loading && allVideos.length > 0 && (
-            <div>
-              <h2 className="text-2xl lg:text-3xl font-bold mb-8 text-primary">All Videos ({allVideos.length})</h2>
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {allVideos.map((video) => (
-                  <Card 
-                    key={video.id}
-                    className="group hover:shadow-medium transition-all duration-300 hover:-translate-y-2 cursor-pointer overflow-hidden"
-                    onClick={() => openVideo(video.videoId)}
-                  >
-                    <div className="relative">
-                      <img 
-                        src={video.thumbnail} 
-                        alt={video.title}
-                        className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                      <div className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <Button variant="accent" size="sm">
-                          <Play className="w-4 h-4" />
-                        </Button>
-                      </div>
-                      <div className="absolute bottom-2 right-2 bg-black/70 text-white text-xs px-2 py-1 rounded">
-                        {video.duration}
-                      </div>
-                    </div>
-                    <CardContent className="p-6">
-                      <h3 className="font-semibold mb-2 text-primary group-hover:text-primary transition-colors line-clamp-2">
-                        {video.title}
-                      </h3>
-                      <p className="text-sm text-foreground mb-4 line-clamp-2">
-                        {video.description}
-                      </p>
-                      <div className="flex items-center justify-between text-xs text-primary mb-4">
-                        <span className="flex items-center">
-                          <Calendar className="w-3 h-3 mr-1" />
-                          {new Date(video.publishedAt).toLocaleDateString()}
-                        </span>
-                        <span className="flex items-center">
-                          <Users className="w-3 h-3 mr-1" />
-                          {video.viewCount}
-                        </span>
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <Button 
-                          variant="ghost" 
-                          size="sm" 
-                          className="text-primary hover:text-primary"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            openVideo(video.videoId);
-                          }}
-                        >
-                          <ExternalLink className="w-4 h-4 mr-1" />
-                          Watch
-                        </Button>
-                        <div className="flex gap-1">
-                          <Button 
-                            variant="ghost" 
-                            size="icon" 
-                            className="w-8 h-8"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              navigator.share?.({
-                                title: video.title,
-                                url: `https://www.youtube.com/watch?v=${video.videoId}`
-                              });
-                            }}
-                          >
-                            <Share2 className="w-4 h-4" />
-                          </Button>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Empty State */}
-          {!loading && !error && allVideos.length === 0 && (
-            <div className="text-center py-20">
-              <Youtube className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
-              <h3 className="text-xl font-semibold mb-2 text-primary">No videos found</h3>
-              <p className="text-muted-foreground mb-4">
-                Make sure your YouTube channel has public videos and the API key is correct.
+            {/* Title + meta */}
+            <div className="flex flex-col gap-1.5 sm:gap-2 px-0.5">
+              <h1 className="text-lg sm:text-2xl md:text-3xl font-bold leading-snug text-primary break-words [text-wrap:balance]">
+                {video.title}
+              </h1>
+              <p className="text-xs sm:text-sm text-foreground/60">
+                {[video.viewCountText, video.publishedText].filter(Boolean).join(" · ") ||
+                  "Daily Wins Podcast"}
               </p>
-              <Button variant="outline" onClick={refreshVideos}>
-                <ArrowRight className="w-4 h-4 mr-2" />
-                Try Again
-              </Button>
             </div>
-          )}
 
-          {/* CTA Section */}
-          <div className="mt-20 text-center bg-warning text-white rounded-2xl p-12 border-4 border-warning/40">
-            <h2 className="text-3xl font-bold mb-4 text-white">
-              Never Miss an Episode
-            </h2>
-            <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-              Subscribe to our channels and get notified when we release new content 
-              packed with actionable insights and success strategies.
+            {/* CTA */}
+            <Button
+              size="lg"
+              onClick={() => goToVideo(false)}
+              className="w-full h-12 sm:h-14 text-base sm:text-lg font-semibold touch-manipulation"
+            >
+              <Play className="mr-2 h-5 w-5 fill-current" />
+              Watch on YouTube
+            </Button>
+
+            <p className="text-center text-xs sm:text-sm text-foreground/70 px-2">
+              You'll be taken to YouTube to watch today's latest episode.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button variant="accent" size="lg" asChild>
-                <Link to="/partnership">Subscribe on YouTube</Link>
-              </Button>
-              <Button variant="outline" size="lg" className="bg-white/10 border-white/30 text-white hover:bg-white/20" asChild>
-                <Link to="/partnership">Follow Podcast</Link>
-              </Button>
-            </div>
-          </div>
-        </div>
+            <p className="text-center text-[11px] sm:text-xs text-foreground/40">
+              Auto-redirect paused
+            </p>
+          </article>
+        )}
       </div>
 
-      {/* Bottom Video Menu Carousel */}
-      {!loading && allVideos.length > 0 && (
-        <div className="fixed bottom-0 left-0 right-0 bg-card/95 backdrop-blur-md border-t border-border shadow-strong z-50">
-          <div className="max-w-7xl mx-auto px-4 py-4">
-            <Carousel
-              opts={{
-                align: "start",
-                loop: false,
-              }}
-              className="w-full"
-            >
-              <CarouselContent className="-ml-2 md:-ml-4">
-                {allVideos.map((video, index) => (
-                  <CarouselItem key={video.id} className="pl-2 md:pl-4 basis-1/2 md:basis-1/3 lg:basis-1/4 xl:basis-1/5">
-                    <div 
-                      className="text-center group cursor-pointer"
-                      onClick={() => openVideo(video.videoId)}
-                    >
-                      <div className="relative mb-2">
-                        <img 
-                          src={video.thumbnail} 
-                          alt={video.title}
-                          className="w-full h-16 object-cover rounded-lg group-hover:scale-105 transition-transform duration-300"
-                        />
-                        <div className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg">
-                          <Play className="w-4 h-4 text-white" />
-                        </div>
-                        <div className="absolute bottom-1 right-1 bg-black/70 text-white text-xs px-1 py-0.5 rounded text-[10px]">
-                          {video.duration}
-                        </div>
-                      </div>
-                      <h4 className="text-xs font-medium text-primary line-clamp-2 mb-1 group-hover:text-accent transition-colors">
-                        {video.title}
-                      </h4>
-                      <div className="flex items-center justify-center">
-                        <span className="text-xs text-muted-foreground bg-muted rounded-full px-2 py-1 min-w-6 h-6 flex items-center justify-center font-bold">
-                          {index + 1}
-                        </span>
-                      </div>
-                    </div>
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-              <CarouselPrevious className="left-2" />
-              <CarouselNext className="right-2" />
-            </Carousel>
+      {/* More episodes grid */}
+      {gridEpisodes.length > 0 && (
+        <section className="w-full max-w-5xl mt-8 sm:mt-14">
+          <div className="flex items-center gap-3 mb-3 sm:mb-6">
+            <span className="text-[11px] sm:text-sm font-semibold uppercase tracking-[0.18em] sm:tracking-[0.2em] text-primary">
+              More episodes
+            </span>
+            <span className="h-px flex-1 bg-border" />
           </div>
-        </div>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-2.5 sm:gap-4">
+            {gridEpisodes.map((ep) => (
+              <button
+                key={ep.videoId}
+                type="button"
+                onClick={() => goToGridVideo(ep.videoId)}
+                className="group flex flex-col gap-1.5 sm:gap-2 text-left focus:outline-none focus:ring-2 focus:ring-primary rounded-xl active:scale-[0.98] transition-transform touch-manipulation"
+                aria-label={`Watch ${ep.title} on YouTube`}
+              >
+                <div className="relative aspect-video w-full overflow-hidden rounded-lg sm:rounded-xl border border-border bg-card">
+                  <img
+                    src={ep.thumbnail}
+                    alt={ep.title}
+                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-colors" />
+                  <div className="absolute inset-0 flex items-center justify-center opacity-90 group-hover:opacity-100 transition-opacity">
+                    <span className="flex h-8 w-11 sm:h-12 sm:w-16 items-center justify-center rounded-lg sm:rounded-xl bg-black/75 group-hover:bg-black/90 transition-colors">
+                      <Play className="h-4 w-4 sm:h-6 sm:w-6 fill-white text-white" />
+                    </span>
+                  </div>
+                  {ep.duration && (
+                    <span className="absolute bottom-1 right-1 sm:bottom-1.5 sm:right-1.5 rounded bg-black/85 px-1 py-0.5 sm:px-1.5 text-[10px] sm:text-xs font-medium text-white">
+                      {ep.duration}
+                    </span>
+                  )}
+                </div>
+                <h3 className="text-[13px] sm:text-base font-semibold leading-snug text-foreground line-clamp-2 group-hover:text-primary transition-colors">
+                  {ep.title}
+                </h3>
+                {ep.viewCountText && (
+                  <p className="text-[11px] sm:text-xs text-foreground/50">{ep.viewCountText}</p>
+                )}
+              </button>
+            ))}
+          </div>
+        </section>
       )}
-    </div>
+    </main>
   );
 };
 
