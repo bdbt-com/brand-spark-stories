@@ -18,6 +18,7 @@ import LinkInBio from "./pages/LinkInBio";
 import AdminList from "./pages/AdminList";
 import NotFound from "./pages/NotFound";
 import RedirectBridge from "./pages/RedirectBridge";
+import Latest from "./pages/Latest";
 import ScrollToTop from "./components/ScrollToTop";
 import PageViewTracker from "./components/PageViewTracker";
 
@@ -47,6 +48,7 @@ const App = () => (
           <Route path="/bio" element={<LinkInBio />} />
           <Route path="/admin-list" element={<AdminList />} />
           <Route path="/redirect" element={<RedirectBridge />} />
+          <Route path="/latest" element={<Latest />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

@@ -150,6 +150,39 @@ export type Database = {
         }
         Relationships: []
       }
+      latest_video_cache: {
+        Row: {
+          duration: string | null
+          id: number
+          published_text: string | null
+          thumbnail_url: string
+          title: string
+          updated_at: string
+          video_id: string
+          view_count_text: string | null
+        }
+        Insert: {
+          duration?: string | null
+          id?: number
+          published_text?: string | null
+          thumbnail_url: string
+          title: string
+          updated_at?: string
+          video_id: string
+          view_count_text?: string | null
+        }
+        Update: {
+          duration?: string | null
+          id?: number
+          published_text?: string | null
+          thumbnail_url?: string
+          title?: string
+          updated_at?: string
+          video_id?: string
+          view_count_text?: string | null
+        }
+        Relationships: []
+      }
       page_views: {
         Row: {
           duration_seconds: number | null
