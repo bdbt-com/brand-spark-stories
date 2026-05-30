@@ -1,30 +1,21 @@
-Add a "More episodes" section to `/latest`, underneath the main hero video card, showing 6 thumbnails — 3 most recent + 3 most viewed — like the `/bio` page.
+# Move Latest → /podcast
 
-## Layout
+## Changes
+1. **src/App.tsx**
+   - Remove `import Latest from "./pages/Latest"` and `import Podcast from "./pages/Podcast"`.
+   - Add `import Podcast from "./pages/Podcast"` (new), where the file is the renamed Latest.
+   - Remove the `/latest` route.
+   - Keep the `/podcast` route, now rendering the new (ex-Latest) component.
+   - Add a redirect from `/latest` → `/podcast` so any existing links still work.
 
-- Render below the current hero block (after the "Redirecting in Xs…" line, inside the same `<main>` container, widened to `max-w-5xl` so the grid breathes).
-- Section heading: small gold uppercase eyebrow ("More episodes") + thin divider.
-- Grid: `grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4`. Six cards.
-- Each card: rounded thumbnail with play overlay, duration badge bottom-right, title (2-line clamp) and view count below. Same gold/white styling as hero, full colour, click-to-redirect.
+2. **Rename file**
+   - Move `src/pages/Latest.tsx` → `src/pages/Podcast.tsx` (overwriting the old Podcast page).
+   - Update the component name inside from `Latest` to `Podcast`.
 
-## Data sources (reuse existing hooks)
+3. **Delete** the old `src/pages/Podcast.tsx` (handled by the overwrite above).
 
-- `useYouTubeVideos()` — newest uploads. Take the first 3 that are NOT the hero video.
-- `useTopVideos(3)` — top 3 by views.
-- Interleave like `/bio`: `[new1, top1, new2, top2, new3, top3]`, dedupe by `videoId`, cap at 6. If a recent appears in tops, skip it from recents and pull the next newest.
+4. **Navigation** — `src/components/Navigation.tsx` already points "Podcast" → `/podcast`. No change needed; clicking the Podcast tab will now show the new page.
 
-## Click behaviour
-
-- Each card calls `startTrackedRedirect(videoId, "latest-grid:" + videoId)` — so we can see in analytics which secondary card was clicked.
-- Clicking a grid card cancels the hero countdown (set `redirected = true` so the auto-redirect doesn't fire mid-navigation).
-
-## What stays the same
-
-- Hero video, 20s countdown, auto-redirect, `noindex,nofollow`, route, cron, edge function, `latest_video_cache` table.
-- No backend changes.
-
-## Files
-
-- `src/pages/Latest.tsx` — add the grid section and a small `<EpisodeCard>` subcomponent; import `useYouTubeVideos` and `useTopVideos`.
-
-No new files, no migrations.
+## Notes
+- The Navigation tab already exists and is wired to `/podcast`, so no nav edits required.
+- Adding the `/latest` → `/podcast` redirect prevents broken links from anywhere (e.g. shared URLs).
