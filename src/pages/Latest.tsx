@@ -1,13 +1,25 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLatestVideo } from "@/hooks/useLatestVideo";
+import { useYouTubeVideos } from "@/hooks/useYouTubeVideos";
+import { useTopVideos } from "@/hooks/useTopVideos";
 import { startTrackedRedirect } from "@/lib/youtube-redirect";
 
 const AUTO_REDIRECT_SECONDS = 20;
 
+interface GridEpisode {
+  videoId: string;
+  title: string;
+  thumbnail: string;
+  viewCountText: string;
+  duration?: string;
+}
+
 const Latest = () => {
   const { video, loading } = useLatestVideo();
+  const { videos: recentVideos } = useYouTubeVideos();
+  const { videos: topVideos } = useTopVideos(3);
   const [secondsLeft, setSecondsLeft] = useState(AUTO_REDIRECT_SECONDS);
   const [redirected, setRedirected] = useState(false);
 
@@ -32,6 +44,11 @@ const Latest = () => {
     startTrackedRedirect(video.videoId, `${trackPrefix}:${video.videoId}`);
   };
 
+  const goToGridVideo = (videoId: string) => {
+    setRedirected(true); // cancel hero countdown
+    startTrackedRedirect(videoId, `latest-grid:${videoId}`);
+  };
+
   // Countdown + auto-redirect
   useEffect(() => {
     if (!video || redirected) return;
@@ -46,8 +63,51 @@ const Latest = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [secondsLeft, video, redirected]);
 
+  // Build the 6-card grid: interleave [new1, top1, new2, top2, new3, top3]
+  const gridEpisodes = useMemo<GridEpisode[]>(() => {
+    const heroId = video?.videoId;
+    const topIds = new Set(topVideos.map((t) => t.videoId));
+
+    const recents: GridEpisode[] = [];
+    for (const v of recentVideos) {
+      if (recents.length >= 3) break;
+      if (v.videoId === heroId) continue;
+      if (topIds.has(v.videoId)) continue;
+      recents.push({
+        videoId: v.videoId,
+        title: v.title,
+        thumbnail: v.thumbnail,
+        viewCountText: v.viewCount || "",
+        duration: v.duration,
+      });
+    }
+
+    const tops: GridEpisode[] = topVideos.map((t) => ({
+      videoId: t.videoId,
+      title: t.title,
+      thumbnail: t.thumbnail,
+      viewCountText: t.viewCountText || "",
+    }));
+
+    const interleaved: GridEpisode[] = [];
+    for (let i = 0; i < 3; i++) {
+      if (recents[i]) interleaved.push(recents[i]);
+      if (tops[i]) interleaved.push(tops[i]);
+    }
+
+    const seen = new Set<string>();
+    const out: GridEpisode[] = [];
+    for (const e of interleaved) {
+      if (seen.has(e.videoId)) continue;
+      seen.add(e.videoId);
+      out.push(e);
+      if (out.length >= 6) break;
+    }
+    return out;
+  }, [recentVideos, topVideos, video?.videoId]);
+
   return (
-    <main className="min-h-screen bg-background flex items-center justify-center px-4 py-6 sm:py-10">
+    <main className="min-h-screen bg-background flex flex-col items-center px-4 py-6 sm:py-10">
       <div className="w-full max-w-2xl">
         {loading || !video ? (
           <div className="flex flex-col items-center gap-4 text-foreground/70">
@@ -109,11 +169,60 @@ const Latest = () => {
               You'll be taken to YouTube to watch today's latest episode.
             </p>
             <p className="text-center text-xs text-foreground/40">
-              Redirecting in {secondsLeft}s…
+              {redirected ? "Opening…" : `Redirecting in ${secondsLeft}s…`}
             </p>
           </article>
         )}
       </div>
+
+      {/* More episodes grid */}
+      {gridEpisodes.length > 0 && (
+        <section className="w-full max-w-5xl mt-10 sm:mt-14">
+          <div className="flex items-center gap-3 mb-4 sm:mb-6">
+            <span className="text-xs sm:text-sm font-semibold uppercase tracking-[0.2em] text-primary">
+              More episodes
+            </span>
+            <span className="h-px flex-1 bg-border" />
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
+            {gridEpisodes.map((ep) => (
+              <button
+                key={ep.videoId}
+                type="button"
+                onClick={() => goToGridVideo(ep.videoId)}
+                className="group flex flex-col gap-2 text-left focus:outline-none focus:ring-2 focus:ring-primary rounded-xl"
+                aria-label={`Watch ${ep.title} on YouTube`}
+              >
+                <div className="relative aspect-video w-full overflow-hidden rounded-xl border border-border bg-card">
+                  <img
+                    src={ep.thumbnail}
+                    alt={ep.title}
+                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-colors" />
+                  <div className="absolute inset-0 flex items-center justify-center opacity-90 group-hover:opacity-100 transition-opacity">
+                    <span className="flex h-10 w-14 sm:h-12 sm:w-16 items-center justify-center rounded-xl bg-black/75 group-hover:bg-black/90 transition-colors">
+                      <Play className="h-5 w-5 sm:h-6 sm:w-6 fill-white text-white" />
+                    </span>
+                  </div>
+                  {ep.duration && (
+                    <span className="absolute bottom-1.5 right-1.5 rounded bg-black/85 px-1.5 py-0.5 text-[10px] sm:text-xs font-medium text-white">
+                      {ep.duration}
+                    </span>
+                  )}
+                </div>
+                <h3 className="text-sm sm:text-base font-semibold leading-snug text-foreground line-clamp-2 group-hover:text-primary transition-colors">
+                  {ep.title}
+                </h3>
+                {ep.viewCountText && (
+                  <p className="text-xs text-foreground/50">{ep.viewCountText}</p>
+                )}
+              </button>
+            ))}
+          </div>
+        </section>
+      )}
     </main>
   );
 };

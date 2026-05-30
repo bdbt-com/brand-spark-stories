@@ -1,12 +1,30 @@
-Three small tweaks to `/latest`:
+Add a "More episodes" section to `/latest`, underneath the main hero video card, showing 6 thumbnails — 3 most recent + 3 most viewed — like the `/bio` page.
 
-1. **Remove greyscale** — drop the `grayscale` class on the thumbnail `<img>` so it renders in full colour like a normal YouTube thumbnail.
-2. **Mobile-friendly polish** in `src/pages/Latest.tsx`:
-   - Tighten outer padding on small screens (`px-4 py-6 sm:py-10`).
-   - Scale the centre play-button overlay down on mobile (`h-14 w-20 sm:h-20 sm:w-28`, icon `h-7 w-7 sm:h-10 sm:w-10`).
-   - Title responsive sizing already uses `text-2xl md:text-3xl` — keep, but add `break-words` so long titles don't overflow.
-   - CTA button: shrink height on small screens (`h-12 sm:h-14`, `text-base sm:text-lg`).
-   - Ensure the article uses `gap-4 sm:gap-5`.
-3. **Auto-redirect delay** — change `AUTO_REDIRECT_SECONDS` from `15` to `20`.
+## Layout
 
-No backend, routing, cron, or tracking changes.
+- Render below the current hero block (after the "Redirecting in Xs…" line, inside the same `<main>` container, widened to `max-w-5xl` so the grid breathes).
+- Section heading: small gold uppercase eyebrow ("More episodes") + thin divider.
+- Grid: `grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4`. Six cards.
+- Each card: rounded thumbnail with play overlay, duration badge bottom-right, title (2-line clamp) and view count below. Same gold/white styling as hero, full colour, click-to-redirect.
+
+## Data sources (reuse existing hooks)
+
+- `useYouTubeVideos()` — newest uploads. Take the first 3 that are NOT the hero video.
+- `useTopVideos(3)` — top 3 by views.
+- Interleave like `/bio`: `[new1, top1, new2, top2, new3, top3]`, dedupe by `videoId`, cap at 6. If a recent appears in tops, skip it from recents and pull the next newest.
+
+## Click behaviour
+
+- Each card calls `startTrackedRedirect(videoId, "latest-grid:" + videoId)` — so we can see in analytics which secondary card was clicked.
+- Clicking a grid card cancels the hero countdown (set `redirected = true` so the auto-redirect doesn't fire mid-navigation).
+
+## What stays the same
+
+- Hero video, 20s countdown, auto-redirect, `noindex,nofollow`, route, cron, edge function, `latest_video_cache` table.
+- No backend changes.
+
+## Files
+
+- `src/pages/Latest.tsx` — add the grid section and a small `<EpisodeCard>` subcomponent; import `useYouTubeVideos` and `useTopVideos`.
+
+No new files, no migrations.
