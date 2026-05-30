@@ -49,19 +49,10 @@ const Latest = () => {
     startTrackedRedirect(videoId, `latest-grid:${videoId}`);
   };
 
-  // Countdown + auto-redirect
+  // Countdown + auto-redirect — PAUSED
   useEffect(() => {
-    if (!video || redirected) return;
-    if (secondsLeft <= 0) {
-      goToVideo(true);
-      return;
-    }
-    const t = setTimeout(() => {
-      if (!document.hidden) setSecondsLeft((s) => s - 1);
-    }, 1000);
-    return () => clearTimeout(t);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [secondsLeft, video, redirected]);
+    // Auto-redirect paused during development
+  }, []);
 
   // Build the 6-card grid: interleave [new1, top1, new2, top2, new3, top3]
   const gridEpisodes = useMemo<GridEpisode[]>(() => {
@@ -169,7 +160,7 @@ const Latest = () => {
               You'll be taken to YouTube to watch today's latest episode.
             </p>
             <p className="text-center text-[11px] sm:text-xs text-foreground/40">
-              {redirected ? "Opening…" : `Redirecting in ${secondsLeft}s…`}
+              Auto-redirect paused
             </p>
           </article>
         )}
