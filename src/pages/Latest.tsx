@@ -160,7 +160,7 @@ const Latest = () => {
               You'll be taken to YouTube to watch today's latest episode.
             </p>
             <p className="text-center text-[11px] sm:text-xs text-foreground/40">
-              {redirected ? "Opening…" : `Redirecting in ${secondsLeft}s…`}
+              Auto-redirect paused
             </p>
           </article>
         )}
