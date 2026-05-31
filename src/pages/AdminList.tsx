@@ -485,15 +485,6 @@ const AdminList = () => {
           {/* Bio Link Clicks — graph inline */}
           <section>
             <h2 className="text-xl font-bold text-foreground mb-4 flex items-center gap-2">
-              <BarChart3 className="w-5 h-5 text-primary" /> Bio Link Clicks
-            </h2>
-            <div className="flex flex-col xl:flex-row gap-4">
-              {(graphRange === 'today' ? hourlyStats.length > 0 : filteredDailyStats.length > 0) && (
-                <InlineGraph data={graphRange === 'today' ? hourlyStats : filteredDailyStats} dataKey="bio_clicks" label="Bio Link Clicks" color="hsl(142, 71%, 45%)" hourly={graphRange === 'today'} />
-              )}
-          {/* Bio Link Clicks — graph inline */}
-          <section>
-            <h2 className="text-xl font-bold text-foreground mb-4 flex items-center gap-2">
               <BarChart3 className="w-5 h-5 text-primary" /> Bio & Podcast Link Clicks
             </h2>
             <div className="flex flex-col xl:flex-row gap-4">
