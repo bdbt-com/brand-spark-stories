@@ -239,10 +239,10 @@ export type Database = {
       get_daily_stats: {
         Args: never
         Returns: {
-          auto_redirects: number
           bio_clicks: number
+          bio_redirects: number
           day: string
-          podcast_clicks: number
+          podcast_redirects: number
           visitors: number
         }[]
       }
@@ -269,10 +269,10 @@ export type Database = {
       get_hourly_stats_today: {
         Args: never
         Returns: {
-          auto_redirects: number
           bio_clicks: number
+          bio_redirects: number
           hour: string
-          podcast_clicks: number
+          podcast_redirects: number
           visitors: number
         }[]
       }
