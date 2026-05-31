@@ -83,17 +83,25 @@ Deno.serve(async (req) => {
     // Count unique sessions that visited /bio or /links for each time period
     const bioPeriods = { today: periods["today"], "7d": periods["7d"], "14d": periods["14d"], "30d": periods["30d"], since_launch: LAUNCH_DATE };
     const bioClicks: Record<string, number> = {};
+    const podcastClicks: Record<string, number> = {};
     for (const [key, since] of Object.entries(bioPeriods)) {
       const { data, error } = await supabase.rpc("get_bio_click_sessions", { since_ts: since });
       if (error) {
         console.error(`Bio sessions error ${key}:`, error);
         bioClicks[key] = 0;
-        continue;
+      } else {
+        bioClicks[key] = Number(data) || 0;
       }
-      bioClicks[key] = Number(data) || 0;
+      const { data: pdata, error: perror } = await supabase.rpc("get_podcast_click_sessions", { since_ts: since });
+      if (perror) {
+        console.error(`Podcast sessions error ${key}:`, perror);
+        podcastClicks[key] = 0;
+      } else {
+        podcastClicks[key] = Number(pdata) || 0;
+      }
     }
 
-    return new Response(JSON.stringify({ analytics: results, bio_clicks: bioClicks }), {
+    return new Response(JSON.stringify({ analytics: results, bio_clicks: bioClicks, podcast_clicks: podcastClicks }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
   } catch (err) {
