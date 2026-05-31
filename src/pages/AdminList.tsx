@@ -209,8 +209,8 @@ const AdminList = () => {
   const [podcastClicks, setPodcastClicks] = useState<Record<string, number>>({});
   const [todaySubscribers, setTodaySubscribers] = useState(0);
   const [feed, setFeed] = useState<FeedItem[]>([]);
-  const [dailyStats, setDailyStats] = useState<{ day: string; visitors: number; bio_clicks: number; auto_redirects: number; podcast_clicks: number }[]>([]);
-  const [hourlyStats, setHourlyStats] = useState<{ hour: string; visitors: number; bio_clicks: number; auto_redirects: number; podcast_clicks: number }[]>([]);
+  const [dailyStats, setDailyStats] = useState<{ day: string; visitors: number; bio_clicks: number; bio_redirects: number; podcast_redirects: number }[]>([]);
+  const [hourlyStats, setHourlyStats] = useState<{ hour: string; visitors: number; bio_clicks: number; bio_redirects: number; podcast_redirects: number }[]>([]);
   const [feedFilter, setFeedFilter] = useState<FeedFilter>("all");
   const [graphRange, setGraphRange] = useState<'today' | '7d' | '14d' | '30d' | 'all'>('all');
   const [showPreviousVideos, setShowPreviousVideos] = useState(false);
@@ -546,12 +546,11 @@ const AdminList = () => {
           {/* Auto-Redirect Stats — graph inline */}
           <section>
             <h2 className="text-xl font-bold text-foreground mb-4 flex items-center gap-2">
-              <Play className="w-5 h-5 text-primary" /> Auto-Redirects &amp; /podcast clicks
+              <Play className="w-5 h-5 text-primary" /> /bio Redirects &amp; /podcast Redirects
             </h2>
             <div className="flex flex-col gap-4">
               {/* Row 1: graph + 5 stat tiles (mirrors Bio row above) */}
               {(() => {
-                const arLegacy = videoCounts["auto-redirect"] || { total: 0, today: 0, "7d": 0, "14d": 0, "30d": 0 };
                 const sum = (pred: (k: string) => boolean) => {
                   const acc: Record<string, number> = { total: 0, today: 0, "7d": 0, "14d": 0, "30d": 0 };
                   for (const [k, v] of Object.entries(videoCounts)) {
@@ -564,27 +563,15 @@ const AdminList = () => {
                   }
                   return acc;
                 };
-                const pr = sum((k) => k.startsWith("latest-auto:"));
-                const pc = sum((k) =>
-                  k.startsWith("latest-page:") ||
-                  k.startsWith("latest-grid:") ||
-                  k === "podcast-spotify" ||
-                  k === "podcast-blueprint"
-                );
-                const ar = {
-                  total: arLegacy.total + pr.total,
-                  today: arLegacy.today + pr.today,
-                  "7d": arLegacy["7d"] + pr["7d"],
-                  "14d": arLegacy["14d"] + pr["14d"],
-                  "30d": arLegacy["30d"] + pr["30d"],
-                };
+                const br = sum((k) => k === "auto-redirect" || k.startsWith("auto-redirect:")); // /bio redirects
+                const pr = sum((k) => k.startsWith("latest-auto:")); // /podcast redirects
                 const trackingDays = Math.max(1, Math.round((Date.now() - new Date("2026-03-04").getTime()) / 86400000));
                 const tiles = [
-                  { label: "Today", topVal: ar.today, botVal: pc.today, isToday: true, topSeven: ar["7d"], botSeven: pc["7d"], days: 0, topOuter: 0, botOuter: 0, outerDays: 0 },
-                  { label: "7 Days", topVal: ar["7d"], botVal: pc["7d"], isToday: false, topSeven: 0, botSeven: 0, days: 7, topOuter: ar["14d"], botOuter: pc["14d"], outerDays: 14 },
-                  { label: "14 Days", topVal: ar["14d"], botVal: pc["14d"], isToday: false, topSeven: 0, botSeven: 0, days: 14, topOuter: ar["30d"], botOuter: pc["30d"], outerDays: 30 },
-                  { label: "30 Days", topVal: ar["30d"], botVal: pc["30d"], isToday: false, topSeven: 0, botSeven: 0, days: 30, topOuter: ar.total, botOuter: pc.total, outerDays: trackingDays },
-                  { label: "Total", topVal: ar.total, botVal: pc.total, isToday: false, topSeven: 0, botSeven: 0, days: 0, topOuter: 0, botOuter: 0, outerDays: 0 },
+                  { label: "Today", topVal: br.today, botVal: pr.today, isToday: true, topSeven: br["7d"], botSeven: pr["7d"], days: 0, topOuter: 0, botOuter: 0, outerDays: 0 },
+                  { label: "7 Days", topVal: br["7d"], botVal: pr["7d"], isToday: false, topSeven: 0, botSeven: 0, days: 7, topOuter: br["14d"], botOuter: pr["14d"], outerDays: 14 },
+                  { label: "14 Days", topVal: br["14d"], botVal: pr["14d"], isToday: false, topSeven: 0, botSeven: 0, days: 14, topOuter: br["30d"], botOuter: pr["30d"], outerDays: 30 },
+                  { label: "30 Days", topVal: br["30d"], botVal: pr["30d"], isToday: false, topSeven: 0, botSeven: 0, days: 30, topOuter: br.total, botOuter: pr.total, outerDays: trackingDays },
+                  { label: "Total", topVal: br.total, botVal: pr.total, isToday: false, topSeven: 0, botSeven: 0, days: 0, topOuter: 0, botOuter: 0, outerDays: 0 },
                 ];
                 const lc = latestVideoId ? (videoCounts[`auto-redirect:${latestVideoId}`] || videoCounts[`latest-auto:${latestVideoId}`] || videoCounts[latestVideoId] || { total: 0, today: 0, "7d": 0, "14d": 0, "30d": 0 }) : null;
                 return (
@@ -594,11 +581,11 @@ const AdminList = () => {
                         <div className="flex-1 min-w-0">
                           <InlineGraph
                             data={graphRange === 'today' ? hourlyStats : filteredDailyStats}
-                            dataKey="auto_redirects"
-                            label="redirects"
+                            dataKey="bio_redirects"
+                            label="/bio redirects"
                             color="hsl(25, 95%, 53%)"
-                            dataKey2="podcast_clicks"
-                            label2="/podcast clicks"
+                            dataKey2="podcast_redirects"
+                            label2="/podcast redirects"
                             color2="hsl(210, 90%, 60%)"
                             hourly={graphRange === 'today'}
                           />
@@ -616,7 +603,7 @@ const AdminList = () => {
                                   {isToday && <TodayTrendBadge today={topVal} sevenDay={topSeven} />}
                                 </p>
                                 <div className="flex items-center justify-center gap-1">
-                                  <p className="text-[10px] text-muted-foreground uppercase tracking-wider">redirects</p>
+                                  <p className="text-[10px] text-muted-foreground uppercase tracking-wider">/bio redirects</p>
                                   {!isToday && days > 0 && outerDays > days && <TrendBadge current={topVal} currentDays={days} outer={topOuter} outerDays={outerDays} />}
                                 </div>
                               </div>
@@ -628,7 +615,7 @@ const AdminList = () => {
                                   {isToday && <TodayTrendBadge today={botVal} sevenDay={botSeven} />}
                                 </p>
                                 <div className="flex items-center justify-center gap-1">
-                                  <p className="text-[10px] text-muted-foreground uppercase tracking-wider">/podcast clicks</p>
+                                  <p className="text-[10px] text-muted-foreground uppercase tracking-wider">/podcast redirects</p>
                                   {!isToday && days > 0 && outerDays > days && <TrendBadge current={botVal} currentDays={days} outer={botOuter} outerDays={outerDays} />}
                                 </div>
                               </div>
