@@ -546,7 +546,7 @@ const AdminList = () => {
           {/* Auto-Redirect Stats — graph inline */}
           <section>
             <h2 className="text-xl font-bold text-foreground mb-4 flex items-center gap-2">
-              <Play className="w-5 h-5 text-primary" /> Auto-Redirects &amp; /podcast clicks
+              <Play className="w-5 h-5 text-primary" /> /bio Redirects &amp; /podcast Redirects
             </h2>
             <div className="flex flex-col gap-4">
               {/* Row 1: graph + 5 stat tiles (mirrors Bio row above) */}
