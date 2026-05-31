@@ -58,7 +58,7 @@ export const useLatestVideo = () => {
       let result: LatestVideo | null = null;
 
       const fresh =
-        data && Date.now() - new Date(data.updated_at).getTime() < 24 * 60 * 60 * 1000;
+        data && Date.now() - new Date(data.updated_at).getTime() < 60 * 60 * 1000;
 
       if (data && fresh) {
         result = {
