@@ -358,7 +358,7 @@ const LinkInBio = () => {
         redirected = true;
         const updated = [...getRecentRedirects(), { timestamp: Date.now(), videoId }];
         localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
-        startTrackedRedirect(videoId, "auto-redirect:" + videoId);
+        startTrackedRedirect(videoId, "auto-redirect:" + videoId, UPLOADS_PLAYLIST_ID);
       }, delay);
     };
 
