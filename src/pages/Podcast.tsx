@@ -1,10 +1,14 @@
 import { useEffect, useMemo, useState } from "react";
-import { Play } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Play, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLatestVideo } from "@/hooks/useLatestVideo";
 import { useYouTubeVideos } from "@/hooks/useYouTubeVideos";
 import { useTopVideos } from "@/hooks/useTopVideos";
-import { startTrackedRedirect } from "@/lib/youtube-redirect";
+import { startTrackedRedirect, trackClick } from "@/lib/youtube-redirect";
+
+const SPOTIFY_URL =
+  "https://open.spotify.com/show/7AryqWOzeVCOC7WQ9wcBlk?si=2ede4b3121ea46c1&nd=1&dlsi=f03fd58680794b34";
 
 const AUTO_REDIRECT_SECONDS = 10;
 
