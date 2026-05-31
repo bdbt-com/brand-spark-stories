@@ -71,7 +71,7 @@ const Podcast = () => {
     if (!video || redirected) return;
     setRedirected(true);
     const trackPrefix = auto ? "latest-auto" : "latest-page";
-    startTrackedRedirect(video.videoId, `${trackPrefix}:${video.videoId}`);
+    startTrackedRedirect(video.videoId, `${trackPrefix}:${video.videoId}`, UPLOADS_PLAYLIST_ID);
   };
 
   const goToGridVideo = (videoId: string) => {
