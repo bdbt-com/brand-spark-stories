@@ -15,6 +15,7 @@ const RedirectBridge = () => {
 
     const videoId = params.get("video");
     const trackId = params.get("trackId") || videoId;
+    const playlist = params.get("list") || undefined;
 
     if (!videoId) return;
 
@@ -31,7 +32,7 @@ const RedirectBridge = () => {
     // Wait for tracking to finish (or timeout after 1.5s), then navigate
     const timeout = new Promise((r) => setTimeout(r, 1500));
     Promise.race([track, timeout]).then(() => {
-      navigateToYouTube(videoId);
+      navigateToYouTube(videoId, playlist);
     });
   }, [params]);
 
