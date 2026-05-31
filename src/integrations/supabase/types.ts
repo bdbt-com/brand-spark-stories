@@ -242,6 +242,7 @@ export type Database = {
           bio_clicks: number
           bio_redirects: number
           day: string
+          podcast_clicks: number
           podcast_redirects: number
           visitors: number
         }[]
@@ -272,6 +273,7 @@ export type Database = {
           bio_clicks: number
           bio_redirects: number
           hour: string
+          podcast_clicks: number
           podcast_redirects: number
           visitors: number
         }[]
