@@ -48,6 +48,38 @@ const Podcast = () => {
     startTrackedRedirect(videoId, `latest-grid:${videoId}`);
   };
 
+  // Idle-based auto-redirect: fires after AUTO_REDIRECT_SECONDS of no interaction
+  useEffect(() => {
+    if (!video || redirected) return;
+
+    let timerId: number | undefined;
+    const reset = () => {
+      if (timerId) window.clearTimeout(timerId);
+      timerId = window.setTimeout(() => {
+        setRedirected(true);
+        startTrackedRedirect(video.videoId, `latest-auto:${video.videoId}`);
+      }, AUTO_REDIRECT_SECONDS * 1000);
+    };
+
+    const events: (keyof WindowEventMap)[] = [
+      "mousemove",
+      "mousedown",
+      "keydown",
+      "touchstart",
+      "scroll",
+      "wheel",
+    ];
+    events.forEach((e) => window.addEventListener(e, reset, { passive: true }));
+    reset();
+
+    return () => {
+      if (timerId) window.clearTimeout(timerId);
+      events.forEach((e) => window.removeEventListener(e, reset));
+    };
+  }, [video, redirected]);
+
+
+
 
   // Build the 6-card grid: interleave [new1, top1, new2, top2, new3, top3]
   const gridEpisodes = useMemo<GridEpisode[]>(() => {
@@ -151,9 +183,6 @@ const Podcast = () => {
               Watch on YouTube
             </Button>
 
-            <p className="text-center text-xs sm:text-sm text-foreground/70 px-2">
-              You'll be taken to YouTube to watch today's latest episode.
-            </p>
           </article>
         )}
       </div>
