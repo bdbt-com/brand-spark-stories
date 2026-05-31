@@ -1,44 +1,37 @@
-# Clarify click & redirect sources in /admin-list
+## Add social row + platform buttons to /podcast
 
-Right now the activity feed just says "Video click" or "Auto-redirect" with no indication of which page the user was on. We'll tag every tracked event with its source page and surface that in the admin feed.
+### 1. Above the hero thumbnail
+Add a small centered row with two greyed-out brand icons (Instagram, TikTok), non-clickable, `opacity-40`, ~`w-6 h-6` (slightly larger on sm). Purely decorative — signals other channels without distracting from the YouTube CTA.
 
-## Current state of tracking IDs
+```
+[ IG ]   [ TT ]
+[ thumbnail ]
+title / meta
+[ Watch on YouTube ] (full-width, unchanged)
+[ Spotify ]  [ Blueprint ]   ← new row
+```
 
-| Source | Event | Current `trackId` |
-|---|---|---|
-| `/podcast` hero card | manual click | `latest-page:VIDEOID` |
-| `/podcast` grid card | manual click | `latest-grid:VIDEOID` |
-| `/podcast` idle redirect | auto-redirect | `latest-auto:VIDEOID` |
-| `/bio` carousel card | manual click | bare `VIDEOID` (no prefix) |
-| `/bio` link buttons | manual click | `button-blueprint` / `button-youtube` / `button-spotify` |
-| `/bio` idle redirect | auto-redirect | `auto-redirect:VIDEOID` |
+### 2. New button row under "Watch on YouTube"
+A 2-column grid (`grid-cols-2 gap-2.5 sm:gap-4`), each a square-ish rounded card (`aspect-square` on mobile capped via `max-h-20 sm:max-h-24`, or `h-16 sm:h-20` rectangular — use rectangular for nicer mobile fit, `rounded-xl`, border + bg-card).
 
-The `/podcast` events are already prefixed nicely. `/bio` carousel clicks are bare IDs (ambiguous), so we'll add an explicit prefix going forward.
+- **Left — Spotify**: Spotify SVG (reuse the path from `LinkInBio.tsx` socialLinks) in Spotify green (`#1DB954`), label "Spotify" beside it. Clicking calls `startTrackedRedirect`-style tracking but it's NOT a YouTube link — use a direct `window.open` (or plain anchor `target="_blank"`) to the Spotify show URL. Also fire a tracking ping to `track-video-click` with `trackId="podcast-spotify"` so it shows up in AdminList.
+- **Right — Blueprint**: Lucide `BookOpen` (or `Map`) icon in `text-primary` (gold), label "Blueprint". Internal `Link` to `/blueprint`. Tracking ping with `trackId="podcast-blueprint"`.
 
-## Changes
+Both buttons also call `setRedirected(true)` so the 10s idle auto-redirect is cancelled when the user interacts with them.
 
-### 1. Tag `/bio` carousel clicks explicitly
-`src/pages/LinkInBio.tsx` — change `startTrackedRedirect(episode.videoId)` to `startTrackedRedirect(episode.videoId, "bio-click:" + episode.videoId)` so the source is unambiguous.
+### 3. Activity feed labels
+Extend `supabase/functions/get-activity-feed/index.ts` parser:
+- `podcast-spotify` → "Click from /podcast (Spotify)"
+- `podcast-blueprint` → "Click from /podcast (Blueprint)"
 
-### 2. Teach the activity feed to attribute source
-`supabase/functions/get-activity-feed/index.ts` — extend the parser to recognize the prefixes and emit a `source` ("/podcast" or "/bio") plus a clearer `detail` string:
+### 4. Tracking helper
+Add a tiny helper in `src/lib/youtube-redirect.ts` (or inline) `trackClick(trackId: string)` that POSTs to `track-video-click` without navigating, so we can log Spotify/Blueprint clicks without going through the `/redirect` bridge (which is YouTube-specific).
 
-| `video_id` value | Type | Detail shown |
-|---|---|---|
-| `latest-page:VID` | click | `Click from /podcast` |
-| `latest-grid:VID` | click | `Click from /podcast (grid)` |
-| `latest-auto:VID` | redirect | `Redirect from /podcast` |
-| `auto-redirect:VID` | redirect | `Redirect from /bio` |
-| `auto-redirect` (legacy) | redirect | `Redirect from /bio` |
-| `bio-click:VID` | click | `Click from /bio` |
-| `button-blueprint` / `button-youtube` / `button-spotify` | click | `Click from /bio (button)` |
-| bare `VIDEOID` (historic) | click | `Click from /bio` (legacy default) |
+### Files changed
+- `src/pages/Podcast.tsx` — add greyed social row + new 2-button row, cancel idle timer on click.
+- `src/lib/youtube-redirect.ts` — add `trackClick(trackId)` helper.
+- `supabase/functions/get-activity-feed/index.ts` — recognise new trackIds.
 
-The `label` keeps the resolved video title via `VIDEO_MAP` (or button name).
-
-### 3. Admin feed display
-`src/pages/AdminList.tsx` — no structural changes needed; the new `detail` strings will flow through the existing feed row (which already renders `item.detail`). Mobile and desktop feed lists both pick this up automatically.
-
-## Out of scope
-- No DB migration; we don't rewrite historical `video_clicks` rows. Old bare-VID rows are assumed `/bio` since that was the only page emitting them at the time.
-- No change to per-video click totals (`get-video-clicks`) — those continue to aggregate by underlying VIDEOID.
+### Out of scope
+- No changes to `/bio`, the hero card, or the More Episodes grid.
+- No DB migration; new trackIds reuse `video_clicks` table (the `video_id` column stores the trackId string, same pattern as existing `button-*` ids).
