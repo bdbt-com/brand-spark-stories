@@ -546,19 +546,61 @@ const AdminList = () => {
           {/* Auto-Redirect Stats — graph inline */}
           <section>
             <h2 className="text-xl font-bold text-foreground mb-4 flex items-center gap-2">
-              <Play className="w-5 h-5 text-primary" /> Auto-Redirects
+              <Play className="w-5 h-5 text-primary" /> Auto-Redirects &amp; /podcast clicks
             </h2>
             <div className="flex flex-col xl:flex-row gap-4">
               {(graphRange === 'today' ? hourlyStats.length > 0 : filteredDailyStats.length > 0) && (
-                <InlineGraph data={graphRange === 'today' ? hourlyStats : filteredDailyStats} dataKey="auto_redirects" label="Auto-Redirects" color="hsl(25, 95%, 53%)" hourly={graphRange === 'today'} />
+                <InlineGraph
+                  data={graphRange === 'today' ? hourlyStats : filteredDailyStats}
+                  dataKey="auto_redirects"
+                  label="redirects"
+                  color="hsl(25, 95%, 53%)"
+                  dataKey2="podcast_clicks"
+                  label2="/podcast clicks"
+                  color2="hsl(210, 90%, 60%)"
+                  hourly={graphRange === 'today'}
+                />
               )}
               {(() => {
-                const ar = videoCounts["auto-redirect"] || { total: 0, today: 0, "7d": 0, "14d": 0, "30d": 0 };
+                const arLegacy = videoCounts["auto-redirect"] || { total: 0, today: 0, "7d": 0, "14d": 0, "30d": 0 };
+                const sum = (pred: (k: string) => boolean) => {
+                  const acc: Record<string, number> = { total: 0, today: 0, "7d": 0, "14d": 0, "30d": 0 };
+                  for (const [k, v] of Object.entries(videoCounts)) {
+                    if (!pred(k)) continue;
+                    acc.total += v.total || 0;
+                    acc.today += v.today || 0;
+                    acc["7d"] += v["7d"] || 0;
+                    acc["14d"] += v["14d"] || 0;
+                    acc["30d"] += v["30d"] || 0;
+                  }
+                  return acc;
+                };
+                const pr = sum((k) => k.startsWith("latest-auto:"));
+                const pc = sum((k) =>
+                  k.startsWith("latest-page:") ||
+                  k.startsWith("latest-grid:") ||
+                  k === "podcast-spotify" ||
+                  k === "podcast-blueprint"
+                );
+                const ar = {
+                  total: arLegacy.total + pr.total,
+                  today: arLegacy.today + pr.today,
+                  "7d": arLegacy["7d"] + pr["7d"],
+                  "14d": arLegacy["14d"] + pr["14d"],
+                  "30d": arLegacy["30d"] + pr["30d"],
+                };
                 const trackingDays = Math.max(1, Math.round((Date.now() - new Date("2026-03-04").getTime()) / 86400000));
+                const tiles = [
+                  { label: "Today", topVal: ar.today, botVal: pc.today, isToday: true, topSeven: ar["7d"], botSeven: pc["7d"], days: 0, topOuter: 0, botOuter: 0, outerDays: 0 },
+                  { label: "7 Days", topVal: ar["7d"], botVal: pc["7d"], isToday: false, topSeven: 0, botSeven: 0, days: 7, topOuter: ar["14d"], botOuter: pc["14d"], outerDays: 14 },
+                  { label: "14 Days", topVal: ar["14d"], botVal: pc["14d"], isToday: false, topSeven: 0, botSeven: 0, days: 14, topOuter: ar["30d"], botOuter: pc["30d"], outerDays: 30 },
+                  { label: "30 Days", topVal: ar["30d"], botVal: pc["30d"], isToday: false, topSeven: 0, botSeven: 0, days: 30, topOuter: ar.total, botOuter: pc.total, outerDays: trackingDays },
+                  { label: "Total", topVal: ar.total, botVal: pc.total, isToday: false, topSeven: 0, botSeven: 0, days: 0, topOuter: 0, botOuter: 0, outerDays: 0 },
+                ];
                 return (
                   <div className="flex-1 flex flex-col xl:flex-row gap-4">
                     {(() => {
-                      const lc = latestVideoId ? (videoCounts[`auto-redirect:${latestVideoId}`] || videoCounts[latestVideoId] || { total: 0, today: 0, "7d": 0, "14d": 0, "30d": 0 }) : null;
+                      const lc = latestVideoId ? (videoCounts[`auto-redirect:${latestVideoId}`] || videoCounts[`latest-auto:${latestVideoId}`] || videoCounts[latestVideoId] || { total: 0, today: 0, "7d": 0, "14d": 0, "30d": 0 }) : null;
                       return (
                         <Card className="border-primary/30 bg-primary/5 w-full xl:w-72 flex-shrink-0">
                           <CardContent className="p-4">
@@ -601,104 +643,38 @@ const AdminList = () => {
                         </Card>
                       );
                     })()}
-                  <div className="flex-1 grid grid-cols-2 md:grid-cols-5 gap-4">
-                    <Card>
-                      <CardContent className="p-5 text-center">
-                        <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">Today</p>
-                        <p className="text-3xl font-bold text-foreground inline-flex items-center gap-2 justify-center">{ar.today} <TodayTrendBadge today={ar.today} sevenDay={ar["7d"]} /></p>
-                        <p className="text-xs text-muted-foreground mt-1">redirects</p>
-                      </CardContent>
-                    </Card>
-                    <Card>
-                      <CardContent className="p-5 text-center">
-                        <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">7 Days</p>
-                        <p className="text-3xl font-bold text-foreground">{ar["7d"]}</p>
-                        <div className="flex items-center justify-center gap-1 mt-1">
-                          <p className="text-xs text-muted-foreground">redirects</p>
-                          <TrendBadge current={ar["7d"]} currentDays={7} outer={ar["14d"]} outerDays={14} />
-                        </div>
-                      </CardContent>
-                    </Card>
-                    <Card>
-                      <CardContent className="p-5 text-center">
-                        <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">14 Days</p>
-                        <p className="text-3xl font-bold text-foreground">{ar["14d"]}</p>
-                        <div className="flex items-center justify-center gap-1 mt-1">
-                          <p className="text-xs text-muted-foreground">redirects</p>
-                          <TrendBadge current={ar["14d"]} currentDays={14} outer={ar["30d"]} outerDays={30} />
-                        </div>
-                      </CardContent>
-                    </Card>
-                    <Card>
-                      <CardContent className="p-5 text-center">
-                        <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">30 Days</p>
-                        <p className="text-3xl font-bold text-foreground">{ar["30d"]}</p>
-                        <div className="flex items-center justify-center gap-1 mt-1">
-                          <p className="text-xs text-muted-foreground">redirects</p>
-                          {trackingDays > 30 && <TrendBadge current={ar["30d"]} currentDays={30} outer={ar.total} outerDays={trackingDays} />}
-                        </div>
-                      </CardContent>
-                    </Card>
-                    <Card>
-                      <CardContent className="p-5 text-center">
-                        <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">Total</p>
-                        <p className="text-3xl font-bold text-foreground">{ar.total}</p>
-                        <p className="text-xs text-muted-foreground mt-1">redirects</p>
-                      </CardContent>
-                    </Card>
-                  </div>
-                  {(() => {
-                    const sum = (pred: (k: string) => boolean) => {
-                      const acc: Record<string, number> = { total: 0, today: 0, "7d": 0, "14d": 0, "30d": 0 };
-                      for (const [k, v] of Object.entries(videoCounts)) {
-                        if (!pred(k)) continue;
-                        acc.total += v.total || 0;
-                        acc.today += v.today || 0;
-                        acc["7d"] += v["7d"] || 0;
-                        acc["14d"] += v["14d"] || 0;
-                        acc["30d"] += v["30d"] || 0;
-                      }
-                      return acc;
-                    };
-                    const pr = sum((k) => k.startsWith("latest-auto:"));
-                    const pc = sum((k) =>
-                      k.startsWith("latest-page:") ||
-                      k.startsWith("latest-grid:") ||
-                      k === "podcast-spotify" ||
-                      k === "podcast-blueprint"
-                    );
-                    const Tile = ({ label, c, unit }: { label: string; c: Record<string, number>; unit: string }) => (
-                      <Card className="border-muted bg-muted/20">
-                        <CardContent className="p-3 text-center">
-                          <p className="text-[10px] font-medium text-muted-foreground mb-1 uppercase tracking-wider">{label}</p>
-                          <p className="text-2xl font-bold text-foreground inline-flex items-center gap-1.5 justify-center">
-                            {c.today} <TodayTrendBadge today={c.today} sevenDay={c["7d"]} />
-                          </p>
-                          <p className="text-[10px] text-muted-foreground mb-2">today · {unit}</p>
-                          <div className="grid grid-cols-3 gap-x-2 text-[11px] text-muted-foreground">
-                            <div className="flex flex-col items-center">
-                              <span className="font-semibold text-primary">{c["7d"]}</span>
-                              <span>7d</span>
+                    <div className="flex-1 grid grid-cols-2 md:grid-cols-5 gap-4">
+                      {tiles.map(({ label, topVal, botVal, isToday, topSeven, botSeven, days, topOuter, botOuter, outerDays }) => (
+                        <Card key={label}>
+                          <CardContent className="p-4 text-center">
+                            <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">{label}</p>
+                            <div>
+                              <p className="text-2xl font-bold text-foreground inline-flex items-center gap-1.5 justify-center">
+                                <span className="inline-block w-2 h-2 rounded-full" style={{ background: "hsl(25, 95%, 53%)" }} />
+                                {topVal}
+                                {isToday && <TodayTrendBadge today={topVal} sevenDay={topSeven} />}
+                              </p>
+                              <div className="flex items-center justify-center gap-1">
+                                <p className="text-[10px] text-muted-foreground uppercase tracking-wider">redirects</p>
+                                {!isToday && days > 0 && outerDays > days && <TrendBadge current={topVal} currentDays={days} outer={topOuter} outerDays={outerDays} />}
+                              </div>
                             </div>
-                            <div className="flex flex-col items-center">
-                              <span className="font-semibold text-primary">{c["30d"]}</span>
-                              <span>30d</span>
+                            <div className="border-t border-border my-2" />
+                            <div>
+                              <p className="text-2xl font-bold text-foreground inline-flex items-center gap-1.5 justify-center">
+                                <span className="inline-block w-2 h-2 rounded-full" style={{ background: "hsl(210, 90%, 60%)" }} />
+                                {botVal}
+                                {isToday && <TodayTrendBadge today={botVal} sevenDay={botSeven} />}
+                              </p>
+                              <div className="flex items-center justify-center gap-1">
+                                <p className="text-[10px] text-muted-foreground uppercase tracking-wider">/podcast clicks</p>
+                                {!isToday && days > 0 && outerDays > days && <TrendBadge current={botVal} currentDays={days} outer={botOuter} outerDays={outerDays} />}
+                              </div>
                             </div>
-                            <div className="flex flex-col items-center">
-                              <span className="font-semibold text-primary">{c.total}</span>
-                              <span>Total</span>
-                            </div>
-                          </div>
-                        </CardContent>
-                      </Card>
-                    );
-                    return (
-                      <div className="grid grid-cols-2 gap-4 mt-2">
-                        <Tile label="/podcast redirects" c={pr} unit="redirects" />
-                        <Tile label="/podcast clicks" c={pc} unit="clicks" />
-                      </div>
-                    );
-                  })()}
+                          </CardContent>
+                        </Card>
+                      ))}
+                    </div>
                   </div>
                 );
               })()}
