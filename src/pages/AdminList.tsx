@@ -548,19 +548,8 @@ const AdminList = () => {
             <h2 className="text-xl font-bold text-foreground mb-4 flex items-center gap-2">
               <Play className="w-5 h-5 text-primary" /> Auto-Redirects &amp; /podcast clicks
             </h2>
-            <div className="flex flex-col xl:flex-row gap-4">
-              {(graphRange === 'today' ? hourlyStats.length > 0 : filteredDailyStats.length > 0) && (
-                <InlineGraph
-                  data={graphRange === 'today' ? hourlyStats : filteredDailyStats}
-                  dataKey="auto_redirects"
-                  label="redirects"
-                  color="hsl(25, 95%, 53%)"
-                  dataKey2="podcast_clicks"
-                  label2="/podcast clicks"
-                  color2="hsl(210, 90%, 60%)"
-                  hourly={graphRange === 'today'}
-                />
-              )}
+            <div className="flex flex-col gap-4">
+              {/* Row 1: graph + 5 stat tiles (mirrors Bio row above) */}
               {(() => {
                 const arLegacy = videoCounts["auto-redirect"] || { total: 0, today: 0, "7d": 0, "14d": 0, "30d": 0 };
                 const sum = (pred: (k: string) => boolean) => {
@@ -597,85 +586,101 @@ const AdminList = () => {
                   { label: "30 Days", topVal: ar["30d"], botVal: pc["30d"], isToday: false, topSeven: 0, botSeven: 0, days: 30, topOuter: ar.total, botOuter: pc.total, outerDays: trackingDays },
                   { label: "Total", topVal: ar.total, botVal: pc.total, isToday: false, topSeven: 0, botSeven: 0, days: 0, topOuter: 0, botOuter: 0, outerDays: 0 },
                 ];
+                const lc = latestVideoId ? (videoCounts[`auto-redirect:${latestVideoId}`] || videoCounts[`latest-auto:${latestVideoId}`] || videoCounts[latestVideoId] || { total: 0, today: 0, "7d": 0, "14d": 0, "30d": 0 }) : null;
                 return (
-                  <div className="flex-1 flex flex-col xl:flex-row gap-4">
-                    {(() => {
-                      const lc = latestVideoId ? (videoCounts[`auto-redirect:${latestVideoId}`] || videoCounts[`latest-auto:${latestVideoId}`] || videoCounts[latestVideoId] || { total: 0, today: 0, "7d": 0, "14d": 0, "30d": 0 }) : null;
-                      return (
-                        <Card className="border-primary/30 bg-primary/5 w-full xl:w-72 flex-shrink-0">
-                          <CardContent className="p-4">
-                            <p className="text-[10px] font-medium text-muted-foreground mb-2 uppercase tracking-wider text-center">Latest Video Redirects</p>
-                            {!latestVideoId ? (
-                              <p className="text-xs text-muted-foreground text-center py-4">Loading latest video…</p>
-                            ) : (
-                              <>
-                                <img
-                                  src={`https://img.youtube.com/vi/${latestVideoId}/mqdefault.jpg`}
-                                  alt={latestVideo?.title || ""}
-                                  className="w-full aspect-video object-cover rounded-md mb-2"
-                                />
-                                <p className="text-[11px] font-medium text-foreground line-clamp-2 text-center mb-2 min-h-[28px]">{latestVideo?.title}</p>
-                                <p className="text-3xl font-bold text-foreground inline-flex items-center gap-2 justify-center w-full">
-                                  {lc!.today} <TodayTrendBadge today={lc!.today} sevenDay={lc!["7d"]} />
+                  <>
+                    <div className="flex flex-col xl:flex-row gap-4">
+                      {(graphRange === 'today' ? hourlyStats.length > 0 : filteredDailyStats.length > 0) && (
+                        <div className="flex-1 min-w-0">
+                          <InlineGraph
+                            data={graphRange === 'today' ? hourlyStats : filteredDailyStats}
+                            dataKey="auto_redirects"
+                            label="redirects"
+                            color="hsl(25, 95%, 53%)"
+                            dataKey2="podcast_clicks"
+                            label2="/podcast clicks"
+                            color2="hsl(210, 90%, 60%)"
+                            hourly={graphRange === 'today'}
+                          />
+                        </div>
+                      )}
+                      <div className="flex-1 grid grid-cols-2 md:grid-cols-5 gap-4">
+                        {tiles.map(({ label, topVal, botVal, isToday, topSeven, botSeven, days, topOuter, botOuter, outerDays }) => (
+                          <Card key={label}>
+                            <CardContent className="p-4 text-center">
+                              <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">{label}</p>
+                              <div>
+                                <p className="text-2xl font-bold text-foreground inline-flex items-center gap-1.5 justify-center">
+                                  <span className="inline-block w-2 h-2 rounded-full" style={{ background: "hsl(25, 95%, 53%)" }} />
+                                  {topVal}
+                                  {isToday && <TodayTrendBadge today={topVal} sevenDay={topSeven} />}
                                 </p>
-                                <p className="text-[10px] text-muted-foreground text-center mb-2">today</p>
-                                <div className="grid grid-cols-4 gap-x-2 text-xs text-muted-foreground">
-                                  <div className="flex flex-col items-center gap-0.5">
-                                    <span className="font-semibold text-primary">{lc!["7d"]}</span>
-                                    <span className="flex items-center gap-0.5">7d <TrendBadge current={lc!["7d"]} currentDays={7} outer={lc!["14d"]} outerDays={14} /></span>
-                                  </div>
-                                  <div className="flex flex-col items-center gap-0.5">
-                                    <span className="font-semibold text-primary">{lc!["14d"]}</span>
-                                    <span className="flex items-center gap-0.5">14d <TrendBadge current={lc!["14d"]} currentDays={14} outer={lc!["30d"]} outerDays={30} /></span>
-                                  </div>
-                                  <div className="flex flex-col items-center gap-0.5">
-                                    <span className="font-semibold text-primary">{lc!["30d"]}</span>
-                                    <span>30d</span>
-                                  </div>
-                                  <div className="flex flex-col items-center gap-0.5">
-                                    <span className="font-semibold text-primary">{lc!.total}</span>
-                                    <span>Total</span>
-                                  </div>
+                                <div className="flex items-center justify-center gap-1">
+                                  <p className="text-[10px] text-muted-foreground uppercase tracking-wider">redirects</p>
+                                  {!isToday && days > 0 && outerDays > days && <TrendBadge current={topVal} currentDays={days} outer={topOuter} outerDays={outerDays} />}
                                 </div>
-                              </>
-                            )}
-                          </CardContent>
-                        </Card>
-                      );
-                    })()}
-                    <div className="flex-1 grid grid-cols-2 md:grid-cols-5 gap-4">
-                      {tiles.map(({ label, topVal, botVal, isToday, topSeven, botSeven, days, topOuter, botOuter, outerDays }) => (
-                        <Card key={label}>
-                          <CardContent className="p-4 text-center">
-                            <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">{label}</p>
-                            <div>
-                              <p className="text-2xl font-bold text-foreground inline-flex items-center gap-1.5 justify-center">
-                                <span className="inline-block w-2 h-2 rounded-full" style={{ background: "hsl(25, 95%, 53%)" }} />
-                                {topVal}
-                                {isToday && <TodayTrendBadge today={topVal} sevenDay={topSeven} />}
-                              </p>
-                              <div className="flex items-center justify-center gap-1">
-                                <p className="text-[10px] text-muted-foreground uppercase tracking-wider">redirects</p>
-                                {!isToday && days > 0 && outerDays > days && <TrendBadge current={topVal} currentDays={days} outer={topOuter} outerDays={outerDays} />}
                               </div>
-                            </div>
-                            <div className="border-t border-border my-2" />
-                            <div>
-                              <p className="text-2xl font-bold text-foreground inline-flex items-center gap-1.5 justify-center">
-                                <span className="inline-block w-2 h-2 rounded-full" style={{ background: "hsl(210, 90%, 60%)" }} />
-                                {botVal}
-                                {isToday && <TodayTrendBadge today={botVal} sevenDay={botSeven} />}
-                              </p>
-                              <div className="flex items-center justify-center gap-1">
-                                <p className="text-[10px] text-muted-foreground uppercase tracking-wider">/podcast clicks</p>
-                                {!isToday && days > 0 && outerDays > days && <TrendBadge current={botVal} currentDays={days} outer={botOuter} outerDays={outerDays} />}
+                              <div className="border-t border-border my-2" />
+                              <div>
+                                <p className="text-2xl font-bold text-foreground inline-flex items-center gap-1.5 justify-center">
+                                  <span className="inline-block w-2 h-2 rounded-full" style={{ background: "hsl(210, 90%, 60%)" }} />
+                                  {botVal}
+                                  {isToday && <TodayTrendBadge today={botVal} sevenDay={botSeven} />}
+                                </p>
+                                <div className="flex items-center justify-center gap-1">
+                                  <p className="text-[10px] text-muted-foreground uppercase tracking-wider">/podcast clicks</p>
+                                  {!isToday && days > 0 && outerDays > days && <TrendBadge current={botVal} currentDays={days} outer={botOuter} outerDays={outerDays} />}
+                                </div>
                               </div>
-                            </div>
-                          </CardContent>
-                        </Card>
-                      ))}
+                            </CardContent>
+                          </Card>
+                        ))}
+                      </div>
                     </div>
-                  </div>
+
+                    {/* Row 2: compact Latest Video Redirects card under the graph */}
+                    <Card className="border-primary/30 bg-primary/5 max-w-sm">
+                      <CardContent className="p-3">
+                        <p className="text-[10px] font-medium text-muted-foreground mb-2 uppercase tracking-wider text-center">Latest Video Redirects</p>
+                        {!latestVideoId || !lc ? (
+                          <p className="text-xs text-muted-foreground text-center py-4">Loading latest video…</p>
+                        ) : (
+                          <div className="flex gap-3">
+                            <img
+                              src={`https://img.youtube.com/vi/${latestVideoId}/mqdefault.jpg`}
+                              alt={latestVideo?.title || ""}
+                              className="w-32 aspect-video object-cover rounded-md flex-shrink-0"
+                            />
+                            <div className="flex-1 min-w-0">
+                              <p className="text-[11px] font-medium text-foreground line-clamp-2 mb-1">{latestVideo?.title}</p>
+                              <p className="text-2xl font-bold text-foreground inline-flex items-center gap-1.5">
+                                {lc.today} <TodayTrendBadge today={lc.today} sevenDay={lc["7d"]} />
+                              </p>
+                              <p className="text-[10px] text-muted-foreground mb-1">today</p>
+                              <div className="grid grid-cols-4 gap-x-1 text-[10px] text-muted-foreground">
+                                <div className="flex flex-col items-center">
+                                  <span className="font-semibold text-primary">{lc["7d"]}</span>
+                                  <span>7d</span>
+                                </div>
+                                <div className="flex flex-col items-center">
+                                  <span className="font-semibold text-primary">{lc["14d"]}</span>
+                                  <span>14d</span>
+                                </div>
+                                <div className="flex flex-col items-center">
+                                  <span className="font-semibold text-primary">{lc["30d"]}</span>
+                                  <span>30d</span>
+                                </div>
+                                <div className="flex flex-col items-center">
+                                  <span className="font-semibold text-primary">{lc.total}</span>
+                                  <span>Total</span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        )}
+                      </CardContent>
+                    </Card>
+                  </>
                 );
               })()}
             </div>
