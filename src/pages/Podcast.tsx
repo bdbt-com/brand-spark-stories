@@ -10,7 +10,34 @@ import { startTrackedRedirect, trackClick } from "@/lib/youtube-redirect";
 const SPOTIFY_URL =
   "https://open.spotify.com/show/7AryqWOzeVCOC7WQ9wcBlk?si=2ede4b3121ea46c1&nd=1&dlsi=f03fd58680794b34";
 
-const AUTO_REDIRECT_SECONDS = 10;
+const FIRST_AUTO_REDIRECT_SECONDS = 10;
+const SECOND_AUTO_REDIRECT_SECONDS = 45;
+const AUTO_REDIRECT_COOLDOWN_MS = 24 * 60 * 60 * 1000;
+const AUTO_REDIRECT_STORAGE_KEY = "podcast-auto-redirect-state";
+
+type AutoRedirectState = { count: number; lastAt: number };
+
+const readAutoRedirectState = (): AutoRedirectState => {
+  try {
+    const raw = localStorage.getItem(AUTO_REDIRECT_STORAGE_KEY);
+    if (!raw) return { count: 0, lastAt: 0 };
+    const parsed = JSON.parse(raw) as AutoRedirectState;
+    if (Date.now() - parsed.lastAt > AUTO_REDIRECT_COOLDOWN_MS) {
+      return { count: 0, lastAt: 0 };
+    }
+    return parsed;
+  } catch {
+    return { count: 0, lastAt: 0 };
+  }
+};
+
+const writeAutoRedirectState = (state: AutoRedirectState) => {
+  try {
+    localStorage.setItem(AUTO_REDIRECT_STORAGE_KEY, JSON.stringify(state));
+  } catch {
+    /* ignore */
+  }
+};
 
 interface GridEpisode {
   videoId: string;
@@ -52,17 +79,24 @@ const Podcast = () => {
     startTrackedRedirect(videoId, `latest-grid:${videoId}`);
   };
 
-  // Idle-based auto-redirect: fires after AUTO_REDIRECT_SECONDS of no interaction
+  // Idle-based auto-redirect: 1st after 10s, 2nd after 45s of AFK, then suppressed for 24h
   useEffect(() => {
     if (!video || redirected) return;
+
+    const state = readAutoRedirectState();
+    if (state.count >= 2) return; // already redirected twice within 24h window
+
+    const delaySeconds =
+      state.count === 0 ? FIRST_AUTO_REDIRECT_SECONDS : SECOND_AUTO_REDIRECT_SECONDS;
 
     let timerId: number | undefined;
     const reset = () => {
       if (timerId) window.clearTimeout(timerId);
       timerId = window.setTimeout(() => {
         setRedirected(true);
+        writeAutoRedirectState({ count: state.count + 1, lastAt: Date.now() });
         startTrackedRedirect(video.videoId, `latest-auto:${video.videoId}`);
-      }, AUTO_REDIRECT_SECONDS * 1000);
+      }, delaySeconds * 1000);
     };
 
     const events: (keyof WindowEventMap)[] = [
