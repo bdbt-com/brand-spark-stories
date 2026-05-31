@@ -50,11 +50,16 @@ function TrendBadge({ current, currentDays, outer, outerDays }: { current: numbe
   );
 }
 
-function InlineGraph({ data, dataKey, label, color, hourly }: { data: any[]; dataKey: string; label: string; color: string; hourly?: boolean }) {
+function InlineGraph({ data, dataKey, label, color, hourly, dataKey2, color2, label2 }: { data: any[]; dataKey: string; label: string; color: string; hourly?: boolean; dataKey2?: string; color2?: string; label2?: string }) {
   return (
     <Card className="w-full xl:w-80 flex-shrink-0">
       <CardContent className="p-3">
-        <p className="text-[10px] font-medium text-muted-foreground mb-1 uppercase tracking-wider">{label}</p>
+        <p className="text-[10px] font-medium text-muted-foreground mb-1 uppercase tracking-wider flex items-center gap-2">
+          <span className="inline-flex items-center gap-1"><span className="inline-block w-2 h-2 rounded-full" style={{ background: color }} />{label}</span>
+          {dataKey2 && label2 && (
+            <span className="inline-flex items-center gap-1"><span className="inline-block w-2 h-2 rounded-full" style={{ background: color2 }} />{label2}</span>
+          )}
+        </p>
         <div className="h-[180px]">
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={data}>
@@ -89,6 +94,9 @@ function InlineGraph({ data, dataKey, label, color, hourly }: { data: any[]; dat
                 }}
               />
               <Line type="monotone" dataKey={dataKey} stroke={color} strokeWidth={1.5} dot={false} activeDot={{ r: 3, strokeWidth: 0 }} />
+              {dataKey2 && (
+                <Line type="monotone" dataKey={dataKey2} stroke={color2} strokeWidth={1.5} dot={false} activeDot={{ r: 3, strokeWidth: 0 }} />
+              )}
             </LineChart>
           </ResponsiveContainer>
         </div>
@@ -198,10 +206,11 @@ const AdminList = () => {
   const [downloadCounts, setDownloadCounts] = useState<[string, number][]>([]);
   const [analytics, setAnalytics] = useState<Record<string, AnalyticsPeriod>>({});
   const [bioClicks, setBioClicks] = useState<Record<string, number>>({});
+  const [podcastClicks, setPodcastClicks] = useState<Record<string, number>>({});
   const [todaySubscribers, setTodaySubscribers] = useState(0);
   const [feed, setFeed] = useState<FeedItem[]>([]);
-  const [dailyStats, setDailyStats] = useState<{ day: string; visitors: number; bio_clicks: number; auto_redirects: number }[]>([]);
-  const [hourlyStats, setHourlyStats] = useState<{ hour: string; visitors: number; bio_clicks: number; auto_redirects: number }[]>([]);
+  const [dailyStats, setDailyStats] = useState<{ day: string; visitors: number; bio_clicks: number; auto_redirects: number; podcast_clicks: number }[]>([]);
+  const [hourlyStats, setHourlyStats] = useState<{ hour: string; visitors: number; bio_clicks: number; auto_redirects: number; podcast_clicks: number }[]>([]);
   const [feedFilter, setFeedFilter] = useState<FeedFilter>("all");
   const [graphRange, setGraphRange] = useState<'today' | '7d' | '14d' | '30d' | 'all'>('all');
   const [showPreviousVideos, setShowPreviousVideos] = useState(false);
@@ -248,6 +257,7 @@ const AdminList = () => {
       const { data } = await supabase.functions.invoke("get-page-analytics");
       if (data?.analytics) setAnalytics(data.analytics);
       if (data?.bio_clicks) setBioClicks(data.bio_clicks);
+      if (data?.podcast_clicks) setPodcastClicks(data.podcast_clicks);
     } catch {}
   }, []);
 
@@ -475,30 +485,56 @@ const AdminList = () => {
           {/* Bio Link Clicks — graph inline */}
           <section>
             <h2 className="text-xl font-bold text-foreground mb-4 flex items-center gap-2">
-              <BarChart3 className="w-5 h-5 text-primary" /> Bio Link Clicks
+              <BarChart3 className="w-5 h-5 text-primary" /> Bio & Podcast Link Clicks
             </h2>
             <div className="flex flex-col xl:flex-row gap-4">
               {(graphRange === 'today' ? hourlyStats.length > 0 : filteredDailyStats.length > 0) && (
-                <InlineGraph data={graphRange === 'today' ? hourlyStats : filteredDailyStats} dataKey="bio_clicks" label="Bio Link Clicks" color="hsl(142, 71%, 45%)" hourly={graphRange === 'today'} />
+                <InlineGraph
+                  data={graphRange === 'today' ? hourlyStats : filteredDailyStats}
+                  dataKey="bio_clicks"
+                  label="/bio"
+                  color="hsl(142, 71%, 45%)"
+                  dataKey2="podcast_clicks"
+                  label2="/podcast"
+                  color2="hsl(210, 90%, 60%)"
+                  hourly={graphRange === 'today'}
+                />
               )}
               <div className="flex-1 grid grid-cols-2 md:grid-cols-5 gap-4">
                 {[
-                  { label: "Today", value: bioClicks.today || 0, isToday: true, sevenDay: bioClicks["7d"] || 0, days: 0, outerVal: 0, outerDays: 0 },
-                  { label: "7 Days", value: bioClicks["7d"] || 0, isToday: false, sevenDay: 0, days: 7, outerVal: bioClicks["14d"] || 0, outerDays: 14 },
-                  { label: "14 Days", value: bioClicks["14d"] || 0, isToday: false, sevenDay: 0, days: 14, outerVal: bioClicks["30d"] || 0, outerDays: 30 },
-                  { label: "30 Days", value: bioClicks["30d"] || 0, isToday: false, sevenDay: 0, days: 30, outerVal: bioClicks["30d"] || 0, outerDays: 30 },
-                  { label: "Total", value: bioClicks.since_launch || 0, isToday: false, sevenDay: 0, days: 0, outerVal: 0, outerDays: 0 },
-                ].map(({ label, value, isToday, sevenDay, days, outerVal, outerDays }) => (
+                  { label: "Today", bio: bioClicks.today || 0, pod: podcastClicks.today || 0, isToday: true, bioSeven: bioClicks["7d"] || 0, podSeven: podcastClicks["7d"] || 0, days: 0, bioOuter: 0, podOuter: 0, outerDays: 0 },
+                  { label: "7 Days", bio: bioClicks["7d"] || 0, pod: podcastClicks["7d"] || 0, isToday: false, bioSeven: 0, podSeven: 0, days: 7, bioOuter: bioClicks["14d"] || 0, podOuter: podcastClicks["14d"] || 0, outerDays: 14 },
+                  { label: "14 Days", bio: bioClicks["14d"] || 0, pod: podcastClicks["14d"] || 0, isToday: false, bioSeven: 0, podSeven: 0, days: 14, bioOuter: bioClicks["30d"] || 0, podOuter: podcastClicks["30d"] || 0, outerDays: 30 },
+                  { label: "30 Days", bio: bioClicks["30d"] || 0, pod: podcastClicks["30d"] || 0, isToday: false, bioSeven: 0, podSeven: 0, days: 30, bioOuter: bioClicks["30d"] || 0, podOuter: podcastClicks["30d"] || 0, outerDays: 30 },
+                  { label: "Total", bio: bioClicks.since_launch || 0, pod: podcastClicks.since_launch || 0, isToday: false, bioSeven: 0, podSeven: 0, days: 0, bioOuter: 0, podOuter: 0, outerDays: 0 },
+                ].map(({ label, bio, pod, isToday, bioSeven, podSeven, days, bioOuter, podOuter, outerDays }) => (
                   <Card key={label}>
-                    <CardContent className="p-5 text-center">
-                      <p className="text-xs font-medium text-muted-foreground mb-3 uppercase tracking-wider">{label}</p>
-                      <p className="text-3xl font-bold text-foreground inline-flex items-center gap-2 justify-center">
-                        {value}
-                        {isToday && <TodayTrendBadge today={value} sevenDay={sevenDay} />}
-                      </p>
-                      <div className="flex items-center justify-center gap-1 mt-1">
-                        <p className="text-xs text-muted-foreground">clicks</p>
-                        {!isToday && days > 0 && outerDays > 0 && days < 30 && <TrendBadge current={value} currentDays={days} outer={outerVal} outerDays={outerDays} />}
+                    <CardContent className="p-4 text-center">
+                      <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">{label}</p>
+                      {/* Bio (top) */}
+                      <div>
+                        <p className="text-2xl font-bold text-foreground inline-flex items-center gap-1.5 justify-center">
+                          <span className="inline-block w-2 h-2 rounded-full" style={{ background: "hsl(142, 71%, 45%)" }} />
+                          {bio}
+                          {isToday && <TodayTrendBadge today={bio} sevenDay={bioSeven} />}
+                        </p>
+                        <div className="flex items-center justify-center gap-1">
+                          <p className="text-[10px] text-muted-foreground uppercase tracking-wider">/bio</p>
+                          {!isToday && days > 0 && outerDays > 0 && days < 30 && <TrendBadge current={bio} currentDays={days} outer={bioOuter} outerDays={outerDays} />}
+                        </div>
+                      </div>
+                      <div className="border-t border-border my-2" />
+                      {/* Podcast (bottom) */}
+                      <div>
+                        <p className="text-2xl font-bold text-foreground inline-flex items-center gap-1.5 justify-center">
+                          <span className="inline-block w-2 h-2 rounded-full" style={{ background: "hsl(210, 90%, 60%)" }} />
+                          {pod}
+                          {isToday && <TodayTrendBadge today={pod} sevenDay={podSeven} />}
+                        </p>
+                        <div className="flex items-center justify-center gap-1">
+                          <p className="text-[10px] text-muted-foreground uppercase tracking-wider">/podcast</p>
+                          {!isToday && days > 0 && outerDays > 0 && days < 30 && <TrendBadge current={pod} currentDays={days} outer={podOuter} outerDays={outerDays} />}
+                        </div>
                       </div>
                     </CardContent>
                   </Card>

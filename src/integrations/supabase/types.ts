@@ -242,6 +242,7 @@ export type Database = {
           auto_redirects: number
           bio_clicks: number
           day: string
+          podcast_clicks: number
           visitors: number
         }[]
       }
@@ -271,8 +272,13 @@ export type Database = {
           auto_redirects: number
           bio_clicks: number
           hour: string
+          podcast_clicks: number
           visitors: number
         }[]
+      }
+      get_podcast_click_sessions: {
+        Args: { since_ts: string }
+        Returns: number
       }
       get_video_click_counts: {
         Args: never
