@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useState, useEffect, useLayoutEffect, useRef, useCallback } from "react";
 import { Play } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import { startTrackedRedirect } from "@/lib/youtube-redirect";
+import { startTrackedRedirect, UPLOADS_PLAYLIST_ID } from "@/lib/youtube-redirect";
 import { useYouTubeVideos } from "@/hooks/useYouTubeVideos";
 import { PINNED_TOP_VIDEOS } from "@/data/pinnedTopVideos";
 
@@ -358,7 +358,7 @@ const LinkInBio = () => {
         redirected = true;
         const updated = [...getRecentRedirects(), { timestamp: Date.now(), videoId }];
         localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
-        startTrackedRedirect(videoId, "auto-redirect:" + videoId);
+        startTrackedRedirect(videoId, "auto-redirect:" + videoId, UPLOADS_PLAYLIST_ID);
       }, delay);
     };
 

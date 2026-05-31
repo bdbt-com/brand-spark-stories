@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { useLatestVideo } from "@/hooks/useLatestVideo";
 import { useYouTubeVideos } from "@/hooks/useYouTubeVideos";
 import { useTopVideos } from "@/hooks/useTopVideos";
-import { startTrackedRedirect, trackClick } from "@/lib/youtube-redirect";
+import { startTrackedRedirect, trackClick, UPLOADS_PLAYLIST_ID } from "@/lib/youtube-redirect";
 
 const SPOTIFY_URL =
   "https://open.spotify.com/show/7AryqWOzeVCOC7WQ9wcBlk?si=2ede4b3121ea46c1&nd=1&dlsi=f03fd58680794b34";
@@ -71,7 +71,7 @@ const Podcast = () => {
     if (!video || redirected) return;
     setRedirected(true);
     const trackPrefix = auto ? "latest-auto" : "latest-page";
-    startTrackedRedirect(video.videoId, `${trackPrefix}:${video.videoId}`);
+    startTrackedRedirect(video.videoId, `${trackPrefix}:${video.videoId}`, UPLOADS_PLAYLIST_ID);
   };
 
   const goToGridVideo = (videoId: string) => {
@@ -95,7 +95,7 @@ const Podcast = () => {
       timerId = window.setTimeout(() => {
         setRedirected(true);
         writeAutoRedirectState({ count: state.count + 1, lastAt: Date.now() });
-        startTrackedRedirect(video.videoId, `latest-auto:${video.videoId}`);
+        startTrackedRedirect(video.videoId, `latest-auto:${video.videoId}`, UPLOADS_PLAYLIST_ID);
       }, delaySeconds * 1000);
     };
 
