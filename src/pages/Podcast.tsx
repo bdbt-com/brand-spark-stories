@@ -10,7 +10,34 @@ import { startTrackedRedirect, trackClick } from "@/lib/youtube-redirect";
 const SPOTIFY_URL =
   "https://open.spotify.com/show/7AryqWOzeVCOC7WQ9wcBlk?si=2ede4b3121ea46c1&nd=1&dlsi=f03fd58680794b34";
 
-const AUTO_REDIRECT_SECONDS = 10;
+const FIRST_AUTO_REDIRECT_SECONDS = 10;
+const SECOND_AUTO_REDIRECT_SECONDS = 45;
+const AUTO_REDIRECT_COOLDOWN_MS = 24 * 60 * 60 * 1000;
+const AUTO_REDIRECT_STORAGE_KEY = "podcast-auto-redirect-state";
+
+type AutoRedirectState = { count: number; lastAt: number };
+
+const readAutoRedirectState = (): AutoRedirectState => {
+  try {
+    const raw = localStorage.getItem(AUTO_REDIRECT_STORAGE_KEY);
+    if (!raw) return { count: 0, lastAt: 0 };
+    const parsed = JSON.parse(raw) as AutoRedirectState;
+    if (Date.now() - parsed.lastAt > AUTO_REDIRECT_COOLDOWN_MS) {
+      return { count: 0, lastAt: 0 };
+    }
+    return parsed;
+  } catch {
+    return { count: 0, lastAt: 0 };
+  }
+};
+
+const writeAutoRedirectState = (state: AutoRedirectState) => {
+  try {
+    localStorage.setItem(AUTO_REDIRECT_STORAGE_KEY, JSON.stringify(state));
+  } catch {
+    /* ignore */
+  }
+};
 
 interface GridEpisode {
   videoId: string;
