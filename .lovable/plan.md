@@ -1,25 +1,29 @@
-## Add /podcast totals beside /bio Auto-Redirects
+## Fix /podcast: missing view count + make IG/TikTok clickable
 
-Add two small stat tiles inside the existing **Auto-Redirects** section on `/admin-list` (the same box that currently shows the /bio redirect totals), so /podcast activity is visible at a glance without a whole new section.
+### 1. View count empty
+`latest_video_cache.view_count_text` is `""` because `youtube-videos` scrapes the channel HTML and YouTube often omits a view count for very recent uploads (the metadata row simply isn't there). Confirmed via DB read.
 
-### What gets added
+**Fix:** in `supabase/functions/refresh-latest-video/index.ts`, after we already know `videoId`, call the YouTube Data API directly to get authoritative stats:
 
-Two compact cards appended after the existing 5-card row (Today / 7d / 14d / 30d / Total), styled smaller and muted so they read as "secondary" context:
+```
+GET https://www.googleapis.com/youtube/v3/videos?part=statistics&id=<videoId>&key=<YOUTUBE_API_KEY>
+```
 
-1. **/podcast redirects** — sum of all `latest-auto:*` tokens
-2. **/podcast clicks** — sum of all `latest-page:*`, `latest-grid:*`, `podcast-spotify`, `podcast-blueprint` tokens
+Format `statistics.viewCount` (raw integer) into the same style YouTube uses: `"1.2K views"`, `"845 views"`, `"3.4M views"`. If the API call fails or returns no value, fall back to whatever `youtube-videos` produced (so we never regress).
 
-Each tile shows: Today (big number + `TodayTrendBadge`) and small `7d / 30d / Total` underneath. No new graph, no new RPC.
+Write the formatted string to `view_count_text`. No frontend change needed — `Podcast.tsx` already renders `video.viewCountText` next to `publishedText`.
 
-### How
+### 2. IG/TikTok icons don't link
+On `/podcast` they are decorative `<span aria-hidden="true">` with `text-foreground/30` — no anchor. Make them real links matching the LinkInBio top bar:
 
-`src/pages/AdminList.tsx`, Auto-Redirects section (~line 568):
-- Compute `podcastRedirects` and `podcastClicks` by iterating `videoCounts` entries and summing where `key.startsWith("latest-auto:")` / (`startsWith("latest-page:") || startsWith("latest-grid:") || === "podcast-spotify" || === "podcast-blueprint"`) for each window (today / 7d / 30d / total).
-- Render the two tiles inside the same `flex` container as the existing /bio cards, with `border-muted bg-muted/20` and smaller text so they're visually distinct from the primary /bio metrics.
+- Instagram → `https://www.instagram.com/bigdaddysbigtips`
+- TikTok → `https://www.tiktok.com/@bigdaddysbigtips`
 
-### Out of scope
-- No changes to graphs, RPCs, edge functions, or the live feed (feed already labels them correctly).
-- No new section, no Spotify/Blueprint split — just the two combined tiles.
+Convert each `<span>` to `<a href={...} target="_blank" rel="noopener noreferrer" aria-label="Instagram|TikTok">`, keep the muted look but add `hover:text-foreground/70 transition-colors` and `focus:outline-none focus:ring-2 focus:ring-primary rounded`. Remove `aria-hidden` on the wrapping div.
 
 ### Files changed
-- `src/pages/AdminList.tsx`
+- `supabase/functions/refresh-latest-video/index.ts` — fetch + format view count via YouTube Data API.
+- `src/pages/Podcast.tsx` — convert the two social spans into anchors.
+
+### Out of scope
+- No DB schema changes, no new tracking, no other page edits.

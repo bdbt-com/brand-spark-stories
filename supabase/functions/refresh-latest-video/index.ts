@@ -7,6 +7,38 @@ const corsHeaders = {
 
 const SUPABASE_URL = Deno.env.get("SUPABASE_URL")!;
 const SERVICE_ROLE = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
+const YT_API_KEY = Deno.env.get("YOUTUBE_API_KEY") ?? "";
+
+function formatViews(n: number): string {
+  if (!n || n < 0) return "";
+  if (n < 1000) return `${n} views`;
+  if (n < 1_000_000) {
+    const v = n / 1000;
+    return `${v >= 100 ? Math.round(v) : v.toFixed(1).replace(/\.0$/, "")}K views`;
+  }
+  if (n < 1_000_000_000) {
+    const v = n / 1_000_000;
+    return `${v >= 100 ? Math.round(v) : v.toFixed(1).replace(/\.0$/, "")}M views`;
+  }
+  const v = n / 1_000_000_000;
+  return `${v.toFixed(1).replace(/\.0$/, "")}B views`;
+}
+
+async function fetchYtViewCountText(videoId: string): Promise<string> {
+  if (!YT_API_KEY) return "";
+  try {
+    const r = await fetch(
+      `https://www.googleapis.com/youtube/v3/videos?part=statistics&id=${videoId}&key=${YT_API_KEY}`,
+    );
+    if (!r.ok) return "";
+    const j = await r.json();
+    const raw = j?.items?.[0]?.statistics?.viewCount;
+    const n = raw ? parseInt(raw, 10) : 0;
+    return formatViews(n);
+  } catch {
+    return "";
+  }
+}
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
@@ -31,6 +63,10 @@ Deno.serve(async (req) => {
       });
     }
 
+    // Prefer authoritative YouTube Data API view count over scraped value.
+    const apiViews = await fetchYtViewCountText(v.videoId);
+    const viewCountText = apiViews || v.viewCountText || v.viewCount || "";
+
     const supabase = createClient(SUPABASE_URL, SERVICE_ROLE);
     const { error } = await supabase
       .from("latest_video_cache")
@@ -39,11 +75,12 @@ Deno.serve(async (req) => {
         video_id: v.videoId,
         title: v.title,
         thumbnail_url: v.thumbnail,
-        view_count_text: v.viewCountText ?? v.viewCount ?? "",
+        view_count_text: viewCountText,
         published_text: v.publishedAt ?? "",
         duration: v.duration ?? "",
         updated_at: new Date().toISOString(),
       });
+
 
     if (error) throw error;
 
