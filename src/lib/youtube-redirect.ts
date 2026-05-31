@@ -26,12 +26,21 @@ export function trackClick(trackId: string) {
 }
 
 /**
+ * Uploads playlist ID for the Daily Wins YouTube channel
+ * (channel UCUjFNTMKnaeP5TyN-cOF5bw → uploads playlist UULF...).
+ * Passing this as `&list=` to a YouTube watch URL causes the next upload
+ * to autoplay after the current video finishes.
+ */
+export const UPLOADS_PLAYLIST_ID = "UULFUjFNTMKnaeP5TyN-cOF5bw";
+
+/**
  * Navigate to the internal redirect bridge page, which tracks the click
  * on our own domain first, then sends the user to YouTube.
  */
-export function startTrackedRedirect(videoId: string, trackId?: string) {
+export function startTrackedRedirect(videoId: string, trackId?: string, playlist?: string) {
   const params = new URLSearchParams({ video: videoId });
   if (trackId) params.set("trackId", trackId);
+  if (playlist) params.set("list", playlist);
   window.location.href = `/redirect?${params.toString()}`;
 }
 
@@ -40,8 +49,9 @@ export function startTrackedRedirect(videoId: string, trackId?: string) {
  * or open youtube.com directly on desktop. Called from the RedirectBridge
  * page after tracking has completed.
  */
-export function navigateToYouTube(videoId: string) {
-  const webUrl = `https://www.youtube.com/watch?v=${videoId}`;
+export function navigateToYouTube(videoId: string, playlist?: string) {
+  const listSuffix = playlist ? `&list=${playlist}` : "";
+  const webUrl = `https://www.youtube.com/watch?v=${videoId}${listSuffix}`;
   const ua = navigator.userAgent || "";
   const isMobile = /Android|iPhone|iPad|iPod/i.test(ua);
 
@@ -50,8 +60,8 @@ export function navigateToYouTube(videoId: string) {
     return;
   }
 
-  // Try the YouTube app deep link
-  window.location.href = `vnd.youtube://www.youtube.com/watch?v=${videoId}`;
+  // Try the YouTube app deep link (the app honours &list= too)
+  window.location.href = `vnd.youtube://www.youtube.com/watch?v=${videoId}${listSuffix}`;
 
   // If the app didn't take over (page still visible after 1.5s), fall back to web
   setTimeout(() => {
