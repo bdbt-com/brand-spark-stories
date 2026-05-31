@@ -50,11 +50,16 @@ function TrendBadge({ current, currentDays, outer, outerDays }: { current: numbe
   );
 }
 
-function InlineGraph({ data, dataKey, label, color, hourly }: { data: any[]; dataKey: string; label: string; color: string; hourly?: boolean }) {
+function InlineGraph({ data, dataKey, label, color, hourly, dataKey2, color2, label2 }: { data: any[]; dataKey: string; label: string; color: string; hourly?: boolean; dataKey2?: string; color2?: string; label2?: string }) {
   return (
     <Card className="w-full xl:w-80 flex-shrink-0">
       <CardContent className="p-3">
-        <p className="text-[10px] font-medium text-muted-foreground mb-1 uppercase tracking-wider">{label}</p>
+        <p className="text-[10px] font-medium text-muted-foreground mb-1 uppercase tracking-wider flex items-center gap-2">
+          <span className="inline-flex items-center gap-1"><span className="inline-block w-2 h-2 rounded-full" style={{ background: color }} />{label}</span>
+          {dataKey2 && label2 && (
+            <span className="inline-flex items-center gap-1"><span className="inline-block w-2 h-2 rounded-full" style={{ background: color2 }} />{label2}</span>
+          )}
+        </p>
         <div className="h-[180px]">
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={data}>
@@ -89,6 +94,9 @@ function InlineGraph({ data, dataKey, label, color, hourly }: { data: any[]; dat
                 }}
               />
               <Line type="monotone" dataKey={dataKey} stroke={color} strokeWidth={1.5} dot={false} activeDot={{ r: 3, strokeWidth: 0 }} />
+              {dataKey2 && (
+                <Line type="monotone" dataKey={dataKey2} stroke={color2} strokeWidth={1.5} dot={false} activeDot={{ r: 3, strokeWidth: 0 }} />
+              )}
             </LineChart>
           </ResponsiveContainer>
         </div>
