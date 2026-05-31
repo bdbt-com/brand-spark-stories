@@ -603,7 +603,7 @@ const AdminList = () => {
                                   {isToday && <TodayTrendBadge today={topVal} sevenDay={topSeven} />}
                                 </p>
                                 <div className="flex items-center justify-center gap-1">
-                                  <p className="text-[10px] text-muted-foreground uppercase tracking-wider">redirects</p>
+                                  <p className="text-[10px] text-muted-foreground uppercase tracking-wider">/bio redirects</p>
                                   {!isToday && days > 0 && outerDays > days && <TrendBadge current={topVal} currentDays={days} outer={topOuter} outerDays={outerDays} />}
                                 </div>
                               </div>
