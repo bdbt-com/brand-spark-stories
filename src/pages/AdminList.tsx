@@ -491,24 +491,59 @@ const AdminList = () => {
               {(graphRange === 'today' ? hourlyStats.length > 0 : filteredDailyStats.length > 0) && (
                 <InlineGraph data={graphRange === 'today' ? hourlyStats : filteredDailyStats} dataKey="bio_clicks" label="Bio Link Clicks" color="hsl(142, 71%, 45%)" hourly={graphRange === 'today'} />
               )}
+          {/* Bio Link Clicks — graph inline */}
+          <section>
+            <h2 className="text-xl font-bold text-foreground mb-4 flex items-center gap-2">
+              <BarChart3 className="w-5 h-5 text-primary" /> Bio & Podcast Link Clicks
+            </h2>
+            <div className="flex flex-col xl:flex-row gap-4">
+              {(graphRange === 'today' ? hourlyStats.length > 0 : filteredDailyStats.length > 0) && (
+                <InlineGraph
+                  data={graphRange === 'today' ? hourlyStats : filteredDailyStats}
+                  dataKey="bio_clicks"
+                  label="/bio"
+                  color="hsl(142, 71%, 45%)"
+                  dataKey2="podcast_clicks"
+                  label2="/podcast"
+                  color2="hsl(210, 90%, 60%)"
+                  hourly={graphRange === 'today'}
+                />
+              )}
               <div className="flex-1 grid grid-cols-2 md:grid-cols-5 gap-4">
                 {[
-                  { label: "Today", value: bioClicks.today || 0, isToday: true, sevenDay: bioClicks["7d"] || 0, days: 0, outerVal: 0, outerDays: 0 },
-                  { label: "7 Days", value: bioClicks["7d"] || 0, isToday: false, sevenDay: 0, days: 7, outerVal: bioClicks["14d"] || 0, outerDays: 14 },
-                  { label: "14 Days", value: bioClicks["14d"] || 0, isToday: false, sevenDay: 0, days: 14, outerVal: bioClicks["30d"] || 0, outerDays: 30 },
-                  { label: "30 Days", value: bioClicks["30d"] || 0, isToday: false, sevenDay: 0, days: 30, outerVal: bioClicks["30d"] || 0, outerDays: 30 },
-                  { label: "Total", value: bioClicks.since_launch || 0, isToday: false, sevenDay: 0, days: 0, outerVal: 0, outerDays: 0 },
-                ].map(({ label, value, isToday, sevenDay, days, outerVal, outerDays }) => (
+                  { label: "Today", bio: bioClicks.today || 0, pod: podcastClicks.today || 0, isToday: true, bioSeven: bioClicks["7d"] || 0, podSeven: podcastClicks["7d"] || 0, days: 0, bioOuter: 0, podOuter: 0, outerDays: 0 },
+                  { label: "7 Days", bio: bioClicks["7d"] || 0, pod: podcastClicks["7d"] || 0, isToday: false, bioSeven: 0, podSeven: 0, days: 7, bioOuter: bioClicks["14d"] || 0, podOuter: podcastClicks["14d"] || 0, outerDays: 14 },
+                  { label: "14 Days", bio: bioClicks["14d"] || 0, pod: podcastClicks["14d"] || 0, isToday: false, bioSeven: 0, podSeven: 0, days: 14, bioOuter: bioClicks["30d"] || 0, podOuter: podcastClicks["30d"] || 0, outerDays: 30 },
+                  { label: "30 Days", bio: bioClicks["30d"] || 0, pod: podcastClicks["30d"] || 0, isToday: false, bioSeven: 0, podSeven: 0, days: 30, bioOuter: bioClicks["30d"] || 0, podOuter: podcastClicks["30d"] || 0, outerDays: 30 },
+                  { label: "Total", bio: bioClicks.since_launch || 0, pod: podcastClicks.since_launch || 0, isToday: false, bioSeven: 0, podSeven: 0, days: 0, bioOuter: 0, podOuter: 0, outerDays: 0 },
+                ].map(({ label, bio, pod, isToday, bioSeven, podSeven, days, bioOuter, podOuter, outerDays }) => (
                   <Card key={label}>
-                    <CardContent className="p-5 text-center">
-                      <p className="text-xs font-medium text-muted-foreground mb-3 uppercase tracking-wider">{label}</p>
-                      <p className="text-3xl font-bold text-foreground inline-flex items-center gap-2 justify-center">
-                        {value}
-                        {isToday && <TodayTrendBadge today={value} sevenDay={sevenDay} />}
-                      </p>
-                      <div className="flex items-center justify-center gap-1 mt-1">
-                        <p className="text-xs text-muted-foreground">clicks</p>
-                        {!isToday && days > 0 && outerDays > 0 && days < 30 && <TrendBadge current={value} currentDays={days} outer={outerVal} outerDays={outerDays} />}
+                    <CardContent className="p-4 text-center">
+                      <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">{label}</p>
+                      {/* Bio (top) */}
+                      <div>
+                        <p className="text-2xl font-bold text-foreground inline-flex items-center gap-1.5 justify-center">
+                          <span className="inline-block w-2 h-2 rounded-full" style={{ background: "hsl(142, 71%, 45%)" }} />
+                          {bio}
+                          {isToday && <TodayTrendBadge today={bio} sevenDay={bioSeven} />}
+                        </p>
+                        <div className="flex items-center justify-center gap-1">
+                          <p className="text-[10px] text-muted-foreground uppercase tracking-wider">/bio</p>
+                          {!isToday && days > 0 && outerDays > 0 && days < 30 && <TrendBadge current={bio} currentDays={days} outer={bioOuter} outerDays={outerDays} />}
+                        </div>
+                      </div>
+                      <div className="border-t border-border my-2" />
+                      {/* Podcast (bottom) */}
+                      <div>
+                        <p className="text-2xl font-bold text-foreground inline-flex items-center gap-1.5 justify-center">
+                          <span className="inline-block w-2 h-2 rounded-full" style={{ background: "hsl(210, 90%, 60%)" }} />
+                          {pod}
+                          {isToday && <TodayTrendBadge today={pod} sevenDay={podSeven} />}
+                        </p>
+                        <div className="flex items-center justify-center gap-1">
+                          <p className="text-[10px] text-muted-foreground uppercase tracking-wider">/podcast</p>
+                          {!isToday && days > 0 && outerDays > 0 && days < 30 && <TrendBadge current={pod} currentDays={days} outer={podOuter} outerDays={outerDays} />}
+                        </div>
                       </div>
                     </CardContent>
                   </Card>
