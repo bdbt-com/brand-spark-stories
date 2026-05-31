@@ -578,18 +578,16 @@ const AdminList = () => {
                   <>
                     <div className="flex flex-col xl:flex-row gap-4">
                       {(graphRange === 'today' ? hourlyStats.length > 0 : filteredDailyStats.length > 0) && (
-                        <div className="flex-1 min-w-0">
-                          <InlineGraph
-                            data={graphRange === 'today' ? hourlyStats : filteredDailyStats}
-                            dataKey="bio_redirects"
-                            label="/bio redirects"
-                            color="hsl(25, 95%, 53%)"
-                            dataKey2="podcast_redirects"
-                            label2="/podcast redirects"
-                            color2="hsl(210, 90%, 60%)"
-                            hourly={graphRange === 'today'}
-                          />
-                        </div>
+                        <InlineGraph
+                          data={graphRange === 'today' ? hourlyStats : filteredDailyStats}
+                          dataKey="bio_redirects"
+                          label="/bio redirects"
+                          color="hsl(25, 95%, 53%)"
+                          dataKey2="podcast_redirects"
+                          label2="/podcast redirects"
+                          color2="hsl(210, 90%, 60%)"
+                          hourly={graphRange === 'today'}
+                        />
                       )}
                       <div className="flex-1 grid grid-cols-2 md:grid-cols-5 gap-4">
                         {tiles.map(({ label, topVal, botVal, isToday, topSeven, botSeven, days, topOuter, botOuter, outerDays }) => (
