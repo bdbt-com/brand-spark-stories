@@ -100,9 +100,10 @@ Deno.serve(async (req) => {
       });
     }
 
-    // Prefer authoritative YouTube Data API view count over scraped value.
-    const apiViews = await fetchYtViewCountText(v.videoId);
-    const viewCountText = apiViews || v.viewCountText || v.viewCount || "";
+    // Prefer authoritative YouTube Data API for both view count and published-ago text.
+    const stats = await fetchYtStats(v.videoId);
+    const viewCountText = stats.views || sanitizeScrapedViews(v.viewCountText || v.viewCount || "");
+    const publishedText = stats.published || v.publishedAt || "";
 
     const supabase = createClient(SUPABASE_URL, SERVICE_ROLE);
     const { error } = await supabase
@@ -113,7 +114,7 @@ Deno.serve(async (req) => {
         title: v.title,
         thumbnail_url: v.thumbnail,
         view_count_text: viewCountText,
-        published_text: v.publishedAt ?? "",
+        published_text: publishedText,
         duration: v.duration ?? "",
         updated_at: new Date().toISOString(),
       });
