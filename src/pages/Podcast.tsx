@@ -6,7 +6,7 @@ import { useYouTubeVideos } from "@/hooks/useYouTubeVideos";
 import { useTopVideos } from "@/hooks/useTopVideos";
 import { startTrackedRedirect } from "@/lib/youtube-redirect";
 
-const AUTO_REDIRECT_SECONDS = 8;
+const AUTO_REDIRECT_SECONDS = 10;
 
 interface GridEpisode {
   videoId: string;
@@ -20,7 +20,6 @@ const Podcast = () => {
   const { video, loading } = useLatestVideo();
   const { videos: recentVideos } = useYouTubeVideos();
   const { videos: topVideos } = useTopVideos(3);
-  const [secondsLeft, setSecondsLeft] = useState(AUTO_REDIRECT_SECONDS);
   const [redirected, setRedirected] = useState(false);
 
   // noindex this page
@@ -49,10 +48,6 @@ const Podcast = () => {
     startTrackedRedirect(videoId, `latest-grid:${videoId}`);
   };
 
-  // Countdown + auto-redirect — PAUSED
-  useEffect(() => {
-    // Auto-redirect paused during development
-  }, []);
 
   // Build the 6-card grid: interleave [new1, top1, new2, top2, new3, top3]
   const gridEpisodes = useMemo<GridEpisode[]>(() => {
@@ -158,9 +153,6 @@ const Podcast = () => {
 
             <p className="text-center text-xs sm:text-sm text-foreground/70 px-2">
               You'll be taken to YouTube to watch today's latest episode.
-            </p>
-            <p className="text-center text-[11px] sm:text-xs text-foreground/40">
-              Auto-redirect paused
             </p>
           </article>
         )}
