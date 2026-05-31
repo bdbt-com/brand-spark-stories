@@ -63,10 +63,12 @@ serve(async (req) => {
 
     const items: { type: string; label: string; detail: string; timestamp: string }[] = [];
 
-    const BUTTON_LABELS: Record<string, string> = {
-      "button-blueprint": "Free Foundation Blueprint",
-      "button-youtube": "YouTube channel",
-      "button-spotify": "Spotify show",
+    const BUTTON_LABELS: Record<string, { label: string; detail: string }> = {
+      "button-blueprint": { label: "Free Foundation Blueprint", detail: "Click from /bio (button)" },
+      "button-youtube": { label: "YouTube channel", detail: "Click from /bio (button)" },
+      "button-spotify": { label: "Spotify show", detail: "Click from /bio (button)" },
+      "podcast-spotify": { label: "Spotify show", detail: "Click from /podcast (Spotify)" },
+      "podcast-blueprint": { label: "Free Foundation Blueprint", detail: "Click from /podcast (Blueprint)" },
     };
 
     for (const c of clicks || []) {
