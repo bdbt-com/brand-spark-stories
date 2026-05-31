@@ -551,7 +551,6 @@ const AdminList = () => {
             <div className="flex flex-col gap-4">
               {/* Row 1: graph + 5 stat tiles (mirrors Bio row above) */}
               {(() => {
-                const arLegacy = videoCounts["auto-redirect"] || { total: 0, today: 0, "7d": 0, "14d": 0, "30d": 0 };
                 const sum = (pred: (k: string) => boolean) => {
                   const acc: Record<string, number> = { total: 0, today: 0, "7d": 0, "14d": 0, "30d": 0 };
                   for (const [k, v] of Object.entries(videoCounts)) {
@@ -564,27 +563,15 @@ const AdminList = () => {
                   }
                   return acc;
                 };
-                const pr = sum((k) => k.startsWith("latest-auto:"));
-                const pc = sum((k) =>
-                  k.startsWith("latest-page:") ||
-                  k.startsWith("latest-grid:") ||
-                  k === "podcast-spotify" ||
-                  k === "podcast-blueprint"
-                );
-                const ar = {
-                  total: arLegacy.total + pr.total,
-                  today: arLegacy.today + pr.today,
-                  "7d": arLegacy["7d"] + pr["7d"],
-                  "14d": arLegacy["14d"] + pr["14d"],
-                  "30d": arLegacy["30d"] + pr["30d"],
-                };
+                const br = sum((k) => k === "auto-redirect" || k.startsWith("auto-redirect:")); // /bio redirects
+                const pr = sum((k) => k.startsWith("latest-auto:")); // /podcast redirects
                 const trackingDays = Math.max(1, Math.round((Date.now() - new Date("2026-03-04").getTime()) / 86400000));
                 const tiles = [
-                  { label: "Today", topVal: ar.today, botVal: pc.today, isToday: true, topSeven: ar["7d"], botSeven: pc["7d"], days: 0, topOuter: 0, botOuter: 0, outerDays: 0 },
-                  { label: "7 Days", topVal: ar["7d"], botVal: pc["7d"], isToday: false, topSeven: 0, botSeven: 0, days: 7, topOuter: ar["14d"], botOuter: pc["14d"], outerDays: 14 },
-                  { label: "14 Days", topVal: ar["14d"], botVal: pc["14d"], isToday: false, topSeven: 0, botSeven: 0, days: 14, topOuter: ar["30d"], botOuter: pc["30d"], outerDays: 30 },
-                  { label: "30 Days", topVal: ar["30d"], botVal: pc["30d"], isToday: false, topSeven: 0, botSeven: 0, days: 30, topOuter: ar.total, botOuter: pc.total, outerDays: trackingDays },
-                  { label: "Total", topVal: ar.total, botVal: pc.total, isToday: false, topSeven: 0, botSeven: 0, days: 0, topOuter: 0, botOuter: 0, outerDays: 0 },
+                  { label: "Today", topVal: br.today, botVal: pr.today, isToday: true, topSeven: br["7d"], botSeven: pr["7d"], days: 0, topOuter: 0, botOuter: 0, outerDays: 0 },
+                  { label: "7 Days", topVal: br["7d"], botVal: pr["7d"], isToday: false, topSeven: 0, botSeven: 0, days: 7, topOuter: br["14d"], botOuter: pr["14d"], outerDays: 14 },
+                  { label: "14 Days", topVal: br["14d"], botVal: pr["14d"], isToday: false, topSeven: 0, botSeven: 0, days: 14, topOuter: br["30d"], botOuter: pr["30d"], outerDays: 30 },
+                  { label: "30 Days", topVal: br["30d"], botVal: pr["30d"], isToday: false, topSeven: 0, botSeven: 0, days: 30, topOuter: br.total, botOuter: pr.total, outerDays: trackingDays },
+                  { label: "Total", topVal: br.total, botVal: pr.total, isToday: false, topSeven: 0, botSeven: 0, days: 0, topOuter: 0, botOuter: 0, outerDays: 0 },
                 ];
                 const lc = latestVideoId ? (videoCounts[`auto-redirect:${latestVideoId}`] || videoCounts[`latest-auto:${latestVideoId}`] || videoCounts[latestVideoId] || { total: 0, today: 0, "7d": 0, "14d": 0, "30d": 0 }) : null;
                 return (
