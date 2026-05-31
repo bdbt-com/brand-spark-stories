@@ -198,10 +198,11 @@ const AdminList = () => {
   const [downloadCounts, setDownloadCounts] = useState<[string, number][]>([]);
   const [analytics, setAnalytics] = useState<Record<string, AnalyticsPeriod>>({});
   const [bioClicks, setBioClicks] = useState<Record<string, number>>({});
+  const [podcastClicks, setPodcastClicks] = useState<Record<string, number>>({});
   const [todaySubscribers, setTodaySubscribers] = useState(0);
   const [feed, setFeed] = useState<FeedItem[]>([]);
-  const [dailyStats, setDailyStats] = useState<{ day: string; visitors: number; bio_clicks: number; auto_redirects: number }[]>([]);
-  const [hourlyStats, setHourlyStats] = useState<{ hour: string; visitors: number; bio_clicks: number; auto_redirects: number }[]>([]);
+  const [dailyStats, setDailyStats] = useState<{ day: string; visitors: number; bio_clicks: number; auto_redirects: number; podcast_clicks: number }[]>([]);
+  const [hourlyStats, setHourlyStats] = useState<{ hour: string; visitors: number; bio_clicks: number; auto_redirects: number; podcast_clicks: number }[]>([]);
   const [feedFilter, setFeedFilter] = useState<FeedFilter>("all");
   const [graphRange, setGraphRange] = useState<'today' | '7d' | '14d' | '30d' | 'all'>('all');
   const [showPreviousVideos, setShowPreviousVideos] = useState(false);
