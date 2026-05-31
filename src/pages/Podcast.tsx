@@ -10,7 +10,7 @@ import { startTrackedRedirect, trackClick } from "@/lib/youtube-redirect";
 const SPOTIFY_URL =
   "https://open.spotify.com/show/7AryqWOzeVCOC7WQ9wcBlk?si=2ede4b3121ea46c1&nd=1&dlsi=f03fd58680794b34";
 
-const FIRST_AUTO_REDIRECT_SECONDS = 10;
+const FIRST_AUTO_REDIRECT_SECONDS = 8;
 const SECOND_AUTO_REDIRECT_SECONDS = 45;
 const AUTO_REDIRECT_COOLDOWN_MS = 24 * 60 * 60 * 1000;
 const AUTO_REDIRECT_STORAGE_KEY = "podcast-auto-redirect-state";
