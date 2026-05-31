@@ -249,6 +249,7 @@ const AdminList = () => {
       const { data } = await supabase.functions.invoke("get-page-analytics");
       if (data?.analytics) setAnalytics(data.analytics);
       if (data?.bio_clicks) setBioClicks(data.bio_clicks);
+      if (data?.podcast_clicks) setPodcastClicks(data.podcast_clicks);
     } catch {}
   }, []);
 
