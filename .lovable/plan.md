@@ -1,24 +1,13 @@
-Add `/podcast` page visits as a second series alongside `/bio` in the existing **Bio Link Clicks** card on `/admin-list`. Mirrors how bio clicks already work (distinct sessions on `/podcast`).
+Mirror the Bio approach in the **Auto-Redirects** row to fix the visual overlap and unify the metrics.
 
 ### 1. Database migration
+Update `get_daily_stats()` and `get_hourly_stats_today()` so the `auto_redirects` column counts **both** legacy `auto-redirect:%` and newer `latest-auto:%` `video_id` prefixes (currently only the legacy prefix is counted, while podcast page redirects use `latest-auto:`). This makes the graph line match what's shown in the 5-tile total.
 
-- Replace `public.get_daily_stats()` to return an extra `podcast_clicks bigint` column: `COUNT(*) FROM page_views WHERE page_path = '/podcast'` per day, joined like the existing `bio_clicks` series.
-- Replace `public.get_hourly_stats_today()` to return an extra `podcast_clicks bigint` column with the same logic per hour.
-- Add `public.get_podcast_click_sessions(since_ts timestamptz)` mirroring `get_bio_click_sessions` (distinct `session_id` on `page_path = '/podcast'`).
+### 2. `src/pages/AdminList.tsx` — Auto-Redirects section
+- **Graph**: pass a second series to `InlineGraph` — `dataKey2="podcast_clicks"`, `label2="/podcast clicks"`, `color2="hsl(210, 90%, 60%)"` (same blue used in the Bio section). Section heading becomes `Auto-Redirects & /podcast clicks`.
+- **5 stat tiles (Today / 7d / 14d / 30d / Total)**: same layout as the new Bio tiles — top half shows the redirects number with an orange dot (combined `ar.* + pr.*` so `auto-redirect:*` + `latest-auto:*` totals), bottom half shows `/podcast clicks` (`pc.*`) with the blue dot, divider in between. `TodayTrendBadge` on the Today tile for both rows; `TrendBadge` on 7d/14d/30d for both rows.
+- **Remove** the separate bottom `/podcast redirects` + `/podcast clicks` 2-tile row (now merged into the 5 tiles above; the redirects portion is preserved inside `ar+pr`).
+- Keep the **Latest Video Redirects** card unchanged.
+- Fix the overlap by ensuring the right side renders as a single column (`flex-1` containing only the 5-tile grid) instead of two stacked grids fighting for width.
 
-### 2. Edge function `get-page-analytics`
-
-- After computing `bioClicks`, compute a parallel `podcastClicks` map for `today / 7d / 14d / 30d / since_launch` using `get_podcast_click_sessions`.
-- Return `{ analytics, bio_clicks, podcast_clicks }`.
-
-### 3. `src/pages/AdminList.tsx`
-
-- Extend `dailyStats`/`hourlyStats` state types with `podcast_clicks: number`.
-- Add `podcastClicks` state; populate from `data.podcast_clicks` in `fetchAnalytics`.
-- Extend `InlineGraph` to accept an optional second series prop (`dataKey2`, `color2`, `label2`) and render a second `<Line>`. Update the card heading label to reflect both series.
-- In the **Bio Link Clicks** section:
-  - Rename heading to `Bio & Podcast Link Clicks`.
-  - Pass the second series (`podcast_clicks`, distinct gold/blue colour, e.g. `hsl(210, 90%, 60%)`) to `InlineGraph`.
-  - For each of the 5 tiles (Today / 7d / 14d / 30d / Total): keep the bio number on top (unchanged), add a thin divider, then render the corresponding podcast number underneath with a small coloured dot and `podcast` sublabel. Today tile keeps the existing `TodayTrendBadge` for bio on top and adds one for podcast on the bottom row.
-
-No other sections change. The existing `/podcast redirects` and `/podcast clicks` tiles under Auto-Redirects stay as-is (those track outbound clicks, not page visits).
+No changes to the Bio Link Clicks section, Latest Video Redirects card, or any other section.
