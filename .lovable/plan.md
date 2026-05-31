@@ -1,4 +1,9 @@
-1. In `src/pages/Podcast.tsx`, change `AUTO_REDIRECT_SECONDS` from `8` to `10`.
-2. Remove the paused countdown `useEffect` entirely (lines 52-55).
-3. Remove the "Auto-redirect paused" text line (lines 162-164).
-4. Clean up unused state: delete `secondsLeft`, `setSecondsLeft`, and `redirected` / `setRedirected` if no longer referenced.
+In `src/pages/Podcast.tsx`:
+
+1. Remove the helper text `"You'll be taken to YouTube to watch today's latest episode."` (the `<p>` above the removed status line).
+2. Add an idle-based auto-redirect:
+   - New `useEffect` that runs once `video` is loaded and `redirected` is false.
+   - Start a 10-second timeout that calls `goToVideo(true)`.
+   - Listen for `mousemove`, `mousedown`, `keydown`, `touchstart`, `scroll`, `wheel` on `window` (passive). Any event clears and restarts the 10s timer.
+   - Cleanup removes listeners and clears the timeout on unmount or when `redirected` flips true.
+3. Keep `AUTO_REDIRECT_SECONDS = 10` as the idle threshold.
