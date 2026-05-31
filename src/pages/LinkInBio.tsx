@@ -301,7 +301,7 @@ const LinkInBio = () => {
     const episode = podcastEpisodes[playingVideo];
     if (!episode) return;
     const timer = setTimeout(() => {
-      startTrackedRedirect(episode.videoId);
+      startTrackedRedirect(episode.videoId, `bio-click:${episode.videoId}`);
       setPlayingVideo(null);
     }, 4000);
     return () => clearTimeout(timer);

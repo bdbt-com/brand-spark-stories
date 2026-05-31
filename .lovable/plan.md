@@ -1,16 +1,44 @@
-The data layer already scrapes fresh view counts and "X ago" text from YouTube (`youtube-videos` edge function returns `viewCountText` + `publishedAt` like "23 views" / "1 hour ago"). Today it's only refreshed once per day via two cron jobs. We'll bump it to hourly.
+# Clarify click & redirect sources in /admin-list
 
-### 1. Database migration — replace daily cron with hourly
-Drop the existing 4 daily jobs and create 2 hourly jobs:
+Right now the activity feed just says "Video click" or "Auto-redirect" with no indication of which page the user was on. We'll tag every tracked event with its source page and surface that in the admin feed.
 
-- `refresh-youtube-videos-hourly` — runs `5 * * * *`, GETs `youtube-videos?fresh=1&limit=12` (warms in-memory cache and the recents/top lists).
-- `refresh-latest-video-hourly` — runs `10 * * * *`, POSTs `refresh-latest-video` (updates `latest_video_cache` row → drives the hero card on `/podcast`).
+## Current state of tracking IDs
 
-(Staggered 5 min apart so the latest-video refresh reuses warmed scrape data.)
+| Source | Event | Current `trackId` |
+|---|---|---|
+| `/podcast` hero card | manual click | `latest-page:VIDEOID` |
+| `/podcast` grid card | manual click | `latest-grid:VIDEOID` |
+| `/podcast` idle redirect | auto-redirect | `latest-auto:VIDEOID` |
+| `/bio` carousel card | manual click | bare `VIDEOID` (no prefix) |
+| `/bio` link buttons | manual click | `button-blueprint` / `button-youtube` / `button-spotify` |
+| `/bio` idle redirect | auto-redirect | `auto-redirect:VIDEOID` |
 
-### 2. `src/hooks/useLatestVideo.ts`
-Change the freshness window from `24 * 60 * 60 * 1000` to `60 * 60 * 1000` (1 hour) so the hook also falls back to live scrape if the cached row is older than an hour (defensive in case cron misses a run).
+The `/podcast` events are already prefixed nicely. `/bio` carousel clicks are bare IDs (ambiguous), so we'll add an explicit prefix going forward.
 
-### Notes
-- No frontend display changes — `viewCountText` and `publishedText` already render exactly the strings YouTube returns ("23 views", "1 hour ago"), so the UI auto-updates whenever the underlying data refreshes.
-- Grid / Top videos hooks already pass `fresh=1` so they get up-to-the-minute numbers on each page load; the cron mainly keeps the DB-backed hero card current and the in-memory edge cache warm.
+## Changes
+
+### 1. Tag `/bio` carousel clicks explicitly
+`src/pages/LinkInBio.tsx` — change `startTrackedRedirect(episode.videoId)` to `startTrackedRedirect(episode.videoId, "bio-click:" + episode.videoId)` so the source is unambiguous.
+
+### 2. Teach the activity feed to attribute source
+`supabase/functions/get-activity-feed/index.ts` — extend the parser to recognize the prefixes and emit a `source` ("/podcast" or "/bio") plus a clearer `detail` string:
+
+| `video_id` value | Type | Detail shown |
+|---|---|---|
+| `latest-page:VID` | click | `Click from /podcast` |
+| `latest-grid:VID` | click | `Click from /podcast (grid)` |
+| `latest-auto:VID` | redirect | `Redirect from /podcast` |
+| `auto-redirect:VID` | redirect | `Redirect from /bio` |
+| `auto-redirect` (legacy) | redirect | `Redirect from /bio` |
+| `bio-click:VID` | click | `Click from /bio` |
+| `button-blueprint` / `button-youtube` / `button-spotify` | click | `Click from /bio (button)` |
+| bare `VIDEOID` (historic) | click | `Click from /bio` (legacy default) |
+
+The `label` keeps the resolved video title via `VIDEO_MAP` (or button name).
+
+### 3. Admin feed display
+`src/pages/AdminList.tsx` — no structural changes needed; the new `detail` strings will flow through the existing feed row (which already renders `item.detail`). Mobile and desktop feed lists both pick this up automatically.
+
+## Out of scope
+- No DB migration; we don't rewrite historical `video_clicks` rows. Old bare-VID rows are assumed `/bio` since that was the only page emitting them at the time.
+- No change to per-video click totals (`get-video-clicks`) — those continue to aggregate by underlying VIDEOID.

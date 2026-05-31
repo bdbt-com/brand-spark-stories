@@ -63,35 +63,83 @@ serve(async (req) => {
 
     const items: { type: string; label: string; detail: string; timestamp: string }[] = [];
 
+    const BUTTON_LABELS: Record<string, string> = {
+      "button-blueprint": "Free Foundation Blueprint",
+      "button-youtube": "YouTube channel",
+      "button-spotify": "Spotify show",
+    };
+
     for (const c of clicks || []) {
       const vid = c.video_id || "";
       const ts = c.clicked_at || new Date().toISOString();
 
-      if (vid.startsWith("auto-redirect:")) {
-        // New composite format: auto-redirect:VIDEO_ID
-        const actualId = vid.replace("auto-redirect:", "");
-        const title = VIDEO_MAP[actualId] || actualId;
+      // Helper to pull the underlying video id off a "prefix:VID" token
+      const stripPrefix = (s: string) => {
+        const idx = s.indexOf(":");
+        return idx >= 0 ? s.slice(idx + 1) : s;
+      };
+
+      if (vid.startsWith("latest-auto:")) {
+        const actualId = stripPrefix(vid);
         items.push({
           type: "redirect",
-          label: title,
-          detail: "Auto-redirect",
+          label: VIDEO_MAP[actualId] || actualId,
+          detail: "Redirect from /podcast",
+          timestamp: ts,
+        });
+      } else if (vid.startsWith("latest-page:")) {
+        const actualId = stripPrefix(vid);
+        items.push({
+          type: "click",
+          label: VIDEO_MAP[actualId] || actualId,
+          detail: "Click from /podcast",
+          timestamp: ts,
+        });
+      } else if (vid.startsWith("latest-grid:")) {
+        const actualId = stripPrefix(vid);
+        items.push({
+          type: "click",
+          label: VIDEO_MAP[actualId] || actualId,
+          detail: "Click from /podcast (grid)",
+          timestamp: ts,
+        });
+      } else if (vid.startsWith("auto-redirect:")) {
+        const actualId = stripPrefix(vid);
+        items.push({
+          type: "redirect",
+          label: VIDEO_MAP[actualId] || actualId,
+          detail: "Redirect from /bio",
           timestamp: ts,
         });
       } else if (vid === "auto-redirect") {
-        // Legacy format (no video info)
+        // Legacy bare redirect token
         items.push({
           type: "redirect",
           label: "Auto-redirect",
-          detail: "Idle redirect from /bio",
+          detail: "Redirect from /bio",
+          timestamp: ts,
+        });
+      } else if (vid.startsWith("bio-click:")) {
+        const actualId = stripPrefix(vid);
+        items.push({
+          type: "click",
+          label: VIDEO_MAP[actualId] || actualId,
+          detail: "Click from /bio",
+          timestamp: ts,
+        });
+      } else if (BUTTON_LABELS[vid]) {
+        items.push({
+          type: "click",
+          label: BUTTON_LABELS[vid],
+          detail: "Click from /bio (button)",
           timestamp: ts,
         });
       } else {
-        // Manual click
-        const title = VIDEO_MAP[vid] || vid;
+        // Historic bare VIDEOID — only /bio carousel used this format
         items.push({
           type: "click",
-          label: title,
-          detail: "Video click",
+          label: VIDEO_MAP[vid] || vid,
+          detail: "Click from /bio",
           timestamp: ts,
         });
       }
