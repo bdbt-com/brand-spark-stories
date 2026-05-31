@@ -581,11 +581,11 @@ const AdminList = () => {
                         <div className="flex-1 min-w-0">
                           <InlineGraph
                             data={graphRange === 'today' ? hourlyStats : filteredDailyStats}
-                            dataKey="auto_redirects"
-                            label="redirects"
+                            dataKey="bio_redirects"
+                            label="/bio redirects"
                             color="hsl(25, 95%, 53%)"
-                            dataKey2="podcast_clicks"
-                            label2="/podcast clicks"
+                            dataKey2="podcast_redirects"
+                            label2="/podcast redirects"
                             color2="hsl(210, 90%, 60%)"
                             hourly={graphRange === 'today'}
                           />
