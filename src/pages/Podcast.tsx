@@ -79,17 +79,24 @@ const Podcast = () => {
     startTrackedRedirect(videoId, `latest-grid:${videoId}`);
   };
 
-  // Idle-based auto-redirect: fires after AUTO_REDIRECT_SECONDS of no interaction
+  // Idle-based auto-redirect: 1st after 10s, 2nd after 45s of AFK, then suppressed for 24h
   useEffect(() => {
     if (!video || redirected) return;
+
+    const state = readAutoRedirectState();
+    if (state.count >= 2) return; // already redirected twice within 24h window
+
+    const delaySeconds =
+      state.count === 0 ? FIRST_AUTO_REDIRECT_SECONDS : SECOND_AUTO_REDIRECT_SECONDS;
 
     let timerId: number | undefined;
     const reset = () => {
       if (timerId) window.clearTimeout(timerId);
       timerId = window.setTimeout(() => {
         setRedirected(true);
+        writeAutoRedirectState({ count: state.count + 1, lastAt: Date.now() });
         startTrackedRedirect(video.videoId, `latest-auto:${video.videoId}`);
-      }, AUTO_REDIRECT_SECONDS * 1000);
+      }, delaySeconds * 1000);
     };
 
     const events: (keyof WindowEventMap)[] = [
