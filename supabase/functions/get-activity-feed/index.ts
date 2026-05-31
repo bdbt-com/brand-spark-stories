@@ -132,8 +132,8 @@ serve(async (req) => {
       } else if (BUTTON_LABELS[vid]) {
         items.push({
           type: "click",
-          label: BUTTON_LABELS[vid],
-          detail: "Click from /bio (button)",
+          label: BUTTON_LABELS[vid].label,
+          detail: BUTTON_LABELS[vid].detail,
           timestamp: ts,
         });
       } else {
