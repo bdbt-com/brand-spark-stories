@@ -615,7 +615,7 @@ const AdminList = () => {
                                   {isToday && <TodayTrendBadge today={botVal} sevenDay={botSeven} />}
                                 </p>
                                 <div className="flex items-center justify-center gap-1">
-                                  <p className="text-[10px] text-muted-foreground uppercase tracking-wider">/podcast clicks</p>
+                                  <p className="text-[10px] text-muted-foreground uppercase tracking-wider">/podcast redirects</p>
                                   {!isToday && days > 0 && outerDays > days && <TrendBadge current={botVal} currentDays={days} outer={botOuter} outerDays={outerDays} />}
                                 </div>
                               </div>
