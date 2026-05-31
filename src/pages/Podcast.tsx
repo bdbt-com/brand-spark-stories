@@ -95,7 +95,7 @@ const Podcast = () => {
       timerId = window.setTimeout(() => {
         setRedirected(true);
         writeAutoRedirectState({ count: state.count + 1, lastAt: Date.now() });
-        startTrackedRedirect(video.videoId, `latest-auto:${video.videoId}`);
+        startTrackedRedirect(video.videoId, `latest-auto:${video.videoId}`, UPLOADS_PLAYLIST_ID);
       }, delaySeconds * 1000);
     };
 
