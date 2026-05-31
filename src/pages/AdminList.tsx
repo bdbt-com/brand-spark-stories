@@ -611,6 +611,58 @@ const AdminList = () => {
                       </CardContent>
                     </Card>
                   </div>
+                  {(() => {
+                    const sum = (pred: (k: string) => boolean) => {
+                      const acc: Record<string, number> = { total: 0, today: 0, "7d": 0, "14d": 0, "30d": 0 };
+                      for (const [k, v] of Object.entries(videoCounts)) {
+                        if (!pred(k)) continue;
+                        acc.total += v.total || 0;
+                        acc.today += v.today || 0;
+                        acc["7d"] += v["7d"] || 0;
+                        acc["14d"] += v["14d"] || 0;
+                        acc["30d"] += v["30d"] || 0;
+                      }
+                      return acc;
+                    };
+                    const pr = sum((k) => k.startsWith("latest-auto:"));
+                    const pc = sum((k) =>
+                      k.startsWith("latest-page:") ||
+                      k.startsWith("latest-grid:") ||
+                      k === "podcast-spotify" ||
+                      k === "podcast-blueprint"
+                    );
+                    const Tile = ({ label, c, unit }: { label: string; c: Record<string, number>; unit: string }) => (
+                      <Card className="border-muted bg-muted/20">
+                        <CardContent className="p-3 text-center">
+                          <p className="text-[10px] font-medium text-muted-foreground mb-1 uppercase tracking-wider">{label}</p>
+                          <p className="text-2xl font-bold text-foreground inline-flex items-center gap-1.5 justify-center">
+                            {c.today} <TodayTrendBadge today={c.today} sevenDay={c["7d"]} />
+                          </p>
+                          <p className="text-[10px] text-muted-foreground mb-2">today · {unit}</p>
+                          <div className="grid grid-cols-3 gap-x-2 text-[11px] text-muted-foreground">
+                            <div className="flex flex-col items-center">
+                              <span className="font-semibold text-primary">{c["7d"]}</span>
+                              <span>7d</span>
+                            </div>
+                            <div className="flex flex-col items-center">
+                              <span className="font-semibold text-primary">{c["30d"]}</span>
+                              <span>30d</span>
+                            </div>
+                            <div className="flex flex-col items-center">
+                              <span className="font-semibold text-primary">{c.total}</span>
+                              <span>Total</span>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    );
+                    return (
+                      <div className="grid grid-cols-2 gap-4 mt-2">
+                        <Tile label="/podcast redirects" c={pr} unit="redirects" />
+                        <Tile label="/podcast clicks" c={pc} unit="clicks" />
+                      </div>
+                    );
+                  })()}
                   </div>
                 );
               })()}
