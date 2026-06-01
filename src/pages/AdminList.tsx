@@ -406,10 +406,12 @@ const AdminList = () => {
                 filteredFeed.map((item, i) => {
                   const config = FEED_CONFIG[item.type] || FEED_CONFIG.click;
                   const Icon = config.icon;
+                  const k = feedKey(item);
+                  const isNew = !seenKeysAtRender.current.has(k);
                   return (
                     <div
-                      key={`mobile-${item.timestamp}-${i}`}
-                      className="flex items-center gap-2 py-1.5 border-t border-border/30"
+                      key={`mobile-${k}`}
+                      className={`flex items-center gap-2 py-1.5 border-t border-border/30 ${isNew ? 'animate-in fade-in slide-in-from-top-1 duration-300' : ''}`}
                     >
                       <div className={`p-1 rounded ${config.bg} flex-shrink-0`}>
                         <Icon className={`w-3 h-3 ${config.color}`} />
