@@ -32,10 +32,22 @@ serve(async (req) => {
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
     );
 
-    const since = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
+    const serverTime = new Date().toISOString();
 
-    const PAGE = 1000;
-    const MAX = 10000;
+    // Optional `since` body for incremental fetches
+    let sinceParam: string | null = null;
+    if (req.method === "POST") {
+      try {
+        const body = await req.json();
+        if (body && typeof body.since === "string") sinceParam = body.since;
+      } catch {}
+    }
+
+    const incremental = !!sinceParam;
+    const since = sinceParam || new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
+
+    const PAGE = incremental ? 500 : 1000;
+    const MAX = incremental ? 500 : 10000;
 
     async function fetchAll(table: string, cols: string, tsCol: string) {
       const all: any[] = [];
@@ -171,7 +183,7 @@ serve(async (req) => {
     items.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
     const feed = items;
 
-    return new Response(JSON.stringify({ feed }), {
+    return new Response(JSON.stringify({ feed, server_time: serverTime }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
   } catch (error: any) {

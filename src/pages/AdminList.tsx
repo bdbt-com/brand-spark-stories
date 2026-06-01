@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback, useMemo } from "react";
+import { useEffect, useState, useCallback, useMemo, useRef } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Loader2, Play, TrendingDown, TrendingUp, BarChart3, Clock, MousePointerClick, ArrowRightLeft, UserPlus, Download, Activity, Minus } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
@@ -274,10 +274,51 @@ const AdminList = () => {
     }
   }, []);
 
+  const lastFeedSince = useRef<string | null>(null);
+  const feedItemKeys = useRef<Set<string>>(new Set());
+  const seenKeysAtRender = useRef<Set<string>>(new Set());
+
+  const feedKey = (item: FeedItem) =>
+    `${item.type}:${item.timestamp}:${item.label}:${item.detail}`;
+
   const fetchFeed = useCallback(async () => {
     try {
-      const { data } = await supabase.functions.invoke("get-activity-feed");
-      if (data?.feed) setFeed(data.feed);
+      const { data } = await supabase.functions.invoke("get-activity-feed", { body: {} });
+      if (data?.feed) {
+        const items: FeedItem[] = data.feed;
+        feedItemKeys.current = new Set(items.map(feedKey));
+        setFeed(items);
+      }
+      if (data?.server_time) lastFeedSince.current = data.server_time;
+    } catch {}
+  }, []);
+
+  const fetchFeedIncremental = useCallback(async () => {
+    if (!lastFeedSince.current) return;
+    if (typeof document !== "undefined" && document.visibilityState === "hidden") return;
+    try {
+      const { data } = await supabase.functions.invoke("get-activity-feed", {
+        body: { since: lastFeedSince.current },
+      });
+      if (data?.server_time) lastFeedSince.current = data.server_time;
+      const incoming: FeedItem[] = data?.feed || [];
+      if (incoming.length === 0) return;
+      const fresh: FeedItem[] = [];
+      for (const item of incoming) {
+        const k = feedKey(item);
+        if (feedItemKeys.current.has(k)) continue;
+        feedItemKeys.current.add(k);
+        fresh.push(item);
+      }
+      if (fresh.length === 0) return;
+      setFeed((prev) => {
+        const merged = [...fresh, ...prev];
+        merged.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
+        const capped = merged.slice(0, 500);
+        // prune dedupe set to capped keys to bound memory
+        feedItemKeys.current = new Set(capped.map(feedKey));
+        return capped;
+      });
     } catch {}
   }, []);
 
@@ -297,16 +338,33 @@ const AdminList = () => {
     fetchFeed();
     fetchDailyStats();
 
-    const interval = setInterval(() => {
+    const slow = setInterval(() => {
       fetchSubscribers();
       fetchVideoCounts();
       fetchDownloadCounts();
       fetchAnalytics();
-      fetchFeed();
     }, 15000);
 
-    return () => clearInterval(interval);
-  }, [fetchSubscribers, fetchVideoCounts, fetchDownloadCounts, fetchAnalytics, fetchFeed, fetchDailyStats]);
+    const fast = setInterval(() => {
+      fetchFeedIncremental();
+    }, 1000);
+
+    const onVisible = () => {
+      if (document.visibilityState === "visible") fetchFeedIncremental();
+    };
+    document.addEventListener("visibilitychange", onVisible);
+
+    return () => {
+      clearInterval(slow);
+      clearInterval(fast);
+      document.removeEventListener("visibilitychange", onVisible);
+    };
+  }, [fetchSubscribers, fetchVideoCounts, fetchDownloadCounts, fetchAnalytics, fetchFeed, fetchFeedIncremental, fetchDailyStats]);
+
+  // Track which feed keys were rendered last paint so we can animate only new ones
+  useEffect(() => {
+    seenKeysAtRender.current = new Set(feed.map(feedKey));
+  }, [feed]);
 
   if (loading) {
     return (
@@ -348,10 +406,12 @@ const AdminList = () => {
                 filteredFeed.map((item, i) => {
                   const config = FEED_CONFIG[item.type] || FEED_CONFIG.click;
                   const Icon = config.icon;
+                  const k = feedKey(item);
+                  const isNew = !seenKeysAtRender.current.has(k);
                   return (
                     <div
-                      key={`mobile-${item.timestamp}-${i}`}
-                      className="flex items-center gap-2 py-1.5 border-t border-border/30"
+                      key={`mobile-${k}`}
+                      className={`flex items-center gap-2 py-1.5 border-t border-border/30 ${isNew ? 'animate-in fade-in slide-in-from-top-1 duration-300' : ''}`}
                     >
                       <div className={`p-1 rounded ${config.bg} flex-shrink-0`}>
                         <Icon className={`w-3 h-3 ${config.color}`} />
@@ -873,10 +933,12 @@ const AdminList = () => {
                     filteredFeed.map((item, i) => {
                       const config = FEED_CONFIG[item.type] || FEED_CONFIG.click;
                       const Icon = config.icon;
+                      const k = feedKey(item);
+                      const isNew = !seenKeysAtRender.current.has(k);
                       return (
                         <div
-                          key={`${item.timestamp}-${i}`}
-                          className="flex items-start gap-3 p-2.5 rounded-lg bg-muted/20 hover:bg-muted/40 transition-colors"
+                          key={k}
+                          className={`flex items-start gap-3 p-2.5 rounded-lg bg-muted/20 hover:bg-muted/40 transition-colors ${isNew ? 'animate-in fade-in slide-in-from-top-1 duration-300' : ''}`}
                         >
                           <div className={`p-1.5 rounded-md ${config.bg} flex-shrink-0 mt-0.5`}>
                             <Icon className={`w-3.5 h-3.5 ${config.color}`} />
