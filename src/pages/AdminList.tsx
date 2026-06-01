@@ -274,10 +274,51 @@ const AdminList = () => {
     }
   }, []);
 
+  const lastFeedSince = useRef<string | null>(null);
+  const feedItemKeys = useRef<Set<string>>(new Set());
+  const seenKeysAtRender = useRef<Set<string>>(new Set());
+
+  const feedKey = (item: FeedItem) =>
+    `${item.type}:${item.timestamp}:${item.label}:${item.detail}`;
+
   const fetchFeed = useCallback(async () => {
     try {
-      const { data } = await supabase.functions.invoke("get-activity-feed");
-      if (data?.feed) setFeed(data.feed);
+      const { data } = await supabase.functions.invoke("get-activity-feed", { body: {} });
+      if (data?.feed) {
+        const items: FeedItem[] = data.feed;
+        feedItemKeys.current = new Set(items.map(feedKey));
+        setFeed(items);
+      }
+      if (data?.server_time) lastFeedSince.current = data.server_time;
+    } catch {}
+  }, []);
+
+  const fetchFeedIncremental = useCallback(async () => {
+    if (!lastFeedSince.current) return;
+    if (typeof document !== "undefined" && document.visibilityState === "hidden") return;
+    try {
+      const { data } = await supabase.functions.invoke("get-activity-feed", {
+        body: { since: lastFeedSince.current },
+      });
+      if (data?.server_time) lastFeedSince.current = data.server_time;
+      const incoming: FeedItem[] = data?.feed || [];
+      if (incoming.length === 0) return;
+      const fresh: FeedItem[] = [];
+      for (const item of incoming) {
+        const k = feedKey(item);
+        if (feedItemKeys.current.has(k)) continue;
+        feedItemKeys.current.add(k);
+        fresh.push(item);
+      }
+      if (fresh.length === 0) return;
+      setFeed((prev) => {
+        const merged = [...fresh, ...prev];
+        merged.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
+        const capped = merged.slice(0, 500);
+        // prune dedupe set to capped keys to bound memory
+        feedItemKeys.current = new Set(capped.map(feedKey));
+        return capped;
+      });
     } catch {}
   }, []);
 
@@ -297,16 +338,28 @@ const AdminList = () => {
     fetchFeed();
     fetchDailyStats();
 
-    const interval = setInterval(() => {
+    const slow = setInterval(() => {
       fetchSubscribers();
       fetchVideoCounts();
       fetchDownloadCounts();
       fetchAnalytics();
-      fetchFeed();
     }, 15000);
 
-    return () => clearInterval(interval);
-  }, [fetchSubscribers, fetchVideoCounts, fetchDownloadCounts, fetchAnalytics, fetchFeed, fetchDailyStats]);
+    const fast = setInterval(() => {
+      fetchFeedIncremental();
+    }, 1000);
+
+    const onVisible = () => {
+      if (document.visibilityState === "visible") fetchFeedIncremental();
+    };
+    document.addEventListener("visibilitychange", onVisible);
+
+    return () => {
+      clearInterval(slow);
+      clearInterval(fast);
+      document.removeEventListener("visibilitychange", onVisible);
+    };
+  }, [fetchSubscribers, fetchVideoCounts, fetchDownloadCounts, fetchAnalytics, fetchFeed, fetchFeedIncremental, fetchDailyStats]);
 
   if (loading) {
     return (
