@@ -361,6 +361,11 @@ const AdminList = () => {
     };
   }, [fetchSubscribers, fetchVideoCounts, fetchDownloadCounts, fetchAnalytics, fetchFeed, fetchFeedIncremental, fetchDailyStats]);
 
+  // Track which feed keys were rendered last paint so we can animate only new ones
+  useEffect(() => {
+    seenKeysAtRender.current = new Set(feed.map(feedKey));
+  }, [feed]);
+
   if (loading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
