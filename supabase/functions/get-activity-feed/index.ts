@@ -183,7 +183,7 @@ serve(async (req) => {
     items.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
     const feed = items;
 
-    return new Response(JSON.stringify({ feed }), {
+    return new Response(JSON.stringify({ feed, server_time: serverTime }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
   } catch (error: any) {
