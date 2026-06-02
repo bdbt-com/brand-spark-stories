@@ -243,6 +243,27 @@ const AdminList = () => {
     return counts;
   }, [feed]);
 
+  // Live deltas — how much each "today" counter has grown since the last analytics fetch.
+  // Added to every longer-period number so 7d/14d/30d/Total all tick up in sync with Today.
+  const liveDeltas = useMemo(() => {
+    const b = analyticsBaseline.current;
+    const t = liveTick;
+    if (!b || !t) {
+      return { visitors: 0, bio_clicks: 0, podcast_clicks: 0, bio_redirects: 0, podcast_redirects: 0, subscribers: 0 };
+    }
+    const d = (cur: number, base: number) => Math.max(0, cur - base);
+    return {
+      visitors: d(t.visitors_today, b.visitors),
+      bio_clicks: d(t.bio_clicks_today, b.bio_clicks),
+      podcast_clicks: d(t.podcast_clicks_today, b.podcast_clicks),
+      bio_redirects: d(t.bio_redirects_today, b.bio_redirects),
+      podcast_redirects: d(t.podcast_redirects_today, b.podcast_redirects),
+      subscribers: d(t.subscribers_today, b.subscribers),
+    };
+  }, [liveTick]);
+
+
+
   const fetchVideoCounts = useCallback(async () => {
     try {
       const { data } = await supabase.functions.invoke("get-video-clicks");
@@ -268,6 +289,7 @@ const AdminList = () => {
       if (data?.analytics) setAnalytics(data.analytics);
       if (data?.bio_clicks) setBioClicks(data.bio_clicks);
       if (data?.podcast_clicks) setPodcastClicks(data.podcast_clicks);
+      captureBaseline();
     } catch {}
   }, []);
 
@@ -287,6 +309,38 @@ const AdminList = () => {
   const lastFeedSince = useRef<string | null>(null);
   const feedItemKeys = useRef<Set<string>>(new Set());
   const seenKeysAtRender = useRef<Set<string>>(new Set());
+  // Per-key animation delay in ms for items that just arrived (so a batch waterfalls in)
+  const freshDelays = useRef<Map<string, number>>(new Map());
+  // Baseline snapshot of liveTick at the moment the last analytics fetch completed.
+  // Used to project today's live deltas onto every longer-period stat so they tick in sync.
+  const liveTickRef = useRef<typeof liveTick>(null);
+  const analyticsBaseline = useRef<{
+    visitors: number;
+    bio_clicks: number;
+    podcast_clicks: number;
+    bio_redirects: number;
+    podcast_redirects: number;
+    total_clicks: number;
+    subscribers: number;
+  } | null>(null);
+  useEffect(() => { liveTickRef.current = liveTick; }, [liveTick]);
+  const captureBaseline = () => {
+    const t = liveTickRef.current;
+    if (!t) return; // wait until first liveTick arrives so deltas don't spike
+    analyticsBaseline.current = {
+      visitors: t.visitors_today,
+      bio_clicks: t.bio_clicks_today,
+      podcast_clicks: t.podcast_clicks_today,
+      bio_redirects: t.bio_redirects_today,
+      podcast_redirects: t.podcast_redirects_today,
+      total_clicks: t.total_clicks_today,
+      subscribers: t.subscribers_today,
+    };
+  };
+  // When liveTick first arrives after analytics, set the initial baseline.
+  useEffect(() => {
+    if (liveTick && !analyticsBaseline.current) captureBaseline();
+  }, [liveTick]);
 
   const feedKey = (item: FeedItem) =>
     `${item.type}:${item.timestamp}:${item.label}:${item.detail}`;
@@ -321,6 +375,18 @@ const AdminList = () => {
         fresh.push(item);
       }
       if (fresh.length === 0) return;
+      // Sort fresh oldest→newest so the newest pops in last (most natural feel)
+      const ordered = [...fresh].sort(
+        (a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
+      );
+      ordered.forEach((item, i) => {
+        // 110ms stagger per item, capped at 660ms so big bursts don't drag
+        freshDelays.current.set(feedKey(item), Math.min(i * 110, 660));
+      });
+      // Cleanup delays after the animation has run so re-renders don't re-trigger it
+      setTimeout(() => {
+        ordered.forEach((item) => freshDelays.current.delete(feedKey(item)));
+      }, 1400);
       setFeed((prev) => {
         const merged = [...fresh, ...prev];
         merged.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
@@ -436,10 +502,12 @@ const AdminList = () => {
                   const Icon = config.icon;
                   const k = feedKey(item);
                   const isNew = !seenKeysAtRender.current.has(k);
+                  const delay = freshDelays.current.get(k) ?? 0;
                   return (
                     <div
                       key={`mobile-${k}`}
-                      className={`flex items-center gap-2 py-1.5 border-t border-border/30 ${isNew ? 'animate-in fade-in slide-in-from-top-1 duration-300' : ''}`}
+                      className={`flex items-center gap-2 py-1.5 border-t border-border/30 ${isNew ? 'animate-in fade-in-0 slide-in-from-top-2 duration-500 ease-out fill-mode-both' : ''}`}
+                      style={isNew ? { animationDelay: `${delay}ms` } : undefined}
                     >
                       <div className={`p-1 rounded ${config.bg} flex-shrink-0`}>
                         <Icon className={`w-3 h-3 ${config.color}`} />
@@ -486,38 +554,8 @@ const AdminList = () => {
             </div>
           )}
 
-          {/* Today's Live Stats */}
-          <section>
-            <h2 className="text-xl font-bold text-foreground mb-4 flex items-center gap-2">
-              <BarChart3 className="w-5 h-5 text-primary" /> Today — Live
-            </h2>
-            <div className="grid grid-cols-2 gap-4">
-              {(() => {
-                const today = analytics["today"];
-                const avgMins = today ? Math.floor(today.avg_duration / 60) : 0;
-                const avgSecs = today ? today.avg_duration % 60 : 0;
-                const subsDisplay = liveTick ? Math.max(liveTick.subscribers_today, todaySubscribers) : todaySubscribers;
-                return (
-                  <>
-                    <Card className="border-primary/30 bg-primary/5">
-                      <CardContent className="p-5 text-center">
-                        <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">Avg Time</p>
-                        <p className="text-3xl font-bold text-foreground">
-                          {avgMins > 0 ? `${avgMins}m ` : ""}{avgSecs}s
-                        </p>
-                      </CardContent>
-                    </Card>
-                    <Card className="border-primary/30 bg-primary/5">
-                      <CardContent className="p-5 text-center">
-                        <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">New Subs</p>
-                        <p className="text-3xl font-bold text-foreground"><AnimatedCounter value={subsDisplay} /></p>
-                      </CardContent>
-                    </Card>
-                  </>
-                );
-              })()}
-            </div>
-          </section>
+
+
 
           {/* Page Visitors — graph inline */}
           <section>
@@ -582,7 +620,7 @@ const AdminList = () => {
                     <Card key={key}>
                       <CardContent className="p-5 text-center">
                         <p className="text-xs font-medium text-muted-foreground mb-3 uppercase tracking-wider">{label}</p>
-                        <p className="text-3xl font-bold text-foreground"><AnimatedCounter value={period?.visitors || 0} /></p>
+                        <p className="text-3xl font-bold text-foreground"><AnimatedCounter value={(period?.visitors || 0) + liveDeltas.visitors} /></p>
                         <div className="flex items-center justify-center gap-1 mb-2">
                           <p className="text-xs text-muted-foreground">visitors</p>
                           {outer && days > 0 && <TrendBadge current={liveVal} currentDays={days} outer={outerLiveVal} outerDays={outerDays} />}
@@ -620,13 +658,19 @@ const AdminList = () => {
                 />
               )}
               <div className="flex-1 grid grid-cols-2 md:grid-cols-5 gap-4">
-                {[
-                  { label: "Today", bio: bioClicks.today || 0, pod: podcastClicks.today || 0, isToday: true, bioSeven: bioClicks["7d"] || 0, podSeven: podcastClicks["7d"] || 0, days: 0, bioOuter: 0, podOuter: 0, outerDays: 0 },
-                  { label: "7 Days", bio: bioClicks["7d"] || 0, pod: podcastClicks["7d"] || 0, isToday: false, bioSeven: 0, podSeven: 0, days: 7, bioOuter: bioClicks["14d"] || 0, podOuter: podcastClicks["14d"] || 0, outerDays: 14 },
-                  { label: "14 Days", bio: bioClicks["14d"] || 0, pod: podcastClicks["14d"] || 0, isToday: false, bioSeven: 0, podSeven: 0, days: 14, bioOuter: bioClicks["30d"] || 0, podOuter: podcastClicks["30d"] || 0, outerDays: 30 },
-                  { label: "30 Days", bio: bioClicks["30d"] || 0, pod: podcastClicks["30d"] || 0, isToday: false, bioSeven: 0, podSeven: 0, days: 30, bioOuter: bioClicks["30d"] || 0, podOuter: podcastClicks["30d"] || 0, outerDays: 30 },
-                  { label: "Total", bio: bioClicks.since_launch || 0, pod: podcastClicks.since_launch || 0, isToday: false, bioSeven: 0, podSeven: 0, days: 0, bioOuter: 0, podOuter: 0, outerDays: 0 },
-                ].map(({ label, bio, pod, isToday, bioSeven, podSeven, days, bioOuter, podOuter, outerDays }) => (
+                {(() => {
+                  const dB = liveDeltas.bio_clicks;
+                  const dP = liveDeltas.podcast_clicks;
+                  const todayBio = liveTick ? liveTick.bio_clicks_today : (bioClicks.today || 0);
+                  const todayPod = liveTick ? liveTick.podcast_clicks_today : (podcastClicks.today || 0);
+                  return [
+                    { label: "Today", bio: todayBio, pod: todayPod, isToday: true, bioSeven: bioClicks["7d"] || 0, podSeven: podcastClicks["7d"] || 0, days: 0, bioOuter: 0, podOuter: 0, outerDays: 0 },
+                    { label: "7 Days", bio: (bioClicks["7d"] || 0) + dB, pod: (podcastClicks["7d"] || 0) + dP, isToday: false, bioSeven: 0, podSeven: 0, days: 7, bioOuter: (bioClicks["14d"] || 0) + dB, podOuter: (podcastClicks["14d"] || 0) + dP, outerDays: 14 },
+                    { label: "14 Days", bio: (bioClicks["14d"] || 0) + dB, pod: (podcastClicks["14d"] || 0) + dP, isToday: false, bioSeven: 0, podSeven: 0, days: 14, bioOuter: (bioClicks["30d"] || 0) + dB, podOuter: (podcastClicks["30d"] || 0) + dP, outerDays: 30 },
+                    { label: "30 Days", bio: (bioClicks["30d"] || 0) + dB, pod: (podcastClicks["30d"] || 0) + dP, isToday: false, bioSeven: 0, podSeven: 0, days: 30, bioOuter: (bioClicks["30d"] || 0) + dB, podOuter: (podcastClicks["30d"] || 0) + dP, outerDays: 30 },
+                    { label: "Total", bio: (bioClicks.since_launch || 0) + dB, pod: (podcastClicks.since_launch || 0) + dP, isToday: false, bioSeven: 0, podSeven: 0, days: 0, bioOuter: 0, podOuter: 0, outerDays: 0 },
+                  ];
+                })().map(({ label, bio, pod, isToday, bioSeven, podSeven, days, bioOuter, podOuter, outerDays }) => (
                   <Card key={label}>
                     <CardContent className="p-4 text-center">
                       <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">{label}</p>
@@ -685,12 +729,16 @@ const AdminList = () => {
                 const br = sum((k) => k === "auto-redirect" || k.startsWith("auto-redirect:")); // /bio redirects
                 const pr = sum((k) => k.startsWith("latest-auto:")); // /podcast redirects
                 const trackingDays = Math.max(1, Math.round((Date.now() - new Date("2026-03-04").getTime()) / 86400000));
+                const dBR = liveDeltas.bio_redirects;
+                const dPR = liveDeltas.podcast_redirects;
+                const todayBR = liveTick ? liveTick.bio_redirects_today : br.today;
+                const todayPR = liveTick ? liveTick.podcast_redirects_today : pr.today;
                 const tiles = [
-                  { label: "Today", topVal: br.today, botVal: pr.today, isToday: true, topSeven: br["7d"], botSeven: pr["7d"], days: 0, topOuter: 0, botOuter: 0, outerDays: 0 },
-                  { label: "7 Days", topVal: br["7d"], botVal: pr["7d"], isToday: false, topSeven: 0, botSeven: 0, days: 7, topOuter: br["14d"], botOuter: pr["14d"], outerDays: 14 },
-                  { label: "14 Days", topVal: br["14d"], botVal: pr["14d"], isToday: false, topSeven: 0, botSeven: 0, days: 14, topOuter: br["30d"], botOuter: pr["30d"], outerDays: 30 },
-                  { label: "30 Days", topVal: br["30d"], botVal: pr["30d"], isToday: false, topSeven: 0, botSeven: 0, days: 30, topOuter: br.total, botOuter: pr.total, outerDays: trackingDays },
-                  { label: "Total", topVal: br.total, botVal: pr.total, isToday: false, topSeven: 0, botSeven: 0, days: 0, topOuter: 0, botOuter: 0, outerDays: 0 },
+                  { label: "Today", topVal: todayBR, botVal: todayPR, isToday: true, topSeven: br["7d"], botSeven: pr["7d"], days: 0, topOuter: 0, botOuter: 0, outerDays: 0 },
+                  { label: "7 Days", topVal: br["7d"] + dBR, botVal: pr["7d"] + dPR, isToday: false, topSeven: 0, botSeven: 0, days: 7, topOuter: br["14d"] + dBR, botOuter: pr["14d"] + dPR, outerDays: 14 },
+                  { label: "14 Days", topVal: br["14d"] + dBR, botVal: pr["14d"] + dPR, isToday: false, topSeven: 0, botSeven: 0, days: 14, topOuter: br["30d"] + dBR, botOuter: pr["30d"] + dPR, outerDays: 30 },
+                  { label: "30 Days", topVal: br["30d"] + dBR, botVal: pr["30d"] + dPR, isToday: false, topSeven: 0, botSeven: 0, days: 30, topOuter: br.total + dBR, botOuter: pr.total + dPR, outerDays: trackingDays },
+                  { label: "Total", topVal: br.total + dBR, botVal: pr.total + dPR, isToday: false, topSeven: 0, botSeven: 0, days: 0, topOuter: 0, botOuter: 0, outerDays: 0 },
                 ];
                 const lc = latestVideoId ? (videoCounts[`auto-redirect:${latestVideoId}`] || videoCounts[`latest-auto:${latestVideoId}`] || videoCounts[latestVideoId] || { total: 0, today: 0, "7d": 0, "14d": 0, "30d": 0 }) : null;
                 return (
@@ -742,48 +790,74 @@ const AdminList = () => {
                       </div>
                     </div>
 
-                    {/* Row 2: compact Latest Video Redirects card under the graph */}
-                    <Card className="border-primary/30 bg-primary/5 max-w-sm">
-                      <CardContent className="p-3">
-                        <p className="text-[10px] font-medium text-muted-foreground mb-2 uppercase tracking-wider text-center">Latest Video Redirects</p>
-                        {!latestVideoId || !lc ? (
-                          <p className="text-xs text-muted-foreground text-center py-4">Loading latest video…</p>
-                        ) : (
-                          <div className="flex gap-3">
-                            <img
-                              src={`https://img.youtube.com/vi/${latestVideoId}/mqdefault.jpg`}
-                              alt={latestVideo?.title || ""}
-                              className="w-32 aspect-video object-cover rounded-md flex-shrink-0"
-                            />
-                            <div className="flex-1 min-w-0">
-                              <p className="text-[11px] font-medium text-foreground line-clamp-2 mb-1">{latestVideo?.title}</p>
-                              <p className="text-2xl font-bold text-foreground inline-flex items-center gap-1.5">
-                                <AnimatedCounter value={lc.today} /> <TodayTrendBadge today={lc.today} sevenDay={lc["7d"]} />
+                    {/* Row 2: compact Latest Video Redirects card + Avg Time / New Subs filling the empty space */}
+                    {(() => {
+                      const today = analytics["today"];
+                      const avgMins = today ? Math.floor(today.avg_duration / 60) : 0;
+                      const avgSecs = today ? today.avg_duration % 60 : 0;
+                      const subsDisplay = liveTick ? Math.max(liveTick.subscribers_today, todaySubscribers) : todaySubscribers;
+                      return (
+                        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                          <Card className="border-primary/30 bg-primary/5">
+                            <CardContent className="p-3">
+                              <p className="text-[10px] font-medium text-muted-foreground mb-2 uppercase tracking-wider text-center">Latest Video Redirects</p>
+                              {!latestVideoId || !lc ? (
+                                <p className="text-xs text-muted-foreground text-center py-4">Loading latest video…</p>
+                              ) : (
+                                <div className="flex gap-3">
+                                  <img
+                                    src={`https://img.youtube.com/vi/${latestVideoId}/mqdefault.jpg`}
+                                    alt={latestVideo?.title || ""}
+                                    className="w-32 aspect-video object-cover rounded-md flex-shrink-0"
+                                  />
+                                  <div className="flex-1 min-w-0">
+                                    <p className="text-[11px] font-medium text-foreground line-clamp-2 mb-1">{latestVideo?.title}</p>
+                                    <p className="text-2xl font-bold text-foreground inline-flex items-center gap-1.5">
+                                      <AnimatedCounter value={lc.today} /> <TodayTrendBadge today={lc.today} sevenDay={lc["7d"]} />
+                                    </p>
+                                    <p className="text-[10px] text-muted-foreground mb-1">today</p>
+                                    <div className="grid grid-cols-4 gap-x-1 text-[10px] text-muted-foreground">
+                                      <div className="flex flex-col items-center">
+                                        <span className="font-semibold text-primary"><AnimatedCounter value={lc["7d"]} /></span>
+                                        <span>7d</span>
+                                      </div>
+                                      <div className="flex flex-col items-center">
+                                        <span className="font-semibold text-primary"><AnimatedCounter value={lc["14d"]} /></span>
+                                        <span>14d</span>
+                                      </div>
+                                      <div className="flex flex-col items-center">
+                                        <span className="font-semibold text-primary"><AnimatedCounter value={lc["30d"]} /></span>
+                                        <span>30d</span>
+                                      </div>
+                                      <div className="flex flex-col items-center">
+                                        <span className="font-semibold text-primary"><AnimatedCounter value={lc.total} /></span>
+                                        <span>Total</span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              )}
+                            </CardContent>
+                          </Card>
+                          <Card className="border-primary/30 bg-primary/5">
+                            <CardContent className="p-5 flex flex-col items-center justify-center h-full">
+                              <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">Avg Time</p>
+                              <p className="text-3xl font-bold text-foreground">
+                                {avgMins > 0 ? `${avgMins}m ` : ""}{avgSecs}s
                               </p>
-                              <p className="text-[10px] text-muted-foreground mb-1">today</p>
-                              <div className="grid grid-cols-4 gap-x-1 text-[10px] text-muted-foreground">
-                                <div className="flex flex-col items-center">
-                                  <span className="font-semibold text-primary"><AnimatedCounter value={lc["7d"]} /></span>
-                                  <span>7d</span>
-                                </div>
-                                <div className="flex flex-col items-center">
-                                  <span className="font-semibold text-primary"><AnimatedCounter value={lc["14d"]} /></span>
-                                  <span>14d</span>
-                                </div>
-                                <div className="flex flex-col items-center">
-                                  <span className="font-semibold text-primary"><AnimatedCounter value={lc["30d"]} /></span>
-                                  <span>30d</span>
-                                </div>
-                                <div className="flex flex-col items-center">
-                                  <span className="font-semibold text-primary"><AnimatedCounter value={lc.total} /></span>
-                                  <span>Total</span>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        )}
-                      </CardContent>
-                    </Card>
+                              <p className="text-[10px] text-muted-foreground mt-1">today</p>
+                            </CardContent>
+                          </Card>
+                          <Card className="border-primary/30 bg-primary/5">
+                            <CardContent className="p-5 flex flex-col items-center justify-center h-full">
+                              <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">New Subs</p>
+                              <p className="text-3xl font-bold text-foreground"><AnimatedCounter value={subsDisplay} /></p>
+                              <p className="text-[10px] text-muted-foreground mt-1">today</p>
+                            </CardContent>
+                          </Card>
+                        </div>
+                      );
+                    })()}
                   </>
                 );
               })()}
@@ -994,10 +1068,12 @@ const AdminList = () => {
                       const Icon = config.icon;
                       const k = feedKey(item);
                       const isNew = !seenKeysAtRender.current.has(k);
+                      const delay = freshDelays.current.get(k) ?? 0;
                       return (
                         <div
                           key={k}
-                          className={`flex items-start gap-3 p-2.5 rounded-lg bg-muted/20 hover:bg-muted/40 transition-colors ${isNew ? 'animate-in fade-in slide-in-from-top-1 duration-300' : ''}`}
+                          className={`flex items-start gap-3 p-2.5 rounded-lg bg-muted/20 hover:bg-muted/40 transition-colors ${isNew ? 'animate-in fade-in-0 slide-in-from-top-2 duration-500 ease-out fill-mode-both' : ''}`}
+                          style={isNew ? { animationDelay: `${delay}ms` } : undefined}
                         >
                           <div className={`p-1.5 rounded-md ${config.bg} flex-shrink-0 mt-0.5`}>
                             <Icon className={`w-3.5 h-3.5 ${config.color}`} />
