@@ -256,7 +256,7 @@ const Podcast = () => {
                 rel="noopener noreferrer"
                 onClick={() => {
                   setRedirected(true);
-                  trackClick("podcast-spotify");
+                  trackClick("button-spotify");
                 }}
                 className="group flex flex-col items-center justify-center gap-1 w-20 h-20 sm:w-24 sm:h-24 rounded-2xl border border-border bg-card hover:bg-card/80 active:scale-[0.96] transition-all focus:outline-none focus:ring-2 focus:ring-primary touch-manipulation"
                 aria-label="Listen on Spotify"
@@ -277,7 +277,7 @@ const Podcast = () => {
                 to="/blueprint"
                 onClick={() => {
                   setRedirected(true);
-                  trackClick("podcast-blueprint");
+                  trackClick("button-blueprint");
                 }}
                 className="group flex flex-col items-center justify-center gap-1 w-20 h-20 sm:w-24 sm:h-24 rounded-2xl border border-primary/40 bg-primary/10 hover:bg-primary/15 active:scale-[0.96] transition-all focus:outline-none focus:ring-2 focus:ring-primary touch-manipulation"
                 aria-label="Get the Free Foundation Blueprint"

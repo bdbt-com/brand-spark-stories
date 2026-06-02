@@ -31,29 +31,29 @@ serve(async (req) => {
       const vid = row.video_id || "";
       const stats = { total: Number(row.total), today: Number(row.today), "7d": Number(row.d7), "14d": Number(row.d14), "30d": Number(row.d30) };
 
-      if (vid.startsWith("auto-redirect:")) {
-        const actualId = vid.replace("auto-redirect:", "");
-        // Add to auto-redirect aggregate
-        ensure("auto-redirect");
-        counts["auto-redirect"].total += stats.total;
-        counts["auto-redirect"].today += stats.today;
-        counts["auto-redirect"]["7d"] += stats["7d"];
-        counts["auto-redirect"]["14d"] += stats["14d"];
-        counts["auto-redirect"]["30d"] += stats["30d"];
-        // Add to specific video
-        ensure(actualId);
-        counts[actualId].total += stats.total;
-        counts[actualId].today += stats.today;
-        counts[actualId]["7d"] += stats["7d"];
-        counts[actualId]["14d"] += stats["14d"];
-        counts[actualId]["30d"] += stats["30d"];
-      } else {
-        ensure(vid);
-        counts[vid].total += stats.total;
-        counts[vid].today += stats.today;
-        counts[vid]["7d"] += stats["7d"];
-        counts[vid]["14d"] += stats["14d"];
-        counts[vid]["30d"] += stats["30d"];
+      const addTo = (key: string) => {
+        ensure(key);
+        counts[key].total += stats.total;
+        counts[key].today += stats.today;
+        counts[key]["7d"] += stats["7d"];
+        counts[key]["14d"] += stats["14d"];
+        counts[key]["30d"] += stats["30d"];
+      };
+
+      // Always keep the raw composite id available
+      addTo(vid);
+
+      // Prefixes that wrap a real videoId — fold their counts onto the bare videoId
+      // so the Video Clicks tiles (which key on raw videoId) include them.
+      const prefixes = ["auto-redirect:", "latest-page:", "latest-auto:", "latest-grid:"];
+      for (const p of prefixes) {
+        if (vid.startsWith(p)) {
+          const actualId = vid.slice(p.length);
+          if (actualId) addTo(actualId);
+          // Preserve the legacy aggregate bucket used by the redirects card
+          if (p === "auto-redirect:") addTo("auto-redirect");
+          break;
+        }
       }
     }
 
