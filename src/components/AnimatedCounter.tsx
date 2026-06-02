@@ -8,7 +8,7 @@ interface AnimatedCounterProps {
   duration?: number;
 }
 
-const DIGITS = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+const DIGITS = ["9", "8", "7", "6", "5", "4", "3", "2", "1", "0"];
 
 const Reel = ({ digit, duration }: { digit: number; duration: number }) => (
   <span
@@ -23,7 +23,7 @@ const Reel = ({ digit, duration }: { digit: number; duration: number }) => (
     <span
       style={{
         display: "block",
-        transform: `translateY(-${digit}em)`,
+        transform: `translateY(-${9 - digit}em)`,
         transition: `transform ${duration}ms cubic-bezier(0.22, 1, 0.36, 1)`,
         willChange: "transform",
       }}

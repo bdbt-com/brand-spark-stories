@@ -152,6 +152,11 @@ export default {
 				'pulse-glow': {
 					'0%, 100%': { boxShadow: 'var(--shadow-medium)' },
 					'50%': { boxShadow: 'var(--shadow-glow)' }
+				},
+				'bubble-in': {
+					'0%': { opacity: '0', transform: 'scale(0.6) translateY(-10px)' },
+					'60%': { opacity: '1', transform: 'scale(1.04) translateY(0)' },
+					'100%': { opacity: '1', transform: 'scale(1) translateY(0)' }
 				}
 			},
 			animation: {
@@ -162,7 +167,8 @@ export default {
 				'slide-up': 'slide-up 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
 				'scale-in': 'scale-in 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
 				'float': 'float 4s ease-in-out infinite',
-				'pulse-glow': 'pulse-glow 2s ease-in-out infinite'
+				'pulse-glow': 'pulse-glow 2s ease-in-out infinite',
+				'bubble-in': 'bubble-in 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) both'
 			},
 			transitionTimingFunction: {
 				'smooth': 'cubic-bezier(0.4, 0, 0.2, 1)',
