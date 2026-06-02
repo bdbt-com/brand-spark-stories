@@ -136,6 +136,7 @@ const Podcast = () => {
         title: v.title,
         thumbnail: v.thumbnail,
         viewCountText: v.viewCount || "",
+        publishedText: v.publishedAt || "",
         duration: v.duration,
       });
     }
@@ -145,7 +146,9 @@ const Podcast = () => {
       title: t.title,
       thumbnail: t.thumbnail,
       viewCountText: t.viewCountText || "",
+      publishedText: t.publishedText || "",
     }));
+
 
     const interleaved: GridEpisode[] = [];
     for (let i = 0; i < 3; i++) {
