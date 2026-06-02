@@ -650,7 +650,7 @@ const AdminList = () => {
                   data={graphRange === 'today' ? hourlyStats : filteredDailyStats}
                   dataKey="bio_clicks"
                   label="/bio"
-                  color="hsl(142, 71%, 45%)"
+                  color="hsl(25, 95%, 53%)"
                   dataKey2="podcast_clicks"
                   label2="/podcast"
                   color2="hsl(210, 90%, 60%)"
@@ -678,7 +678,7 @@ const AdminList = () => {
                       {/* Bio (top) */}
                       <div>
                         <p className="text-2xl font-bold text-foreground inline-flex items-center gap-1.5 justify-center">
-                          <span className="inline-block w-2 h-2 rounded-full" style={{ background: "hsl(142, 71%, 45%)" }} />
+                          <span className="inline-block w-2 h-2 rounded-full" style={{ background: "hsl(25, 95%, 53%)" }} />
                           <AnimatedCounter value={bio} />
                           {isToday && <TodayTrendBadge today={bio} sevenDay={bioSeven} />}
                         </p>
