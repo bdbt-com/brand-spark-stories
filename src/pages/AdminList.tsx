@@ -564,7 +564,7 @@ const AdminList = () => {
             </h2>
             <div className="flex flex-col xl:flex-row gap-4">
               {(graphRange === 'today' ? hourlyStats.length > 0 : filteredDailyStats.length > 0) && (
-                <InlineGraph data={graphRange === 'today' ? hourlyStats : filteredDailyStats} dataKey="visitors" label="Visitors" color="hsl(var(--primary))" hourly={graphRange === 'today'} />
+                <InlineGraph data={graphRange === 'today' ? hourlyStats : filteredDailyStats} dataKey="visitors" label="Visitors" color="hsl(210, 40%, 96%)" hourly={graphRange === 'today'} />
               )}
               <div className="flex-1 grid grid-cols-2 md:grid-cols-5 gap-4">
                 {(() => {
