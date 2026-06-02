@@ -43,63 +43,63 @@ Deno.serve(async (req) => {
       since_launch: LAUNCH_DATE,
     };
 
-    const results: Record<string, { visitors: number; avg_duration: number }> = {};
-
-    for (const [key, since] of Object.entries(periods)) {
-      const { data, error } = await supabase.rpc("get_visitor_stats", {
-        since_ts: since,
-      });
-
-      if (error) {
-        console.error(`Error fetching ${key}:`, error);
-        results[key] = BASELINES[key] || { visitors: 0, avg_duration: 0 };
-        continue;
-      }
-
-      const row = Array.isArray(data) ? data[0] : data;
-      const liveVisitors = Number(row?.unique_visitors || 0);
-      const liveAvg = Number(row?.avg_duration || 0);
-
-      // For "today": apply date-aware baseline
-      const todayDate = new Date().toISOString().split("T")[0];
-      const baseline = key === "today"
-        ? (todayDate === TODAY_BASELINE_DATE ? TODAY_BASELINE : { visitors: 0, avg_duration: 0 })
-        : (BASELINES[key] || { visitors: 0, avg_duration: 0 });
-      const combinedVisitors = baseline.visitors + liveVisitors;
-      const combinedAvg = combinedVisitors > 0
-        ? Math.round(
-            (baseline.visitors * baseline.avg_duration + liveVisitors * liveAvg) /
-            combinedVisitors
-          )
-        : 0;
-
-      results[key] = {
-        visitors: combinedVisitors,
-        avg_duration: combinedAvg,
-        live_visitors: liveVisitors,
-      };
-    }
-
-    // Count unique sessions that visited /bio or /links for each time period
-    const bioPeriods = { today: periods["today"], "7d": periods["7d"], "14d": periods["14d"], "30d": periods["30d"], since_launch: LAUNCH_DATE };
+    const results: Record<string, { visitors: number; avg_duration: number; live_visitors?: number }> = {};
     const bioClicks: Record<string, number> = {};
     const podcastClicks: Record<string, number> = {};
-    for (const [key, since] of Object.entries(bioPeriods)) {
-      const { data, error } = await supabase.rpc("get_bio_click_sessions", { since_ts: since });
+
+    const periodKeys = Object.keys(periods);
+    const todayDate = new Date().toISOString().split("T")[0];
+
+    // Run every RPC in parallel — sequential calls were exceeding the edge-function CPU budget.
+    const visitorPromises = periodKeys.map((k) =>
+      supabase.rpc("get_visitor_stats", { since_ts: periods[k] })
+    );
+    const bioPromises = periodKeys.map((k) =>
+      supabase.rpc("get_bio_click_sessions", { since_ts: periods[k] })
+    );
+    const podcastPromises = periodKeys.map((k) =>
+      supabase.rpc("get_podcast_click_sessions", { since_ts: periods[k] })
+    );
+
+    const [visitorResults, bioResults, podcastResults] = await Promise.all([
+      Promise.all(visitorPromises),
+      Promise.all(bioPromises),
+      Promise.all(podcastPromises),
+    ]);
+
+    periodKeys.forEach((key, i) => {
+      const { data, error } = visitorResults[i];
       if (error) {
-        console.error(`Bio sessions error ${key}:`, error);
-        bioClicks[key] = 0;
+        console.error(`Error fetching ${key}:`, error);
+        const fallback = BASELINES[key] || { visitors: 0, avg_duration: 0 };
+        results[key] = { ...fallback, live_visitors: 0 };
       } else {
-        bioClicks[key] = Number(data) || 0;
+        const row = Array.isArray(data) ? data[0] : data;
+        const liveVisitors = Number(row?.unique_visitors || 0);
+        const liveAvg = Number(row?.avg_duration || 0);
+        const baseline = key === "today"
+          ? (todayDate === TODAY_BASELINE_DATE ? TODAY_BASELINE : { visitors: 0, avg_duration: 0 })
+          : (BASELINES[key] || { visitors: 0, avg_duration: 0 });
+        const combinedVisitors = baseline.visitors + liveVisitors;
+        const combinedAvg = combinedVisitors > 0
+          ? Math.round(
+              (baseline.visitors * baseline.avg_duration + liveVisitors * liveAvg) /
+              combinedVisitors
+            )
+          : 0;
+        results[key] = {
+          visitors: combinedVisitors,
+          avg_duration: combinedAvg,
+          live_visitors: liveVisitors,
+        };
       }
-      const { data: pdata, error: perror } = await supabase.rpc("get_podcast_click_sessions", { since_ts: since });
-      if (perror) {
-        console.error(`Podcast sessions error ${key}:`, perror);
-        podcastClicks[key] = 0;
-      } else {
-        podcastClicks[key] = Number(pdata) || 0;
-      }
-    }
+
+      const bio = bioResults[i];
+      bioClicks[key] = bio.error ? 0 : Number(bio.data) || 0;
+      const pod = podcastResults[i];
+      podcastClicks[key] = pod.error ? 0 : Number(pod.data) || 0;
+    });
+
 
     return new Response(JSON.stringify({ analytics: results, bio_clicks: bioClicks, podcast_clicks: podcastClicks }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
