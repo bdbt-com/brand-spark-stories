@@ -326,16 +326,21 @@ const AdminList = () => {
   useEffect(() => { liveTickRef.current = liveTick; }, [liveTick]);
   const captureBaseline = () => {
     const t = liveTickRef.current;
+    if (!t) return; // wait until first liveTick arrives so deltas don't spike
     analyticsBaseline.current = {
-      visitors: t?.visitors_today ?? 0,
-      bio_clicks: t?.bio_clicks_today ?? 0,
-      podcast_clicks: t?.podcast_clicks_today ?? 0,
-      bio_redirects: t?.bio_redirects_today ?? 0,
-      podcast_redirects: t?.podcast_redirects_today ?? 0,
-      total_clicks: t?.total_clicks_today ?? 0,
-      subscribers: t?.subscribers_today ?? 0,
+      visitors: t.visitors_today,
+      bio_clicks: t.bio_clicks_today,
+      podcast_clicks: t.podcast_clicks_today,
+      bio_redirects: t.bio_redirects_today,
+      podcast_redirects: t.podcast_redirects_today,
+      total_clicks: t.total_clicks_today,
+      subscribers: t.subscribers_today,
     };
   };
+  // When liveTick first arrives after analytics, set the initial baseline.
+  useEffect(() => {
+    if (liveTick && !analyticsBaseline.current) captureBaseline();
+  }, [liveTick]);
 
   const feedKey = (item: FeedItem) =>
     `${item.type}:${item.timestamp}:${item.label}:${item.detail}`;
