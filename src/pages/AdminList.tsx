@@ -287,6 +287,33 @@ const AdminList = () => {
   const lastFeedSince = useRef<string | null>(null);
   const feedItemKeys = useRef<Set<string>>(new Set());
   const seenKeysAtRender = useRef<Set<string>>(new Set());
+  // Per-key animation delay in ms for items that just arrived (so a batch waterfalls in)
+  const freshDelays = useRef<Map<string, number>>(new Map());
+  // Baseline snapshot of liveTick at the moment the last analytics fetch completed.
+  // Used to project today's live deltas onto every longer-period stat so they tick in sync.
+  const liveTickRef = useRef<typeof liveTick>(null);
+  const analyticsBaseline = useRef<{
+    visitors: number;
+    bio_clicks: number;
+    podcast_clicks: number;
+    bio_redirects: number;
+    podcast_redirects: number;
+    total_clicks: number;
+    subscribers: number;
+  } | null>(null);
+  useEffect(() => { liveTickRef.current = liveTick; }, [liveTick]);
+  const captureBaseline = () => {
+    const t = liveTickRef.current;
+    analyticsBaseline.current = {
+      visitors: t?.visitors_today ?? 0,
+      bio_clicks: t?.bio_clicks_today ?? 0,
+      podcast_clicks: t?.podcast_clicks_today ?? 0,
+      bio_redirects: t?.bio_redirects_today ?? 0,
+      podcast_redirects: t?.podcast_redirects_today ?? 0,
+      total_clicks: t?.total_clicks_today ?? 0,
+      subscribers: t?.subscribers_today ?? 0,
+    };
+  };
 
   const feedKey = (item: FeedItem) =>
     `${item.type}:${item.timestamp}:${item.label}:${item.detail}`;
