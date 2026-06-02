@@ -758,24 +758,24 @@ const AdminList = () => {
                             <div className="flex-1 min-w-0">
                               <p className="text-[11px] font-medium text-foreground line-clamp-2 mb-1">{latestVideo?.title}</p>
                               <p className="text-2xl font-bold text-foreground inline-flex items-center gap-1.5">
-                                {lc.today} <TodayTrendBadge today={lc.today} sevenDay={lc["7d"]} />
+                                <AnimatedCounter value={lc.today} /> <TodayTrendBadge today={lc.today} sevenDay={lc["7d"]} />
                               </p>
                               <p className="text-[10px] text-muted-foreground mb-1">today</p>
                               <div className="grid grid-cols-4 gap-x-1 text-[10px] text-muted-foreground">
                                 <div className="flex flex-col items-center">
-                                  <span className="font-semibold text-primary">{lc["7d"]}</span>
+                                  <span className="font-semibold text-primary"><AnimatedCounter value={lc["7d"]} /></span>
                                   <span>7d</span>
                                 </div>
                                 <div className="flex flex-col items-center">
-                                  <span className="font-semibold text-primary">{lc["14d"]}</span>
+                                  <span className="font-semibold text-primary"><AnimatedCounter value={lc["14d"]} /></span>
                                   <span>14d</span>
                                 </div>
                                 <div className="flex flex-col items-center">
-                                  <span className="font-semibold text-primary">{lc["30d"]}</span>
+                                  <span className="font-semibold text-primary"><AnimatedCounter value={lc["30d"]} /></span>
                                   <span>30d</span>
                                 </div>
                                 <div className="flex flex-col items-center">
-                                  <span className="font-semibold text-primary">{lc.total}</span>
+                                  <span className="font-semibold text-primary"><AnimatedCounter value={lc.total} /></span>
                                   <span>Total</span>
                                 </div>
                               </div>
