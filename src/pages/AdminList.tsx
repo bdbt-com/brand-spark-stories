@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 import { useYouTubeVideos } from "@/hooks/useYouTubeVideos";
 import { PINNED_TOP_VIDEOS } from "@/data/pinnedTopVideos";
+import { AnimatedCounter } from "@/components/AnimatedCounter";
 
 function calcTrend(current: number, currentDays: number, outer: number, outerDays: number): { pct: number; direction: 'up' | 'down' | 'flat' } {
   const prior = outer - current;
@@ -212,6 +213,15 @@ const AdminList = () => {
   const [dailyStats, setDailyStats] = useState<{ day: string; visitors: number; bio_clicks: number; podcast_clicks: number; bio_redirects: number; podcast_redirects: number }[]>([]);
   const [hourlyStats, setHourlyStats] = useState<{ hour: string; visitors: number; bio_clicks: number; podcast_clicks: number; bio_redirects: number; podcast_redirects: number }[]>([]);
   const [feedFilter, setFeedFilter] = useState<FeedFilter>("all");
+  const [liveTick, setLiveTick] = useState<{
+    visitors_today: number;
+    subscribers_today: number;
+    bio_clicks_today: number;
+    podcast_clicks_today: number;
+    bio_redirects_today: number;
+    podcast_redirects_today: number;
+    total_clicks_today: number;
+  } | null>(null);
   const [graphRange, setGraphRange] = useState<'today' | '7d' | '14d' | '30d' | 'all'>('all');
   const [showPreviousVideos, setShowPreviousVideos] = useState(false);
   const { videos: ytVideos } = useYouTubeVideos();
@@ -330,6 +340,14 @@ const AdminList = () => {
     } catch {}
   }, []);
 
+  const fetchLiveTick = useCallback(async () => {
+    if (typeof document !== "undefined" && document.visibilityState === "hidden") return;
+    try {
+      const { data } = await supabase.functions.invoke("get-live-tick");
+      if (data && typeof data.visitors_today === "number") setLiveTick(data);
+    } catch {}
+  }, []);
+
   useEffect(() => {
     fetchSubscribers();
     fetchVideoCounts();
@@ -337,29 +355,39 @@ const AdminList = () => {
     fetchAnalytics();
     fetchFeed();
     fetchDailyStats();
+    fetchLiveTick();
 
     const slow = setInterval(() => {
       fetchSubscribers();
       fetchVideoCounts();
       fetchDownloadCounts();
       fetchAnalytics();
+      fetchDailyStats();
     }, 15000);
+
+    const tick = setInterval(() => {
+      fetchLiveTick();
+    }, 2000);
 
     const fast = setInterval(() => {
       fetchFeedIncremental();
     }, 1000);
 
     const onVisible = () => {
-      if (document.visibilityState === "visible") fetchFeedIncremental();
+      if (document.visibilityState === "visible") {
+        fetchFeedIncremental();
+        fetchLiveTick();
+      }
     };
     document.addEventListener("visibilitychange", onVisible);
 
     return () => {
       clearInterval(slow);
       clearInterval(fast);
+      clearInterval(tick);
       document.removeEventListener("visibilitychange", onVisible);
     };
-  }, [fetchSubscribers, fetchVideoCounts, fetchDownloadCounts, fetchAnalytics, fetchFeed, fetchFeedIncremental, fetchDailyStats]);
+  }, [fetchSubscribers, fetchVideoCounts, fetchDownloadCounts, fetchAnalytics, fetchFeed, fetchFeedIncremental, fetchDailyStats, fetchLiveTick]);
 
   // Track which feed keys were rendered last paint so we can animate only new ones
   useEffect(() => {
@@ -468,13 +496,24 @@ const AdminList = () => {
                 const today = analytics["today"];
                 const avgMins = today ? Math.floor(today.avg_duration / 60) : 0;
                 const avgSecs = today ? today.avg_duration % 60 : 0;
+                const baselineVisitors = today ? (today.visitors - (today.live_visitors ?? 0)) : 0;
+                const liveVisitors = liveTick ? liveTick.visitors_today : (today?.live_visitors ?? 0);
+                const visitorsDisplay = baselineVisitors + liveVisitors;
+                const bioClicksLive = liveTick ? liveTick.bio_clicks_today : (bioClicks.today || 0);
+                const subsDisplay = liveTick ? Math.max(liveTick.subscribers_today, todaySubscribers) : todaySubscribers;
                 return (
                   <>
                      <Card className="border-primary/30 bg-primary/5">
                       <CardContent className="p-5 text-center">
                         <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">Visitors</p>
-                        <p className="text-3xl font-bold text-foreground inline-flex items-center gap-2 justify-center">{today?.visitors || 0} <TodayTrendBadge today={today?.live_visitors ?? today?.visitors ?? 0} sevenDay={analytics["7d"]?.live_visitors ?? analytics["7d"]?.visitors ?? 0} /></p>
-                        <p className="text-xs text-muted-foreground mt-1 inline-flex items-center gap-1 justify-center">/bio clicks: {bioClicks.today || 0} <TodayTrendBadge today={bioClicks.today || 0} sevenDay={bioClicks["7d"] || 0} /></p>
+                        <p className="text-3xl font-bold text-foreground inline-flex items-center gap-2 justify-center">
+                          <AnimatedCounter value={visitorsDisplay} />
+                          <TodayTrendBadge today={liveVisitors} sevenDay={analytics["7d"]?.live_visitors ?? analytics["7d"]?.visitors ?? 0} />
+                        </p>
+                        <p className="text-xs text-muted-foreground mt-1 inline-flex items-center gap-1 justify-center">
+                          /bio clicks: <AnimatedCounter value={bioClicksLive} />
+                          <TodayTrendBadge today={bioClicksLive} sevenDay={bioClicks["7d"] || 0} />
+                        </p>
                       </CardContent>
                     </Card>
                     <Card className="border-primary/30 bg-primary/5">
@@ -488,7 +527,7 @@ const AdminList = () => {
                     <Card className="border-primary/30 bg-primary/5">
                       <CardContent className="p-5 text-center">
                         <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">New Subs</p>
-                        <p className="text-3xl font-bold text-foreground">{todaySubscribers}</p>
+                        <p className="text-3xl font-bold text-foreground"><AnimatedCounter value={subsDisplay} /></p>
                       </CardContent>
                     </Card>
                   </>

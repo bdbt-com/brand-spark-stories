@@ -23,3 +23,7 @@ verify_jwt = false
 
 [functions.get-daily-stats]
 verify_jwt = false
+
+[functions.get-live-tick]
+verify_jwt = false
+
