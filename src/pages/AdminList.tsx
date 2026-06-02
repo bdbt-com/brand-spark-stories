@@ -566,10 +566,6 @@ const AdminList = () => {
                     </Card>
                   );
                 })()}
-                      </CardContent>
-                    </Card>
-                  );
-                })()}
                 {[
                   { key: "7d", label: "Last 7 Days", days: 7, outerKey: "14d", outerDays: 14 },
                   { key: "14d", label: "Last 14 Days", days: 14, outerKey: "30d", outerDays: 30 },
