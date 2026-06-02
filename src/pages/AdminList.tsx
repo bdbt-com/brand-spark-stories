@@ -491,31 +491,14 @@ const AdminList = () => {
             <h2 className="text-xl font-bold text-foreground mb-4 flex items-center gap-2">
               <BarChart3 className="w-5 h-5 text-primary" /> Today — Live
             </h2>
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-2 gap-4">
               {(() => {
                 const today = analytics["today"];
                 const avgMins = today ? Math.floor(today.avg_duration / 60) : 0;
                 const avgSecs = today ? today.avg_duration % 60 : 0;
-                const baselineVisitors = today ? (today.visitors - (today.live_visitors ?? 0)) : 0;
-                const liveVisitors = liveTick ? liveTick.visitors_today : (today?.live_visitors ?? 0);
-                const visitorsDisplay = baselineVisitors + liveVisitors;
-                const bioClicksLive = liveTick ? liveTick.bio_clicks_today : (bioClicks.today || 0);
                 const subsDisplay = liveTick ? Math.max(liveTick.subscribers_today, todaySubscribers) : todaySubscribers;
                 return (
                   <>
-                     <Card className="border-primary/30 bg-primary/5">
-                      <CardContent className="p-5 text-center">
-                        <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">Visitors</p>
-                        <p className="text-3xl font-bold text-foreground inline-flex items-center gap-2 justify-center">
-                          <AnimatedCounter value={visitorsDisplay} />
-                          <TodayTrendBadge today={liveVisitors} sevenDay={analytics["7d"]?.live_visitors ?? analytics["7d"]?.visitors ?? 0} />
-                        </p>
-                        <p className="text-xs text-muted-foreground mt-1 inline-flex items-center gap-1 justify-center">
-                          /bio clicks: <AnimatedCounter value={bioClicksLive} />
-                          <TodayTrendBadge today={bioClicksLive} sevenDay={bioClicks["7d"] || 0} />
-                        </p>
-                      </CardContent>
-                    </Card>
                     <Card className="border-primary/30 bg-primary/5">
                       <CardContent className="p-5 text-center">
                         <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">Avg Time</p>
@@ -545,7 +528,39 @@ const AdminList = () => {
               {(graphRange === 'today' ? hourlyStats.length > 0 : filteredDailyStats.length > 0) && (
                 <InlineGraph data={graphRange === 'today' ? hourlyStats : filteredDailyStats} dataKey="visitors" label="Visitors" color="hsl(var(--primary))" hourly={graphRange === 'today'} />
               )}
-              <div className="flex-1 grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="flex-1 grid grid-cols-2 md:grid-cols-5 gap-4">
+                {(() => {
+                  const today = analytics["today"];
+                  const baselineVisitors = today ? (today.visitors - (today.live_visitors ?? 0)) : 0;
+                  const liveVisitors = liveTick ? liveTick.visitors_today : (today?.live_visitors ?? 0);
+                  const visitorsDisplay = baselineVisitors + liveVisitors;
+                  const bioClicksLive = liveTick ? liveTick.bio_clicks_today : (bioClicks.today || 0);
+                  const avgMins = today ? Math.floor(today.avg_duration / 60) : 0;
+                  const avgSecs = today ? today.avg_duration % 60 : 0;
+                  return (
+                    <Card className="border-primary/30 bg-primary/5">
+                      <CardContent className="p-5 text-center">
+                        <p className="text-xs font-medium text-muted-foreground mb-3 uppercase tracking-wider">Today</p>
+                        <p className="text-3xl font-bold text-foreground"><AnimatedCounter value={visitorsDisplay} /></p>
+                        <div className="flex items-center justify-center gap-1 mb-2">
+                          <p className="text-xs text-muted-foreground">visitors</p>
+                          <TodayTrendBadge today={liveVisitors} sevenDay={analytics["7d"]?.live_visitors ?? analytics["7d"]?.visitors ?? 0} />
+                        </div>
+                        <div className="flex items-center justify-center gap-1 text-muted-foreground">
+                          <Clock className="w-3 h-3" />
+                          <span className="text-xs">
+                            {avgMins > 0 ? `${avgMins}m ` : ""}{avgSecs}s avg
+                          </span>
+                        </div>
+                        <div className="border-t border-border/50 my-2" />
+                        <p className="text-[11px] text-muted-foreground inline-flex items-center gap-1 justify-center">
+                          /bio: <AnimatedCounter value={bioClicksLive} className="font-semibold text-foreground" />
+                          <TodayTrendBadge today={bioClicksLive} sevenDay={bioClicks["7d"] || 0} />
+                        </p>
+                      </CardContent>
+                    </Card>
+                  );
+                })()}
                 {[
                   { key: "7d", label: "Last 7 Days", days: 7, outerKey: "14d", outerDays: 14 },
                   { key: "14d", label: "Last 14 Days", days: 14, outerKey: "30d", outerDays: 30 },
