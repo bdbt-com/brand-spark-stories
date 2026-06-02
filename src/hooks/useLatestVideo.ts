@@ -88,7 +88,22 @@ export const useLatestVideo = () => {
       if (!result) setError(dbErr?.message || "No video available");
       setVideo(result);
       setLoading(false);
+
+      // Fire-and-forget: refresh the cache so the next visitor gets up-to-date data,
+      // and so this visitor sees fresh stats on their next load.
+      try {
+        fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/refresh-latest-video`, {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
+            "Content-Type": "application/json",
+          },
+        }).catch(() => {});
+      } catch {
+        /* ignore */
+      }
     })();
+
 
     return () => {
       cancelled = true;
