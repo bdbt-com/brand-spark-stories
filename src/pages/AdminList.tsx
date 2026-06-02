@@ -785,48 +785,74 @@ const AdminList = () => {
                       </div>
                     </div>
 
-                    {/* Row 2: compact Latest Video Redirects card under the graph */}
-                    <Card className="border-primary/30 bg-primary/5 max-w-sm">
-                      <CardContent className="p-3">
-                        <p className="text-[10px] font-medium text-muted-foreground mb-2 uppercase tracking-wider text-center">Latest Video Redirects</p>
-                        {!latestVideoId || !lc ? (
-                          <p className="text-xs text-muted-foreground text-center py-4">Loading latest video…</p>
-                        ) : (
-                          <div className="flex gap-3">
-                            <img
-                              src={`https://img.youtube.com/vi/${latestVideoId}/mqdefault.jpg`}
-                              alt={latestVideo?.title || ""}
-                              className="w-32 aspect-video object-cover rounded-md flex-shrink-0"
-                            />
-                            <div className="flex-1 min-w-0">
-                              <p className="text-[11px] font-medium text-foreground line-clamp-2 mb-1">{latestVideo?.title}</p>
-                              <p className="text-2xl font-bold text-foreground inline-flex items-center gap-1.5">
-                                <AnimatedCounter value={lc.today} /> <TodayTrendBadge today={lc.today} sevenDay={lc["7d"]} />
+                    {/* Row 2: compact Latest Video Redirects card + Avg Time / New Subs filling the empty space */}
+                    {(() => {
+                      const today = analytics["today"];
+                      const avgMins = today ? Math.floor(today.avg_duration / 60) : 0;
+                      const avgSecs = today ? today.avg_duration % 60 : 0;
+                      const subsDisplay = liveTick ? Math.max(liveTick.subscribers_today, todaySubscribers) : todaySubscribers;
+                      return (
+                        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                          <Card className="border-primary/30 bg-primary/5">
+                            <CardContent className="p-3">
+                              <p className="text-[10px] font-medium text-muted-foreground mb-2 uppercase tracking-wider text-center">Latest Video Redirects</p>
+                              {!latestVideoId || !lc ? (
+                                <p className="text-xs text-muted-foreground text-center py-4">Loading latest video…</p>
+                              ) : (
+                                <div className="flex gap-3">
+                                  <img
+                                    src={`https://img.youtube.com/vi/${latestVideoId}/mqdefault.jpg`}
+                                    alt={latestVideo?.title || ""}
+                                    className="w-32 aspect-video object-cover rounded-md flex-shrink-0"
+                                  />
+                                  <div className="flex-1 min-w-0">
+                                    <p className="text-[11px] font-medium text-foreground line-clamp-2 mb-1">{latestVideo?.title}</p>
+                                    <p className="text-2xl font-bold text-foreground inline-flex items-center gap-1.5">
+                                      <AnimatedCounter value={lc.today} /> <TodayTrendBadge today={lc.today} sevenDay={lc["7d"]} />
+                                    </p>
+                                    <p className="text-[10px] text-muted-foreground mb-1">today</p>
+                                    <div className="grid grid-cols-4 gap-x-1 text-[10px] text-muted-foreground">
+                                      <div className="flex flex-col items-center">
+                                        <span className="font-semibold text-primary"><AnimatedCounter value={lc["7d"]} /></span>
+                                        <span>7d</span>
+                                      </div>
+                                      <div className="flex flex-col items-center">
+                                        <span className="font-semibold text-primary"><AnimatedCounter value={lc["14d"]} /></span>
+                                        <span>14d</span>
+                                      </div>
+                                      <div className="flex flex-col items-center">
+                                        <span className="font-semibold text-primary"><AnimatedCounter value={lc["30d"]} /></span>
+                                        <span>30d</span>
+                                      </div>
+                                      <div className="flex flex-col items-center">
+                                        <span className="font-semibold text-primary"><AnimatedCounter value={lc.total} /></span>
+                                        <span>Total</span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              )}
+                            </CardContent>
+                          </Card>
+                          <Card className="border-primary/30 bg-primary/5">
+                            <CardContent className="p-5 flex flex-col items-center justify-center h-full">
+                              <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">Avg Time</p>
+                              <p className="text-3xl font-bold text-foreground">
+                                {avgMins > 0 ? `${avgMins}m ` : ""}{avgSecs}s
                               </p>
-                              <p className="text-[10px] text-muted-foreground mb-1">today</p>
-                              <div className="grid grid-cols-4 gap-x-1 text-[10px] text-muted-foreground">
-                                <div className="flex flex-col items-center">
-                                  <span className="font-semibold text-primary"><AnimatedCounter value={lc["7d"]} /></span>
-                                  <span>7d</span>
-                                </div>
-                                <div className="flex flex-col items-center">
-                                  <span className="font-semibold text-primary"><AnimatedCounter value={lc["14d"]} /></span>
-                                  <span>14d</span>
-                                </div>
-                                <div className="flex flex-col items-center">
-                                  <span className="font-semibold text-primary"><AnimatedCounter value={lc["30d"]} /></span>
-                                  <span>30d</span>
-                                </div>
-                                <div className="flex flex-col items-center">
-                                  <span className="font-semibold text-primary"><AnimatedCounter value={lc.total} /></span>
-                                  <span>Total</span>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        )}
-                      </CardContent>
-                    </Card>
+                              <p className="text-[10px] text-muted-foreground mt-1">today</p>
+                            </CardContent>
+                          </Card>
+                          <Card className="border-primary/30 bg-primary/5">
+                            <CardContent className="p-5 flex flex-col items-center justify-center h-full">
+                              <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">New Subs</p>
+                              <p className="text-3xl font-bold text-foreground"><AnimatedCounter value={subsDisplay} /></p>
+                              <p className="text-[10px] text-muted-foreground mt-1">today</p>
+                            </CardContent>
+                          </Card>
+                        </div>
+                      );
+                    })()}
                   </>
                 );
               })()}
