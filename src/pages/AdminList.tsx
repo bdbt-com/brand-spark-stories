@@ -367,7 +367,7 @@ const AdminList = () => {
 
     const tick = setInterval(() => {
       fetchLiveTick();
-    }, 2000);
+    }, 1000);
 
     const fast = setInterval(() => {
       fetchFeedIncremental();
@@ -535,6 +535,7 @@ const AdminList = () => {
                   const liveVisitors = liveTick ? liveTick.visitors_today : (today?.live_visitors ?? 0);
                   const visitorsDisplay = baselineVisitors + liveVisitors;
                   const bioClicksLive = liveTick ? liveTick.bio_clicks_today : (bioClicks.today || 0);
+                  const podClicksLive = liveTick ? liveTick.podcast_clicks_today : (podcastClicks.today || 0);
                   const avgMins = today ? Math.floor(today.avg_duration / 60) : 0;
                   const avgSecs = today ? today.avg_duration % 60 : 0;
                   return (
@@ -557,6 +558,10 @@ const AdminList = () => {
                           /bio: <AnimatedCounter value={bioClicksLive} className="font-semibold text-foreground" />
                           <TodayTrendBadge today={bioClicksLive} sevenDay={bioClicks["7d"] || 0} />
                         </p>
+                        <p className="text-[11px] text-muted-foreground inline-flex items-center gap-1 justify-center mt-0.5">
+                          /podcast: <AnimatedCounter value={podClicksLive} className="font-semibold text-foreground" />
+                          <TodayTrendBadge today={podClicksLive} sevenDay={podcastClicks["7d"] || 0} />
+                        </p>
                       </CardContent>
                     </Card>
                   );
@@ -577,7 +582,7 @@ const AdminList = () => {
                     <Card key={key}>
                       <CardContent className="p-5 text-center">
                         <p className="text-xs font-medium text-muted-foreground mb-3 uppercase tracking-wider">{label}</p>
-                        <p className="text-3xl font-bold text-foreground">{period?.visitors || 0}</p>
+                        <p className="text-3xl font-bold text-foreground"><AnimatedCounter value={period?.visitors || 0} /></p>
                         <div className="flex items-center justify-center gap-1 mb-2">
                           <p className="text-xs text-muted-foreground">visitors</p>
                           {outer && days > 0 && <TrendBadge current={liveVal} currentDays={days} outer={outerLiveVal} outerDays={outerDays} />}
@@ -629,7 +634,7 @@ const AdminList = () => {
                       <div>
                         <p className="text-2xl font-bold text-foreground inline-flex items-center gap-1.5 justify-center">
                           <span className="inline-block w-2 h-2 rounded-full" style={{ background: "hsl(142, 71%, 45%)" }} />
-                          {bio}
+                          <AnimatedCounter value={bio} />
                           {isToday && <TodayTrendBadge today={bio} sevenDay={bioSeven} />}
                         </p>
                         <div className="flex items-center justify-center gap-1">
@@ -642,7 +647,7 @@ const AdminList = () => {
                       <div>
                         <p className="text-2xl font-bold text-foreground inline-flex items-center gap-1.5 justify-center">
                           <span className="inline-block w-2 h-2 rounded-full" style={{ background: "hsl(210, 90%, 60%)" }} />
-                          {pod}
+                          <AnimatedCounter value={pod} />
                           {isToday && <TodayTrendBadge today={pod} sevenDay={podSeven} />}
                         </p>
                         <div className="flex items-center justify-center gap-1">
@@ -711,7 +716,7 @@ const AdminList = () => {
                               <div>
                                 <p className="text-2xl font-bold text-foreground inline-flex items-center gap-1.5 justify-center">
                                   <span className="inline-block w-2 h-2 rounded-full" style={{ background: "hsl(25, 95%, 53%)" }} />
-                                  {topVal}
+                                  <AnimatedCounter value={topVal} />
                                   {isToday && <TodayTrendBadge today={topVal} sevenDay={topSeven} />}
                                 </p>
                                 <div className="flex items-center justify-center gap-1">
@@ -723,7 +728,7 @@ const AdminList = () => {
                               <div>
                                 <p className="text-2xl font-bold text-foreground inline-flex items-center gap-1.5 justify-center">
                                   <span className="inline-block w-2 h-2 rounded-full" style={{ background: "hsl(210, 90%, 60%)" }} />
-                                  {botVal}
+                                  <AnimatedCounter value={botVal} />
                                   {isToday && <TodayTrendBadge today={botVal} sevenDay={botSeven} />}
                                 </p>
                                 <div className="flex items-center justify-center gap-1">
@@ -753,24 +758,24 @@ const AdminList = () => {
                             <div className="flex-1 min-w-0">
                               <p className="text-[11px] font-medium text-foreground line-clamp-2 mb-1">{latestVideo?.title}</p>
                               <p className="text-2xl font-bold text-foreground inline-flex items-center gap-1.5">
-                                {lc.today} <TodayTrendBadge today={lc.today} sevenDay={lc["7d"]} />
+                                <AnimatedCounter value={lc.today} /> <TodayTrendBadge today={lc.today} sevenDay={lc["7d"]} />
                               </p>
                               <p className="text-[10px] text-muted-foreground mb-1">today</p>
                               <div className="grid grid-cols-4 gap-x-1 text-[10px] text-muted-foreground">
                                 <div className="flex flex-col items-center">
-                                  <span className="font-semibold text-primary">{lc["7d"]}</span>
+                                  <span className="font-semibold text-primary"><AnimatedCounter value={lc["7d"]} /></span>
                                   <span>7d</span>
                                 </div>
                                 <div className="flex flex-col items-center">
-                                  <span className="font-semibold text-primary">{lc["14d"]}</span>
+                                  <span className="font-semibold text-primary"><AnimatedCounter value={lc["14d"]} /></span>
                                   <span>14d</span>
                                 </div>
                                 <div className="flex flex-col items-center">
-                                  <span className="font-semibold text-primary">{lc["30d"]}</span>
+                                  <span className="font-semibold text-primary"><AnimatedCounter value={lc["30d"]} /></span>
                                   <span>30d</span>
                                 </div>
                                 <div className="flex flex-col items-center">
-                                  <span className="font-semibold text-primary">{lc.total}</span>
+                                  <span className="font-semibold text-primary"><AnimatedCounter value={lc.total} /></span>
                                   <span>Total</span>
                                 </div>
                               </div>
@@ -801,24 +806,24 @@ const AdminList = () => {
                   <Card key={id}>
                     <CardContent className="p-5 text-center">
                       <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">{label}</p>
-                      <p className="text-3xl font-bold text-foreground inline-flex items-center gap-2 justify-center">{c.today} <TodayTrendBadge today={c.today} sevenDay={c["7d"]} /></p>
+                      <p className="text-3xl font-bold text-foreground inline-flex items-center gap-2 justify-center"><AnimatedCounter value={c.today} /> <TodayTrendBadge today={c.today} sevenDay={c["7d"]} /></p>
                       <p className="text-[10px] text-muted-foreground mb-1">today</p>
                       {(() => { const trackingDays = Math.max(1, Math.round((Date.now() - new Date("2026-03-04").getTime()) / 86400000)); return (
                       <div className="grid grid-cols-4 gap-x-2 text-xs text-muted-foreground mt-2">
                         <div className="flex flex-col items-center gap-0.5">
-                          <span className="font-semibold text-primary">{c["7d"]}</span>
+                          <span className="font-semibold text-primary"><AnimatedCounter value={c["7d"]} /></span>
                           <span className="flex items-center gap-0.5">7d <TrendBadge current={c["7d"]} currentDays={7} outer={c["14d"]} outerDays={14} /></span>
                         </div>
                         <div className="flex flex-col items-center gap-0.5">
-                          <span className="font-semibold text-primary">{c["14d"]}</span>
+                          <span className="font-semibold text-primary"><AnimatedCounter value={c["14d"]} /></span>
                           <span className="flex items-center gap-0.5">14d <TrendBadge current={c["14d"]} currentDays={14} outer={c["30d"]} outerDays={30} /></span>
                         </div>
                         <div className="flex flex-col items-center gap-0.5">
-                          <span className="font-semibold text-primary">{c["30d"]}</span>
+                          <span className="font-semibold text-primary"><AnimatedCounter value={c["30d"]} /></span>
                           <span className="flex items-center gap-0.5">30d {trackingDays > 30 && <TrendBadge current={c["30d"]} currentDays={30} outer={c.total} outerDays={trackingDays} />}</span>
                         </div>
                         <div className="flex flex-col items-center gap-0.5">
-                          <span className="font-semibold text-primary">{c.total}</span>
+                          <span className="font-semibold text-primary"><AnimatedCounter value={c.total} /></span>
                           <span>Total</span>
                         </div>
                       </div>
@@ -873,23 +878,23 @@ const AdminList = () => {
                         className="w-full aspect-video object-cover rounded-lg mb-3"
                       />
                       <p className="text-sm font-medium text-foreground mb-3 line-clamp-2">{title}</p>
-                      <p className="text-2xl font-bold text-foreground inline-flex items-center gap-2 justify-center">{c.today} <TodayTrendBadge today={c.today} sevenDay={c["7d"]} /></p>
+                      <p className="text-2xl font-bold text-foreground inline-flex items-center gap-2 justify-center"><AnimatedCounter value={c.today} /> <TodayTrendBadge today={c.today} sevenDay={c["7d"]} /></p>
                       <p className="text-[10px] text-muted-foreground mb-1">today</p>
                       <div className="grid grid-cols-4 gap-x-2 text-xs text-muted-foreground mt-2">
                         <div className="flex flex-col items-center gap-0.5">
-                          <span className="font-semibold text-primary">{c["7d"]}</span>
+                          <span className="font-semibold text-primary"><AnimatedCounter value={c["7d"]} /></span>
                           <span className="flex items-center gap-0.5">7d <TrendBadge current={c["7d"]} currentDays={7} outer={c["14d"]} outerDays={14} /></span>
                         </div>
                         <div className="flex flex-col items-center gap-0.5">
-                          <span className="font-semibold text-primary">{c["14d"]}</span>
+                          <span className="font-semibold text-primary"><AnimatedCounter value={c["14d"]} /></span>
                           <span className="flex items-center gap-0.5">14d <TrendBadge current={c["14d"]} currentDays={14} outer={c["30d"]} outerDays={30} /></span>
                         </div>
                         <div className="flex flex-col items-center gap-0.5">
-                          <span className="font-semibold text-primary">{c["30d"]}</span>
+                          <span className="font-semibold text-primary"><AnimatedCounter value={c["30d"]} /></span>
                           <span className="flex items-center gap-0.5">30d {launchDaysTracking > 30 && <TrendBadge current={c["30d"]} currentDays={30} outer={c.total} outerDays={launchDaysTracking} />}</span>
                         </div>
                         <div className="flex flex-col items-center gap-0.5">
-                          <span className="font-semibold text-primary">{c.total}</span>
+                          <span className="font-semibold text-primary"><AnimatedCounter value={c.total} /></span>
                           <span>Total</span>
                         </div>
                       </div>
@@ -921,7 +926,7 @@ const AdminList = () => {
                   >
                     <span className="text-muted-foreground font-mono w-6">{i + 1}</span>
                     <span className="text-foreground truncate">{title}</span>
-                    <span className="text-primary font-semibold">{count}</span>
+                    <span className="text-primary font-semibold"><AnimatedCounter value={count} /></span>
                   </div>
                 ))}
               </div>
@@ -932,7 +937,7 @@ const AdminList = () => {
           <section>
             <h1 className="text-2xl font-bold text-foreground mb-2">Email Subscribers</h1>
             <p className="text-muted-foreground mb-6">
-              {subscribers.length} unique subscribers
+              <AnimatedCounter value={subscribers.length} /> unique subscribers
             </p>
 
             <div className="overflow-x-auto border border-border rounded-lg">

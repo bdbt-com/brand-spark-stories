@@ -1,49 +1,63 @@
-import { useEffect, useRef, useState } from "react";
+import { memo } from "react";
 
 interface AnimatedCounterProps {
   value: number;
-  duration?: number;
   className?: string;
   format?: (n: number) => string;
+  /** Animation duration in ms (default 600) */
+  duration?: number;
 }
 
-const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
+const DIGITS = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 
-export const AnimatedCounter = ({
-  value,
-  duration = 600,
-  className,
-  format,
-}: AnimatedCounterProps) => {
-  const [display, setDisplay] = useState(value);
-  const fromRef = useRef(value);
-  const rafRef = useRef<number | null>(null);
+const Reel = ({ digit, duration }: { digit: number; duration: number }) => (
+  <span
+    style={{
+      display: "inline-block",
+      height: "1em",
+      lineHeight: "1em",
+      overflow: "hidden",
+      verticalAlign: "bottom",
+    }}
+  >
+    <span
+      style={{
+        display: "block",
+        transform: `translateY(-${digit}em)`,
+        transition: `transform ${duration}ms cubic-bezier(0.22, 1, 0.36, 1)`,
+        willChange: "transform",
+      }}
+    >
+      {DIGITS.map((d) => (
+        <span key={d} style={{ display: "block", height: "1em", lineHeight: "1em" }}>
+          {d}
+        </span>
+      ))}
+    </span>
+  </span>
+);
 
-  useEffect(() => {
-    if (value === display) return;
-    const start = performance.now();
-    const from = fromRef.current;
-    const to = value;
-    const tick = (now: number) => {
-      const t = Math.min(1, (now - start) / duration);
-      const eased = easeOutCubic(t);
-      const current = Math.round(from + (to - from) * eased);
-      setDisplay(current);
-      if (t < 1) {
-        rafRef.current = requestAnimationFrame(tick);
-      } else {
-        fromRef.current = to;
-      }
-    };
-    rafRef.current = requestAnimationFrame(tick);
-    return () => {
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
-      fromRef.current = display;
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [value, duration]);
-
-  return <span className={className}>{format ? format(display) : display.toLocaleString()}</span>;
+const AnimatedCounterImpl = ({ value, className, format, duration = 600 }: AnimatedCounterProps) => {
+  const safe = Number.isFinite(value) ? value : 0;
+  const text = format ? format(safe) : Math.round(safe).toLocaleString();
+  return (
+    <span className={className} style={{ display: "inline-flex", alignItems: "baseline", lineHeight: "1em" }}>
+      {text.split("").map((ch, i) => {
+        if (/\d/.test(ch)) {
+          return <Reel key={i} digit={parseInt(ch, 10)} duration={duration} />;
+        }
+        return (
+          <span key={i} style={{ display: "inline-block" }}>
+            {ch}
+          </span>
+        );
+      })}
+    </span>
+  );
 };
+
+export const AnimatedCounter = memo(AnimatedCounterImpl, (a, b) =>
+  a.value === b.value && a.className === b.className && a.duration === b.duration && a.format === b.format
+);
 
 export default AnimatedCounter;
