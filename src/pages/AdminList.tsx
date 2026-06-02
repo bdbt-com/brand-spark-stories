@@ -243,6 +243,27 @@ const AdminList = () => {
     return counts;
   }, [feed]);
 
+  // Live deltas — how much each "today" counter has grown since the last analytics fetch.
+  // Added to every longer-period number so 7d/14d/30d/Total all tick up in sync with Today.
+  const liveDeltas = useMemo(() => {
+    const b = analyticsBaseline.current;
+    const t = liveTick;
+    if (!b || !t) {
+      return { visitors: 0, bio_clicks: 0, podcast_clicks: 0, bio_redirects: 0, podcast_redirects: 0, subscribers: 0 };
+    }
+    const d = (cur: number, base: number) => Math.max(0, cur - base);
+    return {
+      visitors: d(t.visitors_today, b.visitors),
+      bio_clicks: d(t.bio_clicks_today, b.bio_clicks),
+      podcast_clicks: d(t.podcast_clicks_today, b.podcast_clicks),
+      bio_redirects: d(t.bio_redirects_today, b.bio_redirects),
+      podcast_redirects: d(t.podcast_redirects_today, b.podcast_redirects),
+      subscribers: d(t.subscribers_today, b.subscribers),
+    };
+  }, [liveTick]);
+
+
+
   const fetchVideoCounts = useCallback(async () => {
     try {
       const { data } = await supabase.functions.invoke("get-video-clicks");
