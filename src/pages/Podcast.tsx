@@ -44,8 +44,10 @@ interface GridEpisode {
   title: string;
   thumbnail: string;
   viewCountText: string;
+  publishedText: string;
   duration?: string;
 }
+
 
 const Podcast = () => {
   const { video, loading } = useLatestVideo();
