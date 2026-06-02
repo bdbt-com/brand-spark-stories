@@ -44,8 +44,10 @@ interface GridEpisode {
   title: string;
   thumbnail: string;
   viewCountText: string;
+  publishedText: string;
   duration?: string;
 }
+
 
 const Podcast = () => {
   const { video, loading } = useLatestVideo();
@@ -134,6 +136,7 @@ const Podcast = () => {
         title: v.title,
         thumbnail: v.thumbnail,
         viewCountText: v.viewCount || "",
+        publishedText: v.publishedAt || "",
         duration: v.duration,
       });
     }
@@ -143,7 +146,9 @@ const Podcast = () => {
       title: t.title,
       thumbnail: t.thumbnail,
       viewCountText: t.viewCountText || "",
+      publishedText: t.publishedText || "",
     }));
+
 
     const interleaved: GridEpisode[] = [];
     for (let i = 0; i < 3; i++) {
@@ -336,9 +341,12 @@ const Podcast = () => {
                 <h3 className="text-[13px] sm:text-base font-semibold leading-snug text-foreground line-clamp-2 group-hover:text-primary transition-colors">
                   {ep.title}
                 </h3>
-                {ep.viewCountText && (
-                  <p className="text-[11px] sm:text-xs text-foreground/50">{ep.viewCountText}</p>
+                {(ep.viewCountText || ep.publishedText) && (
+                  <p className="text-[11px] sm:text-xs text-foreground/50">
+                    {[ep.viewCountText, ep.publishedText].filter(Boolean).join(" · ")}
+                  </p>
                 )}
+
               </button>
             ))}
           </div>

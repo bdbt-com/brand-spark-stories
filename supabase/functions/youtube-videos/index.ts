@@ -29,6 +29,8 @@ interface VideoItem {
 
 const cache = new Map<string, { videos: VideoItem[]; expiresAt: number }>();
 
+const YT_API_KEY = Deno.env.get('YOUTUBE_API_KEY') ?? '';
+
 function parseViewCount(text: string): number {
   if (!text) return 0;
   const m = text.match(/([\d.,]+)\s*([KMB])?/i);
@@ -39,6 +41,99 @@ function parseViewCount(text: string): number {
   const mult = suf === 'K' ? 1_000 : suf === 'M' ? 1_000_000 : suf === 'B' ? 1_000_000_000 : 1;
   return Math.round(n * mult);
 }
+
+function formatViews(n: number): string {
+  if (n < 0 || !Number.isFinite(n)) return '';
+  if (n < 1000) return `${n} views`;
+  if (n < 1_000_000) {
+    const v = n / 1000;
+    return `${v >= 100 ? Math.round(v) : v.toFixed(1).replace(/\.0$/, '')}K views`;
+  }
+  if (n < 1_000_000_000) {
+    const v = n / 1_000_000;
+    return `${v >= 100 ? Math.round(v) : v.toFixed(1).replace(/\.0$/, '')}M views`;
+  }
+  const v = n / 1_000_000_000;
+  return `${v.toFixed(1).replace(/\.0$/, '')}B views`;
+}
+
+function formatRelative(publishedAt: string): string {
+  if (!publishedAt) return '';
+  const diffMs = Date.now() - new Date(publishedAt).getTime();
+  if (!Number.isFinite(diffMs) || diffMs < 0) return '';
+  const mins = Math.floor(diffMs / 60000);
+  if (mins < 1) return 'just now';
+  if (mins < 60) return `${mins} minute${mins === 1 ? '' : 's'} ago`;
+  const hrs = Math.floor(mins / 60);
+  if (hrs < 24) return `${hrs} hour${hrs === 1 ? '' : 's'} ago`;
+  const days = Math.floor(hrs / 24);
+  if (days < 7) return `${days} day${days === 1 ? '' : 's'} ago`;
+  if (days < 30) {
+    const w = Math.floor(days / 7);
+    return `${w} week${w === 1 ? '' : 's'} ago`;
+  }
+  if (days < 365) {
+    const mo = Math.floor(days / 30);
+    return `${mo} month${mo === 1 ? '' : 's'} ago`;
+  }
+  const y = Math.floor(days / 365);
+  return `${y} year${y === 1 ? '' : 's'} ago`;
+}
+
+function parseIsoDuration(iso: string): string {
+  if (!iso) return '';
+  const m = iso.match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/);
+  if (!m) return '';
+  const h = parseInt(m[1] || '0', 10);
+  const mn = parseInt(m[2] || '0', 10);
+  const s = parseInt(m[3] || '0', 10);
+  const pad = (n: number) => n.toString().padStart(2, '0');
+  if (h > 0) return `${h}:${pad(mn)}:${pad(s)}`;
+  return `${mn}:${pad(s)}`;
+}
+
+async function enrichWithDataApi(videos: VideoItem[]): Promise<VideoItem[]> {
+  if (!YT_API_KEY || videos.length === 0) return videos;
+  try {
+    const ids = videos.map((v) => v.videoId).filter(Boolean).slice(0, 50).join(',');
+    const url = `https://www.googleapis.com/youtube/v3/videos?part=statistics,snippet,contentDetails&id=${ids}&key=${YT_API_KEY}`;
+    const r = await fetch(url);
+    if (!r.ok) {
+      console.warn('YouTube Data API enrich failed', r.status);
+      return videos;
+    }
+    const j = await r.json();
+    const items = (j?.items ?? []) as any[];
+    const byId = new Map<string, any>();
+    for (const it of items) byId.set(it.id, it);
+
+    return videos.map((v) => {
+      const it = byId.get(v.videoId);
+      if (!it) return v;
+      const rawViews = it?.statistics?.viewCount;
+      const n = rawViews !== undefined && rawViews !== null ? parseInt(rawViews, 10) : NaN;
+      const viewCountText = Number.isFinite(n) ? formatViews(n) : v.viewCountText;
+      const viewCountNumber = Number.isFinite(n) ? n : v.viewCountNumber;
+      const publishedAtIso = it?.snippet?.publishedAt;
+      const publishedAt = publishedAtIso ? formatRelative(publishedAtIso) : v.publishedAt;
+      const duration = it?.contentDetails?.duration ? parseIsoDuration(it.contentDetails.duration) : v.duration;
+      const title = it?.snippet?.title || v.title;
+      return {
+        ...v,
+        title,
+        viewCount: viewCountText || v.viewCount,
+        viewCountText: viewCountText || v.viewCountText,
+        viewCountNumber,
+        publishedAt,
+        duration,
+      };
+    });
+  } catch (e) {
+    console.warn('YouTube Data API enrich threw', e);
+    return videos;
+  }
+}
+
 
 
 function parseChannelHtml(html: string): VideoItem[] {
@@ -201,12 +296,18 @@ serve(async (req) => {
     }
 
     const parsed = parseChannelHtml(html);
+    const enriched = await enrichWithDataApi(parsed);
     const PODCAST_TITLE_RE = /\b(daily wins\s+)?podcast\s+\d+\b/i;
-    let pool = podcastOnly ? parsed.filter((v) => PODCAST_TITLE_RE.test(v.title)) : parsed;
+    let pool = podcastOnly ? enriched.filter((v) => PODCAST_TITLE_RE.test(v.title)) : enriched;
     if (sortByViews) {
       pool = [...pool].sort((a, b) => b.viewCountNumber - a.viewCountNumber);
     }
-    const videos = await Promise.all(pool.slice(0, limit).map(hydrateTitleFromOEmbed));
+    const sliced = pool.slice(0, limit);
+    // Only fall back to oEmbed for titles the Data API couldn't supply
+    const videos = await Promise.all(
+      sliced.map((v) => (v.title && /podcast\s+\d+/i.test(v.title) ? Promise.resolve(v) : hydrateTitleFromOEmbed(v))),
+    );
+
 
     if (videos.length === 0) {
       console.warn('Channel HTML parsed but produced 0 videos for', cacheKey);

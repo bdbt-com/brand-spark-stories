@@ -5,7 +5,9 @@ export interface TopVideo {
   title: string;
   thumbnail: string;
   viewCountText: string;
+  publishedText: string;
 }
+
 
 export const useTopVideos = (limit = 3) => {
   const [videos, setVideos] = useState<TopVideo[]>([]);
@@ -36,8 +38,10 @@ export const useTopVideos = (limit = 3) => {
             title: v.title,
             thumbnail: v.thumbnail,
             viewCountText: v.viewCountText || v.viewCount || "",
+            publishedText: v.publishedAt || "",
           }))
         );
+
       } catch (e: any) {
         if (!cancelled) setError(e.message || "Failed to load videos");
       } finally {
