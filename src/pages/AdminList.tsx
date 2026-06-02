@@ -519,10 +519,10 @@ const AdminList = () => {
             </div>
           </section>
 
-          {/* Page Analytics — graph inline */}
+          {/* Page Visitors — graph inline */}
           <section>
             <h2 className="text-xl font-bold text-foreground mb-4 flex items-center gap-2">
-              <BarChart3 className="w-5 h-5 text-primary" /> Page Analytics
+              <BarChart3 className="w-5 h-5 text-primary" /> Page Visitors
             </h2>
             <div className="flex flex-col xl:flex-row gap-4">
               {(graphRange === 'today' ? hourlyStats.length > 0 : filteredDailyStats.length > 0) && (
