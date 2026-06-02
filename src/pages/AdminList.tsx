@@ -926,7 +926,7 @@ const AdminList = () => {
                   >
                     <span className="text-muted-foreground font-mono w-6">{i + 1}</span>
                     <span className="text-foreground truncate">{title}</span>
-                    <span className="text-primary font-semibold">{count}</span>
+                    <span className="text-primary font-semibold"><AnimatedCounter value={count} /></span>
                   </div>
                 ))}
               </div>
