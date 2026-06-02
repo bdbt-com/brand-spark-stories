@@ -25,7 +25,10 @@ Deno.serve(async (req) => {
     if (dailyRes.error) throw dailyRes.error;
     if (hourlyRes.error) throw hourlyRes.error;
 
-    return new Response(JSON.stringify({ daily: dailyRes.data, hourly: hourlyRes.data }), {
+    const daily = (dailyRes.data || []).slice().sort((a: any, b: any) => String(a.day).localeCompare(String(b.day)));
+    const hourly = (hourlyRes.data || []).slice().sort((a: any, b: any) => String(a.hour).localeCompare(String(b.hour)));
+
+    return new Response(JSON.stringify({ daily, hourly }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
   } catch (err) {
