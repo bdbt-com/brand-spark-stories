@@ -213,6 +213,15 @@ const AdminList = () => {
   const [dailyStats, setDailyStats] = useState<{ day: string; visitors: number; bio_clicks: number; podcast_clicks: number; bio_redirects: number; podcast_redirects: number }[]>([]);
   const [hourlyStats, setHourlyStats] = useState<{ hour: string; visitors: number; bio_clicks: number; podcast_clicks: number; bio_redirects: number; podcast_redirects: number }[]>([]);
   const [feedFilter, setFeedFilter] = useState<FeedFilter>("all");
+  const [liveTick, setLiveTick] = useState<{
+    visitors_today: number;
+    subscribers_today: number;
+    bio_clicks_today: number;
+    podcast_clicks_today: number;
+    bio_redirects_today: number;
+    podcast_redirects_today: number;
+    total_clicks_today: number;
+  } | null>(null);
   const [graphRange, setGraphRange] = useState<'today' | '7d' | '14d' | '30d' | 'all'>('all');
   const [showPreviousVideos, setShowPreviousVideos] = useState(false);
   const { videos: ytVideos } = useYouTubeVideos();
