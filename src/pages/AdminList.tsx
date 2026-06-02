@@ -491,31 +491,14 @@ const AdminList = () => {
             <h2 className="text-xl font-bold text-foreground mb-4 flex items-center gap-2">
               <BarChart3 className="w-5 h-5 text-primary" /> Today — Live
             </h2>
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-2 gap-4">
               {(() => {
                 const today = analytics["today"];
                 const avgMins = today ? Math.floor(today.avg_duration / 60) : 0;
                 const avgSecs = today ? today.avg_duration % 60 : 0;
-                const baselineVisitors = today ? (today.visitors - (today.live_visitors ?? 0)) : 0;
-                const liveVisitors = liveTick ? liveTick.visitors_today : (today?.live_visitors ?? 0);
-                const visitorsDisplay = baselineVisitors + liveVisitors;
-                const bioClicksLive = liveTick ? liveTick.bio_clicks_today : (bioClicks.today || 0);
                 const subsDisplay = liveTick ? Math.max(liveTick.subscribers_today, todaySubscribers) : todaySubscribers;
                 return (
                   <>
-                     <Card className="border-primary/30 bg-primary/5">
-                      <CardContent className="p-5 text-center">
-                        <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">Visitors</p>
-                        <p className="text-3xl font-bold text-foreground inline-flex items-center gap-2 justify-center">
-                          <AnimatedCounter value={visitorsDisplay} />
-                          <TodayTrendBadge today={liveVisitors} sevenDay={analytics["7d"]?.live_visitors ?? analytics["7d"]?.visitors ?? 0} />
-                        </p>
-                        <p className="text-xs text-muted-foreground mt-1 inline-flex items-center gap-1 justify-center">
-                          /bio clicks: <AnimatedCounter value={bioClicksLive} />
-                          <TodayTrendBadge today={bioClicksLive} sevenDay={bioClicks["7d"] || 0} />
-                        </p>
-                      </CardContent>
-                    </Card>
                     <Card className="border-primary/30 bg-primary/5">
                       <CardContent className="p-5 text-center">
                         <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">Avg Time</p>
