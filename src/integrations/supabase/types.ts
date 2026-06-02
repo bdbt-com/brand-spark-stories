@@ -282,6 +282,18 @@ export type Database = {
         Args: { since_ts: string }
         Returns: number
       }
+      get_today_live_tick: {
+        Args: never
+        Returns: {
+          bio_clicks_today: number
+          bio_redirects_today: number
+          podcast_clicks_today: number
+          podcast_redirects_today: number
+          subscribers_today: number
+          total_clicks_today: number
+          visitors_today: number
+        }[]
+      }
       get_video_click_counts: {
         Args: never
         Returns: {

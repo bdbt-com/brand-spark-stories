@@ -1,44 +1,57 @@
-# Silky-smooth live feed on /admin-list
+## Verification: redirects ARE being recorded
 
-## Problem
+I checked the database directly. In the last hour: **460 podcast redirects** (`latest-auto:*`) and **1 bio redirect** (`auto-redirect:*`), plus 60 podcast-page clicks. Today's totals: 1,162 podcast redirects, 4 bio redirects. So tracking is healthy — the issue is purely that the stat boxes only re-fetch every 15 s, so the numbers feel frozen even while the live feed is moving.
 
-Today the feed is fetched by `get-activity-feed`, which scans up to 10,000 `video_clicks` rows + 10,000 `email_subscriptions` rows from the last 24h on every call. That same call is on the 15-second `setInterval` alongside subscribers, analytics, video counts, and download counts — and even at 15s it ships the entire 24h list back, triggering a full re-render of every feed row. Polling that payload every 1s would melt the page.
+Two contributing bugs I'd fix at the same time:
+1. `fetchDailyStats` runs once on mount and is NOT in the 15 s loop, so graphs never refresh.
+2. None of the "Today — Live" boxes refresh faster than 15 s.
 
-To watch visitors arrive one-by-one, the feed needs:
-1. Its own fast polling loop (1s), independent of the heavier dashboard fetches.
-2. An incremental endpoint that returns only items newer than what the client already has.
-3. Stable React keys + append-on-top so existing rows don't unmount on each tick.
+## Plan
 
-## Changes
+### 1. New lightweight tick endpoint — `get-live-tick`
 
-### 1. `supabase/functions/get-activity-feed/index.ts` — accept `since`
+`supabase/functions/get-live-tick/index.ts` returning a small JSON payload (under ~200 bytes):
 
-- Read `since` from JSON body (ISO timestamp). If absent, keep current behaviour (24h window, used for the initial load).
-- When `since` is provided:
-  - Use `since` instead of "24h ago" as the `gte` filter on `clicked_at` / `created_at` / `email_sent_at`.
-  - Cap pagination to a single page of ~500 rows (we'll never get that many in 1s; this just protects against runaway loops).
-- Always return `{ feed, server_time }` where `server_time = new Date().toISOString()` captured at the top of the handler. Client uses `server_time` as the next `since` to avoid clock skew.
+```ts
+{
+  visitors_today: number,        // distinct sessions since UTC midnight
+  subscribers_today: number,
+  bio_clicks_today: number,      // distinct sessions hitting /bio or /links
+  podcast_clicks_today: number,  // distinct sessions hitting /podcast
+  bio_redirects_today: number,   // video_clicks: auto-redirect / auto-redirect:%
+  podcast_redirects_today: number, // video_clicks: latest-auto:%
+  total_clicks_today: number,    // all video_clicks today
+  server_time: string
+}
+```
 
-### 2. `src/pages/AdminList.tsx` — split feed polling from the rest
+Backed by a single new SQL function `get_today_live_tick()` (security definer) that runs all six counts in one round-trip from the existing tables/indexes — no schema changes, no new tables. Registered in `config.toml` with `verify_jwt = false`.
 
-- Add a ref `lastFeedSince` (ISO string) and a ref `feedItemKeys` (Set of stable IDs) used for dedupe.
-- Build a stable key per feed item: `${type}:${timestamp}:${label}:${detail}`. Use it as the React `key` so unchanged rows are not re-mounted.
-- New callback `fetchFeedIncremental()`:
-  - Calls `get-activity-feed` with `{ since: lastFeedSince.current }`.
-  - For each returned item, skip if key already in the Set; otherwise add to Set and collect.
-  - If any new items, `setFeed(prev => [...newItems, ...prev].slice(0, 500))` (cap list length so the DOM stays small).
-  - Update `lastFeedSince.current = data.server_time`.
-- In the mount `useEffect`, do one initial `fetchFeed()` (full 24h, no `since`) to seed the list and `lastFeedSince`, then start a **separate** `setInterval(fetchFeedIncremental, 1000)`.
-- The existing 15s interval keeps subscribers / analytics / video counts / download counts but drops `fetchFeed()` from its body.
-- Pause the 1s loop when the tab is hidden (`document.visibilityState`) and immediately re-sync on `visibilitychange === 'visible'`.
+### 2. Wire it to `AdminList.tsx`
 
-### 3. Render-side smoothness
+- Add `liveTick` state.
+- Add a separate `setInterval(fetchLiveTick, 2000)` (2 s — smooth without hammering). Pause when `document.visibilityState === 'hidden'`, resume on `visibilitychange`.
+- Add `fetchDailyStats` + `fetchAnalytics` to the existing 15 s loop so graphs/period stats actually refresh (right now only feed + subs/videos/downloads do).
+- For the "Today — Live" cards (Visitors, New Subs) and the inline "/bio clicks" line, prefer `liveTick` values with `analytics["today"]` as fallback so the numbers tick every 2 s instead of every 15 s.
 
-- Replace the current `key={\`${item.timestamp}-${i}\`}` with the stable key above (index-based keys cause every row to re-render whenever a new item is prepended).
-- Add a light fade/slide-in for newly arrived items: track keys present in the previous render in a ref; for keys not seen before, apply a one-shot `animate-in fade-in slide-in-from-top-1` Tailwind class (already available via tailwindcss-animate). This is the "1-by-1" feel without any layout thrash.
+### 3. Smooth count-up animation — `<AnimatedCounter />`
 
-## Notes
+A tiny component (`src/components/AnimatedCounter.tsx`, ~30 lines) that tweens from the previous value to the new value over 600 ms using `requestAnimationFrame` and `easeOutCubic`. Used everywhere a live number is shown: the three Today cards, /bio clicks line, today columns of video tables, today subs counter. So when the tick endpoint reports +3 visitors, the digit smoothly rolls up 1→2→3 instead of jumping.
 
-- No DB schema changes; no new indexes required — `video_clicks.clicked_at` and `email_subscriptions.created_at` are already the filter columns and the windows shrink from 24h to ~1s.
-- Filter bar, counts, and mobile feed all read from the same `feed` state, so they benefit automatically.
-- Realtime (Supabase channels on the two tables) would be even smoother, but it requires enabling replication on each table and reworking the activity-mapping logic that currently lives in `get-activity-feed`. Polling-with-`since` at 1s gives near-realtime feel with zero infra changes; we can upgrade to channels later if you want truly push-based updates.
+### 4. Performance / lag answer
+
+- **Network:** 1 request every 2 s, ~200 byte response. ~30 req/min. Negligible.
+- **DB:** six indexed `COUNT` queries in one RPC; `clicked_at` and `entered_at` are already used as filter columns. Each query is millisecond-scale.
+- **Browser:** `AnimatedCounter` uses `requestAnimationFrame`, runs only when a value changes, and unmounts cleanly. No layout thrash because we only animate text content, not size.
+- **Tab background:** polling pauses entirely when the tab is hidden so it won't drain battery or quota.
+- **Why 2 s and not 1 s for stats:** at 1 s the UI flickers between identical values most ticks (counts rarely change every single second), and `AnimatedCounter`'s 600 ms tween blends 2 s gaps perfectly into a constantly-moving feel. The live feed itself stays at 1 s — that's where the eye-candy lives.
+
+### Files touched
+
+- new: `supabase/functions/get-live-tick/index.ts`
+- new: `src/components/AnimatedCounter.tsx`
+- edit: `supabase/config.toml` (register function)
+- edit: `src/pages/AdminList.tsx` (new poll, mount fetchDailyStats into 15 s loop, swap numeric `<p>` for `<AnimatedCounter />`)
+- migration: add `get_today_live_tick()` SQL function
+
+No table/schema changes, no RLS changes.
