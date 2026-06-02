@@ -1078,7 +1078,7 @@ const AdminList = () => {
                       return (
                         <div
                           key={k}
-                          className={`flex items-start gap-3 p-2.5 rounded-lg bg-muted/20 hover:bg-muted/40 transition-colors ${isNew ? 'animate-in fade-in-0 slide-in-from-top-2 duration-500 ease-out fill-mode-both' : ''}`}
+                          className={`flex items-start gap-3 p-2.5 rounded-lg bg-muted/20 hover:bg-muted/40 transition-colors ${isNew ? 'animate-bubble-in' : ''}`}
                           style={isNew ? { animationDelay: `${delay}ms` } : undefined}
                         >
                           <div className={`p-1.5 rounded-md ${config.bg} flex-shrink-0 mt-0.5`}>
