@@ -937,7 +937,7 @@ const AdminList = () => {
           <section>
             <h1 className="text-2xl font-bold text-foreground mb-2">Email Subscribers</h1>
             <p className="text-muted-foreground mb-6">
-              {subscribers.length} unique subscribers
+              <AnimatedCounter value={subscribers.length} /> unique subscribers
             </p>
 
             <div className="overflow-x-auto border border-border rounded-lg">
