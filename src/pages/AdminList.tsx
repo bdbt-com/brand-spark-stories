@@ -549,38 +549,8 @@ const AdminList = () => {
             </div>
           )}
 
-          {/* Today's Live Stats */}
-          <section>
-            <h2 className="text-xl font-bold text-foreground mb-4 flex items-center gap-2">
-              <BarChart3 className="w-5 h-5 text-primary" /> Today — Live
-            </h2>
-            <div className="grid grid-cols-2 gap-4">
-              {(() => {
-                const today = analytics["today"];
-                const avgMins = today ? Math.floor(today.avg_duration / 60) : 0;
-                const avgSecs = today ? today.avg_duration % 60 : 0;
-                const subsDisplay = liveTick ? Math.max(liveTick.subscribers_today, todaySubscribers) : todaySubscribers;
-                return (
-                  <>
-                    <Card className="border-primary/30 bg-primary/5">
-                      <CardContent className="p-5 text-center">
-                        <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">Avg Time</p>
-                        <p className="text-3xl font-bold text-foreground">
-                          {avgMins > 0 ? `${avgMins}m ` : ""}{avgSecs}s
-                        </p>
-                      </CardContent>
-                    </Card>
-                    <Card className="border-primary/30 bg-primary/5">
-                      <CardContent className="p-5 text-center">
-                        <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">New Subs</p>
-                        <p className="text-3xl font-bold text-foreground"><AnimatedCounter value={subsDisplay} /></p>
-                      </CardContent>
-                    </Card>
-                  </>
-                );
-              })()}
-            </div>
-          </section>
+
+
 
           {/* Page Visitors — graph inline */}
           <section>
