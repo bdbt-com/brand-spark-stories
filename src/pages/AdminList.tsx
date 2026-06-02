@@ -506,7 +506,7 @@ const AdminList = () => {
                   return (
                     <div
                       key={`mobile-${k}`}
-                      className={`flex items-center gap-2 py-1.5 border-t border-border/30 ${isNew ? 'animate-in fade-in-0 slide-in-from-top-2 duration-500 ease-out fill-mode-both' : ''}`}
+                      className={`flex items-center gap-2 py-1.5 border-t border-border/30 ${isNew ? 'animate-bubble-in' : ''}`}
                       style={isNew ? { animationDelay: `${delay}ms` } : undefined}
                     >
                       <div className={`p-1 rounded ${config.bg} flex-shrink-0`}>
