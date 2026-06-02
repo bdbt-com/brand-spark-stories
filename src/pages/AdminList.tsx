@@ -268,6 +268,7 @@ const AdminList = () => {
       if (data?.analytics) setAnalytics(data.analytics);
       if (data?.bio_clicks) setBioClicks(data.bio_clicks);
       if (data?.podcast_clicks) setPodcastClicks(data.podcast_clicks);
+      captureBaseline();
     } catch {}
   }, []);
 
