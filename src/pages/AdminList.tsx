@@ -645,18 +645,23 @@ const AdminList = () => {
               <BarChart3 className="w-5 h-5 text-primary" /> Bio & Podcast Link Clicks
             </h2>
             <div className="flex flex-col xl:flex-row gap-4">
-              {(graphRange === 'today' ? hourlyStats.length > 0 : filteredDailyStats.length > 0) && (
-                <InlineGraph
-                  data={graphRange === 'today' ? hourlyStats : filteredDailyStats}
-                  dataKey="bio_clicks"
-                  label="/bio"
-                  color="hsl(142, 71%, 45%)"
-                  dataKey2="podcast_clicks"
-                  label2="/podcast"
-                  color2="hsl(210, 90%, 60%)"
-                  hourly={graphRange === 'today'}
-                />
-              )}
+              {(graphRange === 'today' ? hourlyStats.length > 0 : filteredDailyStats.length > 0) && (() => {
+                // Mirror historical /bio clicks into /podcast line (ad URL was switched from /bio → /podcast)
+                const src = graphRange === 'today' ? hourlyStats : filteredDailyStats;
+                const mirrored = src.map((r) => ({ ...r, podcast_clicks: r.bio_clicks }));
+                return (
+                  <InlineGraph
+                    data={mirrored}
+                    dataKey="bio_clicks"
+                    label="/bio"
+                    color="hsl(142, 71%, 45%)"
+                    dataKey2="podcast_clicks"
+                    label2="/podcast"
+                    color2="hsl(210, 90%, 60%)"
+                    hourly={graphRange === 'today'}
+                  />
+                );
+              })()}
               <div className="flex-1 grid grid-cols-2 md:grid-cols-5 gap-4">
                 {(() => {
                   const dB = liveDeltas.bio_clicks;
