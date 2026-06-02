@@ -1036,10 +1036,12 @@ const AdminList = () => {
                       const Icon = config.icon;
                       const k = feedKey(item);
                       const isNew = !seenKeysAtRender.current.has(k);
+                      const delay = freshDelays.current.get(k) ?? 0;
                       return (
                         <div
                           key={k}
-                          className={`flex items-start gap-3 p-2.5 rounded-lg bg-muted/20 hover:bg-muted/40 transition-colors ${isNew ? 'animate-in fade-in slide-in-from-top-1 duration-300' : ''}`}
+                          className={`flex items-start gap-3 p-2.5 rounded-lg bg-muted/20 hover:bg-muted/40 transition-colors ${isNew ? 'animate-in fade-in-0 slide-in-from-top-2 duration-500 ease-out fill-mode-both' : ''}`}
+                          style={isNew ? { animationDelay: `${delay}ms` } : undefined}
                         >
                           <div className={`p-1.5 rounded-md ${config.bg} flex-shrink-0 mt-0.5`}>
                             <Icon className={`w-3.5 h-3.5 ${config.color}`} />
