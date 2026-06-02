@@ -878,23 +878,23 @@ const AdminList = () => {
                         className="w-full aspect-video object-cover rounded-lg mb-3"
                       />
                       <p className="text-sm font-medium text-foreground mb-3 line-clamp-2">{title}</p>
-                      <p className="text-2xl font-bold text-foreground inline-flex items-center gap-2 justify-center">{c.today} <TodayTrendBadge today={c.today} sevenDay={c["7d"]} /></p>
+                      <p className="text-2xl font-bold text-foreground inline-flex items-center gap-2 justify-center"><AnimatedCounter value={c.today} /> <TodayTrendBadge today={c.today} sevenDay={c["7d"]} /></p>
                       <p className="text-[10px] text-muted-foreground mb-1">today</p>
                       <div className="grid grid-cols-4 gap-x-2 text-xs text-muted-foreground mt-2">
                         <div className="flex flex-col items-center gap-0.5">
-                          <span className="font-semibold text-primary">{c["7d"]}</span>
+                          <span className="font-semibold text-primary"><AnimatedCounter value={c["7d"]} /></span>
                           <span className="flex items-center gap-0.5">7d <TrendBadge current={c["7d"]} currentDays={7} outer={c["14d"]} outerDays={14} /></span>
                         </div>
                         <div className="flex flex-col items-center gap-0.5">
-                          <span className="font-semibold text-primary">{c["14d"]}</span>
+                          <span className="font-semibold text-primary"><AnimatedCounter value={c["14d"]} /></span>
                           <span className="flex items-center gap-0.5">14d <TrendBadge current={c["14d"]} currentDays={14} outer={c["30d"]} outerDays={30} /></span>
                         </div>
                         <div className="flex flex-col items-center gap-0.5">
-                          <span className="font-semibold text-primary">{c["30d"]}</span>
+                          <span className="font-semibold text-primary"><AnimatedCounter value={c["30d"]} /></span>
                           <span className="flex items-center gap-0.5">30d {launchDaysTracking > 30 && <TrendBadge current={c["30d"]} currentDays={30} outer={c.total} outerDays={launchDaysTracking} />}</span>
                         </div>
                         <div className="flex flex-col items-center gap-0.5">
-                          <span className="font-semibold text-primary">{c.total}</span>
+                          <span className="font-semibold text-primary"><AnimatedCounter value={c.total} /></span>
                           <span>Total</span>
                         </div>
                       </div>
