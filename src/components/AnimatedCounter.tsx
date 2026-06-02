@@ -23,7 +23,7 @@ const Reel = ({ digit, duration }: { digit: number; duration: number }) => (
     <span
       style={{
         display: "block",
-        transform: `translateY(-${digit}em)`,
+        transform: `translateY(-${9 - digit}em)`,
         transition: `transform ${duration}ms cubic-bezier(0.22, 1, 0.36, 1)`,
         willChange: "transform",
       }}
