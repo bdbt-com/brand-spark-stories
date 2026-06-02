@@ -683,13 +683,19 @@ const AdminList = () => {
                 />
               )}
               <div className="flex-1 grid grid-cols-2 md:grid-cols-5 gap-4">
-                {[
-                  { label: "Today", bio: bioClicks.today || 0, pod: podcastClicks.today || 0, isToday: true, bioSeven: bioClicks["7d"] || 0, podSeven: podcastClicks["7d"] || 0, days: 0, bioOuter: 0, podOuter: 0, outerDays: 0 },
-                  { label: "7 Days", bio: bioClicks["7d"] || 0, pod: podcastClicks["7d"] || 0, isToday: false, bioSeven: 0, podSeven: 0, days: 7, bioOuter: bioClicks["14d"] || 0, podOuter: podcastClicks["14d"] || 0, outerDays: 14 },
-                  { label: "14 Days", bio: bioClicks["14d"] || 0, pod: podcastClicks["14d"] || 0, isToday: false, bioSeven: 0, podSeven: 0, days: 14, bioOuter: bioClicks["30d"] || 0, podOuter: podcastClicks["30d"] || 0, outerDays: 30 },
-                  { label: "30 Days", bio: bioClicks["30d"] || 0, pod: podcastClicks["30d"] || 0, isToday: false, bioSeven: 0, podSeven: 0, days: 30, bioOuter: bioClicks["30d"] || 0, podOuter: podcastClicks["30d"] || 0, outerDays: 30 },
-                  { label: "Total", bio: bioClicks.since_launch || 0, pod: podcastClicks.since_launch || 0, isToday: false, bioSeven: 0, podSeven: 0, days: 0, bioOuter: 0, podOuter: 0, outerDays: 0 },
-                ].map(({ label, bio, pod, isToday, bioSeven, podSeven, days, bioOuter, podOuter, outerDays }) => (
+                {(() => {
+                  const dB = liveDeltas.bio_clicks;
+                  const dP = liveDeltas.podcast_clicks;
+                  const todayBio = liveTick ? liveTick.bio_clicks_today : (bioClicks.today || 0);
+                  const todayPod = liveTick ? liveTick.podcast_clicks_today : (podcastClicks.today || 0);
+                  return [
+                    { label: "Today", bio: todayBio, pod: todayPod, isToday: true, bioSeven: bioClicks["7d"] || 0, podSeven: podcastClicks["7d"] || 0, days: 0, bioOuter: 0, podOuter: 0, outerDays: 0 },
+                    { label: "7 Days", bio: (bioClicks["7d"] || 0) + dB, pod: (podcastClicks["7d"] || 0) + dP, isToday: false, bioSeven: 0, podSeven: 0, days: 7, bioOuter: (bioClicks["14d"] || 0) + dB, podOuter: (podcastClicks["14d"] || 0) + dP, outerDays: 14 },
+                    { label: "14 Days", bio: (bioClicks["14d"] || 0) + dB, pod: (podcastClicks["14d"] || 0) + dP, isToday: false, bioSeven: 0, podSeven: 0, days: 14, bioOuter: (bioClicks["30d"] || 0) + dB, podOuter: (podcastClicks["30d"] || 0) + dP, outerDays: 30 },
+                    { label: "30 Days", bio: (bioClicks["30d"] || 0) + dB, pod: (podcastClicks["30d"] || 0) + dP, isToday: false, bioSeven: 0, podSeven: 0, days: 30, bioOuter: (bioClicks["30d"] || 0) + dB, podOuter: (podcastClicks["30d"] || 0) + dP, outerDays: 30 },
+                    { label: "Total", bio: (bioClicks.since_launch || 0) + dB, pod: (podcastClicks.since_launch || 0) + dP, isToday: false, bioSeven: 0, podSeven: 0, days: 0, bioOuter: 0, podOuter: 0, outerDays: 0 },
+                  ];
+                })().map(({ label, bio, pod, isToday, bioSeven, podSeven, days, bioOuter, podOuter, outerDays }) => (
                   <Card key={label}>
                     <CardContent className="p-4 text-center">
                       <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">{label}</p>
