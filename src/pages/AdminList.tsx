@@ -476,10 +476,12 @@ const AdminList = () => {
                   const Icon = config.icon;
                   const k = feedKey(item);
                   const isNew = !seenKeysAtRender.current.has(k);
+                  const delay = freshDelays.current.get(k) ?? 0;
                   return (
                     <div
                       key={`mobile-${k}`}
-                      className={`flex items-center gap-2 py-1.5 border-t border-border/30 ${isNew ? 'animate-in fade-in slide-in-from-top-1 duration-300' : ''}`}
+                      className={`flex items-center gap-2 py-1.5 border-t border-border/30 ${isNew ? 'animate-in fade-in-0 slide-in-from-top-2 duration-500 ease-out fill-mode-both' : ''}`}
+                      style={isNew ? { animationDelay: `${delay}ms` } : undefined}
                     >
                       <div className={`p-1 rounded ${config.bg} flex-shrink-0`}>
                         <Icon className={`w-3 h-3 ${config.color}`} />
