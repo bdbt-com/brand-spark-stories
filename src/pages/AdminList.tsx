@@ -340,6 +340,14 @@ const AdminList = () => {
     } catch {}
   }, []);
 
+  const fetchLiveTick = useCallback(async () => {
+    if (typeof document !== "undefined" && document.visibilityState === "hidden") return;
+    try {
+      const { data } = await supabase.functions.invoke("get-live-tick");
+      if (data && typeof data.visitors_today === "number") setLiveTick(data);
+    } catch {}
+  }, []);
+
   useEffect(() => {
     fetchSubscribers();
     fetchVideoCounts();
@@ -347,29 +355,39 @@ const AdminList = () => {
     fetchAnalytics();
     fetchFeed();
     fetchDailyStats();
+    fetchLiveTick();
 
     const slow = setInterval(() => {
       fetchSubscribers();
       fetchVideoCounts();
       fetchDownloadCounts();
       fetchAnalytics();
+      fetchDailyStats();
     }, 15000);
+
+    const tick = setInterval(() => {
+      fetchLiveTick();
+    }, 2000);
 
     const fast = setInterval(() => {
       fetchFeedIncremental();
     }, 1000);
 
     const onVisible = () => {
-      if (document.visibilityState === "visible") fetchFeedIncremental();
+      if (document.visibilityState === "visible") {
+        fetchFeedIncremental();
+        fetchLiveTick();
+      }
     };
     document.addEventListener("visibilitychange", onVisible);
 
     return () => {
       clearInterval(slow);
       clearInterval(fast);
+      clearInterval(tick);
       document.removeEventListener("visibilitychange", onVisible);
     };
-  }, [fetchSubscribers, fetchVideoCounts, fetchDownloadCounts, fetchAnalytics, fetchFeed, fetchFeedIncremental, fetchDailyStats]);
+  }, [fetchSubscribers, fetchVideoCounts, fetchDownloadCounts, fetchAnalytics, fetchFeed, fetchFeedIncremental, fetchDailyStats, fetchLiveTick]);
 
   // Track which feed keys were rendered last paint so we can animate only new ones
   useEffect(() => {
