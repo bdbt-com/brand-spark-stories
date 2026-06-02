@@ -535,6 +535,7 @@ const AdminList = () => {
                   const liveVisitors = liveTick ? liveTick.visitors_today : (today?.live_visitors ?? 0);
                   const visitorsDisplay = baselineVisitors + liveVisitors;
                   const bioClicksLive = liveTick ? liveTick.bio_clicks_today : (bioClicks.today || 0);
+                  const podClicksLive = liveTick ? liveTick.podcast_clicks_today : (podcastClicks.today || 0);
                   const avgMins = today ? Math.floor(today.avg_duration / 60) : 0;
                   const avgSecs = today ? today.avg_duration % 60 : 0;
                   return (
@@ -557,6 +558,14 @@ const AdminList = () => {
                           /bio: <AnimatedCounter value={bioClicksLive} className="font-semibold text-foreground" />
                           <TodayTrendBadge today={bioClicksLive} sevenDay={bioClicks["7d"] || 0} />
                         </p>
+                        <p className="text-[11px] text-muted-foreground inline-flex items-center gap-1 justify-center mt-0.5">
+                          /podcast: <AnimatedCounter value={podClicksLive} className="font-semibold text-foreground" />
+                          <TodayTrendBadge today={podClicksLive} sevenDay={podcastClicks["7d"] || 0} />
+                        </p>
+                      </CardContent>
+                    </Card>
+                  );
+                })()}
                       </CardContent>
                     </Card>
                   );
