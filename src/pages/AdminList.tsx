@@ -645,7 +645,7 @@ const AdminList = () => {
                     <Card key={key}>
                       <CardContent className="p-5 text-center">
                         <p className="text-xs font-medium text-muted-foreground mb-3 uppercase tracking-wider">{label}</p>
-                        <p className="text-3xl font-bold text-foreground"><AnimatedCounter value={period?.visitors || 0} /></p>
+                        <p className="text-3xl font-bold text-foreground"><AnimatedCounter value={(period?.visitors || 0) + liveDeltas.visitors} /></p>
                         <div className="flex items-center justify-center gap-1 mb-2">
                           <p className="text-xs text-muted-foreground">visitors</p>
                           {outer && days > 0 && <TrendBadge current={liveVal} currentDays={days} outer={outerLiveVal} outerDays={outerDays} />}
