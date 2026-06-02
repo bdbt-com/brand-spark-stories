@@ -296,12 +296,18 @@ serve(async (req) => {
     }
 
     const parsed = parseChannelHtml(html);
+    const enriched = await enrichWithDataApi(parsed);
     const PODCAST_TITLE_RE = /\b(daily wins\s+)?podcast\s+\d+\b/i;
-    let pool = podcastOnly ? parsed.filter((v) => PODCAST_TITLE_RE.test(v.title)) : parsed;
+    let pool = podcastOnly ? enriched.filter((v) => PODCAST_TITLE_RE.test(v.title)) : enriched;
     if (sortByViews) {
       pool = [...pool].sort((a, b) => b.viewCountNumber - a.viewCountNumber);
     }
-    const videos = await Promise.all(pool.slice(0, limit).map(hydrateTitleFromOEmbed));
+    const sliced = pool.slice(0, limit);
+    // Only fall back to oEmbed for titles the Data API couldn't supply
+    const videos = await Promise.all(
+      sliced.map((v) => (v.title && /podcast\s+\d+/i.test(v.title) ? Promise.resolve(v) : hydrateTitleFromOEmbed(v))),
+    );
+
 
     if (videos.length === 0) {
       console.warn('Channel HTML parsed but produced 0 videos for', cacheKey);
