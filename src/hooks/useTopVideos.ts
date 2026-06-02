@@ -5,7 +5,9 @@ export interface TopVideo {
   title: string;
   thumbnail: string;
   viewCountText: string;
+  publishedText: string;
 }
+
 
 export const useTopVideos = (limit = 3) => {
   const [videos, setVideos] = useState<TopVideo[]>([]);
