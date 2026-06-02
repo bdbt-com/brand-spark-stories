@@ -5,6 +5,11 @@ import { supabase } from "@/integrations/supabase/client";
 const generateSessionId = () =>
   Math.random().toString(36).substring(2) + Date.now().toString(36);
 
+const normalizePath = (path: string) => {
+  const normalized = path.toLowerCase().replace(/\/+$/, "");
+  return normalized || "/";
+};
+
 const PageViewTracker = () => {
   const location = useLocation();
   const currentRowId = useRef<string | null>(null);
@@ -49,7 +54,7 @@ const PageViewTracker = () => {
   };
 
   useEffect(() => {
-    trackPageView(location.pathname.toLowerCase());
+    trackPageView(normalizePath(location.pathname));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname]);
 
