@@ -152,6 +152,11 @@ export default {
 				'pulse-glow': {
 					'0%, 100%': { boxShadow: 'var(--shadow-medium)' },
 					'50%': { boxShadow: 'var(--shadow-glow)' }
+				},
+				'bubble-in': {
+					'0%': { opacity: '0', transform: 'scale(0.6) translateY(-10px)' },
+					'60%': { opacity: '1', transform: 'scale(1.04) translateY(0)' },
+					'100%': { opacity: '1', transform: 'scale(1) translateY(0)' }
 				}
 			},
 			animation: {
