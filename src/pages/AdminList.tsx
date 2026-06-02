@@ -349,6 +349,18 @@ const AdminList = () => {
         fresh.push(item);
       }
       if (fresh.length === 0) return;
+      // Sort fresh oldest→newest so the newest pops in last (most natural feel)
+      const ordered = [...fresh].sort(
+        (a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
+      );
+      ordered.forEach((item, i) => {
+        // 110ms stagger per item, capped at 660ms so big bursts don't drag
+        freshDelays.current.set(feedKey(item), Math.min(i * 110, 660));
+      });
+      // Cleanup delays after the animation has run so re-renders don't re-trigger it
+      setTimeout(() => {
+        ordered.forEach((item) => freshDelays.current.delete(feedKey(item)));
+      }, 1400);
       setFeed((prev) => {
         const merged = [...fresh, ...prev];
         merged.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
