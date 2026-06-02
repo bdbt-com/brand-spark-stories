@@ -243,6 +243,42 @@ const AdminList = () => {
     return counts;
   }, [feed]);
 
+  const lastFeedSince = useRef<string | null>(null);
+  const feedItemKeys = useRef<Set<string>>(new Set());
+  const seenKeysAtRender = useRef<Set<string>>(new Set());
+  // Per-key animation delay in ms for items that just arrived (so a batch waterfalls in)
+  const freshDelays = useRef<Map<string, number>>(new Map());
+  // Baseline snapshot of liveTick at the moment the last analytics fetch completed.
+  // Used to project today's live deltas onto every longer-period stat so they tick in sync.
+  const liveTickRef = useRef<typeof liveTick>(null);
+  const analyticsBaseline = useRef<{
+    visitors: number;
+    bio_clicks: number;
+    podcast_clicks: number;
+    bio_redirects: number;
+    podcast_redirects: number;
+    total_clicks: number;
+    subscribers: number;
+  } | null>(null);
+  useEffect(() => { liveTickRef.current = liveTick; }, [liveTick]);
+  const captureBaseline = useCallback(() => {
+    const t = liveTickRef.current;
+    if (!t) return; // wait until first liveTick arrives so deltas don't spike
+    analyticsBaseline.current = {
+      visitors: t.visitors_today,
+      bio_clicks: t.bio_clicks_today,
+      podcast_clicks: t.podcast_clicks_today,
+      bio_redirects: t.bio_redirects_today,
+      podcast_redirects: t.podcast_redirects_today,
+      total_clicks: t.total_clicks_today,
+      subscribers: t.subscribers_today,
+    };
+  }, []);
+  // When liveTick first arrives after analytics, set the initial baseline.
+  useEffect(() => {
+    if (liveTick && !analyticsBaseline.current) captureBaseline();
+  }, [liveTick, captureBaseline]);
+
   // Live deltas — how much each "today" counter has grown since the last analytics fetch.
   // Added to every longer-period number so 7d/14d/30d/Total all tick up in sync with Today.
   const liveDeltas = useMemo(() => {
@@ -261,8 +297,6 @@ const AdminList = () => {
       subscribers: d(t.subscribers_today, b.subscribers),
     };
   }, [liveTick]);
-
-
 
   const fetchVideoCounts = useCallback(async () => {
     try {
@@ -291,7 +325,7 @@ const AdminList = () => {
       if (data?.podcast_clicks) setPodcastClicks(data.podcast_clicks);
       captureBaseline();
     } catch {}
-  }, []);
+  }, [captureBaseline]);
 
   const fetchSubscribers = useCallback(async () => {
     try {
@@ -306,41 +340,7 @@ const AdminList = () => {
     }
   }, []);
 
-  const lastFeedSince = useRef<string | null>(null);
-  const feedItemKeys = useRef<Set<string>>(new Set());
-  const seenKeysAtRender = useRef<Set<string>>(new Set());
-  // Per-key animation delay in ms for items that just arrived (so a batch waterfalls in)
-  const freshDelays = useRef<Map<string, number>>(new Map());
-  // Baseline snapshot of liveTick at the moment the last analytics fetch completed.
-  // Used to project today's live deltas onto every longer-period stat so they tick in sync.
-  const liveTickRef = useRef<typeof liveTick>(null);
-  const analyticsBaseline = useRef<{
-    visitors: number;
-    bio_clicks: number;
-    podcast_clicks: number;
-    bio_redirects: number;
-    podcast_redirects: number;
-    total_clicks: number;
-    subscribers: number;
-  } | null>(null);
-  useEffect(() => { liveTickRef.current = liveTick; }, [liveTick]);
-  const captureBaseline = () => {
-    const t = liveTickRef.current;
-    if (!t) return; // wait until first liveTick arrives so deltas don't spike
-    analyticsBaseline.current = {
-      visitors: t.visitors_today,
-      bio_clicks: t.bio_clicks_today,
-      podcast_clicks: t.podcast_clicks_today,
-      bio_redirects: t.bio_redirects_today,
-      podcast_redirects: t.podcast_redirects_today,
-      total_clicks: t.total_clicks_today,
-      subscribers: t.subscribers_today,
-    };
-  };
-  // When liveTick first arrives after analytics, set the initial baseline.
-  useEffect(() => {
-    if (liveTick && !analyticsBaseline.current) captureBaseline();
-  }, [liveTick]);
+
 
   const feedKey = (item: FeedItem) =>
     `${item.type}:${item.timestamp}:${item.label}:${item.detail}`;
