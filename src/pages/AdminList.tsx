@@ -634,7 +634,7 @@ const AdminList = () => {
                       <div>
                         <p className="text-2xl font-bold text-foreground inline-flex items-center gap-1.5 justify-center">
                           <span className="inline-block w-2 h-2 rounded-full" style={{ background: "hsl(142, 71%, 45%)" }} />
-                          {bio}
+                          <AnimatedCounter value={bio} />
                           {isToday && <TodayTrendBadge today={bio} sevenDay={bioSeven} />}
                         </p>
                         <div className="flex items-center justify-center gap-1">
