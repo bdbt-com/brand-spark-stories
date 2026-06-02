@@ -754,12 +754,16 @@ const AdminList = () => {
                 const br = sum((k) => k === "auto-redirect" || k.startsWith("auto-redirect:")); // /bio redirects
                 const pr = sum((k) => k.startsWith("latest-auto:")); // /podcast redirects
                 const trackingDays = Math.max(1, Math.round((Date.now() - new Date("2026-03-04").getTime()) / 86400000));
+                const dBR = liveDeltas.bio_redirects;
+                const dPR = liveDeltas.podcast_redirects;
+                const todayBR = liveTick ? liveTick.bio_redirects_today : br.today;
+                const todayPR = liveTick ? liveTick.podcast_redirects_today : pr.today;
                 const tiles = [
-                  { label: "Today", topVal: br.today, botVal: pr.today, isToday: true, topSeven: br["7d"], botSeven: pr["7d"], days: 0, topOuter: 0, botOuter: 0, outerDays: 0 },
-                  { label: "7 Days", topVal: br["7d"], botVal: pr["7d"], isToday: false, topSeven: 0, botSeven: 0, days: 7, topOuter: br["14d"], botOuter: pr["14d"], outerDays: 14 },
-                  { label: "14 Days", topVal: br["14d"], botVal: pr["14d"], isToday: false, topSeven: 0, botSeven: 0, days: 14, topOuter: br["30d"], botOuter: pr["30d"], outerDays: 30 },
-                  { label: "30 Days", topVal: br["30d"], botVal: pr["30d"], isToday: false, topSeven: 0, botSeven: 0, days: 30, topOuter: br.total, botOuter: pr.total, outerDays: trackingDays },
-                  { label: "Total", topVal: br.total, botVal: pr.total, isToday: false, topSeven: 0, botSeven: 0, days: 0, topOuter: 0, botOuter: 0, outerDays: 0 },
+                  { label: "Today", topVal: todayBR, botVal: todayPR, isToday: true, topSeven: br["7d"], botSeven: pr["7d"], days: 0, topOuter: 0, botOuter: 0, outerDays: 0 },
+                  { label: "7 Days", topVal: br["7d"] + dBR, botVal: pr["7d"] + dPR, isToday: false, topSeven: 0, botSeven: 0, days: 7, topOuter: br["14d"] + dBR, botOuter: pr["14d"] + dPR, outerDays: 14 },
+                  { label: "14 Days", topVal: br["14d"] + dBR, botVal: pr["14d"] + dPR, isToday: false, topSeven: 0, botSeven: 0, days: 14, topOuter: br["30d"] + dBR, botOuter: pr["30d"] + dPR, outerDays: 30 },
+                  { label: "30 Days", topVal: br["30d"] + dBR, botVal: pr["30d"] + dPR, isToday: false, topSeven: 0, botSeven: 0, days: 30, topOuter: br.total + dBR, botOuter: pr.total + dPR, outerDays: trackingDays },
+                  { label: "Total", topVal: br.total + dBR, botVal: pr.total + dPR, isToday: false, topSeven: 0, botSeven: 0, days: 0, topOuter: 0, botOuter: 0, outerDays: 0 },
                 ];
                 const lc = latestVideoId ? (videoCounts[`auto-redirect:${latestVideoId}`] || videoCounts[`latest-auto:${latestVideoId}`] || videoCounts[latestVideoId] || { total: 0, today: 0, "7d": 0, "14d": 0, "30d": 0 }) : null;
                 return (
