@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 import { useYouTubeVideos } from "@/hooks/useYouTubeVideos";
 import { PINNED_TOP_VIDEOS } from "@/data/pinnedTopVideos";
+import { AnimatedCounter } from "@/components/AnimatedCounter";
 
 function calcTrend(current: number, currentDays: number, outer: number, outerDays: number): { pct: number; direction: 'up' | 'down' | 'flat' } {
   const prior = outer - current;
