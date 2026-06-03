@@ -4,6 +4,7 @@ import { Loader2, Play, TrendingDown, TrendingUp, BarChart3, Clock, MousePointer
 import { Card, CardContent } from "@/components/ui/card";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 import { useYouTubeVideos } from "@/hooks/useYouTubeVideos";
+import { useLatestVideo } from "@/hooks/useLatestVideo";
 import { PINNED_TOP_VIDEOS } from "@/data/pinnedTopVideos";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
 
@@ -225,7 +226,8 @@ const AdminList = () => {
   const [graphRange, setGraphRange] = useState<'today' | '7d' | '14d' | '30d' | 'all'>('all');
   const [showPreviousVideos, setShowPreviousVideos] = useState(false);
   const { videos: ytVideos } = useYouTubeVideos();
-  const latestVideo = ytVideos[0];
+  const { video: cachedLatestVideo } = useLatestVideo();
+  const latestVideo = cachedLatestVideo || ytVideos[0];
   const latestVideoId = latestVideo?.videoId;
   const filteredDailyStats = useMemo(() => {
     if (graphRange === 'all') return dailyStats;
@@ -741,8 +743,9 @@ const AdminList = () => {
                   { label: "30 Days", topVal: br["30d"] + dBR, botVal: pr["30d"] + dPR, isToday: false, topSeven: 0, botSeven: 0, days: 30, topOuter: br.total + dBR, botOuter: pr.total + dPR, outerDays: trackingDays },
                   { label: "Total", topVal: br.total + dBR, botVal: pr.total + dPR, isToday: false, topSeven: 0, botSeven: 0, days: 0, topOuter: 0, botOuter: 0, outerDays: 0 },
                 ];
-                // Latest Video Redirects card shows REDIRECTS only (not clicks).
-                const lc = latestVideoId ? (videoCounts["redirect:" + latestVideoId] || { total: 0, today: 0, "7d": 0, "14d": 0, "30d": 0 }) : null;
+                // Current latest card shows /podcast auto-redirects only for the exact video used by /podcast.
+                const lc = latestVideoId ? (videoCounts[`latest-auto:${latestVideoId}`] || { total: 0, today: 0, "7d": 0, "14d": 0, "30d": 0 }) : null;
+                const otherPodcastRedirectsToday = lc ? Math.max(0, todayPR - lc.today) : 0;
                 return (
                   <>
                     <div className="flex flex-col xl:flex-row gap-4">
@@ -802,7 +805,7 @@ const AdminList = () => {
                         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
                           <Card className="border-primary/30 bg-primary/5">
                             <CardContent className="p-3">
-                              <p className="text-[10px] font-medium text-muted-foreground mb-2 uppercase tracking-wider text-center">Latest Video Redirects</p>
+                              <p className="text-[10px] font-medium text-muted-foreground mb-2 uppercase tracking-wider text-center">Current /podcast Latest Video Redirects</p>
                               {!latestVideoId || !lc ? (
                                 <p className="text-xs text-muted-foreground text-center py-4">Loading latest video…</p>
                               ) : (
@@ -835,6 +838,11 @@ const AdminList = () => {
                                         <span className="font-semibold text-primary"><AnimatedCounter value={lc.total} /></span>
                                         <span>Total</span>
                                       </div>
+                                     {otherPodcastRedirectsToday > 0 && (
+                                       <p className="text-[10px] text-muted-foreground mt-1">
+                                         +<AnimatedCounter value={otherPodcastRedirectsToday} /> other /podcast redirects today
+                                       </p>
+                                     )}
                                     </div>
                                   </div>
                                 </div>

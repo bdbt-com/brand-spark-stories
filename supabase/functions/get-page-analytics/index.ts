@@ -8,13 +8,10 @@ const corsHeaders = {
 
 const LAUNCH_DATE = "2024-12-28T00:00:00Z";
 
-// Historical baselines from Lovable analytics (data before custom tracking started 2026-03-04)
-const BASELINES: Record<string, { visitors: number; avg_duration: number }> = {
-  "7d":          { visitors: 528,  avg_duration: 284 },
-  "14d":         { visitors: 1300, avg_duration: 351 },
-  "30d":         { visitors: 3100, avg_duration: 299 },
-  since_launch:  { visitors: 4684, avg_duration: 241 },
-};
+// Historical Lovable analytics before custom tracking began.
+// Only lifetime totals should carry this offset; rolling windows must be raw
+// current-window data or 7/14/30-day figures become permanently inflated.
+const SINCE_LAUNCH_BASELINE = { visitors: 4684, avg_duration: 241 };
 
 // Today's baseline — only applies on this specific date, resets to 0 tomorrow
 const TODAY_BASELINE_DATE = "2026-03-04";
@@ -71,7 +68,7 @@ Deno.serve(async (req) => {
       const { data, error } = visitorResults[i];
       if (error) {
         console.error(`Error fetching ${key}:`, error);
-        const fallback = BASELINES[key] || { visitors: 0, avg_duration: 0 };
+        const fallback = key === "since_launch" ? SINCE_LAUNCH_BASELINE : { visitors: 0, avg_duration: 0 };
         results[key] = { ...fallback, live_visitors: 0 };
       } else {
         const row = Array.isArray(data) ? data[0] : data;
@@ -79,7 +76,7 @@ Deno.serve(async (req) => {
         const liveAvg = Number(row?.avg_duration || 0);
         const baseline = key === "today"
           ? (todayDate === TODAY_BASELINE_DATE ? TODAY_BASELINE : { visitors: 0, avg_duration: 0 })
-          : (BASELINES[key] || { visitors: 0, avg_duration: 0 });
+          : (key === "since_launch" ? SINCE_LAUNCH_BASELINE : { visitors: 0, avg_duration: 0 });
         const combinedVisitors = baseline.visitors + liveVisitors;
         const combinedAvg = combinedVisitors > 0
           ? Math.round(

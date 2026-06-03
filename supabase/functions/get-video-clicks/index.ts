@@ -26,12 +26,11 @@ serve(async (req) => {
     // can show clicks and redirects separately (instead of folding them
     // together which double-counted redirects in the Video Clicks tiles):
     //
-    //   - counts[<videoId>]              → CLICKS only (bare id + latest-page: + latest-grid:)
+    //   - counts[<videoId>]              → CLICKS only (bare id + bio-click: + latest-page: + latest-grid:)
     //   - counts["redirect:" + videoId]  → REDIRECTS only (latest-auto: + auto-redirect:)
     //
     // Composite keys (e.g. "latest-auto:abc") are also preserved as-is so the
-    // /bio & /podcast redirect tiles (which sum by prefix) keep working, and
-    // the legacy "auto-redirect" aggregate bucket is kept for the same reason.
+    // /bio & /podcast redirect tiles (which sum by prefix) keep working.
     const counts: Record<string, { total: number; today: number; "7d": number; "14d": number; "30d": number }> = {};
 
     const ensure = (key: string) => {
@@ -47,7 +46,7 @@ serve(async (req) => {
       counts[key]["30d"] += stats["30d"];
     };
 
-    const CLICK_PREFIXES = ["latest-page:", "latest-grid:"];
+    const CLICK_PREFIXES = ["bio-click:", "latest-page:", "latest-grid:"];
     const REDIRECT_PREFIXES = ["auto-redirect:", "latest-auto:"];
 
     for (const row of data || []) {
@@ -56,6 +55,11 @@ serve(async (req) => {
 
       // Always keep the raw composite id available
       addTo(vid, stats);
+
+      if (vid.startsWith("button-youtube-random:")) {
+        addTo("button-youtube", stats);
+        continue;
+      }
 
       let matched = false;
       for (const p of CLICK_PREFIXES) {
@@ -72,7 +76,6 @@ serve(async (req) => {
         if (vid.startsWith(p)) {
           const actualId = vid.slice(p.length);
           if (actualId) addTo("redirect:" + actualId, stats); // REDIRECTS bucket
-          if (p === "auto-redirect:") addTo("auto-redirect", stats); // legacy aggregate
           matched = true;
           break;
         }
