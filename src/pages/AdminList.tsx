@@ -944,7 +944,7 @@ const AdminList = () => {
                     })()
               ).map(([videoId, title]) => {
                 const c = videoCounts[videoId] || { total: 0, today: 0, "7d": 0, "14d": 0, "30d": 0 };
-                const r = videoCounts["redirect:" + videoId] || { total: 0, today: 0, "7d": 0, "14d": 0, "30d": 0 };
+                
                 const launchDaysTracking = Math.max(1, Math.round((Date.now() - new Date("2026-03-04").getTime()) / 86400000));
                 return (
                   <Card key={videoId}>
