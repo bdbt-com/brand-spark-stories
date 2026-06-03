@@ -987,15 +987,6 @@ const AdminList = () => {
             </div>
           </section>
 
-          {/* placeholder */}
-          <section style={{ display: "none" }} />
-
-                    </CardContent>
-                  </Card>
-                );
-              })}
-            </div>
-          </section>
 
           {/* Top 10 Downloaded Tips */}
           <section>
