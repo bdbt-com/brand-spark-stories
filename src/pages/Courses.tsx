@@ -20,6 +20,7 @@ import EmailCaptureForm from "@/components/EmailCaptureForm";
 import { getGuideUrl } from "@/data/guideMapping";
 import { supabase } from "@/integrations/supabase/client";
 import { startTrackedRedirect } from "@/lib/youtube-redirect";
+import { SiInstagram, SiSpotify, SiTiktok, SiYoutube } from "react-icons/si";
 
 type CourseStatus = "coming-soon" | "available";
 
