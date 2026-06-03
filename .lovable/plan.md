@@ -1,100 +1,106 @@
-# Courses Page Redesign Plan
+## Targeted edits to `/courses`
 
-Scope: only `src/pages/Courses.tsx` plus one new modal component and one waitlist edge function/table. No other pages touched.
+Only the changes you listed — nothing else gets touched.
 
-## 1. Design tokens (scoped to this page)
+### 1. Replace modal with smooth scroll + course pre-select
 
-Use existing semantic tokens where they already match brand (gold primary, near-black bg). Where the spec needs values not in `index.css`, add page-local utility classes inside Courses.tsx via Tailwind arbitrary values — no global token changes that could ripple to other pages.
+- Remove `WaitlistModal` import, the `waitlistFor` state, and the `<WaitlistModal />` render at the bottom of `src/pages/Courses.tsx`. Delete `src/components/WaitlistModal.tsx` (no longer used).
+- Add a ref `waitlistFormRef` on the bottom "Join the Courses Waiting List" section (already has `scroll-mt-24`).
+- Add `selectedCourse` state on the page (default `null`). New handler `scrollToWaitlist(topic?: string)` sets the state and smooth-scrolls to the section.
+- Wire all three CTAs to it:
+  - Each course card "Join the Waitlist" button → `scrollToWaitlist(course.topic)`.
+  - "Download Free Blueprint" button in Start For Free section → `scrollToWaitlist()`.
+  - Mobile sticky bottom-bar CTA → `scrollToWaitlist()`.
+- Each locked course card (whole card) becomes clickable → same handler with its topic. Inner buttons/links use `stopPropagation` so they still behave independently.
 
-- Surface charcoal `#141414` with `border-primary/20`
-- Gold highlight `#E8CE8A` for hover glow / gradient
-- Card radius `rounded-2xl` (16px), button radius `rounded-xl` (12px)
-- Headings: keep `italic font-bold text-primary` with `clamp()` sizing via arbitrary values
-- Body min 16px, line-height 1.6
-- Buttons: min-h-12, full width on mobile (`w-full sm:w-auto`)
-- Desktop hover: card `hover:-translate-y-1 hover:border-primary/50 hover:shadow-[0_0_30px_-5px_hsl(var(--primary)/0.4)]`; button `hover:scale-[1.02]`
+### 2. Polish `EmailCaptureForm`
 
-## 2. Section-by-section
+Extend `src/components/EmailCaptureForm.tsx` with three optional props (defaults preserve existing behaviour everywhere else it's used):
 
-### Top trust strip (new)
-Just under H1. Small pill row: "30,000+ learning daily · As heard on the Daily Wins Podcast".
+- `showCourseSelector?: boolean`
+- `courseValue?: string` + `onCourseChange?: (v: string) => void` (controlled from Courses page)
+- `submitLabel?: string`
+- `successTitle?: string` + `successDescription?: string`
+- `headingLabel?: string | null` — when `null`, the "Get Your Free Copy" label is omitted.
 
-### Section 1 — Courses (priority)
-- Heading + new subhead: "Four simple systems. One connected life. Pick where you want your first win."
-- Grid: `grid-cols-1 md:grid-cols-2` (2x2 desktop, single col mobile), `items-stretch` for equal heights, `h-full flex flex-col` on cards.
-- Update `Course` type to add: `icon: LucideIcon`, `status: 'coming-soon' | 'available'`.
-- Replace `courses` array with new titles + hooks:
-  - Movement Method / Money System / Nutrition Reset / Sleep Reset
-- Card structure:
-  1. Top row: icon tile (rounded-square, `bg-primary/10`, gold lucide icon, 56px) + COMING SOON pill in top-right (gold bg, Lock icon). Pill component supports green AVAILABLE NOW variant via `status` prop.
-  2. Title (gold, bold)
-  3. Hook (grey `text-muted-foreground`)
-  4. Bullet list with `Check` icon in gold
-  5. `mt-auto` single CTA button "Join the Waitlist" → opens modal
-- Remove the "Start X Wins" button and the "(Locked — Coming Soon …)" line entirely.
-- Icons: Dumbbell, PiggyBank, Apple, Moon from lucide-react.
+Changes inside the form:
+- Replace the "Get Your Free Copy" heading with `headingLabel` when provided; on the courses page pass `"Reserve your spot"`.
+- Render a pill selector under the email field when `showCourseSelector` is true: options Exercise / Money / Nutrition / Sleep / All of them. Label: "Which course are you most interested in? (optional)". Styled with the gold-on-dark pill style already used on the Connection Flow (`bg-[#141414] border border-primary/40`, selected = `bg-primary/20 border-primary text-primary`).
+- Submit button label uses `submitLabel` when provided; courses page passes `"Join the Waitlist + Get the Free Blueprint →"`.
+- Success state uses `successTitle` / `successDescription` when provided; courses page passes `"You're on the list ✓"` and `"check your inbox for the Foundation Blueprint."`.
+- On submit, if a course is selected, fire a parallel `supabase.from("course_waitlist").insert({ email, course_title })` (best-effort, ignore duplicate errors) so existing waitlist analytics still work. The Resend `send-guide` call is unchanged.
 
-### Waitlist modal (new component `src/components/WaitlistModal.tsx`)
-- Built on existing `Dialog` ui primitive.
-- Props: `open`, `onOpenChange`, `courseTitle`.
-- Single email field + "Notify Me" button + line "Be first in when {courseTitle} opens."
-- On submit: insert into a new `course_waitlist` table (columns: id, email, course_title, created_at) via Supabase client. Show "You're on the list ✓" confirmation state.
-- Validation: zod email + trim + max 255.
+No changes to `send-guide` edge function. No DB migration needed (table `course_waitlist` already exists).
 
-### Section 2 — They're All Connected
-Replace inline arrow text with a visual flow:
-- Desktop (`hidden md:flex`): horizontal row of gold pill nodes joined by `ArrowRight` icons.
-- Mobile (`flex md:hidden`): vertical stack, `ArrowDown` between.
-- Nodes: Sleep → Nutrition → Exercise → Money → Confidence → Happiness.
-- Keep the 5-line stacked list and existing CTA button.
+### 3. Form card visual
 
-### Section 3 — Start For Free
-- Wrap in a card with subtle gold-tint background: `bg-gradient-to-br from-primary/10 via-background to-primary/5 border-primary/30`.
-- Keep Target icon, heading, sub, and gold "Download Free Blueprint" button (use `variant="default"` for solid gold).
+Update the bottom section card on Courses to use the same gold-tinted background as Start For Free:
+`bg-gradient-to-br from-primary/10 via-[#141414] to-primary/5 border-primary/30`. Pass the props above into `EmailCaptureForm`.
 
-### Section 4 — Learn For Free Every Day
-- Keep existing YouTube trio + tracking logic untouched (per memory: /redirect bridge, startTrackedRedirect).
-- Tighten thumbnail card styling: uniform `aspect-video`, `rounded-2xl`, gold play overlay (`bg-primary/90` circle around Play icon — already present, just confirm sizing).
-- Bold the "30,000+ people learning better habits every day" line.
-- Keep "Watch On YouTube" CTA.
+### 4. Keep My Story button
 
-### Section 5 — About Me
-- Add circular avatar placeholder (96px) with `ring-2 ring-primary/60 ring-offset-2 ring-offset-background` above the heading. Use a placeholder div with initials "JT" or similar until real photo added.
-- Keep bio copy verbatim, keep "My Story" button.
+Verified the gold-outline "My Story" `<Link to="/about">` button in About Me section stays exactly as it is.
 
-### Section 6 — Waiting list capture (existing section)
-Keep the `EmailCaptureForm` section as-is; it's the general courses waitlist (vs per-course modal).
+### 5. Holographic frosted locked cover on each Coming Soon card
 
-### Sticky mobile bottom bar (new)
-- `fixed bottom-0 inset-x-0 md:hidden` bar with backdrop blur + gold border-top.
-- Single CTA: "Download Free Blueprint" → Link to `/blueprint`.
-- Add `pb-20 md:pb-0` to page root so content isn't hidden behind it.
+Add a `LockedCover` component rendered inside each coming-soon card (skipped when `status === "available"`).
 
-## 3. Backend additions
+Layered, absolutely-positioned, inherits the card's `rounded-2xl`:
 
-Migration creating `public.course_waitlist`:
+```text
+[card content: icon, title, hook, bullets, button] (z-0, visible behind)
+└─ LockedCover (absolute inset-0, rounded-2xl overflow-hidden, z-10)
+   ├─ Frost layer  → backdrop-blur-[5px] bg-[rgba(10,10,10,0.35)]
+   │                 fallback bg-[rgba(20,20,20,0.6)] via @supports
+   ├─ Holographic sheen → gradient (champagne gold → faint pearl
+   │                       purple/teal) opacity-30 mix-blend-overlay
+   ├─ Shimmer streak → diagonal translucent band, ~7s linear loop,
+   │                    disabled under prefers-reduced-motion
+   └─ Centre stack → Lock icon 44px #E8CE8A with gold drop-shadow,
+                     caption "UNLOCKING SOON"
 ```
-id uuid pk default gen_random_uuid()
-email text not null
-course_title text not null
-created_at timestamptz default now()
-unique(email, course_title)
+
+Crisp above the cover (z-20, no blur, no pointer-events on cover behind them):
+- the COMING SOON status pill (top-right)
+- the "Join the Waitlist" button (bottom).
+
+Card interactions:
+- Whole card `onClick` → `scrollToWaitlist(course.topic)`, `cursor-pointer`, hover lift `md:hover:-translate-y-1` (already present).
+- Desktop hover: cover frost eases lighter (`md:group-hover:bg-[rgba(10,10,10,0.18)]` + sheen opacity to 0.45) and a small `"Join the Waitlist →"` hint fades in under the lock. Driven by Tailwind `group-hover` so it can be removed in one line if you'd rather keep it fully locked.
+
+When a course is later flipped to `status: "available"`, the cover doesn't render — nothing else needed.
+
+### Tailwind / CSS additions
+
+Add to `src/index.css` (scoped utility classes, no token changes):
+
+```css
+@keyframes holo-shimmer {
+  0%   { transform: translateX(-120%) skewX(-12deg); }
+  100% { transform: translateX(220%)  skewX(-12deg); }
+}
+.holo-shimmer { animation: holo-shimmer 7s linear infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .holo-shimmer { animation: none; }
+}
+.holo-sheen {
+  background: linear-gradient(115deg,
+    rgba(232,206,138,0.25) 0%,
+    rgba(200,170,255,0.10) 35%,
+    rgba(120,220,210,0.10) 65%,
+    rgba(232,206,138,0.25) 100%);
+}
+.frost-fallback { background: rgba(20,20,20,0.6); }
+@supports (backdrop-filter: blur(5px)) {
+  .frost-fallback { background: rgba(10,10,10,0.35); backdrop-filter: blur(5px); }
+}
 ```
-- GRANT INSERT to anon + authenticated; SELECT to service_role only.
-- RLS enabled; policy: allow INSERT to anon/authenticated, no SELECT to public.
 
-No edge function needed — direct client insert is fine given RLS + insert-only policy.
+### Files touched
 
-## 4. Files touched
+- `src/pages/Courses.tsx` — remove modal, add scroll handler + selectedCourse state, wire 3 CTAs, locked cover overlay, gold-tint waiting list card.
+- `src/components/EmailCaptureForm.tsx` — new optional props for course selector, custom labels, custom success copy, optional course_waitlist insert.
+- `src/components/WaitlistModal.tsx` — delete.
+- `src/index.css` — add holo shimmer / sheen / frost-fallback utilities.
 
-- `src/pages/Courses.tsx` — full rewrite of layout, keep video tracking logic
-- `src/components/WaitlistModal.tsx` — new
-- `supabase/migrations/<ts>_course_waitlist.sql` — new
-
-No changes to: navigation, other pages, global tokens, video tracking, redirect bridge, existing EmailCaptureForm.
-
-## 5. Out of scope
-
-- Replacing the bottom EmailCaptureForm (kept as general waitlist).
-- Real founder photo (placeholder only).
-- Email provider wiring beyond DB capture.
+No DB changes, no edge-function changes, no navigation changes, no other pages touched.
