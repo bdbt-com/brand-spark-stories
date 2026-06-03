@@ -6,7 +6,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Navigation from "./components/Navigation";
 import Home from "./pages/Home";
 import About from "./pages/About";
-import FeelingStuck from "./pages/FeelingStuck";
+import Courses from "./pages/Courses";
 import Tips from "./pages/Tips";
 import Blueprint from "./pages/Blueprint";
 import Podcast from "./pages/Podcast";
@@ -36,7 +36,8 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
-          <Route path="/feeling-stuck" element={<FeelingStuck />} />
+          <Route path="/courses" element={<Courses />} />
+          <Route path="/feeling-stuck" element={<Navigate to="/courses" replace />} />
           <Route path="/tips/:keyword?" element={<Tips />} />
           <Route path="/blueprint" element={<Blueprint />} />
           <Route path="/podcast" element={<Podcast />} />
