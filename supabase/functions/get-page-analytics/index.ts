@@ -68,7 +68,7 @@ Deno.serve(async (req) => {
       const { data, error } = visitorResults[i];
       if (error) {
         console.error(`Error fetching ${key}:`, error);
-        const fallback = BASELINES[key] || { visitors: 0, avg_duration: 0 };
+        const fallback = key === "since_launch" ? SINCE_LAUNCH_BASELINE : { visitors: 0, avg_duration: 0 };
         results[key] = { ...fallback, live_visitors: 0 };
       } else {
         const row = Array.isArray(data) ? data[0] : data;
