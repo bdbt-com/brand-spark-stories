@@ -944,7 +944,7 @@ const AdminList = () => {
                     })()
               ).map(([videoId, title]) => {
                 const c = videoCounts[videoId] || { total: 0, today: 0, "7d": 0, "14d": 0, "30d": 0 };
-                const r = videoCounts["redirect:" + videoId] || { total: 0, today: 0, "7d": 0, "14d": 0, "30d": 0 };
+                
                 const launchDaysTracking = Math.max(1, Math.round((Date.now() - new Date("2026-03-04").getTime()) / 86400000));
                 return (
                   <Card key={videoId}>
@@ -980,39 +980,13 @@ const AdminList = () => {
                           <span>Total</span>
                         </div>
                       </div>
-
-                      <div className="border-t border-border my-2" />
-
-                      {/* Redirects row */}
-                      <p className="text-2xl font-bold text-foreground inline-flex items-center gap-2 justify-center">
-                        <span className="inline-block w-2 h-2 rounded-full" style={{ background: "hsl(25, 95%, 53%)" }} />
-                        <AnimatedCounter value={r.today} /> <TodayTrendBadge today={r.today} sevenDay={r["7d"]} />
-                      </p>
-                      <p className="text-[10px] text-muted-foreground uppercase tracking-wider mb-1">redirects today</p>
-                      <div className="grid grid-cols-4 gap-x-2 text-xs text-muted-foreground">
-                        <div className="flex flex-col items-center gap-0.5">
-                          <span className="font-semibold text-primary"><AnimatedCounter value={r["7d"]} /></span>
-                          <span className="flex items-center gap-0.5">7d <TrendBadge current={r["7d"]} currentDays={7} outer={r["14d"]} outerDays={14} /></span>
-                        </div>
-                        <div className="flex flex-col items-center gap-0.5">
-                          <span className="font-semibold text-primary"><AnimatedCounter value={r["14d"]} /></span>
-                          <span className="flex items-center gap-0.5">14d <TrendBadge current={r["14d"]} currentDays={14} outer={r["30d"]} outerDays={30} /></span>
-                        </div>
-                        <div className="flex flex-col items-center gap-0.5">
-                          <span className="font-semibold text-primary"><AnimatedCounter value={r["30d"]} /></span>
-                          <span className="flex items-center gap-0.5">30d {launchDaysTracking > 30 && <TrendBadge current={r["30d"]} currentDays={30} outer={r.total} outerDays={launchDaysTracking} />}</span>
-                        </div>
-                        <div className="flex flex-col items-center gap-0.5">
-                          <span className="font-semibold text-primary"><AnimatedCounter value={r.total} /></span>
-                          <span>Total</span>
-                        </div>
-                      </div>
                     </CardContent>
                   </Card>
                 );
               })}
             </div>
           </section>
+
 
           {/* Top 10 Downloaded Tips */}
           <section>
