@@ -1,82 +1,100 @@
-# Courses Page (replacing Feeling Stuck)
+# Courses Page Redesign Plan
 
-Build a new `/courses` page based on the six screenshots, swap it into the nav in place of "Feeling Stuck", and remove the old page from the app.
+Scope: only `src/pages/Courses.tsx` plus one new modal component and one waitlist edge function/table. No other pages touched.
 
-## Routing & nav changes
+## 1. Design tokens (scoped to this page)
 
-- `src/components/Navigation.tsx`: replace the `Feeling Stuck` nav item with `Courses` pointing to `/courses` (desktop + mobile lists).
-- `src/App.tsx`: add `<Route path="/courses" element={<Courses />} />`. Keep `/feeling-stuck` as a `<Navigate to="/courses" replace />` so old links/SEO don't 404. Remove the `FeelingStuck` import.
-- Delete `src/pages/FeelingStuck.tsx`.
+Use existing semantic tokens where they already match brand (gold primary, near-black bg). Where the spec needs values not in `index.css`, add page-local utility classes inside Courses.tsx via Tailwind arbitrary values — no global token changes that could ripple to other pages.
 
-## New page: `src/pages/Courses.tsx`
+- Surface charcoal `#141414` with `border-primary/20`
+- Gold highlight `#E8CE8A` for hover glow / gradient
+- Card radius `rounded-2xl` (16px), button radius `rounded-xl` (12px)
+- Headings: keep `italic font-bold text-primary` with `clamp()` sizing via arbitrary values
+- Body min 16px, line-height 1.6
+- Buttons: min-h-12, full width on mobile (`w-full sm:w-auto`)
+- Desktop hover: card `hover:-translate-y-1 hover:border-primary/50 hover:shadow-[0_0_30px_-5px_hsl(var(--primary)/0.4)]`; button `hover:scale-[1.02]`
 
-Brand styling: black bg, gold headers, white body (per Core memory). Each "square box with words" in the screenshots becomes a real `Button` (gold-bordered card-style button consistent with the site). Sections stacked vertically, max-w container, generous spacing.
+## 2. Section-by-section
 
-### Section 1 — Hero
-- H1: **Start Your Daily Wins Journey** (gold, italic display weight to match screenshot).
+### Top trust strip (new)
+Just under H1. Small pill row: "30,000+ learning daily · As heard on the Daily Wins Podcast".
 
-### Section 2 — Course cards (4 cards, identical layout)
-Each card centred, stacked:
-1. **Title button** (large, gold border, non-clickable visual header styled as a button): "Daily Wins For {Topic}".
-2. Description paragraph.
-3. Bulleted list of benefits (centred, no bullets — line-per-item like screenshot).
-4. **CTA button**: "Start {Topic} Wins".
-5. For locked courses: italic gold line below — *(Locked — Coming Soon — Join Waiting List)*.
+### Section 1 — Courses (priority)
+- Heading + new subhead: "Four simple systems. One connected life. Pick where you want your first win."
+- Grid: `grid-cols-1 md:grid-cols-2` (2x2 desktop, single col mobile), `items-stretch` for equal heights, `h-full flex flex-col` on cards.
+- Update `Course` type to add: `icon: LucideIcon`, `status: 'coming-soon' | 'available'`.
+- Replace `courses` array with new titles + hooks:
+  - Movement Method / Money System / Nutrition Reset / Sleep Reset
+- Card structure:
+  1. Top row: icon tile (rounded-square, `bg-primary/10`, gold lucide icon, 56px) + COMING SOON pill in top-right (gold bg, Lock icon). Pill component supports green AVAILABLE NOW variant via `status` prop.
+  2. Title (gold, bold)
+  3. Hook (grey `text-muted-foreground`)
+  4. Bullet list with `Check` icon in gold
+  5. `mt-auto` single CTA button "Join the Waitlist" → opens modal
+- Remove the "Start X Wins" button and the "(Locked — Coming Soon …)" line entirely.
+- Icons: Dumbbell, PiggyBank, Apple, Moon from lucide-react.
 
-Cards in order:
+### Waitlist modal (new component `src/components/WaitlistModal.tsx`)
+- Built on existing `Dialog` ui primitive.
+- Props: `open`, `onOpenChange`, `courseTitle`.
+- Single email field + "Notify Me" button + line "Be first in when {courseTitle} opens."
+- On submit: insert into a new `course_waitlist` table (columns: id, email, course_title, created_at) via Supabase client. Show "You're on the list ✓" confirmation state.
+- Validation: zod email + trim + max 255.
 
-| # | Title | Description | Benefits | CTA | State |
-|---|---|---|---|---|---|
-| 1 | Daily Wins For Exercise | Build a workout into your day, without needing a gym, personal trainer or any extra time. | Consistency over intensity / Simple exercise habits / More energy & confidence / No overwhelm | Start Exercise Wins | **Locked** |
-| 2 | Daily Wins For Money | Stop money leaks and reduce financial stress without budgets or complicated spreadsheets. | Spending awareness / Habit-based saving / Systems over budgeting / Small wins that compound | Start Money Wins | **Locked** |
-| 3 | Daily Wins For Nutrition | Eat better without extreme dieting. | Craving control / Better food defaults (keep your guilty pleasures!) / Energy & mood improvement / Sustainable habits | Start Nutritional Wins | **Locked** |
-| 4 | Daily Wins For Sleep | Fix the habit that quietly affects everything else. | Better recovery & confidence / Lower stress/anxiety / More discipline & motivation / Energy ripple effects | Start Sleep Wins | **Locked** |
+### Section 2 — They're All Connected
+Replace inline arrow text with a visual flow:
+- Desktop (`hidden md:flex`): horizontal row of gold pill nodes joined by `ArrowRight` icons.
+- Mobile (`flex md:hidden`): vertical stack, `ArrowDown` between.
+- Nodes: Sleep → Nutrition → Exercise → Money → Confidence → Happiness.
+- Keep the 5-line stacked list and existing CTA button.
 
-All four "Start … Wins" buttons currently scroll to a single shared waiting-list email capture at the bottom of the page (uses existing `EmailCaptureForm` with a new `title` like `"Courses Waiting List"` so signups are tagged distinctly in `email_subscriptions`). Note: typo fix — screenshot says "eercise" → render "exercise".
+### Section 3 — Start For Free
+- Wrap in a card with subtle gold-tint background: `bg-gradient-to-br from-primary/10 via-background to-primary/5 border-primary/30`.
+- Keep Target icon, heading, sub, and gold "Download Free Blueprint" button (use `variant="default"` for solid gold).
 
-### Section 3 — "They're All Connected"
-- H2 (gold italic): **They're All Connected**
-- Flow line: `Sleep → Nutrition → Exercise → Money → Confidence → Happiness` (gold arrows).
-- Body lines:
-  - Most people try to fix life one problem at a time.
-  - Daily Wins work differently. Small habits that create ripple effects:
-  - Better sleep improves food choices.
-  - Better food improves energy.
-  - Better energy improves movement.
-  - Better routines reduce stress spending.
-  - Tiny wins compound into a different life.
-- CTA button **Explore The Full Daily Wins System** → links to `/tips`.
+### Section 4 — Learn For Free Every Day
+- Keep existing YouTube trio + tracking logic untouched (per memory: /redirect bridge, startTrackedRedirect).
+- Tighten thumbnail card styling: uniform `aspect-video`, `rounded-2xl`, gold play overlay (`bg-primary/90` circle around Play icon — already present, just confirm sizing).
+- Bold the "30,000+ people learning better habits every day" line.
+- Keep "Watch On YouTube" CTA.
 
-### Section 4 — "Start For Free"
-- H2: **Start For Free**
-- Foundation Blueprint thumbnail (reuse the image/asset already shown on Blueprint page — find existing import in `Blueprint.tsx`; if none, render the same gold gradient Target card used there).
-- Sub-head: **Not ready for a course?**
-- Body: *Download the free Foundation Blueprint and start building momentum today.*
-- CTA button **Download Free Blueprint** → `/blueprint`.
+### Section 5 — About Me
+- Add circular avatar placeholder (96px) with `ring-2 ring-primary/60 ring-offset-2 ring-offset-background` above the heading. Use a placeholder div with initials "JT" or similar until real photo added.
+- Keep bio copy verbatim, keep "My Story" button.
 
-### Section 5 — "Learn For Free Every Day"
-- H2: **Learn For Free Every Day**
-- Embed top 3 YouTube videos with 100k+ views. Reuse the `podcastEpisodes` trio already hardcoded in `Blueprint.tsx` (all three are 92K–111K, close enough; we can adjust later if you want a stricter ≥100K filter).
-- Sub-line: *30,000+ people learning better habits every day.*
-- CTA button **Watch On YouTube** → uses `startTrackedRedirect` / `/redirect` bridge to `https://youtube.com/@BigDaddysBigTips` (per Core memory rule for outbound YouTube links).
+### Section 6 — Waiting list capture (existing section)
+Keep the `EmailCaptureForm` section as-is; it's the general courses waitlist (vs per-course modal).
 
-### Section 6 — "About Me"
-- H2: **About Me**
-- Two paragraphs (verbatim from screenshot):
-  1. *After years working in finance and studying habits, health and behaviour, I realised something surprising; most people do not fail because they are lazy or lack discipline. They are simply living in a world where comfort has evolved faster than our biology.*
-  2. *Modern life has made choosing comfort easier. It has made Daily Drifts easier. So I created Daily Wins to help people replace downward spirals with upward momentum through tiny daily actions that quietly compound.*
-- CTA button **My Story** → `/about` (and scrolls/jumps to the existing "Read my story" anchor — keep the existing About copy untouched per memory).
+### Sticky mobile bottom bar (new)
+- `fixed bottom-0 inset-x-0 md:hidden` bar with backdrop blur + gold border-top.
+- Single CTA: "Download Free Blueprint" → Link to `/blueprint`.
+- Add `pb-20 md:pb-0` to page root so content isn't hidden behind it.
 
-## Technical notes
+## 3. Backend additions
 
-- All "square boxes" rendered as `<Button>` with the existing `outline` or a custom gold-bordered variant — no new component needed, but to match the bordered look I'll use `variant="outline"` with `border-primary border-2 text-primary` and the existing gold token. Titles inside cards that are not actionable get `disabled` styling but stay visually identical to the CTA buttons (the user said each box "simulates a button").
-- Locked-state styling: keep CTA enabled (it scrolls to waitlist form); the "(Locked — Coming Soon — Join Waiting List)" label sits below in italic gold for clarity. If you'd rather the CTA be visually disabled with a lock icon, tell me and I'll adjust.
-- Page is fully responsive, centred, brand-consistent.
-- No DB / edge-function changes required. Waiting list reuses `email_subscriptions` via the existing `EmailCaptureForm`.
+Migration creating `public.course_waitlist`:
+```
+id uuid pk default gen_random_uuid()
+email text not null
+course_title text not null
+created_at timestamptz default now()
+unique(email, course_title)
+```
+- GRANT INSERT to anon + authenticated; SELECT to service_role only.
+- RLS enabled; policy: allow INSERT to anon/authenticated, no SELECT to public.
 
-## Files touched
+No edge function needed — direct client insert is fine given RLS + insert-only policy.
 
-- ADD `src/pages/Courses.tsx`
-- EDIT `src/App.tsx` (route swap + redirect)
-- EDIT `src/components/Navigation.tsx` (nav label/path)
-- DELETE `src/pages/FeelingStuck.tsx`
+## 4. Files touched
+
+- `src/pages/Courses.tsx` — full rewrite of layout, keep video tracking logic
+- `src/components/WaitlistModal.tsx` — new
+- `supabase/migrations/<ts>_course_waitlist.sql` — new
+
+No changes to: navigation, other pages, global tokens, video tracking, redirect bridge, existing EmailCaptureForm.
+
+## 5. Out of scope
+
+- Replacing the bottom EmailCaptureForm (kept as general waitlist).
+- Real founder photo (placeholder only).
+- Email provider wiring beyond DB capture.
