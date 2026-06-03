@@ -339,3 +339,28 @@
       0.5px 0 0 white;
   }
 }
+
+/* Holographic locked-card cover */
+@keyframes holo-shimmer {
+  0%   { transform: translateX(-120%) skewX(-12deg); }
+  100% { transform: translateX(220%) skewX(-12deg); }
+}
+.holo-shimmer { animation: holo-shimmer 7s linear infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .holo-shimmer { animation: none; }
+}
+.holo-sheen {
+  background: linear-gradient(115deg,
+    rgba(232,206,138,0.25) 0%,
+    rgba(200,170,255,0.10) 35%,
+    rgba(120,220,210,0.10) 65%,
+    rgba(232,206,138,0.25) 100%);
+}
+.frost-fallback { background: rgba(20,20,20,0.6); }
+@supports (backdrop-filter: blur(5px)) or (-webkit-backdrop-filter: blur(5px)) {
+  .frost-fallback {
+    background: rgba(10,10,10,0.35);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+  }
+}
