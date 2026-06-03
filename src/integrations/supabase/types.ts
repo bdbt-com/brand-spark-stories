@@ -14,6 +14,27 @@ export type Database = {
   }
   public: {
     Tables: {
+      course_waitlist: {
+        Row: {
+          course_title: string
+          created_at: string
+          email: string
+          id: string
+        }
+        Insert: {
+          course_title: string
+          created_at?: string
+          email: string
+          id?: string
+        }
+        Update: {
+          course_title?: string
+          created_at?: string
+          email?: string
+          id?: string
+        }
+        Relationships: []
+      }
       email_jobs: {
         Row: {
           created_at: string | null

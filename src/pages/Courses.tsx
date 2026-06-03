@@ -2,70 +2,89 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Lock, Play, ArrowRight, Target } from "lucide-react";
+import {
+  Lock,
+  Play,
+  ArrowRight,
+  ArrowDown,
+  Target,
+  Dumbbell,
+  PiggyBank,
+  Apple,
+  Moon,
+  Check,
+  Sparkles,
+  type LucideIcon,
+} from "lucide-react";
 import EmailCaptureForm from "@/components/EmailCaptureForm";
+import WaitlistModal from "@/components/WaitlistModal";
 import { getGuideUrl } from "@/data/guideMapping";
 import { supabase } from "@/integrations/supabase/client";
 import { startTrackedRedirect } from "@/lib/youtube-redirect";
 
+type CourseStatus = "coming-soon" | "available";
+
 interface Course {
   topic: string;
   title: string;
-  description: string;
-  benefits: string[];
-  cta: string;
+  hook: string;
+  bullets: string[];
+  icon: LucideIcon;
+  status: CourseStatus;
 }
 
 const courses: Course[] = [
   {
     topic: "Exercise",
-    title: "Daily Wins For Exercise",
-    description:
-      "Build a workout into your day, without needing a gym, personal trainer or any extra time.",
-    benefits: [
+    title: "The Daily Wins Movement Method",
+    hook: "Build a workout into your day — no gym, no trainer, no extra time.",
+    bullets: [
       "Consistency over intensity",
       "Simple exercise habits",
       "More energy & confidence",
       "No overwhelm",
     ],
-    cta: "Start Exercise Wins",
+    icon: Dumbbell,
+    status: "coming-soon",
   },
   {
     topic: "Money",
-    title: "Daily Wins For Money",
-    description:
-      "Stop money leaks and reduce financial stress without budgets or complicated spreadsheets.",
-    benefits: [
+    title: "The Daily Wins Money System",
+    hook: "Stop money leaks and lower financial stress — without budgets or spreadsheets.",
+    bullets: [
       "Spending awareness",
       "Habit-based saving",
       "Systems over budgeting",
       "Small wins that compound",
     ],
-    cta: "Start Money Wins",
+    icon: PiggyBank,
+    status: "coming-soon",
   },
   {
     topic: "Nutrition",
-    title: "Daily Wins For Nutrition",
-    description: "Eat better without extreme dieting.",
-    benefits: [
+    title: "The Daily Wins Nutrition Reset",
+    hook: "Eat better without extreme dieting.",
+    bullets: [
       "Craving control",
       "Better food defaults (keep your guilty pleasures!)",
       "Energy & mood improvement",
       "Sustainable habits",
     ],
-    cta: "Start Nutritional Wins",
+    icon: Apple,
+    status: "coming-soon",
   },
   {
     topic: "Sleep",
-    title: "Daily Wins For Sleep",
-    description: "Fix the habit that quietly affects everything else.",
-    benefits: [
+    title: "The Daily Wins Sleep Reset",
+    hook: "Fix the habit that quietly affects everything else.",
+    bullets: [
       "Better recovery & confidence",
       "Lower stress/anxiety",
       "More discipline & motivation",
       "Energy ripple effects",
     ],
-    cta: "Start Sleep Wins",
+    icon: Moon,
+    status: "coming-soon",
   },
 ];
 
@@ -75,9 +94,28 @@ const youtubeEpisodes = [
   { videoId: "zUGM3gZbNY8", title: "Most People Stop here. Are You Most People? Daily Wins Podcast 116", viewCountText: "92K views" },
 ];
 
+const connectionFlow = ["Sleep", "Nutrition", "Exercise", "Money", "Confidence", "Happiness"];
+
+const StatusPill = ({ status }: { status: CourseStatus }) => {
+  if (status === "available") {
+    return (
+      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-green-500/15 border border-green-500/40 text-green-400 text-[11px] font-bold tracking-wider uppercase">
+        <Sparkles className="w-3 h-3" />
+        Available Now
+      </span>
+    );
+  }
+  return (
+    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/15 border border-primary/40 text-primary text-[11px] font-bold tracking-wider uppercase">
+      <Lock className="w-3 h-3" />
+      Coming Soon
+    </span>
+  );
+};
+
 const Courses = () => {
-  const waitlistRef = useRef<HTMLDivElement>(null);
   const [playingVideo, setPlayingVideo] = useState<string | null>(null);
+  const [waitlistFor, setWaitlistFor] = useState<string | null>(null);
   const guideUrl = getGuideUrl("BDBT Foundation Blueprint") || "";
 
   useEffect(() => {
@@ -91,139 +129,185 @@ const Courses = () => {
     return () => clearTimeout(t);
   }, [playingVideo]);
 
-  const scrollToWaitlist = () => {
-    waitlistRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
-  };
-
   return (
-    <div className="min-h-screen bg-background py-16">
-      <div className="container mx-auto px-4">
-        <div className="max-w-4xl mx-auto space-y-24">
+    <div className="min-h-screen bg-[#0A0A0A] pt-12 pb-28 md:pb-16">
+      <div className="container mx-auto px-5 sm:px-6">
+        <div className="max-w-5xl mx-auto space-y-20 md:space-y-24">
           {/* Hero */}
-          <section className="text-center">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold italic text-primary tracking-tight">
+          <section className="text-center space-y-5">
+            <h1 className="font-bold italic text-primary tracking-tight leading-[1.05] text-[clamp(2.25rem,6vw,4rem)]">
               Start Your Daily Wins Journey
             </h1>
+            <p className="text-muted-foreground text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
+              Four simple systems. One connected life. Pick where you want your first win.
+            </p>
+
+            {/* Trust strip */}
+            <div className="flex flex-wrap items-center justify-center gap-2 pt-2">
+              <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#141414] border border-primary/20 text-xs sm:text-sm text-foreground">
+                <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+                <span className="font-semibold">30,000+</span>
+                <span className="text-muted-foreground">learning daily</span>
+              </span>
+              <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#141414] border border-primary/20 text-xs sm:text-sm text-muted-foreground">
+                As heard on the <span className="text-primary font-semibold">Daily Wins Podcast</span>
+              </span>
+            </div>
           </section>
 
-          {/* Course cards */}
-          <section className="space-y-20">
-            {courses.map((course) => (
-              <Card
-                key={course.topic}
-                className="border-2 border-primary/30 bg-background/60 shadow-medium"
-              >
-                <CardContent className="p-8 sm:p-12 flex flex-col items-center text-center space-y-6">
-                  {/* Title button */}
-                  <div className="inline-flex items-center justify-center px-8 py-5 border-2 border-primary rounded-lg bg-background min-w-[240px]">
-                    <span className="text-xl sm:text-2xl font-bold text-primary">
-                      {course.title}
-                    </span>
-                  </div>
+          {/* Courses grid */}
+          <section className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6 items-stretch">
+            {courses.map((course) => {
+              const Icon = course.icon;
+              return (
+                <Card
+                  key={course.topic}
+                  className="group relative bg-[#141414] border border-primary/20 rounded-2xl shadow-soft transition-all duration-300 md:hover:-translate-y-1 md:hover:border-primary/50 md:hover:shadow-[0_0_40px_-10px_hsl(var(--primary)/0.5)] h-full"
+                >
+                  <CardContent className="p-6 sm:p-7 flex flex-col h-full gap-5">
+                    {/* Top row: icon + badge */}
+                    <div className="flex items-start justify-between gap-3">
+                      <div
+                        className={`w-14 h-14 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center transition-colors ${
+                          course.status === "coming-soon" ? "opacity-90" : ""
+                        } md:group-hover:bg-primary/20`}
+                      >
+                        <Icon className="w-7 h-7 text-primary" strokeWidth={2.25} />
+                      </div>
+                      <StatusPill status={course.status} />
+                    </div>
 
-                  <p className="text-lg text-foreground max-w-xl">
-                    {course.description}
-                  </p>
+                    {/* Title + hook */}
+                    <div className="space-y-2">
+                      <h3 className="text-xl sm:text-2xl font-bold italic text-primary leading-tight">
+                        {course.title}
+                      </h3>
+                      <p className="text-[15px] text-muted-foreground leading-relaxed">
+                        {course.hook}
+                      </p>
+                    </div>
 
-                  <ul className="space-y-1 text-foreground">
-                    {course.benefits.map((b) => (
-                      <li key={b}>{b}</li>
-                    ))}
-                  </ul>
+                    {/* Bullets */}
+                    <ul className="space-y-2.5">
+                      {course.bullets.map((b) => (
+                        <li key={b} className="flex items-start gap-2.5 text-[15px] text-foreground/95 leading-snug">
+                          <Check className="w-4 h-4 text-primary mt-1 shrink-0" strokeWidth={3} />
+                          <span>{b}</span>
+                        </li>
+                      ))}
+                    </ul>
 
-                  <Button
-                    variant="outline"
-                    size="lg"
-                    onClick={scrollToWaitlist}
-                    className="border-2 border-primary text-primary font-bold italic hover:bg-primary hover:text-primary-foreground"
-                  >
-                    {course.cta}
-                  </Button>
-
-                  <p className="text-primary italic font-bold flex items-center gap-2">
-                    <Lock className="w-4 h-4" />
-                    (Locked — Coming Soon — Join Waiting List)
-                  </p>
-                </CardContent>
-              </Card>
-            ))}
+                    {/* CTA */}
+                    <div className="mt-auto pt-2">
+                      <Button
+                        onClick={() => setWaitlistFor(course.title)}
+                        variant="outline"
+                        className="w-full min-h-12 rounded-xl border-2 border-primary/60 text-primary font-bold tracking-tight bg-transparent md:hover:bg-primary md:hover:text-primary-foreground md:hover:border-primary md:hover:scale-[1.02] transition-all"
+                      >
+                        Join the Waitlist
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              );
+            })}
           </section>
 
           {/* They're All Connected */}
-          <section className="text-center space-y-6">
-            <h2 className="text-3xl sm:text-4xl font-bold italic text-primary">
+          <section className="text-center space-y-8">
+            <h2 className="font-bold italic text-primary text-[clamp(1.75rem,4vw,2.5rem)]">
               They're All Connected
             </h2>
-            <p className="text-lg font-semibold text-foreground">
-              Sleep <span className="text-primary">→</span> Nutrition{" "}
-              <span className="text-primary">→</span> Exercise{" "}
-              <span className="text-primary">→</span> Money{" "}
-              <span className="text-primary">→</span> Confidence{" "}
-              <span className="text-primary">→</span> Happiness
-            </p>
-            <div className="space-y-3 text-foreground max-w-2xl mx-auto">
-              <p className="font-semibold">Most people try to fix life one problem at a time.</p>
-              <p className="font-semibold">
-                Daily Wins work differently. Small habits that create ripple effects:
-              </p>
-              <p>Better sleep improves food choices.</p>
-              <p>Better food improves energy.</p>
-              <p>Better energy improves movement.</p>
-              <p>Better routines reduce stress spending.</p>
-              <p>Tiny wins compound into a different life.</p>
+
+            {/* Desktop horizontal flow */}
+            <div className="hidden md:flex flex-wrap items-center justify-center gap-2">
+              {connectionFlow.map((node, i) => (
+                <div key={node} className="flex items-center gap-2">
+                  <span className="px-4 py-2 rounded-full bg-[#141414] border border-primary/40 text-primary font-bold text-sm shadow-[0_0_20px_-8px_hsl(var(--primary)/0.5)]">
+                    {node}
+                  </span>
+                  {i < connectionFlow.length - 1 && (
+                    <ArrowRight className="w-4 h-4 text-primary/70" />
+                  )}
+                </div>
+              ))}
             </div>
-            <div className="pt-4">
+
+            {/* Mobile vertical flow */}
+            <div className="flex md:hidden flex-col items-center gap-2">
+              {connectionFlow.map((node, i) => (
+                <div key={node} className="flex flex-col items-center gap-2">
+                  <span className="px-5 py-2 rounded-full bg-[#141414] border border-primary/40 text-primary font-bold text-sm">
+                    {node}
+                  </span>
+                  {i < connectionFlow.length - 1 && (
+                    <ArrowDown className="w-4 h-4 text-primary/70" />
+                  )}
+                </div>
+              ))}
+            </div>
+
+            <ul className="space-y-1.5 text-foreground/90 max-w-md mx-auto text-[15px] leading-relaxed">
+              <li>Better sleep improves food choices.</li>
+              <li>Better food improves energy.</li>
+              <li>Better energy improves movement.</li>
+              <li>Better routines reduce stress spending.</li>
+              <li className="font-semibold text-foreground">Tiny wins compound into a different life.</li>
+            </ul>
+
+            <div className="pt-2">
               <Button
                 variant="outline"
                 size="lg"
                 asChild
-                className="border-2 border-primary text-primary font-bold italic hover:bg-primary hover:text-primary-foreground"
+                className="rounded-xl border-2 border-primary text-primary font-bold italic md:hover:bg-primary md:hover:text-primary-foreground min-h-12"
               >
                 <Link to="/tips">
                   Explore The Full Daily Wins System
-                  <ArrowRight className="ml-2 h-4 w-4" />
+                  <ArrowRight className="ml-1 h-4 w-4" />
                 </Link>
               </Button>
             </div>
           </section>
 
           {/* Start For Free */}
-          <section className="text-center space-y-6">
-            <h2 className="text-3xl sm:text-4xl font-bold italic text-primary">
-              Start For Free
-            </h2>
-            <div className="flex justify-center">
-              <div className="w-48 h-48 sm:w-56 sm:h-56 rounded-2xl bg-gradient-primary flex items-center justify-center shadow-medium">
-                <Target className="w-20 h-20 text-primary-foreground" />
-              </div>
-            </div>
-            <h3 className="text-xl font-bold text-foreground">Not ready for a course?</h3>
-            <p className="text-foreground max-w-xl mx-auto italic">
-              Download the free Foundation Blueprint and start building momentum today.
-            </p>
-            <div className="pt-2">
-              <Button
-                variant="outline"
-                size="lg"
-                asChild
-                className="border-2 border-primary text-primary font-bold italic hover:bg-primary hover:text-primary-foreground"
-              >
-                <Link to="/blueprint">Download Free Blueprint</Link>
-              </Button>
-            </div>
+          <section>
+            <Card className="border-2 border-primary/30 bg-gradient-to-br from-primary/10 via-[#141414] to-primary/5 rounded-2xl shadow-medium">
+              <CardContent className="p-8 sm:p-12 text-center space-y-5">
+                <div className="mx-auto w-24 h-24 sm:w-28 sm:h-28 rounded-2xl bg-gradient-to-br from-primary to-[#E8CE8A] flex items-center justify-center shadow-[0_0_40px_-10px_hsl(var(--primary)/0.6)]">
+                  <Target className="w-12 h-12 sm:w-14 sm:h-14 text-primary-foreground" strokeWidth={2.2} />
+                </div>
+                <h2 className="font-bold italic text-primary text-[clamp(1.75rem,4vw,2.5rem)]">
+                  Start For Free
+                </h2>
+                <p className="text-foreground/90 max-w-xl mx-auto text-base sm:text-lg leading-relaxed">
+                  Not ready for a course? Download the free Foundation Blueprint and start building momentum today.
+                </p>
+                <div className="pt-2">
+                  <Button
+                    variant="default"
+                    size="lg"
+                    asChild
+                    className="rounded-xl bg-primary text-primary-foreground font-bold md:hover:bg-[#E8CE8A] md:hover:scale-[1.02] min-h-12 px-8 shadow-[0_0_30px_-8px_hsl(var(--primary)/0.6)]"
+                  >
+                    <Link to="/blueprint">Download Free Blueprint</Link>
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
           </section>
 
           {/* Learn For Free Every Day */}
-          <section className="space-y-8 text-center">
-            <h2 className="text-3xl sm:text-4xl font-bold italic text-primary">
+          <section className="space-y-7 text-center">
+            <h2 className="font-bold italic text-primary text-[clamp(1.75rem,4vw,2.5rem)]">
               Learn For Free Every Day
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-center px-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6 items-stretch px-1">
               {youtubeEpisodes.map((episode, index) => (
                 <div
                   key={episode.videoId}
-                  className={`rounded-2xl overflow-hidden shadow-medium bg-background border border-border/50 transition-all duration-300 hover:shadow-strong ${
-                    index === 0 ? "md:order-2 md:scale-105 md:z-10" : index === 1 ? "md:order-1" : "md:order-3"
+                  className={`rounded-2xl overflow-hidden bg-[#141414] border border-primary/20 transition-all duration-300 md:hover:border-primary/50 md:hover:-translate-y-1 md:hover:shadow-[0_0_30px_-10px_hsl(var(--primary)/0.5)] ${
+                    index === 0 ? "md:order-2 md:scale-[1.03] md:z-10" : index === 1 ? "md:order-1" : "md:order-3"
                   }`}
                 >
                   {playingVideo === episode.videoId ? (
@@ -237,7 +321,7 @@ const Courses = () => {
                     </div>
                   ) : (
                     <div
-                      className="relative w-full cursor-pointer"
+                      className="relative w-full cursor-pointer group/thumb"
                       onClick={() => {
                         setPlayingVideo(episode.videoId);
                         supabase.functions.invoke("track-video-click", { body: { videoId: episode.videoId } });
@@ -248,9 +332,9 @@ const Courses = () => {
                         alt={episode.title}
                         className="w-full aspect-video object-cover"
                       />
-                      <div className="absolute inset-0 flex items-center justify-center bg-black/30 hover:bg-black/40 transition-colors">
-                        <div className="w-14 h-14 rounded-full bg-primary/90 flex items-center justify-center shadow-lg">
-                          <Play className="w-7 h-7 text-primary-foreground ml-1" />
+                      <div className="absolute inset-0 flex items-center justify-center bg-black/40 group-hover/thumb:bg-black/30 transition-colors">
+                        <div className="w-14 h-14 rounded-full bg-primary flex items-center justify-center shadow-[0_0_25px_-5px_hsl(var(--primary)/0.7)]">
+                          <Play className="w-6 h-6 text-primary-foreground ml-1" fill="currentColor" />
                         </div>
                       </div>
                     </div>
@@ -261,9 +345,9 @@ const Courses = () => {
                       e.preventDefault();
                       startTrackedRedirect(episode.videoId);
                     }}
-                    className="block p-4 hover:bg-muted/50 transition-colors text-left"
+                    className="block p-4 md:hover:bg-primary/5 transition-colors text-left"
                   >
-                    <h3 className="font-semibold text-sm text-foreground line-clamp-2">
+                    <h3 className="font-semibold text-sm text-foreground line-clamp-2 leading-snug">
                       {episode.title}
                     </h3>
                     <p className="text-xs text-muted-foreground mt-1">{episode.viewCountText}</p>
@@ -271,7 +355,7 @@ const Courses = () => {
                 </div>
               ))}
             </div>
-            <p className="text-foreground font-semibold italic">
+            <p className="text-foreground font-bold italic text-base sm:text-lg">
               30,000+ people learning better habits every day
             </p>
             <div>
@@ -279,7 +363,7 @@ const Courses = () => {
                 variant="outline"
                 size="lg"
                 onClick={() => startTrackedRedirect("channel-bdbt")}
-                className="border-2 border-primary text-primary font-bold italic hover:bg-primary hover:text-primary-foreground"
+                className="rounded-xl border-2 border-primary text-primary font-bold italic md:hover:bg-primary md:hover:text-primary-foreground min-h-12"
               >
                 Watch On YouTube
               </Button>
@@ -287,11 +371,14 @@ const Courses = () => {
           </section>
 
           {/* About Me */}
-          <section className="text-center space-y-6">
-            <h2 className="text-3xl sm:text-4xl font-bold italic text-primary">
+          <section className="text-center space-y-5">
+            <div className="mx-auto w-24 h-24 sm:w-28 sm:h-28 rounded-full ring-2 ring-primary ring-offset-4 ring-offset-[#0A0A0A] bg-gradient-to-br from-primary/30 to-[#141414] flex items-center justify-center">
+              <span className="text-3xl font-bold italic text-primary">DW</span>
+            </div>
+            <h2 className="font-bold italic text-primary text-[clamp(1.75rem,4vw,2.5rem)]">
               About Me
             </h2>
-            <div className="space-y-4 text-foreground max-w-2xl mx-auto italic">
+            <div className="space-y-4 text-foreground/90 max-w-2xl mx-auto italic text-[15px] sm:text-base leading-relaxed">
               <p>
                 After years working in finance and studying habits, health and behaviour,
                 I realised something surprising; most people do not fail because they are
@@ -309,22 +396,22 @@ const Courses = () => {
                 variant="outline"
                 size="lg"
                 asChild
-                className="border-2 border-primary text-primary font-bold italic hover:bg-primary hover:text-primary-foreground"
+                className="rounded-xl border-2 border-primary text-primary font-bold italic md:hover:bg-primary md:hover:text-primary-foreground min-h-12"
               >
                 <Link to="/about">My Story</Link>
               </Button>
             </div>
           </section>
 
-          {/* Waiting list capture */}
-          <section ref={waitlistRef} className="scroll-mt-24">
-            <Card className="border-2 border-primary/40 bg-background shadow-strong">
+          {/* General waiting list capture */}
+          <section className="scroll-mt-24">
+            <Card className="border-2 border-primary/30 bg-[#141414] rounded-2xl shadow-strong">
               <CardContent className="pt-6">
                 <div className="text-center mb-4">
-                  <h2 className="text-2xl sm:text-3xl font-bold italic text-primary">
+                  <h2 className="font-bold italic text-primary text-[clamp(1.5rem,3.5vw,2rem)]">
                     Join the Courses Waiting List
                   </h2>
-                  <p className="text-foreground/80 mt-2">
+                  <p className="text-foreground/80 mt-2 text-[15px]">
                     Be first to know when Daily Wins courses go live. You'll also get the
                     free Foundation Blueprint as a thank-you.
                   </p>
@@ -341,6 +428,23 @@ const Courses = () => {
           </section>
         </div>
       </div>
+
+      {/* Sticky mobile bottom bar */}
+      <div className="fixed bottom-0 inset-x-0 md:hidden z-40 border-t border-primary/30 bg-[#0A0A0A]/95 backdrop-blur-md px-4 py-3">
+        <Button
+          variant="default"
+          asChild
+          className="w-full min-h-12 rounded-xl bg-primary text-primary-foreground font-bold shadow-[0_0_25px_-8px_hsl(var(--primary)/0.6)]"
+        >
+          <Link to="/blueprint">Download Free Blueprint</Link>
+        </Button>
+      </div>
+
+      <WaitlistModal
+        open={waitlistFor !== null}
+        onOpenChange={(o) => !o && setWaitlistFor(null)}
+        courseTitle={waitlistFor || ""}
+      />
     </div>
   );
 };
