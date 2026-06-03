@@ -17,7 +17,6 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import EmailCaptureForm from "@/components/EmailCaptureForm";
-import WaitlistModal from "@/components/WaitlistModal";
 import { getGuideUrl } from "@/data/guideMapping";
 import { supabase } from "@/integrations/supabase/client";
 import { startTrackedRedirect } from "@/lib/youtube-redirect";
@@ -113,10 +112,45 @@ const StatusPill = ({ status }: { status: CourseStatus }) => {
   );
 };
 
+const LockedCover = () => (
+  <div
+    aria-hidden="true"
+    className="absolute inset-0 rounded-2xl overflow-hidden z-10 pointer-events-none transition-all duration-300"
+  >
+    {/* Frost */}
+    <div className="absolute inset-0 frost-fallback transition-colors duration-300 md:group-hover:bg-[rgba(10,10,10,0.18)]" />
+    {/* Holographic sheen */}
+    <div className="absolute inset-0 holo-sheen opacity-30 mix-blend-overlay transition-opacity duration-300 md:group-hover:opacity-45" />
+    {/* Shimmer streak */}
+    <div className="absolute inset-0 overflow-hidden">
+      <div className="holo-shimmer absolute top-0 -left-1/3 h-full w-1/3 bg-gradient-to-r from-transparent via-white/15 to-transparent" />
+    </div>
+    {/* Centre lock */}
+    <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
+      <Lock
+        className="w-11 h-11 text-[#E8CE8A] drop-shadow-[0_0_18px_rgba(232,206,138,0.55)]"
+        strokeWidth={2.25}
+      />
+      <span className="text-[10px] sm:text-[11px] font-bold tracking-[0.18em] text-primary uppercase">
+        Unlocking Soon
+      </span>
+      <span className="hidden md:inline-flex items-center gap-1 mt-1 text-[11px] font-semibold text-primary/0 md:group-hover:text-primary transition-colors duration-300">
+        Join the Waitlist <ArrowRight className="w-3 h-3" />
+      </span>
+    </div>
+  </div>
+);
+
 const Courses = () => {
   const [playingVideo, setPlayingVideo] = useState<string | null>(null);
-  const [waitlistFor, setWaitlistFor] = useState<string | null>(null);
+  const [selectedCourse, setSelectedCourse] = useState<string>("");
   const guideUrl = getGuideUrl("BDBT Foundation Blueprint") || "";
+  const waitlistRef = useRef<HTMLElement | null>(null);
+
+  const scrollToWaitlist = (topic?: string) => {
+    if (topic) setSelectedCourse(topic);
+    waitlistRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
 
   useEffect(() => {
     if (playingVideo === null) return;
@@ -159,26 +193,28 @@ const Courses = () => {
           <section className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6 items-stretch">
             {courses.map((course) => {
               const Icon = course.icon;
+              const locked = course.status === "coming-soon";
               return (
                 <Card
                   key={course.topic}
-                  className="group relative bg-[#141414] border border-primary/20 rounded-2xl shadow-soft transition-all duration-300 md:hover:-translate-y-1 md:hover:border-primary/50 md:hover:shadow-[0_0_40px_-10px_hsl(var(--primary)/0.5)] h-full"
+                  onClick={() => locked && scrollToWaitlist(course.topic)}
+                  className={`group relative bg-[#141414] border border-primary/20 rounded-2xl shadow-soft transition-all duration-300 md:hover:-translate-y-1 md:hover:border-primary/50 md:hover:shadow-[0_0_40px_-10px_hsl(var(--primary)/0.5)] h-full overflow-hidden ${
+                    locked ? "cursor-pointer" : ""
+                  }`}
                 >
-                  <CardContent className="p-6 sm:p-7 flex flex-col h-full gap-5">
-                    {/* Top row: icon + badge */}
-                    <div className="flex items-start justify-between gap-3">
+                  <CardContent className="relative p-6 sm:p-7 flex flex-col h-full gap-5">
+                    {/* Top row: icon + badge (badge sits above cover) */}
+                    <div className="flex items-start justify-between gap-3 relative z-20">
                       <div
-                        className={`w-14 h-14 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center transition-colors ${
-                          course.status === "coming-soon" ? "opacity-90" : ""
-                        } md:group-hover:bg-primary/20`}
+                        className={`w-14 h-14 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center transition-colors md:group-hover:bg-primary/20`}
                       >
                         <Icon className="w-7 h-7 text-primary" strokeWidth={2.25} />
                       </div>
                       <StatusPill status={course.status} />
                     </div>
 
-                    {/* Title + hook */}
-                    <div className="space-y-2">
+                    {/* Title + hook (behind cover) */}
+                    <div className="space-y-2 relative z-0">
                       <h3 className="text-xl sm:text-2xl font-bold italic text-primary leading-tight">
                         {course.title}
                       </h3>
@@ -187,8 +223,8 @@ const Courses = () => {
                       </p>
                     </div>
 
-                    {/* Bullets */}
-                    <ul className="space-y-2.5">
+                    {/* Bullets (behind cover) */}
+                    <ul className="space-y-2.5 relative z-0">
                       {course.bullets.map((b) => (
                         <li key={b} className="flex items-start gap-2.5 text-[15px] text-foreground/95 leading-snug">
                           <Check className="w-4 h-4 text-primary mt-1 shrink-0" strokeWidth={3} />
@@ -197,12 +233,18 @@ const Courses = () => {
                       ))}
                     </ul>
 
-                    {/* CTA */}
-                    <div className="mt-auto pt-2">
+                    {/* Locked cover (between content & button) */}
+                    {locked && <LockedCover />}
+
+                    {/* CTA (above cover) */}
+                    <div className="mt-auto pt-2 relative z-20">
                       <Button
-                        onClick={() => setWaitlistFor(course.title)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          scrollToWaitlist(course.topic);
+                        }}
                         variant="outline"
-                        className="w-full min-h-12 rounded-xl border-2 border-primary/60 text-primary font-bold tracking-tight bg-transparent md:hover:bg-primary md:hover:text-primary-foreground md:hover:border-primary md:hover:scale-[1.02] transition-all"
+                        className="w-full min-h-12 rounded-xl border-2 border-primary/60 text-primary font-bold tracking-tight bg-[#141414]/80 md:hover:bg-primary md:hover:text-primary-foreground md:hover:border-primary md:hover:scale-[1.02] transition-all"
                       >
                         Join the Waitlist
                       </Button>
@@ -285,12 +327,12 @@ const Courses = () => {
                 </p>
                 <div className="pt-2">
                   <Button
+                    onClick={() => scrollToWaitlist()}
                     variant="default"
                     size="lg"
-                    asChild
                     className="rounded-xl bg-primary text-primary-foreground font-bold md:hover:bg-[#E8CE8A] md:hover:scale-[1.02] min-h-12 px-8 shadow-[0_0_30px_-8px_hsl(var(--primary)/0.6)]"
                   >
-                    <Link to="/blueprint">Download Free Blueprint</Link>
+                    Download Free Blueprint
                   </Button>
                 </div>
               </CardContent>
@@ -404,8 +446,8 @@ const Courses = () => {
           </section>
 
           {/* General waiting list capture */}
-          <section className="scroll-mt-24">
-            <Card className="border-2 border-primary/30 bg-[#141414] rounded-2xl shadow-strong">
+          <section ref={waitlistRef} className="scroll-mt-24">
+            <Card className="border-2 border-primary/30 bg-gradient-to-br from-primary/10 via-[#141414] to-primary/5 rounded-2xl shadow-strong">
               <CardContent className="pt-6">
                 <div className="text-center mb-4">
                   <h2 className="font-bold italic text-primary text-[clamp(1.5rem,3.5vw,2rem)]">
@@ -422,6 +464,13 @@ const Courses = () => {
                   onClose={() => {}}
                   compact={false}
                   hideable={false}
+                  headingLabel="Reserve your spot"
+                  submitLabel="Join the Waitlist + Get the Free Blueprint →"
+                  successTitle="You're on the list ✓"
+                  successDescription="Check your inbox for the Foundation Blueprint."
+                  showCourseSelector
+                  courseValue={selectedCourse}
+                  onCourseChange={setSelectedCourse}
                 />
               </CardContent>
             </Card>
@@ -432,19 +481,13 @@ const Courses = () => {
       {/* Sticky mobile bottom bar */}
       <div className="fixed bottom-0 inset-x-0 md:hidden z-40 border-t border-primary/30 bg-[#0A0A0A]/95 backdrop-blur-md px-4 py-3">
         <Button
+          onClick={() => scrollToWaitlist()}
           variant="default"
-          asChild
           className="w-full min-h-12 rounded-xl bg-primary text-primary-foreground font-bold shadow-[0_0_25px_-8px_hsl(var(--primary)/0.6)]"
         >
-          <Link to="/blueprint">Download Free Blueprint</Link>
+          Download Free Blueprint
         </Button>
       </div>
-
-      <WaitlistModal
-        open={waitlistFor !== null}
-        onOpenChange={(o) => !o && setWaitlistFor(null)}
-        courseTitle={waitlistFor || ""}
-      />
     </div>
   );
 };
