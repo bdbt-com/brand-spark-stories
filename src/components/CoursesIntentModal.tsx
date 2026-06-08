@@ -9,7 +9,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { CheckCircle, Loader2, Mail, ArrowRight } from "lucide-react";
+import { CheckCircle, Loader2, Mail, ArrowRight, Check } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useFormValidation } from "@/hooks/useFormValidation";
 import { supabase } from "@/integrations/supabase/client";
@@ -88,7 +88,9 @@ const CoursesIntentModal = ({ open, onOpenChange, onSubmitted }: CoursesIntentMo
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogContent className="max-w-md sm:max-w-lg bg-gradient-to-br from-primary/10 via-[#141414] to-primary/5 border-2 border-primary/40 rounded-2xl shadow-[0_0_60px_-10px_hsl(var(--primary)/0.5)]">
+      <DialogContent
+        className="w-[calc(100vw-1.5rem)] max-w-md sm:max-w-lg p-5 sm:p-6 max-h-[92vh] overflow-y-auto bg-gradient-to-br from-primary/10 via-[#141414] to-primary/5 border-2 border-primary/40 rounded-2xl shadow-[0_0_60px_-10px_hsl(var(--primary)/0.5)] [&>button]:top-3 [&>button]:right-3 [&>button]:h-9 [&>button]:w-9"
+      >
         {isSubmitted ? (
           <div className="text-center py-8 animate-scale-in">
             <div className="w-16 h-16 bg-primary/15 border border-primary/40 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -107,18 +109,18 @@ const CoursesIntentModal = ({ open, onOpenChange, onSubmitted }: CoursesIntentMo
           </div>
         ) : (
           <>
-            <DialogHeader className="text-center sm:text-center space-y-2">
-              <DialogTitle className="font-bold italic text-primary text-2xl sm:text-3xl leading-tight">
+            <DialogHeader className="text-center sm:text-center space-y-1.5">
+              <DialogTitle className="font-bold italic text-primary text-xl sm:text-2xl leading-tight">
                 Pick where you want your first win
               </DialogTitle>
-              <DialogDescription className="text-foreground/80 text-sm sm:text-base">
+              <DialogDescription className="text-foreground/80 text-sm">
                 Get the free Foundation Blueprint + early access when your course drops.
               </DialogDescription>
             </DialogHeader>
 
-            <form onSubmit={handleSubmit} className="space-y-3 mt-2">
+            <form onSubmit={handleSubmit} className="space-y-3 mt-1">
               <div className="space-y-2">
-                <Label className="text-sm text-foreground">
+                <Label className="text-xs text-foreground">
                   Which course are you most interested in?{" "}
                   <span className="text-muted-foreground font-normal">(optional)</span>
                 </Label>
@@ -135,17 +137,25 @@ const CoursesIntentModal = ({ open, onOpenChange, onSubmitted }: CoursesIntentMo
                             prev.includes(opt) ? prev.filter((c) => c !== opt) : [...prev, opt]
                           )
                         }
-                        className={`w-full min-h-12 px-4 rounded-xl text-sm sm:text-base font-bold border-2 transition-all ${
+                        className={`relative w-full min-h-[52px] px-4 rounded-xl text-base font-bold transition-all active:scale-[0.98] ${
                           selected
-                            ? "bg-primary text-primary-foreground border-primary shadow-[0_0_20px_-6px_hsl(var(--primary)/0.8)]"
-                            : "bg-[#141414] border-primary/40 text-foreground/85 hover:border-primary hover:text-primary"
+                            ? "bg-primary text-primary-foreground shadow-[0_0_24px_-6px_hsl(var(--primary)/0.8)]"
+                            : "bg-transparent border-2 border-primary/50 text-primary hover:bg-primary/10"
                         }`}
                       >
                         {opt}
+                        {selected && (
+                          <Check className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 animate-scale-in" />
+                        )}
                       </button>
                     );
                   })}
                 </div>
+                {courses.length > 0 && (
+                  <p className="text-[11px] text-primary animate-fade-in">
+                    {courses.length} selected — we'll tailor your early access.
+                  </p>
+                )}
               </div>
 
               <div className="space-y-1">
@@ -160,7 +170,10 @@ const CoursesIntentModal = ({ open, onOpenChange, onSubmitted }: CoursesIntentMo
                   onBlur={() => validateField("firstName", firstName)}
                   placeholder="Enter your first name"
                   disabled={isLoading}
-                  className={fieldErrors.firstName ? "border-red-500" : "focus:border-primary"}
+                  autoComplete="given-name"
+                  autoCapitalize="words"
+                  enterKeyHint="next"
+                  className={`h-11 text-base ${fieldErrors.firstName ? "border-red-500" : "focus:border-primary"}`}
                 />
                 {fieldErrors.firstName && (
                   <p className="text-xs text-red-500">{fieldErrors.firstName}</p>
@@ -180,7 +193,13 @@ const CoursesIntentModal = ({ open, onOpenChange, onSubmitted }: CoursesIntentMo
                   onBlur={() => validateField("email", email)}
                   placeholder="your@email.com"
                   disabled={isLoading}
-                  className={fieldErrors.email ? "border-red-500" : "focus:border-primary"}
+                  inputMode="email"
+                  autoComplete="email"
+                  autoCapitalize="none"
+                  autoCorrect="off"
+                  spellCheck={false}
+                  enterKeyHint="send"
+                  className={`h-11 text-base ${fieldErrors.email ? "border-red-500" : "focus:border-primary"}`}
                 />
                 {fieldErrors.email && (
                   <p className="text-xs text-red-500">{fieldErrors.email}</p>
