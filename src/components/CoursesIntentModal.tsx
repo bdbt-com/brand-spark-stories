@@ -116,7 +116,7 @@ const CoursesIntentModal = ({ open, onOpenChange, onSubmitted }: CoursesIntentMo
               </DialogDescription>
             </DialogHeader>
 
-            <form onSubmit={handleSubmit} className="space-y-4 mt-2">
+            <form onSubmit={handleSubmit} className="space-y-3 mt-2">
               <div className="space-y-2">
                 <Label className="text-sm text-foreground">
                   Which course are you most interested in?{" "}
