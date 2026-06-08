@@ -57,11 +57,9 @@ const CoursesIntentModal = ({ open, onOpenChange, onSubmitted }: CoursesIntentMo
         },
       });
 
-      if (course) {
-        supabase
-          .from("course_waitlist")
-          .insert({ email, course_title: course })
-          .then(() => {});
+      if (courses.length > 0) {
+        const rows = courses.map((c) => ({ email, course_title: c }));
+        supabase.from("course_waitlist").insert(rows).then(() => {});
       }
 
       const { data, error } = await sendPromise;
@@ -70,7 +68,7 @@ const CoursesIntentModal = ({ open, onOpenChange, onSubmitted }: CoursesIntentMo
 
       setIsSubmitted(true);
       markSeen();
-      onSubmitted?.(course);
+      onSubmitted?.(courses[0] ?? "");
       setTimeout(() => onOpenChange(false), 4000);
     } catch (err: any) {
       toast({
