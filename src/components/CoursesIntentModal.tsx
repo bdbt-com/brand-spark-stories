@@ -26,7 +26,7 @@ interface CoursesIntentModalProps {
 const CoursesIntentModal = ({ open, onOpenChange, onSubmitted }: CoursesIntentModalProps) => {
   const [firstName, setFirstName] = useState("");
   const [email, setEmail] = useState("");
-  const [course, setCourse] = useState<string>("");
+  const [courses, setCourses] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const { fieldErrors, validateField, validateAllFields, clearErrors } = useFormValidation();
