@@ -15,7 +15,7 @@ import { useFormValidation } from "@/hooks/useFormValidation";
 import { supabase } from "@/integrations/supabase/client";
 import { getGuideUrl } from "@/data/guideMapping";
 
-const COURSE_OPTIONS = ["Exercise", "Money", "Nutrition", "Sleep", "All of them"];
+const COURSE_OPTIONS = ["Exercise", "Money", "Nutrition", "Sleep"];
 
 interface CoursesIntentModalProps {
   open: boolean;
