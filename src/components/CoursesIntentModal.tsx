@@ -15,7 +15,7 @@ import { useFormValidation } from "@/hooks/useFormValidation";
 import { supabase } from "@/integrations/supabase/client";
 import { getGuideUrl } from "@/data/guideMapping";
 
-const COURSE_OPTIONS = ["Exercise", "Money", "Nutrition", "Sleep", "All of them"];
+const COURSE_OPTIONS = ["Exercise", "Money", "Nutrition", "Sleep"];
 
 interface CoursesIntentModalProps {
   open: boolean;
@@ -26,7 +26,7 @@ interface CoursesIntentModalProps {
 const CoursesIntentModal = ({ open, onOpenChange, onSubmitted }: CoursesIntentModalProps) => {
   const [firstName, setFirstName] = useState("");
   const [email, setEmail] = useState("");
-  const [course, setCourse] = useState<string>("");
+  const [courses, setCourses] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const { fieldErrors, validateField, validateAllFields, clearErrors } = useFormValidation();
@@ -57,11 +57,9 @@ const CoursesIntentModal = ({ open, onOpenChange, onSubmitted }: CoursesIntentMo
         },
       });
 
-      if (course) {
-        supabase
-          .from("course_waitlist")
-          .insert({ email, course_title: course })
-          .then(() => {});
+      if (courses.length > 0) {
+        const rows = courses.map((c) => ({ email, course_title: c }));
+        supabase.from("course_waitlist").insert(rows).then(() => {});
       }
 
       const { data, error } = await sendPromise;
@@ -70,7 +68,7 @@ const CoursesIntentModal = ({ open, onOpenChange, onSubmitted }: CoursesIntentMo
 
       setIsSubmitted(true);
       markSeen();
-      onSubmitted?.(course);
+      onSubmitted?.(courses[0] ?? "");
       setTimeout(() => onOpenChange(false), 4000);
     } catch (err: any) {
       toast({
@@ -118,24 +116,29 @@ const CoursesIntentModal = ({ open, onOpenChange, onSubmitted }: CoursesIntentMo
               </DialogDescription>
             </DialogHeader>
 
-            <form onSubmit={handleSubmit} className="space-y-4 mt-2">
+            <form onSubmit={handleSubmit} className="space-y-3 mt-2">
               <div className="space-y-2">
                 <Label className="text-sm text-foreground">
                   Which course are you most interested in?{" "}
                   <span className="text-muted-foreground font-normal">(optional)</span>
                 </Label>
-                <div className="flex flex-wrap gap-2">
+                <div className="grid grid-cols-2 gap-2.5">
                   {COURSE_OPTIONS.map((opt) => {
-                    const selected = course === opt;
+                    const selected = courses.includes(opt);
                     return (
                       <button
                         key={opt}
                         type="button"
-                        onClick={() => setCourse(selected ? "" : opt)}
-                        className={`px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-semibold border transition-all ${
+                        aria-pressed={selected}
+                        onClick={() =>
+                          setCourses((prev) =>
+                            prev.includes(opt) ? prev.filter((c) => c !== opt) : [...prev, opt]
+                          )
+                        }
+                        className={`w-full min-h-12 px-4 rounded-xl text-sm sm:text-base font-bold border-2 transition-all ${
                           selected
-                            ? "bg-primary/20 border-primary text-primary shadow-[0_0_15px_-6px_hsl(var(--primary)/0.8)]"
-                            : "bg-[#141414] border-primary/40 text-foreground/85 hover:border-primary/70 hover:text-primary"
+                            ? "bg-primary text-primary-foreground border-primary shadow-[0_0_20px_-6px_hsl(var(--primary)/0.8)]"
+                            : "bg-[#141414] border-primary/40 text-foreground/85 hover:border-primary hover:text-primary"
                         }`}
                       >
                         {opt}
