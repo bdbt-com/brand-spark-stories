@@ -50,7 +50,7 @@ const CoursesIntentModal = ({ open, onOpenChange, onSubmitted }: CoursesIntentMo
     try {
       const sendPromise = supabase.functions.invoke("send-guide", {
         body: {
-          firstName,
+          firstName: firstName || "Friend",
           email,
           guideTitle: "Courses Waiting List",
           guideDownloadUrl: guideUrl,
