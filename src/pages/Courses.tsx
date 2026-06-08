@@ -118,8 +118,17 @@ const LockedCover = () => (
 
 const Courses = () => {
   const [selectedCourse, setSelectedCourse] = useState<string>("");
+  const [intentOpen, setIntentOpen] = useState(false);
   const guideUrl = getGuideUrl("BDBT Foundation Blueprint") || "";
   const waitlistRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    try {
+      if (sessionStorage.getItem("courses_intent_modal_seen")) return;
+    } catch {}
+    const t = setTimeout(() => setIntentOpen(true), 600);
+    return () => clearTimeout(t);
+  }, []);
 
   const scrollToWaitlist = (topic?: string) => {
     if (topic) setSelectedCourse(topic);
