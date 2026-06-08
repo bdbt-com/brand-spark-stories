@@ -1,32 +1,37 @@
-## Intent-capture popup on `/courses` load
+## Goal
+Make the course selection pills visually match the gold "Join the Waitlist + Get the Blueprint" button, and make the whole intent modal feel native, fast and high-converting on mobile (where 90% of traffic lands).
 
-A dismissible modal opens shortly after `/courses` mounts, lets the visitor pick a course of interest, captures name + email, and signs them up to the waitlist in one step.
+All work is scoped to `src/components/CoursesIntentModal.tsx`. No backend, route, or business-logic changes.
 
-### Behaviour
-- Opens ~600ms after page mount (lets the page paint first).
-- Closeable via `X` (Radix Dialog default), backdrop click, or `Esc`.
-- Once closed or successfully submitted, suppressed for the rest of the session via `sessionStorage["courses_intent_modal_seen"]`. Re-opens on next session.
-- Body scroll-locked only while open (Radix default).
+## Course pill styling (match the gold button)
+- Selected state: solid gold `bg-primary` with `text-primary-foreground`, subtle gold glow shadow, no border outline — same flat gold fill as the CTA.
+- Unselected state: transparent/dark base with a soft gold border (`border-primary/50`) and gold text, so they read as "ghost" versions of the same button.
+- Rounded `rounded-xl` to mirror the CTA pill, bold weight, single-line label.
+- Add a small check tick (lucide `Check`) that fades in when selected, right-aligned inside the pill, so multi-select is obvious.
+- Tap target ≥ 48px tall on mobile; keep 2-column grid on all sizes (4 options → balanced 2×2).
 
-### Modal UI
-- Title: `Pick where you want your first win` (gold italic).
-- Subline: `Get the free Foundation Blueprint + early access when your course drops.`
-- Pill selector: Exercise / Money / Nutrition / Sleep / All of them (same gold-on-dark styling used in `EmailCaptureForm`). Selection optional.
-- First name + email inputs (reusing `useFormValidation`).
-- Submit: `Join the Waitlist + Get the Blueprint →`.
-- Footer: `No spam. Unsubscribe anytime.`
-- Success state in the same modal: `You're on the list ✓ / Check your inbox for the Foundation Blueprint.` Auto-closes after ~4s.
+## Mobile-first modal polish
+- Dialog container:
+  - Width: `w-[calc(100vw-1.5rem)] max-w-md sm:max-w-lg`, `p-5 sm:p-6`, `rounded-2xl`.
+  - Keep current gold-tinted gradient background + gold border.
+  - Constrain height with `max-h-[92vh] overflow-y-auto` so the form is always reachable on small screens / when the keyboard opens.
+- Header:
+  - Title size `text-xl sm:text-2xl` (down from 2xl/3xl) so it never wraps awkwardly on 360px screens.
+  - Description `text-sm`, max 2 lines.
+- Form spacing: `space-y-3`, labels `text-xs`, inputs `h-11` with `text-base` (prevents iOS zoom-on-focus, which kills conversion).
+- Inputs: `inputMode` + `autoComplete` hints — `autoComplete="given-name"` on first name, `type="email" inputMode="email" autoComplete="email"` on email, `autoCapitalize="words"` on name, `autoCapitalize="none"` on email, `enterKeyHint="send"` on email so mobile keyboards show a Send key.
+- Submit CTA: full width, `min-h-12`, same gold hero variant (already matches). Keep arrow icon. Disabled state stays gold but dimmed.
+- Footer microcopy: keep "No spam. Unsubscribe anytime." in `text-[11px]`.
+- Close (X): ensure the built-in DialogContent close button sits in the top-right with a comfortable 44px hit area (add `[&>button]:top-3 [&>button]:right-3 [&>button]:h-9 [&>button]:w-9` class on `DialogContent`).
 
-### Wiring (reuses existing infra)
-- Submit calls `supabase.functions.invoke("send-guide", { firstName, email, guideTitle: "Courses Waiting List", guideDownloadUrl: getGuideUrl("BDBT Foundation Blueprint") })` — same edge function the page already uses.
-- If a course is picked, fires best-effort `supabase.from("course_waitlist").insert({ email, course_title })` in parallel (mirrors `EmailCaptureForm`).
-- On success: mark session-storage seen, call `onSubmitted(course)` so the page can pre-select that course in its in-page waitlist form.
+## Conversion / performance touches
+- Pre-fill nothing, but auto-focus the first name field only on `sm:` and up (skip autofocus on mobile so the keyboard doesn't shove the pills off-screen before the user picks a course).
+- Show selected-count helper text under the pill grid when ≥1 selected: e.g. "2 selected — we'll tailor your early access." (small, gold, fades in). Reinforces commitment.
+- Submit button label stays "Join the Waitlist + Get the Blueprint" (already proven copy).
+- Keep the existing optimistic `course_waitlist` insert and the `send-guide` invoke — no logic changes.
+- All animations use existing tokens (`animate-scale-in`, simple `transition-all`) — no extra libs, no perf cost.
+- No new imports beyond `Check` from `lucide-react`, so bundle stays the same size.
 
-### Files
-- **New:** `src/components/CoursesIntentModal.tsx` — Radix `Dialog` from `@/components/ui/dialog`. Props: `open`, `onOpenChange`, `onSubmitted(course)`.
-- **Edit:** `src/pages/Courses.tsx` — add `useEffect` on mount that opens the modal unless `sessionStorage.getItem("courses_intent_modal_seen")` is set; render `<CoursesIntentModal />`; `onSubmitted` sets the existing `selectedCourse` state so the bottom form mirrors the pick.
-
-### Out of scope
-- No new edge function, no new DB table (uses existing `course_waitlist` + `send-guide`).
-- No analytics events, no A/B variant.
-- No other section of the page touched.
+## Out of scope
+- No changes to `Courses.tsx`, the waitlist DB, the edge function, or any other page.
+- No new colours/tokens added to `index.css` or Tailwind config — uses existing `--primary` token, so it stays consistent with the CTA button.
