@@ -42,7 +42,7 @@ const CoursesIntentModal = ({ open, onOpenChange, onSubmitted }: CoursesIntentMo
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!validateAllFields(firstName, email)) return;
+    if (!validateAllFields("Friend", email)) return;
 
     setIsLoading(true);
     clearErrors();
