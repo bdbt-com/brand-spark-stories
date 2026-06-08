@@ -137,6 +137,13 @@ const Courses = () => {
 
   return (
     <div className="min-h-screen bg-[#0A0A0A] pt-12 pb-28 md:pb-16">
+      <CoursesIntentModal
+        open={intentOpen}
+        onOpenChange={setIntentOpen}
+        onSubmitted={(course) => {
+          if (course) setSelectedCourse(course);
+        }}
+      />
       <div className="container mx-auto px-5 sm:px-6">
         <div className="max-w-5xl mx-auto space-y-20 md:space-y-24">
           {/* Hero */}
