@@ -158,27 +158,6 @@ const CoursesIntentModal = ({ open, onOpenChange, onSubmitted }: CoursesIntentMo
                 )}
               </div>
 
-              <div className="space-y-1">
-                <Label htmlFor="intent-first-name" className="text-xs">First Name *</Label>
-                <Input
-                  id="intent-first-name"
-                  value={firstName}
-                  onChange={(e) => {
-                    setFirstName(e.target.value);
-                    if (fieldErrors.firstName) validateField("firstName", e.target.value);
-                  }}
-                  onBlur={() => validateField("firstName", firstName)}
-                  placeholder="Enter your first name"
-                  disabled={isLoading}
-                  autoComplete="given-name"
-                  autoCapitalize="words"
-                  enterKeyHint="next"
-                  className={`h-11 text-base ${fieldErrors.firstName ? "border-red-500" : "focus:border-primary"}`}
-                />
-                {fieldErrors.firstName && (
-                  <p className="text-xs text-red-500">{fieldErrors.firstName}</p>
-                )}
-              </div>
 
               <div className="space-y-1">
                 <Label htmlFor="intent-email" className="text-xs">Email Address *</Label>
