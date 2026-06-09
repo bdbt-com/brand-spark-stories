@@ -523,7 +523,7 @@ const AdminList = () => {
       clearInterval(tick);
       document.removeEventListener("visibilitychange", onVisible);
     };
-  }, [fetchSubscribers, fetchVideoCounts, fetchDownloadCounts, fetchAnalytics, fetchFeedIncremental, fetchDailyStats, fetchLiveTick, fetchPageStats]);
+  }, [fetchSubscribers, fetchVideoCounts, fetchDownloadCounts, fetchAnalytics, fetchFeedBackfill, fetchFeedIncremental, fetchDailyStats, fetchLiveTick, fetchPageStats]);
 
   // Cleanup queued animation-clear timers on unmount
   useEffect(() => {
