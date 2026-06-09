@@ -570,29 +570,14 @@ const AdminList = () => {
 
           {/* Per-page stats */}
           <section>
-            <div className="flex items-center justify-between gap-3 mb-4 flex-wrap">
+            <div className="flex items-center gap-3 mb-4">
               <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
                 <BarChart3 className="w-5 h-5 text-primary" /> Page Stats
               </h2>
-              <div className="flex gap-1">
-                {(['today', '7d', '14d', '30d', 'all'] as const).map((r) => (
-                  <button
-                    key={r}
-                    onClick={() => setPageStatsRange(r)}
-                    className={`px-2.5 py-1 text-[10px] font-semibold rounded-md transition-colors ${
-                      pageStatsRange === r
-                        ? 'bg-primary text-primary-foreground'
-                        : 'bg-secondary text-muted-foreground hover:text-foreground'
-                    }`}
-                  >
-                    {r === 'all' ? 'All Time' : r === 'today' ? 'Today' : r.toUpperCase()}
-                  </button>
-                ))}
-              </div>
+              <span className="text-xs font-medium text-muted-foreground">· {rangeLabel}</span>
             </div>
             {(() => {
-              const key = pageStatsRange === 'all' ? 'since_launch' : pageStatsRange;
-              const rows = pageStats[key] || [];
+              const rows = pageStats[rangeKey] || [];
               const byPath = new Map(rows.map((r) => [r.page_path === '' ? '/' : r.page_path, r]));
               const NAV_PAGES: { path: string; label: string }[] = [
                 { path: '/', label: 'Home' },
@@ -610,20 +595,20 @@ const AdminList = () => {
                     const secs = Math.round(p.avg_duration % 60);
                     return (
                       <Card key={path} className="border-primary/20">
-                        <CardContent className="p-4">
+                        <CardContent className="p-4 text-center">
                           <p className="text-sm font-bold text-primary">{label}</p>
                           <p className="text-[10px] font-mono text-muted-foreground truncate" title={path}>{path}</p>
-                          <p className="text-2xl font-bold text-foreground mt-1.5">
+                          <p className="text-3xl font-bold text-foreground mt-3 tabular-nums">
                             <AnimatedCounter value={p.unique_visitors} />
                           </p>
-                          <p className="text-[10px] text-muted-foreground uppercase tracking-wider">visitors</p>
-                          <div className="flex items-center gap-1 text-muted-foreground mt-2">
+                          <p className="text-[10px] text-muted-foreground uppercase tracking-wider mt-0.5">visitors</p>
+                          <div className="flex items-center justify-center gap-1 text-muted-foreground mt-2">
                             <Clock className="w-3 h-3" />
-                            <span className="text-[11px]">
+                            <span className="text-[11px] tabular-nums">
                               {mins > 0 ? `${mins}m ` : ''}{secs}s avg
                             </span>
                           </div>
-                          <p className="text-[10px] text-muted-foreground mt-0.5">{p.views.toLocaleString()} views</p>
+                          <p className="text-[10px] text-muted-foreground mt-1 tabular-nums">{p.views.toLocaleString()} views</p>
                         </CardContent>
                       </Card>
                     );
@@ -631,8 +616,8 @@ const AdminList = () => {
                 </div>
               );
             })()}
-
           </section>
+
 
 
           {/* Page Visitors — graph inline */}
