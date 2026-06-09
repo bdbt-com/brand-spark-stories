@@ -250,6 +250,7 @@ const AdminList = () => {
   const feedItemKeys = useRef<Set<string>>(new Set());
   const requestLocks = useRef<Record<string, boolean>>({});
   const requestControllers = useRef<Record<string, AbortController | null>>({});
+  const requestCooldownUntil = useRef<Record<string, number>>({});
   const feedLoadVersion = useRef(0);
   const feedLoadTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   // Keys currently mid-entry-animation. Drives the animate-* classes precisely
@@ -273,6 +274,7 @@ const AdminList = () => {
   } | null>(null);
   useEffect(() => { liveTickRef.current = liveTick; }, [liveTick]);
   const runRequest = useCallback(async (key: string, work: (signal: AbortSignal) => Promise<any>, timeoutMs = 12000) => {
+    if (Date.now() < (requestCooldownUntil.current[key] || 0)) return null;
     if (requestLocks.current[key]) return null;
     requestLocks.current[key] = true;
     const controller = new AbortController();
@@ -280,13 +282,17 @@ const AdminList = () => {
     let timeout: ReturnType<typeof setTimeout> | null = null;
     try {
       return await Promise.race([
-        work(controller.signal).catch(() => null).finally(() => {
+        work(controller.signal).catch(() => {
+          requestCooldownUntil.current[key] = Date.now() + 60000;
+          return null;
+        }).finally(() => {
           if (timeout) clearTimeout(timeout);
           requestLocks.current[key] = false;
           if (requestControllers.current[key] === controller) requestControllers.current[key] = null;
         }),
         new Promise<null>((resolve) => {
           timeout = setTimeout(() => {
+            requestCooldownUntil.current[key] = Date.now() + 60000;
             controller.abort();
             resolve(null);
           }, timeoutMs);
