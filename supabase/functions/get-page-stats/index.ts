@@ -38,7 +38,7 @@ Deno.serve(async (req) => {
       .select("page_path,session_id,duration_seconds,entered_at")
       .gte("entered_at", periods["30d"])
       .order("entered_at", { ascending: false })
-      .limit(20000);
+      .limit(1500);
 
     if (error) throw error;
     const rows = (data || []) as ViewRow[];

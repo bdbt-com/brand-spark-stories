@@ -25,7 +25,7 @@ serve(async (req) => {
       .from("email_subscriptions")
       .select("email, first_name, created_at")
       .order("created_at", { ascending: false })
-      .limit(1000);
+      .limit(300);
 
     if (error) throw error;
 
@@ -41,7 +41,7 @@ serve(async (req) => {
       subscribers,
       total: subscribers.length,
       today_count: todayCount,
-      partial: (data || []).length >= 1000,
+      partial: (data || []).length >= 300,
     }), {
       status: 200,
       headers: { ...corsHeaders, "Content-Type": "application/json" },

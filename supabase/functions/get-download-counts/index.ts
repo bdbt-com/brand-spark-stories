@@ -23,7 +23,7 @@ serve(async (req) => {
       .eq("email_sent", true)
       .not("guide_title", "is", null)
       .order("created_at", { ascending: false })
-      .limit(10000);
+      .limit(3000);
     if (error) throw error;
 
     const counts: Record<string, number> = {};

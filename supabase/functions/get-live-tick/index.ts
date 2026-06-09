@@ -23,9 +23,9 @@ Deno.serve(async (req) => {
     const since = midnight.toISOString();
 
     const [viewsRes, clicksRes, subsRes] = await Promise.all([
-      supabase.from("page_views").select("session_id,page_path").gte("entered_at", since).limit(20000),
-      supabase.from("video_clicks").select("video_id").gte("clicked_at", since).limit(20000),
-      supabase.from("email_subscriptions").select("email").gte("created_at", since).limit(5000),
+      supabase.from("page_views").select("session_id,page_path").gte("entered_at", since).limit(1500),
+      supabase.from("video_clicks").select("video_id").gte("clicked_at", since).limit(1500),
+      supabase.from("email_subscriptions").select("email").gte("created_at", since).limit(500),
     ]);
 
     if (viewsRes.error) throw viewsRes.error;

@@ -45,7 +45,7 @@ Deno.serve(async (req) => {
       .select("session_id,page_path,duration_seconds,entered_at")
       .gte("entered_at", starts["30d"].toISOString())
       .order("entered_at", { ascending: false })
-      .limit(20000);
+      .limit(1500);
 
     if (error) throw error;
 

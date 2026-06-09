@@ -32,13 +32,13 @@ Deno.serve(async (req) => {
         .select("session_id,page_path,entered_at")
         .gte("entered_at", start.toISOString())
         .order("entered_at", { ascending: false })
-        .limit(20000),
+        .limit(1500),
       supabase
         .from("video_clicks")
         .select("video_id,clicked_at")
         .gte("clicked_at", start.toISOString())
         .order("clicked_at", { ascending: false })
-        .limit(20000),
+        .limit(1500),
     ]);
 
     if (viewsRes.error) throw viewsRes.error;

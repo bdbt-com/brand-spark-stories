@@ -21,7 +21,7 @@ serve(async (req) => {
       .from("video_clicks")
       .select("video_id, clicked_at")
       .order("clicked_at", { ascending: false })
-      .limit(10000);
+      .limit(3000);
     if (error) throw error;
 
     // Reassemble counts object.
