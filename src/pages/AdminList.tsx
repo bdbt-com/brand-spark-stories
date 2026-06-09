@@ -787,52 +787,55 @@ const AdminList = () => {
                 const otherPodcastRedirectsToday = lc ? Math.max(0, todayPR - lc.today) : 0;
                 return (
                   <>
-                    <div className="flex flex-col xl:flex-row gap-4">
+                    <div className="flex flex-col xl:flex-row gap-4 items-stretch">
                       {(graphRange === 'today' ? hourlyStats.length > 0 : filteredDailyStats.length > 0) && (
-                        <InlineGraph
-                          data={graphRange === 'today' ? hourlyStats : filteredDailyStats}
-                          dataKey="bio_redirects"
-                          label="/bio redirects"
-                          color="hsl(25, 95%, 53%)"
-                          dataKey2="podcast_redirects"
-                          label2="/podcast redirects"
-                          color2="hsl(210, 90%, 60%)"
-                          hourly={graphRange === 'today'}
-                        />
+                        <div className="flex-1 min-w-0">
+                          <InlineGraph
+                            data={graphRange === 'today' ? hourlyStats : filteredDailyStats}
+                            dataKey="bio_redirects"
+                            label="/bio redirects"
+                            color="hsl(25, 95%, 53%)"
+                            dataKey2="podcast_redirects"
+                            label2="/podcast redirects"
+                            color2="hsl(210, 90%, 60%)"
+                            hourly={graphRange === 'today'}
+                          />
+                        </div>
                       )}
-                      <div className="flex-1 grid grid-cols-2 md:grid-cols-5 gap-4">
-                        {tiles.map(({ label, topVal, botVal, isToday, topSeven, botSeven, days, topOuter, botOuter, outerDays }) => (
-                          <Card key={label}>
-                            <CardContent className="p-4 text-center">
-                              <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">{label}</p>
-                              <div>
-                                <p className="text-2xl font-bold text-foreground inline-flex items-center gap-1.5 justify-center">
-                                  <span className="inline-block w-2 h-2 rounded-full" style={{ background: "hsl(25, 95%, 53%)" }} />
-                                  <AnimatedCounter value={topVal} />
-                                  {isToday && <TodayTrendBadge today={topVal} sevenDay={topSeven} />}
-                                </p>
-                                <div className="flex items-center justify-center gap-1">
-                                  <p className="text-[10px] text-muted-foreground uppercase tracking-wider">/bio redirects</p>
-                                  {!isToday && days > 0 && outerDays > days && <TrendBadge current={topVal} currentDays={days} outer={topOuter} outerDays={outerDays} />}
+                      <div className="w-full xl:w-72 flex-shrink-0 flex">
+                        {(() => {
+                          const isToday = graphRange === 'today';
+                          const sumKey = rangeKey === 'since_launch' ? 'total' : rangeKey;
+                          const topVal = isToday ? todayBR : (br[sumKey] || 0) + dBR;
+                          const botVal = isToday ? todayPR : (pr[sumKey] || 0) + dPR;
+                          return (
+                            <Card className="border-primary/30 bg-primary/5 w-full flex">
+                              <CardContent className="p-6 text-center flex flex-col items-center justify-center w-full gap-3">
+                                <p className="text-[11px] font-semibold text-muted-foreground uppercase tracking-[0.15em]">{rangeLabel}</p>
+                                <div className="w-full">
+                                  <p className="text-4xl font-bold text-foreground inline-flex items-center gap-2 justify-center tabular-nums leading-none">
+                                    <span className="inline-block w-2.5 h-2.5 rounded-full" style={{ background: "hsl(25, 95%, 53%)" }} />
+                                    <AnimatedCounter value={topVal} />
+                                    {isToday && <TodayTrendBadge today={topVal} sevenDay={br["7d"]} />}
+                                  </p>
+                                  <p className="text-[11px] text-muted-foreground uppercase tracking-wider mt-1.5">/bio redirects</p>
                                 </div>
-                              </div>
-                              <div className="border-t border-border my-2" />
-                              <div>
-                                <p className="text-2xl font-bold text-foreground inline-flex items-center gap-1.5 justify-center">
-                                  <span className="inline-block w-2 h-2 rounded-full" style={{ background: "hsl(210, 90%, 60%)" }} />
-                                  <AnimatedCounter value={botVal} />
-                                  {isToday && <TodayTrendBadge today={botVal} sevenDay={botSeven} />}
-                                </p>
-                                <div className="flex items-center justify-center gap-1">
-                                  <p className="text-[10px] text-muted-foreground uppercase tracking-wider">/podcast redirects</p>
-                                  {!isToday && days > 0 && outerDays > days && <TrendBadge current={botVal} currentDays={days} outer={botOuter} outerDays={outerDays} />}
+                                <div className="border-t border-border/50 w-full" />
+                                <div className="w-full">
+                                  <p className="text-4xl font-bold text-foreground inline-flex items-center gap-2 justify-center tabular-nums leading-none">
+                                    <span className="inline-block w-2.5 h-2.5 rounded-full" style={{ background: "hsl(210, 90%, 60%)" }} />
+                                    <AnimatedCounter value={botVal} />
+                                    {isToday && <TodayTrendBadge today={botVal} sevenDay={pr["7d"]} />}
+                                  </p>
+                                  <p className="text-[11px] text-muted-foreground uppercase tracking-wider mt-1.5">/podcast redirects</p>
                                 </div>
-                              </div>
-                            </CardContent>
-                          </Card>
-                        ))}
+                              </CardContent>
+                            </Card>
+                          );
+                        })()}
                       </div>
                     </div>
+
 
                     {/* Row 2: compact Latest Video Redirects card + Avg Time / New Subs filling the empty space */}
                     {(() => {
