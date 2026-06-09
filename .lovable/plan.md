@@ -1,29 +1,48 @@
-I’ll tighten the live feed so entries cannot visually overlap, and I’ll add country information if the tracking data can provide it.
+## Why AdminList isn't loading
 
-Plan:
+Your Supabase project status is **Unhealthy** with **155,481 DB requests in 24h** on nano compute (screenshot). Every edge function is returning Cloudflare 522 / 504 IDLE_TIMEOUT because the DB is saturated. This is what's blocking AdminList from loading — the page itself is fine, but every fetch it makes to the backend times out.
 
-1. Make the live feed queue deterministic
-- Replace the render-time “is this new?” detection with explicit per-item animation state.
-- Each queued item gets released only after the previous item’s full entry animation plus a small buffer has completed.
-- Avoid re-sorting the visible feed during a queue release, because that can make multiple new rows appear/reposition at once.
-- Add proper cleanup for queue timers on unmount.
+The culprit is `src/pages/AdminList.tsx`:
 
-2. Polish feed item animations for all item types
-- Apply the same entry treatment to blue click rows, orange redirect rows, signups, and downloads.
-- Make the row animation feel more mechanical/typed: stable height, crisp left-to-right reveal, small icon tick, and no basic pop/fade.
-- Use the same animation classes in both the mobile feed and right-hand desktop feed.
+```
+get-live-tick           → polled every 1000ms
+get-activity-feed       → polled every 1000ms
+get-page-analytics      → polled every 15000ms  (× 6 heavy functions)
+get-page-stats          → polled every 15000ms
+admin-email-stats       → polled every 15000ms
+get-video-clicks        → polled every 15000ms
+get-download-counts     → polled every 15000ms
+get-daily-stats         → polled every 15000ms
+```
 
-3. Improve number-change animation consistency
-- Adjust the existing odometer counter timing so number changes feel more precise and less jumpy.
-- Keep the mechanical feel, but make the transitions smoother and better synchronised.
+Even one open tab fires ~190 requests/minute (>270k/day). When you also have `/admin-list` or other tabs left open in a browser somewhere, the nano DB collapses. Existing `visibilityState === "hidden"` early-returns in the two fast pollers still let the `setInterval` fire (and burn through the function gateway) and don't help the slow pollers at all.
 
-4. Add country labels to feed rows where possible
-- Extend `FeedItem` with optional country fields.
-- Check whether existing `video_clicks` / `page_views` rows already contain country data. From the current code, they do not appear to.
-- For future events, update the tracking edge functions to capture country from request headers when available, commonly `cf-ipcountry`, `x-vercel-ip-country`, or similar hosting/CDN headers.
-- Add a migration to store country on `video_clicks` and `page_views`, then update `get-activity-feed` to return a readable country label.
-- Replace the little raw code underneath each popup with the country label when available; fall back to the current label only when country is unknown.
+## Fix
 
-Technical notes:
-- Existing historical clicks cannot reliably show country unless the country was already captured somewhere, which this codebase does not currently show.
-- New clicks after deployment should show country if the hosting/Supabase edge request includes a country header; otherwise they’ll show “Unknown country” or keep the existing fallback.
+Reshape polling around tab visibility and slow it down — without changing any UI, layout, animation, or analytics logic.
+
+### Behaviour
+
+1. **Tab hidden → fully pause.** Clear every interval (live-tick, feed, slow loop). Backend keeps collecting data normally from real users via the existing `/track-*` endpoints; AdminList just doesn't ask for it.
+2. **Tab visible → resume.** Re-fetch once immediately so the user sees fresh numbers, then restart the intervals.
+3. **Cadence reduced** to safe values for nano compute:
+   - `get-live-tick`: 1s → **5s**
+   - `get-activity-feed` incremental: 1s → **4s** (queue still releases items one-by-one at 560ms, so visual feel is unchanged — just batched per fetch)
+   - Slow loop (analytics/stats/subs/etc.): 15s → **60s**
+4. **Top-down progressive load on (re-)entry.** The initial `fetchFeed()` already returns up to ~10k items sorted newest-first. Render the first 50 immediately so the page is interactive, then reveal the rest in 50-item chunks via `requestIdleCallback` / `setTimeout(…, 0)` until the cap of 500 is reached. No spinner blocking the page; live queue animation only kicks in for *new* items arriving after that.
+5. **Stale-data badge (tiny, non-intrusive).** When hidden ≥ 30s, on resume show "Catching up…" next to the existing green pulse for ~1s while the first refetch lands. Pure cosmetic, no layout shift.
+
+### Files touched
+
+- `src/pages/AdminList.tsx` — only the polling `useEffect` (≈ lines 460-501), the two visibility-guard early returns (now redundant), and a small progressive-reveal helper inside `fetchFeed`. No JSX, no styling, no animation, no data shape changes.
+
+### Out of scope
+
+- No edge function changes.
+- No DB / RPC / schema changes.
+- No changes to feed queue animation, layout, country labels, counters, or graphs.
+- Does **not** fix the Supabase project itself being currently "Unhealthy" — once requests drop, the DB will recover within a few minutes; if it doesn't, you'll need to restart the project or upgrade compute from `nano` in the Supabase dashboard.
+
+### Expected impact
+
+Per open AdminList tab, requests/minute drop from ~190 to ~**18** while visible and to **0** while hidden — roughly a **10–20× reduction**, well within nano's budget.
