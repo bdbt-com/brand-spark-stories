@@ -190,7 +190,7 @@ const CoursesIntentModal = ({ open, onOpenChange, onSubmitted }: CoursesIntentMo
                 type="submit"
                 variant="hero"
                 size="lg"
-                className="w-full min-h-12"
+                className="w-full min-h-12 text-sm sm:text-base whitespace-normal leading-tight px-3"
                 disabled={isLoading}
               >
                 {isLoading ? (
@@ -200,11 +200,12 @@ const CoursesIntentModal = ({ open, onOpenChange, onSubmitted }: CoursesIntentMo
                   </>
                 ) : (
                   <>
-                    Join the Waitlist + Get the Blueprint
-                    <ArrowRight className="w-4 h-4 ml-2" />
+                    <span>Join the Waitlist + Get the Blueprint</span>
+                    <ArrowRight className="w-4 h-4 ml-2 shrink-0" />
                   </>
                 )}
               </Button>
+
 
               <p className="text-[11px] text-center text-muted-foreground">
                 No spam. Unsubscribe anytime.
