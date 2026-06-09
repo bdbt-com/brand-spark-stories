@@ -1,40 +1,29 @@
-## What you actually asked for
+I know it looks like the data was wiped, but the logs show the database calls are timing out, so the admin page is rendering empty/zero states because it is not getting responses. I will not delete, truncate, reset, or overwrite any analytics data.
 
-- Counters, graphs and the live feed list should still show recent history when you open the page (so you can read what happened while away).
-- Only the popup animation queue should be calm: items that happened before you opened the page just appear in the list silently — only events that arrive *while you're watching* animate one-at-a-time.
-- Last change went too far: it skipped the historical fetch entirely, which is why the page looked empty / broken.
+## Recovery plan
 
-## Plan
+1. **Stop the admin page from flooding the database on load**
+   - Keep the date range selector always visible.
+   - Stage the initial admin requests instead of firing every heavy analytics endpoint at once.
+   - Keep live polling, but only for lightweight live/feed updates.
+   - Do not pause counting when you are away from the page; only avoid building an animation queue while away.
 
-1. Restore the historical feed fetch in `get-activity-feed`
-   - When called without `since`, fetch recent activity again — but capped tightly so it never times out:
-     - Last 100 video_clicks (single page, ordered by `clicked_at desc`, no 10k loop).
-     - Last 100 email_subscriptions (single page).
-     - No 24h window scan, no pagination loop, no country join cost beyond the single small select.
-   - Still return `server_time` so the frontend can advance its cursor.
-   - Incremental branch (`since` provided) stays as-is for polling.
+2. **Restore historical dashboard data properly**
+   - Keep counters, graphs, subscribers, downloads, video clicks, page stats, and feed history loading when the admin page opens.
+   - If a heavy request fails once, keep the section visible and retry instead of making the page look wiped.
 
-2. AdminList: backfill silently, animate only new
-   - On mount, do one initial `get-activity-feed` call (no `since`) to populate the list with the recent history, **but mark every returned item with `silent: true`** so they render immediately in their final state — no entry animation, no queue pump.
-   - Store `openedAt = server_time` from that response.
-   - All subsequent incremental polls use `openedAt` as the cursor; new items go through the existing queue pump (one every ~560ms) with the smooth entry animation.
-   - Counters, graphs and subscribers continue to use their own endpoints (unchanged).
+3. **Fix the actual timeout source in Supabase**
+   - Add/replace optimised database functions for admin analytics so they aggregate the needed periods more efficiently.
+   - Avoid repeated `COUNT(DISTINCT ...)` scans for every period separately where possible.
+   - Add supporting indexes for `page_views`, `video_clicks`, and subscription lookups if missing.
+   - This is a safe schema/function migration only; no user data is removed.
 
-3. Queue pump only handles "new" items
-   - Silent backfill items bypass the pump entirely and are appended to the rendered list in one batch.
-   - Pump only ever drains items that arrived after `openedAt`, so popups never burst and never interrupt each other.
+4. **Keep the feed queue behaviour exactly as requested**
+   - Historical events that happened before opening `/admin-list` appear immediately and silently.
+   - New events that happen while the page is open animate one at a time.
+   - Events are still recorded while you are away; they just do not backlog as pop-up animations.
 
-4. Keep the duplicate-key fix
-   - Keep the `seq` id on every item (silent + animated) so React keys stay unique.
-
-5. Safety against future timeouts
-   - Hard `LIMIT 100` per table on the historical branch means the query is bounded and fast even as the tables grow.
-   - If the call still fails, the page renders with an empty feed and a small "Live feed reconnecting…" note — counters/graphs are unaffected because they use different endpoints.
-
-## Out of scope
-- No changes to counters, graphs, subscribers list, country labels, layout, or other edge functions.
-- No schema changes.
-
-## Technical notes
-- Files touched: `supabase/functions/get-activity-feed/index.ts`, `src/pages/AdminList.tsx`.
-- `FeedItem` gains an optional `silent?: boolean` flag used only by the renderer/pump to decide whether to animate.
+5. **Verify after implementation**
+   - Test the deployed edge functions directly.
+   - Check Supabase edge logs for timeout errors.
+   - Open `/admin-list` and confirm the date selector, graph sections, counters, and live feed all show data again.
