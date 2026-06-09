@@ -169,10 +169,10 @@ const Home = () => {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="animate-fade-in">
-              <h2 className="text-3xl lg:text-5xl font-bold mb-6 leading-tight">
+              <h1 className="text-4xl lg:text-6xl font-bold mb-6 leading-tight">
                 <span className="block text-white">Are your habits building the life you want</span>
                 <span className="block text-[hsl(35_45%_75%)]">or quietly pulling you away from it?</span>
-              </h2>
+              </h1>
               <p className="text-base lg:text-lg text-white/90 leading-relaxed">
                 Your days are shaped by tiny repeated habits. And whether you realise it or not, your energy, health, finances, confidence and momentum are already compounding, either moving you forward or holding you back.
               </p>
