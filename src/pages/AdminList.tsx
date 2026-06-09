@@ -147,6 +147,7 @@ interface FeedItem {
   detail: string;
   timestamp: string;
   country?: string | null;
+  seq?: number;
 }
 
 const FEED_CONFIG: Record<string, { icon: typeof Play; color: string; bg: string; label: string }> = {
