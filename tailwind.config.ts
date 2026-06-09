@@ -171,6 +171,10 @@ export default {
 				'caret-blink': {
 					'0%, 49%':   { opacity: '1' },
 					'50%, 100%': { opacity: '0' }
+				},
+				'shimmer-sweep': {
+					'0%':   { transform: 'translateX(-150%) skewX(-12deg)' },
+					'100%': { transform: 'translateX(250%) skewX(-12deg)' }
 				}
 			},
 			animation: {
@@ -185,7 +189,8 @@ export default {
 				'bubble-in': 'bubble-in 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) both',
 				'type-row': 'type-row 0.5s cubic-bezier(0.22, 1, 0.36, 1) both',
 				'tick-in': 'tick-in 0.4s cubic-bezier(0.34, 1.4, 0.5, 1) both',
-				'caret-blink': 'caret-blink 0.35s steps(1, end) 2 both'
+				'caret-blink': 'caret-blink 0.35s steps(1, end) 2 both',
+				'shimmer-sweep': 'shimmer-sweep 3.5s ease-in-out infinite'
 			},
 			transitionTimingFunction: {
 				'smooth': 'cubic-bezier(0.4, 0, 0.2, 1)',

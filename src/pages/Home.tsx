@@ -168,14 +168,30 @@ const Home = () => {
         <div className="absolute inset-0 bg-black/20"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="animate-fade-in">
+            <div className="animate-fade-in text-center lg:text-left">
               <h1 className="text-4xl lg:text-6xl font-bold mb-6 leading-tight">
                 <span className="block text-white">Are your habits building the life you want</span>
                 <span className="block text-[hsl(35_45%_75%)]">or quietly pulling you away from it?</span>
               </h1>
-              <p className="text-base lg:text-lg text-white/90 leading-relaxed">
+              <p className="text-base lg:text-lg text-white/90 leading-relaxed mb-8">
                 Your days are shaped by tiny repeated habits. And whether you realise it or not, your energy, health, finances, confidence and momentum are already compounding, either moving you forward or holding you back.
               </p>
+              <div className="flex justify-center lg:justify-start">
+                <Link
+                  to="/courses"
+                  aria-label="Browse Courses"
+                  className="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-2xl w-full sm:w-auto h-14 md:h-16 px-10 md:px-12 text-lg md:text-xl font-semibold tracking-tight text-black bg-gradient-to-r from-primary via-[hsl(35_45%_78%)] to-primary bg-[length:200%_100%] bg-[position:0%_50%] transition-[background-position,transform,box-shadow] duration-500 ease-out hover:bg-[position:100%_50%] hover:-translate-y-0.5 active:translate-y-0 shadow-[0_0_0_1px_hsl(var(--primary)/0.35),0_10px_30px_-12px_hsl(var(--primary)/0.45)] hover:shadow-[0_0_0_1px_hsl(var(--primary)/0.5),0_18px_45px_-12px_hsl(var(--primary)/0.65)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+                >
+                  {/* glossy top highlight */}
+                  <span aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-1/2 rounded-t-2xl bg-gradient-to-b from-white/30 to-transparent" />
+                  {/* shimmer sweep */}
+                  <span aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden rounded-2xl">
+                    <span className="absolute top-0 left-0 h-full w-1/3 bg-gradient-to-r from-transparent via-white/35 to-transparent animate-shimmer-sweep" />
+                  </span>
+                  <span className="relative">Browse Courses</span>
+                  <ArrowRight className="relative w-5 h-5 transition-transform duration-300 ease-out group-hover:translate-x-1" />
+                </Link>
+              </div>
             </div>
             <div className="animate-float">
               <div className="bg-white/10 backdrop-blur-md rounded-2xl p-8 shadow-strong">
@@ -192,8 +208,8 @@ const Home = () => {
             </div>
           </div>
         </div>
-        {/* Bottom Chevron Scroll to How BDBT Works */}
-        <button aria-label="Scroll to Top Podcast Episodes" onClick={() => podcastRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })} className="group absolute z-10 bottom-16 left-1/2 -translate-x-1/2">
+        {/* Bottom Chevron Scroll */}
+        <button aria-label="Scroll to next section" onClick={() => podcastRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })} className="group absolute z-10 bottom-16 left-1/2 -translate-x-1/2">
           <div className="relative w-14 h-14">
             <div className="relative w-14 h-14 rounded-full bg-white/15 backdrop-blur border border-white/30 flex items-center justify-center">
               <ChevronDown className="w-6 h-6 text-white transition-transform group-hover:translate-y-0.5" />
@@ -202,19 +218,9 @@ const Home = () => {
         </button>
       </section>
 
-      {/* Primary CTAs */}
-      <section ref={podcastRef} className="py-12 md:py-16 bg-background">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <Button variant="default" size="lg" asChild className="rounded-xl h-16 px-6 text-base md:text-lg w-full">
-              <Link to="/blueprint">Start With The Free Foundation Blueprint</Link>
-            </Button>
-            <Button variant="default" size="lg" asChild className="rounded-xl h-16 px-6 text-base md:text-lg w-full">
-              <Link to="/courses">Browse Courses</Link>
-            </Button>
-          </div>
-        </div>
-      </section>
+      {/* Anchor for chevron scroll */}
+      <div ref={podcastRef} aria-hidden="true" />
+
 
 
 
