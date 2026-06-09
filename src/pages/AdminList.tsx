@@ -1154,10 +1154,13 @@ const AdminList = () => {
                       return (
                         <div
                           key={k}
-                          className={`flex items-start gap-3 p-2.5 rounded-lg bg-muted/20 hover:bg-muted/40 transition-colors ${isNew ? 'animate-bubble-in' : ''}`}
+                          className={`flex items-start gap-3 p-2.5 rounded-lg bg-muted/20 hover:bg-muted/40 transition-colors ${isNew ? 'animate-type-row' : ''}`}
                           style={isNew ? { animationDelay: `${delay}ms` } : undefined}
                         >
-                          <div className={`p-1.5 rounded-md ${config.bg} flex-shrink-0 mt-0.5`}>
+                          <div
+                            className={`p-1.5 rounded-md ${config.bg} flex-shrink-0 mt-0.5 ${isNew ? 'animate-tick-in' : ''}`}
+                            style={isNew ? { animationDelay: `${delay + 80}ms` } : undefined}
+                          >
                             <Icon className={`w-3.5 h-3.5 ${config.color}`} />
                           </div>
                           <div className="min-w-0 flex-1">
