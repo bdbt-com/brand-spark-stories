@@ -181,7 +181,10 @@ export default {
 				'scale-in': 'scale-in 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
 				'float': 'float 4s ease-in-out infinite',
 				'pulse-glow': 'pulse-glow 2s ease-in-out infinite',
-				'bubble-in': 'bubble-in 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) both'
+				'bubble-in': 'bubble-in 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) both',
+				'type-row': 'type-row 0.42s steps(22, end) both',
+				'tick-in': 'tick-in 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both',
+				'caret-blink': 'caret-blink 0.35s steps(1, end) 2 both'
 			},
 			transitionTimingFunction: {
 				'smooth': 'cubic-bezier(0.4, 0, 0.2, 1)',
