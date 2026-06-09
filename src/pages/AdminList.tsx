@@ -567,7 +567,63 @@ const AdminList = () => {
             </div>
           )}
 
-
+          {/* Per-page stats */}
+          <section>
+            <div className="flex items-center justify-between gap-3 mb-4 flex-wrap">
+              <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
+                <BarChart3 className="w-5 h-5 text-primary" /> Page Stats
+              </h2>
+              <div className="flex gap-1">
+                {(['today', '7d', '14d', '30d', 'all'] as const).map((r) => (
+                  <button
+                    key={r}
+                    onClick={() => setPageStatsRange(r)}
+                    className={`px-2.5 py-1 text-[10px] font-semibold rounded-md transition-colors ${
+                      pageStatsRange === r
+                        ? 'bg-primary text-primary-foreground'
+                        : 'bg-secondary text-muted-foreground hover:text-foreground'
+                    }`}
+                  >
+                    {r === 'all' ? 'All Time' : r === 'today' ? 'Today' : r.toUpperCase()}
+                  </button>
+                ))}
+              </div>
+            </div>
+            {(() => {
+              const key = pageStatsRange === 'all' ? 'since_launch' : pageStatsRange;
+              const rows = pageStats[key] || [];
+              if (rows.length === 0) {
+                return <p className="text-xs text-muted-foreground">No page data for this window yet.</p>;
+              }
+              return (
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+                  {rows.map((p) => {
+                    const mins = Math.floor(p.avg_duration / 60);
+                    const secs = Math.round(p.avg_duration % 60);
+                    const display = p.page_path === '' ? '/' : p.page_path;
+                    return (
+                      <Card key={display} className="border-primary/20">
+                        <CardContent className="p-4">
+                          <p className="text-[11px] font-mono font-semibold text-primary truncate" title={display}>{display}</p>
+                          <p className="text-2xl font-bold text-foreground mt-1.5">
+                            <AnimatedCounter value={p.unique_visitors} />
+                          </p>
+                          <p className="text-[10px] text-muted-foreground uppercase tracking-wider">visitors</p>
+                          <div className="flex items-center gap-1 text-muted-foreground mt-2">
+                            <Clock className="w-3 h-3" />
+                            <span className="text-[11px]">
+                              {mins > 0 ? `${mins}m ` : ''}{secs}s avg
+                            </span>
+                          </div>
+                          <p className="text-[10px] text-muted-foreground mt-0.5">{p.views.toLocaleString()} views</p>
+                        </CardContent>
+                      </Card>
+                    );
+                  })}
+                </div>
+              );
+            })()}
+          </section>
 
 
           {/* Page Visitors — graph inline */}
