@@ -203,7 +203,7 @@ const FeedFilterBar = ({
 
 const AdminList = () => {
   const [subscribers, setSubscribers] = useState<Subscriber[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [videoCounts, setVideoCounts] = useState<Record<string, { total: number; today: number; "7d": number; "14d": number; "30d": number }>>({});
   const [downloadCounts, setDownloadCounts] = useState<[string, number][]>([]);
