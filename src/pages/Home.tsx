@@ -178,13 +178,13 @@ const Home = () => {
               </p>
             </div>
             <div className="animate-float">
-              <div className="bg-white/10 backdrop-blur-md rounded-2xl p-8 shadow-strong">
+              <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 lg:p-8 shadow-strong">
                 <Carousel setApi={setEmbla} opts={{
                 loop: true
               }} className="w-full" aria-label="Daily success journey image carousel">
                   <CarouselContent>
                     {(filteredImages.length ? filteredImages : images).map((src, idx) => <CarouselItem key={src}>
-                         <img src={src} alt={`Big Life Change inspiration image ${idx + 1}`} className="w-full aspect-square object-cover rounded-xl" loading={idx === 0 ? "eager" : "lazy"} />
+                         <img src={src} alt={`Big Life Change inspiration image ${idx + 1}`} className="w-full aspect-[4/3] lg:aspect-square object-cover rounded-xl" loading={idx === 0 ? "eager" : "lazy"} />
                       </CarouselItem>)}
                   </CarouselContent>
                 </Carousel>
