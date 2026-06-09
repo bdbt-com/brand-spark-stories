@@ -178,7 +178,7 @@ const Home = () => {
               </p>
             </div>
             <div className="animate-float">
-              <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 lg:p-8 shadow-strong max-w-[50%] mx-auto lg:max-w-none">
+              <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 lg:p-8 shadow-strong max-w-[85%] mx-auto lg:max-w-none">
                 <Carousel setApi={setEmbla} opts={{
                 loop: true
               }} className="w-full" aria-label="Daily success journey image carousel">
@@ -209,7 +209,7 @@ const Home = () => {
 
 
       {/* Browse Courses CTA - sits between hero and boxes */}
-      <section className="pt-6 lg:pt-24 pb-6 lg:pb-12">
+      <section className="pt-16 lg:pt-24 pb-6 lg:pb-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-center">
           <Link
             to="/courses?intent=1"
