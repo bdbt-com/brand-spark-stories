@@ -147,8 +147,6 @@ interface FeedItem {
   detail: string;
   timestamp: string;
   country?: string | null;
-  seq?: number;
-  silent?: boolean;
 }
 
 const FEED_CONFIG: Record<string, { icon: typeof Play; color: string; bg: string; label: string }> = {
@@ -202,11 +200,9 @@ const FeedFilterBar = ({
   );
 };
 
-const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-
 const AdminList = () => {
   const [subscribers, setSubscribers] = useState<Subscriber[]>([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [videoCounts, setVideoCounts] = useState<Record<string, { total: number; today: number; "7d": number; "14d": number; "30d": number }>>({});
   const [downloadCounts, setDownloadCounts] = useState<[string, number][]>([]);
@@ -264,7 +260,6 @@ const AdminList = () => {
   // Baseline snapshot of liveTick at the moment the last analytics fetch completed.
   // Used to project today's live deltas onto every longer-period stat so they tick in sync.
   const liveTickRef = useRef<typeof liveTick>(null);
-  const inFlight = useRef<Record<string, boolean>>({});
   const analyticsBaseline = useRef<{
     visitors: number;
     bio_clicks: number;
@@ -274,15 +269,6 @@ const AdminList = () => {
     total_clicks: number;
     subscribers: number;
   } | null>(null);
-  const withSingleFlight = useCallback(async (key: string, run: () => Promise<void>) => {
-    if (inFlight.current[key]) return;
-    inFlight.current[key] = true;
-    try {
-      await run();
-    } finally {
-      inFlight.current[key] = false;
-    }
-  }, []);
   useEffect(() => { liveTickRef.current = liveTick; }, [liveTick]);
   const captureBaseline = useCallback(() => {
     const t = liveTickRef.current;
@@ -322,92 +308,62 @@ const AdminList = () => {
   }, [liveTick]);
 
   const fetchVideoCounts = useCallback(async () => {
-    await withSingleFlight("videoCounts", async () => {
-      try {
-        const { data } = await supabase.functions.invoke("get-video-clicks");
-        if (data?.counts) setVideoCounts(data.counts);
-      } catch {}
-    });
-  }, [withSingleFlight]);
+    try {
+      const { data } = await supabase.functions.invoke("get-video-clicks");
+      if (data?.counts) setVideoCounts(data.counts);
+    } catch {}
+  }, []);
 
   const fetchDownloadCounts = useCallback(async () => {
-    await withSingleFlight("downloadCounts", async () => {
-      try {
-        const { data } = await supabase.functions.invoke("get-download-counts");
-        if (data?.counts) {
-          const sorted = Object.entries(data.counts as Record<string, number>)
-            .sort((a, b) => b[1] - a[1])
-            .slice(0, 10);
-          setDownloadCounts(sorted);
-        }
-      } catch {}
-    });
-  }, [withSingleFlight]);
+    try {
+      const { data } = await supabase.functions.invoke("get-download-counts");
+      if (data?.counts) {
+        const sorted = Object.entries(data.counts as Record<string, number>)
+          .sort((a, b) => b[1] - a[1])
+          .slice(0, 10);
+        setDownloadCounts(sorted);
+      }
+    } catch {}
+  }, []);
 
   const fetchAnalytics = useCallback(async () => {
-    await withSingleFlight("analytics", async () => {
-      try {
-        const { data } = await supabase.functions.invoke("get-page-analytics");
-        if (data?.analytics) setAnalytics(data.analytics);
-        if (data?.bio_clicks) setBioClicks(data.bio_clicks);
-        if (data?.podcast_clicks) setPodcastClicks(data.podcast_clicks);
-        captureBaseline();
-      } catch {}
-    });
-  }, [captureBaseline, withSingleFlight]);
+    try {
+      const { data } = await supabase.functions.invoke("get-page-analytics");
+      if (data?.analytics) setAnalytics(data.analytics);
+      if (data?.bio_clicks) setBioClicks(data.bio_clicks);
+      if (data?.podcast_clicks) setPodcastClicks(data.podcast_clicks);
+      captureBaseline();
+    } catch {}
+  }, [captureBaseline]);
 
   const fetchSubscribers = useCallback(async () => {
-    await withSingleFlight("subscribers", async () => {
-      try {
-        const { data, error } = await supabase.functions.invoke("admin-email-stats");
-        if (error) throw error;
-        setSubscribers(data.subscribers || []);
-        setTodaySubscribers(data.today_count || 0);
-      } catch (err: any) {
-        // Don't block the page render on subscriber-list failures.
-        console.warn("admin-email-stats failed", err);
-      } finally {
-        setLoading(false);
-      }
-    });
-  }, [withSingleFlight]);
+    try {
+      const { data, error } = await supabase.functions.invoke("admin-email-stats");
+      if (error) throw error;
+      setSubscribers(data.subscribers || []);
+      setTodaySubscribers(data.today_count || 0);
+    } catch (err: any) {
+      setError(err.message || "Failed to load subscribers");
+    } finally {
+      setLoading(false);
+    }
+  }, []);
 
 
 
   const feedKey = (item: FeedItem) =>
     `${item.type}:${item.timestamp}:${item.label}:${item.detail}`;
-  const feedRenderKey = (item: FeedItem) =>
-    item.seq != null ? `${feedKey(item)}#${item.seq}` : feedKey(item);
-  const feedSeq = useRef(0);
 
-  const fetchFeedBackfill = useCallback(async () => {
-    // One-shot historical load: populate the feed list silently (no animation,
-    // no queue pump) so opening the page shows recent activity immediately.
+  const fetchFeed = useCallback(async () => {
     try {
-      const { data } = await supabase.functions.invoke("get-activity-feed", {
-        body: {},
-      });
-      const serverTime: string | undefined = data?.server_time;
-      const incoming: FeedItem[] = data?.feed || [];
-      lastFeedSince.current = serverTime || new Date().toISOString();
-      if (incoming.length === 0) return;
-      const fresh: FeedItem[] = [];
-      for (const item of incoming) {
-        const k = feedKey(item);
-        if (feedItemKeys.current.has(k)) continue;
-        feedItemKeys.current.add(k);
-        fresh.push({ ...item, seq: ++feedSeq.current, silent: true });
+      const { data } = await supabase.functions.invoke("get-activity-feed", { body: {} });
+      if (data?.feed) {
+        const items: FeedItem[] = data.feed;
+        feedItemKeys.current = new Set(items.map(feedKey));
+        setFeed(items);
       }
-      if (fresh.length === 0) return;
-      setFeed((prev) => {
-        const merged = [...fresh, ...prev];
-        merged.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
-        return merged.slice(0, 500);
-      });
-    } catch {
-      // Non-fatal: counters & graphs come from other endpoints.
-      if (!lastFeedSince.current) lastFeedSince.current = new Date().toISOString();
-    }
+      if (data?.server_time) lastFeedSince.current = data.server_time;
+    } catch {}
   }, []);
 
   const fetchFeedIncremental = useCallback(async () => {
@@ -425,7 +381,7 @@ const AdminList = () => {
         const k = feedKey(item);
         if (feedItemKeys.current.has(k)) continue;
         feedItemKeys.current.add(k);
-        fresh.push({ ...item, seq: ++feedSeq.current });
+        fresh.push(item);
       }
       if (fresh.length === 0) return;
       // Sort oldest→newest so the most recent event is released LAST (lands on top).
@@ -479,54 +435,37 @@ const AdminList = () => {
   }, []);
 
   const fetchDailyStats = useCallback(async () => {
-    await withSingleFlight("dailyStats", async () => {
-      try {
-        const { data } = await supabase.functions.invoke("get-daily-stats");
-        if (data?.daily) setDailyStats(data.daily);
-        if (data?.hourly) setHourlyStats(data.hourly);
-      } catch {}
-    });
-  }, [withSingleFlight]);
+    try {
+      const { data } = await supabase.functions.invoke("get-daily-stats");
+      if (data?.daily) setDailyStats(data.daily);
+      if (data?.hourly) setHourlyStats(data.hourly);
+    } catch {}
+  }, []);
 
   const fetchLiveTick = useCallback(async () => {
-    await withSingleFlight("liveTick", async () => {
-      try {
-        const { data } = await supabase.functions.invoke("get-live-tick");
-        if (data && typeof data.visitors_today === "number") setLiveTick(data);
-      } catch {}
-    });
-  }, [withSingleFlight]);
+    if (typeof document !== "undefined" && document.visibilityState === "hidden") return;
+    try {
+      const { data } = await supabase.functions.invoke("get-live-tick");
+      if (data && typeof data.visitors_today === "number") setLiveTick(data);
+    } catch {}
+  }, []);
 
   const fetchPageStats = useCallback(async () => {
-    await withSingleFlight("pageStats", async () => {
-      try {
-        const { data } = await supabase.functions.invoke("get-page-stats");
-        if (data?.pages) setPageStats(data.pages);
-      } catch {}
-    });
-  }, [withSingleFlight]);
+    try {
+      const { data } = await supabase.functions.invoke("get-page-stats");
+      if (data?.pages) setPageStats(data.pages);
+    } catch {}
+  }, []);
 
   useEffect(() => {
-    let cancelled = false;
-    const runInitialLoad = async () => {
-      fetchLiveTick();
-      // Silently load recent history (no animation) so the feed isn't empty on open.
-      fetchFeedBackfill();
-      const jobs = [
-        fetchAnalytics,
-        fetchPageStats,
-        fetchDailyStats,
-        fetchVideoCounts,
-        fetchDownloadCounts,
-        fetchSubscribers,
-      ];
-      for (const job of jobs) {
-        if (cancelled) return;
-        await job();
-        await wait(1300);
-      }
-    };
-    runInitialLoad();
+    fetchSubscribers();
+    fetchVideoCounts();
+    fetchDownloadCounts();
+    fetchAnalytics();
+    fetchFeed();
+    fetchDailyStats();
+    fetchLiveTick();
+    fetchPageStats();
 
     const slow = setInterval(() => {
       fetchSubscribers();
@@ -535,15 +474,15 @@ const AdminList = () => {
       fetchAnalytics();
       fetchDailyStats();
       fetchPageStats();
-    }, 180000);
+    }, 15000);
 
     const tick = setInterval(() => {
       fetchLiveTick();
-    }, 15000);
+    }, 1000);
 
     const fast = setInterval(() => {
       fetchFeedIncremental();
-    }, 6000);
+    }, 1000);
 
     const onVisible = () => {
       if (document.visibilityState === "visible") {
@@ -554,13 +493,12 @@ const AdminList = () => {
     document.addEventListener("visibilitychange", onVisible);
 
     return () => {
-      cancelled = true;
       clearInterval(slow);
       clearInterval(fast);
       clearInterval(tick);
       document.removeEventListener("visibilitychange", onVisible);
     };
-  }, [fetchSubscribers, fetchVideoCounts, fetchDownloadCounts, fetchAnalytics, fetchFeedBackfill, fetchFeedIncremental, fetchDailyStats, fetchLiveTick, fetchPageStats]);
+  }, [fetchSubscribers, fetchVideoCounts, fetchDownloadCounts, fetchAnalytics, fetchFeed, fetchFeedIncremental, fetchDailyStats, fetchLiveTick, fetchPageStats]);
 
   // Cleanup queued animation-clear timers on unmount
   useEffect(() => {
@@ -619,7 +557,7 @@ const AdminList = () => {
                   const sub = item.country || item.label;
                   return (
                     <div
-                      key={`mobile-${feedRenderKey(item)}`}
+                      key={`mobile-${k}`}
                       className={`flex items-center gap-2 py-1.5 border-t border-border/30 ${isNew ? 'animate-type-row' : ''}`}
                     >
                       <div
@@ -646,34 +584,36 @@ const AdminList = () => {
         {/* Main column */}
         <div className="flex-1 min-w-0 space-y-12">
 
-          {/* Graph range toggle — always visible */}
-          <div className="sticky top-4 z-20 rounded-xl border border-border/60 bg-background/85 backdrop-blur p-4 shadow-soft">
-            <div className="flex items-center gap-4 flex-wrap">
-              <div className="flex items-center gap-2">
-                <BarChart3 className="w-5 h-5 text-primary" />
-                <span className="text-sm font-bold text-primary uppercase tracking-wider">Graph Range</span>
-              </div>
-              <div className="flex gap-1.5 flex-wrap">
-                {(['today', '7d', '14d', '30d', 'all'] as const).map((r) => (
-                  <button
-                    key={r}
-                    onClick={() => setGraphRange(r)}
-                    className={`px-4 py-2 text-sm font-semibold rounded-full transition-all duration-200 ${
-                      graphRange === r
-                        ? 'bg-gradient-primary text-primary-foreground shadow-accent'
-                        : 'bg-secondary text-muted-foreground hover:text-foreground hover:bg-secondary/80 hover:scale-[1.03]'
-                    }`}
-                  >
-                    {r === 'all' ? 'All Time' : r === 'today' ? 'Today' : r.toUpperCase()}
-                  </button>
-                ))}
-              </div>
-              <div className="ml-auto flex items-center gap-2 text-xs">
-                <span className="text-muted-foreground uppercase tracking-wider">Showing</span>
-                <span className="px-3 py-1 rounded-full bg-primary/15 text-primary font-semibold border border-primary/30">{rangeLabel}</span>
+          {/* Graph range toggle — global control */}
+          {filteredDailyStats.length > 0 && (
+            <div className="sticky top-4 z-20 rounded-xl border border-border/60 bg-background/85 backdrop-blur p-4 shadow-soft">
+              <div className="flex items-center gap-4 flex-wrap">
+                <div className="flex items-center gap-2">
+                  <BarChart3 className="w-5 h-5 text-primary" />
+                  <span className="text-sm font-bold text-primary uppercase tracking-wider">Graph Range</span>
+                </div>
+                <div className="flex gap-1.5 flex-wrap">
+                  {(['today', '7d', '14d', '30d', 'all'] as const).map((r) => (
+                    <button
+                      key={r}
+                      onClick={() => setGraphRange(r)}
+                      className={`px-4 py-2 text-sm font-semibold rounded-full transition-all duration-200 ${
+                        graphRange === r
+                          ? 'bg-gradient-primary text-primary-foreground shadow-accent'
+                          : 'bg-secondary text-muted-foreground hover:text-foreground hover:bg-secondary/80 hover:scale-[1.03]'
+                      }`}
+                    >
+                      {r === 'all' ? 'All Time' : r === 'today' ? 'Today' : r.toUpperCase()}
+                    </button>
+                  ))}
+                </div>
+                <div className="ml-auto flex items-center gap-2 text-xs">
+                  <span className="text-muted-foreground uppercase tracking-wider">Showing</span>
+                  <span className="px-3 py-1 rounded-full bg-primary/15 text-primary font-semibold border border-primary/30">{rangeLabel}</span>
+                </div>
               </div>
             </div>
-          </div>
+          )}
 
           {/* Per-page stats */}
           <section>
@@ -1250,7 +1190,7 @@ const AdminList = () => {
                       const sub = item.country || item.label;
                       return (
                         <div
-                          key={`desktop-${feedRenderKey(item)}`}
+                          key={k}
                           className={`flex items-start gap-3 p-2.5 rounded-lg bg-muted/20 hover:bg-muted/40 transition-colors ${isNew ? 'animate-type-row' : ''}`}
                         >
                           <div

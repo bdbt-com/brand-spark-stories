@@ -1,29 +1,29 @@
-I know it looks like the data was wiped, but the logs show the database calls are timing out, so the admin page is rendering empty/zero states because it is not getting responses. I will not delete, truncate, reset, or overwrite any analytics data.
+I’ll tighten the live feed so entries cannot visually overlap, and I’ll add country information if the tracking data can provide it.
 
-## Recovery plan
+Plan:
 
-1. **Stop the admin page from flooding the database on load**
-   - Keep the date range selector always visible.
-   - Stage the initial admin requests instead of firing every heavy analytics endpoint at once.
-   - Keep live polling, but only for lightweight live/feed updates.
-   - Do not pause counting when you are away from the page; only avoid building an animation queue while away.
+1. Make the live feed queue deterministic
+- Replace the render-time “is this new?” detection with explicit per-item animation state.
+- Each queued item gets released only after the previous item’s full entry animation plus a small buffer has completed.
+- Avoid re-sorting the visible feed during a queue release, because that can make multiple new rows appear/reposition at once.
+- Add proper cleanup for queue timers on unmount.
 
-2. **Restore historical dashboard data properly**
-   - Keep counters, graphs, subscribers, downloads, video clicks, page stats, and feed history loading when the admin page opens.
-   - If a heavy request fails once, keep the section visible and retry instead of making the page look wiped.
+2. Polish feed item animations for all item types
+- Apply the same entry treatment to blue click rows, orange redirect rows, signups, and downloads.
+- Make the row animation feel more mechanical/typed: stable height, crisp left-to-right reveal, small icon tick, and no basic pop/fade.
+- Use the same animation classes in both the mobile feed and right-hand desktop feed.
 
-3. **Fix the actual timeout source in Supabase**
-   - Add/replace optimised database functions for admin analytics so they aggregate the needed periods more efficiently.
-   - Avoid repeated `COUNT(DISTINCT ...)` scans for every period separately where possible.
-   - Add supporting indexes for `page_views`, `video_clicks`, and subscription lookups if missing.
-   - This is a safe schema/function migration only; no user data is removed.
+3. Improve number-change animation consistency
+- Adjust the existing odometer counter timing so number changes feel more precise and less jumpy.
+- Keep the mechanical feel, but make the transitions smoother and better synchronised.
 
-4. **Keep the feed queue behaviour exactly as requested**
-   - Historical events that happened before opening `/admin-list` appear immediately and silently.
-   - New events that happen while the page is open animate one at a time.
-   - Events are still recorded while you are away; they just do not backlog as pop-up animations.
+4. Add country labels to feed rows where possible
+- Extend `FeedItem` with optional country fields.
+- Check whether existing `video_clicks` / `page_views` rows already contain country data. From the current code, they do not appear to.
+- For future events, update the tracking edge functions to capture country from request headers when available, commonly `cf-ipcountry`, `x-vercel-ip-country`, or similar hosting/CDN headers.
+- Add a migration to store country on `video_clicks` and `page_views`, then update `get-activity-feed` to return a readable country label.
+- Replace the little raw code underneath each popup with the country label when available; fall back to the current label only when country is unknown.
 
-5. **Verify after implementation**
-   - Test the deployed edge functions directly.
-   - Check Supabase edge logs for timeout errors.
-   - Open `/admin-list` and confirm the date selector, graph sections, counters, and live feed all show data again.
+Technical notes:
+- Existing historical clicks cannot reliably show country unless the country was already captured somewhere, which this codebase does not currently show.
+- New clicks after deployment should show country if the hosting/Supabase edge request includes a country header; otherwise they’ll show “Unknown country” or keep the existing fallback.

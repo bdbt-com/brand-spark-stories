@@ -7,14 +7,16 @@ const corsHeaders = {
 };
 
 const LAUNCH_DATE = "2024-12-28T00:00:00Z";
+
+// Historical Lovable analytics before custom tracking began.
+// Only lifetime totals should carry this offset; rolling windows must be raw
+// current-window data or 7/14/30-day figures become permanently inflated.
 const SINCE_LAUNCH_BASELINE = { visitors: 4684, avg_duration: 241 };
+
+// Today's baseline — only applies on this specific date, resets to 0 tomorrow
 const TODAY_BASELINE_DATE = "2026-03-04";
 const TODAY_BASELINE = { visitors: 76, avg_duration: 132 };
-
-type PeriodKey = "today" | "7d" | "14d" | "30d" | "since_launch";
-type Row = { session_id: string | null; page_path: string | null; duration_seconds: number | null; entered_at: string | null };
-
-const normalisePath = (path: string | null) => (path || "/").replace(/\/+$/, "") || "/";
+const TRACKING_START = new Date("2026-03-04T00:00:00Z");
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
@@ -30,83 +32,78 @@ Deno.serve(async (req) => {
     const now = new Date();
     const todayMidnight = new Date(now);
     todayMidnight.setUTCHours(0, 0, 0, 0);
-    const starts: Record<PeriodKey, Date> = {
-      today: todayMidnight,
-      "7d": new Date(now.getTime() - 7 * 86400000),
-      "14d": new Date(now.getTime() - 14 * 86400000),
-      "30d": new Date(now.getTime() - 30 * 86400000),
-      since_launch: new Date(LAUNCH_DATE),
+    const periods: Record<string, string> = {
+      today: todayMidnight.toISOString(),
+      "7d": new Date(now.getTime() - 7 * 86400000).toISOString(),
+      "14d": new Date(now.getTime() - 14 * 86400000).toISOString(),
+      "30d": new Date(now.getTime() - 30 * 86400000).toISOString(),
+      since_launch: LAUNCH_DATE,
     };
 
-    // One bounded recent read keeps the dashboard responsive instead of firing
-    // 15 expensive RPCs at once. Since-launch keeps the historic baseline below.
-    const { data, error } = await supabase
-      .from("page_views")
-      .select("session_id,page_path,duration_seconds,entered_at")
-      .gte("entered_at", starts["30d"].toISOString())
-      .order("entered_at", { ascending: false })
-      .limit(1500);
+    const results: Record<string, { visitors: number; avg_duration: number; live_visitors?: number }> = {};
+    const bioClicks: Record<string, number> = {};
+    const podcastClicks: Record<string, number> = {};
 
-    if (error) throw error;
+    const periodKeys = Object.keys(periods);
+    const todayDate = new Date().toISOString().split("T")[0];
 
-    const rows = (data || []) as Row[];
-    const analytics: Record<PeriodKey, { visitors: number; avg_duration: number; live_visitors?: number }> = {
-      today: { visitors: 0, avg_duration: 0, live_visitors: 0 },
-      "7d": { visitors: 0, avg_duration: 0, live_visitors: 0 },
-      "14d": { visitors: 0, avg_duration: 0, live_visitors: 0 },
-      "30d": { visitors: 0, avg_duration: 0, live_visitors: 0 },
-      since_launch: { ...SINCE_LAUNCH_BASELINE, live_visitors: 0 },
-    };
-    const bioClicks: Record<PeriodKey, number> = { today: 0, "7d": 0, "14d": 0, "30d": 0, since_launch: 0 };
-    const podcastClicks: Record<PeriodKey, number> = { today: 0, "7d": 0, "14d": 0, "30d": 0, since_launch: 0 };
+    // Run every RPC in parallel — sequential calls were exceeding the edge-function CPU budget.
+    const visitorPromises = periodKeys.map((k) =>
+      supabase.rpc("get_visitor_stats", { since_ts: periods[k] })
+    );
+    const bioPromises = periodKeys.map((k) =>
+      supabase.rpc("get_bio_click_sessions", { since_ts: periods[k] })
+    );
+    const podcastPromises = periodKeys.map((k) =>
+      supabase.rpc("get_podcast_click_sessions", { since_ts: periods[k] })
+    );
 
-    for (const key of ["today", "7d", "14d", "30d"] as PeriodKey[]) {
-      const startMs = starts[key].getTime();
-      const sessions = new Set<string>();
-      const bioSessions = new Set<string>();
-      const podcastSessions = new Set<string>();
-      let durationTotal = 0;
-      let durationCount = 0;
+    const [visitorResults, bioResults, podcastResults] = await Promise.all([
+      Promise.all(visitorPromises),
+      Promise.all(bioPromises),
+      Promise.all(podcastPromises),
+    ]);
 
-      for (const row of rows) {
-        const ts = row.entered_at ? new Date(row.entered_at).getTime() : 0;
-        if (ts < startMs) continue;
-        const sid = row.session_id || `anon:${row.entered_at}:${row.page_path}`;
-        const path = normalisePath(row.page_path);
-        sessions.add(sid);
-        if (path === "/bio" || path === "/links") bioSessions.add(sid);
-        if (path === "/podcast") podcastSessions.add(sid);
-        if (typeof row.duration_seconds === "number") {
-          durationTotal += Number(row.duration_seconds || 0);
-          durationCount += 1;
-        }
+    periodKeys.forEach((key, i) => {
+      const { data, error } = visitorResults[i];
+      if (error) {
+        console.error(`Error fetching ${key}:`, error);
+        const fallback = key === "since_launch" ? SINCE_LAUNCH_BASELINE : { visitors: 0, avg_duration: 0 };
+        results[key] = { ...fallback, live_visitors: 0 };
+      } else {
+        const row = Array.isArray(data) ? data[0] : data;
+        const liveVisitors = Number(row?.unique_visitors || 0);
+        const liveAvg = Number(row?.avg_duration || 0);
+        const baseline = key === "today"
+          ? (todayDate === TODAY_BASELINE_DATE ? TODAY_BASELINE : { visitors: 0, avg_duration: 0 })
+          : (key === "since_launch" ? SINCE_LAUNCH_BASELINE : { visitors: 0, avg_duration: 0 });
+        const combinedVisitors = baseline.visitors + liveVisitors;
+        const combinedAvg = combinedVisitors > 0
+          ? Math.round(
+              (baseline.visitors * baseline.avg_duration + liveVisitors * liveAvg) /
+              combinedVisitors
+            )
+          : 0;
+        results[key] = {
+          visitors: combinedVisitors,
+          avg_duration: combinedAvg,
+          live_visitors: liveVisitors,
+        };
       }
 
-      const liveVisitors = sessions.size;
-      const liveAvg = durationCount > 0 ? Math.round(durationTotal / durationCount) : 0;
-      const todayDate = now.toISOString().split("T")[0];
-      const baseline = key === "today" && todayDate === TODAY_BASELINE_DATE ? TODAY_BASELINE : { visitors: 0, avg_duration: 0 };
-      const visitors = baseline.visitors + liveVisitors;
-      analytics[key] = {
-        visitors,
-        avg_duration: visitors > 0
-          ? Math.round((baseline.visitors * baseline.avg_duration + liveVisitors * liveAvg) / visitors)
-          : 0,
-        live_visitors: liveVisitors,
-      };
-      bioClicks[key] = bioSessions.size;
-      podcastClicks[key] = podcastSessions.size;
-    }
+      const bio = bioResults[i];
+      bioClicks[key] = bio.error ? 0 : Number(bio.data) || 0;
+      const pod = podcastResults[i];
+      podcastClicks[key] = pod.error ? 0 : Number(pod.data) || 0;
+    });
 
-    bioClicks.since_launch = bioClicks["30d"];
-    podcastClicks.since_launch = podcastClicks["30d"];
 
-    return new Response(JSON.stringify({ analytics, bio_clicks: bioClicks, podcast_clicks: podcastClicks }), {
+    return new Response(JSON.stringify({ analytics: results, bio_clicks: bioClicks, podcast_clicks: podcastClicks }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
-  } catch (err: any) {
+  } catch (err) {
     console.error("Analytics error:", err);
-    return new Response(JSON.stringify({ error: err.message || "Internal error" }), {
+    return new Response(JSON.stringify({ error: "Internal error" }), {
       status: 500,
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });

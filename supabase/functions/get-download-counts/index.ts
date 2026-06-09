@@ -17,20 +17,13 @@ serve(async (req) => {
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
     );
 
-    const { data, error } = await supabase
-      .from("email_subscriptions")
-      .select("guide_title")
-      .eq("email_sent", true)
-      .not("guide_title", "is", null)
-      .order("created_at", { ascending: false })
-      .limit(3000);
+    const { data, error } = await supabase.rpc("get_download_counts_by_guide");
     if (error) throw error;
 
     const counts: Record<string, number> = {};
     for (const row of data || []) {
       if (row.guide_title) {
-        const title = row.guide_title.trim();
-        counts[title] = (counts[title] || 0) + 1;
+        counts[row.guide_title.trim()] = Number(row.download_count);
       }
     }
 

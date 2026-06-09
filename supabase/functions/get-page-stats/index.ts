@@ -7,11 +7,13 @@ const corsHeaders = {
 };
 
 const LAUNCH_DATE = "2024-12-28T00:00:00Z";
-type PageRow = { page_path: string; unique_visitors: number; avg_duration: number; views: number };
-type ViewRow = { page_path: string | null; session_id: string | null; duration_seconds: number | null; entered_at: string | null };
-type PeriodKey = "today" | "7d" | "14d" | "30d" | "since_launch";
 
-const normalisePath = (path: string | null) => (path || "/").replace(/\/+$/, "") || "/";
+interface PageRow {
+  page_path: string;
+  unique_visitors: number;
+  avg_duration: number;
+  views: number;
+}
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
@@ -25,7 +27,8 @@ Deno.serve(async (req) => {
     const now = Date.now();
     const todayMidnight = new Date();
     todayMidnight.setUTCHours(0, 0, 0, 0);
-    const periods: Record<PeriodKey, string> = {
+
+    const periods: Record<string, string> = {
       today: todayMidnight.toISOString(),
       "7d": new Date(now - 7 * 86400000).toISOString(),
       "14d": new Date(now - 14 * 86400000).toISOString(),
@@ -33,56 +36,33 @@ Deno.serve(async (req) => {
       since_launch: LAUNCH_DATE,
     };
 
-    const { data, error } = await supabase
-      .from("page_views")
-      .select("page_path,session_id,duration_seconds,entered_at")
-      .gte("entered_at", periods["30d"])
-      .order("entered_at", { ascending: false })
-      .limit(1500);
+    const keys = Object.keys(periods);
+    const results = await Promise.all(
+      keys.map((k) => supabase.rpc("get_page_stats", { since_ts: periods[k] })),
+    );
 
-    if (error) throw error;
-    const rows = (data || []) as ViewRow[];
-    const pages: Record<PeriodKey, PageRow[]> = { today: [], "7d": [], "14d": [], "30d": [], since_launch: [] };
-
-    for (const key of ["today", "7d", "14d", "30d"] as PeriodKey[]) {
-      const start = new Date(periods[key]).getTime();
-      const buckets = new Map<string, { sessions: Set<string>; duration: number; durationCount: number; views: number }>();
-      for (const row of rows) {
-        const ts = row.entered_at ? new Date(row.entered_at).getTime() : 0;
-        if (ts < start) continue;
-        const path = normalisePath(row.page_path);
-        if (path.startsWith("/redirect") || path.startsWith("/admin-list")) continue;
-        if (!buckets.has(path)) buckets.set(path, { sessions: new Set(), duration: 0, durationCount: 0, views: 0 });
-        const bucket = buckets.get(path)!;
-        bucket.sessions.add(row.session_id || `anon:${row.entered_at}:${row.page_path}`);
-        bucket.views += 1;
-        if (typeof row.duration_seconds === "number") {
-          bucket.duration += Number(row.duration_seconds || 0);
-          bucket.durationCount += 1;
-        }
+    const pages: Record<string, PageRow[]> = {};
+    keys.forEach((k, i) => {
+      const { data, error } = results[i];
+      if (error) {
+        console.error(`page-stats ${k}:`, error);
+        pages[k] = [];
+        return;
       }
-      pages[key] = Array.from(buckets.entries())
-        .map(([page_path, bucket]) => ({
-          page_path,
-          unique_visitors: bucket.sessions.size,
-          avg_duration: bucket.durationCount > 0 ? Math.round(bucket.duration / bucket.durationCount) : 0,
-          views: bucket.views,
-        }))
-        .sort((a, b) => b.unique_visitors - a.unique_visitors)
-        .slice(0, 50);
-    }
-
-    // Until the database aggregate migration can run, expose the same recent
-    // rows for since-launch instead of an empty state; lifetime totals still
-    // live in the main analytics endpoint baseline.
-    pages.since_launch = pages["30d"];
+      pages[k] = (data || []).map((r: any) => ({
+        page_path: r.page_path || "/",
+        unique_visitors: Number(r.unique_visitors || 0),
+        avg_duration: Math.round(Number(r.avg_duration || 0)),
+        views: Number(r.views || 0),
+      }));
+    });
 
     return new Response(JSON.stringify({ pages }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
-  } catch (err: any) {
+  } catch (err) {
     console.error("page-stats error:", err);
-    return new Response(JSON.stringify({ error: err.message || "Internal error" }), {
+    return new Response(JSON.stringify({ error: "Internal error" }), {
       status: 500,
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
