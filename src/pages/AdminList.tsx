@@ -146,6 +146,7 @@ interface FeedItem {
   label: string;
   detail: string;
   timestamp: string;
+  country?: string | null;
 }
 
 const FEED_CONFIG: Record<string, { icon: typeof Play; color: string; bg: string; label: string }> = {
@@ -249,10 +250,13 @@ const AdminList = () => {
 
   const lastFeedSince = useRef<string | null>(null);
   const feedItemKeys = useRef<Set<string>>(new Set());
-  const seenKeysAtRender = useRef<Set<string>>(new Set());
+  // Keys currently mid-entry-animation. Drives the animate-* classes precisely
+  // and is cleared after the animation duration so re-renders don't re-trigger.
+  const [animatingKeys, setAnimatingKeys] = useState<Set<string>>(new Set());
   // Global single-item release queue: ensures one entry animates fully before the next begins.
   const feedQueue = useRef<FeedItem[]>([]);
   const feedPumpTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const animClearTimers = useRef<Set<ReturnType<typeof setTimeout>>>(new Set());
   // Baseline snapshot of liveTick at the moment the last analytics fetch completed.
   // Used to project today's live deltas onto every longer-period stat so they tick in sync.
   const liveTickRef = useRef<typeof liveTick>(null);
@@ -393,6 +397,7 @@ const AdminList = () => {
   // Time between releases. Must exceed the row entry animation duration so each
   // item finishes animating before the next one begins (silky, non-overlapping).
   const FEED_RELEASE_MS = 560;
+  const FEED_ANIM_MS = 520;
   const startFeedPump = useCallback(() => {
     if (feedPumpTimer.current) return; // already pumping
     const release = () => {
@@ -401,6 +406,7 @@ const AdminList = () => {
         feedPumpTimer.current = null;
         return;
       }
+      const k = feedKey(next);
       setFeed((prev) => {
         const merged = [next, ...prev];
         merged.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
@@ -408,9 +414,23 @@ const AdminList = () => {
         feedItemKeys.current = new Set(capped.map(feedKey));
         return capped;
       });
+      setAnimatingKeys((prev) => {
+        const next = new Set(prev);
+        next.add(k);
+        return next;
+      });
+      const clear = setTimeout(() => {
+        setAnimatingKeys((prev) => {
+          if (!prev.has(k)) return prev;
+          const n = new Set(prev);
+          n.delete(k);
+          return n;
+        });
+        animClearTimers.current.delete(clear);
+      }, FEED_ANIM_MS + 40);
+      animClearTimers.current.add(clear);
       feedPumpTimer.current = setTimeout(release, FEED_RELEASE_MS);
     };
-    // First item drops immediately, subsequent items spaced evenly.
     release();
   }, []);
 
@@ -480,10 +500,17 @@ const AdminList = () => {
     };
   }, [fetchSubscribers, fetchVideoCounts, fetchDownloadCounts, fetchAnalytics, fetchFeed, fetchFeedIncremental, fetchDailyStats, fetchLiveTick, fetchPageStats]);
 
-  // Track which feed keys were rendered last paint so we can animate only new ones
+  // Cleanup queued animation-clear timers on unmount
   useEffect(() => {
-    seenKeysAtRender.current = new Set(feed.map(feedKey));
-  }, [feed]);
+    return () => {
+      animClearTimers.current.forEach((t) => clearTimeout(t));
+      animClearTimers.current.clear();
+      if (feedPumpTimer.current) {
+        clearTimeout(feedPumpTimer.current);
+        feedPumpTimer.current = null;
+      }
+    };
+  }, []);
 
   if (loading) {
     return (
@@ -522,11 +549,12 @@ const AdminList = () => {
               {filteredFeed.length === 0 ? (
                 <p className="text-[10px] text-muted-foreground text-center py-2">No recent activity</p>
               ) : (
-                filteredFeed.map((item, i) => {
+                filteredFeed.map((item) => {
                   const config = FEED_CONFIG[item.type] || FEED_CONFIG.click;
                   const Icon = config.icon;
                   const k = feedKey(item);
-                  const isNew = !seenKeysAtRender.current.has(k);
+                  const isNew = animatingKeys.has(k);
+                  const sub = item.country || item.label;
                   return (
                     <div
                       key={`mobile-${k}`}
@@ -538,7 +566,7 @@ const AdminList = () => {
                         <Icon className={`w-3 h-3 ${config.color}`} />
                       </div>
                       <span className="text-[11px] font-medium text-foreground truncate">{item.detail}</span>
-                      <span className="text-[10px] text-muted-foreground truncate">{item.label}</span>
+                      <span className="text-[10px] text-muted-foreground truncate">{sub}</span>
                       <span className="text-[10px] text-muted-foreground whitespace-nowrap ml-auto flex-shrink-0">
                         {timeAgo(item.timestamp)}
                       </span>
@@ -1154,11 +1182,12 @@ const AdminList = () => {
                   {filteredFeed.length === 0 ? (
                     <p className="text-xs text-muted-foreground text-center py-8">No recent activity</p>
                   ) : (
-                    filteredFeed.map((item, i) => {
+                    filteredFeed.map((item) => {
                       const config = FEED_CONFIG[item.type] || FEED_CONFIG.click;
                       const Icon = config.icon;
                       const k = feedKey(item);
-                      const isNew = !seenKeysAtRender.current.has(k);
+                      const isNew = animatingKeys.has(k);
+                      const sub = item.country || item.label;
                       return (
                         <div
                           key={k}
@@ -1171,7 +1200,7 @@ const AdminList = () => {
                           </div>
                           <div className="min-w-0 flex-1">
                             <p className="text-xs font-medium text-foreground truncate">{item.detail}</p>
-                            <p className="text-[10px] text-muted-foreground truncate">{item.label}</p>
+                            <p className="text-[10px] text-muted-foreground truncate">{sub}</p>
                           </div>
                           <span className="text-[10px] text-muted-foreground whitespace-nowrap flex-shrink-0">
                             {timeAgo(item.timestamp)}

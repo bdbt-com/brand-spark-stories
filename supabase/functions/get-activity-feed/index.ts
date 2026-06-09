@@ -21,6 +21,21 @@ const VIDEO_MAP: Record<string, string> = {
   pRRSGS7eLJM: "Capitalise on Benefits Offered by Your Employer",
 };
 
+let displayNames: Intl.DisplayNames | null = null;
+try {
+  displayNames = new Intl.DisplayNames(['en-GB'], { type: 'region' });
+} catch {}
+
+function countryLabel(code: string | null | undefined): string | null {
+  if (!code) return null;
+  const c = code.toUpperCase();
+  try {
+    const name = displayNames?.of(c);
+    if (name && name !== c) return name;
+  } catch {}
+  return c;
+}
+
 serve(async (req) => {
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
@@ -34,7 +49,6 @@ serve(async (req) => {
 
     const serverTime = new Date().toISOString();
 
-    // Optional `since` body for incremental fetches
     let sinceParam: string | null = null;
     if (req.method === "POST") {
       try {
@@ -65,15 +79,14 @@ serve(async (req) => {
       return all;
     }
 
-    const clicks = await fetchAll("video_clicks", "video_id, clicked_at", "clicked_at");
+    const clicks = await fetchAll("video_clicks", "video_id, clicked_at, country", "clicked_at");
     const signups = await fetchAll(
       "email_subscriptions",
       "first_name, email, created_at, guide_title, email_sent, email_sent_at",
       "created_at"
     );
 
-
-    const items: { type: string; label: string; detail: string; timestamp: string }[] = [];
+    const items: { type: string; label: string; detail: string; timestamp: string; country?: string | null }[] = [];
 
     const BUTTON_LABELS: Record<string, { label: string; detail: string }> = {
       "button-blueprint": { label: "Free Foundation Blueprint", detail: "Click from /bio (button)" },
@@ -86,76 +99,32 @@ serve(async (req) => {
     for (const c of clicks || []) {
       const vid = c.video_id || "";
       const ts = c.clicked_at || new Date().toISOString();
-
-      // Helper to pull the underlying video id off a "prefix:VID" token
+      const country = countryLabel(c.country);
       const stripPrefix = (s: string) => {
         const idx = s.indexOf(":");
         return idx >= 0 ? s.slice(idx + 1) : s;
       };
 
+      const push = (type: string, label: string, detail: string) => {
+        items.push({ type, label, detail, timestamp: ts, country });
+      };
+
       if (vid.startsWith("latest-auto:")) {
-        const actualId = stripPrefix(vid);
-        items.push({
-          type: "redirect",
-          label: VIDEO_MAP[actualId] || actualId,
-          detail: "Redirect from /podcast",
-          timestamp: ts,
-        });
+        push("redirect", VIDEO_MAP[stripPrefix(vid)] || stripPrefix(vid), "Redirect from /podcast");
       } else if (vid.startsWith("latest-page:")) {
-        const actualId = stripPrefix(vid);
-        items.push({
-          type: "click",
-          label: VIDEO_MAP[actualId] || actualId,
-          detail: "Click from /podcast",
-          timestamp: ts,
-        });
+        push("click", VIDEO_MAP[stripPrefix(vid)] || stripPrefix(vid), "Click from /podcast");
       } else if (vid.startsWith("latest-grid:")) {
-        const actualId = stripPrefix(vid);
-        items.push({
-          type: "click",
-          label: VIDEO_MAP[actualId] || actualId,
-          detail: "Click from /podcast (grid)",
-          timestamp: ts,
-        });
+        push("click", VIDEO_MAP[stripPrefix(vid)] || stripPrefix(vid), "Click from /podcast (grid)");
       } else if (vid.startsWith("auto-redirect:")) {
-        const actualId = stripPrefix(vid);
-        items.push({
-          type: "redirect",
-          label: VIDEO_MAP[actualId] || actualId,
-          detail: "Redirect from /bio",
-          timestamp: ts,
-        });
+        push("redirect", VIDEO_MAP[stripPrefix(vid)] || stripPrefix(vid), "Redirect from /bio");
       } else if (vid === "auto-redirect") {
-        // Legacy bare redirect token
-        items.push({
-          type: "redirect",
-          label: "Auto-redirect",
-          detail: "Redirect from /bio",
-          timestamp: ts,
-        });
+        push("redirect", "Auto-redirect", "Redirect from /bio");
       } else if (vid.startsWith("bio-click:")) {
-        const actualId = stripPrefix(vid);
-        items.push({
-          type: "click",
-          label: VIDEO_MAP[actualId] || actualId,
-          detail: "Click from /bio",
-          timestamp: ts,
-        });
+        push("click", VIDEO_MAP[stripPrefix(vid)] || stripPrefix(vid), "Click from /bio");
       } else if (BUTTON_LABELS[vid]) {
-        items.push({
-          type: "click",
-          label: BUTTON_LABELS[vid].label,
-          detail: BUTTON_LABELS[vid].detail,
-          timestamp: ts,
-        });
+        push("click", BUTTON_LABELS[vid].label, BUTTON_LABELS[vid].detail);
       } else {
-        // Historic bare VIDEOID — only /bio carousel used this format
-        items.push({
-          type: "click",
-          label: VIDEO_MAP[vid] || vid,
-          detail: "Click from /bio",
-          timestamp: ts,
-        });
+        push("click", VIDEO_MAP[vid] || vid, "Click from /bio");
       }
     }
 
@@ -177,13 +146,9 @@ serve(async (req) => {
       }
     }
 
-
-
-
     items.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
-    const feed = items;
 
-    return new Response(JSON.stringify({ feed, server_time: serverTime }), {
+    return new Response(JSON.stringify({ feed: items, server_time: serverTime }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
   } catch (error: any) {

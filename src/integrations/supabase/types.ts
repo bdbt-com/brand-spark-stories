@@ -206,6 +206,7 @@ export type Database = {
       }
       page_views: {
         Row: {
+          country: string | null
           duration_seconds: number | null
           entered_at: string | null
           id: string
@@ -214,6 +215,7 @@ export type Database = {
           session_id: string
         }
         Insert: {
+          country?: string | null
           duration_seconds?: number | null
           entered_at?: string | null
           id?: string
@@ -222,6 +224,7 @@ export type Database = {
           session_id: string
         }
         Update: {
+          country?: string | null
           duration_seconds?: number | null
           entered_at?: string | null
           id?: string
@@ -234,16 +237,19 @@ export type Database = {
       video_clicks: {
         Row: {
           clicked_at: string | null
+          country: string | null
           id: string
           video_id: string
         }
         Insert: {
           clicked_at?: string | null
+          country?: string | null
           id?: string
           video_id: string
         }
         Update: {
           clicked_at?: string | null
+          country?: string | null
           id?: string
           video_id?: string
         }
