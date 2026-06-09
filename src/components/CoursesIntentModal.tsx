@@ -138,7 +138,7 @@ const CoursesIntentModal = ({ open, onOpenChange, onSubmitted }: CoursesIntentMo
                             prev.includes(opt) ? prev.filter((c) => c !== opt) : [...prev, opt]
                           )
                         }
-                        className={`relative w-full min-h-[52px] px-4 rounded-xl text-base font-bold tracking-tight transition-all active:scale-[0.98] border-2 border-primary bg-primary text-primary-foreground shadow-[0_4px_20px_-6px_hsl(var(--primary)/0.6)] hover:brightness-110 ${
+                        className={`relative w-full min-h-[48px] px-3 rounded-xl text-sm sm:text-base font-bold tracking-tight transition-all active:scale-[0.98] border-2 border-primary bg-primary text-primary-foreground shadow-[0_4px_20px_-6px_hsl(var(--primary)/0.6)] hover:brightness-110 ${
                           selected
                             ? "ring-2 ring-primary-foreground/50 brightness-110 scale-[1.02]"
                             : ""
