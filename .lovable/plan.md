@@ -1,27 +1,41 @@
-## Goal
-1. Rewrite all four course cards on `/courses` to match the original document copy (screenshot 2).
-2. Make the **First Name** field on the "Reserve your spot" waitlist form optional — email stays the only required field.
+# Per-page stats on /admin-list
 
-## 1. Course card copy (src/pages/Courses.tsx)
-Replace the `courses` array with the original document text:
+Add a new section to `/admin-list` showing a row of boxes — one per page on the site — each displaying **unique visitors** and **avg time on page**, with the same `Today / 7d / 14d / 30d / All time` toggle pattern used elsewhere on the dashboard.
 
-| Topic | Title | Hook | Bullets | CTA |
-|---|---|---|---|---|
-| Exercise | **Daily Wins For Exercise** | Build a workout into your day, without needing a gym, personal trainer or any extra time. | Consistency over intensity • Simple exercise habits • More energy & confidence • No overwhelm | Start Exercise Wins |
-| Money | **Daily Wins For Money** | Stop money leaks and reduce financial stress without budgets or complicated spreadsheets. | Spending awareness • Habit-based saving • Systems over budgeting • Small wins that compound | Start Money Wins |
-| Nutrition | **Daily Wins For Nutrition** | Eat better without extreme dieting. | Craving control • Better food defaults (keep your guilty pleasures!) • Energy & mood improvement • Sustainable habits | Start Nutritional Wins |
-| Sleep | **Daily Wins For Sleep** | Fix the habit that quietly affects everything else. | Better recovery & confidence • Lower stress/anxiety • More discipline & motivation • Energy ripple effects | Start Sleep Wins |
+## What you'll see
 
-- Add a `cta` field to the `Course` interface so each card uses its own button label (Start Exercise Wins / Start Money Wins / Start Nutritional Wins / Start Sleep Wins) instead of the generic "Join the Waitlist".
-- Keep the existing COMING SOON badge — the "(Locked – Coming Soon – Join Waiting List)" line from the doc is already represented by the badge + the button action that scrolls to the waitlist, so no extra duplicate row is added.
-- No layout, colour, icon, or spacing changes.
+A new section above (or near) the existing analytics cards:
 
-## 2. First Name optional on Reserve-your-spot form (src/components/EmailCaptureForm.tsx)
-- Change the label from `First Name *` to `First Name <span className="text-muted-foreground font-normal">(optional)</span>`.
-- Remove the firstName check from submission validation: call `validateAllFields("Friend", email)` and pass `firstName: firstName || "Friend"` into the `send-guide` invoke body, mirroring what we already do in `CoursesIntentModal`.
-- Stop running `validateField("firstName", …)` on blur/change so an empty first name never paints the input red or shows "First name is required".
-- Email remains required and keeps full validation.
-- No other forms or pages touched — change is local to `EmailCaptureForm.tsx` and applies everywhere the component is used (Blueprint, Courses waitlist, etc., which is the desired behaviour: email-only is faster and converts better on mobile).
+```text
+┌─ Page stats ──────────── [Today] [7d] [14d] [30d] [All] ─┐
+│ ┌────────┐ ┌────────┐ ┌────────┐ ┌────────┐ ┌────────┐  │
+│ │ /      │ │/podcast│ │/blueprt│ │ /tips  │ │/about  │  │
+│ │ 1,240  │ │  812   │ │  430   │ │  205   │ │  178   │  │
+│ │ 1m 42s │ │ 3m 10s │ │ 2m 04s │ │  58s   │ │ 1m 12s │  │
+│ └────────┘ └────────┘ └────────┘ └────────┘ └────────┘  │
+│ ┌────────┐ ┌────────┐ ┌────────┐                        │
+│ │/links  │ │/courses│ │/partner│  ...                    │
+│ └────────┘ └────────┘ └────────┘                        │
+└──────────────────────────────────────────────────────────┘
+```
 
-## Out of scope
-- No changes to the intent modal, the database, the edge function, styling, or any other page.
+Pages are sorted by visitors (highest first) for the selected window. Trailing slashes are normalised so `/podcast` and `/podcast/` count as one. `/redirect` and `/admin-list` are excluded.
+
+## Technical detail
+
+1. **New Postgres RPC** `get_page_stats(since_ts timestamptz)` (security definer):
+   - Groups `page_views` by `regexp_replace(page_path, '/+$', '')`.
+   - Returns `page_path, unique_visitors (distinct session_id), avg_duration (avg duration_seconds), views (count)`.
+   - Excludes paths starting with `/redirect` or `/admin-list`.
+
+2. **New edge function** `get-page-stats`:
+   - Calls the RPC in parallel for the five windows (`today`, `7d`, `14d`, `30d`, `since_launch`), same pattern as `get-page-analytics`.
+   - Returns `{ pages: { today: [...], "7d": [...], ... } }`.
+
+3. **AdminList UI** (`src/pages/AdminList.tsx`):
+   - Add `pageStats` state + a fetch on mount and on the existing polling interval.
+   - Add a `pageStatsRange` toggle (`'today' | '7d' | '14d' | '30d' | 'all'`, default `'all'`) styled like the existing graph range toggle.
+   - Render a responsive grid of cards (`grid-cols-2 sm:grid-cols-3 lg:grid-cols-5`) with page path, visitor count (animated counter), and formatted avg time (`Xm Ys` / `Ys`).
+   - Keep brand styling (gold headers, white body, dark cards).
+
+No schema changes beyond the new RPC. No new tables, no auth changes.

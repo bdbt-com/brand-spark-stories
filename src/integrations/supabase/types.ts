@@ -299,6 +299,15 @@ export type Database = {
           visitors: number
         }[]
       }
+      get_page_stats: {
+        Args: { since_ts: string }
+        Returns: {
+          avg_duration: number
+          page_path: string
+          unique_visitors: number
+          views: number
+        }[]
+      }
       get_podcast_click_sessions: {
         Args: { since_ts: string }
         Returns: number
