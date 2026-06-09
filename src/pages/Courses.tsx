@@ -125,13 +125,24 @@ const LockedCover = () => (
 const Courses = () => {
   const [selectedCourse, setSelectedCourse] = useState<string>("");
   const [intentOpen, setIntentOpen] = useState(false);
+  const [searchParams, setSearchParams] = useSearchParams();
   const guideUrl = getGuideUrl("BDBT Foundation Blueprint") || "";
   const waitlistRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
-    try {
-      if (sessionStorage.getItem("courses_intent_modal_seen")) return;
-    } catch {}
+    const forceIntent = searchParams.get("intent") === "1";
+    if (!forceIntent) {
+      try {
+        if (sessionStorage.getItem("courses_intent_modal_seen")) return;
+      } catch {}
+    } else {
+      // Clear the flag so this forced open isn't blocked
+      try { sessionStorage.removeItem("courses_intent_modal_seen"); } catch {}
+      // Strip the query param so refresh behaves normally
+      const next = new URLSearchParams(searchParams);
+      next.delete("intent");
+      setSearchParams(next, { replace: true });
+    }
     const t = setTimeout(() => setIntentOpen(true), 600);
     return () => clearTimeout(t);
   }, []);
