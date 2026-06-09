@@ -359,8 +359,25 @@ const AdminList = () => {
       const { data } = await supabase.functions.invoke("get-activity-feed", { body: {} });
       if (data?.feed) {
         const items: FeedItem[] = data.feed;
-        feedItemKeys.current = new Set(items.map(feedKey));
-        setFeed(items);
+        const capped = items.slice(0, 500);
+        feedItemKeys.current = new Set(capped.map(feedKey));
+        // Progressive top-down reveal: render the first chunk immediately so the page
+        // is interactive, then reveal the rest in chunks during idle time.
+        const FIRST = 50;
+        const CHUNK = 50;
+        setFeed(capped.slice(0, FIRST));
+        let i = FIRST;
+        const schedule = (cb: () => void) => {
+          const ric = (window as any).requestIdleCallback as undefined | ((cb: () => void) => number);
+          if (ric) ric(cb); else setTimeout(cb, 0);
+        };
+        const step = () => {
+          if (i >= capped.length) return;
+          setFeed(capped.slice(0, i + CHUNK));
+          i += CHUNK;
+          schedule(step);
+        };
+        schedule(step);
       }
       if (data?.server_time) lastFeedSince.current = data.server_time;
     } catch {}
