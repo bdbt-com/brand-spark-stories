@@ -390,7 +390,8 @@ const AdminList = () => {
 
   const fetchFeed = useCallback(async () => {
     await runRequest("feed-full", async (signal) => {
-      const { data } = await supabase.functions.invoke("get-activity-feed", { body: {}, signal, timeout: 8000 });
+      const { data, error } = await supabase.functions.invoke("get-activity-feed", { body: {}, signal, timeout: 8000 });
+      if (error) throw error;
       if (data?.feed) {
         feedLoadVersion.current += 1;
         const version = feedLoadVersion.current;
@@ -426,11 +427,12 @@ const AdminList = () => {
     if (!lastFeedSince.current) return;
     if (typeof document !== "undefined" && document.visibilityState === "hidden") return;
     await runRequest("feed-incremental", async (signal) => {
-      const { data } = await supabase.functions.invoke("get-activity-feed", {
+      const { data, error } = await supabase.functions.invoke("get-activity-feed", {
         body: { since: lastFeedSince.current },
         signal,
         timeout: 6000,
       });
+      if (error) throw error;
       if (data?.server_time) lastFeedSince.current = data.server_time;
       const incoming: FeedItem[] = data?.feed || [];
       if (incoming.length === 0) return;
