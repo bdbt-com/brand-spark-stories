@@ -519,10 +519,13 @@ const AdminList = () => {
                   return (
                     <div
                       key={`mobile-${k}`}
-                      className={`flex items-center gap-2 py-1.5 border-t border-border/30 ${isNew ? 'animate-bubble-in' : ''}`}
+                      className={`flex items-center gap-2 py-1.5 border-t border-border/30 ${isNew ? 'animate-type-row' : ''}`}
                       style={isNew ? { animationDelay: `${delay}ms` } : undefined}
                     >
-                      <div className={`p-1 rounded ${config.bg} flex-shrink-0`}>
+                      <div
+                        className={`p-1 rounded ${config.bg} flex-shrink-0 ${isNew ? 'animate-tick-in' : ''}`}
+                        style={isNew ? { animationDelay: `${delay + 80}ms` } : undefined}
+                      >
                         <Icon className={`w-3 h-3 ${config.color}`} />
                       </div>
                       <span className="text-[11px] font-medium text-foreground truncate">{item.detail}</span>
