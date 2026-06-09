@@ -470,7 +470,7 @@ const AdminList = () => {
       setFeed((prev) => {
         const merged = [next, ...prev];
         merged.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
-        const capped = merged.slice(0, 500);
+        const capped = merged.slice(0, 100);
         feedItemKeys.current = new Set(capped.map(feedKey));
         return capped;
       });
