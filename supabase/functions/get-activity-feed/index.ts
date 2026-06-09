@@ -60,7 +60,7 @@ serve(async (req) => {
     const incremental = !!sinceParam;
     const since = sinceParam || new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
 
-    const LIMIT = incremental ? 100 : 500;
+    const LIMIT = 100;
 
     async function fetchAll(table: string, cols: string, tsCol: string) {
       const { data, error } = await supabase
