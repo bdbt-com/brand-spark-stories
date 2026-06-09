@@ -491,8 +491,6 @@ const AdminList = () => {
     fetchDailyStats();
     fetchLiveTick();
     fetchPageStats();
-    fetchLiveTick();
-    fetchPageStats();
 
     const slow = setInterval(() => {
       fetchSubscribers();
