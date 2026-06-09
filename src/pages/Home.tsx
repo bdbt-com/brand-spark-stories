@@ -173,18 +173,13 @@ const Home = () => {
                 <span className="block text-white">Small Daily Steps.</span>
                 <span className="block text-[hsl(35_45%_75%)]">Big Life Changes.</span>
               </h1>
-              <p className="text-base lg:text-lg mb-8 text-white/90 leading-relaxed">
-                Big Daddy's Big Tips teaches simple daily habits that silently transform your health, wealth, and happiness simultaneously. Turning overwhelming life changes into achievable daily steps.
+              <h2 className="text-3xl lg:text-5xl font-bold mb-6 leading-tight">
+                <span className="block text-white">Are your habits building the life you want</span>
+                <span className="block text-[hsl(35_45%_75%)]">or quietly pulling you away from it?</span>
+              </h2>
+              <p className="text-base lg:text-lg text-white/90 leading-relaxed">
+                Your days are shaped by tiny repeated habits. And whether you realise it or not, your energy, health, finances, confidence and momentum are already compounding, either moving you forward or holding you back.
               </p>
-              <div className="flex justify-center">
-                <div className="relative w-full max-w-md">
-                  <Button variant="secondary" size="lg" asChild className="relative transition-transform duration-200 rounded-xl h-14 md:h-16 px-8 md:px-10 text-lg md:text-xl w-full">
-                    <Link to="/blueprint">
-                      Start Your Journey Here <ArrowRight className="w-5 h-5" />
-                    </Link>
-                  </Button>
-                </div>
-              </div>
             </div>
             <div className="animate-float">
               <div className="bg-white/10 backdrop-blur-md rounded-2xl p-8 shadow-strong">
