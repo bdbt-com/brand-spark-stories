@@ -225,7 +225,8 @@ const AdminList = () => {
   } | null>(null);
   const [graphRange, setGraphRange] = useState<'today' | '7d' | '14d' | '30d' | 'all'>('all');
   const [pageStats, setPageStats] = useState<Record<string, { page_path: string; unique_visitors: number; avg_duration: number; views: number }[]>>({});
-  const [pageStatsRange, setPageStatsRange] = useState<'today' | '7d' | '14d' | '30d' | 'all'>('all');
+  const rangeKey = graphRange === 'all' ? 'since_launch' : graphRange;
+  const rangeLabel = graphRange === 'all' ? 'Since Launch' : graphRange === 'today' ? 'Today' : graphRange === '7d' ? 'Last 7 Days' : graphRange === '14d' ? 'Last 14 Days' : 'Last 30 Days';
   const [showPreviousVideos, setShowPreviousVideos] = useState(false);
   const { videos: ytVideos } = useYouTubeVideos();
   const { video: cachedLatestVideo } = useLatestVideo();
@@ -569,29 +570,14 @@ const AdminList = () => {
 
           {/* Per-page stats */}
           <section>
-            <div className="flex items-center justify-between gap-3 mb-4 flex-wrap">
+            <div className="flex items-center gap-3 mb-4">
               <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
                 <BarChart3 className="w-5 h-5 text-primary" /> Page Stats
               </h2>
-              <div className="flex gap-1">
-                {(['today', '7d', '14d', '30d', 'all'] as const).map((r) => (
-                  <button
-                    key={r}
-                    onClick={() => setPageStatsRange(r)}
-                    className={`px-2.5 py-1 text-[10px] font-semibold rounded-md transition-colors ${
-                      pageStatsRange === r
-                        ? 'bg-primary text-primary-foreground'
-                        : 'bg-secondary text-muted-foreground hover:text-foreground'
-                    }`}
-                  >
-                    {r === 'all' ? 'All Time' : r === 'today' ? 'Today' : r.toUpperCase()}
-                  </button>
-                ))}
-              </div>
+              <span className="text-xs font-medium text-muted-foreground">· {rangeLabel}</span>
             </div>
             {(() => {
-              const key = pageStatsRange === 'all' ? 'since_launch' : pageStatsRange;
-              const rows = pageStats[key] || [];
+              const rows = pageStats[rangeKey] || [];
               const byPath = new Map(rows.map((r) => [r.page_path === '' ? '/' : r.page_path, r]));
               const NAV_PAGES: { path: string; label: string }[] = [
                 { path: '/', label: 'Home' },
@@ -609,20 +595,20 @@ const AdminList = () => {
                     const secs = Math.round(p.avg_duration % 60);
                     return (
                       <Card key={path} className="border-primary/20">
-                        <CardContent className="p-4">
+                        <CardContent className="p-4 text-center">
                           <p className="text-sm font-bold text-primary">{label}</p>
                           <p className="text-[10px] font-mono text-muted-foreground truncate" title={path}>{path}</p>
-                          <p className="text-2xl font-bold text-foreground mt-1.5">
+                          <p className="text-3xl font-bold text-foreground mt-3 tabular-nums">
                             <AnimatedCounter value={p.unique_visitors} />
                           </p>
-                          <p className="text-[10px] text-muted-foreground uppercase tracking-wider">visitors</p>
-                          <div className="flex items-center gap-1 text-muted-foreground mt-2">
+                          <p className="text-[10px] text-muted-foreground uppercase tracking-wider mt-0.5">visitors</p>
+                          <div className="flex items-center justify-center gap-1 text-muted-foreground mt-2">
                             <Clock className="w-3 h-3" />
-                            <span className="text-[11px]">
+                            <span className="text-[11px] tabular-nums">
                               {mins > 0 ? `${mins}m ` : ''}{secs}s avg
                             </span>
                           </div>
-                          <p className="text-[10px] text-muted-foreground mt-0.5">{p.views.toLocaleString()} views</p>
+                          <p className="text-[10px] text-muted-foreground mt-1 tabular-nums">{p.views.toLocaleString()} views</p>
                         </CardContent>
                       </Card>
                     );
@@ -630,8 +616,8 @@ const AdminList = () => {
                 </div>
               );
             })()}
-
           </section>
+
 
 
           {/* Page Visitors — graph inline */}
@@ -639,150 +625,128 @@ const AdminList = () => {
             <h2 className="text-xl font-bold text-foreground mb-4 flex items-center gap-2">
               <BarChart3 className="w-5 h-5 text-primary" /> Page Visitors
             </h2>
-            <div className="flex flex-col xl:flex-row gap-4">
+            <div className="flex flex-col xl:flex-row gap-4 items-stretch">
               {(graphRange === 'today' ? hourlyStats.length > 0 : filteredDailyStats.length > 0) && (
-                <InlineGraph data={graphRange === 'today' ? hourlyStats : filteredDailyStats} dataKey="visitors" label="Visitors" color="hsl(210, 40%, 96%)" hourly={graphRange === 'today'} />
+                <div className="flex-1 min-w-0">
+                  <InlineGraph data={graphRange === 'today' ? hourlyStats : filteredDailyStats} dataKey="visitors" label="Visitors" color="hsl(210, 40%, 96%)" hourly={graphRange === 'today'} />
+                </div>
               )}
-              <div className="flex-1 grid grid-cols-2 md:grid-cols-5 gap-4">
+              <div className="w-full xl:w-72 flex-shrink-0 flex">
                 {(() => {
+                  const isToday = graphRange === 'today';
                   const today = analytics["today"];
+                  const period = analytics[rangeKey];
                   const baselineVisitors = today ? (today.visitors - (today.live_visitors ?? 0)) : 0;
                   const liveVisitors = liveTick ? liveTick.visitors_today : (today?.live_visitors ?? 0);
-                  const visitorsDisplay = baselineVisitors + liveVisitors;
                   const bioClicksLive = liveTick ? liveTick.bio_clicks_today : (bioClicks.today || 0);
                   const podClicksLive = liveTick ? liveTick.podcast_clicks_today : (podcastClicks.today || 0);
-                  const avgMins = today ? Math.floor(today.avg_duration / 60) : 0;
-                  const avgSecs = today ? today.avg_duration % 60 : 0;
+                  const visitorsDisplay = isToday
+                    ? baselineVisitors + liveVisitors
+                    : (period?.visitors || 0) + liveDeltas.visitors;
+                  const avgSrc = isToday ? today : period;
+                  const avgMins = avgSrc ? Math.floor(avgSrc.avg_duration / 60) : 0;
+                  const avgSecs = avgSrc ? Math.round(avgSrc.avg_duration % 60) : 0;
                   return (
-                    <Card className="border-primary/30 bg-primary/5">
-                      <CardContent className="p-5 text-center">
-                        <p className="text-xs font-medium text-muted-foreground mb-3 uppercase tracking-wider">Today</p>
-                        <p className="text-3xl font-bold text-foreground"><AnimatedCounter value={visitorsDisplay} /></p>
-                        <div className="flex items-center justify-center gap-1 mb-2">
-                          <p className="text-xs text-muted-foreground">visitors</p>
-                          <TodayTrendBadge today={liveVisitors} sevenDay={analytics["7d"]?.live_visitors ?? analytics["7d"]?.visitors ?? 0} />
+                    <Card className="border-primary/30 bg-primary/5 w-full flex">
+                      <CardContent className="p-6 text-center flex flex-col items-center justify-center w-full">
+                        <p className="text-[11px] font-semibold text-muted-foreground mb-3 uppercase tracking-[0.15em]">{rangeLabel}</p>
+                        <p className="text-5xl font-bold text-foreground tabular-nums leading-none"><AnimatedCounter value={visitorsDisplay} /></p>
+                        <div className="flex items-center justify-center gap-1.5 mt-2">
+                          <p className="text-xs text-muted-foreground uppercase tracking-wider">Visitors</p>
+                          {isToday && <TodayTrendBadge today={liveVisitors} sevenDay={analytics["7d"]?.live_visitors ?? analytics["7d"]?.visitors ?? 0} />}
                         </div>
-                        <div className="flex items-center justify-center gap-1 text-muted-foreground">
-                          <Clock className="w-3 h-3" />
-                          <span className="text-xs">
+                        <div className="flex items-center justify-center gap-1 text-muted-foreground mt-3">
+                          <Clock className="w-3.5 h-3.5" />
+                          <span className="text-xs tabular-nums">
                             {avgMins > 0 ? `${avgMins}m ` : ""}{avgSecs}s avg
                           </span>
                         </div>
-                        <div className="border-t border-border/50 my-2" />
-                        <p className="text-[11px] text-muted-foreground inline-flex items-center gap-1 justify-center">
-                          /bio: <AnimatedCounter value={bioClicksLive} className="font-semibold text-foreground" />
-                          <TodayTrendBadge today={bioClicksLive} sevenDay={bioClicks["7d"] || 0} />
-                        </p>
-                        <p className="text-[11px] text-muted-foreground inline-flex items-center gap-1 justify-center mt-0.5">
-                          /podcast: <AnimatedCounter value={podClicksLive} className="font-semibold text-foreground" />
-                          <TodayTrendBadge today={podClicksLive} sevenDay={podcastClicks["7d"] || 0} />
-                        </p>
+                        {isToday && (
+                          <>
+                            <div className="border-t border-border/50 w-full my-3" />
+                            <div className="flex flex-col gap-1 w-full">
+                              <p className="text-[11px] text-muted-foreground inline-flex items-center gap-1 justify-center">
+                                <span className="uppercase tracking-wider">/bio</span>
+                                <AnimatedCounter value={bioClicksLive} className="font-semibold text-foreground tabular-nums" />
+                                <TodayTrendBadge today={bioClicksLive} sevenDay={bioClicks["7d"] || 0} />
+                              </p>
+                              <p className="text-[11px] text-muted-foreground inline-flex items-center gap-1 justify-center">
+                                <span className="uppercase tracking-wider">/podcast</span>
+                                <AnimatedCounter value={podClicksLive} className="font-semibold text-foreground tabular-nums" />
+                                <TodayTrendBadge today={podClicksLive} sevenDay={podcastClicks["7d"] || 0} />
+                              </p>
+                            </div>
+                          </>
+                        )}
                       </CardContent>
                     </Card>
                   );
                 })()}
-                {[
-                  { key: "7d", label: "Last 7 Days", days: 7, outerKey: "14d", outerDays: 14 },
-                  { key: "14d", label: "Last 14 Days", days: 14, outerKey: "30d", outerDays: 30 },
-                  { key: "30d", label: "Last 30 Days", days: 30, outerKey: "since_launch", outerDays: Math.round((Date.now() - new Date("2024-12-28").getTime()) / 86400000) },
-                  { key: "since_launch", label: "Since Launch", days: 0, outerKey: null, outerDays: 0 },
-                ].map(({ key, label, days, outerKey, outerDays }) => {
-                  const period = analytics[key];
-                  const avgMins = period ? Math.floor(period.avg_duration / 60) : 0;
-                  const avgSecs = period ? period.avg_duration % 60 : 0;
-                  const outer = outerKey ? analytics[outerKey] : null;
-                  const liveVal = period?.live_visitors ?? 0;
-                  const outerLiveVal = outer?.live_visitors ?? 0;
-                  return (
-                    <Card key={key}>
-                      <CardContent className="p-5 text-center">
-                        <p className="text-xs font-medium text-muted-foreground mb-3 uppercase tracking-wider">{label}</p>
-                        <p className="text-3xl font-bold text-foreground"><AnimatedCounter value={(period?.visitors || 0) + liveDeltas.visitors} /></p>
-                        <div className="flex items-center justify-center gap-1 mb-2">
-                          <p className="text-xs text-muted-foreground">visitors</p>
-                          {outer && days > 0 && <TrendBadge current={liveVal} currentDays={days} outer={outerLiveVal} outerDays={outerDays} />}
-                        </div>
-                        <div className="flex items-center justify-center gap-1 text-muted-foreground">
-                          <Clock className="w-3 h-3" />
-                          <span className="text-xs">
-                            {avgMins > 0 ? `${avgMins}m ` : ""}{avgSecs}s avg
-                          </span>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  );
-                })}
               </div>
             </div>
           </section>
+
 
           {/* Bio Link Clicks — graph inline */}
           <section>
             <h2 className="text-xl font-bold text-foreground mb-4 flex items-center gap-2">
               <BarChart3 className="w-5 h-5 text-primary" /> Bio & Podcast Link Clicks
             </h2>
-            <div className="flex flex-col xl:flex-row gap-4">
+            <div className="flex flex-col xl:flex-row gap-4 items-stretch">
               {(graphRange === 'today' ? hourlyStats.length > 0 : filteredDailyStats.length > 0) && (
-                <InlineGraph
-                  data={graphRange === 'today' ? hourlyStats : filteredDailyStats}
-                  dataKey="bio_clicks"
-                  label="/bio"
-                  color="hsl(25, 95%, 53%)"
-                  dataKey2="podcast_clicks"
-                  label2="/podcast"
-                  color2="hsl(210, 90%, 60%)"
-                  hourly={graphRange === 'today'}
-                />
+                <div className="flex-1 min-w-0">
+                  <InlineGraph
+                    data={graphRange === 'today' ? hourlyStats : filteredDailyStats}
+                    dataKey="bio_clicks"
+                    label="/bio"
+                    color="hsl(25, 95%, 53%)"
+                    dataKey2="podcast_clicks"
+                    label2="/podcast"
+                    color2="hsl(210, 90%, 60%)"
+                    hourly={graphRange === 'today'}
+                  />
+                </div>
               )}
-
-              <div className="flex-1 grid grid-cols-2 md:grid-cols-5 gap-4">
+              <div className="w-full xl:w-72 flex-shrink-0 flex">
                 {(() => {
+                  const isToday = graphRange === 'today';
                   const dB = liveDeltas.bio_clicks;
                   const dP = liveDeltas.podcast_clicks;
-                  const todayBio = liveTick ? liveTick.bio_clicks_today : (bioClicks.today || 0);
-                  const todayPod = liveTick ? liveTick.podcast_clicks_today : (podcastClicks.today || 0);
-                  return [
-                    { label: "Today", bio: todayBio, pod: todayPod, isToday: true, bioSeven: bioClicks["7d"] || 0, podSeven: podcastClicks["7d"] || 0, days: 0, bioOuter: 0, podOuter: 0, outerDays: 0 },
-                    { label: "7 Days", bio: (bioClicks["7d"] || 0) + dB, pod: (podcastClicks["7d"] || 0) + dP, isToday: false, bioSeven: 0, podSeven: 0, days: 7, bioOuter: (bioClicks["14d"] || 0) + dB, podOuter: (podcastClicks["14d"] || 0) + dP, outerDays: 14 },
-                    { label: "14 Days", bio: (bioClicks["14d"] || 0) + dB, pod: (podcastClicks["14d"] || 0) + dP, isToday: false, bioSeven: 0, podSeven: 0, days: 14, bioOuter: (bioClicks["30d"] || 0) + dB, podOuter: (podcastClicks["30d"] || 0) + dP, outerDays: 30 },
-                    { label: "30 Days", bio: (bioClicks["30d"] || 0) + dB, pod: (podcastClicks["30d"] || 0) + dP, isToday: false, bioSeven: 0, podSeven: 0, days: 30, bioOuter: (bioClicks["30d"] || 0) + dB, podOuter: (podcastClicks["30d"] || 0) + dP, outerDays: 30 },
-                    { label: "Total", bio: (bioClicks.since_launch || 0) + dB, pod: (podcastClicks.since_launch || 0) + dP, isToday: false, bioSeven: 0, podSeven: 0, days: 0, bioOuter: 0, podOuter: 0, outerDays: 0 },
-                  ];
-                })().map(({ label, bio, pod, isToday, bioSeven, podSeven, days, bioOuter, podOuter, outerDays }) => (
-                  <Card key={label}>
-                    <CardContent className="p-4 text-center">
-                      <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">{label}</p>
-                      {/* Bio (top) */}
-                      <div>
-                        <p className="text-2xl font-bold text-foreground inline-flex items-center gap-1.5 justify-center">
-                          <span className="inline-block w-2 h-2 rounded-full" style={{ background: "hsl(25, 95%, 53%)" }} />
-                          <AnimatedCounter value={bio} />
-                          {isToday && <TodayTrendBadge today={bio} sevenDay={bioSeven} />}
-                        </p>
-                        <div className="flex items-center justify-center gap-1">
-                          <p className="text-[10px] text-muted-foreground uppercase tracking-wider">/bio</p>
-                          {!isToday && days > 0 && outerDays > 0 && days < 30 && <TrendBadge current={bio} currentDays={days} outer={bioOuter} outerDays={outerDays} />}
+                  const bio = isToday
+                    ? (liveTick ? liveTick.bio_clicks_today : (bioClicks.today || 0))
+                    : (bioClicks[rangeKey] || 0) + dB;
+                  const pod = isToday
+                    ? (liveTick ? liveTick.podcast_clicks_today : (podcastClicks.today || 0))
+                    : (podcastClicks[rangeKey] || 0) + dP;
+                  return (
+                    <Card className="border-primary/30 bg-primary/5 w-full flex">
+                      <CardContent className="p-6 text-center flex flex-col items-center justify-center w-full gap-3">
+                        <p className="text-[11px] font-semibold text-muted-foreground uppercase tracking-[0.15em]">{rangeLabel}</p>
+                        <div className="w-full">
+                          <p className="text-4xl font-bold text-foreground inline-flex items-center gap-2 justify-center tabular-nums leading-none">
+                            <span className="inline-block w-2.5 h-2.5 rounded-full" style={{ background: "hsl(25, 95%, 53%)" }} />
+                            <AnimatedCounter value={bio} />
+                            {isToday && <TodayTrendBadge today={bio} sevenDay={bioClicks["7d"] || 0} />}
+                          </p>
+                          <p className="text-[11px] text-muted-foreground uppercase tracking-wider mt-1.5">/bio</p>
                         </div>
-                      </div>
-                      <div className="border-t border-border my-2" />
-                      {/* Podcast (bottom) */}
-                      <div>
-                        <p className="text-2xl font-bold text-foreground inline-flex items-center gap-1.5 justify-center">
-                          <span className="inline-block w-2 h-2 rounded-full" style={{ background: "hsl(210, 90%, 60%)" }} />
-                          <AnimatedCounter value={pod} />
-                          {isToday && <TodayTrendBadge today={pod} sevenDay={podSeven} />}
-                        </p>
-                        <div className="flex items-center justify-center gap-1">
-                          <p className="text-[10px] text-muted-foreground uppercase tracking-wider">/podcast</p>
-                          {!isToday && days > 0 && outerDays > 0 && days < 30 && <TrendBadge current={pod} currentDays={days} outer={podOuter} outerDays={outerDays} />}
+                        <div className="border-t border-border/50 w-full" />
+                        <div className="w-full">
+                          <p className="text-4xl font-bold text-foreground inline-flex items-center gap-2 justify-center tabular-nums leading-none">
+                            <span className="inline-block w-2.5 h-2.5 rounded-full" style={{ background: "hsl(210, 90%, 60%)" }} />
+                            <AnimatedCounter value={pod} />
+                            {isToday && <TodayTrendBadge today={pod} sevenDay={podcastClicks["7d"] || 0} />}
+                          </p>
+                          <p className="text-[11px] text-muted-foreground uppercase tracking-wider mt-1.5">/podcast</p>
                         </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
+                      </CardContent>
+                    </Card>
+                  );
+                })()}
               </div>
             </div>
           </section>
+
 
           {/* Auto-Redirect Stats — graph inline */}
           <section>
@@ -823,52 +787,55 @@ const AdminList = () => {
                 const otherPodcastRedirectsToday = lc ? Math.max(0, todayPR - lc.today) : 0;
                 return (
                   <>
-                    <div className="flex flex-col xl:flex-row gap-4">
+                    <div className="flex flex-col xl:flex-row gap-4 items-stretch">
                       {(graphRange === 'today' ? hourlyStats.length > 0 : filteredDailyStats.length > 0) && (
-                        <InlineGraph
-                          data={graphRange === 'today' ? hourlyStats : filteredDailyStats}
-                          dataKey="bio_redirects"
-                          label="/bio redirects"
-                          color="hsl(25, 95%, 53%)"
-                          dataKey2="podcast_redirects"
-                          label2="/podcast redirects"
-                          color2="hsl(210, 90%, 60%)"
-                          hourly={graphRange === 'today'}
-                        />
+                        <div className="flex-1 min-w-0">
+                          <InlineGraph
+                            data={graphRange === 'today' ? hourlyStats : filteredDailyStats}
+                            dataKey="bio_redirects"
+                            label="/bio redirects"
+                            color="hsl(25, 95%, 53%)"
+                            dataKey2="podcast_redirects"
+                            label2="/podcast redirects"
+                            color2="hsl(210, 90%, 60%)"
+                            hourly={graphRange === 'today'}
+                          />
+                        </div>
                       )}
-                      <div className="flex-1 grid grid-cols-2 md:grid-cols-5 gap-4">
-                        {tiles.map(({ label, topVal, botVal, isToday, topSeven, botSeven, days, topOuter, botOuter, outerDays }) => (
-                          <Card key={label}>
-                            <CardContent className="p-4 text-center">
-                              <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">{label}</p>
-                              <div>
-                                <p className="text-2xl font-bold text-foreground inline-flex items-center gap-1.5 justify-center">
-                                  <span className="inline-block w-2 h-2 rounded-full" style={{ background: "hsl(25, 95%, 53%)" }} />
-                                  <AnimatedCounter value={topVal} />
-                                  {isToday && <TodayTrendBadge today={topVal} sevenDay={topSeven} />}
-                                </p>
-                                <div className="flex items-center justify-center gap-1">
-                                  <p className="text-[10px] text-muted-foreground uppercase tracking-wider">/bio redirects</p>
-                                  {!isToday && days > 0 && outerDays > days && <TrendBadge current={topVal} currentDays={days} outer={topOuter} outerDays={outerDays} />}
+                      <div className="w-full xl:w-72 flex-shrink-0 flex">
+                        {(() => {
+                          const isToday = graphRange === 'today';
+                          const sumKey = rangeKey === 'since_launch' ? 'total' : rangeKey;
+                          const topVal = isToday ? todayBR : (br[sumKey] || 0) + dBR;
+                          const botVal = isToday ? todayPR : (pr[sumKey] || 0) + dPR;
+                          return (
+                            <Card className="border-primary/30 bg-primary/5 w-full flex">
+                              <CardContent className="p-6 text-center flex flex-col items-center justify-center w-full gap-3">
+                                <p className="text-[11px] font-semibold text-muted-foreground uppercase tracking-[0.15em]">{rangeLabel}</p>
+                                <div className="w-full">
+                                  <p className="text-4xl font-bold text-foreground inline-flex items-center gap-2 justify-center tabular-nums leading-none">
+                                    <span className="inline-block w-2.5 h-2.5 rounded-full" style={{ background: "hsl(25, 95%, 53%)" }} />
+                                    <AnimatedCounter value={topVal} />
+                                    {isToday && <TodayTrendBadge today={topVal} sevenDay={br["7d"]} />}
+                                  </p>
+                                  <p className="text-[11px] text-muted-foreground uppercase tracking-wider mt-1.5">/bio redirects</p>
                                 </div>
-                              </div>
-                              <div className="border-t border-border my-2" />
-                              <div>
-                                <p className="text-2xl font-bold text-foreground inline-flex items-center gap-1.5 justify-center">
-                                  <span className="inline-block w-2 h-2 rounded-full" style={{ background: "hsl(210, 90%, 60%)" }} />
-                                  <AnimatedCounter value={botVal} />
-                                  {isToday && <TodayTrendBadge today={botVal} sevenDay={botSeven} />}
-                                </p>
-                                <div className="flex items-center justify-center gap-1">
-                                  <p className="text-[10px] text-muted-foreground uppercase tracking-wider">/podcast redirects</p>
-                                  {!isToday && days > 0 && outerDays > days && <TrendBadge current={botVal} currentDays={days} outer={botOuter} outerDays={outerDays} />}
+                                <div className="border-t border-border/50 w-full" />
+                                <div className="w-full">
+                                  <p className="text-4xl font-bold text-foreground inline-flex items-center gap-2 justify-center tabular-nums leading-none">
+                                    <span className="inline-block w-2.5 h-2.5 rounded-full" style={{ background: "hsl(210, 90%, 60%)" }} />
+                                    <AnimatedCounter value={botVal} />
+                                    {isToday && <TodayTrendBadge today={botVal} sevenDay={pr["7d"]} />}
+                                  </p>
+                                  <p className="text-[11px] text-muted-foreground uppercase tracking-wider mt-1.5">/podcast redirects</p>
                                 </div>
-                              </div>
-                            </CardContent>
-                          </Card>
-                        ))}
+                              </CardContent>
+                            </Card>
+                          );
+                        })()}
                       </div>
                     </div>
+
 
                     {/* Row 2: compact Latest Video Redirects card + Avg Time / New Subs filling the empty space */}
                     {(() => {
