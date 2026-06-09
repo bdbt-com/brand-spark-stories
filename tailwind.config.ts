@@ -171,6 +171,10 @@ export default {
 				'caret-blink': {
 					'0%, 49%':   { opacity: '1' },
 					'50%, 100%': { opacity: '0' }
+				},
+				'shimmer-sweep': {
+					'0%':   { transform: 'translateX(-150%) skewX(-12deg)' },
+					'100%': { transform: 'translateX(250%) skewX(-12deg)' }
 				}
 			},
 			animation: {
