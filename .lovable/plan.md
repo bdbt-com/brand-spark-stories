@@ -1,5 +1,12 @@
-# Mobile: nudge Browse Courses up
+# Site-wide haptic feedback on button taps
 
-Single change in `src/pages/Home.tsx`. Desktop unchanged.
+## New file: `src/lib/haptics.ts`
+Registers one global `pointerdown` listener. Fires `navigator.vibrate(10)` whenever the user taps anything that resolves to a `<button>`, `<a>`, `[role="button"]`, or `[data-haptic]` and isn't disabled. Silently no-ops where the Vibration API is unsupported.
 
-- CTA section padding `pt-16 lg:pt-24 pb-6 lg:pb-12` → `pt-8 lg:pt-24 pb-6 lg:pb-12`.
+## `src/main.tsx`
+Import and call `initHaptics()` once at startup.
+
+## Compatibility caveat
+- **Works:** Android Chrome / Edge / Samsung Internet / Firefox.
+- **Does NOT work:** iOS Safari and all iOS browsers — Apple has never shipped the Vibration API on the web. There is no JS-only workaround.
+- To get real haptics on iPhone you'd need to wrap the site in Capacitor and use `@capacitor/haptics`. Out of scope for this change.
