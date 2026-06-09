@@ -344,14 +344,16 @@ const AdminList = () => {
 
   const fetchVideoCounts = useCallback(async () => {
     await runRequest("video-counts", async (signal) => {
-      const { data } = await supabase.functions.invoke("get-video-clicks", { signal, timeout: 10000 });
+      const { data, error } = await supabase.functions.invoke("get-video-clicks", { signal, timeout: 10000 });
+      if (error) throw error;
       if (data?.counts) setVideoCounts(data.counts);
     });
   }, [runRequest]);
 
   const fetchDownloadCounts = useCallback(async () => {
     await runRequest("download-counts", async (signal) => {
-      const { data } = await supabase.functions.invoke("get-download-counts", { signal, timeout: 10000 });
+      const { data, error } = await supabase.functions.invoke("get-download-counts", { signal, timeout: 10000 });
+      if (error) throw error;
       if (data?.counts) {
         const sorted = Object.entries(data.counts as Record<string, number>)
           .sort((a, b) => b[1] - a[1])
@@ -363,7 +365,8 @@ const AdminList = () => {
 
   const fetchAnalytics = useCallback(async () => {
     await runRequest("analytics", async (signal) => {
-      const { data } = await supabase.functions.invoke("get-page-analytics", { signal, timeout: 10000 });
+      const { data, error } = await supabase.functions.invoke("get-page-analytics", { signal, timeout: 10000 });
+      if (error) throw error;
       if (data?.analytics) setAnalytics(data.analytics);
       if (data?.bio_clicks) setBioClicks(data.bio_clicks);
       if (data?.podcast_clicks) setPodcastClicks(data.podcast_clicks);
