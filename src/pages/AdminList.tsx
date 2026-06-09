@@ -500,10 +500,17 @@ const AdminList = () => {
     };
   }, [fetchSubscribers, fetchVideoCounts, fetchDownloadCounts, fetchAnalytics, fetchFeed, fetchFeedIncremental, fetchDailyStats, fetchLiveTick, fetchPageStats]);
 
-  // Track which feed keys were rendered last paint so we can animate only new ones
+  // Cleanup queued animation-clear timers on unmount
   useEffect(() => {
-    seenKeysAtRender.current = new Set(feed.map(feedKey));
-  }, [feed]);
+    return () => {
+      animClearTimers.current.forEach((t) => clearTimeout(t));
+      animClearTimers.current.clear();
+      if (feedPumpTimer.current) {
+        clearTimeout(feedPumpTimer.current);
+        feedPumpTimer.current = null;
+      }
+    };
+  }, []);
 
   if (loading) {
     return (
