@@ -89,7 +89,7 @@ const CoursesIntentModal = ({ open, onOpenChange, onSubmitted }: CoursesIntentMo
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogContent
-        className="w-[calc(100vw-1.5rem)] max-w-md sm:max-w-lg p-5 sm:p-6 max-h-[92vh] overflow-y-auto bg-gradient-to-br from-primary/10 via-[#141414] to-primary/5 border-2 border-primary/40 rounded-2xl shadow-[0_0_60px_-10px_hsl(var(--primary)/0.5)] [&>button]:top-3 [&>button]:right-3 [&>button]:h-9 [&>button]:w-9"
+        className="w-[calc(100vw-1rem)] max-w-md sm:max-w-lg p-4 sm:p-6 max-h-[92vh] overflow-y-auto bg-gradient-to-br from-primary/10 via-[#141414] to-primary/5 border-2 border-primary/40 rounded-2xl shadow-[0_0_60px_-10px_hsl(var(--primary)/0.5)] [&>button]:top-2.5 [&>button]:right-2.5 [&>button]:h-8 [&>button]:w-8"
       >
         {isSubmitted ? (
           <div className="text-center py-8 animate-scale-in">
@@ -109,14 +109,15 @@ const CoursesIntentModal = ({ open, onOpenChange, onSubmitted }: CoursesIntentMo
           </div>
         ) : (
           <>
-            <DialogHeader className="text-center sm:text-center space-y-1.5">
-              <DialogTitle className="font-bold italic text-primary text-xl sm:text-2xl leading-tight">
+            <DialogHeader className="text-center sm:text-center space-y-1.5 pr-8">
+              <DialogTitle className="font-bold italic text-primary text-lg sm:text-2xl leading-tight">
                 Pick where you want your first win
               </DialogTitle>
-              <DialogDescription className="text-foreground/80 text-sm">
+              <DialogDescription className="text-foreground/80 text-xs sm:text-sm">
                 Get the free Foundation Blueprint + early access when your course drops.
               </DialogDescription>
             </DialogHeader>
+
 
             <form onSubmit={handleSubmit} className="space-y-3 mt-1">
               <div className="space-y-2">
