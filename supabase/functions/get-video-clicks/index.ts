@@ -17,7 +17,11 @@ serve(async (req) => {
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
     );
 
-    const { data, error } = await supabase.rpc("get_video_click_counts");
+    const { data, error } = await supabase
+      .from("video_clicks")
+      .select("video_id, clicked_at")
+      .order("clicked_at", { ascending: false })
+      .limit(3000);
     if (error) throw error;
 
     // Reassemble counts object.
@@ -49,9 +53,30 @@ serve(async (req) => {
     const CLICK_PREFIXES = ["bio-click:", "latest-page:", "latest-grid:"];
     const REDIRECT_PREFIXES = ["auto-redirect:", "latest-auto:"];
 
+    const now = Date.now();
+    const todayMidnight = new Date();
+    todayMidnight.setUTCHours(0, 0, 0, 0);
+    const starts = {
+      today: todayMidnight.getTime(),
+      "7d": now - 7 * 86400000,
+      "14d": now - 14 * 86400000,
+      "30d": now - 30 * 86400000,
+    };
+    const rawCounts = new Map<string, { total: number; today: number; "7d": number; "14d": number; "30d": number }>();
+
     for (const row of data || []) {
       const vid = row.video_id || "";
-      const stats = { total: Number(row.total), today: Number(row.today), "7d": Number(row.d7), "14d": Number(row.d14), "30d": Number(row.d30) };
+      const ts = row.clicked_at ? new Date(row.clicked_at).getTime() : 0;
+      if (!rawCounts.has(vid)) rawCounts.set(vid, { total: 0, today: 0, "7d": 0, "14d": 0, "30d": 0 });
+      const stats = rawCounts.get(vid)!;
+      stats.total += 1;
+      if (ts >= starts.today) stats.today += 1;
+      if (ts >= starts["7d"]) stats["7d"] += 1;
+      if (ts >= starts["14d"]) stats["14d"] += 1;
+      if (ts >= starts["30d"]) stats["30d"] += 1;
+    }
+
+    for (const [vid, stats] of rawCounts) {
 
       // Always keep the raw composite id available
       addTo(vid, stats);

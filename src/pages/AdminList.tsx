@@ -202,6 +202,8 @@ const FeedFilterBar = ({
   );
 };
 
+const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
 const AdminList = () => {
   const [subscribers, setSubscribers] = useState<Subscriber[]>([]);
   const [loading, setLoading] = useState(false);
@@ -262,6 +264,7 @@ const AdminList = () => {
   // Baseline snapshot of liveTick at the moment the last analytics fetch completed.
   // Used to project today's live deltas onto every longer-period stat so they tick in sync.
   const liveTickRef = useRef<typeof liveTick>(null);
+  const inFlight = useRef<Record<string, boolean>>({});
   const analyticsBaseline = useRef<{
     visitors: number;
     bio_clicks: number;
@@ -271,6 +274,15 @@ const AdminList = () => {
     total_clicks: number;
     subscribers: number;
   } | null>(null);
+  const withSingleFlight = useCallback(async (key: string, run: () => Promise<void>) => {
+    if (inFlight.current[key]) return;
+    inFlight.current[key] = true;
+    try {
+      await run();
+    } finally {
+      inFlight.current[key] = false;
+    }
+  }, []);
   useEffect(() => { liveTickRef.current = liveTick; }, [liveTick]);
   const captureBaseline = useCallback(() => {
     const t = liveTickRef.current;
@@ -310,47 +322,55 @@ const AdminList = () => {
   }, [liveTick]);
 
   const fetchVideoCounts = useCallback(async () => {
-    try {
-      const { data } = await supabase.functions.invoke("get-video-clicks");
-      if (data?.counts) setVideoCounts(data.counts);
-    } catch {}
-  }, []);
+    await withSingleFlight("videoCounts", async () => {
+      try {
+        const { data } = await supabase.functions.invoke("get-video-clicks");
+        if (data?.counts) setVideoCounts(data.counts);
+      } catch {}
+    });
+  }, [withSingleFlight]);
 
   const fetchDownloadCounts = useCallback(async () => {
-    try {
-      const { data } = await supabase.functions.invoke("get-download-counts");
-      if (data?.counts) {
-        const sorted = Object.entries(data.counts as Record<string, number>)
-          .sort((a, b) => b[1] - a[1])
-          .slice(0, 10);
-        setDownloadCounts(sorted);
-      }
-    } catch {}
-  }, []);
+    await withSingleFlight("downloadCounts", async () => {
+      try {
+        const { data } = await supabase.functions.invoke("get-download-counts");
+        if (data?.counts) {
+          const sorted = Object.entries(data.counts as Record<string, number>)
+            .sort((a, b) => b[1] - a[1])
+            .slice(0, 10);
+          setDownloadCounts(sorted);
+        }
+      } catch {}
+    });
+  }, [withSingleFlight]);
 
   const fetchAnalytics = useCallback(async () => {
-    try {
-      const { data } = await supabase.functions.invoke("get-page-analytics");
-      if (data?.analytics) setAnalytics(data.analytics);
-      if (data?.bio_clicks) setBioClicks(data.bio_clicks);
-      if (data?.podcast_clicks) setPodcastClicks(data.podcast_clicks);
-      captureBaseline();
-    } catch {}
-  }, [captureBaseline]);
+    await withSingleFlight("analytics", async () => {
+      try {
+        const { data } = await supabase.functions.invoke("get-page-analytics");
+        if (data?.analytics) setAnalytics(data.analytics);
+        if (data?.bio_clicks) setBioClicks(data.bio_clicks);
+        if (data?.podcast_clicks) setPodcastClicks(data.podcast_clicks);
+        captureBaseline();
+      } catch {}
+    });
+  }, [captureBaseline, withSingleFlight]);
 
   const fetchSubscribers = useCallback(async () => {
-    try {
-      const { data, error } = await supabase.functions.invoke("admin-email-stats");
-      if (error) throw error;
-      setSubscribers(data.subscribers || []);
-      setTodaySubscribers(data.today_count || 0);
-    } catch (err: any) {
-      // Don't block the page render on subscriber-list failures.
-      console.warn("admin-email-stats failed", err);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
+    await withSingleFlight("subscribers", async () => {
+      try {
+        const { data, error } = await supabase.functions.invoke("admin-email-stats");
+        if (error) throw error;
+        setSubscribers(data.subscribers || []);
+        setTodaySubscribers(data.today_count || 0);
+      } catch (err: any) {
+        // Don't block the page render on subscriber-list failures.
+        console.warn("admin-email-stats failed", err);
+      } finally {
+        setLoading(false);
+      }
+    });
+  }, [withSingleFlight]);
 
 
 
@@ -459,38 +479,54 @@ const AdminList = () => {
   }, []);
 
   const fetchDailyStats = useCallback(async () => {
-    try {
-      const { data } = await supabase.functions.invoke("get-daily-stats");
-      if (data?.daily) setDailyStats(data.daily);
-      if (data?.hourly) setHourlyStats(data.hourly);
-    } catch {}
-  }, []);
+    await withSingleFlight("dailyStats", async () => {
+      try {
+        const { data } = await supabase.functions.invoke("get-daily-stats");
+        if (data?.daily) setDailyStats(data.daily);
+        if (data?.hourly) setHourlyStats(data.hourly);
+      } catch {}
+    });
+  }, [withSingleFlight]);
 
   const fetchLiveTick = useCallback(async () => {
-    if (typeof document !== "undefined" && document.visibilityState === "hidden") return;
-    try {
-      const { data } = await supabase.functions.invoke("get-live-tick");
-      if (data && typeof data.visitors_today === "number") setLiveTick(data);
-    } catch {}
-  }, []);
+    await withSingleFlight("liveTick", async () => {
+      try {
+        const { data } = await supabase.functions.invoke("get-live-tick");
+        if (data && typeof data.visitors_today === "number") setLiveTick(data);
+      } catch {}
+    });
+  }, [withSingleFlight]);
 
   const fetchPageStats = useCallback(async () => {
-    try {
-      const { data } = await supabase.functions.invoke("get-page-stats");
-      if (data?.pages) setPageStats(data.pages);
-    } catch {}
-  }, []);
+    await withSingleFlight("pageStats", async () => {
+      try {
+        const { data } = await supabase.functions.invoke("get-page-stats");
+        if (data?.pages) setPageStats(data.pages);
+      } catch {}
+    });
+  }, [withSingleFlight]);
 
   useEffect(() => {
-    fetchSubscribers();
-    fetchVideoCounts();
-    fetchDownloadCounts();
-    fetchAnalytics();
-    // Silently load recent history (no animation) so the feed isn't empty on open.
-    fetchFeedBackfill();
-    fetchDailyStats();
-    fetchLiveTick();
-    fetchPageStats();
+    let cancelled = false;
+    const runInitialLoad = async () => {
+      fetchLiveTick();
+      // Silently load recent history (no animation) so the feed isn't empty on open.
+      fetchFeedBackfill();
+      const jobs = [
+        fetchAnalytics,
+        fetchPageStats,
+        fetchDailyStats,
+        fetchVideoCounts,
+        fetchDownloadCounts,
+        fetchSubscribers,
+      ];
+      for (const job of jobs) {
+        if (cancelled) return;
+        await job();
+        await wait(1300);
+      }
+    };
+    runInitialLoad();
 
     const slow = setInterval(() => {
       fetchSubscribers();
@@ -499,15 +535,15 @@ const AdminList = () => {
       fetchAnalytics();
       fetchDailyStats();
       fetchPageStats();
-    }, 60000);
+    }, 180000);
 
     const tick = setInterval(() => {
       fetchLiveTick();
-    }, 5000);
+    }, 15000);
 
     const fast = setInterval(() => {
       fetchFeedIncremental();
-    }, 3000);
+    }, 6000);
 
     const onVisible = () => {
       if (document.visibilityState === "visible") {
@@ -518,6 +554,7 @@ const AdminList = () => {
     document.addEventListener("visibilitychange", onVisible);
 
     return () => {
+      cancelled = true;
       clearInterval(slow);
       clearInterval(fast);
       clearInterval(tick);

@@ -16,44 +16,32 @@ serve(async (req) => {
     const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
     const supabase = createClient(supabaseUrl, supabaseKey);
 
-    // Paginated fetch to bypass 1000-row limit
-    const allData: { email: string; first_name: string | null; created_at: string | null }[] = [];
-    let from = 0;
-    const PAGE = 1000;
-    while (true) {
-      const { data, error } = await supabase
-        .from("email_subscriptions")
-        .select("email, first_name, created_at")
-        .order("created_at", { ascending: true })
-        .range(from, from + PAGE - 1);
-
-      if (error) throw error;
-      if (!data || data.length === 0) break;
-      allData.push(...data);
-      if (data.length < PAGE) break;
-      from += PAGE;
-    }
-
-    // Deduplicate: keep earliest entry per email
-    const emailMap = new Map<string, { email: string; first_name: string | null; created_at: string | null }>();
-    for (const row of allData) {
-      if (!emailMap.has(row.email)) {
-        emailMap.set(row.email, row);
-      }
-    }
-
-    // Convert to array, sorted newest first
-    const subscribers = Array.from(emailMap.values()).reverse();
-
-    // Count subscribers gained today
     const todayMidnight = new Date();
     todayMidnight.setUTCHours(0, 0, 0, 0);
+
+    // Bounded read: the old endpoint paginated the full table and started timing
+    // out once the list grew. Keep the visible admin list useful and fast.
+    const { data, error } = await supabase
+      .from("email_subscriptions")
+      .select("email, first_name, created_at")
+      .order("created_at", { ascending: false })
+      .limit(300);
+
+    if (error) throw error;
+
+    const emailMap = new Map<string, { email: string; first_name: string | null; created_at: string | null }>();
+    for (const row of data || []) {
+      if (row.email && !emailMap.has(row.email)) emailMap.set(row.email, row);
+    }
+
+    const subscribers = Array.from(emailMap.values());
     const todayCount = subscribers.filter(s => s.created_at && new Date(s.created_at) >= todayMidnight).length;
 
     return new Response(JSON.stringify({ 
       subscribers,
       total: subscribers.length,
       today_count: todayCount,
+      partial: (data || []).length >= 300,
     }), {
       status: 200,
       headers: { ...corsHeaders, "Content-Type": "application/json" },
