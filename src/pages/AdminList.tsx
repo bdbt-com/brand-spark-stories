@@ -202,6 +202,8 @@ const FeedFilterBar = ({
   );
 };
 
+const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
 const AdminList = () => {
   const [subscribers, setSubscribers] = useState<Subscriber[]>([]);
   const [loading, setLoading] = useState(false);
@@ -262,6 +264,7 @@ const AdminList = () => {
   // Baseline snapshot of liveTick at the moment the last analytics fetch completed.
   // Used to project today's live deltas onto every longer-period stat so they tick in sync.
   const liveTickRef = useRef<typeof liveTick>(null);
+  const inFlight = useRef<Record<string, boolean>>({});
   const analyticsBaseline = useRef<{
     visitors: number;
     bio_clicks: number;
@@ -271,6 +274,15 @@ const AdminList = () => {
     total_clicks: number;
     subscribers: number;
   } | null>(null);
+  const withSingleFlight = useCallback(async (key: string, run: () => Promise<void>) => {
+    if (inFlight.current[key]) return;
+    inFlight.current[key] = true;
+    try {
+      await run();
+    } finally {
+      inFlight.current[key] = false;
+    }
+  }, []);
   useEffect(() => { liveTickRef.current = liveTick; }, [liveTick]);
   const captureBaseline = useCallback(() => {
     const t = liveTickRef.current;
