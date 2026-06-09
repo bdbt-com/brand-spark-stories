@@ -479,27 +479,32 @@ const AdminList = () => {
   }, []);
 
   const fetchDailyStats = useCallback(async () => {
-    try {
-      const { data } = await supabase.functions.invoke("get-daily-stats");
-      if (data?.daily) setDailyStats(data.daily);
-      if (data?.hourly) setHourlyStats(data.hourly);
-    } catch {}
-  }, []);
+    await withSingleFlight("dailyStats", async () => {
+      try {
+        const { data } = await supabase.functions.invoke("get-daily-stats");
+        if (data?.daily) setDailyStats(data.daily);
+        if (data?.hourly) setHourlyStats(data.hourly);
+      } catch {}
+    });
+  }, [withSingleFlight]);
 
   const fetchLiveTick = useCallback(async () => {
-    if (typeof document !== "undefined" && document.visibilityState === "hidden") return;
-    try {
-      const { data } = await supabase.functions.invoke("get-live-tick");
-      if (data && typeof data.visitors_today === "number") setLiveTick(data);
-    } catch {}
-  }, []);
+    await withSingleFlight("liveTick", async () => {
+      try {
+        const { data } = await supabase.functions.invoke("get-live-tick");
+        if (data && typeof data.visitors_today === "number") setLiveTick(data);
+      } catch {}
+    });
+  }, [withSingleFlight]);
 
   const fetchPageStats = useCallback(async () => {
-    try {
-      const { data } = await supabase.functions.invoke("get-page-stats");
-      if (data?.pages) setPageStats(data.pages);
-    } catch {}
-  }, []);
+    await withSingleFlight("pageStats", async () => {
+      try {
+        const { data } = await supabase.functions.invoke("get-page-stats");
+        if (data?.pages) setPageStats(data.pages);
+      } catch {}
+    });
+  }, [withSingleFlight]);
 
   useEffect(() => {
     fetchSubscribers();
