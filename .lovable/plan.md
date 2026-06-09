@@ -1,17 +1,26 @@
-## Update homepage CTA → force Foundation Blueprint popup on Courses
+## Hero alignment + spacing pass
 
-### 1. Rename the button
-Change the homepage hero CTA text from **"Browse Courses"** to **"Get Your Free Foundation Blueprint"**. Keep the same premium gold styling and arrow icon.
+### 1. Truly centre the hero text (all breakpoints)
+The previous change used `text-center lg:text-left`, which is why mobile-sized previews are still left-aligning each wrapped line. Change the hero left column wrapper to `text-center` only (drop the `lg:text-left` override), so every line of the H1 and the supporting paragraph is centred on mobile, tablet **and** desktop. Also wrap the paragraph in `mx-auto max-w-prose` so the centred text doesn't span uncomfortably wide on desktop.
 
-### 2. Make it force the Courses intent popup every time
-Currently `/courses` shows the `CoursesIntentModal` once per session (sessionStorage key `courses_intent_modal_seen`). The user wants the popup to appear **every time** they arrive via this specific button — even repeat visits.
+The Browse Courses button stays centred via `flex justify-center`.
 
-Implementation:
-- Link target becomes `/courses?intent=1` instead of `/courses`.
-- In `src/pages/Courses.tsx`, read the `intent` query param via `useSearchParams`. When `intent=1` is present, ignore the sessionStorage guard and open the modal immediately (still after the existing 600ms delay so the page paints first), and clear the param from the URL so a refresh behaves normally.
+### 2. Shrink the hero by ~20%
+Reduce the hero section's vertical padding so the whole dark/lighter top band is more compact:
+- `py-24 lg:py-32` → `py-16 lg:py-24`
+- Tighten the H1 → paragraph spacing (`mb-6` → `mb-5`, `mb-8` → `mb-7`).
+- Reduce the chevron's distance from the bottom (`bottom-16` → `bottom-8`) so it sits closer to the trimmed edge.
+
+### 3. Give the Daily Wins / Daily Drifts boxes breathing room
+The section directly under the hero currently uses `py-24`. Bump the top padding so the boxes sit further down the page, leaving clear space around the Browse Courses CTA when the hero shortens:
+- `py-24` → `pt-32 md:pt-40 pb-24`
+
+### 4. Mobile pass
+- Stack order is already correct (text first, carousel second).
+- The button is already `w-full sm:w-auto` so it remains a generous tap target on mobile.
+- Carousel keeps its existing aspect ratio — no change.
 
 ### Files touched
-- `src/pages/Home.tsx` — button label + `to="/courses?intent=1"`.
-- `src/pages/Courses.tsx` — add `useSearchParams` hook, force-open branch in the existing `useEffect`.
+- `src/pages/Home.tsx` only.
 
-No new dependencies. Existing modal behaviour (auto-once per session) is preserved for normal `/courses` navigation.
+No new dependencies. After this lands, please scroll through on mobile + desktop and send the next round of feedback.
