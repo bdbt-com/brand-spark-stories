@@ -225,7 +225,8 @@ const AdminList = () => {
   } | null>(null);
   const [graphRange, setGraphRange] = useState<'today' | '7d' | '14d' | '30d' | 'all'>('all');
   const [pageStats, setPageStats] = useState<Record<string, { page_path: string; unique_visitors: number; avg_duration: number; views: number }[]>>({});
-  const [pageStatsRange, setPageStatsRange] = useState<'today' | '7d' | '14d' | '30d' | 'all'>('all');
+  const rangeKey = graphRange === 'all' ? 'since_launch' : graphRange;
+  const rangeLabel = graphRange === 'all' ? 'Since Launch' : graphRange === 'today' ? 'Today' : graphRange === '7d' ? 'Last 7 Days' : graphRange === '14d' ? 'Last 14 Days' : 'Last 30 Days';
   const [showPreviousVideos, setShowPreviousVideos] = useState(false);
   const { videos: ytVideos } = useYouTubeVideos();
   const { video: cachedLatestVideo } = useLatestVideo();
