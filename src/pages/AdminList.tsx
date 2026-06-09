@@ -366,8 +366,8 @@ const AdminList = () => {
   }, [captureBaseline, runRequest]);
 
   const fetchSubscribers = useCallback(async () => {
-    await runRequest("subscribers", async () => {
-      const { data, error } = await supabase.functions.invoke("admin-email-stats");
+    await runRequest("subscribers", async (signal) => {
+      const { data, error } = await supabase.functions.invoke("admin-email-stats", { signal, timeout: 10000 });
       if (error) throw error;
       setSubscribers(data.subscribers || []);
       setTodaySubscribers(data.today_count || 0);
@@ -380,8 +380,8 @@ const AdminList = () => {
     `${item.type}:${item.timestamp}:${item.label}:${item.detail}`;
 
   const fetchFeed = useCallback(async () => {
-    await runRequest("feed-full", async () => {
-      const { data } = await supabase.functions.invoke("get-activity-feed", { body: {} });
+    await runRequest("feed-full", async (signal) => {
+      const { data } = await supabase.functions.invoke("get-activity-feed", { body: {}, signal, timeout: 8000 });
       if (data?.feed) {
         feedLoadVersion.current += 1;
         const version = feedLoadVersion.current;
@@ -416,9 +416,11 @@ const AdminList = () => {
   const fetchFeedIncremental = useCallback(async () => {
     if (!lastFeedSince.current) return;
     if (typeof document !== "undefined" && document.visibilityState === "hidden") return;
-    await runRequest("feed-incremental", async () => {
+    await runRequest("feed-incremental", async (signal) => {
       const { data } = await supabase.functions.invoke("get-activity-feed", {
         body: { since: lastFeedSince.current },
+        signal,
+        timeout: 6000,
       });
       if (data?.server_time) lastFeedSince.current = data.server_time;
       const incoming: FeedItem[] = data?.feed || [];
