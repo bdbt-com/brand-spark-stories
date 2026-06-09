@@ -60,7 +60,7 @@ serve(async (req) => {
     const incremental = !!sinceParam;
     const since = sinceParam || new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
 
-    const LIMIT = incremental ? 100 : 500;
+    const LIMIT = 100;
 
     async function fetchAll(table: string, cols: string, tsCol: string) {
       const { data, error } = await supabase
@@ -142,7 +142,7 @@ serve(async (req) => {
 
     items.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
 
-    return new Response(JSON.stringify({ feed: items.slice(0, 500), server_time: serverTime }), {
+    return new Response(JSON.stringify({ feed: items.slice(0, 100), server_time: serverTime }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
   } catch (error: any) {
