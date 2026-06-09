@@ -193,7 +193,7 @@ const Home = () => {
           </div>
         </div>
         {/* Bottom Chevron Scroll */}
-        <button aria-label="Scroll to next section" onClick={() => podcastRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })} className="group absolute z-10 bottom-8 left-1/2 -translate-x-1/2">
+        <button aria-label="Scroll to next section" onClick={() => podcastRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })} className="group absolute z-10 bottom-8 left-1/2 -translate-x-1/2 hidden lg:block">
           <div className="relative w-14 h-14">
             <div className="relative w-14 h-14 rounded-full bg-white/15 backdrop-blur border border-white/30 flex items-center justify-center">
               <ChevronDown className="w-6 h-6 text-white transition-transform group-hover:translate-y-0.5" />
