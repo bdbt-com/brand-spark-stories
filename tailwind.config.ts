@@ -159,12 +159,13 @@ export default {
 					'100%': { opacity: '1', transform: 'scale(1) translateY(0)' }
 				},
 				'type-row': {
-					'0%':   { opacity: '0', clipPath: 'inset(0 100% 0 0)', transform: 'translateX(-4px)' },
-					'100%': { opacity: '1', clipPath: 'inset(0 0 0 0)',    transform: 'translateX(0)' }
+					'0%':   { opacity: '0', clipPath: 'inset(0 100% 0 0)', transform: 'translateY(-2px)' },
+					'60%':  { opacity: '1' },
+					'100%': { opacity: '1', clipPath: 'inset(0 0 0 0)',    transform: 'translateY(0)' }
 				},
 				'tick-in': {
-					'0%':   { transform: 'scale(0.4)', opacity: '0' },
-					'70%':  { transform: 'scale(1.18)', opacity: '1' },
+					'0%':   { transform: 'scale(0.6)', opacity: '0' },
+					'60%':  { transform: 'scale(1.08)', opacity: '1' },
 					'100%': { transform: 'scale(1)',    opacity: '1' }
 				},
 				'caret-blink': {
@@ -182,8 +183,8 @@ export default {
 				'float': 'float 4s ease-in-out infinite',
 				'pulse-glow': 'pulse-glow 2s ease-in-out infinite',
 				'bubble-in': 'bubble-in 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) both',
-				'type-row': 'type-row 0.42s steps(22, end) both',
-				'tick-in': 'tick-in 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both',
+				'type-row': 'type-row 0.5s cubic-bezier(0.22, 1, 0.36, 1) both',
+				'tick-in': 'tick-in 0.4s cubic-bezier(0.34, 1.4, 0.5, 1) both',
 				'caret-blink': 'caret-blink 0.35s steps(1, end) 2 both'
 			},
 			transitionTimingFunction: {
