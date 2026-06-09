@@ -142,7 +142,7 @@ serve(async (req) => {
 
     items.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
 
-    return new Response(JSON.stringify({ feed: items.slice(0, 500), server_time: serverTime }), {
+    return new Response(JSON.stringify({ feed: items.slice(0, 100), server_time: serverTime }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
   } catch (error: any) {
