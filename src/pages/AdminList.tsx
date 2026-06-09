@@ -146,6 +146,7 @@ interface FeedItem {
   label: string;
   detail: string;
   timestamp: string;
+  country?: string | null;
 }
 
 const FEED_CONFIG: Record<string, { icon: typeof Play; color: string; bg: string; label: string }> = {
@@ -249,10 +250,13 @@ const AdminList = () => {
 
   const lastFeedSince = useRef<string | null>(null);
   const feedItemKeys = useRef<Set<string>>(new Set());
-  const seenKeysAtRender = useRef<Set<string>>(new Set());
+  // Keys currently mid-entry-animation. Drives the animate-* classes precisely
+  // and is cleared after the animation duration so re-renders don't re-trigger.
+  const [animatingKeys, setAnimatingKeys] = useState<Set<string>>(new Set());
   // Global single-item release queue: ensures one entry animates fully before the next begins.
   const feedQueue = useRef<FeedItem[]>([]);
   const feedPumpTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const animClearTimers = useRef<Set<ReturnType<typeof setTimeout>>>(new Set());
   // Baseline snapshot of liveTick at the moment the last analytics fetch completed.
   // Used to project today's live deltas onto every longer-period stat so they tick in sync.
   const liveTickRef = useRef<typeof liveTick>(null);
