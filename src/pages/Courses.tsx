@@ -217,7 +217,7 @@ const Courses = () => {
                         variant="outline"
                         className="w-full min-h-12 rounded-xl border-2 border-primary/60 text-primary font-bold tracking-tight bg-[#141414]/80 md:hover:bg-primary md:hover:text-primary-foreground md:hover:border-primary md:hover:scale-[1.02] transition-all"
                       >
-                        Join the Waitlist
+                        {course.cta}
                       </Button>
                     </div>
                   </CardContent>
