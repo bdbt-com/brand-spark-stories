@@ -164,27 +164,27 @@ const Home = () => {
   }, [embla]);
   return <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative bg-gradient-hero text-white py-16 lg:py-24 overflow-hidden">
+      <section className="relative bg-gradient-hero text-white py-6 lg:py-24 overflow-hidden">
         <div className="absolute inset-0 bg-black/20"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="grid lg:grid-cols-2 gap-6 lg:gap-12 items-center">
             <div className="animate-fade-in text-center">
-              <h1 className="text-4xl lg:text-6xl font-bold mb-5 leading-tight">
-                <span className="block text-white">Are your habits building the life you want</span>
+              <h1 className="text-2xl lg:text-6xl font-bold mb-3 lg:mb-5 leading-tight">
+                <span className="block text-white">Are your habits building the life you want?</span>
                 <span className="block text-[hsl(35_45%_75%)]">or quietly pulling you away from it?</span>
               </h1>
-              <p className="text-base lg:text-lg text-white/90 leading-relaxed mb-7 mx-auto max-w-prose">
+              <p className="text-sm lg:text-lg text-white/90 leading-relaxed mb-4 lg:mb-7 mx-auto max-w-prose">
                 Your days are shaped by tiny repeated habits. And whether you realise it or not, your energy, health, finances, confidence and momentum are already compounding, either moving you forward or holding you back.
               </p>
             </div>
             <div className="animate-float">
-              <div className="bg-white/10 backdrop-blur-md rounded-2xl p-8 shadow-strong">
+              <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 lg:p-8 shadow-strong">
                 <Carousel setApi={setEmbla} opts={{
                 loop: true
               }} className="w-full" aria-label="Daily success journey image carousel">
                   <CarouselContent>
                     {(filteredImages.length ? filteredImages : images).map((src, idx) => <CarouselItem key={src}>
-                         <img src={src} alt={`Big Life Change inspiration image ${idx + 1}`} className="w-full aspect-square object-cover rounded-xl" loading={idx === 0 ? "eager" : "lazy"} />
+                         <img src={src} alt={`Big Life Change inspiration image ${idx + 1}`} className="w-full aspect-[4/3] lg:aspect-square object-cover rounded-xl" loading={idx === 0 ? "eager" : "lazy"} />
                       </CarouselItem>)}
                   </CarouselContent>
                 </Carousel>
@@ -193,7 +193,7 @@ const Home = () => {
           </div>
         </div>
         {/* Bottom Chevron Scroll */}
-        <button aria-label="Scroll to next section" onClick={() => podcastRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })} className="group absolute z-10 bottom-8 left-1/2 -translate-x-1/2">
+        <button aria-label="Scroll to next section" onClick={() => podcastRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })} className="group absolute z-10 bottom-8 left-1/2 -translate-x-1/2 hidden lg:block">
           <div className="relative w-14 h-14">
             <div className="relative w-14 h-14 rounded-full bg-white/15 backdrop-blur border border-white/30 flex items-center justify-center">
               <ChevronDown className="w-6 h-6 text-white transition-transform group-hover:translate-y-0.5" />
@@ -209,7 +209,7 @@ const Home = () => {
 
 
       {/* Browse Courses CTA - sits between hero and boxes */}
-      <section className="pt-16 md:pt-24 pb-8 md:pb-12">
+      <section className="pt-6 lg:pt-24 pb-6 lg:pb-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-center">
           <Link
             to="/courses?intent=1"
@@ -227,7 +227,7 @@ const Home = () => {
       </section>
 
       {/* Daily Wins and Daily Drifts Boxes */}
-      <section className="pt-8 md:pt-12 pb-24">
+      <section className="pt-10 lg:pt-12 pb-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 gap-8">
             {/* Daily Wins Box */}
