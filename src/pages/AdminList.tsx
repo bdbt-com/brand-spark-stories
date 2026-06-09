@@ -322,47 +322,55 @@ const AdminList = () => {
   }, [liveTick]);
 
   const fetchVideoCounts = useCallback(async () => {
-    try {
-      const { data } = await supabase.functions.invoke("get-video-clicks");
-      if (data?.counts) setVideoCounts(data.counts);
-    } catch {}
-  }, []);
+    await withSingleFlight("videoCounts", async () => {
+      try {
+        const { data } = await supabase.functions.invoke("get-video-clicks");
+        if (data?.counts) setVideoCounts(data.counts);
+      } catch {}
+    });
+  }, [withSingleFlight]);
 
   const fetchDownloadCounts = useCallback(async () => {
-    try {
-      const { data } = await supabase.functions.invoke("get-download-counts");
-      if (data?.counts) {
-        const sorted = Object.entries(data.counts as Record<string, number>)
-          .sort((a, b) => b[1] - a[1])
-          .slice(0, 10);
-        setDownloadCounts(sorted);
-      }
-    } catch {}
-  }, []);
+    await withSingleFlight("downloadCounts", async () => {
+      try {
+        const { data } = await supabase.functions.invoke("get-download-counts");
+        if (data?.counts) {
+          const sorted = Object.entries(data.counts as Record<string, number>)
+            .sort((a, b) => b[1] - a[1])
+            .slice(0, 10);
+          setDownloadCounts(sorted);
+        }
+      } catch {}
+    });
+  }, [withSingleFlight]);
 
   const fetchAnalytics = useCallback(async () => {
-    try {
-      const { data } = await supabase.functions.invoke("get-page-analytics");
-      if (data?.analytics) setAnalytics(data.analytics);
-      if (data?.bio_clicks) setBioClicks(data.bio_clicks);
-      if (data?.podcast_clicks) setPodcastClicks(data.podcast_clicks);
-      captureBaseline();
-    } catch {}
-  }, [captureBaseline]);
+    await withSingleFlight("analytics", async () => {
+      try {
+        const { data } = await supabase.functions.invoke("get-page-analytics");
+        if (data?.analytics) setAnalytics(data.analytics);
+        if (data?.bio_clicks) setBioClicks(data.bio_clicks);
+        if (data?.podcast_clicks) setPodcastClicks(data.podcast_clicks);
+        captureBaseline();
+      } catch {}
+    });
+  }, [captureBaseline, withSingleFlight]);
 
   const fetchSubscribers = useCallback(async () => {
-    try {
-      const { data, error } = await supabase.functions.invoke("admin-email-stats");
-      if (error) throw error;
-      setSubscribers(data.subscribers || []);
-      setTodaySubscribers(data.today_count || 0);
-    } catch (err: any) {
-      // Don't block the page render on subscriber-list failures.
-      console.warn("admin-email-stats failed", err);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
+    await withSingleFlight("subscribers", async () => {
+      try {
+        const { data, error } = await supabase.functions.invoke("admin-email-stats");
+        if (error) throw error;
+        setSubscribers(data.subscribers || []);
+        setTodaySubscribers(data.today_count || 0);
+      } catch (err: any) {
+        // Don't block the page render on subscriber-list failures.
+        console.warn("admin-email-stats failed", err);
+      } finally {
+        setLoading(false);
+      }
+    });
+  }, [withSingleFlight]);
 
 
 
