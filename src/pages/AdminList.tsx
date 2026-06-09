@@ -455,7 +455,8 @@ const AdminList = () => {
     fetchVideoCounts();
     fetchDownloadCounts();
     fetchAnalytics();
-    fetchFeed();
+    // Start the live feed from this moment — don't backfill history.
+    lastFeedSince.current = new Date().toISOString();
     fetchDailyStats();
     fetchLiveTick();
     fetchPageStats();
