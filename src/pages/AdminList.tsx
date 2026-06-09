@@ -565,6 +565,7 @@ const AdminList = () => {
     return () => {
       cancelled = true;
       stop();
+      Object.values(requestControllers.current).forEach((controller) => controller?.abort());
       document.removeEventListener("visibilitychange", onVisible);
     };
   }, [fetchSubscribers, fetchVideoCounts, fetchDownloadCounts, fetchAnalytics, fetchFeed, fetchFeedIncremental, fetchDailyStats, fetchLiveTick, fetchPageStats]);
