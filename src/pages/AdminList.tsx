@@ -224,6 +224,8 @@ const AdminList = () => {
     total_clicks_today: number;
   } | null>(null);
   const [graphRange, setGraphRange] = useState<'today' | '7d' | '14d' | '30d' | 'all'>('all');
+  const [pageStats, setPageStats] = useState<Record<string, { page_path: string; unique_visitors: number; avg_duration: number; views: number }[]>>({});
+  const [pageStatsRange, setPageStatsRange] = useState<'today' | '7d' | '14d' | '30d' | 'all'>('all');
   const [showPreviousVideos, setShowPreviousVideos] = useState(false);
   const { videos: ytVideos } = useYouTubeVideos();
   const { video: cachedLatestVideo } = useLatestVideo();
@@ -416,6 +418,13 @@ const AdminList = () => {
     } catch {}
   }, []);
 
+  const fetchPageStats = useCallback(async () => {
+    try {
+      const { data } = await supabase.functions.invoke("get-page-stats");
+      if (data?.pages) setPageStats(data.pages);
+    } catch {}
+  }, []);
+
   useEffect(() => {
     fetchSubscribers();
     fetchVideoCounts();
@@ -424,6 +433,7 @@ const AdminList = () => {
     fetchFeed();
     fetchDailyStats();
     fetchLiveTick();
+    fetchPageStats();
 
     const slow = setInterval(() => {
       fetchSubscribers();
@@ -431,6 +441,7 @@ const AdminList = () => {
       fetchDownloadCounts();
       fetchAnalytics();
       fetchDailyStats();
+      fetchPageStats();
     }, 15000);
 
     const tick = setInterval(() => {
@@ -455,7 +466,7 @@ const AdminList = () => {
       clearInterval(tick);
       document.removeEventListener("visibilitychange", onVisible);
     };
-  }, [fetchSubscribers, fetchVideoCounts, fetchDownloadCounts, fetchAnalytics, fetchFeed, fetchFeedIncremental, fetchDailyStats, fetchLiveTick]);
+  }, [fetchSubscribers, fetchVideoCounts, fetchDownloadCounts, fetchAnalytics, fetchFeed, fetchFeedIncremental, fetchDailyStats, fetchLiveTick, fetchPageStats]);
 
   // Track which feed keys were rendered last paint so we can animate only new ones
   useEffect(() => {
