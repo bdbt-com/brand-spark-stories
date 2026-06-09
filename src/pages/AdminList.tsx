@@ -592,19 +592,26 @@ const AdminList = () => {
             {(() => {
               const key = pageStatsRange === 'all' ? 'since_launch' : pageStatsRange;
               const rows = pageStats[key] || [];
-              if (rows.length === 0) {
-                return <p className="text-xs text-muted-foreground">No page data for this window yet.</p>;
-              }
+              const byPath = new Map(rows.map((r) => [r.page_path === '' ? '/' : r.page_path, r]));
+              const NAV_PAGES: { path: string; label: string }[] = [
+                { path: '/', label: 'Home' },
+                { path: '/about', label: 'About' },
+                { path: '/blueprint', label: 'Blueprint' },
+                { path: '/tips', label: 'Tips' },
+                { path: '/courses', label: 'Courses' },
+                { path: '/podcast', label: 'Podcast' },
+              ];
               return (
-                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
-                  {rows.map((p) => {
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+                  {NAV_PAGES.map(({ path, label }) => {
+                    const p = byPath.get(path) || { unique_visitors: 0, avg_duration: 0, views: 0 };
                     const mins = Math.floor(p.avg_duration / 60);
                     const secs = Math.round(p.avg_duration % 60);
-                    const display = p.page_path === '' ? '/' : p.page_path;
                     return (
-                      <Card key={display} className="border-primary/20">
+                      <Card key={path} className="border-primary/20">
                         <CardContent className="p-4">
-                          <p className="text-[11px] font-mono font-semibold text-primary truncate" title={display}>{display}</p>
+                          <p className="text-sm font-bold text-primary">{label}</p>
+                          <p className="text-[10px] font-mono text-muted-foreground truncate" title={path}>{path}</p>
                           <p className="text-2xl font-bold text-foreground mt-1.5">
                             <AnimatedCounter value={p.unique_visitors} />
                           </p>
@@ -623,6 +630,7 @@ const AdminList = () => {
                 </div>
               );
             })()}
+
           </section>
 
 
