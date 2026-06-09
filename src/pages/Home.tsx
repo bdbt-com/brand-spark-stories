@@ -164,19 +164,19 @@ const Home = () => {
   }, [embla]);
   return <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative bg-gradient-hero text-white py-24 lg:py-32 overflow-hidden">
+      <section className="relative bg-gradient-hero text-white py-16 lg:py-24 overflow-hidden">
         <div className="absolute inset-0 bg-black/20"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="animate-fade-in text-center lg:text-left">
-              <h1 className="text-4xl lg:text-6xl font-bold mb-6 leading-tight">
+            <div className="animate-fade-in text-center">
+              <h1 className="text-4xl lg:text-6xl font-bold mb-5 leading-tight">
                 <span className="block text-white">Are your habits building the life you want</span>
                 <span className="block text-[hsl(35_45%_75%)]">or quietly pulling you away from it?</span>
               </h1>
-              <p className="text-base lg:text-lg text-white/90 leading-relaxed mb-8">
+              <p className="text-base lg:text-lg text-white/90 leading-relaxed mb-7 mx-auto max-w-prose">
                 Your days are shaped by tiny repeated habits. And whether you realise it or not, your energy, health, finances, confidence and momentum are already compounding, either moving you forward or holding you back.
               </p>
-              <div className="flex justify-center lg:justify-start">
+              <div className="flex justify-center">
                 <Link
                   to="/courses?intent=1"
                   aria-label="Get Your Free Foundation Blueprint"
