@@ -232,8 +232,7 @@ const Home = () => {
         </div>
       </section>
 
-        </div>
-      </section>
+
 
       {/* Daily Wins and Daily Drifts Boxes - on blue background */}
       <section className="py-24">
