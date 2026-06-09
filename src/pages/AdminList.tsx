@@ -337,15 +337,15 @@ const AdminList = () => {
   }, [liveTick]);
 
   const fetchVideoCounts = useCallback(async () => {
-    await runRequest("video-counts", async () => {
-      const { data } = await supabase.functions.invoke("get-video-clicks");
+    await runRequest("video-counts", async (signal) => {
+      const { data } = await supabase.functions.invoke("get-video-clicks", { signal, timeout: 10000 });
       if (data?.counts) setVideoCounts(data.counts);
     });
   }, [runRequest]);
 
   const fetchDownloadCounts = useCallback(async () => {
-    await runRequest("download-counts", async () => {
-      const { data } = await supabase.functions.invoke("get-download-counts");
+    await runRequest("download-counts", async (signal) => {
+      const { data } = await supabase.functions.invoke("get-download-counts", { signal, timeout: 10000 });
       if (data?.counts) {
         const sorted = Object.entries(data.counts as Record<string, number>)
           .sort((a, b) => b[1] - a[1])
@@ -356,8 +356,8 @@ const AdminList = () => {
   }, [runRequest]);
 
   const fetchAnalytics = useCallback(async () => {
-    await runRequest("analytics", async () => {
-      const { data } = await supabase.functions.invoke("get-page-analytics");
+    await runRequest("analytics", async (signal) => {
+      const { data } = await supabase.functions.invoke("get-page-analytics", { signal, timeout: 10000 });
       if (data?.analytics) setAnalytics(data.analytics);
       if (data?.bio_clicks) setBioClicks(data.bio_clicks);
       if (data?.podcast_clicks) setPodcastClicks(data.podcast_clicks);
