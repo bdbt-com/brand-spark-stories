@@ -60,23 +60,17 @@ serve(async (req) => {
     const incremental = !!sinceParam;
     const since = sinceParam || new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
 
-    const PAGE = incremental ? 500 : 1000;
-    const MAX = incremental ? 500 : 10000;
+    const LIMIT = incremental ? 100 : 500;
 
     async function fetchAll(table: string, cols: string, tsCol: string) {
-      const all: any[] = [];
-      for (let from = 0; from < MAX; from += PAGE) {
-        const { data, error } = await supabase
-          .from(table)
-          .select(cols)
-          .gte(tsCol, since)
-          .order(tsCol, { ascending: false })
-          .range(from, from + PAGE - 1);
-        if (error || !data || data.length === 0) break;
-        all.push(...data);
-        if (data.length < PAGE) break;
-      }
-      return all;
+      const { data, error } = await supabase
+        .from(table)
+        .select(cols)
+        .gte(tsCol, since)
+        .order(tsCol, { ascending: false })
+        .limit(LIMIT);
+      if (error || !data) return [];
+      return data;
     }
 
     const clicks = await fetchAll("video_clicks", "video_id, clicked_at, country", "clicked_at");
@@ -148,7 +142,7 @@ serve(async (req) => {
 
     items.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
 
-    return new Response(JSON.stringify({ feed: items, server_time: serverTime }), {
+    return new Response(JSON.stringify({ feed: items.slice(0, 500), server_time: serverTime }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
   } catch (error: any) {
