@@ -23,7 +23,7 @@ const Navigation = () => {
   return (
     <nav className="border-b border-neutral-200 sticky top-0 z-50 transition-all duration-300 bg-white backdrop-blur-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+        <div className="flex items-center h-16 gap-4">
           {/* Logo and Social Icons */}
           <div className="flex items-center space-x-4">
             <Link to="/" className="flex items-center space-x-3 hover:opacity-80 transition-all duration-200 hover:scale-105 focus-enhanced">
@@ -102,7 +102,7 @@ const Navigation = () => {
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-6 lg:space-x-8">
+          <div className="hidden md:flex flex-1 items-center justify-evenly px-4">
             {navItems.map((item) => (
               <Link
                 key={item.name}
@@ -119,18 +119,20 @@ const Navigation = () => {
                 )}
               </Link>
             ))}
-            <Button 
-              variant="accent" 
-              size="sm" 
-              className="ml-4 hover-scale shadow-soft"
+          </div>
+          <div className="hidden md:flex items-center">
+            <Button
+              variant="accent"
+              size="sm"
+              className="hover-scale shadow-soft"
               asChild
             >
-              <Link to="/blueprint">Get Your Foundation Blueprint Here</Link>
+              <Link to="/blueprint">Get Your Free Foundation Blueprint</Link>
             </Button>
           </div>
 
           {/* Mobile menu button */}
-          <div className="md:hidden">
+          <div className="md:hidden ml-auto">
             <Button
               variant="ghost"
               size="icon"
@@ -177,7 +179,7 @@ const Navigation = () => {
                   className="w-full hover-scale-sm shadow-soft"
                   asChild
                 >
-                  <Link to="/blueprint">Get Your Foundation Blueprint Here</Link>
+                  <Link to="/blueprint">Get Your Free Foundation Blueprint</Link>
                 </Button>
               </div>
             </div>
