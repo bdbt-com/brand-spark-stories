@@ -57,31 +57,25 @@ serve(async (req) => {
       } catch {}
     }
 
-    // No `since` cursor → return an empty feed immediately. The admin page
-    // always starts the live feed from "now" and provides a cursor on every
-    // subsequent poll, so the historical backfill branch is no longer needed
-    // and would otherwise risk Postgres statement timeouts.
-    if (!sinceParam) {
-      return new Response(JSON.stringify({ feed: [], server_time: serverTime }), {
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-      });
-    }
+    const incremental = !!sinceParam;
 
-    const incremental = true;
-    const since = sinceParam;
-
-    const PAGE = incremental ? 500 : 1000;
-    const MAX = incremental ? 500 : 10000;
+    // For historical backfill (no `since`): fetch only the most recent 100 rows
+    // from each table — single query, no 24h scan, no pagination loop, so
+    // Postgres can't statement-timeout. Incremental polls keep the small
+    // `since` window below.
+    const PAGE = incremental ? 500 : 100;
+    const MAX = incremental ? 500 : 100;
 
     async function fetchAll(table: string, cols: string, tsCol: string) {
       const all: any[] = [];
       for (let from = 0; from < MAX; from += PAGE) {
-        const { data, error } = await supabase
+        let q = supabase
           .from(table)
           .select(cols)
-          .gte(tsCol, since)
           .order(tsCol, { ascending: false })
           .range(from, from + PAGE - 1);
+        if (incremental) q = q.gte(tsCol, sinceParam!);
+        const { data, error } = await q;
         if (error || !data || data.length === 0) break;
         all.push(...data);
         if (data.length < PAGE) break;

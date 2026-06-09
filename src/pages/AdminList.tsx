@@ -148,6 +148,7 @@ interface FeedItem {
   timestamp: string;
   country?: string | null;
   seq?: number;
+  silent?: boolean;
 }
 
 const FEED_CONFIG: Record<string, { icon: typeof Play; color: string; bg: string; label: string }> = {
@@ -359,6 +360,36 @@ const AdminList = () => {
     item.seq != null ? `${feedKey(item)}#${item.seq}` : feedKey(item);
   const feedSeq = useRef(0);
 
+  const fetchFeedBackfill = useCallback(async () => {
+    // One-shot historical load: populate the feed list silently (no animation,
+    // no queue pump) so opening the page shows recent activity immediately.
+    try {
+      const { data } = await supabase.functions.invoke("get-activity-feed", {
+        body: {},
+      });
+      const serverTime: string | undefined = data?.server_time;
+      const incoming: FeedItem[] = data?.feed || [];
+      lastFeedSince.current = serverTime || new Date().toISOString();
+      if (incoming.length === 0) return;
+      const fresh: FeedItem[] = [];
+      for (const item of incoming) {
+        const k = feedKey(item);
+        if (feedItemKeys.current.has(k)) continue;
+        feedItemKeys.current.add(k);
+        fresh.push({ ...item, seq: ++feedSeq.current, silent: true });
+      }
+      if (fresh.length === 0) return;
+      setFeed((prev) => {
+        const merged = [...fresh, ...prev];
+        merged.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
+        return merged.slice(0, 500);
+      });
+    } catch {
+      // Non-fatal: counters & graphs come from other endpoints.
+      if (!lastFeedSince.current) lastFeedSince.current = new Date().toISOString();
+    }
+  }, []);
+
   const fetchFeedIncremental = useCallback(async () => {
     if (!lastFeedSince.current) return;
     if (typeof document !== "undefined" && document.visibilityState === "hidden") return;
@@ -455,8 +486,8 @@ const AdminList = () => {
     fetchVideoCounts();
     fetchDownloadCounts();
     fetchAnalytics();
-    // Start the live feed from this moment — don't backfill history.
-    lastFeedSince.current = new Date().toISOString();
+    // Silently load recent history (no animation) so the feed isn't empty on open.
+    fetchFeedBackfill();
     fetchDailyStats();
     fetchLiveTick();
     fetchPageStats();
@@ -492,7 +523,7 @@ const AdminList = () => {
       clearInterval(tick);
       document.removeEventListener("visibilitychange", onVisible);
     };
-  }, [fetchSubscribers, fetchVideoCounts, fetchDownloadCounts, fetchAnalytics, fetchFeedIncremental, fetchDailyStats, fetchLiveTick, fetchPageStats]);
+  }, [fetchSubscribers, fetchVideoCounts, fetchDownloadCounts, fetchAnalytics, fetchFeedBackfill, fetchFeedIncremental, fetchDailyStats, fetchLiveTick, fetchPageStats]);
 
   // Cleanup queued animation-clear timers on unmount
   useEffect(() => {
