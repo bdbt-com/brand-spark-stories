@@ -569,10 +569,9 @@ const AdminList = () => {
 
           {/* Per-page stats */}
           <section>
-            <div className="flex items-center gap-3 mb-4">
-              <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
-                <BarChart3 className="w-5 h-5 text-primary" /> Page Stats
-              </h2>
+            <div className="flex items-center gap-2 mb-4 pb-3 border-b border-border/40">
+              <BarChart3 className="w-5 h-5 text-primary" />
+              <h2 className="text-xl font-bold text-foreground">Page Stats</h2>
               <span className="text-xs font-medium text-muted-foreground">· {rangeLabel}</span>
             </div>
             {(() => {
@@ -592,22 +591,21 @@ const AdminList = () => {
                     const p = byPath.get(path) || { unique_visitors: 0, avg_duration: 0, views: 0 };
                     const mins = Math.floor(p.avg_duration / 60);
                     const secs = Math.round(p.avg_duration % 60);
+                    const timeStr = `${mins > 0 ? `${mins}m ` : ''}${secs}s`;
                     return (
-                      <Card key={path} className="border-primary/20">
-                        <CardContent className="p-4 text-center">
-                          <p className="text-sm font-bold text-primary">{label}</p>
-                          <p className="text-[10px] font-mono text-muted-foreground truncate" title={path}>{path}</p>
-                          <p className="text-3xl font-bold text-foreground mt-3 tabular-nums">
+                      <Card key={path} className="border-primary/20 hover:border-primary/40 transition-colors h-full">
+                        <CardContent className="p-3 text-center">
+                          <div className="flex items-baseline justify-center gap-1.5">
+                            <p className="text-sm font-bold text-primary">{label}</p>
+                            <p className="text-[10px] font-mono text-muted-foreground truncate" title={path}>{path}</p>
+                          </div>
+                          <p className="text-3xl font-bold text-foreground mt-2 tabular-nums leading-none">
                             <AnimatedCounter value={p.unique_visitors} />
                           </p>
-                          <p className="text-[10px] text-muted-foreground uppercase tracking-wider mt-0.5">visitors</p>
-                          <div className="flex items-center justify-center gap-1 text-muted-foreground mt-2">
-                            <Clock className="w-3 h-3" />
-                            <span className="text-[11px] tabular-nums">
-                              {mins > 0 ? `${mins}m ` : ''}{secs}s avg
-                            </span>
-                          </div>
-                          <p className="text-[10px] text-muted-foreground mt-1 tabular-nums">{p.views.toLocaleString()} views</p>
+                          <p className="text-[10px] text-muted-foreground uppercase tracking-wider mt-1">visitors</p>
+                          <p className="text-[10px] text-muted-foreground mt-2 tabular-nums inline-flex items-center justify-center gap-1">
+                            <Clock className="w-2.5 h-2.5" />{timeStr} avg · {p.views.toLocaleString()} views
+                          </p>
                         </CardContent>
                       </Card>
                     );
@@ -616,6 +614,7 @@ const AdminList = () => {
               );
             })()}
           </section>
+
 
 
 
