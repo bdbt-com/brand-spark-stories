@@ -57,8 +57,18 @@ serve(async (req) => {
       } catch {}
     }
 
-    const incremental = !!sinceParam;
-    const since = sinceParam || new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
+    // No `since` cursor → return an empty feed immediately. The admin page
+    // always starts the live feed from "now" and provides a cursor on every
+    // subsequent poll, so the historical backfill branch is no longer needed
+    // and would otherwise risk Postgres statement timeouts.
+    if (!sinceParam) {
+      return new Response(JSON.stringify({ feed: [], server_time: serverTime }), {
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
+    const incremental = true;
+    const since = sinceParam;
 
     const PAGE = incremental ? 500 : 1000;
     const MAX = incremental ? 500 : 10000;

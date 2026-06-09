@@ -147,6 +147,7 @@ interface FeedItem {
   detail: string;
   timestamp: string;
   country?: string | null;
+  seq?: number;
 }
 
 const FEED_CONFIG: Record<string, { icon: typeof Play; color: string; bg: string; label: string }> = {
@@ -202,7 +203,7 @@ const FeedFilterBar = ({
 
 const AdminList = () => {
   const [subscribers, setSubscribers] = useState<Subscriber[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [videoCounts, setVideoCounts] = useState<Record<string, { total: number; today: number; "7d": number; "14d": number; "30d": number }>>({});
   const [downloadCounts, setDownloadCounts] = useState<[string, number][]>([]);
@@ -343,7 +344,8 @@ const AdminList = () => {
       setSubscribers(data.subscribers || []);
       setTodaySubscribers(data.today_count || 0);
     } catch (err: any) {
-      setError(err.message || "Failed to load subscribers");
+      // Don't block the page render on subscriber-list failures.
+      console.warn("admin-email-stats failed", err);
     } finally {
       setLoading(false);
     }
@@ -353,18 +355,9 @@ const AdminList = () => {
 
   const feedKey = (item: FeedItem) =>
     `${item.type}:${item.timestamp}:${item.label}:${item.detail}`;
-
-  const fetchFeed = useCallback(async () => {
-    try {
-      const { data } = await supabase.functions.invoke("get-activity-feed", { body: {} });
-      if (data?.feed) {
-        const items: FeedItem[] = data.feed;
-        feedItemKeys.current = new Set(items.map(feedKey));
-        setFeed(items);
-      }
-      if (data?.server_time) lastFeedSince.current = data.server_time;
-    } catch {}
-  }, []);
+  const feedRenderKey = (item: FeedItem) =>
+    item.seq != null ? `${feedKey(item)}#${item.seq}` : feedKey(item);
+  const feedSeq = useRef(0);
 
   const fetchFeedIncremental = useCallback(async () => {
     if (!lastFeedSince.current) return;
@@ -381,7 +374,7 @@ const AdminList = () => {
         const k = feedKey(item);
         if (feedItemKeys.current.has(k)) continue;
         feedItemKeys.current.add(k);
-        fresh.push(item);
+        fresh.push({ ...item, seq: ++feedSeq.current });
       }
       if (fresh.length === 0) return;
       // Sort oldest→newest so the most recent event is released LAST (lands on top).
@@ -462,7 +455,8 @@ const AdminList = () => {
     fetchVideoCounts();
     fetchDownloadCounts();
     fetchAnalytics();
-    fetchFeed();
+    // Start the live feed from this moment — don't backfill history.
+    lastFeedSince.current = new Date().toISOString();
     fetchDailyStats();
     fetchLiveTick();
     fetchPageStats();
@@ -498,7 +492,7 @@ const AdminList = () => {
       clearInterval(tick);
       document.removeEventListener("visibilitychange", onVisible);
     };
-  }, [fetchSubscribers, fetchVideoCounts, fetchDownloadCounts, fetchAnalytics, fetchFeed, fetchFeedIncremental, fetchDailyStats, fetchLiveTick, fetchPageStats]);
+  }, [fetchSubscribers, fetchVideoCounts, fetchDownloadCounts, fetchAnalytics, fetchFeedIncremental, fetchDailyStats, fetchLiveTick, fetchPageStats]);
 
   // Cleanup queued animation-clear timers on unmount
   useEffect(() => {
@@ -557,7 +551,7 @@ const AdminList = () => {
                   const sub = item.country || item.label;
                   return (
                     <div
-                      key={`mobile-${k}`}
+                      key={`mobile-${feedRenderKey(item)}`}
                       className={`flex items-center gap-2 py-1.5 border-t border-border/30 ${isNew ? 'animate-type-row' : ''}`}
                     >
                       <div
@@ -1190,7 +1184,7 @@ const AdminList = () => {
                       const sub = item.country || item.label;
                       return (
                         <div
-                          key={k}
+                          key={`desktop-${feedRenderKey(item)}`}
                           className={`flex items-start gap-3 p-2.5 rounded-lg bg-muted/20 hover:bg-muted/40 transition-colors ${isNew ? 'animate-type-row' : ''}`}
                         >
                           <div

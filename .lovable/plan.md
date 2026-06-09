@@ -1,29 +1,37 @@
-I’ll tighten the live feed so entries cannot visually overlap, and I’ll add country information if the tracking data can provide it.
 
-Plan:
+## Problem
 
-1. Make the live feed queue deterministic
-- Replace the render-time “is this new?” detection with explicit per-item animation state.
-- Each queued item gets released only after the previous item’s full entry animation plus a small buffer has completed.
-- Avoid re-sorting the visible feed during a queue release, because that can make multiple new rows appear/reposition at once.
-- Add proper cleanup for queue timers on unmount.
+The `/admin-list` page hangs because `get-activity-feed` is timing out (502 / statement timeout / idle timeout in runtime errors). The initial call fetches 24h of `video_clicks` + `email_subscriptions` (up to 10k rows, now also selecting the new `country` column), which is exceeding Postgres statement timeout. The page sits on a loader until that resolves.
 
-2. Polish feed item animations for all item types
-- Apply the same entry treatment to blue click rows, orange redirect rows, signups, and downloads.
-- Make the row animation feel more mechanical/typed: stable height, crisp left-to-right reveal, small icon tick, and no basic pop/fade.
-- Use the same animation classes in both the mobile feed and right-hand desktop feed.
+Separately, you don't want a backlog of events animating when you open the page — only new events that occur while you're watching should queue up.
 
-3. Improve number-change animation consistency
-- Adjust the existing odometer counter timing so number changes feel more precise and less jumpy.
-- Keep the mechanical feel, but make the transitions smoother and better synchronised.
+## Plan
 
-4. Add country labels to feed rows where possible
-- Extend `FeedItem` with optional country fields.
-- Check whether existing `video_clicks` / `page_views` rows already contain country data. From the current code, they do not appear to.
-- For future events, update the tracking edge functions to capture country from request headers when available, commonly `cf-ipcountry`, `x-vercel-ip-country`, or similar hosting/CDN headers.
-- Add a migration to store country on `video_clicks` and `page_views`, then update `get-activity-feed` to return a readable country label.
-- Replace the little raw code underneath each popup with the country label when available; fall back to the current label only when country is unknown.
+1. Make the initial feed load instant and non-blocking
+   - On mount, set the feed baseline to "now" without fetching any historical data.
+   - Render the page immediately; the live feed simply starts empty with a small "Waiting for live activity…" placeholder.
+   - This removes the slow 24h backfill call that's currently hanging the page.
 
-Technical notes:
-- Existing historical clicks cannot reliably show country unless the country was already captured somewhere, which this codebase does not currently show.
-- New clicks after deployment should show country if the hosting/Supabase edge request includes a country header; otherwise they’ll show “Unknown country” or keep the existing fallback.
+2. Only queue events that happen after the page is opened
+   - Store an `openedAt` timestamp when the AdminList component mounts.
+   - Polling uses this as the `since` cursor for the first incremental call, then advances it using the server time returned by subsequent polls.
+   - Anything older than `openedAt` is never fetched, so no backlog burst.
+
+3. Keep the existing smooth queue animation
+   - Reuse the per-item queue pump (one item released every ~560ms, exceeding the row animation duration) so events still appear one-at-a-time, never overlapping.
+   - Clear queue + timers on unmount so nothing keeps running when you leave the page.
+
+4. Make the edge function safer so it can't hang the page in the future
+   - In `get-activity-feed`, when `since` is omitted, return an empty feed + `server_time` immediately instead of scanning 24h of data. The frontend will always pass `since` going forward, so the heavy branch is never hit.
+   - Keep incremental fetch (`since` provided) on its current small page size; it only ever returns very recent rows.
+
+5. Fix the duplicate React key warning from earlier logs
+   - The current feed key (`type:timestamp:id:detail`) can collide when the same click row is re-emitted across polls. Add a monotonically increasing local sequence id to each queued item so React keys are unique even for identical payloads.
+
+## Out of scope
+- No changes to data schema, tracking, country labels, layout, colours, counters, or graphs.
+- No changes to other edge functions or pages.
+
+## Technical notes
+- Files touched: `src/pages/AdminList.tsx`, `supabase/functions/get-activity-feed/index.ts`.
+- Behaviour change for admins: on first open, the live feed pane shows a placeholder until the first new event arrives, instead of replaying recent history.
