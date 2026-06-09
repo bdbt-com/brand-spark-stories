@@ -227,7 +227,7 @@ const Home = () => {
       </section>
 
       {/* Daily Wins and Daily Drifts Boxes */}
-      <section className="pt-8 md:pt-12 pb-24">
+      <section className="pt-10 lg:pt-12 pb-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 gap-8">
             {/* Daily Wins Box */}
