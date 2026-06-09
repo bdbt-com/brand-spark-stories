@@ -507,15 +507,26 @@ const AdminList = () => {
   }, [withSingleFlight]);
 
   useEffect(() => {
-    fetchSubscribers();
-    fetchVideoCounts();
-    fetchDownloadCounts();
-    fetchAnalytics();
-    // Silently load recent history (no animation) so the feed isn't empty on open.
-    fetchFeedBackfill();
-    fetchDailyStats();
-    fetchLiveTick();
-    fetchPageStats();
+    let cancelled = false;
+    const runInitialLoad = async () => {
+      fetchLiveTick();
+      // Silently load recent history (no animation) so the feed isn't empty on open.
+      fetchFeedBackfill();
+      const jobs = [
+        fetchAnalytics,
+        fetchPageStats,
+        fetchDailyStats,
+        fetchVideoCounts,
+        fetchDownloadCounts,
+        fetchSubscribers,
+      ];
+      for (const job of jobs) {
+        if (cancelled) return;
+        await job();
+        await wait(1300);
+      }
+    };
+    runInitialLoad();
 
     const slow = setInterval(() => {
       fetchSubscribers();
@@ -524,15 +535,15 @@ const AdminList = () => {
       fetchAnalytics();
       fetchDailyStats();
       fetchPageStats();
-    }, 60000);
+    }, 180000);
 
     const tick = setInterval(() => {
       fetchLiveTick();
-    }, 5000);
+    }, 15000);
 
     const fast = setInterval(() => {
       fetchFeedIncremental();
-    }, 3000);
+    }, 6000);
 
     const onVisible = () => {
       if (document.visibilityState === "visible") {
@@ -543,6 +554,7 @@ const AdminList = () => {
     document.addEventListener("visibilitychange", onVisible);
 
     return () => {
+      cancelled = true;
       clearInterval(slow);
       clearInterval(fast);
       clearInterval(tick);
