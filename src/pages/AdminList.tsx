@@ -763,11 +763,12 @@ const AdminList = () => {
 
           {/* Auto-Redirect Stats — graph inline */}
           <section>
-            <h2 className="text-xl font-bold text-foreground mb-4 flex items-center gap-2">
-              <Play className="w-5 h-5 text-primary" /> /bio Redirects &amp; /podcast Redirects
-            </h2>
+            <div className="flex items-center gap-2 mb-4 pb-3 border-b border-border/40">
+              <Play className="w-5 h-5 text-primary" />
+              <h2 className="text-xl font-bold text-foreground">/bio Redirects &amp; /podcast Redirects</h2>
+              <span className="text-xs font-medium text-muted-foreground">· {rangeLabel}</span>
+            </div>
             <div className="flex flex-col gap-4">
-              {/* Row 1: graph + 5 stat tiles (mirrors Bio row above) */}
               {(() => {
                 const sum = (pred: (k: string) => boolean) => {
                   const acc: Record<string, number> = { total: 0, today: 0, "7d": 0, "14d": 0, "30d": 0 };
@@ -781,73 +782,72 @@ const AdminList = () => {
                   }
                   return acc;
                 };
-                const br = sum((k) => k === "auto-redirect" || k.startsWith("auto-redirect:")); // /bio redirects
-                const pr = sum((k) => k.startsWith("latest-auto:")); // /podcast redirects
-                const trackingDays = Math.max(1, Math.round((Date.now() - new Date("2026-03-04").getTime()) / 86400000));
+                const br = sum((k) => k === "auto-redirect" || k.startsWith("auto-redirect:"));
+                const pr = sum((k) => k.startsWith("latest-auto:"));
                 const dBR = liveDeltas.bio_redirects;
                 const dPR = liveDeltas.podcast_redirects;
                 const todayBR = liveTick ? liveTick.bio_redirects_today : br.today;
                 const todayPR = liveTick ? liveTick.podcast_redirects_today : pr.today;
-                const tiles = [
-                  { label: "Today", topVal: todayBR, botVal: todayPR, isToday: true, topSeven: br["7d"], botSeven: pr["7d"], days: 0, topOuter: 0, botOuter: 0, outerDays: 0 },
-                  { label: "7 Days", topVal: br["7d"] + dBR, botVal: pr["7d"] + dPR, isToday: false, topSeven: 0, botSeven: 0, days: 7, topOuter: br["14d"] + dBR, botOuter: pr["14d"] + dPR, outerDays: 14 },
-                  { label: "14 Days", topVal: br["14d"] + dBR, botVal: pr["14d"] + dPR, isToday: false, topSeven: 0, botSeven: 0, days: 14, topOuter: br["30d"] + dBR, botOuter: pr["30d"] + dPR, outerDays: 30 },
-                  { label: "30 Days", topVal: br["30d"] + dBR, botVal: pr["30d"] + dPR, isToday: false, topSeven: 0, botSeven: 0, days: 30, topOuter: br.total + dBR, botOuter: pr.total + dPR, outerDays: trackingDays },
-                  { label: "Total", topVal: br.total + dBR, botVal: pr.total + dPR, isToday: false, topSeven: 0, botSeven: 0, days: 0, topOuter: 0, botOuter: 0, outerDays: 0 },
-                ];
-                // Current latest card shows /podcast auto-redirects only for the exact video used by /podcast.
                 const lc = latestVideoId ? (videoCounts[`latest-auto:${latestVideoId}`] || { total: 0, today: 0, "7d": 0, "14d": 0, "30d": 0 }) : null;
                 const otherPodcastRedirectsToday = lc ? Math.max(0, todayPR - lc.today) : 0;
                 return (
                   <>
-                    <div className="flex flex-col xl:flex-row gap-4 items-stretch">
-                      {(graphRange === 'today' ? hourlyStats.length > 0 : filteredDailyStats.length > 0) && (
-                        <div className="flex-1 min-w-0">
-                          <InlineGraph
-                            data={graphRange === 'today' ? hourlyStats : filteredDailyStats}
-                            dataKey="bio_redirects"
-                            label="/bio redirects"
-                            color="hsl(25, 95%, 53%)"
-                            dataKey2="podcast_redirects"
-                            label2="/podcast redirects"
-                            color2="hsl(210, 90%, 60%)"
-                            hourly={graphRange === 'today'}
-                          />
+                    <Card>
+                      <CardContent className="p-5">
+                        <div className="grid grid-cols-1 xl:grid-cols-[1fr_280px] gap-5">
+                          <div className="min-w-0">
+                            {(graphRange === 'today' ? hourlyStats.length > 0 : filteredDailyStats.length > 0) && (
+                              <InlineGraph
+                                data={graphRange === 'today' ? hourlyStats : filteredDailyStats}
+                                dataKey="bio_redirects"
+                                label="/bio redirects"
+                                color="hsl(25, 95%, 53%)"
+                                dataKey2="podcast_redirects"
+                                label2="/podcast redirects"
+                                color2="hsl(210, 90%, 60%)"
+                                hourly={graphRange === 'today'}
+                              />
+                            )}
+                          </div>
+                          <div className="xl:border-l xl:border-border/50 xl:pl-5 border-t xl:border-t-0 border-border/50 pt-4 xl:pt-0 flex flex-col justify-center gap-4">
+                            {(() => {
+                              const isToday = graphRange === 'today';
+                              const sumKey = rangeKey === 'since_launch' ? 'total' : rangeKey;
+                              const topVal = isToday ? todayBR : (br[sumKey] || 0) + dBR;
+                              const botVal = isToday ? todayPR : (pr[sumKey] || 0) + dPR;
+                              return (
+                                <>
+                                  <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-[0.15em] text-center">{rangeLabel}</p>
+                                  <div className="grid grid-cols-1 gap-3">
+                                    <div className="flex items-center justify-between gap-3">
+                                      <span className="inline-flex items-center gap-2 text-[11px] text-muted-foreground uppercase tracking-wider">
+                                        <span className="inline-block w-2.5 h-2.5 rounded-full" style={{ background: "hsl(25, 95%, 53%)" }} />/bio
+                                      </span>
+                                      <span className="inline-flex items-center gap-1.5 text-3xl font-bold text-foreground tabular-nums leading-none">
+                                        <AnimatedCounter value={topVal} />
+                                        {isToday && <TodayTrendBadge today={topVal} sevenDay={br["7d"]} />}
+                                      </span>
+                                    </div>
+                                    <div className="border-t border-border/50" />
+                                    <div className="flex items-center justify-between gap-3">
+                                      <span className="inline-flex items-center gap-2 text-[11px] text-muted-foreground uppercase tracking-wider">
+                                        <span className="inline-block w-2.5 h-2.5 rounded-full" style={{ background: "hsl(210, 90%, 60%)" }} />/podcast
+                                      </span>
+                                      <span className="inline-flex items-center gap-1.5 text-3xl font-bold text-foreground tabular-nums leading-none">
+                                        <AnimatedCounter value={botVal} />
+                                        {isToday && <TodayTrendBadge today={botVal} sevenDay={pr["7d"]} />}
+                                      </span>
+                                    </div>
+                                  </div>
+                                </>
+                              );
+                            })()}
+                          </div>
                         </div>
-                      )}
-                      <div className="w-full xl:w-72 flex-shrink-0 flex">
-                        {(() => {
-                          const isToday = graphRange === 'today';
-                          const sumKey = rangeKey === 'since_launch' ? 'total' : rangeKey;
-                          const topVal = isToday ? todayBR : (br[sumKey] || 0) + dBR;
-                          const botVal = isToday ? todayPR : (pr[sumKey] || 0) + dPR;
-                          return (
-                            <Card className="border-primary/30 bg-primary/5 w-full flex">
-                              <CardContent className="p-6 text-center flex flex-col items-center justify-center w-full gap-3">
-                                <p className="text-[11px] font-semibold text-muted-foreground uppercase tracking-[0.15em]">{rangeLabel}</p>
-                                <div className="w-full">
-                                  <p className="text-4xl font-bold text-foreground inline-flex items-center gap-2 justify-center tabular-nums leading-none">
-                                    <span className="inline-block w-2.5 h-2.5 rounded-full" style={{ background: "hsl(25, 95%, 53%)" }} />
-                                    <AnimatedCounter value={topVal} />
-                                    {isToday && <TodayTrendBadge today={topVal} sevenDay={br["7d"]} />}
-                                  </p>
-                                  <p className="text-[11px] text-muted-foreground uppercase tracking-wider mt-1.5">/bio redirects</p>
-                                </div>
-                                <div className="border-t border-border/50 w-full" />
-                                <div className="w-full">
-                                  <p className="text-4xl font-bold text-foreground inline-flex items-center gap-2 justify-center tabular-nums leading-none">
-                                    <span className="inline-block w-2.5 h-2.5 rounded-full" style={{ background: "hsl(210, 90%, 60%)" }} />
-                                    <AnimatedCounter value={botVal} />
-                                    {isToday && <TodayTrendBadge today={botVal} sevenDay={pr["7d"]} />}
-                                  </p>
-                                  <p className="text-[11px] text-muted-foreground uppercase tracking-wider mt-1.5">/podcast redirects</p>
-                                </div>
-                              </CardContent>
-                            </Card>
-                          );
-                        })()}
-                      </div>
-                    </div>
+                      </CardContent>
+                    </Card>
+
+
 
 
                     {/* Row 2: compact Latest Video Redirects card + Avg Time / New Subs filling the empty space */}
