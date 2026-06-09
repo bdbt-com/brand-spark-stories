@@ -549,11 +549,12 @@ const AdminList = () => {
               {filteredFeed.length === 0 ? (
                 <p className="text-[10px] text-muted-foreground text-center py-2">No recent activity</p>
               ) : (
-                filteredFeed.map((item, i) => {
+                filteredFeed.map((item) => {
                   const config = FEED_CONFIG[item.type] || FEED_CONFIG.click;
                   const Icon = config.icon;
                   const k = feedKey(item);
-                  const isNew = !seenKeysAtRender.current.has(k);
+                  const isNew = animatingKeys.has(k);
+                  const sub = item.country || item.label;
                   return (
                     <div
                       key={`mobile-${k}`}
@@ -565,7 +566,7 @@ const AdminList = () => {
                         <Icon className={`w-3 h-3 ${config.color}`} />
                       </div>
                       <span className="text-[11px] font-medium text-foreground truncate">{item.detail}</span>
-                      <span className="text-[10px] text-muted-foreground truncate">{item.label}</span>
+                      <span className="text-[10px] text-muted-foreground truncate">{sub}</span>
                       <span className="text-[10px] text-muted-foreground whitespace-nowrap ml-auto flex-shrink-0">
                         {timeAgo(item.timestamp)}
                       </span>
@@ -1181,11 +1182,12 @@ const AdminList = () => {
                   {filteredFeed.length === 0 ? (
                     <p className="text-xs text-muted-foreground text-center py-8">No recent activity</p>
                   ) : (
-                    filteredFeed.map((item, i) => {
+                    filteredFeed.map((item) => {
                       const config = FEED_CONFIG[item.type] || FEED_CONFIG.click;
                       const Icon = config.icon;
                       const k = feedKey(item);
-                      const isNew = !seenKeysAtRender.current.has(k);
+                      const isNew = animatingKeys.has(k);
+                      const sub = item.country || item.label;
                       return (
                         <div
                           key={k}
@@ -1198,7 +1200,7 @@ const AdminList = () => {
                           </div>
                           <div className="min-w-0 flex-1">
                             <p className="text-xs font-medium text-foreground truncate">{item.detail}</p>
-                            <p className="text-[10px] text-muted-foreground truncate">{item.label}</p>
+                            <p className="text-[10px] text-muted-foreground truncate">{sub}</p>
                           </div>
                           <span className="text-[10px] text-muted-foreground whitespace-nowrap flex-shrink-0">
                             {timeAgo(item.timestamp)}
