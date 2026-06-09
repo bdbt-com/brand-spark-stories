@@ -206,17 +206,10 @@ const Home = () => {
         </button>
       </section>
 
-      {/* Habits Question Section (placeholder slot) */}
-      <section ref={podcastRef} className="py-16 md:py-24 bg-background">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-tight">
-            <span className="block text-foreground">Are your habits building the life you want</span>
-            <span className="block text-primary">or quietly pulling you away from it?</span>
-          </h2>
-          <p className="text-base md:text-lg text-foreground/90 max-w-2xl mx-auto mb-10 leading-relaxed">
-            Your days are shaped by tiny repeated habits. And whether you realise it or not, your energy, health, finances, confidence and momentum are already compounding, either moving you forward or holding you back.
-          </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mx-auto">
+      {/* Primary CTAs */}
+      <section ref={podcastRef} className="py-12 md:py-16 bg-background">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <Button variant="default" size="lg" asChild className="rounded-xl h-16 px-6 text-base md:text-lg w-full">
               <Link to="/blueprint">Start With The Free Foundation Blueprint</Link>
             </Button>
