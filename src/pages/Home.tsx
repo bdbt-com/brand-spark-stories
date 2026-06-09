@@ -173,24 +173,17 @@ const Home = () => {
                 <span className="block text-white">Small Daily Steps.</span>
                 <span className="block text-[hsl(35_45%_75%)]">Big Life Changes.</span>
               </h1>
-              <p className="text-xl lg:text-2xl font-semibold mb-4 leading-snug">
-                <span className="block text-white">Are your habits building the life you want</span>
-                <span className="block text-[hsl(35_45%_75%)]">or quietly pulling you away from it?</span>
-              </p>
               <p className="text-base lg:text-lg mb-8 text-white/90 leading-relaxed">
-                Your days are shaped by tiny repeated habits. And whether you realise it or not, your energy, health, finances, confidence and momentum are already compounding, either moving you forward or holding you back.
+                Big Daddy's Big Tips teaches simple daily habits that silently transform your health, wealth, and happiness simultaneously. Turning overwhelming life changes into achievable daily steps.
               </p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <Button variant="secondary" size="lg" asChild className="rounded-xl h-14 md:h-16 px-6 text-base md:text-lg w-full">
-                  <Link to="/blueprint">
-                    Start With The Free Foundation Blueprint
-                  </Link>
-                </Button>
-                <Button variant="secondary" size="lg" asChild className="rounded-xl h-14 md:h-16 px-6 text-base md:text-lg w-full">
-                  <Link to="/courses">
-                    Browse Courses
-                  </Link>
-                </Button>
+              <div className="flex justify-center">
+                <div className="relative w-full max-w-md">
+                  <Button variant="secondary" size="lg" asChild className="relative transition-transform duration-200 rounded-xl h-14 md:h-16 px-8 md:px-10 text-lg md:text-xl w-full">
+                    <Link to="/blueprint">
+                      Start Your Journey Here <ArrowRight className="w-5 h-5" />
+                    </Link>
+                  </Button>
+                </div>
               </div>
             </div>
             <div className="animate-float">
@@ -218,18 +211,28 @@ const Home = () => {
         </button>
       </section>
 
-      {/* Top Podcast Episodes Section */}
-      <section ref={podcastRef} className="py-10 md:py-24 bg-gradient-to-b from-primary/5 to-background">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          
-          {/* Placeholder — preserves space for upcoming section */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center" aria-hidden="true">
-            <div className="min-h-[280px] md:min-h-[300px]" />
-            <div className="min-h-[280px] md:min-h-[330px]" />
-            <div className="min-h-[280px] md:min-h-[300px]" />
+      {/* Habits Question Section (placeholder slot) */}
+      <section ref={podcastRef} className="py-16 md:py-24 bg-background">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-tight">
+            <span className="block text-foreground">Are your habits building the life you want</span>
+            <span className="block text-primary">or quietly pulling you away from it?</span>
+          </h2>
+          <p className="text-base md:text-lg text-foreground/90 max-w-2xl mx-auto mb-10 leading-relaxed">
+            Your days are shaped by tiny repeated habits. And whether you realise it or not, your energy, health, finances, confidence and momentum are already compounding, either moving you forward or holding you back.
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mx-auto">
+            <Button variant="default" size="lg" asChild className="rounded-xl h-16 px-6 text-base md:text-lg w-full">
+              <Link to="/blueprint">Start With The Free Foundation Blueprint</Link>
+            </Button>
+            <Button variant="default" size="lg" asChild className="rounded-xl h-16 px-6 text-base md:text-lg w-full">
+              <Link to="/courses">Browse Courses</Link>
+            </Button>
           </div>
         </div>
       </section>
+
+
 
       {/* Daily Wins and Daily Drifts Boxes - on blue background */}
       <section className="py-24">
