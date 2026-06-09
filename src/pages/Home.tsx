@@ -178,8 +178,8 @@ const Home = () => {
               </p>
               <div className="flex justify-center lg:justify-start">
                 <Link
-                  to="/courses"
-                  aria-label="Browse Courses"
+                  to="/courses?intent=1"
+                  aria-label="Get Your Free Foundation Blueprint"
                   className="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-2xl w-full sm:w-auto h-14 md:h-16 px-10 md:px-12 text-lg md:text-xl font-semibold tracking-tight text-black bg-gradient-to-r from-primary via-[hsl(35_45%_78%)] to-primary bg-[length:200%_100%] bg-[position:0%_50%] transition-[background-position,transform,box-shadow] duration-500 ease-out hover:bg-[position:100%_50%] hover:-translate-y-0.5 active:translate-y-0 shadow-[0_0_0_1px_hsl(var(--primary)/0.35),0_10px_30px_-12px_hsl(var(--primary)/0.45)] hover:shadow-[0_0_0_1px_hsl(var(--primary)/0.5),0_18px_45px_-12px_hsl(var(--primary)/0.65)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-black"
                 >
                   {/* glossy top highlight */}
@@ -188,7 +188,7 @@ const Home = () => {
                   <span aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden rounded-2xl">
                     <span className="absolute top-0 left-0 h-full w-1/3 bg-gradient-to-r from-transparent via-white/35 to-transparent animate-shimmer-sweep" />
                   </span>
-                  <span className="relative">Browse Courses</span>
+                  <span className="relative">Get Your Free Foundation Blueprint</span>
                   <ArrowRight className="relative w-5 h-5 transition-transform duration-300 ease-out group-hover:translate-x-1" />
                 </Link>
               </div>
