@@ -250,8 +250,9 @@ const AdminList = () => {
   const lastFeedSince = useRef<string | null>(null);
   const feedItemKeys = useRef<Set<string>>(new Set());
   const seenKeysAtRender = useRef<Set<string>>(new Set());
-  // Per-key animation delay in ms for items that just arrived (so a batch waterfalls in)
-  const freshDelays = useRef<Map<string, number>>(new Map());
+  // Global single-item release queue: ensures one entry animates fully before the next begins.
+  const feedQueue = useRef<FeedItem[]>([]);
+  const feedPumpTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   // Baseline snapshot of liveTick at the moment the last analytics fetch completed.
   // Used to project today's live deltas onto every longer-period stat so they tick in sync.
   const liveTickRef = useRef<typeof liveTick>(null);
@@ -379,30 +380,38 @@ const AdminList = () => {
         fresh.push(item);
       }
       if (fresh.length === 0) return;
-      // Sort fresh oldest→newest so the newest pops in last (most natural feel)
+      // Sort oldest→newest so the most recent event is released LAST (lands on top).
       const ordered = [...fresh].sort(
         (a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
       );
-      // Evenly space each new item so they appear one-at-a-time, never overlapping.
-      // 480ms ≈ row reveal duration, so each finishes before the next begins.
-      const STAGGER_MS = 480;
-      ordered.forEach((item, i) => {
-        freshDelays.current.set(feedKey(item), i * STAGGER_MS);
-      });
-      // Cleanup delays after all animations have run so re-renders don't re-trigger them
-      const totalMs = ordered.length * STAGGER_MS + 800;
-      setTimeout(() => {
-        ordered.forEach((item) => freshDelays.current.delete(feedKey(item)));
-      }, totalMs);
+      // Append to the global queue; pump will release one per tick.
+      feedQueue.current.push(...ordered);
+      startFeedPump();
+    } catch {}
+  }, []);
+
+  // Time between releases. Must exceed the row entry animation duration so each
+  // item finishes animating before the next one begins (silky, non-overlapping).
+  const FEED_RELEASE_MS = 560;
+  const startFeedPump = useCallback(() => {
+    if (feedPumpTimer.current) return; // already pumping
+    const release = () => {
+      const next = feedQueue.current.shift();
+      if (!next) {
+        feedPumpTimer.current = null;
+        return;
+      }
       setFeed((prev) => {
-        const merged = [...fresh, ...prev];
+        const merged = [next, ...prev];
         merged.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
         const capped = merged.slice(0, 500);
-        // prune dedupe set to capped keys to bound memory
         feedItemKeys.current = new Set(capped.map(feedKey));
         return capped;
       });
-    } catch {}
+      feedPumpTimer.current = setTimeout(release, FEED_RELEASE_MS);
+    };
+    // First item drops immediately, subsequent items spaced evenly.
+    release();
   }, []);
 
   const fetchDailyStats = useCallback(async () => {
