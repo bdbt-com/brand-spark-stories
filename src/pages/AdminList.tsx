@@ -383,14 +383,17 @@ const AdminList = () => {
       const ordered = [...fresh].sort(
         (a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
       );
+      // Evenly space each new item so they appear one-at-a-time, never overlapping.
+      // 480ms ≈ row reveal duration, so each finishes before the next begins.
+      const STAGGER_MS = 480;
       ordered.forEach((item, i) => {
-        // 110ms stagger per item, capped at 660ms so big bursts don't drag
-        freshDelays.current.set(feedKey(item), Math.min(i * 110, 660));
+        freshDelays.current.set(feedKey(item), i * STAGGER_MS);
       });
-      // Cleanup delays after the animation has run so re-renders don't re-trigger it
+      // Cleanup delays after all animations have run so re-renders don't re-trigger them
+      const totalMs = ordered.length * STAGGER_MS + 800;
       setTimeout(() => {
         ordered.forEach((item) => freshDelays.current.delete(feedKey(item)));
-      }, 1400);
+      }, totalMs);
       setFeed((prev) => {
         const merged = [...fresh, ...prev];
         merged.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
