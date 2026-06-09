@@ -344,7 +344,8 @@ const AdminList = () => {
       setSubscribers(data.subscribers || []);
       setTodaySubscribers(data.today_count || 0);
     } catch (err: any) {
-      setError(err.message || "Failed to load subscribers");
+      // Don't block the page render on subscriber-list failures.
+      console.warn("admin-email-stats failed", err);
     } finally {
       setLoading(false);
     }
@@ -354,18 +355,9 @@ const AdminList = () => {
 
   const feedKey = (item: FeedItem) =>
     `${item.type}:${item.timestamp}:${item.label}:${item.detail}`;
-
-  const fetchFeed = useCallback(async () => {
-    try {
-      const { data } = await supabase.functions.invoke("get-activity-feed", { body: {} });
-      if (data?.feed) {
-        const items: FeedItem[] = data.feed;
-        feedItemKeys.current = new Set(items.map(feedKey));
-        setFeed(items);
-      }
-      if (data?.server_time) lastFeedSince.current = data.server_time;
-    } catch {}
-  }, []);
+  const feedRenderKey = (item: FeedItem) =>
+    item.seq != null ? `${feedKey(item)}#${item.seq}` : feedKey(item);
+  const feedSeq = useRef(0);
 
   const fetchFeedIncremental = useCallback(async () => {
     if (!lastFeedSince.current) return;
@@ -382,7 +374,7 @@ const AdminList = () => {
         const k = feedKey(item);
         if (feedItemKeys.current.has(k)) continue;
         feedItemKeys.current.add(k);
-        fresh.push(item);
+        fresh.push({ ...item, seq: ++feedSeq.current });
       }
       if (fresh.length === 0) return;
       // Sort oldest→newest so the most recent event is released LAST (lands on top).
