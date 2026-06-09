@@ -200,8 +200,7 @@ const Courses = () => {
                       ))}
                     </ul>
 
-                    {/* Locked cover (between content & button) */}
-                    {locked && <LockedCover />}
+                    {/* Cover removed — text must stay readable on mobile (frost blurred it) */}
 
                     {/* CTA (above cover) */}
                     <div className="mt-auto pt-2 relative z-20">
