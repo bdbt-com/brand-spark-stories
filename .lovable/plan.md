@@ -1,12 +1,19 @@
-# Site-wide haptic feedback on button taps
+# Hide Blueprint from nav, reorder menu
 
-## New file: `src/lib/haptics.ts`
-Registers one global `pointerdown` listener. Fires `navigator.vibrate(10)` whenever the user taps anything that resolves to a `<button>`, `<a>`, `[role="button"]`, or `[data-haptic]` and isn't disabled. Silently no-ops where the Vibration API is unsupported.
+## `src/components/Navigation.tsx`
+Replace the `navItems` array (lines 15–19) with the new order, removing Blueprint:
 
-## `src/main.tsx`
-Import and call `initHaptics()` once at startup.
+```ts
+{ name: "Home", path: "/" },
+{ name: "Courses", path: "/courses" },
+{ name: "Podcast", path: "/podcast" },
+{ name: "Tips", path: "/tips" },
+{ name: "About", path: "/about" },
+```
 
-## Compatibility caveat
-- **Works:** Android Chrome / Edge / Samsung Internet / Firefox.
-- **Does NOT work:** iOS Safari and all iOS browsers — Apple has never shipped the Vibration API on the web. There is no JS-only workaround.
-- To get real haptics on iPhone you'd need to wrap the site in Capacitor and use `@capacitor/haptics`. Out of scope for this change.
+Note: the current array does not include "Home" — need to confirm it's rendered separately (likely via the logo). If Home isn't already a nav link, omit it from the list and keep the new order as Courses → Podcast → Tips → About.
+
+## Untouched
+- `/blueprint` route stays live and reachable via existing in-page links (e.g. "Get Your Foundation Blueprint Here" CTAs in Navigation lines 129 and 181).
+- No page deletions.
+- Applies to desktop and mobile (same array drives both).
