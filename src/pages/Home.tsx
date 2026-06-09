@@ -169,10 +169,6 @@ const Home = () => {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="animate-fade-in">
-              <h1 className="text-4xl lg:text-6xl font-bold mb-6 leading-tight">
-                <span className="block text-white">Small Daily Steps.</span>
-                <span className="block text-[hsl(35_45%_75%)]">Big Life Changes.</span>
-              </h1>
               <h2 className="text-3xl lg:text-5xl font-bold mb-6 leading-tight">
                 <span className="block text-white">Are your habits building the life you want</span>
                 <span className="block text-[hsl(35_45%_75%)]">or quietly pulling you away from it?</span>
