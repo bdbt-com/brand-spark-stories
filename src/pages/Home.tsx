@@ -169,7 +169,7 @@ const Home = () => {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-6 lg:gap-12 items-center">
             <div className="animate-fade-in text-center">
-              <h1 className="text-2xl lg:text-6xl font-bold mb-3 lg:mb-5 leading-tight">
+              <h1 className="text-4xl lg:text-6xl font-bold mb-3 lg:mb-5 leading-tight">
                 <span className="block text-white">Are your habits building the life you want?</span>
                 <span className="block text-[hsl(35_45%_75%)]">or quietly pulling you away from it?</span>
               </h1>
@@ -178,7 +178,7 @@ const Home = () => {
               </p>
             </div>
             <div className="animate-float">
-              <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 lg:p-8 shadow-strong">
+              <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 lg:p-8 shadow-strong max-w-[50%] mx-auto lg:max-w-none">
                 <Carousel setApi={setEmbla} opts={{
                 loop: true
               }} className="w-full" aria-label="Daily success journey image carousel">
