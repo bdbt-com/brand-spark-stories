@@ -486,9 +486,11 @@ const AdminList = () => {
     fetchVideoCounts();
     fetchDownloadCounts();
     fetchAnalytics();
-    // Start the live feed from this moment — don't backfill history.
-    lastFeedSince.current = new Date().toISOString();
+    // Silently load recent history (no animation) so the feed isn't empty on open.
+    fetchFeedBackfill();
     fetchDailyStats();
+    fetchLiveTick();
+    fetchPageStats();
     fetchLiveTick();
     fetchPageStats();
 
