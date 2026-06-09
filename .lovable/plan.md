@@ -1,51 +1,28 @@
-# Polish: Range selector, activity feed animations, counter animations
+I’ll tighten the live-feed behaviour so bursts never overlap and every item gets its own clean entrance.
 
-All changes confined to presentation layer. No data/RPC/business logic changes.
+## Plan
 
-## 1. Bigger, more prominent Graph Range section (`src/pages/AdminList.tsx`)
+1. **Replace per-batch delays with one global reveal queue**
+   - Add a single queue for incoming feed items, shared across polling cycles.
+   - If a second poll returns items while earlier items are still animating, append them to the existing queue instead of starting a new animation batch.
+   - Release exactly one item at a time into the visible feed.
 
-Promote the current thin inline strip into a proper control bar:
+2. **Guarantee animation completion before the next item starts**
+   - Use one timing constant that is longer than the row animation duration.
+   - The next item will not be inserted until the previous item has finished its entry plus a small polish gap.
+   - Remove the current `index * delay` approach that can restart at `0ms` for a later batch and cause overlap.
 
-- Wrap in its own `Card` (or bordered panel) with `p-4` and subtle gradient background
-- Larger icon (`w-5 h-5`), bolder label `text-sm` with gold accent
-- Range buttons become proper pills: `px-4 py-2`, `text-sm font-semibold`, rounded-full, with active state using `bg-gradient-primary text-primary-foreground shadow-accent` and hover state `hover:bg-secondary/80 hover:scale-[1.03]`
-- Add a small "Showing data for:" prefix and the resolved range label (e.g. `Since Launch`) as a chip on the right, so users always see what's active
-- Sticky-ish positioning at top of main column (`sticky top-4 z-10`) with a translucent backdrop (`bg-background/85 backdrop-blur`) so it stays visible while scrolling
+3. **Make the row animation more polished and consistent**
+   - Adjust the live-feed entrance from a clipped/stepped reveal into a smoother mechanical reveal: subtle horizontal slide, soft opacity ramp, crisp content reveal, and icon tick timed inside the row animation.
+   - Keep the “typewriter/mechanical” character, but make the timing less jumpy and more premium.
 
-## 2. Mechanical "typewriter" entrance for Live Activity Feed items
+4. **Apply consistently across feed renderers**
+   - Update both desktop and mobile/live-feed row rendering so the same queue and animation behaviour is used everywhere.
+   - Keep existing feed data, filters, counts, and layout intact.
 
-Two feed renders use `animate-bubble-in` today (right-column main feed at line 1146 and a smaller inline feed at line 522). Replace with a new mechanical reveal:
+## Technical notes
 
-- Add new keyframes to `tailwind.config.ts`:
-  - `type-reveal`: row slides in from `translateX(-6px)` + clip-path `inset(0 100% 0 0)` to `inset(0 0 0 0)` over `~420ms` with `steps(24)` timing for a chunked typewriter sweep
-  - `caret-blink`: a thin 1px primary-coloured vertical bar fades 1→0 over 700ms, looped twice, then hides
-  - `tick-in`: tiny scale 0.85→1 pop for the leading status dot using `cubic-bezier(0.34, 1.56, 0.64, 1)` so each row "snaps" into place
-- Compose into a single `animate-type-row` utility that plays clip-reveal + tick-in together, with a brief temporary caret element (absolute-positioned, removed via animation end)
-- Apply only to rows flagged `isNew`; existing rows stay static (no re-trigger on re-render — already keyed by id)
-- Stagger when multiple new rows arrive in one tick: `style={{ animationDelay: `${index * 60}ms` }}` for the first N flagged-new rows
-- Respect `prefers-reduced-motion`: fall back to a 150ms opacity fade
-
-## 3. Mechanical counter animation upgrade (`src/components/AnimatedCounter.tsx`)
-
-Current digit reels use a smooth cubic-bezier translate. Make it feel like a split-flap / odometer:
-
-- Change reel easing to `steps(10, end)` over `~520ms` so each digit ticks through intermediate numerals discretely instead of gliding
-- Add a very subtle vertical settle: after the stepped translate finishes, a 90ms `cubic-bezier(0.34, 1.56, 0.64, 1)` micro-bounce of `translateY(1px → 0)` on the digit column
-- Add a faint horizontal divider line at the digit baseline (1px, `hsl(var(--border))`, 30% opacity) inside each Reel so it reads as a mechanical flap card
-- Stagger digit animations left-to-right by `30ms * index` so the number "rolls" across like a tally counter rather than all digits moving in unison
-- Respect `prefers-reduced-motion`: skip animation, jump straight to final value
-- Keep public API identical (`value`, `className`, `format`, `duration`) so all 30+ existing call sites work unchanged
-
-## Out of scope
-
-- No changes to data fetching, polling intervals, RPCs, or edge functions
-- No changes to layout/grid of metric rows, Page Stats cards, or right column structure
-- No new colours added; reuse `primary`, `border`, `muted-foreground`
-- The "Maximum call stack" runtime error noted in the preview will be investigated separately if it persists — not part of this plan unless it's caused by the new animations
-
-## Files touched
-
-- `src/pages/AdminList.tsx` — range selector block (~lines 547-568) and two feed row renderers (~lines 522, 1146)
-- `src/components/AnimatedCounter.tsx` — reel timing + styling
-- `tailwind.config.ts` — new keyframes/animations for `type-reveal`, `caret-blink`, `tick-in`, `type-row`
-- `src/index.css` — optional `@media (prefers-reduced-motion)` override block
+- `fetchFeedIncremental` will dedupe incoming items, sort them oldest-to-newest, then push them into a `useRef` queue.
+- A queue pump function will insert one item into `feed`, schedule the next release after the full animation window, and stop when empty.
+- Fresh animation state will be tracked by item key and cleaned after the entry finishes, instead of relying on batch-specific delayed CSS.
+- Tailwind animation timing will be updated so the row and icon feel synchronised and deterministic.
