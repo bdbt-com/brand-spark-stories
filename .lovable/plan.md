@@ -1,26 +1,34 @@
-## Hero alignment + spacing pass
+# Mobile hero compression + headline question mark
 
-### 1. Truly centre the hero text (all breakpoints)
-The previous change used `text-center lg:text-left`, which is why mobile-sized previews are still left-aligning each wrapped line. Change the hero left column wrapper to `text-center` only (drop the `lg:text-left` override), so every line of the H1 and the supporting paragraph is centred on mobile, tablet **and** desktop. Also wrap the paragraph in `mx-auto max-w-prose` so the centred text doesn't span uncomfortably wide on desktop.
+All changes scoped to `src/pages/Home.tsx`. Desktop (`lg:` and up) stays identical to current.
 
-The Browse Courses button stays centred via `flex justify-center`.
+## 1. First H1 line gets a question mark
+- `"Are your habits building the life you want"` → `"Are your habits building the life you want?"`
 
-### 2. Shrink the hero by ~20%
-Reduce the hero section's vertical padding so the whole dark/lighter top band is more compact:
-- `py-24 lg:py-32` → `py-16 lg:py-24`
-- Tighten the H1 → paragraph spacing (`mb-6` → `mb-5`, `mb-8` → `mb-7`).
-- Reduce the chevron's distance from the bottom (`bottom-16` → `bottom-8`) so it sits closer to the trimmed edge.
+## 2. Hero section padding
+- `py-16 lg:py-24` → `py-6 lg:py-24`
 
-### 3. Give the Daily Wins / Daily Drifts boxes breathing room
-The section directly under the hero currently uses `py-24`. Bump the top padding so the boxes sit further down the page, leaving clear space around the Browse Courses CTA when the hero shortens:
-- `py-24` → `pt-32 md:pt-40 pb-24`
+## 3. Grid gap between copy and carousel
+- `gap-12` → `gap-6 lg:gap-12`
 
-### 4. Mobile pass
-- Stack order is already correct (text first, carousel second).
-- The button is already `w-full sm:w-auto` so it remains a generous tap target on mobile.
-- Carousel keeps its existing aspect ratio — no change.
+## 4. H1 size + spacing
+- `text-4xl lg:text-6xl mb-5` → `text-2xl lg:text-6xl mb-3 lg:mb-5`
 
-### Files touched
-- `src/pages/Home.tsx` only.
+## 5. Hero paragraph
+- `text-base lg:text-lg mb-7` → `text-sm lg:text-lg mb-4 lg:mb-7`
 
-No new dependencies. After this lands, please scroll through on mobile + desktop and send the next round of feedback.
+## 6. Carousel card
+- Wrapper padding `p-8` → `p-4 lg:p-8`
+- Image aspect `aspect-square` → `aspect-[4/3] lg:aspect-square` (shorter on mobile)
+
+## 7. Hero chevron
+- Hidden on mobile; visible from `lg` up. Button wrapper class adds `hidden lg:block`.
+
+## 8. Browse Courses CTA section spacing
+- `pt-16 md:pt-24 pb-8 md:pb-12` → `pt-6 lg:pt-24 pb-6 lg:pb-12`
+
+## 9. Daily Wins/Drifts section
+- `pt-8 md:pt-12 pb-24` → `pt-10 lg:pt-12 pb-24` (small breathing room on mobile)
+
+## Verification
+After build, view `/` at 390×844 mobile to confirm the Browse Courses button is visible on first paint, and at 1440×900 desktop to confirm nothing shifted.
