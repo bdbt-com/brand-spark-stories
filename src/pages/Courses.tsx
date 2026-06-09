@@ -24,6 +24,7 @@ interface Course {
   title: string;
   hook: string;
   bullets: string[];
+  cta: string;
   icon: LucideIcon;
   status: CourseStatus;
 }
@@ -31,33 +32,35 @@ interface Course {
 const courses: Course[] = [
   {
     topic: "Exercise",
-    title: "The Daily Wins Movement Method",
-    hook: "Build a workout into your day. No gym, no trainer, no extra time.",
+    title: "Daily Wins For Exercise",
+    hook: "Build a workout into your day, without needing a gym, personal trainer or any extra time.",
     bullets: [
       "Consistency over intensity",
       "Simple exercise habits",
       "More energy & confidence",
       "No overwhelm",
     ],
+    cta: "Start Exercise Wins",
     icon: Dumbbell,
     status: "coming-soon",
   },
   {
     topic: "Money",
-    title: "The Daily Wins Money System",
-    hook: "Stop money leaks and lower financial stress, without budgets or spreadsheets.",
+    title: "Daily Wins For Money",
+    hook: "Stop money leaks and reduce financial stress without budgets or complicated spreadsheets.",
     bullets: [
       "Spending awareness",
       "Habit-based saving",
       "Systems over budgeting",
       "Small wins that compound",
     ],
+    cta: "Start Money Wins",
     icon: PiggyBank,
     status: "coming-soon",
   },
   {
     topic: "Nutrition",
-    title: "The Daily Wins Nutrition Reset",
+    title: "Daily Wins For Nutrition",
     hook: "Eat better without extreme dieting.",
     bullets: [
       "Craving control",
@@ -65,12 +68,13 @@ const courses: Course[] = [
       "Energy & mood improvement",
       "Sustainable habits",
     ],
+    cta: "Start Nutritional Wins",
     icon: Apple,
     status: "coming-soon",
   },
   {
     topic: "Sleep",
-    title: "The Daily Wins Sleep Reset",
+    title: "Daily Wins For Sleep",
     hook: "Fix the habit that quietly affects everything else.",
     bullets: [
       "Better recovery & confidence",
@@ -78,6 +82,7 @@ const courses: Course[] = [
       "More discipline & motivation",
       "Energy ripple effects",
     ],
+    cta: "Start Sleep Wins",
     icon: Moon,
     status: "coming-soon",
   },
@@ -212,7 +217,7 @@ const Courses = () => {
                         variant="outline"
                         className="w-full min-h-12 rounded-xl border-2 border-primary/60 text-primary font-bold tracking-tight bg-[#141414]/80 md:hover:bg-primary md:hover:text-primary-foreground md:hover:border-primary md:hover:scale-[1.02] transition-all"
                       >
-                        Join the Waitlist
+                        {course.cta}
                       </Button>
                     </div>
                   </CardContent>

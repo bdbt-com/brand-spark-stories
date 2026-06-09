@@ -61,14 +61,14 @@ const EmailCaptureForm = ({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!validateAllFields(firstName, email)) return;
+    if (!validateAllFields("Friend", email)) return;
 
     setIsLoading(true);
     clearErrors();
 
     try {
       const sendPromise = supabase.functions.invoke("send-guide", {
-        body: { firstName, email, guideTitle: title, guideDownloadUrl },
+        body: { firstName: firstName || "Friend", email, guideTitle: title, guideDownloadUrl },
       });
 
       // Best-effort waitlist insert when a course is selected
@@ -152,29 +152,20 @@ const EmailCaptureForm = ({
       <form onSubmit={handleSubmit} className="space-y-3">
         <div className="space-y-1">
           <Label htmlFor="firstName" className={compact ? "text-xs" : "text-sm"}>
-            First Name *
+            First Name <span className="text-muted-foreground font-normal">(optional)</span>
           </Label>
           <Input
             id="firstName"
             type="text"
             value={firstName}
-            onChange={(e) => handleInputChange("firstName", e.target.value)}
+            onChange={(e) => setFirstName(e.target.value)}
             placeholder="Enter your first name"
             disabled={isLoading}
-            className={`transition-all duration-200 ${compact ? "text-sm h-8" : ""} ${
-              fieldErrors.firstName
-                ? "border-red-500 focus:border-red-500 focus:ring-red-200"
-                : "focus:border-primary focus:ring-primary/20"
-            }`}
-            onBlur={() => validateField("firstName", firstName)}
+            autoComplete="given-name"
+            className={`transition-all duration-200 ${compact ? "text-sm h-8" : ""} focus:border-primary focus:ring-primary/20`}
           />
-          {fieldErrors.firstName && (
-            <p className="text-xs text-red-500 animate-fade-in flex items-center">
-              <span className="w-1 h-1 bg-red-500 rounded-full mr-2"></span>
-              {fieldErrors.firstName}
-            </p>
-          )}
         </div>
+
 
         <div className="space-y-1">
           <Label htmlFor="email" className={compact ? "text-xs" : "text-sm"}>
