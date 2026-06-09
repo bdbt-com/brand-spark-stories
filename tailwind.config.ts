@@ -157,6 +157,19 @@ export default {
 					'0%': { opacity: '0', transform: 'scale(0.6) translateY(-10px)' },
 					'60%': { opacity: '1', transform: 'scale(1.04) translateY(0)' },
 					'100%': { opacity: '1', transform: 'scale(1) translateY(0)' }
+				},
+				'type-row': {
+					'0%':   { opacity: '0', clipPath: 'inset(0 100% 0 0)', transform: 'translateX(-4px)' },
+					'100%': { opacity: '1', clipPath: 'inset(0 0 0 0)',    transform: 'translateX(0)' }
+				},
+				'tick-in': {
+					'0%':   { transform: 'scale(0.4)', opacity: '0' },
+					'70%':  { transform: 'scale(1.18)', opacity: '1' },
+					'100%': { transform: 'scale(1)',    opacity: '1' }
+				},
+				'caret-blink': {
+					'0%, 49%':   { opacity: '1' },
+					'50%, 100%': { opacity: '0' }
 				}
 			},
 			animation: {
