@@ -499,15 +499,15 @@ const AdminList = () => {
       fetchAnalytics();
       fetchDailyStats();
       fetchPageStats();
-    }, 15000);
+    }, 60000);
 
     const tick = setInterval(() => {
       fetchLiveTick();
-    }, 1000);
+    }, 5000);
 
     const fast = setInterval(() => {
       fetchFeedIncremental();
-    }, 1000);
+    }, 3000);
 
     const onVisible = () => {
       if (document.visibilityState === "visible") {
@@ -609,36 +609,34 @@ const AdminList = () => {
         {/* Main column */}
         <div className="flex-1 min-w-0 space-y-12">
 
-          {/* Graph range toggle — global control */}
-          {filteredDailyStats.length > 0 && (
-            <div className="sticky top-4 z-20 rounded-xl border border-border/60 bg-background/85 backdrop-blur p-4 shadow-soft">
-              <div className="flex items-center gap-4 flex-wrap">
-                <div className="flex items-center gap-2">
-                  <BarChart3 className="w-5 h-5 text-primary" />
-                  <span className="text-sm font-bold text-primary uppercase tracking-wider">Graph Range</span>
-                </div>
-                <div className="flex gap-1.5 flex-wrap">
-                  {(['today', '7d', '14d', '30d', 'all'] as const).map((r) => (
-                    <button
-                      key={r}
-                      onClick={() => setGraphRange(r)}
-                      className={`px-4 py-2 text-sm font-semibold rounded-full transition-all duration-200 ${
-                        graphRange === r
-                          ? 'bg-gradient-primary text-primary-foreground shadow-accent'
-                          : 'bg-secondary text-muted-foreground hover:text-foreground hover:bg-secondary/80 hover:scale-[1.03]'
-                      }`}
-                    >
-                      {r === 'all' ? 'All Time' : r === 'today' ? 'Today' : r.toUpperCase()}
-                    </button>
-                  ))}
-                </div>
-                <div className="ml-auto flex items-center gap-2 text-xs">
-                  <span className="text-muted-foreground uppercase tracking-wider">Showing</span>
-                  <span className="px-3 py-1 rounded-full bg-primary/15 text-primary font-semibold border border-primary/30">{rangeLabel}</span>
-                </div>
+          {/* Graph range toggle — always visible */}
+          <div className="sticky top-4 z-20 rounded-xl border border-border/60 bg-background/85 backdrop-blur p-4 shadow-soft">
+            <div className="flex items-center gap-4 flex-wrap">
+              <div className="flex items-center gap-2">
+                <BarChart3 className="w-5 h-5 text-primary" />
+                <span className="text-sm font-bold text-primary uppercase tracking-wider">Graph Range</span>
+              </div>
+              <div className="flex gap-1.5 flex-wrap">
+                {(['today', '7d', '14d', '30d', 'all'] as const).map((r) => (
+                  <button
+                    key={r}
+                    onClick={() => setGraphRange(r)}
+                    className={`px-4 py-2 text-sm font-semibold rounded-full transition-all duration-200 ${
+                      graphRange === r
+                        ? 'bg-gradient-primary text-primary-foreground shadow-accent'
+                        : 'bg-secondary text-muted-foreground hover:text-foreground hover:bg-secondary/80 hover:scale-[1.03]'
+                    }`}
+                  >
+                    {r === 'all' ? 'All Time' : r === 'today' ? 'Today' : r.toUpperCase()}
+                  </button>
+                ))}
+              </div>
+              <div className="ml-auto flex items-center gap-2 text-xs">
+                <span className="text-muted-foreground uppercase tracking-wider">Showing</span>
+                <span className="px-3 py-1 rounded-full bg-primary/15 text-primary font-semibold border border-primary/30">{rangeLabel}</span>
               </div>
             </div>
-          )}
+          </div>
 
           {/* Per-page stats */}
           <section>
