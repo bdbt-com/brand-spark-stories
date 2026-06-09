@@ -621,69 +621,74 @@ const AdminList = () => {
 
           {/* Page Visitors — graph inline */}
           <section>
-            <h2 className="text-xl font-bold text-foreground mb-4 flex items-center gap-2">
-              <BarChart3 className="w-5 h-5 text-primary" /> Page Visitors
-            </h2>
-            <div className="flex flex-col xl:flex-row gap-4 items-stretch">
-              {(graphRange === 'today' ? hourlyStats.length > 0 : filteredDailyStats.length > 0) && (
-                <div className="flex-1 min-w-0">
-                  <InlineGraph data={graphRange === 'today' ? hourlyStats : filteredDailyStats} dataKey="visitors" label="Visitors" color="hsl(210, 40%, 96%)" hourly={graphRange === 'today'} />
-                </div>
-              )}
-              <div className="w-full xl:w-72 flex-shrink-0 flex">
-                {(() => {
-                  const isToday = graphRange === 'today';
-                  const today = analytics["today"];
-                  const period = analytics[rangeKey];
-                  const baselineVisitors = today ? (today.visitors - (today.live_visitors ?? 0)) : 0;
-                  const liveVisitors = liveTick ? liveTick.visitors_today : (today?.live_visitors ?? 0);
-                  const bioClicksLive = liveTick ? liveTick.bio_clicks_today : (bioClicks.today || 0);
-                  const podClicksLive = liveTick ? liveTick.podcast_clicks_today : (podcastClicks.today || 0);
-                  const visitorsDisplay = isToday
-                    ? baselineVisitors + liveVisitors
-                    : (period?.visitors || 0) + liveDeltas.visitors;
-                  const avgSrc = isToday ? today : period;
-                  const avgMins = avgSrc ? Math.floor(avgSrc.avg_duration / 60) : 0;
-                  const avgSecs = avgSrc ? Math.round(avgSrc.avg_duration % 60) : 0;
-                  return (
-                    <Card className="border-primary/30 bg-primary/5 w-full flex">
-                      <CardContent className="p-6 text-center flex flex-col items-center justify-center w-full">
-                        <p className="text-[11px] font-semibold text-muted-foreground mb-3 uppercase tracking-[0.15em]">{rangeLabel}</p>
-                        <p className="text-5xl font-bold text-foreground tabular-nums leading-none"><AnimatedCounter value={visitorsDisplay} /></p>
-                        <div className="flex items-center justify-center gap-1.5 mt-2">
-                          <p className="text-xs text-muted-foreground uppercase tracking-wider">Visitors</p>
-                          {isToday && <TodayTrendBadge today={liveVisitors} sevenDay={analytics["7d"]?.live_visitors ?? analytics["7d"]?.visitors ?? 0} />}
-                        </div>
-                        <div className="flex items-center justify-center gap-1 text-muted-foreground mt-3">
-                          <Clock className="w-3.5 h-3.5" />
-                          <span className="text-xs tabular-nums">
-                            {avgMins > 0 ? `${avgMins}m ` : ""}{avgSecs}s avg
-                          </span>
-                        </div>
-                        {isToday && (
-                          <>
-                            <div className="border-t border-border/50 w-full my-3" />
-                            <div className="flex flex-col gap-1 w-full">
-                              <p className="text-[11px] text-muted-foreground inline-flex items-center gap-1 justify-center">
-                                <span className="uppercase tracking-wider">/bio</span>
-                                <AnimatedCounter value={bioClicksLive} className="font-semibold text-foreground tabular-nums" />
-                                <TodayTrendBadge today={bioClicksLive} sevenDay={bioClicks["7d"] || 0} />
-                              </p>
-                              <p className="text-[11px] text-muted-foreground inline-flex items-center gap-1 justify-center">
-                                <span className="uppercase tracking-wider">/podcast</span>
-                                <AnimatedCounter value={podClicksLive} className="font-semibold text-foreground tabular-nums" />
-                                <TodayTrendBadge today={podClicksLive} sevenDay={podcastClicks["7d"] || 0} />
-                              </p>
-                            </div>
-                          </>
-                        )}
-                      </CardContent>
-                    </Card>
-                  );
-                })()}
-              </div>
+            <div className="flex items-center gap-2 mb-4 pb-3 border-b border-border/40">
+              <BarChart3 className="w-5 h-5 text-primary" />
+              <h2 className="text-xl font-bold text-foreground">Page Visitors</h2>
+              <span className="text-xs font-medium text-muted-foreground">· {rangeLabel}</span>
             </div>
+            <Card>
+              <CardContent className="p-5">
+                <div className="grid grid-cols-1 xl:grid-cols-[1fr_280px] gap-5">
+                  <div className="min-w-0">
+                    {(graphRange === 'today' ? hourlyStats.length > 0 : filteredDailyStats.length > 0) && (
+                      <InlineGraph data={graphRange === 'today' ? hourlyStats : filteredDailyStats} dataKey="visitors" label="Visitors" color="hsl(210, 40%, 96%)" hourly={graphRange === 'today'} />
+                    )}
+                  </div>
+                  <div className="xl:border-l xl:border-border/50 xl:pl-5 border-t xl:border-t-0 border-border/50 pt-4 xl:pt-0 flex flex-col items-center justify-center text-center">
+                    {(() => {
+                      const isToday = graphRange === 'today';
+                      const today = analytics["today"];
+                      const period = analytics[rangeKey];
+                      const baselineVisitors = today ? (today.visitors - (today.live_visitors ?? 0)) : 0;
+                      const liveVisitors = liveTick ? liveTick.visitors_today : (today?.live_visitors ?? 0);
+                      const bioClicksLive = liveTick ? liveTick.bio_clicks_today : (bioClicks.today || 0);
+                      const podClicksLive = liveTick ? liveTick.podcast_clicks_today : (podcastClicks.today || 0);
+                      const visitorsDisplay = isToday
+                        ? baselineVisitors + liveVisitors
+                        : (period?.visitors || 0) + liveDeltas.visitors;
+                      const avgSrc = isToday ? today : period;
+                      const avgMins = avgSrc ? Math.floor(avgSrc.avg_duration / 60) : 0;
+                      const avgSecs = avgSrc ? Math.round(avgSrc.avg_duration % 60) : 0;
+                      return (
+                        <>
+                          <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-[0.15em]">{rangeLabel}</p>
+                          <p className="text-5xl font-bold text-foreground tabular-nums leading-none mt-3"><AnimatedCounter value={visitorsDisplay} /></p>
+                          <div className="flex items-center gap-1.5 mt-2">
+                            <p className="text-[11px] text-muted-foreground uppercase tracking-wider">Visitors</p>
+                            {isToday && <TodayTrendBadge today={liveVisitors} sevenDay={analytics["7d"]?.live_visitors ?? analytics["7d"]?.visitors ?? 0} />}
+                          </div>
+                          <div className="flex items-center gap-1.5 text-muted-foreground mt-3">
+                            <Clock className="w-3.5 h-3.5" />
+                            <span className="text-xs tabular-nums">{avgMins > 0 ? `${avgMins}m ` : ""}{avgSecs}s avg</span>
+                          </div>
+                          {isToday && (
+                            <div className="mt-4 pt-3 border-t border-border/50 w-full flex justify-center gap-4">
+                              <div className="flex flex-col items-center">
+                                <span className="text-[10px] text-muted-foreground uppercase tracking-wider">/bio</span>
+                                <span className="inline-flex items-center gap-1 text-sm font-semibold text-foreground tabular-nums">
+                                  <AnimatedCounter value={bioClicksLive} />
+                                  <TodayTrendBadge today={bioClicksLive} sevenDay={bioClicks["7d"] || 0} />
+                                </span>
+                              </div>
+                              <div className="w-px bg-border/50" />
+                              <div className="flex flex-col items-center">
+                                <span className="text-[10px] text-muted-foreground uppercase tracking-wider">/podcast</span>
+                                <span className="inline-flex items-center gap-1 text-sm font-semibold text-foreground tabular-nums">
+                                  <AnimatedCounter value={podClicksLive} />
+                                  <TodayTrendBadge today={podClicksLive} sevenDay={podcastClicks["7d"] || 0} />
+                                </span>
+                              </div>
+                            </div>
+                          )}
+                        </>
+                      );
+                    })()}
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           </section>
+
 
 
           {/* Bio Link Clicks — graph inline */}
