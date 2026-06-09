@@ -61,14 +61,14 @@ const EmailCaptureForm = ({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!validateAllFields(firstName, email)) return;
+    if (!validateAllFields("Friend", email)) return;
 
     setIsLoading(true);
     clearErrors();
 
     try {
       const sendPromise = supabase.functions.invoke("send-guide", {
-        body: { firstName, email, guideTitle: title, guideDownloadUrl },
+        body: { firstName: firstName || "Friend", email, guideTitle: title, guideDownloadUrl },
       });
 
       // Best-effort waitlist insert when a course is selected
