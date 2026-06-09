@@ -1184,7 +1184,7 @@ const AdminList = () => {
                       const sub = item.country || item.label;
                       return (
                         <div
-                          key={k}
+                          key={`desktop-${feedRenderKey(item)}`}
                           className={`flex items-start gap-3 p-2.5 rounded-lg bg-muted/20 hover:bg-muted/40 transition-colors ${isNew ? 'animate-type-row' : ''}`}
                         >
                           <div
