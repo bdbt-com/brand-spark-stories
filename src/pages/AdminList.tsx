@@ -475,44 +475,54 @@ const AdminList = () => {
   }, []);
 
   useEffect(() => {
-    fetchSubscribers();
-    fetchVideoCounts();
-    fetchDownloadCounts();
-    fetchAnalytics();
-    fetchFeed();
-    fetchDailyStats();
-    fetchLiveTick();
-    fetchPageStats();
+    let slow: ReturnType<typeof setInterval> | null = null;
+    let tick: ReturnType<typeof setInterval> | null = null;
+    let fast: ReturnType<typeof setInterval> | null = null;
+    let cancelled = false;
 
-    const slow = setInterval(() => {
+    const runSlow = () => {
       fetchSubscribers();
       fetchVideoCounts();
       fetchDownloadCounts();
       fetchAnalytics();
       fetchDailyStats();
       fetchPageStats();
-    }, 15000);
+    };
 
-    const tick = setInterval(() => {
+    const start = () => {
+      if (cancelled) return;
+      if (slow || tick || fast) return; // already running
+      // One immediate fetch so the UI reflects fresh state on (re)entry.
+      runSlow();
       fetchLiveTick();
-    }, 1000);
-
-    const fast = setInterval(() => {
       fetchFeedIncremental();
-    }, 1000);
+      slow = setInterval(runSlow, 60000);
+      tick = setInterval(fetchLiveTick, 5000);
+      fast = setInterval(fetchFeedIncremental, 4000);
+    };
+
+    const stop = () => {
+      if (slow) { clearInterval(slow); slow = null; }
+      if (tick) { clearInterval(tick); tick = null; }
+      if (fast) { clearInterval(fast); fast = null; }
+    };
+
+    // Initial top-down feed load (always, even if hidden — it's a single fetch).
+    fetchFeed();
+
+    if (typeof document === "undefined" || document.visibilityState === "visible") {
+      start();
+    }
 
     const onVisible = () => {
-      if (document.visibilityState === "visible") {
-        fetchFeedIncremental();
-        fetchLiveTick();
-      }
+      if (document.visibilityState === "visible") start();
+      else stop();
     };
     document.addEventListener("visibilitychange", onVisible);
 
     return () => {
-      clearInterval(slow);
-      clearInterval(fast);
-      clearInterval(tick);
+      cancelled = true;
+      stop();
       document.removeEventListener("visibilitychange", onVisible);
     };
   }, [fetchSubscribers, fetchVideoCounts, fetchDownloadCounts, fetchAnalytics, fetchFeed, fetchFeedIncremental, fetchDailyStats, fetchLiveTick, fetchPageStats]);
