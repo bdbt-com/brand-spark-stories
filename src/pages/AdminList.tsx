@@ -4,7 +4,6 @@ import { Loader2, Play, TrendingDown, TrendingUp, BarChart3, Clock, MousePointer
 import { Card, CardContent } from "@/components/ui/card";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 import { useYouTubeVideos } from "@/hooks/useYouTubeVideos";
-import { useLatestVideo } from "@/hooks/useLatestVideo";
 import { PINNED_TOP_VIDEOS } from "@/data/pinnedTopVideos";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
 
@@ -202,7 +201,7 @@ const FeedFilterBar = ({
 
 const AdminList = () => {
   const [subscribers, setSubscribers] = useState<Subscriber[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [videoCounts, setVideoCounts] = useState<Record<string, { total: number; today: number; "7d": number; "14d": number; "30d": number }>>({});
   const [downloadCounts, setDownloadCounts] = useState<[string, number][]>([]);
@@ -229,8 +228,7 @@ const AdminList = () => {
   const rangeLabel = graphRange === 'all' ? 'Since Launch' : graphRange === 'today' ? 'Today' : graphRange === '7d' ? 'Last 7 Days' : graphRange === '14d' ? 'Last 14 Days' : 'Last 30 Days';
   const [showPreviousVideos, setShowPreviousVideos] = useState(false);
   const { videos: ytVideos } = useYouTubeVideos();
-  const { video: cachedLatestVideo } = useLatestVideo();
-  const latestVideo = cachedLatestVideo || ytVideos[0];
+  const latestVideo = ytVideos[0];
   const latestVideoId = latestVideo?.videoId;
   const filteredDailyStats = useMemo(() => {
     if (graphRange === 'all') return dailyStats;
@@ -250,6 +248,10 @@ const AdminList = () => {
 
   const lastFeedSince = useRef<string | null>(null);
   const feedItemKeys = useRef<Set<string>>(new Set());
+  const requestLocks = useRef<Record<string, boolean>>({});
+  const requestControllers = useRef<Record<string, AbortController | null>>({});
+  const feedLoadVersion = useRef(0);
+  const feedLoadTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   // Keys currently mid-entry-animation. Drives the animate-* classes precisely
   // and is cleared after the animation duration so re-renders don't re-trigger.
   const [animatingKeys, setAnimatingKeys] = useState<Set<string>>(new Set());
@@ -270,6 +272,33 @@ const AdminList = () => {
     subscribers: number;
   } | null>(null);
   useEffect(() => { liveTickRef.current = liveTick; }, [liveTick]);
+  const runRequest = useCallback(async (key: string, work: (signal: AbortSignal) => Promise<any>, timeoutMs = 12000) => {
+    if (requestLocks.current[key]) return null;
+    requestLocks.current[key] = true;
+    const controller = new AbortController();
+    requestControllers.current[key] = controller;
+    let timeout: ReturnType<typeof setTimeout> | null = null;
+    try {
+      return await Promise.race([
+        work(controller.signal).catch(() => null).finally(() => {
+          if (timeout) clearTimeout(timeout);
+          requestLocks.current[key] = false;
+          if (requestControllers.current[key] === controller) requestControllers.current[key] = null;
+        }),
+        new Promise<null>((resolve) => {
+          timeout = setTimeout(() => {
+            controller.abort();
+            resolve(null);
+          }, timeoutMs);
+        }),
+      ]);
+    } finally {
+      if (timeout) clearTimeout(timeout);
+      requestLocks.current[key] = false;
+      if (requestControllers.current[key] === controller) requestControllers.current[key] = null;
+    }
+  }, []);
+
   const captureBaseline = useCallback(() => {
     const t = liveTickRef.current;
     if (!t) return; // wait until first liveTick arrives so deltas don't spike
@@ -308,14 +337,14 @@ const AdminList = () => {
   }, [liveTick]);
 
   const fetchVideoCounts = useCallback(async () => {
-    try {
+    await runRequest("video-counts", async () => {
       const { data } = await supabase.functions.invoke("get-video-clicks");
       if (data?.counts) setVideoCounts(data.counts);
-    } catch {}
-  }, []);
+    });
+  }, [runRequest]);
 
   const fetchDownloadCounts = useCallback(async () => {
-    try {
+    await runRequest("download-counts", async () => {
       const { data } = await supabase.functions.invoke("get-download-counts");
       if (data?.counts) {
         const sorted = Object.entries(data.counts as Record<string, number>)
@@ -323,31 +352,27 @@ const AdminList = () => {
           .slice(0, 10);
         setDownloadCounts(sorted);
       }
-    } catch {}
-  }, []);
+    });
+  }, [runRequest]);
 
   const fetchAnalytics = useCallback(async () => {
-    try {
+    await runRequest("analytics", async () => {
       const { data } = await supabase.functions.invoke("get-page-analytics");
       if (data?.analytics) setAnalytics(data.analytics);
       if (data?.bio_clicks) setBioClicks(data.bio_clicks);
       if (data?.podcast_clicks) setPodcastClicks(data.podcast_clicks);
       captureBaseline();
-    } catch {}
-  }, [captureBaseline]);
+    });
+  }, [captureBaseline, runRequest]);
 
   const fetchSubscribers = useCallback(async () => {
-    try {
+    await runRequest("subscribers", async () => {
       const { data, error } = await supabase.functions.invoke("admin-email-stats");
       if (error) throw error;
       setSubscribers(data.subscribers || []);
       setTodaySubscribers(data.today_count || 0);
-    } catch (err: any) {
-      setError(err.message || "Failed to load subscribers");
-    } finally {
-      setLoading(false);
-    }
-  }, []);
+    });
+  }, [runRequest]);
 
 
 
@@ -355,9 +380,12 @@ const AdminList = () => {
     `${item.type}:${item.timestamp}:${item.label}:${item.detail}`;
 
   const fetchFeed = useCallback(async () => {
-    try {
+    await runRequest("feed-full", async () => {
       const { data } = await supabase.functions.invoke("get-activity-feed", { body: {} });
       if (data?.feed) {
+        feedLoadVersion.current += 1;
+        const version = feedLoadVersion.current;
+        if (feedLoadTimer.current) clearTimeout(feedLoadTimer.current);
         const items: FeedItem[] = data.feed;
         const capped = items.slice(0, 500);
         feedItemKeys.current = new Set(capped.map(feedKey));
@@ -369,9 +397,11 @@ const AdminList = () => {
         let i = FIRST;
         const schedule = (cb: () => void) => {
           const ric = (window as any).requestIdleCallback as undefined | ((cb: () => void) => number);
-          if (ric) ric(cb); else setTimeout(cb, 0);
+          if (ric) ric(cb);
+          else feedLoadTimer.current = setTimeout(cb, 0);
         };
         const step = () => {
+          if (feedLoadVersion.current !== version) return;
           if (i >= capped.length) return;
           setFeed(capped.slice(0, i + CHUNK));
           i += CHUNK;
@@ -380,13 +410,13 @@ const AdminList = () => {
         schedule(step);
       }
       if (data?.server_time) lastFeedSince.current = data.server_time;
-    } catch {}
-  }, []);
+    }, 10000);
+  }, [runRequest]);
 
   const fetchFeedIncremental = useCallback(async () => {
     if (!lastFeedSince.current) return;
     if (typeof document !== "undefined" && document.visibilityState === "hidden") return;
-    try {
+    await runRequest("feed-incremental", async () => {
       const { data } = await supabase.functions.invoke("get-activity-feed", {
         body: { since: lastFeedSince.current },
       });
@@ -408,8 +438,8 @@ const AdminList = () => {
       // Append to the global queue; pump will release one per tick.
       feedQueue.current.push(...ordered);
       startFeedPump();
-    } catch {}
-  }, []);
+    }, 8000);
+  }, [runRequest]);
 
   // Time between releases. Must exceed the row entry animation duration so each
   // item finishes animating before the next one begins (silky, non-overlapping).
@@ -452,63 +482,73 @@ const AdminList = () => {
   }, []);
 
   const fetchDailyStats = useCallback(async () => {
-    try {
+    await runRequest("daily-stats", async () => {
       const { data } = await supabase.functions.invoke("get-daily-stats");
       if (data?.daily) setDailyStats(data.daily);
       if (data?.hourly) setHourlyStats(data.hourly);
-    } catch {}
-  }, []);
+    });
+  }, [runRequest]);
 
   const fetchLiveTick = useCallback(async () => {
     if (typeof document !== "undefined" && document.visibilityState === "hidden") return;
-    try {
+    await runRequest("live-tick", async () => {
       const { data } = await supabase.functions.invoke("get-live-tick");
       if (data && typeof data.visitors_today === "number") setLiveTick(data);
-    } catch {}
-  }, []);
+    }, 5000);
+  }, [runRequest]);
 
   const fetchPageStats = useCallback(async () => {
-    try {
+    await runRequest("page-stats", async () => {
       const { data } = await supabase.functions.invoke("get-page-stats");
       if (data?.pages) setPageStats(data.pages);
-    } catch {}
-  }, []);
+    });
+  }, [runRequest]);
 
   useEffect(() => {
     let slow: ReturnType<typeof setInterval> | null = null;
     let tick: ReturnType<typeof setInterval> | null = null;
     let fast: ReturnType<typeof setInterval> | null = null;
+    let stagedTimers: ReturnType<typeof setTimeout>[] = [];
     let cancelled = false;
 
     const runSlow = () => {
-      fetchSubscribers();
-      fetchVideoCounts();
-      fetchDownloadCounts();
-      fetchAnalytics();
-      fetchDailyStats();
-      fetchPageStats();
+      stagedTimers.forEach((timer) => clearTimeout(timer));
+      stagedTimers = [];
+      const staged = [
+        fetchAnalytics,
+        fetchDailyStats,
+        fetchVideoCounts,
+        fetchPageStats,
+        fetchDownloadCounts,
+        fetchSubscribers,
+      ];
+      staged.forEach((fn, index) => {
+        const timer = setTimeout(() => {
+          if (!cancelled && (typeof document === "undefined" || document.visibilityState === "visible")) fn();
+        }, index * 1800);
+        stagedTimers.push(timer);
+      });
     };
 
     const start = () => {
       if (cancelled) return;
       if (slow || tick || fast) return; // already running
       // One immediate fetch so the UI reflects fresh state on (re)entry.
-      runSlow();
       fetchLiveTick();
-      fetchFeedIncremental();
-      slow = setInterval(runSlow, 60000);
-      tick = setInterval(fetchLiveTick, 5000);
-      fast = setInterval(fetchFeedIncremental, 4000);
+      fetchFeed();
+      runSlow();
+      slow = setInterval(runSlow, 120000);
+      tick = setInterval(fetchLiveTick, 15000);
+      fast = setInterval(fetchFeedIncremental, 12000);
     };
 
     const stop = () => {
       if (slow) { clearInterval(slow); slow = null; }
       if (tick) { clearInterval(tick); tick = null; }
       if (fast) { clearInterval(fast); fast = null; }
+      stagedTimers.forEach((timer) => clearTimeout(timer));
+      stagedTimers = [];
     };
-
-    // Initial top-down feed load (always, even if hidden — it's a single fetch).
-    fetchFeed();
 
     if (typeof document === "undefined" || document.visibilityState === "visible") {
       start();
