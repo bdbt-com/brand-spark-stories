@@ -496,7 +496,8 @@ const AdminList = () => {
 
   const fetchDailyStats = useCallback(async () => {
     await runRequest("daily-stats", async (signal) => {
-      const { data } = await supabase.functions.invoke("get-daily-stats", { signal, timeout: 10000 });
+      const { data, error } = await supabase.functions.invoke("get-daily-stats", { signal, timeout: 10000 });
+      if (error) throw error;
       if (data?.daily) setDailyStats(data.daily);
       if (data?.hourly) setHourlyStats(data.hourly);
     });
@@ -505,14 +506,16 @@ const AdminList = () => {
   const fetchLiveTick = useCallback(async () => {
     if (typeof document !== "undefined" && document.visibilityState === "hidden") return;
     await runRequest("live-tick", async (signal) => {
-      const { data } = await supabase.functions.invoke("get-live-tick", { signal, timeout: 4000 });
+      const { data, error } = await supabase.functions.invoke("get-live-tick", { signal, timeout: 4000 });
+      if (error) throw error;
       if (data && typeof data.visitors_today === "number") setLiveTick(data);
     }, 5000);
   }, [runRequest]);
 
   const fetchPageStats = useCallback(async () => {
     await runRequest("page-stats", async (signal) => {
-      const { data } = await supabase.functions.invoke("get-page-stats", { signal, timeout: 10000 });
+      const { data, error } = await supabase.functions.invoke("get-page-stats", { signal, timeout: 10000 });
+      if (error) throw error;
       if (data?.pages) setPageStats(data.pages);
     });
   }, [runRequest]);
