@@ -397,6 +397,7 @@ const AdminList = () => {
   // Time between releases. Must exceed the row entry animation duration so each
   // item finishes animating before the next one begins (silky, non-overlapping).
   const FEED_RELEASE_MS = 560;
+  const FEED_ANIM_MS = 520;
   const startFeedPump = useCallback(() => {
     if (feedPumpTimer.current) return; // already pumping
     const release = () => {
@@ -405,6 +406,7 @@ const AdminList = () => {
         feedPumpTimer.current = null;
         return;
       }
+      const k = feedKey(next);
       setFeed((prev) => {
         const merged = [next, ...prev];
         merged.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
@@ -412,9 +414,23 @@ const AdminList = () => {
         feedItemKeys.current = new Set(capped.map(feedKey));
         return capped;
       });
+      setAnimatingKeys((prev) => {
+        const next = new Set(prev);
+        next.add(k);
+        return next;
+      });
+      const clear = setTimeout(() => {
+        setAnimatingKeys((prev) => {
+          if (!prev.has(k)) return prev;
+          const n = new Set(prev);
+          n.delete(k);
+          return n;
+        });
+        animClearTimers.current.delete(clear);
+      }, FEED_ANIM_MS + 40);
+      animClearTimers.current.add(clear);
       feedPumpTimer.current = setTimeout(release, FEED_RELEASE_MS);
     };
-    // First item drops immediately, subsequent items spaced evenly.
     release();
   }, []);
 
