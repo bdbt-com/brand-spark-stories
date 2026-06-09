@@ -397,7 +397,7 @@ const AdminList = () => {
         const version = feedLoadVersion.current;
         if (feedLoadTimer.current) clearTimeout(feedLoadTimer.current);
         const items: FeedItem[] = data.feed;
-        const capped = items.slice(0, 500);
+        const capped = items.slice(0, 100);
         feedItemKeys.current = new Set(capped.map(feedKey));
         // Progressive top-down reveal: render the first chunk immediately so the page
         // is interactive, then reveal the rest in chunks during idle time.
