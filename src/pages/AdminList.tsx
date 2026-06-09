@@ -551,7 +551,7 @@ const AdminList = () => {
                   const sub = item.country || item.label;
                   return (
                     <div
-                      key={`mobile-${k}`}
+                      key={`mobile-${feedRenderKey(item)}`}
                       className={`flex items-center gap-2 py-1.5 border-t border-border/30 ${isNew ? 'animate-type-row' : ''}`}
                     >
                       <div
