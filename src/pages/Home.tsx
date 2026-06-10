@@ -10,6 +10,9 @@ import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "@/component
 import ChevronRipple from "@/components/ChevronRipple";
 import { supabase } from "@/integrations/supabase/client";
 import { startTrackedRedirect } from "@/lib/youtube-redirect";
+import linkBlueprintAsset from "@/assets/link-blueprint.png.asset.json";
+import linkYoutubeAsset from "@/assets/link-youtube.png.asset.json";
+import linkSpotifyAsset from "@/assets/link-spotify.png.asset.json";
 
 type Episode = { videoId: string; title: string; views: string; featured?: boolean };
 
