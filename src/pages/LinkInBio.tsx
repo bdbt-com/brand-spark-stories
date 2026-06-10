@@ -77,7 +77,7 @@ const links = [
     href: "https://open.spotify.com/show/7AryqWOzeVCOC7WQ9wcBlk?si=2ede4b3121ea46c1&nd=1&dlsi=f03fd58680794b34",
     external: true,
     trackId: "button-spotify",
-    thumbnail: linkSpotifyAsset.url,
+    thumbnail: "/lovable-uploads/75853635-930c-4fa5-9403-d0b58c6db83b.png",
   },
 ];
 
