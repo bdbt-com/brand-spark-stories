@@ -5,6 +5,9 @@ import { supabase } from "@/integrations/supabase/client";
 import { startTrackedRedirect, UPLOADS_PLAYLIST_ID } from "@/lib/youtube-redirect";
 import { useYouTubeVideos } from "@/hooks/useYouTubeVideos";
 import { PINNED_TOP_VIDEOS } from "@/data/pinnedTopVideos";
+import linkBlueprintAsset from "@/assets/link-blueprint.png.asset.json";
+import linkYoutubeAsset from "@/assets/link-youtube.png.asset.json";
+import linkSpotifyAsset from "@/assets/link-spotify.png.asset.json";
 
 const PINNED_TOP = PINNED_TOP_VIDEOS.map(v => ({ ...v }));
 
