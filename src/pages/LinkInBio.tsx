@@ -5,6 +5,9 @@ import { supabase } from "@/integrations/supabase/client";
 import { startTrackedRedirect, UPLOADS_PLAYLIST_ID } from "@/lib/youtube-redirect";
 import { useYouTubeVideos } from "@/hooks/useYouTubeVideos";
 import { PINNED_TOP_VIDEOS } from "@/data/pinnedTopVideos";
+import linkBlueprintAsset from "@/assets/link-blueprint.png.asset.json";
+import linkYoutubeAsset from "@/assets/link-youtube.png.asset.json";
+import linkSpotifyAsset from "@/assets/link-spotify.png.asset.json";
 
 const PINNED_TOP = PINNED_TOP_VIDEOS.map(v => ({ ...v }));
 
@@ -60,7 +63,7 @@ const links = [
     href: "/blueprint",
     external: false,
     trackId: "button-blueprint",
-    thumbnail: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png",
+    thumbnail: linkBlueprintAsset.url,
   },
   {
     title: "Daily Wins Podcast",
@@ -68,7 +71,7 @@ const links = [
     href: "https://www.youtube.com/@BigDaddysBigTips",
     external: true,
     trackId: "button-youtube",
-    thumbnail: "/lovable-uploads/recording-setup-new.jpg",
+    thumbnail: linkYoutubeAsset.url,
     randomYoutube: true,
   },
   {
@@ -77,7 +80,7 @@ const links = [
     href: "https://open.spotify.com/show/7AryqWOzeVCOC7WQ9wcBlk?si=2ede4b3121ea46c1&nd=1&dlsi=f03fd58680794b34",
     external: true,
     trackId: "button-spotify",
-    thumbnail: "/lovable-uploads/75853635-930c-4fa5-9403-d0b58c6db83b.png",
+    thumbnail: linkSpotifyAsset.url,
   },
 ];
 

@@ -1,7 +1,10 @@
-Update `src/pages/About.tsx` hero (lines 44-58):
+Replace the three card thumbnails on the `/links` page (`src/pages/LinkInBio.tsx`) in this order:
 
-- Replace title "The Story Behind / The System" with italic gold **About Me**.
-- Replace the two intro paragraphs with the new italic copy:
-  1. *After years working in finance and studying habits, health and behaviour, I realised something surprising; most people do not fail because they are lazy or lack discipline. They are simply living in a world where comfort has evolved faster than our biology.*
-  2. *Modern life has made choosing comfort easier. It has made Daily Drifts easier. So I created Daily Wins to help people replace downward spirals with upward momentum through tiny daily actions that quietly compound.*
-- Keep the "Read My Story" button, photo, collapsible story, and everything below untouched.
+1. **Free Foundation Blueprint** (line 63) → clapper-board behind-the-scenes shot (`Screenshot_2026-06-10_at_12.52.15.png`)
+2. **Daily Wins Podcast (YouTube)** (line 71) → close-up speaking shot (`Screenshot_2026-06-10_at_12.52.24.png`)
+3. **Daily Wins Podcast (Spotify)** (line 80) → arms-wide speaking shot (`Screenshot_2026-06-10_at_12.51.55.png`)
+
+### Technical steps
+- Upload each user-provided image via `lovable-assets create` from `/mnt/user-uploads/...`, writing pointer files to `src/assets/link-blueprint.png.asset.json`, `src/assets/link-youtube.png.asset.json`, `src/assets/link-spotify.png.asset.json`.
+- Import the pointer JSONs in `src/pages/LinkInBio.tsx` and replace the `thumbnail` strings on lines 63, 71, 80 with the imported `.url` values.
+- No other files or pages touched.
