@@ -204,6 +204,7 @@ const AdminList = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [videoCounts, setVideoCounts] = useState<Record<string, { total: number; today: number; "7d": number; "14d": number; "30d": number }>>({});
+  const [courseSignups, setCourseSignups] = useState<{ total: number; today: number; "7d": number; "14d": number; "30d": number }>({ total: 0, today: 0, "7d": 0, "14d": 0, "30d": 0 });
   const [downloadCounts, setDownloadCounts] = useState<[string, number][]>([]);
   const [analytics, setAnalytics] = useState<Record<string, AnalyticsPeriod>>({});
   const [bioClicks, setBioClicks] = useState<Record<string, number>>({});
@@ -359,6 +360,23 @@ const AdminList = () => {
           .sort((a, b) => b[1] - a[1])
           .slice(0, 10);
         setDownloadCounts(sorted);
+      }
+    });
+  }, [runRequest]);
+
+  const fetchCourseSignups = useCallback(async () => {
+    await runRequest("course-signups", async () => {
+      const { data, error } = await supabase.rpc("get_course_signup_counts");
+      if (error) throw error;
+      const row = Array.isArray(data) ? data[0] : data;
+      if (row) {
+        setCourseSignups({
+          total: Number(row.total || 0),
+          today: Number(row.today || 0),
+          "7d": Number(row.d7 || 0),
+          "14d": Number(row.d14 || 0),
+          "30d": Number(row.d30 || 0),
+        });
       }
     });
   }, [runRequest]);
@@ -536,6 +554,7 @@ const AdminList = () => {
         fetchVideoCounts,
         fetchPageStats,
         fetchDownloadCounts,
+        fetchCourseSignups,
         fetchSubscribers,
       ];
       staged.forEach((fn, index) => {
@@ -582,7 +601,7 @@ const AdminList = () => {
       Object.values(requestControllers.current).forEach((controller) => controller?.abort());
       document.removeEventListener("visibilitychange", onVisible);
     };
-  }, [fetchSubscribers, fetchVideoCounts, fetchDownloadCounts, fetchAnalytics, fetchFeed, fetchFeedIncremental, fetchDailyStats, fetchLiveTick, fetchPageStats]);
+  }, [fetchSubscribers, fetchVideoCounts, fetchDownloadCounts, fetchCourseSignups, fetchAnalytics, fetchFeed, fetchFeedIncremental, fetchDailyStats, fetchLiveTick, fetchPageStats]);
 
   // Cleanup queued animation-clear timers on unmount
   useEffect(() => {
@@ -729,6 +748,8 @@ const AdminList = () => {
                         : path === '/podcast'
                         ? { count: videoCounts['podcast-spotify']?.total || 0, label: 'spotify clicks' }
                         : null;
+                    const signupKey = rangeKey === 'since_launch' ? 'total' : (rangeKey as 'today' | '7d' | '14d' | '30d');
+                    const courseSignupCount = path === '/courses' ? (courseSignups[signupKey] || 0) : null;
                     return (
                       <Card key={path} className="border-primary/20 hover:border-primary/40 transition-colors h-full">
                         <CardContent className="p-3 text-center">
@@ -747,6 +768,12 @@ const AdminList = () => {
                             <p className="text-[10px] text-primary/80 mt-1 tabular-nums inline-flex items-center justify-center gap-1">
                               <MousePointerClick className="w-2.5 h-2.5" />
                               <AnimatedCounter value={extra.count} /> {extra.label}
+                            </p>
+                          )}
+                          {courseSignupCount !== null && (
+                            <p className="text-[10px] text-primary mt-1 tabular-nums inline-flex items-center justify-center gap-1 font-semibold">
+                              <UserPlus className="w-2.5 h-2.5" />
+                              <AnimatedCounter value={courseSignupCount} /> course signups
                             </p>
                           )}
                         </CardContent>

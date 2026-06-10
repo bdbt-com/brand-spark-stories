@@ -263,6 +263,16 @@ export type Database = {
       bytea_to_text: { Args: { data: string }; Returns: string }
       generate_signed_urls: { Args: never; Returns: undefined }
       get_bio_click_sessions: { Args: { since_ts: string }; Returns: number }
+      get_course_signup_counts: {
+        Args: never
+        Returns: {
+          d14: number
+          d30: number
+          d7: number
+          today: number
+          total: number
+        }[]
+      }
       get_daily_stats: {
         Args: never
         Returns: {
