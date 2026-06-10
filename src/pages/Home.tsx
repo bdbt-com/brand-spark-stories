@@ -30,8 +30,8 @@ const PODCAST_EPISODES: Episode[] = [
 
 const Home = () => {
   const images = [bdClapperSetAsset.url,
-  bdTalking1Asset.url,
   bdTalking2Asset.url,
+  bdTalking1Asset.url,
   "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png",
   // Sunset silhouette on rocks
 
