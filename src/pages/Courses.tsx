@@ -14,7 +14,7 @@ import {
 } from "lucide-react";
 import EmailCaptureForm from "@/components/EmailCaptureForm";
 import { getGuideUrl } from "@/data/guideMapping";
-import { SiInstagram, SiSpotify, SiTiktok, SiYoutube } from "react-icons/si";
+
 
 type CourseStatus = "coming-soon" | "available";
 
