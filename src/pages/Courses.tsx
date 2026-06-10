@@ -230,7 +230,7 @@ const Courses = () => {
                   compact={false}
                   hideable={false}
                   headingLabel="Reserve your spot"
-                  submitLabel="Join the Waitlist + Get the Free Blueprint →"
+                  submitLabel="Join the Waitlist →"
                   successTitle="You're on the list ✓"
                   successDescription="Check your inbox for the Foundation Blueprint."
                   showCourseSelector
@@ -252,7 +252,7 @@ const Courses = () => {
           variant="default"
           className="w-full min-h-12 rounded-xl bg-primary text-primary-foreground font-bold shadow-[0_0_25px_-8px_hsl(var(--primary)/0.6)]"
         >
-          Download Free Blueprint
+          Join the Waitlist
         </Button>
       </div>
     </div>
