@@ -218,7 +218,8 @@ const Podcast = () => {
             >
               <div className="relative aspect-video w-full">
                 <img
-                  src={video.thumbnail}
+                  src={hiResThumb(video.videoId)}
+                  onError={(e) => { const img = e.currentTarget; if (!img.dataset.fallback) { img.dataset.fallback = "1"; img.src = fallbackThumb(video.videoId); } }}
                   alt={video.title}
                   className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
                   loading="eager"
