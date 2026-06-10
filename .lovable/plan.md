@@ -1,22 +1,12 @@
-# Even nav spacing + rename CTA
+## Podcast page CTA cleanup (`src/pages/Podcast.tsx`, ~lines 256–295)
 
-## `src/components/Navigation.tsx` (desktop bar only)
+1. **Remove the square Blueprint button** (lines 281–294) entirely.
+2. **Centre the Spotify square** in its own row and add a bit of top margin to push it down slightly (e.g. `mt-2 sm:mt-3`). Container becomes a single centred flex with just the Spotify tile.
+3. **Add a second primary button under "Watch on YouTube"** labelled **"Browse Courses"**, matching the homepage gold gradient style (from `Home.tsx` lines 214–225): same gradient, shimmer, rounded-2xl, ArrowRight icon, links to `/courses?intent=1`. Full width like the YouTube button (`w-full h-12 sm:h-14`). Tracked via `trackClick("button-courses")`.
 
-**1. Even spacing between social icons and the Blueprint button**
-Currently the row is `flex justify-between` with the nav links hugging the right side. Restructure the desktop layout so the nav items fill the space between the icons and the button:
+Resulting stack order:
+- Watch on YouTube (existing primary)
+- Browse Courses (new, gold gradient)
+- Spotify square (centred, slightly lower)
 
-- Wrap the desktop nav links in a flex-1 container with `justify-around` (or `justify-evenly`) so Home / Courses / Podcast / Tips / About spread evenly across the available width.
-- Keep the Blueprint button anchored at the far right (outside the flex-1 container).
-- Leave mobile menu untouched.
-
-Concretely: replace the single `hidden md:flex` block (lines 105–130) with two siblings — a flex-1 nav container `hidden md:flex flex-1 justify-evenly` for the links, and the Button kept as its own element at the end with `ml-4` removed (spacing now comes from the evenly-distributed layout, plus a small `pl-6` for breathing room from "About").
-
-**2. Rename CTA text**
-Change button label (lines 128 and 180) from:
-`Get Your Foundation Blueprint Here`
-→ `Get Your Free Foundation Blueprint`
-
-Applies to both desktop and mobile buttons.
-
-## Untouched
-- `/blueprint` route, mobile menu order, logo, social icons.
+No other pages or logic touched.
