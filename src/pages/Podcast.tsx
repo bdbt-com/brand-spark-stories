@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { Play, BookOpen } from "lucide-react";
+import { Play, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLatestVideo } from "@/hooks/useLatestVideo";
 import { useYouTubeVideos } from "@/hooks/useYouTubeVideos";
