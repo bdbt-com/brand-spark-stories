@@ -42,18 +42,16 @@ const About = () => {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="animate-fade-in space-y-8">
               <div className="space-y-4">
-                <h1 className="text-5xl lg:text-6xl font-bold leading-tight">
-                  <span className="block text-white">The Story Behind</span>
-                  <span className="block text-primary">The System</span>
+                <h1 className="text-5xl lg:text-6xl font-bold italic leading-tight text-primary">
+                  About Me
                 </h1>
               </div>
               <div className="space-y-6">
-                <p className="text-xl text-foreground leading-relaxed">
-                  How one dad turned daily overwhelm into a life-changing ripple effect.
+                <p className="text-xl text-foreground leading-relaxed italic">
+                  After years working in finance and studying habits, health and behaviour, I realised something surprising; most people do not fail because they are lazy or lack discipline. They are simply living in a world where comfort has evolved faster than our biology.
                 </p>
-                <p className="text-xl text-foreground leading-relaxed">
-                  From financial services to single parenting, discover the real story behind 
-                  Big Daddy's Big Tips and why I'm sharing it with you.
+                <p className="text-xl text-foreground leading-relaxed italic">
+                  Modern life has made choosing comfort easier. It has made Daily Drifts easier. So I created Daily Wins to help people replace downward spirals with upward momentum through tiny daily actions that quietly compound.
                 </p>
               </div>
               <div className="flex justify-center mt-12">
