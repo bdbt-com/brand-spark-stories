@@ -10,6 +10,9 @@ import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "@/component
 import ChevronRipple from "@/components/ChevronRipple";
 import { supabase } from "@/integrations/supabase/client";
 import { startTrackedRedirect } from "@/lib/youtube-redirect";
+import linkBlueprintAsset from "@/assets/link-blueprint.png.asset.json";
+import linkYoutubeAsset from "@/assets/link-youtube.png.asset.json";
+import linkSpotifyAsset from "@/assets/link-spotify.png.asset.json";
 
 type Episode = { videoId: string; title: string; views: string; featured?: boolean };
 
@@ -22,8 +25,8 @@ const PODCAST_EPISODES: Episode[] = [
 const Home = () => {
   const images = ["/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png",
   // Sunset silhouette on rocks
-  "/lovable-uploads/recording-setup-new.jpg",
-  // Podcast recording setup - updated
+  linkBlueprintAsset.url,
+  // Podcast recording setup - replaced with clapper board shot
   "/lovable-uploads/b362cf10-f3b4-4ab1-aeb3-30ab18058ace.png",
   // Man with dog outdoors
   "/lovable-uploads/4fd0818e-20c3-4941-9c54-6915db50a7c0.png",
@@ -34,16 +37,16 @@ const Home = () => {
   // Silhouette by pool
   "/lovable-uploads/2678016c-a3fa-4e29-bf3d-3ebe92201186.png",
   // Person exercising outdoors
-  "/lovable-uploads/2f4d6184-a8de-43f0-a345-4ed910c90522.png",
-  // Man on phone in modern setting
+  linkSpotifyAsset.url,
+  // Man on phone in modern setting - replaced with arms-wide speaking shot
   "/lovable-uploads/7db6bd1f-c12f-45f2-a1d1-505f38c743a1.png",
   // Man outdoors smiling
   "/lovable-uploads/8db636d1-94ff-432a-a4b1-6ca278173f2f.png",
   // Man in shoe store
   "/lovable-uploads/a886c4a9-0d09-442e-8348-25bd795ad7d0.png",
   // Man in home theater
-  "/lovable-uploads/man-in-car.jpeg",
-  // Man in car smiling
+  linkYoutubeAsset.url,
+  // Man in car smiling - replaced with close-up speaking shot
   "/lovable-uploads/347bc4c8-a5fc-40c4-a30c-1d91b5bd5761.png",
   // Man on beach at sunset
   "/lovable-uploads/75853635-930c-4fa5-9403-d0b58c6db83b.png" // Person meditating in gazebo
