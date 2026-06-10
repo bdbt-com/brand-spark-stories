@@ -15,6 +15,9 @@ import linkYoutubeAsset from "@/assets/link-youtube.png.asset.json";
 import linkSpotifyAsset from "@/assets/link-spotify.png.asset.json";
 import clapperboardAsset from "@/assets/clapperboard-shot.png.asset.json";
 import blueprintCoverAsset from "@/assets/foundation-blueprint-cover.png.asset.json";
+import bdClapperSetAsset from "@/assets/bd-clapper-set.png.asset.json";
+import bdTalking1Asset from "@/assets/bd-talking-1.png.asset.json";
+import bdTalking2Asset from "@/assets/bd-talking-2.png.asset.json";
 import { SiInstagram, SiSpotify, SiTiktok, SiYoutube } from "react-icons/si";
 
 type Episode = { videoId: string; title: string; views: string; featured?: boolean };
@@ -26,10 +29,11 @@ const PODCAST_EPISODES: Episode[] = [
 ];
 
 const Home = () => {
-  const images = ["/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png",
+  const images = [bdClapperSetAsset.url,
+  bdTalking1Asset.url,
+  bdTalking2Asset.url,
+  "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png",
   // Sunset silhouette on rocks
-  clapperboardAsset.url,
-  // Clapper board shot (HD)
 
   // Man with dog outdoors
   "/lovable-uploads/4fd0818e-20c3-4941-9c54-6915db50a7c0.png",
@@ -320,14 +324,6 @@ const Home = () => {
             <p>Most people think they have separate problems. In reality, they have a system problem.</p>
             <p>The good news? A system of Daily Drifts can be replaced with a system of Daily Wins.</p>
             <p>This is not another all-or-nothing New Year's resolution. It is a system you build gradually, layering small Daily Wins that quietly reshape your habits, identity, and ultimately, your future.</p>
-          </div>
-
-          <div className="flex justify-center mt-10">
-            <Button variant="outline" size="lg" asChild className="italic font-bold">
-              <Link to="/tips">
-                Explore The Full Daily Wins System <ArrowRight className="w-5 h-5 ml-2" />
-              </Link>
-            </Button>
           </div>
         </div>
       </section>
