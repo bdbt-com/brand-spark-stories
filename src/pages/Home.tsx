@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ArrowRight, Droplets, Activity, Moon, DollarSign, Heart, Smile, Target, Zap, ChevronDown, FileText, Headphones, Instagram, Youtube, Play } from "lucide-react";
+import { ArrowRight, Droplets, Activity, Moon, DollarSign, Heart, Smile, Target, Zap, ChevronDown, FileText, Headphones, Instagram, Youtube, Play, Dumbbell, PiggyBank, Apple, Check, Lock as LockIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 import TipsCarousel from "@/components/TipsCarousel";
 import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "@/components/ui/carousel";
@@ -330,28 +330,99 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Tips Preview Section */}
-      <section className="py-32 bg-background">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-primary">
-              Your Daily Transformation Toolkit
+      {/* Courses preview - laid out like Courses page */}
+      <section className="py-16 lg:py-20 bg-background">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="italic text-3xl md:text-4xl font-bold text-primary mb-4">
+              Start Your Daily Wins Journey
             </h2>
-            <p className="text-xl text-foreground max-w-3xl mx-auto">My supply of Daily Wins that quietly transform your health, wealth, and happiness through small daily actions.</p>
+            <p className="text-muted-foreground text-base sm:text-lg max-w-2xl mx-auto">
+              Four simple systems. One connected life. Pick where you want your first win.
+            </p>
           </div>
-          
-          <TipsCarousel />
-          
-          
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6 items-stretch">
+            {[
+              { topic: "Exercise", title: "Daily Wins For Exercise", hook: "Build a workout into your day, without needing a gym, personal trainer or any extra time.", bullets: ["Consistency over intensity", "Simple exercise habits", "More energy & confidence", "No overwhelm"], cta: "Start Exercise Wins", Icon: Dumbbell },
+              { topic: "Money", title: "Daily Wins For Money", hook: "Stop money leaks and reduce financial stress without budgets or complicated spreadsheets.", bullets: ["Spending awareness", "Habit-based saving", "Systems over budgeting", "Small wins that compound"], cta: "Start Money Wins", Icon: PiggyBank },
+              { topic: "Nutrition", title: "Daily Wins For Nutrition", hook: "Eat better without extreme dieting.", bullets: ["Craving control", "Better food defaults (keep your guilty pleasures!)", "Energy & mood improvement", "Sustainable habits"], cta: "Start Nutritional Wins", Icon: Apple },
+              { topic: "Sleep", title: "Daily Wins For Sleep", hook: "Fix the habit that quietly affects everything else.", bullets: ["Better recovery & confidence", "Lower stress/anxiety", "More discipline & motivation", "Energy ripple effects"], cta: "Start Sleep Wins", Icon: Moon },
+            ].map(({ topic, title, hook, bullets, cta, Icon }) => (
+              <Card key={topic} className="group relative bg-[#141414] border border-primary/20 rounded-2xl shadow-soft transition-all duration-300 md:hover:-translate-y-1 md:hover:border-primary/50 md:hover:shadow-[0_0_40px_-10px_hsl(var(--primary)/0.5)] h-full overflow-hidden">
+                <CardContent className="relative p-6 sm:p-7 flex flex-col h-full gap-5">
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="w-14 h-14 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center md:group-hover:bg-primary/20 transition-colors">
+                      <Icon className="w-7 h-7 text-primary" strokeWidth={2.25} />
+                    </div>
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/15 border border-primary/40 text-primary text-[11px] font-bold tracking-wider uppercase">
+                      <LockIcon className="w-3 h-3" />
+                      Coming Soon
+                    </span>
+                  </div>
+
+                  <div className="space-y-2">
+                    <h3 className="text-xl sm:text-2xl font-bold italic text-primary leading-tight">{title}</h3>
+                    <p className="text-[15px] text-muted-foreground leading-relaxed">{hook}</p>
+                  </div>
+
+                  <ul className="space-y-2.5">
+                    {bullets.map((b) => (
+                      <li key={b} className="flex items-start gap-2.5 text-[15px] text-foreground/95 leading-snug">
+                        <Check className="w-4 h-4 text-primary mt-1 shrink-0" strokeWidth={3} />
+                        <span>{b}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div className="mt-auto pt-2">
+                    <Button asChild variant="outline" className="w-full min-h-12 rounded-xl border-2 border-primary/60 text-primary font-bold tracking-tight bg-[#141414]/80 md:hover:bg-primary md:hover:text-primary-foreground md:hover:border-primary md:hover:scale-[1.02] transition-all">
+                      <Link to={`/courses?topic=${encodeURIComponent(topic)}`}>{cta}</Link>
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* They're All Connected */}
+      <section className="py-20 lg:py-24">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
+          <h2 className="italic text-3xl md:text-4xl font-bold text-primary mb-8">
+            They're All Connected
+          </h2>
+
+          <p className="font-bold text-foreground text-lg md:text-xl mb-10">
+            Sleep → Nutrition → Exercise → Money → Confidence → Happiness
+          </p>
+
+          <p className="font-bold text-foreground mb-2">
+            Most people try to fix life one problem at a time.
+          </p>
+          <p className="font-bold text-foreground mb-8">
+            Daily Wins work differently. Small habits that create ripple effects:
+          </p>
+
+          <ul className="space-y-3 text-foreground mb-12">
+            <li>Better sleep improves food choices.</li>
+            <li>Better food improves energy.</li>
+            <li>Better energy improves movement.</li>
+            <li>Better routines reduce stress spending.</li>
+            <li>Tiny wins compound into a different life.</li>
+          </ul>
+
           <div className="flex justify-center">
-            <Button variant="outline" size="lg" asChild className="w-full sm:w-auto max-w-sm">
+            <Button variant="outline" size="lg" asChild className="italic font-bold">
               <Link to="/tips">
-                View All Tips <ArrowRight className="w-5 h-5 ml-2" />
+                Explore The Full Daily Wins System <ArrowRight className="w-5 h-5 ml-2" />
               </Link>
             </Button>
           </div>
         </div>
       </section>
+
     </div>;
 };
 export default Home;
