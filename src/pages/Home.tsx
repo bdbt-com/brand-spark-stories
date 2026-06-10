@@ -529,12 +529,12 @@ const Home = () => {
           </h2>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-stretch sm:items-center">
-            <Button asChild size="lg" className="italic font-bold">
+            <Button asChild variant="outline" size="lg" className="italic font-bold">
               <Link to="/blueprint">
                 Start With The Free Foundation Blueprint <ArrowRight className="w-5 h-5 ml-2" />
               </Link>
             </Button>
-            <Button asChild variant="outline" size="lg" className="italic font-bold">
+            <Button asChild size="lg" className="italic font-bold">
               <Link to="/courses">
                 Browse Courses <ArrowRight className="w-5 h-5 ml-2" />
               </Link>
