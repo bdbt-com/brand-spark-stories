@@ -1,24 +1,16 @@
-### 1. About page — remove "The Problem" section
-Delete lines 258–331 of `src/pages/About.tsx` (the entire `{/* The Problem Section */}` block: "The Problem" heading + "We live in a world obsessed with doing more", "Why do traditional approaches…", "We're told to fix our lives…", "But nothing sticks.", "Meanwhile, modern life…", and all 4 inter-section chevrons). Leave the "Welcome to the World of Daily Wins" section untouched.
+## Plan
 
-### 2. Courses page — remove the intent popup (desktop + mobile)
-In `src/pages/Courses.tsx`:
-- Remove `import CoursesIntentModal from "@/components/CoursesIntentModal";` (line 3).
-- Remove `const [intentOpen, setIntentOpen] = useState(false);` (line 127).
-- Remove the entire intent `useEffect` (lines 132–148), including the `setTimeout` that opens the modal and the `?intent=1` / sessionStorage handling.
-- Remove the `<CoursesIntentModal ... />` JSX block (lines 157–163).
-- Drop `useSearchParams` / `setSearchParams` usage if it becomes unused after the effect is removed.
-- Leave `src/components/CoursesIntentModal.tsx` on disk (orphaned) to avoid breaking any other reference.
+1. **Courses page (`src/pages/Courses.tsx`)** — Remove the "Follow / Social footer" section (lines 244–292), including the 30K+/100+/8PM stats, the "Helping people replace…" italic line, and the "Follow @bigdaddysbigtips" block with social icons. Clean up any now-unused imports (`SiInstagram`, `SiSpotify`, `SiTiktok`, `SiYoutube`) if no longer referenced.
 
-### 3. Podcast page — high-resolution thumbnails
-In `src/pages/Podcast.tsx`, both `<img>` tags currently render `ep.thumbnail` / `video.thumbnail`, which the YouTube scraper falls back to `hqdefault.jpg` (480×360). Switch to YouTube's `maxresdefault.jpg` (1280×720) with a graceful fallback:
+2. **Home page (`src/pages/Home.tsx`)** — Insert two new sections directly after the "Browse Courses CTA" (after line 230) and before the "Why Life Feels Harder Than It Should" section:
 
-- Add small helpers at the top of the component:
-  ```ts
-  const hiResThumb = (videoId: string) => `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`;
-  const fallbackThumb = (videoId: string) => `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
-  ```
-- Replace `src={video.thumbnail}` (line 216) with `src={hiResThumb(video.videoId)}` and add `onError={(e) => { e.currentTarget.src = fallbackThumb(video.videoId); }}`.
-- Replace `src={ep.thumbnail}` (line 326) with `src={hiResThumb(ep.videoId)}` and add the same `onError` fallback using `ep.videoId`.
+   a. **Social footer block** — Same markup as removed from Courses: 3‑column stats grid (30K+ YouTube Subscribers, 100+ Daily Wins Shared, 8PM New Episode Every Day), the "Helping people replace Daily Drifts with Daily Wins." italic line, the "Follow @bigdaddysbigtips" heading, and the row of Instagram/Spotify/TikTok/YouTube social circles. Import the four `Si*` icons from `react-icons/si` at the top of Home.tsx.
 
-This delivers YouTube's full-HD thumbnails (same quality shown on youtube.com) without redeploying the edge function. The `onError` handler protects the rare videos that lack a maxres asset.
+   b. **Quote block** — Below the social footer, a centred italic blockquote:
+   > "If you don't build a system around your Daily Wins, comfort will quietly build one around your Daily Drifts."
+   
+   Styled in primary/gold-ish muted tone, max-width ~3xl, generous vertical padding to act as a visual breather before the "Why Life Feels Harder" section.
+
+3. **Spacing** — Adjust the top padding of the "Why Life Feels Harder Than It Should" section so it sits comfortably below the new quote (the quote effectively pushes it down, satisfying the "move down" request); no other sections change.
+
+No changes to functionality, data, routes, or other pages.
