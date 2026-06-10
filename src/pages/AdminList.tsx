@@ -710,13 +710,12 @@ const AdminList = () => {
               const rows = pageStats[rangeKey] || [];
               const byPath = new Map(rows.map((r) => [r.page_path === '' ? '/' : r.page_path, r]));
               const NAV_PAGES: { path: string; label: string }[] = [
-                { path: '/', label: 'Home' },
-                { path: '/about', label: 'About' },
-                { path: '/blueprint', label: 'Blueprint' },
-                { path: '/tips', label: 'Tips' },
-                { path: '/courses', label: 'Courses' },
-                { path: '/podcast', label: 'Podcast' },
-              ];
+                 { path: '/', label: 'Home' },
+                 { path: '/courses', label: 'Courses' },
+                 { path: '/podcast', label: 'Podcast' },
+                 { path: '/tips', label: 'Tips' },
+                 { path: '/about', label: 'About' },
+               ];
               return (
                 <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
                   {NAV_PAGES.map(({ path, label }) => {
