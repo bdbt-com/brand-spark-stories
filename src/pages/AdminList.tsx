@@ -204,6 +204,7 @@ const AdminList = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [videoCounts, setVideoCounts] = useState<Record<string, { total: number; today: number; "7d": number; "14d": number; "30d": number }>>({});
+  const [courseSignups, setCourseSignups] = useState<{ total: number; today: number; "7d": number; "14d": number; "30d": number }>({ total: 0, today: 0, "7d": 0, "14d": 0, "30d": 0 });
   const [downloadCounts, setDownloadCounts] = useState<[string, number][]>([]);
   const [analytics, setAnalytics] = useState<Record<string, AnalyticsPeriod>>({});
   const [bioClicks, setBioClicks] = useState<Record<string, number>>({});
@@ -359,6 +360,23 @@ const AdminList = () => {
           .sort((a, b) => b[1] - a[1])
           .slice(0, 10);
         setDownloadCounts(sorted);
+      }
+    });
+  }, [runRequest]);
+
+  const fetchCourseSignups = useCallback(async () => {
+    await runRequest("course-signups", async () => {
+      const { data, error } = await supabase.rpc("get_course_signup_counts");
+      if (error) throw error;
+      const row = Array.isArray(data) ? data[0] : data;
+      if (row) {
+        setCourseSignups({
+          total: Number(row.total || 0),
+          today: Number(row.today || 0),
+          "7d": Number(row.d7 || 0),
+          "14d": Number(row.d14 || 0),
+          "30d": Number(row.d30 || 0),
+        });
       }
     });
   }, [runRequest]);
@@ -536,6 +554,7 @@ const AdminList = () => {
         fetchVideoCounts,
         fetchPageStats,
         fetchDownloadCounts,
+        fetchCourseSignups,
         fetchSubscribers,
       ];
       staged.forEach((fn, index) => {
@@ -582,7 +601,7 @@ const AdminList = () => {
       Object.values(requestControllers.current).forEach((controller) => controller?.abort());
       document.removeEventListener("visibilitychange", onVisible);
     };
-  }, [fetchSubscribers, fetchVideoCounts, fetchDownloadCounts, fetchAnalytics, fetchFeed, fetchFeedIncremental, fetchDailyStats, fetchLiveTick, fetchPageStats]);
+  }, [fetchSubscribers, fetchVideoCounts, fetchDownloadCounts, fetchCourseSignups, fetchAnalytics, fetchFeed, fetchFeedIncremental, fetchDailyStats, fetchLiveTick, fetchPageStats]);
 
   // Cleanup queued animation-clear timers on unmount
   useEffect(() => {
