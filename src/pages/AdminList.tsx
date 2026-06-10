@@ -723,6 +723,12 @@ const AdminList = () => {
                     const mins = Math.floor(p.avg_duration / 60);
                     const secs = Math.round(p.avg_duration % 60);
                     const timeStr = `${mins > 0 ? `${mins}m ` : ''}${secs}s`;
+                    const extra =
+                      path === '/courses'
+                        ? { count: videoCounts['button-courses']?.total || 0, label: 'course btn clicks' }
+                        : path === '/podcast'
+                        ? { count: videoCounts['podcast-spotify']?.total || 0, label: 'spotify clicks' }
+                        : null;
                     return (
                       <Card key={path} className="border-primary/20 hover:border-primary/40 transition-colors h-full">
                         <CardContent className="p-3 text-center">
@@ -737,6 +743,12 @@ const AdminList = () => {
                           <p className="text-[10px] text-muted-foreground mt-2 tabular-nums inline-flex items-center justify-center gap-1">
                             <Clock className="w-2.5 h-2.5" />{timeStr} avg · {p.views.toLocaleString()} views
                           </p>
+                          {extra && (
+                            <p className="text-[10px] text-primary/80 mt-1 tabular-nums inline-flex items-center justify-center gap-1">
+                              <MousePointerClick className="w-2.5 h-2.5" />
+                              <AnimatedCounter value={extra.count} /> {extra.label}
+                            </p>
+                          )}
                         </CardContent>
                       </Card>
                     );
