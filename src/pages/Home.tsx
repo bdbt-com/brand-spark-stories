@@ -13,6 +13,7 @@ import { startTrackedRedirect } from "@/lib/youtube-redirect";
 import linkBlueprintAsset from "@/assets/link-blueprint.png.asset.json";
 import linkYoutubeAsset from "@/assets/link-youtube.png.asset.json";
 import linkSpotifyAsset from "@/assets/link-spotify.png.asset.json";
+import { SiInstagram, SiSpotify, SiTiktok, SiYoutube } from "react-icons/si";
 
 type Episode = { videoId: string; title: string; views: string; featured?: boolean };
 
@@ -229,8 +230,69 @@ const Home = () => {
         </div>
       </section>
 
+      {/* Follow / Social footer (moved from Courses) */}
+      <section className="pt-6 lg:pt-10 pb-4">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center space-y-8">
+          <div className="grid grid-cols-3 gap-4 sm:gap-8 max-w-2xl mx-auto">
+            {[
+              { stat: "30K+", label: "YouTube Subscribers" },
+              { stat: "100+", label: "Daily Wins Shared" },
+              { stat: "8PM", label: "New Episode, Every Day" },
+            ].map((s) => (
+              <div key={s.label} className="space-y-1">
+                <div className="font-bold italic text-[#E8CE8A] text-[clamp(1.75rem,5vw,2.75rem)] leading-none">
+                  {s.stat}
+                </div>
+                <div className="text-[11px] sm:text-xs uppercase tracking-wider text-muted-foreground">
+                  {s.label}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <p className="italic text-muted-foreground text-sm sm:text-base max-w-xl mx-auto">
+            "Helping people replace Daily Drifts with Daily Wins."
+          </p>
+
+          <div className="space-y-5">
+            <p className="font-bold italic text-primary text-lg sm:text-xl">
+              Follow @bigdaddysbigtips
+            </p>
+
+            <div className="flex items-center justify-center gap-4 sm:gap-5">
+              {[
+                { Icon: SiInstagram, href: "https://instagram.com/BigDaddysBigTips", label: "Instagram" },
+                { Icon: SiSpotify, href: "https://open.spotify.com/show/7AryqWOzeVCOC7WQ9wcBlk", label: "Spotify" },
+                { Icon: SiTiktok, href: "https://tiktok.com/@BigDaddysBigTips", label: "TikTok" },
+                { Icon: SiYoutube, href: "https://youtube.com/@BigDaddysBigTips", label: "YouTube" },
+              ].map(({ Icon, href, label }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className="group w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#141414] border border-primary/40 flex items-center justify-center transition-all duration-300 hover:border-primary hover:-translate-y-0.5 hover:shadow-[0_0_25px_-5px_hsl(var(--primary)/0.7)]"
+                >
+                  <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-[#E8CE8A] transition-transform group-hover:scale-110" />
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Pull quote */}
+      <section className="py-12 lg:py-16">
+        <div className="max-w-3xl mx-auto px-6">
+          <blockquote className="text-center italic font-bold text-foreground text-lg md:text-2xl leading-relaxed">
+            "If you don't build a system around your Daily Wins, comfort will quietly build one around your Daily Drifts."
+          </blockquote>
+        </div>
+      </section>
+
       {/* Why Life Feels Harder Than It Should */}
-      <section className="pt-10 lg:pt-12 pb-24">
+      <section className="pt-6 lg:pt-8 pb-24">
         <div className="max-w-3xl mx-auto px-4 sm:px-6">
           <h2 className="italic text-3xl md:text-4xl font-bold text-primary text-center mb-10">
             Why Life Feels Harder Than It Should
