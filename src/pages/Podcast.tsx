@@ -253,8 +253,23 @@ const Podcast = () => {
               Watch on YouTube
             </Button>
 
-            {/* Secondary platform buttons - square with rounded edges */}
-            <div className="flex items-center justify-center gap-4 sm:gap-6">
+            {/* Browse Courses CTA */}
+            <Link
+              to="/courses?intent=1"
+              aria-label="Browse Courses"
+              onClick={() => trackClick("button-courses")}
+              className="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-2xl w-full h-12 sm:h-14 px-6 text-base sm:text-lg font-semibold tracking-tight text-black bg-gradient-to-r from-primary via-[hsl(35_45%_78%)] to-primary bg-[length:200%_100%] bg-[position:0%_50%] transition-[background-position,transform,box-shadow] duration-500 ease-out hover:bg-[position:100%_50%] hover:-translate-y-0.5 active:translate-y-0 shadow-[0_0_0_1px_hsl(var(--primary)/0.35),0_10px_30px_-12px_hsl(var(--primary)/0.45)] hover:shadow-[0_0_0_1px_hsl(var(--primary)/0.5),0_18px_45px_-12px_hsl(var(--primary)/0.65)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-black touch-manipulation"
+            >
+              <span aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-1/2 rounded-t-2xl bg-gradient-to-b from-white/30 to-transparent" />
+              <span aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden rounded-2xl">
+                <span className="absolute top-0 left-0 h-full w-1/3 bg-gradient-to-r from-transparent via-white/35 to-transparent animate-shimmer-sweep" />
+              </span>
+              <span className="relative">Browse Courses</span>
+              <ArrowRight className="relative w-5 h-5 transition-transform duration-300 ease-out group-hover:translate-x-1" />
+            </Link>
+
+            {/* Spotify */}
+            <div className="flex items-center justify-center mt-3 sm:mt-4">
               <a
                 href={SPOTIFY_URL}
                 target="_blank"
@@ -278,21 +293,8 @@ const Podcast = () => {
                   Spotify
                 </span>
               </a>
-              <Link
-                to="/blueprint"
-                onClick={() => {
-                  setRedirected(true);
-                  trackClick("button-blueprint");
-                }}
-                className="group flex flex-col items-center justify-center gap-1 w-20 h-20 sm:w-24 sm:h-24 rounded-2xl border border-primary/40 bg-primary/10 hover:bg-primary/15 active:scale-[0.96] transition-all focus:outline-none focus:ring-2 focus:ring-primary touch-manipulation"
-                aria-label="Get the Free Foundation Blueprint"
-              >
-                <BookOpen className="h-8 w-8 sm:h-9 sm:w-9 text-primary" />
-                <span className="text-[11px] sm:text-xs font-semibold text-primary">
-                  Blueprint
-                </span>
-              </Link>
             </div>
+
 
 
 
