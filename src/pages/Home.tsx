@@ -356,7 +356,7 @@ const Home = () => {
                       <Icon className="w-7 h-7 text-primary" strokeWidth={2.25} />
                     </div>
                     <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/15 border border-primary/40 text-primary text-[11px] font-bold tracking-wider uppercase">
-                      <Lock className="w-3 h-3" />
+                      <LockIcon className="w-3 h-3" />
                       Coming Soon
                     </span>
                   </div>
