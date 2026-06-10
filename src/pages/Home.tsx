@@ -15,6 +15,9 @@ import linkYoutubeAsset from "@/assets/link-youtube.png.asset.json";
 import linkSpotifyAsset from "@/assets/link-spotify.png.asset.json";
 import clapperboardAsset from "@/assets/clapperboard-shot.png.asset.json";
 import blueprintCoverAsset from "@/assets/foundation-blueprint-cover.png.asset.json";
+import bdClapperSetAsset from "@/assets/bd-clapper-set.png.asset.json";
+import bdTalking1Asset from "@/assets/bd-talking-1.png.asset.json";
+import bdTalking2Asset from "@/assets/bd-talking-2.png.asset.json";
 import { SiInstagram, SiSpotify, SiTiktok, SiYoutube } from "react-icons/si";
 
 type Episode = { videoId: string; title: string; views: string; featured?: boolean };
