@@ -13,6 +13,7 @@ import { startTrackedRedirect } from "@/lib/youtube-redirect";
 import linkBlueprintAsset from "@/assets/link-blueprint.png.asset.json";
 import linkYoutubeAsset from "@/assets/link-youtube.png.asset.json";
 import linkSpotifyAsset from "@/assets/link-spotify.png.asset.json";
+import clapperboardAsset from "@/assets/clapperboard-shot.png.asset.json";
 import { SiInstagram, SiSpotify, SiTiktok, SiYoutube } from "react-icons/si";
 
 type Episode = { videoId: string; title: string; views: string; featured?: boolean };
@@ -28,7 +29,7 @@ const Home = () => {
   // Sunset silhouette on rocks
   linkBlueprintAsset.url,
   // Podcast recording setup - replaced with clapper board shot
-  "/lovable-uploads/b362cf10-f3b4-4ab1-aeb3-30ab18058ace.png",
+  clapperboardAsset.url,
   // Man with dog outdoors
   "/lovable-uploads/4fd0818e-20c3-4941-9c54-6915db50a7c0.png",
   // Meditation with mirror
