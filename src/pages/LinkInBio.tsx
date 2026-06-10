@@ -63,7 +63,7 @@ const links = [
     href: "/blueprint",
     external: false,
     trackId: "button-blueprint",
-    thumbnail: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png",
+    thumbnail: linkBlueprintAsset.url,
   },
   {
     title: "Daily Wins Podcast",
