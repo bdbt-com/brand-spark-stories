@@ -254,6 +254,14 @@ const Home = () => {
             <p>The good news? A system of Daily Drifts can be replaced with a system of Daily Wins.</p>
             <p>This is not another all-or-nothing New Year's resolution. It is a system you build gradually, layering small Daily Wins that quietly reshape your habits, identity, and ultimately, your future.</p>
           </div>
+
+          <div className="flex justify-center mt-10">
+            <Button variant="outline" size="lg" asChild className="italic font-bold">
+              <Link to="/tips">
+                Explore The Full Daily Wins System <ArrowRight className="w-5 h-5 ml-2" />
+              </Link>
+            </Button>
+          </div>
         </div>
       </section>
 
