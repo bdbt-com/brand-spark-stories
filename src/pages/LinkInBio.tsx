@@ -71,7 +71,7 @@ const links = [
     href: "https://www.youtube.com/@BigDaddysBigTips",
     external: true,
     trackId: "button-youtube",
-    thumbnail: "/lovable-uploads/recording-setup-new.jpg",
+    thumbnail: linkYoutubeAsset.url,
     randomYoutube: true,
   },
   {
