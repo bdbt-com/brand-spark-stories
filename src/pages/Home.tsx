@@ -14,6 +14,7 @@ import linkBlueprintAsset from "@/assets/link-blueprint.png.asset.json";
 import linkYoutubeAsset from "@/assets/link-youtube.png.asset.json";
 import linkSpotifyAsset from "@/assets/link-spotify.png.asset.json";
 import clapperboardAsset from "@/assets/clapperboard-shot.png.asset.json";
+import blueprintCoverAsset from "@/assets/foundation-blueprint-cover.png.asset.json";
 import { SiInstagram, SiSpotify, SiTiktok, SiYoutube } from "react-icons/si";
 
 type Episode = { videoId: string; title: string; views: string; featured?: boolean };
@@ -433,7 +434,7 @@ const Home = () => {
 
           <div className="flex justify-center mb-8">
             <img
-              src={linkBlueprintAsset.url}
+              src={blueprintCoverAsset.url}
               alt="Foundation Blueprint"
               className="w-full max-w-sm rounded-2xl border border-primary/30 shadow-strong"
             />
