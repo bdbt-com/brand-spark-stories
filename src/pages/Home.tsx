@@ -29,7 +29,7 @@ const Home = () => {
   // Sunset silhouette on rocks
   linkBlueprintAsset.url,
   // Podcast recording setup - replaced with clapper board shot
-  "/lovable-uploads/b362cf10-f3b4-4ab1-aeb3-30ab18058ace.png",
+  clapperboardAsset.url,
   // Man with dog outdoors
   "/lovable-uploads/4fd0818e-20c3-4941-9c54-6915db50a7c0.png",
   // Meditation with mirror
