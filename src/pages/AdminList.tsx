@@ -748,6 +748,8 @@ const AdminList = () => {
                         : path === '/podcast'
                         ? { count: videoCounts['podcast-spotify']?.total || 0, label: 'spotify clicks' }
                         : null;
+                    const signupKey = rangeKey === 'since_launch' ? 'total' : (rangeKey as 'today' | '7d' | '14d' | '30d');
+                    const courseSignupCount = path === '/courses' ? (courseSignups[signupKey] || 0) : null;
                     return (
                       <Card key={path} className="border-primary/20 hover:border-primary/40 transition-colors h-full">
                         <CardContent className="p-3 text-center">
@@ -766,6 +768,12 @@ const AdminList = () => {
                             <p className="text-[10px] text-primary/80 mt-1 tabular-nums inline-flex items-center justify-center gap-1">
                               <MousePointerClick className="w-2.5 h-2.5" />
                               <AnimatedCounter value={extra.count} /> {extra.label}
+                            </p>
+                          )}
+                          {courseSignupCount !== null && (
+                            <p className="text-[10px] text-primary mt-1 tabular-nums inline-flex items-center justify-center gap-1 font-semibold">
+                              <UserPlus className="w-2.5 h-2.5" />
+                              <AnimatedCounter value={courseSignupCount} /> course signups
                             </p>
                           )}
                         </CardContent>
