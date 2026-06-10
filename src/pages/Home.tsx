@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ArrowRight, Droplets, Activity, Moon, DollarSign, Heart, Smile, Target, Zap, ChevronDown, Trophy, AlertTriangle, FileText, Headphones, Instagram, Youtube, Play } from "lucide-react";
+import { ArrowRight, Droplets, Activity, Moon, DollarSign, Heart, Smile, Target, Zap, ChevronDown, FileText, Headphones, Instagram, Youtube, Play } from "lucide-react";
 import { Link } from "react-router-dom";
 import TipsCarousel from "@/components/TipsCarousel";
 import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "@/components/ui/carousel";
