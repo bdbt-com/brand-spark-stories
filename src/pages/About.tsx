@@ -70,7 +70,7 @@ const About = () => {
               animationDelay: "200ms"
             }}>
               <div className="relative">
-                <img src="/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png" alt="Big Daddy - BDBT Founder" className="w-full h-96 lg:h-[500px] object-cover rounded-3xl shadow-strong border-4 border-primary/20" />
+                <img src="/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png" alt="Big Daddy - BDBT Founder" className="w-full aspect-square object-cover rounded-3xl shadow-strong border-4 border-primary/20" />
               </div>
             </div>
           </div>
