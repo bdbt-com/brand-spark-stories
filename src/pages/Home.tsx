@@ -37,8 +37,8 @@ const Home = () => {
   // Silhouette by pool
   "/lovable-uploads/2678016c-a3fa-4e29-bf3d-3ebe92201186.png",
   // Person exercising outdoors
-  "/lovable-uploads/2f4d6184-a8de-43f0-a345-4ed910c90522.png",
-  // Man on phone in modern setting
+  linkSpotifyAsset.url,
+  // Man on phone in modern setting - replaced with arms-wide speaking shot
   "/lovable-uploads/7db6bd1f-c12f-45f2-a1d1-505f38c743a1.png",
   // Man outdoors smiling
   "/lovable-uploads/8db636d1-94ff-432a-a4b1-6ca278173f2f.png",
