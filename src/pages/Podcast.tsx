@@ -48,6 +48,11 @@ interface GridEpisode {
   duration?: string;
 }
 
+const hiResThumb = (videoId: string) => `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`;
+const fallbackThumb = (videoId: string) => `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
+
+
+
 
 const Podcast = () => {
   const { video, loading } = useLatestVideo();
