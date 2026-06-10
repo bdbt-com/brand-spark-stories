@@ -423,6 +423,124 @@ const Home = () => {
         </div>
       </section>
 
+      {/* Start For Free */}
+      <section className="py-20 lg:py-24 bg-background">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
+          <h2 className="italic text-3xl md:text-4xl font-bold text-primary mb-8">
+            Start For Free
+          </h2>
+
+          <div className="flex justify-center mb-8">
+            <img
+              src={linkBlueprintAsset.url}
+              alt="Foundation Blueprint"
+              className="w-full max-w-sm rounded-2xl border border-primary/30 shadow-strong"
+            />
+          </div>
+
+          <p className="italic font-bold text-foreground text-lg md:text-xl mb-3">
+            Not ready for a course?
+          </p>
+          <p className="italic text-muted-foreground mb-8 max-w-xl mx-auto">
+            Download the free Foundation Blueprint and start building momentum today.
+          </p>
+
+          <div className="flex justify-center">
+            <Button asChild size="lg" className="italic font-bold">
+              <Link to="/blueprint">
+                Download Free Blueprint <ArrowRight className="w-5 h-5 ml-2" />
+              </Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Learn For Free Every Day */}
+      <section className="py-20 lg:py-24">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <div className="text-center mb-12">
+            <h2 className="italic text-3xl md:text-4xl font-bold text-primary mb-4">
+              Learn For Free Every Day
+            </h2>
+            <p className="italic text-muted-foreground">
+              30,000+ people learning better habits every day
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6 mb-10">
+            {PODCAST_EPISODES.map((ep) => (
+              <div key={ep.videoId} className="rounded-2xl overflow-hidden border border-primary/20 bg-[#141414] shadow-soft">
+                <div className="relative aspect-video">
+                  <iframe
+                    src={`https://www.youtube.com/embed/${ep.videoId}`}
+                    title={ep.title}
+                    loading="lazy"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    className="absolute inset-0 w-full h-full"
+                  />
+                </div>
+                <div className="p-4">
+                  <p className="text-sm font-semibold text-foreground line-clamp-2">{ep.title}</p>
+                  <p className="text-xs text-muted-foreground mt-1">{ep.views}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="flex justify-center mb-20">
+            <Button asChild variant="outline" size="lg" className="italic font-bold">
+              <a href="/redirect?url=https%3A%2F%2Fyoutube.com%2F%40BigDaddysBigTips">
+                Watch On YouTube <ArrowRight className="w-5 h-5 ml-2" />
+              </a>
+            </Button>
+          </div>
+
+          {/* About Me */}
+          <div className="max-w-3xl mx-auto text-center">
+            <h2 className="italic text-3xl md:text-4xl font-bold text-primary mb-8">
+              About Me
+            </h2>
+            <p className="italic text-foreground leading-relaxed mb-6">
+              After years working in finance and studying habits, health and behaviour, I realised something surprising; most people do not fail because they are lazy or lack discipline. They are simply living in a world where comfort has evolved faster than our biology.
+            </p>
+            <p className="italic text-foreground leading-relaxed mb-10">
+              Modern life has made choosing comfort easier. It has made Daily Drifts easier. So I created Daily Wins to help people replace downward spirals with upward momentum through tiny daily actions that quietly compound.
+            </p>
+
+            <div className="flex justify-center">
+              <Button asChild variant="outline" size="lg" className="italic font-bold">
+                <Link to="/about#story">
+                  My Story <ArrowRight className="w-5 h-5 ml-2" />
+                </Link>
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Ready To Replace Daily Drifts With Daily Wins? */}
+      <section className="py-20 lg:py-28 bg-background">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
+          <h2 className="italic text-3xl md:text-5xl font-bold text-primary mb-10 leading-tight">
+            Ready To Replace Daily Drifts With Daily Wins?
+          </h2>
+
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-stretch sm:items-center">
+            <Button asChild size="lg" className="italic font-bold">
+              <Link to="/blueprint">
+                Start With The Free Foundation Blueprint <ArrowRight className="w-5 h-5 ml-2" />
+              </Link>
+            </Button>
+            <Button asChild variant="outline" size="lg" className="italic font-bold">
+              <Link to="/courses">
+                Browse Courses <ArrowRight className="w-5 h-5 ml-2" />
+              </Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+
     </div>;
 };
 export default Home;
