@@ -717,7 +717,7 @@ const AdminList = () => {
                  { path: '/about', label: 'About' },
                ];
               return (
-                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
                   {NAV_PAGES.map(({ path, label }) => {
                     const p = byPath.get(path) || { unique_visitors: 0, avg_duration: 0, views: 0 };
                     const mins = Math.floor(p.avg_duration / 60);
