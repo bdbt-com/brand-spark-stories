@@ -434,7 +434,7 @@ const Home = () => {
 
           <div className="flex justify-center mb-8">
             <img
-              src={linkBlueprintAsset.url}
+              src={blueprintCoverAsset.url}
               alt="Foundation Blueprint"
               className="w-full max-w-sm rounded-2xl border border-primary/30 shadow-strong"
             />
