@@ -122,28 +122,8 @@ const LockedCover = () => (
 
 const Courses = () => {
   const [selectedCourse, setSelectedCourse] = useState<string>("");
-  const [intentOpen, setIntentOpen] = useState(false);
-  const [searchParams, setSearchParams] = useSearchParams();
   const guideUrl = getGuideUrl("BDBT Foundation Blueprint") || "";
   const waitlistRef = useRef<HTMLElement | null>(null);
-
-  useEffect(() => {
-    const forceIntent = searchParams.get("intent") === "1";
-    if (!forceIntent) {
-      try {
-        if (sessionStorage.getItem("courses_intent_modal_seen")) return;
-      } catch {}
-    } else {
-      // Clear the flag so this forced open isn't blocked
-      try { sessionStorage.removeItem("courses_intent_modal_seen"); } catch {}
-      // Strip the query param so refresh behaves normally
-      const next = new URLSearchParams(searchParams);
-      next.delete("intent");
-      setSearchParams(next, { replace: true });
-    }
-    const t = setTimeout(() => setIntentOpen(true), 600);
-    return () => clearTimeout(t);
-  }, []);
 
   const scrollToWaitlist = (topic?: string) => {
     if (topic) setSelectedCourse(topic);
@@ -152,13 +132,7 @@ const Courses = () => {
 
   return (
     <div className="min-h-screen bg-[#0A0A0A] pt-12 pb-28 md:pb-16">
-      <CoursesIntentModal
-        open={intentOpen}
-        onOpenChange={setIntentOpen}
-        onSubmitted={(course) => {
-          if (course) setSelectedCourse(course);
-        }}
-      />
+
       <div className="container mx-auto px-5 sm:px-6">
         <div className="max-w-5xl mx-auto space-y-20 md:space-y-24">
           {/* Hero */}
