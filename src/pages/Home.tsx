@@ -13,6 +13,7 @@ import { startTrackedRedirect } from "@/lib/youtube-redirect";
 import linkBlueprintAsset from "@/assets/link-blueprint.png.asset.json";
 import linkYoutubeAsset from "@/assets/link-youtube.png.asset.json";
 import linkSpotifyAsset from "@/assets/link-spotify.png.asset.json";
+import clapperboardAsset from "@/assets/clapperboard-shot.png.asset.json";
 import { SiInstagram, SiSpotify, SiTiktok, SiYoutube } from "react-icons/si";
 
 type Episode = { videoId: string; title: string; views: string; featured?: boolean };
