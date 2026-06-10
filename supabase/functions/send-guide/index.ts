@@ -148,15 +148,94 @@ const handler = async (req: Request): Promise<Response> => {
 
     console.log(`Database insert successful for email: ${sanitizedEmail}`);
 
-    // Determine if this is the Blueprint or a regular Tip
-    const isBlueprint = guideTitle.toLowerCase().includes('blueprint') || guideTitle === 'BDBT Foundation Blueprint';
-    
+    // Determine email type
+    const isWaitlist = guideTitle.trim().toLowerCase() === 'courses waiting list';
+    const isBlueprint = !isWaitlist && (guideTitle.toLowerCase().includes('blueprint') || guideTitle === 'BDBT Foundation Blueprint');
+
     // Prepare email content based on guide type
-    const emailSubject = isBlueprint 
-      ? "Your Foundation Blueprint from Big Daddy's Big Tips"
-      : `Your Free Guide: ${sanitizedGuideTitle}`;
-    
-    const emailHtml = isBlueprint 
+    const emailSubject = isWaitlist
+      ? "You're on the list — Big Daddy's Courses Waiting List"
+      : isBlueprint
+        ? "Your Foundation Blueprint from Big Daddy's Big Tips"
+        : `Your Free Guide: ${sanitizedGuideTitle}`;
+
+    const waitlistHtml = `
+      <html>
+        <body style="margin:0;padding:0;background-color:#0f0f0f;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;">
+          <div style="max-width:600px;margin:0 auto;padding:32px 20px;">
+            <div style="text-align:center;margin-bottom:24px;">
+              <div style="display:inline-block;color:#c9a85c;font-size:13px;letter-spacing:3px;font-weight:700;text-transform:uppercase;">Big Daddy's Big Tips</div>
+            </div>
+            <div style="background-color:#161616;border:1px solid #2a2a2a;border-radius:14px;padding:40px 32px;">
+              <h1 style="color:#c9a85c;font-size:28px;line-height:1.25;margin:0 0 24px;font-weight:800;">
+                You're on the list, ${sanitizedFirstName} 🙌
+              </h1>
+              <p style="color:#f5f5f5;font-size:16px;line-height:1.65;margin:0 0 16px;">
+                Thanks for raising your hand for the Big Daddy's Big Tips courses — you're officially on the waiting list.
+              </p>
+              <p style="color:#d6d6d6;font-size:16px;line-height:1.65;margin:0 0 24px;">
+                These courses are being built to take everything I share on the podcast and in the tips and turn it into a proper, step-by-step path you can actually follow — health, wealth, mindset, relationships, the lot.
+              </p>
+
+              <div style="border-top:1px solid #2a2a2a;margin:28px 0;"></div>
+
+              <h2 style="color:#c9a85c;font-size:15px;letter-spacing:2px;text-transform:uppercase;margin:0 0 16px;font-weight:700;">
+                What happens next
+              </h2>
+              <table cellpadding="0" cellspacing="0" style="width:100%;margin:0 0 8px;">
+                <tr>
+                  <td style="vertical-align:top;padding:0 14px 14px 0;width:36px;">
+                    <div style="width:30px;height:30px;border-radius:50%;background-color:#c9a85c;color:#0f0f0f;text-align:center;line-height:30px;font-weight:800;font-size:14px;">1</div>
+                  </td>
+                  <td style="vertical-align:top;padding:0 0 14px;color:#e8e8e8;font-size:15px;line-height:1.6;">
+                    I'll send you a heads-up the moment doors open — waitlist gets first access.
+                  </td>
+                </tr>
+                <tr>
+                  <td style="vertical-align:top;padding:0 14px 14px 0;width:36px;">
+                    <div style="width:30px;height:30px;border-radius:50%;background-color:#c9a85c;color:#0f0f0f;text-align:center;line-height:30px;font-weight:800;font-size:14px;">2</div>
+                  </td>
+                  <td style="vertical-align:top;padding:0 0 14px;color:#e8e8e8;font-size:15px;line-height:1.6;">
+                    You'll get early-bird pricing before anyone else.
+                  </td>
+                </tr>
+                <tr>
+                  <td style="vertical-align:top;padding:0 14px 0 0;width:36px;">
+                    <div style="width:30px;height:30px;border-radius:50%;background-color:#c9a85c;color:#0f0f0f;text-align:center;line-height:30px;font-weight:800;font-size:14px;">3</div>
+                  </td>
+                  <td style="vertical-align:top;color:#e8e8e8;font-size:15px;line-height:1.6;">
+                    In the meantime, keep stacking Daily Wins — small steps, every day.
+                  </td>
+                </tr>
+              </table>
+
+              <div style="border-top:1px solid #2a2a2a;margin:32px 0 24px;"></div>
+
+              <p style="color:#d6d6d6;font-size:15px;line-height:1.6;margin:0 0 20px;">
+                While you wait, grab the free Foundation Blueprint and start building momentum today:
+              </p>
+              <div style="text-align:center;margin:0 0 8px;">
+                <a href="https://bigdaddysbigtips.com/blueprint" style="background-color:#c9a85c;color:#0f0f0f;padding:14px 36px;text-decoration:none;border-radius:8px;display:inline-block;font-weight:700;font-size:15px;letter-spacing:0.5px;">
+                  Get the Foundation Blueprint →
+                </a>
+              </div>
+
+              <p style="color:#f5f5f5;font-size:16px;line-height:1.6;margin:36px 0 0;">
+                Big love,<br>
+                <strong style="color:#c9a85c;">Big Daddy</strong>
+              </p>
+            </div>
+            <p style="color:#888;font-size:12px;line-height:1.6;text-align:center;margin:20px 0 0;">
+              Got questions? Just hit reply — this inbox is monitored.
+            </p>
+          </div>
+        </body>
+      </html>
+    `;
+
+    const emailHtml = isWaitlist
+      ? waitlistHtml
+      : isBlueprint
       ? `
         <html>
           <body style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
@@ -225,6 +304,7 @@ const handler = async (req: Request): Promise<Response> => {
           </body>
         </html>
       `;
+
 
     // Send email using Resend
     const emailResponse = await resend.emails.send({
