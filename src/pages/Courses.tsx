@@ -230,7 +230,7 @@ const Courses = () => {
                   compact={false}
                   hideable={false}
                   headingLabel="Reserve your spot"
-                  submitLabel="Join the Waitlist + Get the Free Blueprint →"
+                  submitLabel="Join the Waitlist →"
                   successTitle="You're on the list ✓"
                   successDescription="Check your inbox for the Foundation Blueprint."
                   showCourseSelector
