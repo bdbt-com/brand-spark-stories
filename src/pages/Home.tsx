@@ -226,35 +226,33 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Daily Wins and Daily Drifts Boxes */}
+      {/* Why Life Feels Harder Than It Should */}
       <section className="pt-10 lg:pt-12 pb-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 gap-8">
-            {/* Daily Wins Box */}
-            <Card className="group hover:shadow-medium transition-all duration-300 hover:-translate-y-2">
-              <CardContent className="p-8 text-center">
-                <div className="w-16 h-16 bg-warning rounded-xl flex items-center justify-center mb-6 mx-auto group-hover:scale-110 transition-transform duration-300">
-                  <Trophy className="w-8 h-8 text-white" />
-                </div>
-                <h3 className="text-2xl font-semibold text-primary mb-4">Daily Wins</h3>
-                <p className="text-foreground leading-relaxed">
-                  Actions that invest in your future self. Tiny daily choices that create powerful ripple effects across your entire life. Stack them together to compound your confidence, freedom, and momentum.
-                </p>
-              </CardContent>
-            </Card>
+        <div className="max-w-3xl mx-auto px-4 sm:px-6">
+          <h2 className="italic text-3xl md:text-4xl font-bold text-primary text-center mb-10">
+            Why Life Feels Harder Than It Should
+          </h2>
 
-            {/* Daily Drifts Box */}
-            <Card className="group hover:shadow-medium transition-all duration-300 hover:-translate-y-2">
-              <CardContent className="p-8 text-center">
-                <div className="w-16 h-16 bg-warning rounded-xl flex items-center justify-center mb-6 mx-auto group-hover:scale-110 transition-transform duration-300">
-                  <AlertTriangle className="w-8 h-8 text-white" />
-                </div>
-                <h3 className="text-2xl font-semibold text-primary mb-4">Daily Drifts</h3>
-                <p className="text-foreground leading-relaxed">
-                  The easy choices that feel harmless in the moment but quietly drain your energy, money, and peace of mind. Drifts are the invisible currents that keep you stuck exactly where you don't want to be.
-                </p>
-              </CardContent>
-            </Card>
+          <p className="text-foreground font-semibold text-center mb-6">
+            Modern life quietly pulls us towards Daily Drifts:
+          </p>
+
+          <ul className="space-y-2 text-center italic text-foreground mb-10">
+            <li>Too many screens → overstimulated mind</li>
+            <li>Overstimulated mind → poor sleep</li>
+            <li>Poor sleep → low energy</li>
+            <li>Low energy → worse food choices</li>
+            <li>Worse food → less movement</li>
+            <li>Low movement → lower confidence</li>
+            <li>Low confidence → more stress</li>
+            <li>More stress → emotional spending</li>
+            <li>Emotional spending → financial pressure</li>
+          </ul>
+
+          <div className="space-y-4 text-center text-foreground leading-relaxed">
+            <p>Most people think they have separate problems. In reality, they have a system problem.</p>
+            <p>The good news? A system of Daily Drifts can be replaced with a system of Daily Wins.</p>
+            <p>This is not another all-or-nothing New Year's resolution. It is a system you build gradually, layering small Daily Wins that quietly reshape your habits, identity, and ultimately, your future.</p>
           </div>
         </div>
       </section>
