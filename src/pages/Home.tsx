@@ -329,7 +329,7 @@ const Home = () => {
       </section>
 
       {/* Courses preview - laid out like Courses page */}
-      <section className="py-16 lg:py-20 bg-background">
+      <section className="py-12 lg:py-16 bg-background">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="italic text-3xl md:text-4xl font-bold text-primary mb-4">
@@ -386,7 +386,7 @@ const Home = () => {
       </section>
 
       {/* They're All Connected */}
-      <section className="py-20 lg:py-24">
+      <section className="py-12 lg:py-16">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
           <h2 className="italic text-3xl md:text-4xl font-bold text-primary mb-8">
             They're All Connected
@@ -403,26 +403,18 @@ const Home = () => {
             Daily Wins work differently. Small habits that create ripple effects:
           </p>
 
-          <ul className="space-y-3 text-foreground mb-12">
+          <ul className="space-y-3 text-foreground mb-0">
             <li>Better sleep improves food choices.</li>
             <li>Better food improves energy.</li>
             <li>Better energy improves movement.</li>
             <li>Better routines reduce stress spending.</li>
             <li>Tiny wins compound into a different life.</li>
           </ul>
-
-          <div className="flex justify-center">
-            <Button variant="outline" size="lg" asChild className="italic font-bold">
-              <Link to="/tips">
-                Explore The Full Daily Wins System <ArrowRight className="w-5 h-5 ml-2" />
-              </Link>
-            </Button>
-          </div>
         </div>
       </section>
 
       {/* Start For Free */}
-      <section className="py-20 lg:py-24 bg-background">
+      <section className="py-12 lg:py-16 bg-background">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
           <h2 className="italic text-3xl md:text-4xl font-bold text-primary mb-8">
             Start For Free

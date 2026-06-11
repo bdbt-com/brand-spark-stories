@@ -220,7 +220,7 @@ const Courses = () => {
                   </h2>
                   <p className="text-foreground/80 mt-2 text-[15px]">
                     Be first to know when Daily Wins courses go live. You'll also get the
-                    free Foundation Blueprint as a thank-you.
+                    free Foundation Blueprint as a thankyou.
                   </p>
                 </div>
                 <EmailCaptureForm
