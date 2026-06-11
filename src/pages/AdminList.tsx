@@ -1024,7 +1024,7 @@ const AdminList = () => {
                       const today = analytics["today"];
                       const avgMins = today ? Math.floor(today.avg_duration / 60) : 0;
                       const avgSecs = today ? today.avg_duration % 60 : 0;
-                      const subsDisplay = liveTick ? Math.max(liveTick.subscribers_today, todaySubscribers) : todaySubscribers;
+                      const subsDisplay = todaySubscribers;
                       return (
                         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
                           <Card className="border-primary/30 bg-primary/5">
