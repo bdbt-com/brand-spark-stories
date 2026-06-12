@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import EmailCaptureForm from "@/components/EmailCaptureForm";
 import { getGuideUrl } from "@/data/guideMapping";
+import { trackClick } from "@/lib/youtube-redirect";
 
 
 type CourseStatus = "coming-soon" | "available";
