@@ -129,10 +129,16 @@ const Courses = () => {
   const scrollToWaitlist = (topic?: string) => {
     if (topic) setSelectedCourse(topic);
     waitlistRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (topic) {
+      setTimeout(() => {
+        const el = document.getElementById("email") as HTMLInputElement | null;
+        el?.focus({ preventScroll: true });
+      }, 600);
+    }
   };
 
   return (
-    <div className="min-h-screen bg-[#0A0A0A] pt-12 pb-28 md:pb-16">
+    <div className="min-h-screen bg-[#0A0A0A] pt-12 pb-28 md:pb-[60px]">
 
       <div className="container mx-auto px-5 sm:px-6">
         <div className="max-w-5xl mx-auto space-y-20 md:space-y-24">
