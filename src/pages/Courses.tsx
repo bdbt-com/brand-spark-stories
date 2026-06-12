@@ -132,30 +132,25 @@ const Courses = () => {
     const section = waitlistRef.current;
     if (!section) return;
 
-    // Compute exact target position, offset for sticky top nav (~64px)
-    const TOP_OFFSET = 80;
-    const rect = section.getBoundingClientRect();
-    const targetY = Math.max(0, window.scrollY + rect.top - TOP_OFFSET);
+    const jumpToWaitlist = () => {
+      const TOP_OFFSET = 80;
+      const rect = section.getBoundingClientRect();
+      const targetY = Math.max(0, window.scrollY + rect.top - TOP_OFFSET);
+      window.scrollTo({ top: targetY, left: 0, behavior: "auto" });
+    };
 
-    window.scrollTo({ top: targetY, behavior: "smooth" });
+    window.history.replaceState(null, "", `${window.location.pathname}${window.location.search}#courses-waitlist`);
+    jumpToWaitlist();
 
-    if (!topic) return;
-
-    // Wait until the smooth scroll has actually landed before focusing
-    // (focusing mid-scroll on mobile can interrupt the animation).
-    let attempts = 0;
-    const maxAttempts = 40; // ~4s safety cap
-    const check = () => {
-      attempts += 1;
-      const delta = Math.abs(window.scrollY - targetY);
-      if (delta < 8 || attempts >= maxAttempts) {
+    requestAnimationFrame(() => {
+      jumpToWaitlist();
+      if (topic) {
         const el = document.getElementById("email") as HTMLInputElement | null;
         el?.focus({ preventScroll: true });
-        return;
       }
-      setTimeout(check, 100);
-    };
-    setTimeout(check, 150);
+    });
+
+    setTimeout(jumpToWaitlist, 100);
   };
 
   return (
@@ -240,7 +235,7 @@ const Courses = () => {
           </section>
 
           {/* General waiting list capture */}
-          <section ref={waitlistRef} className="scroll-mt-24">
+          <section id="courses-waitlist" ref={waitlistRef} className="scroll-mt-24">
             <Card className="border-2 border-primary/30 bg-gradient-to-br from-primary/10 via-[#141414] to-primary/5 rounded-2xl shadow-strong">
               <CardContent className="pt-6">
                 <div className="text-center mb-4">
