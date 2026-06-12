@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import EmailCaptureForm from "@/components/EmailCaptureForm";
 import { getGuideUrl } from "@/data/guideMapping";
+import { trackClick } from "@/lib/youtube-redirect";
 
 
 type CourseStatus = "coming-soon" | "available";
@@ -99,7 +100,7 @@ const StatusPill = ({ status }: { status: CourseStatus }) => {
   return (
     <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/15 border border-primary/40 text-primary text-[11px] font-bold tracking-wider uppercase">
       <Lock className="w-3 h-3" />
-      Coming Soon
+      Coming Soon · £10
     </span>
   );
 };
@@ -128,10 +129,16 @@ const Courses = () => {
   const scrollToWaitlist = (topic?: string) => {
     if (topic) setSelectedCourse(topic);
     waitlistRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (topic) {
+      setTimeout(() => {
+        const el = document.getElementById("email") as HTMLInputElement | null;
+        el?.focus({ preventScroll: true });
+      }, 600);
+    }
   };
 
   return (
-    <div className="min-h-screen bg-[#0A0A0A] pt-12 pb-28 md:pb-16">
+    <div className="min-h-screen bg-[#0A0A0A] pt-12 pb-28 md:pb-[60px]">
 
       <div className="container mx-auto px-5 sm:px-6">
         <div className="max-w-5xl mx-auto space-y-20 md:space-y-24">
@@ -196,6 +203,7 @@ const Courses = () => {
                       <Button
                         onClick={(e) => {
                           e.stopPropagation();
+                          trackClick(`courses-card-${course.topic.toLowerCase()}`);
                           scrollToWaitlist(course.topic);
                         }}
                         variant="outline"
@@ -219,8 +227,10 @@ const Courses = () => {
                     Join the Courses Waiting List
                   </h2>
                   <p className="text-foreground/80 mt-2 text-[15px]">
-                    Be first to know when Daily Wins courses go live. You'll also get the
-                    free Foundation Blueprint as a thankyou.
+                    Daily Wins courses drop this summer — £10 each, 10 modules of exclusive videos. Join the waitlist for first access before public release, plus the free Foundation Blueprint instantly.
+                  </p>
+                  <p className="text-muted-foreground mt-2 text-[14px]">
+                    Waitlist members get 48-hour early access before doors open to everyone.
                   </p>
                 </div>
                 <EmailCaptureForm
@@ -255,6 +265,18 @@ const Courses = () => {
           Join the Waitlist
         </Button>
       </div>
+
+      {/* Sticky desktop/tablet bottom bar */}
+      <button
+        type="button"
+        onClick={() => {
+          trackClick("courses-sticky-desktop");
+          scrollToWaitlist();
+        }}
+        className="hidden md:flex fixed bottom-0 inset-x-0 z-40 h-[52px] items-center justify-center border-t border-primary/30 bg-[#0A0A0A]/95 backdrop-blur-md text-primary font-semibold text-[15px] tracking-tight hover:bg-[#141414]/95 transition-colors"
+      >
+        Courses drop this summer · £10 each — Join the waitlist →
+      </button>
     </div>
   );
 };
