@@ -100,7 +100,7 @@ const StatusPill = ({ status }: { status: CourseStatus }) => {
   return (
     <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/15 border border-primary/40 text-primary text-[11px] font-bold tracking-wider uppercase">
       <Lock className="w-3 h-3" />
-      Coming Soon
+      Coming Soon · £10
     </span>
   );
 };
