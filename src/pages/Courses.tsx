@@ -203,6 +203,7 @@ const Courses = () => {
                       <Button
                         onClick={(e) => {
                           e.stopPropagation();
+                          trackClick(`courses-card-${course.topic.toLowerCase()}`);
                           scrollToWaitlist(course.topic);
                         }}
                         variant="outline"
