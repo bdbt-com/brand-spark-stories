@@ -265,6 +265,18 @@ const Courses = () => {
           Join the Waitlist
         </Button>
       </div>
+
+      {/* Sticky desktop/tablet bottom bar */}
+      <button
+        type="button"
+        onClick={() => {
+          trackClick("courses-sticky-desktop");
+          scrollToWaitlist();
+        }}
+        className="hidden md:flex fixed bottom-0 inset-x-0 z-40 h-[52px] items-center justify-center border-t border-primary/30 bg-[#0A0A0A]/95 backdrop-blur-md text-primary font-semibold text-[15px] tracking-tight hover:bg-[#141414]/95 transition-colors"
+      >
+        Courses drop this summer · £10 each — Join the waitlist →
+      </button>
     </div>
   );
 };
