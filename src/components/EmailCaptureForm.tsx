@@ -84,6 +84,7 @@ const EmailCaptureForm = ({
       if (error) throw error;
 
       if (data?.success) {
+        trackClick(`waitlist-submit-${showCourseSelector ? (courseValue || "none") : "n/a"}`);
         setIsSubmitted(true);
         setTimeout(() => {
           setFirstName("");
