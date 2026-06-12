@@ -6,7 +6,6 @@ import { CheckCircle, Loader2, Mail, X, ArrowRight } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useFormValidation } from "@/hooks/useFormValidation";
 import { supabase } from "@/integrations/supabase/client";
-import { trackClick } from "@/lib/youtube-redirect";
 
 interface EmailCaptureFormProps {
   title: string;
@@ -84,7 +83,6 @@ const EmailCaptureForm = ({
       if (error) throw error;
 
       if (data?.success) {
-        trackClick(`waitlist-submit-${showCourseSelector ? (courseValue || "none") : "n/a"}`);
         setIsSubmitted(true);
         setTimeout(() => {
           setFirstName("");

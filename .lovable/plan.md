@@ -1,32 +1,16 @@
-## What I verified
-
-- The `/courses` code does contain the requested badge/copy/sticky/form changes.
-- The broken part is the interaction: on mobile, clicking `Start Money Wins` starts moving down the page but can stop around the later course cards instead of landing on the waitlist.
-- The likely cause is `scrollToWaitlist()` calling `scrollIntoView({ behavior: "smooth" })`, then focusing `#email` after a fixed `600ms`. On mobile, that timed focus can interrupt the smooth scroll before it reaches the form.
-
 ## Plan
 
-1. **Make waitlist scrolling deterministic**
-   - Replace the current `scrollIntoView` logic in `src/pages/Courses.tsx` with a helper that calculates the exact page position of the waitlist section.
-   - Use `window.scrollTo({ top: targetY, behavior: "smooth" })` with offsets for the sticky top nav and bottom sticky bar.
-   - Keep this change only on `/courses`.
+1. **Replace the Foundation Blueprint cover immediately**
+   - Upload `/mnt/user-uploads/Screenshot_2026-06-11_at_20.00.44.png` as the new `foundation-blueprint-cover.png` Lovable asset.
+   - Overwrite `src/assets/foundation-blueprint-cover.png.asset.json` so the existing homepage import automatically shows the new cover.
 
-2. **Focus email only after the scroll has actually landed**
-   - Remove the fixed `600ms` focus timer.
-   - Add a small retry/check loop that waits until the page is close to the waitlist target before focusing the email field.
-   - Keep `preventScroll: true` when focusing so focus does not pull the viewport away.
+2. **Fix the “new subs today” number**
+   - Update the live tick database function so `subscribers_today` counts **unique new email addresses today**, not raw rows in `email_subscriptions`.
+   - Use `COUNT(DISTINCT lower(email))` for today’s subscriber count.
 
-3. **Preserve chip pre-selection**
-   - Keep `setSelectedCourse(topic)` before scrolling.
-   - Ensure `Start Money Wins` selects the `Money` chip, and that the chip group remains manually changeable.
+3. **Remove the incorrect fallback that can show 2**
+   - Update `src/pages/AdminList.tsx` so the dashboard displays the deduplicated `todaySubscribers` value directly, instead of `Math.max(liveTick.subscribers_today, todaySubscribers)` which can force the wrong higher number.
 
-4. **Avoid accidental duplicate scroll behaviour**
-   - Keep the button `stopPropagation()` so a card button click only runs one scroll action.
-   - Leave the mobile sticky button generic: it scrolls to the waitlist without pre-selecting a course.
-   - Leave the desktop sticky bar desktop-only and the original mobile sticky button mobile-only.
-
-5. **Verify in the browser after implementation**
-   - Mobile `/courses`: click `Start Money Wins`; confirm it lands on the waitlist, `Money` is selected, and the email field is focused.
-   - Mobile: confirm only the original bottom `Join the Waitlist` button appears.
-   - Desktop: confirm the desktop sticky bar appears and the mobile sticky button does not.
-   - Confirm waitlist form still uses the existing `EmailCaptureForm` and still sends the Foundation Blueprint flow unchanged.
+4. **Verify**
+   - Confirm the asset pointer now points to the new uploaded cover.
+   - Confirm the admin dashboard logic can only show the unique-subscriber count for today.
