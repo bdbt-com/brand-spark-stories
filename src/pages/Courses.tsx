@@ -128,13 +128,34 @@ const Courses = () => {
 
   const scrollToWaitlist = (topic?: string) => {
     if (topic) setSelectedCourse(topic);
-    waitlistRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-    if (topic) {
-      setTimeout(() => {
+
+    const section = waitlistRef.current;
+    if (!section) return;
+
+    // Compute exact target position, offset for sticky top nav (~64px)
+    const TOP_OFFSET = 80;
+    const rect = section.getBoundingClientRect();
+    const targetY = Math.max(0, window.scrollY + rect.top - TOP_OFFSET);
+
+    window.scrollTo({ top: targetY, behavior: "smooth" });
+
+    if (!topic) return;
+
+    // Wait until the smooth scroll has actually landed before focusing
+    // (focusing mid-scroll on mobile can interrupt the animation).
+    let attempts = 0;
+    const maxAttempts = 40; // ~4s safety cap
+    const check = () => {
+      attempts += 1;
+      const delta = Math.abs(window.scrollY - targetY);
+      if (delta < 8 || attempts >= maxAttempts) {
         const el = document.getElementById("email") as HTMLInputElement | null;
         el?.focus({ preventScroll: true });
-      }, 600);
-    }
+        return;
+      }
+      setTimeout(check, 100);
+    };
+    setTimeout(check, 150);
   };
 
   return (
