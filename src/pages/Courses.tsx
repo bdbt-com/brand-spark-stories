@@ -227,8 +227,10 @@ const Courses = () => {
                     Join the Courses Waiting List
                   </h2>
                   <p className="text-foreground/80 mt-2 text-[15px]">
-                    Be first to know when Daily Wins courses go live. You'll also get the
-                    free Foundation Blueprint as a thankyou.
+                    Daily Wins courses drop this summer — £10 each, 10 modules of exclusive videos. Join the waitlist for first access before public release, plus the free Foundation Blueprint instantly.
+                  </p>
+                  <p className="text-muted-foreground mt-2 text-[14px]">
+                    Waitlist members get 48-hour early access before doors open to everyone.
                   </p>
                 </div>
                 <EmailCaptureForm
