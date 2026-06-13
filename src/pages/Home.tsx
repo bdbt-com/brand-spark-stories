@@ -480,7 +480,7 @@ const Home = () => {
 
           <div className="flex justify-center mb-20">
             <Button asChild variant="outline" size="lg" className="italic font-bold">
-              <a href="/redirect?url=https%3A%2F%2Fyoutube.com%2F%40BigDaddysBigTips">
+              <a href="https://youtube.com/@BigDaddysBigTips" target="_blank" rel="noopener noreferrer">
                 Watch On YouTube <ArrowRight className="w-5 h-5 ml-2" />
               </a>
             </Button>
