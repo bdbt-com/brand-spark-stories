@@ -23,9 +23,9 @@ import { SiInstagram, SiSpotify, SiTiktok, SiYoutube } from "react-icons/si";
 type Episode = { videoId: string; title: string; views: string; featured?: boolean };
 
 const PODCAST_EPISODES: Episode[] = [
-  { videoId: "D4dzO5rfBfs", title: "Daily Wins Podcast 112 - Why Choosing Discomfort Feels So Hard", views: "14K views" },
-  { videoId: "cfLHVIIp4o0", title: "Build a Life You Don't Need to Escape From", views: "23K views", featured: true },
-  { videoId: "EhpmrICLRK8", title: "Daily Wins Podcast 113 - Why Challenging Social Norms Polarises People", views: "9.5K views" },
+  { videoId: "SioUIPf4Sls", title: "Which Comfort Are You Choosing? - Daily Wins Podcast 118", views: "111K views" },
+  { videoId: "L6cqky7TLpE", title: "Do This And Turn £10 Into £100,000 - Daily Wins Podcast 115", views: "108K views", featured: true },
+  { videoId: "zUGM3gZbNY8", title: "Most People Stop here. Are You Most People? Daily Wins Podcast 116", views: "92K views" },
 ];
 
 const Home = () => {

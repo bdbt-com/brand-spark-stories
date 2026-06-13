@@ -1,16 +1,9 @@
-## Plan
+## Update homepage Top Podcast Episodes to most-viewed
 
-1. **Replace the Foundation Blueprint cover immediately**
-   - Upload `/mnt/user-uploads/Screenshot_2026-06-11_at_20.00.44.png` as the new `foundation-blueprint-cover.png` Lovable asset.
-   - Overwrite `src/assets/foundation-blueprint-cover.png.asset.json` so the existing homepage import automatically shows the new cover.
+Replace the hardcoded `PODCAST_EPISODES` array in `src/pages/Home.tsx` (lines 25–29) with the three most-viewed episodes from `src/data/pinnedTopVideos.ts`:
 
-2. **Fix the “new subs today” number**
-   - Update the live tick database function so `subscribers_today` counts **unique new email addresses today**, not raw rows in `email_subscriptions`.
-   - Use `COUNT(DISTINCT lower(email))` for today’s subscriber count.
+1. `SioUIPf4Sls` — Which Comfort Are You Choosing? - Daily Wins Podcast 118 — 111K views
+2. `L6cqky7TLpE` — Do This And Turn £10 Into £100,000 - Daily Wins Podcast 115 — 108K views (middle, `featured: true`)
+3. `zUGM3gZbNY8` — Most People Stop here. Are You Most People? Daily Wins Podcast 116 — 92K views
 
-3. **Remove the incorrect fallback that can show 2**
-   - Update `src/pages/AdminList.tsx` so the dashboard displays the deduplicated `todaySubscribers` value directly, instead of `Math.max(liveTick.subscribers_today, todaySubscribers)` which can force the wrong higher number.
-
-4. **Verify**
-   - Confirm the asset pointer now points to the new uploaded cover.
-   - Confirm the admin dashboard logic can only show the unique-subscriber count for today.
+One-file edit, no other changes.
