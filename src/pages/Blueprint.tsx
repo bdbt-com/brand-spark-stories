@@ -10,9 +10,9 @@ import { supabase } from "@/integrations/supabase/client";
 import { startTrackedRedirect } from "@/lib/youtube-redirect";
 
 const podcastEpisodes = [
-  { videoId: "SioUIPf4Sls", title: "Which Comfort Are You Choosing? - Daily Wins Podcast 118", viewCountText: "111K views" },
-  { videoId: "L6cqky7TLpE", title: "Do This And Turn £10 Into £100,000 - Daily Wins Podcast 115", viewCountText: "108K views" },
-  { videoId: "zUGM3gZbNY8", title: "Most People Stop here. Are You Most People? Daily Wins Podcast 116", viewCountText: "92K views" },
+  { videoId: "z8NqukMz2Q8", title: "Give me 0.1% And I'll Change Your Direction - Daily Wins Podcast 121", viewCountText: "564K views" },
+  { videoId: "zUGM3gZbNY8", title: "Most People Stop here. Are You Most People? Daily Wins Podcast 116", viewCountText: "521K views" },
+  { videoId: "ZK4wdEe_b-s", title: "You Need To Understand This Cycle - Daily Wins Podcast 122", viewCountText: "446K views" },
 ];
 
 const Blueprint = () => {

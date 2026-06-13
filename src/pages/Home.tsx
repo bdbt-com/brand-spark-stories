@@ -23,9 +23,9 @@ import { SiInstagram, SiSpotify, SiTiktok, SiYoutube } from "react-icons/si";
 type Episode = { videoId: string; title: string; views: string; featured?: boolean };
 
 const PODCAST_EPISODES: Episode[] = [
-  { videoId: "SioUIPf4Sls", title: "Which Comfort Are You Choosing? - Daily Wins Podcast 118", views: "111K views" },
-  { videoId: "L6cqky7TLpE", title: "Do This And Turn £10 Into £100,000 - Daily Wins Podcast 115", views: "108K views", featured: true },
-  { videoId: "zUGM3gZbNY8", title: "Most People Stop here. Are You Most People? Daily Wins Podcast 116", views: "92K views" },
+  { videoId: "z8NqukMz2Q8", title: "Give me 0.1% And I'll Change Your Direction - Daily Wins Podcast 121", views: "564K views" },
+  { videoId: "zUGM3gZbNY8", title: "Most People Stop here. Are You Most People? Daily Wins Podcast 116", views: "521K views", featured: true },
+  { videoId: "ZK4wdEe_b-s", title: "You Need To Understand This Cycle - Daily Wins Podcast 122", views: "446K views" },
 ];
 
 const Home = () => {
