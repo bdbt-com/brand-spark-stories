@@ -28,6 +28,49 @@ const PODCAST_EPISODES: Episode[] = [
   { videoId: "ZK4wdEe_b-s", title: "You Need To Understand This Cycle - Daily Wins Podcast 122", views: "446K views" },
 ];
 
+const EpisodeCard = ({ episode }: { episode: Episode }) => {
+  const [playing, setPlaying] = useState(false);
+  return (
+    <div className="rounded-2xl overflow-hidden border border-primary/20 bg-[#141414] shadow-soft">
+      <div className="relative aspect-video bg-black">
+        {playing ? (
+          <iframe
+            src={`https://www.youtube.com/embed/${episode.videoId}?autoplay=1&playsinline=1`}
+            title={episode.title}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            className="absolute inset-0 w-full h-full"
+          />
+        ) : (
+          <button
+            type="button"
+            onClick={() => setPlaying(true)}
+            className="absolute inset-0 w-full h-full group"
+            aria-label={`Play ${episode.title}`}
+          >
+            <img
+              src={`https://img.youtube.com/vi/${episode.videoId}/hqdefault.jpg`}
+              alt={episode.title}
+              loading="lazy"
+              decoding="async"
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+            <span className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition-colors">
+              <span className="w-14 h-14 rounded-full bg-primary text-primary-foreground flex items-center justify-center shadow-lg">
+                <Play className="w-6 h-6 ml-0.5" fill="currentColor" />
+              </span>
+            </span>
+          </button>
+        )}
+      </div>
+      <div className="p-4">
+        <p className="text-sm font-semibold text-foreground line-clamp-2">{episode.title}</p>
+        <p className="text-xs text-muted-foreground mt-1">{episode.views}</p>
+      </div>
+    </div>
+  );
+};
+
 const Home = () => {
   const images = [bdClapperSetAsset.url,
   bdTalking2Asset.url,
@@ -459,22 +502,7 @@ const Home = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6 mb-10">
             {PODCAST_EPISODES.map((ep) => (
-              <div key={ep.videoId} className="rounded-2xl overflow-hidden border border-primary/20 bg-[#141414] shadow-soft">
-                <div className="relative aspect-video">
-                  <iframe
-                    src={`https://www.youtube.com/embed/${ep.videoId}`}
-                    title={ep.title}
-                    loading="lazy"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                    className="absolute inset-0 w-full h-full"
-                  />
-                </div>
-                <div className="p-4">
-                  <p className="text-sm font-semibold text-foreground line-clamp-2">{ep.title}</p>
-                  <p className="text-xs text-muted-foreground mt-1">{ep.views}</p>
-                </div>
-              </div>
+              <EpisodeCard key={ep.videoId} episode={ep} />
             ))}
           </div>
 
