@@ -1,23 +1,37 @@
-# Fix podcast videos not displaying on mobile
-
 ## Problem
-On the homepage "Learn For Free Every Day" section (and the matching section on `/blueprint`), each of the 3 podcast episodes is rendered as a lazy-loaded YouTube `<iframe>`. On mobile (especially iOS Safari and in-app browsers like the Lovable preview app), these iframes frequently fail to paint — the card shows only the title/views, with a blank or grass-only area where the video should be. That's what the screenshot shows.
+
+The hero carousel uses one shared `<img>` with `object-cover` + `object-top`, which force-crops every photo to a fixed frame. Because the photos have wildly different compositions (sky-heavy sunset, vertical portrait, horizontal cinema room, etc.), no single crop rule works — heads, bodies and subjects get sliced off.
 
 ## Fix
-Switch the cards from "always-embedded iframe" to a "thumbnail poster, then iframe on tap" pattern. The thumbnail is a plain `<img>` from YouTube's CDN (`https://img.youtube.com/vi/{videoId}/hqdefault.jpg`), which renders reliably on every mobile browser. Tapping the card swaps in the iframe with `autoplay=1` so playback behaviour is unchanged for users who actually want to watch.
 
-### Files to change
-1. `src/pages/Home.tsx` — replace the iframe block inside the `PODCAST_EPISODES.map(...)` (lines ~461–478) with a click-to-play thumbnail card. Add a small `EpisodeCard` component (local to the file) that tracks a `playing` state and renders either the `<img>` poster (with a gold play-button overlay matching the brand) or the `<iframe>` after the user taps.
-2. `src/pages/Blueprint.tsx` — apply the same EpisodeCard pattern to its `podcastEpisodes` trio for consistency.
+Stop cropping. Render each photo in full inside the frame using `object-contain` on a dark backdrop that matches the existing card (`bg-black/30`). The frame size stays the same; the image just letterboxes into it. This works for every photo regardless of orientation, on mobile and desktop.
 
-### Behaviour details
-- Poster image uses `hqdefault.jpg` (480×360, available for every video) with `loading="lazy"` and `decoding="async"`, `object-cover` over the existing `aspect-video` container.
-- Overlay: centred circular button using `bg-primary text-primary-foreground` (brand gold) with a `Play` lucide icon.
-- On tap, set `playing=true` and render the iframe with `?autoplay=1&playsinline=1` so it starts immediately on mobile.
-- Keep the outer card styling, title, and views text exactly as they are.
-- No backend, data, routing, or analytics changes.
+### Change
 
-## Out of scope
-- No change to which 3 episodes are shown.
-- No change to the hero image or any other section.
-- No change to `pinnedTopVideos.ts`.
+File: `src/pages/Home.tsx` — the single `<img>` inside the carousel slide (around line 240).
+
+- Remove `object-cover object-top`.
+- Add `object-contain` plus a dark inner background so portrait/landscape mismatches read as intentional framing rather than empty space.
+- Keep the existing aspect ratios (`aspect-[4/3]` mobile, `aspect-square` desktop) so the layout doesn't shift.
+
+```tsx
+<CarouselItem key={src}>
+  <div className="w-full aspect-[4/3] lg:aspect-square rounded-xl bg-black/30 overflow-hidden">
+    <img
+      src={src}
+      alt={`Big Life Change inspiration image ${idx + 1}`}
+      className="w-full h-full object-contain"
+      loading={idx === 0 ? "eager" : "lazy"}
+    />
+  </div>
+</CarouselItem>
+```
+
+### Why not per-image focal points
+
+Setting a custom `object-position` per photo would also work, but with ~10 photos in the carousel (and more likely to be added) it's fragile — every new upload needs a manual focal tag, and any photo where the subject spans the whole frame still gets cropped. `object-contain` is the only rule that works for *every* photo without per-asset bookkeeping.
+
+### Out of scope
+
+- No changes to which photos appear, the carousel logic, the autoplay/embla setup, or the surrounding hero copy.
+- No changes to other pages.
