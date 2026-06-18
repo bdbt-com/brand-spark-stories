@@ -236,11 +236,44 @@ const Home = () => {
                 loop: true
               }} className="w-full" aria-label="Daily success journey image carousel">
                   <CarouselContent>
-                    {(filteredImages.length ? filteredImages : images).map((src, idx) => <CarouselItem key={src}>
-                         <div className="w-full aspect-[4/3] lg:aspect-square rounded-xl bg-black/30 overflow-hidden">
-                           <img src={src} alt={`Big Life Change inspiration image ${idx + 1}`} className="w-full h-full object-contain" loading={idx === 0 ? "eager" : "lazy"} />
-                         </div>
-                      </CarouselItem>)}
+                    {(filteredImages.length ? filteredImages : images).map((src, idx) => {
+                      const focalMap: Record<string, string> = {
+                        // Sunset silhouette on rocks - lower so person not sky
+                        "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png": "center 75%",
+                        // Man with dog outdoors - keep face
+                        "/lovable-uploads/4fd0818e-20c3-4941-9c54-6915db50a7c0.png": "center 25%",
+                        // Meditation with mirror - keep head/upper body
+                        "/lovable-uploads/661d98ce-15f1-4542-b8c0-bab549b78a55.png": "center 20%",
+                        // Man in bathroom mirror - face is upper
+                        "/lovable-uploads/33ba01bc-045c-4c44-ac70-c61c05093bdc.png": "center 15%",
+                        // Silhouette by pool - keep figure
+                        "/lovable-uploads/2678016c-a3fa-4e29-bf3d-3ebe92201186.png": "center 70%",
+                        // Person exercising outdoors - keep body
+                        "/lovable-uploads/7db6bd1f-c12f-45f2-a1d1-505f38c743a1.png": "center 30%",
+                        // Man outdoors smiling
+                        "/lovable-uploads/8db636d1-94ff-432a-a4b1-6ca278173f2f.png": "center 25%",
+                        // Man in shoe store
+                        "/lovable-uploads/a886c4a9-0d09-442e-8348-25bd795ad7d0.png": "center 30%",
+                        // Man on beach at sunset
+                        "/lovable-uploads/347bc4c8-a5fc-40c4-a30c-1d91b5bd5761.png": "center 60%",
+                        // Person meditating in gazebo
+                        "/lovable-uploads/75853635-930c-4fa5-9403-d0b58c6db83b.png": "center 40%",
+                      };
+                      const objectPosition = focalMap[src] ?? "center 30%";
+                      return (
+                        <CarouselItem key={src}>
+                          <div className="w-full aspect-[4/3] lg:aspect-square rounded-xl overflow-hidden">
+                            <img
+                              src={src}
+                              alt={`Big Life Change inspiration image ${idx + 1}`}
+                              className="w-full h-full object-cover"
+                              style={{ objectPosition }}
+                              loading={idx === 0 ? "eager" : "lazy"}
+                            />
+                          </div>
+                        </CarouselItem>
+                      );
+                    })}
                   </CarouselContent>
                 </Carousel>
               </div>
