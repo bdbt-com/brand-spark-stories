@@ -930,7 +930,7 @@ const AdminList = () => {
                 <div className="grid grid-cols-1 xl:grid-cols-[1fr_280px] gap-5">
                   <div className="min-w-0">
                     {(graphRange === 'today' ? hourlyStats.length > 0 : filteredDailyStats.length > 0) && (
-                      <InlineGraph data={graphRange === 'today' ? hourlyStats : filteredDailyStats} dataKey="visitors" label="Visitors" color="hsl(210, 40%, 96%)" hourly={graphRange === 'today'} />
+                      <InlineGraph data={graphRange === 'today' ? hourlyStats : filteredDailyStats} dataKey="visitors" label="Visitors" color="hsl(210, 40%, 96%)" hourly={graphRange === 'today'} emailMarkers={graphRange === 'today' ? emailMarkers : undefined} courseMarkers={graphRange === 'today' ? courseMarkers : undefined} />
                     )}
                   </div>
                   <div className="xl:border-l xl:border-border/50 xl:pl-5 border-t xl:border-t-0 border-border/50 pt-4 xl:pt-0 flex flex-col items-center justify-center text-center">
