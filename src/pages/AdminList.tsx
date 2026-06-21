@@ -641,6 +641,15 @@ const AdminList = () => {
     });
   }, [runRequest]);
 
+  const fetchTodaySignups = useCallback(async () => {
+    await runRequest("today-signups", async (signal) => {
+      const { data, error } = await supabase.functions.invoke("get-today-signups", { signal, timeout: 8000 });
+      if (error) throw error;
+      if (data) setTodaySignups({ email_signups: data.email_signups || [], course_signups: data.course_signups || [] });
+    });
+  }, [runRequest]);
+
+
   const fetchLiveTick = useCallback(async () => {
     if (typeof document !== "undefined" && document.visibilityState === "hidden") return;
     await runRequest("live-tick", async (signal) => {
