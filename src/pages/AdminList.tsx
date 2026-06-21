@@ -316,6 +316,47 @@ const AdminList = () => {
     return dailyStats.slice(-days);
   }, [dailyStats, graphRange]);
 
+  const [todaySignups, setTodaySignups] = useState<{ email_signups: { email: string; first_name: string | null; created_at: string }[]; course_signups: { email: string; course_title: string | null; created_at: string }[] }>({ email_signups: [], course_signups: [] });
+
+  const { emailMarkers, courseMarkers } = useMemo(() => {
+    if (graphRange !== 'today' || hourlyStats.length === 0) return { emailMarkers: [], courseMarkers: [] };
+    const visitorsByHour = new Map<string, number>();
+    hourlyStats.forEach((h) => {
+      const key = new Date(h.hour).toISOString();
+      visitorsByHour.set(key, h.visitors);
+    });
+    const bucket = (iso: string) => {
+      const d = new Date(iso);
+      d.setUTCMinutes(0, 0, 0);
+      return d.toISOString();
+    };
+    const findY = (key: string) => {
+      if (visitorsByHour.has(key)) return visitorsByHour.get(key)!;
+      // fallback: nearest hour we have
+      let nearest = 0;
+      visitorsByHour.forEach((v) => { if (v > nearest) nearest = v; });
+      return Math.max(1, Math.round(nearest / 4));
+    };
+    const emailMap = new Map<string, SignupMarker>();
+    todaySignups.email_signups.forEach((s) => {
+      const key = bucket(s.created_at);
+      const existing = emailMap.get(key) || { hour: key, y: findY(key), emailCount: 0, courseCount: 0, emails: [], courses: [] };
+      existing.emailCount += 1;
+      existing.emails.push(s.first_name ? `${s.first_name} <${s.email}>` : s.email);
+      emailMap.set(key, existing);
+    });
+    const courseMap = new Map<string, SignupMarker>();
+    todaySignups.course_signups.forEach((s) => {
+      const key = bucket(s.created_at);
+      const existing = courseMap.get(key) || { hour: key, y: findY(key), emailCount: 0, courseCount: 0, emails: [], courses: [] };
+      existing.courseCount += 1;
+      existing.courses.push(s.course_title ? `${s.course_title} (${s.email})` : s.email);
+      courseMap.set(key, existing);
+    });
+    return { emailMarkers: Array.from(emailMap.values()), courseMarkers: Array.from(courseMap.values()) };
+  }, [graphRange, hourlyStats, todaySignups]);
+
+
   const filteredFeed = useMemo(
     () => (feedFilter === "all" ? feed : feed.filter((f) => f.type === feedFilter)),
     [feed, feedFilter]
