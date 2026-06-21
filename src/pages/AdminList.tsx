@@ -51,18 +51,66 @@ function TrendBadge({ current, currentDays, outer, outerDays }: { current: numbe
   );
 }
 
-function InlineGraph({ data, dataKey, label, color, hourly, dataKey2, color2, label2 }: { data: any[]; dataKey: string; label: string; color: string; hourly?: boolean; dataKey2?: string; color2?: string; label2?: string }) {
+type SignupMarker = {
+  hour: string;
+  y: number;
+  emailCount: number;
+  courseCount: number;
+  emails: string[];
+  courses: string[];
+};
+
+function MarkerTooltip({ active, payload }: any) {
+  if (!active || !payload || !payload.length) return null;
+  const p = payload[0]?.payload as SignupMarker | undefined;
+  if (!p) return null;
+  const d = new Date(p.hour);
+  const h = d.getUTCHours();
+  const suffix = h >= 12 ? 'pm' : 'am';
+  const h12 = h % 12 || 12;
+  return (
+    <div style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))", borderRadius: 8, fontSize: 11, padding: "8px 10px", maxWidth: 240 }}>
+      <div style={{ fontWeight: 600, marginBottom: 4 }}>{`${h12}:00${suffix}`}</div>
+      {p.emailCount > 0 && (
+        <div style={{ color: "hsl(42 55% 62%)" }}>
+          {p.emailCount} email signup{p.emailCount === 1 ? '' : 's'}
+          <div style={{ color: "hsl(var(--muted-foreground))", fontSize: 10, marginTop: 2 }}>
+            {p.emails.slice(0, 5).join(', ')}{p.emails.length > 5 ? ` +${p.emails.length - 5}` : ''}
+          </div>
+        </div>
+      )}
+      {p.courseCount > 0 && (
+        <div style={{ color: "hsl(190 80% 60%)", marginTop: p.emailCount > 0 ? 4 : 0 }}>
+          {p.courseCount} course waitlist
+          <div style={{ color: "hsl(var(--muted-foreground))", fontSize: 10, marginTop: 2 }}>
+            {p.courses.slice(0, 5).join(', ')}{p.courses.length > 5 ? ` +${p.courses.length - 5}` : ''}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function InlineGraph({ data, dataKey, label, color, hourly, dataKey2, color2, label2, emailMarkers, courseMarkers }: { data: any[]; dataKey: string; label: string; color: string; hourly?: boolean; dataKey2?: string; color2?: string; label2?: string; emailMarkers?: SignupMarker[]; courseMarkers?: SignupMarker[] }) {
+  const hasMarkers = !!(emailMarkers?.length || courseMarkers?.length);
+  const Chart: any = hasMarkers ? ComposedChart : LineChart;
   return (
     <div className="w-full min-w-0">
-      <p className="text-[10px] font-medium text-muted-foreground mb-2 uppercase tracking-wider flex items-center gap-3">
+      <p className="text-[10px] font-medium text-muted-foreground mb-2 uppercase tracking-wider flex items-center gap-3 flex-wrap">
         <span className="inline-flex items-center gap-1.5"><span className="inline-block w-2 h-2 rounded-full" style={{ background: color }} />{label}</span>
         {dataKey2 && label2 && (
           <span className="inline-flex items-center gap-1.5"><span className="inline-block w-2 h-2 rounded-full" style={{ background: color2 }} />{label2}</span>
         )}
+        {hasMarkers && emailMarkers && emailMarkers.length > 0 && (
+          <span className="inline-flex items-center gap-1.5"><span className="inline-block w-2 h-2 rounded-full" style={{ background: 'hsl(42 55% 62%)' }} />Email signups</span>
+        )}
+        {hasMarkers && courseMarkers && courseMarkers.length > 0 && (
+          <span className="inline-flex items-center gap-1.5"><span className="inline-block w-2 h-2 rounded-full" style={{ background: 'hsl(190 80% 60%)' }} />Course waitlist</span>
+        )}
       </p>
       <div className="h-[200px]">
         <ResponsiveContainer width="100%" height="100%">
-          <LineChart data={data}>
+          <Chart data={data}>
             <XAxis
               dataKey={hourly ? "hour" : "day"}
               tick={{ fontSize: 9, fill: "hsl(var(--muted-foreground))" }}
@@ -78,9 +126,28 @@ function InlineGraph({ data, dataKey, label, color, hourly, dataKey2, color2, la
               }}
               interval="preserveStartEnd"
               minTickGap={hourly ? 20 : 30}
+              allowDuplicatedCategory={false}
             />
             <YAxis tick={{ fontSize: 9, fill: "hsl(var(--muted-foreground))" }} width={30} allowDecimals={false} />
             <Tooltip
+              content={hasMarkers ? (props: any) => {
+                if (!props.active || !props.payload?.length) return null;
+                const markerPayload = props.payload.find((p: any) => p?.payload && 'emailCount' in p.payload);
+                if (markerPayload) return <MarkerTooltip active={props.active} payload={[markerPayload]} />;
+                const v = props.label;
+                const d = new Date(v);
+                const h = d.getUTCHours();
+                const suffix = h >= 12 ? 'pm' : 'am';
+                const h12 = h % 12 || 12;
+                return (
+                  <div style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))", borderRadius: 8, fontSize: 11, padding: "8px 10px" }}>
+                    <div style={{ fontWeight: 600, marginBottom: 2 }}>{`${h12}:00${suffix}`}</div>
+                    {props.payload.map((p: any) => (
+                      <div key={p.dataKey} style={{ color: p.color }}>{p.name || p.dataKey}: {p.value}</div>
+                    ))}
+                  </div>
+                );
+              } : undefined}
               contentStyle={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))", borderRadius: "8px", fontSize: "11px" }}
               labelFormatter={(v: string) => {
                 if (hourly) {
@@ -97,7 +164,19 @@ function InlineGraph({ data, dataKey, label, color, hourly, dataKey2, color2, la
             {dataKey2 && (
               <Line type="monotone" dataKey={dataKey2} stroke={color2} strokeWidth={1.5} dot={false} activeDot={{ r: 3, strokeWidth: 0 }} />
             )}
-          </LineChart>
+            {hasMarkers && emailMarkers && emailMarkers.length > 0 && (
+              <Scatter data={emailMarkers} dataKey="y" fill="hsl(42 55% 62%)" shape={(props: any) => {
+                const r = Math.min(8, 4 + (props.payload.emailCount - 1) * 1.5);
+                return <circle cx={props.cx} cy={props.cy} r={r} fill="hsl(42 55% 62%)" stroke="hsl(0 0% 6%)" strokeWidth={1.5} />;
+              }} />
+            )}
+            {hasMarkers && courseMarkers && courseMarkers.length > 0 && (
+              <Scatter data={courseMarkers} dataKey="y" fill="hsl(190 80% 60%)" shape={(props: any) => {
+                const r = Math.min(8, 4 + (props.payload.courseCount - 1) * 1.5);
+                return <circle cx={props.cx} cy={props.cy} r={r} fill="hsl(190 80% 60%)" stroke="hsl(0 0% 6%)" strokeWidth={1.5} />;
+              }} />
+            )}
+          </Chart>
         </ResponsiveContainer>
       </div>
     </div>
