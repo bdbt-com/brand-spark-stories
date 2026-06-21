@@ -2,7 +2,7 @@ import { useEffect, useState, useCallback, useMemo, useRef } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Loader2, Play, TrendingDown, TrendingUp, BarChart3, Clock, MousePointerClick, ArrowRightLeft, UserPlus, Download, Activity, Minus } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
-import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
+import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, ComposedChart, Scatter } from "recharts";
 import { useYouTubeVideos } from "@/hooks/useYouTubeVideos";
 import { PINNED_TOP_VIDEOS } from "@/data/pinnedTopVideos";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
@@ -51,18 +51,66 @@ function TrendBadge({ current, currentDays, outer, outerDays }: { current: numbe
   );
 }
 
-function InlineGraph({ data, dataKey, label, color, hourly, dataKey2, color2, label2 }: { data: any[]; dataKey: string; label: string; color: string; hourly?: boolean; dataKey2?: string; color2?: string; label2?: string }) {
+type SignupMarker = {
+  hour: string;
+  y: number;
+  emailCount: number;
+  courseCount: number;
+  emails: string[];
+  courses: string[];
+};
+
+function MarkerTooltip({ active, payload }: any) {
+  if (!active || !payload || !payload.length) return null;
+  const p = payload[0]?.payload as SignupMarker | undefined;
+  if (!p) return null;
+  const d = new Date(p.hour);
+  const h = d.getUTCHours();
+  const suffix = h >= 12 ? 'pm' : 'am';
+  const h12 = h % 12 || 12;
+  return (
+    <div style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))", borderRadius: 8, fontSize: 11, padding: "8px 10px", maxWidth: 240 }}>
+      <div style={{ fontWeight: 600, marginBottom: 4 }}>{`${h12}:00${suffix}`}</div>
+      {p.emailCount > 0 && (
+        <div style={{ color: "hsl(42 55% 62%)" }}>
+          {p.emailCount} email signup{p.emailCount === 1 ? '' : 's'}
+          <div style={{ color: "hsl(var(--muted-foreground))", fontSize: 10, marginTop: 2 }}>
+            {p.emails.slice(0, 5).join(', ')}{p.emails.length > 5 ? ` +${p.emails.length - 5}` : ''}
+          </div>
+        </div>
+      )}
+      {p.courseCount > 0 && (
+        <div style={{ color: "hsl(190 80% 60%)", marginTop: p.emailCount > 0 ? 4 : 0 }}>
+          {p.courseCount} course waitlist
+          <div style={{ color: "hsl(var(--muted-foreground))", fontSize: 10, marginTop: 2 }}>
+            {p.courses.slice(0, 5).join(', ')}{p.courses.length > 5 ? ` +${p.courses.length - 5}` : ''}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function InlineGraph({ data, dataKey, label, color, hourly, dataKey2, color2, label2, emailMarkers, courseMarkers }: { data: any[]; dataKey: string; label: string; color: string; hourly?: boolean; dataKey2?: string; color2?: string; label2?: string; emailMarkers?: SignupMarker[]; courseMarkers?: SignupMarker[] }) {
+  const hasMarkers = !!(emailMarkers?.length || courseMarkers?.length);
+  const Chart: any = hasMarkers ? ComposedChart : LineChart;
   return (
     <div className="w-full min-w-0">
-      <p className="text-[10px] font-medium text-muted-foreground mb-2 uppercase tracking-wider flex items-center gap-3">
+      <p className="text-[10px] font-medium text-muted-foreground mb-2 uppercase tracking-wider flex items-center gap-3 flex-wrap">
         <span className="inline-flex items-center gap-1.5"><span className="inline-block w-2 h-2 rounded-full" style={{ background: color }} />{label}</span>
         {dataKey2 && label2 && (
           <span className="inline-flex items-center gap-1.5"><span className="inline-block w-2 h-2 rounded-full" style={{ background: color2 }} />{label2}</span>
         )}
+        {hasMarkers && emailMarkers && emailMarkers.length > 0 && (
+          <span className="inline-flex items-center gap-1.5"><span className="inline-block w-2 h-2 rounded-full" style={{ background: 'hsl(42 55% 62%)' }} />Email signups</span>
+        )}
+        {hasMarkers && courseMarkers && courseMarkers.length > 0 && (
+          <span className="inline-flex items-center gap-1.5"><span className="inline-block w-2 h-2 rounded-full" style={{ background: 'hsl(190 80% 60%)' }} />Course waitlist</span>
+        )}
       </p>
       <div className="h-[200px]">
         <ResponsiveContainer width="100%" height="100%">
-          <LineChart data={data}>
+          <Chart data={data}>
             <XAxis
               dataKey={hourly ? "hour" : "day"}
               tick={{ fontSize: 9, fill: "hsl(var(--muted-foreground))" }}
@@ -78,9 +126,28 @@ function InlineGraph({ data, dataKey, label, color, hourly, dataKey2, color2, la
               }}
               interval="preserveStartEnd"
               minTickGap={hourly ? 20 : 30}
+              allowDuplicatedCategory={false}
             />
             <YAxis tick={{ fontSize: 9, fill: "hsl(var(--muted-foreground))" }} width={30} allowDecimals={false} />
             <Tooltip
+              content={hasMarkers ? (props: any) => {
+                if (!props.active || !props.payload?.length) return null;
+                const markerPayload = props.payload.find((p: any) => p?.payload && 'emailCount' in p.payload);
+                if (markerPayload) return <MarkerTooltip active={props.active} payload={[markerPayload]} />;
+                const v = props.label;
+                const d = new Date(v);
+                const h = d.getUTCHours();
+                const suffix = h >= 12 ? 'pm' : 'am';
+                const h12 = h % 12 || 12;
+                return (
+                  <div style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))", borderRadius: 8, fontSize: 11, padding: "8px 10px" }}>
+                    <div style={{ fontWeight: 600, marginBottom: 2 }}>{`${h12}:00${suffix}`}</div>
+                    {props.payload.map((p: any) => (
+                      <div key={p.dataKey} style={{ color: p.color }}>{p.name || p.dataKey}: {p.value}</div>
+                    ))}
+                  </div>
+                );
+              } : undefined}
               contentStyle={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))", borderRadius: "8px", fontSize: "11px" }}
               labelFormatter={(v: string) => {
                 if (hourly) {
@@ -97,7 +164,19 @@ function InlineGraph({ data, dataKey, label, color, hourly, dataKey2, color2, la
             {dataKey2 && (
               <Line type="monotone" dataKey={dataKey2} stroke={color2} strokeWidth={1.5} dot={false} activeDot={{ r: 3, strokeWidth: 0 }} />
             )}
-          </LineChart>
+            {hasMarkers && emailMarkers && emailMarkers.length > 0 && (
+              <Scatter data={emailMarkers} dataKey="y" fill="hsl(42 55% 62%)" shape={(props: any) => {
+                const r = Math.min(8, 4 + (props.payload.emailCount - 1) * 1.5);
+                return <circle cx={props.cx} cy={props.cy} r={r} fill="hsl(42 55% 62%)" stroke="hsl(0 0% 6%)" strokeWidth={1.5} />;
+              }} />
+            )}
+            {hasMarkers && courseMarkers && courseMarkers.length > 0 && (
+              <Scatter data={courseMarkers} dataKey="y" fill="hsl(190 80% 60%)" shape={(props: any) => {
+                const r = Math.min(8, 4 + (props.payload.courseCount - 1) * 1.5);
+                return <circle cx={props.cx} cy={props.cy} r={r} fill="hsl(190 80% 60%)" stroke="hsl(0 0% 6%)" strokeWidth={1.5} />;
+              }} />
+            )}
+          </Chart>
         </ResponsiveContainer>
       </div>
     </div>
@@ -236,6 +315,47 @@ const AdminList = () => {
     const days = graphRange === 'today' ? 1 : graphRange === '7d' ? 7 : graphRange === '14d' ? 14 : 30;
     return dailyStats.slice(-days);
   }, [dailyStats, graphRange]);
+
+  const [todaySignups, setTodaySignups] = useState<{ email_signups: { email: string; first_name: string | null; created_at: string }[]; course_signups: { email: string; course_title: string | null; created_at: string }[] }>({ email_signups: [], course_signups: [] });
+
+  const { emailMarkers, courseMarkers } = useMemo(() => {
+    if (graphRange !== 'today' || hourlyStats.length === 0) return { emailMarkers: [], courseMarkers: [] };
+    const visitorsByHour = new Map<string, number>();
+    hourlyStats.forEach((h) => {
+      const key = new Date(h.hour).toISOString();
+      visitorsByHour.set(key, h.visitors);
+    });
+    const bucket = (iso: string) => {
+      const d = new Date(iso);
+      d.setUTCMinutes(0, 0, 0);
+      return d.toISOString();
+    };
+    const findY = (key: string) => {
+      if (visitorsByHour.has(key)) return visitorsByHour.get(key)!;
+      // fallback: nearest hour we have
+      let nearest = 0;
+      visitorsByHour.forEach((v) => { if (v > nearest) nearest = v; });
+      return Math.max(1, Math.round(nearest / 4));
+    };
+    const emailMap = new Map<string, SignupMarker>();
+    todaySignups.email_signups.forEach((s) => {
+      const key = bucket(s.created_at);
+      const existing = emailMap.get(key) || { hour: key, y: findY(key), emailCount: 0, courseCount: 0, emails: [], courses: [] };
+      existing.emailCount += 1;
+      existing.emails.push(s.first_name ? `${s.first_name} <${s.email}>` : s.email);
+      emailMap.set(key, existing);
+    });
+    const courseMap = new Map<string, SignupMarker>();
+    todaySignups.course_signups.forEach((s) => {
+      const key = bucket(s.created_at);
+      const existing = courseMap.get(key) || { hour: key, y: findY(key), emailCount: 0, courseCount: 0, emails: [], courses: [] };
+      existing.courseCount += 1;
+      existing.courses.push(s.course_title ? `${s.course_title} (${s.email})` : s.email);
+      courseMap.set(key, existing);
+    });
+    return { emailMarkers: Array.from(emailMap.values()), courseMarkers: Array.from(courseMap.values()) };
+  }, [graphRange, hourlyStats, todaySignups]);
+
 
   const filteredFeed = useMemo(
     () => (feedFilter === "all" ? feed : feed.filter((f) => f.type === feedFilter)),
@@ -521,6 +641,15 @@ const AdminList = () => {
     });
   }, [runRequest]);
 
+  const fetchTodaySignups = useCallback(async () => {
+    await runRequest("today-signups", async (signal) => {
+      const { data, error } = await supabase.functions.invoke("get-today-signups", { signal, timeout: 8000 });
+      if (error) throw error;
+      if (data) setTodaySignups({ email_signups: data.email_signups || [], course_signups: data.course_signups || [] });
+    });
+  }, [runRequest]);
+
+
   const fetchLiveTick = useCallback(async () => {
     if (typeof document !== "undefined" && document.visibilityState === "hidden") return;
     await runRequest("live-tick", async (signal) => {
@@ -556,6 +685,7 @@ const AdminList = () => {
         fetchDownloadCounts,
         fetchCourseSignups,
         fetchSubscribers,
+        fetchTodaySignups,
       ];
       staged.forEach((fn, index) => {
         const timer = setTimeout(() => {
@@ -601,7 +731,7 @@ const AdminList = () => {
       Object.values(requestControllers.current).forEach((controller) => controller?.abort());
       document.removeEventListener("visibilitychange", onVisible);
     };
-  }, [fetchSubscribers, fetchVideoCounts, fetchDownloadCounts, fetchCourseSignups, fetchAnalytics, fetchFeed, fetchFeedIncremental, fetchDailyStats, fetchLiveTick, fetchPageStats]);
+  }, [fetchSubscribers, fetchVideoCounts, fetchDownloadCounts, fetchCourseSignups, fetchAnalytics, fetchFeed, fetchFeedIncremental, fetchDailyStats, fetchLiveTick, fetchPageStats, fetchTodaySignups]);
 
   // Cleanup queued animation-clear timers on unmount
   useEffect(() => {
@@ -800,7 +930,7 @@ const AdminList = () => {
                 <div className="grid grid-cols-1 xl:grid-cols-[1fr_280px] gap-5">
                   <div className="min-w-0">
                     {(graphRange === 'today' ? hourlyStats.length > 0 : filteredDailyStats.length > 0) && (
-                      <InlineGraph data={graphRange === 'today' ? hourlyStats : filteredDailyStats} dataKey="visitors" label="Visitors" color="hsl(210, 40%, 96%)" hourly={graphRange === 'today'} />
+                      <InlineGraph data={graphRange === 'today' ? hourlyStats : filteredDailyStats} dataKey="visitors" label="Visitors" color="hsl(210, 40%, 96%)" hourly={graphRange === 'today'} emailMarkers={graphRange === 'today' ? emailMarkers : undefined} courseMarkers={graphRange === 'today' ? courseMarkers : undefined} />
                     )}
                   </div>
                   <div className="xl:border-l xl:border-border/50 xl:pl-5 border-t xl:border-t-0 border-border/50 pt-4 xl:pt-0 flex flex-col items-center justify-center text-center">
