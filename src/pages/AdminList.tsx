@@ -685,6 +685,7 @@ const AdminList = () => {
         fetchDownloadCounts,
         fetchCourseSignups,
         fetchSubscribers,
+        fetchTodaySignups,
       ];
       staged.forEach((fn, index) => {
         const timer = setTimeout(() => {
