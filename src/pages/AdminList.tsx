@@ -731,7 +731,7 @@ const AdminList = () => {
       Object.values(requestControllers.current).forEach((controller) => controller?.abort());
       document.removeEventListener("visibilitychange", onVisible);
     };
-  }, [fetchSubscribers, fetchVideoCounts, fetchDownloadCounts, fetchCourseSignups, fetchAnalytics, fetchFeed, fetchFeedIncremental, fetchDailyStats, fetchLiveTick, fetchPageStats]);
+  }, [fetchSubscribers, fetchVideoCounts, fetchDownloadCounts, fetchCourseSignups, fetchAnalytics, fetchFeed, fetchFeedIncremental, fetchDailyStats, fetchLiveTick, fetchPageStats, fetchTodaySignups]);
 
   // Cleanup queued animation-clear timers on unmount
   useEffect(() => {
