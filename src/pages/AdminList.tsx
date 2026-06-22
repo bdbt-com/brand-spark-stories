@@ -160,21 +160,21 @@ function InlineGraph({ data, dataKey, label, color, hourly, dataKey2, color2, la
                 return new Date(v).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
               }}
             />
-            <Line type="monotone" dataKey={dataKey} stroke={color} strokeWidth={1.5} dot={false} activeDot={{ r: 3, strokeWidth: 0 }} zAxisId={1} />
-            {dataKey2 && (
-              <Line type="monotone" dataKey={dataKey2} stroke={color2} strokeWidth={1.5} dot={false} activeDot={{ r: 3, strokeWidth: 0 }} zAxisId={1} />
-            )}
             {hasMarkers && emailMarkers && emailMarkers.length > 0 && (
-              <Scatter data={emailMarkers} dataKey="y" fill="hsl(42 55% 62%)" zAxisId={2} shape={(props: any) => {
+              <Scatter data={emailMarkers} dataKey="y" fill="hsl(42 55% 62%)" shape={(props: any) => {
                 const r = Math.min(8, 4 + (props.payload.emailCount - 1) * 1.5);
                 return <circle cx={props.cx} cy={props.cy} r={r} fill="hsl(42 55% 62%)" stroke="none" />;
               }} />
             )}
             {hasMarkers && courseMarkers && courseMarkers.length > 0 && (
-              <Scatter data={courseMarkers} dataKey="y" fill="hsl(190 80% 60%)" zAxisId={2} shape={(props: any) => {
+              <Scatter data={courseMarkers} dataKey="y" fill="hsl(190 80% 60%)" shape={(props: any) => {
                 const r = Math.min(8, 4 + (props.payload.courseCount - 1) * 1.5);
                 return <circle cx={props.cx} cy={props.cy} r={r} fill="hsl(190 80% 60%)" stroke="none" />;
               }} />
+            )}
+            <Line type="monotone" dataKey={dataKey} stroke={color} strokeWidth={1.5} dot={false} activeDot={{ r: 3, strokeWidth: 0 }} />
+            {dataKey2 && (
+              <Line type="monotone" dataKey={dataKey2} stroke={color2} strokeWidth={1.5} dot={false} activeDot={{ r: 3, strokeWidth: 0 }} />
             )}
           </Chart>
         </ResponsiveContainer>
