@@ -331,12 +331,15 @@ const AdminList = () => {
       d.setUTCMinutes(0, 0, 0);
       return d.toISOString();
     };
+    const sortedHours = Array.from(visitorsByHour.keys()).sort();
     const findY = (key: string) => {
       if (visitorsByHour.has(key)) return visitorsByHour.get(key)!;
-      // fallback: nearest hour we have
-      let nearest = 0;
-      visitorsByHour.forEach((v) => { if (v > nearest) nearest = v; });
-      return Math.max(1, Math.round(nearest / 4));
+      // nearest earlier hour we have; else 0
+      let last = 0;
+      for (const h of sortedHours) {
+        if (h <= key) last = visitorsByHour.get(h)!; else break;
+      }
+      return last;
     };
     const emailMap = new Map<string, SignupMarker>();
     todaySignups.email_signups.forEach((s) => {
