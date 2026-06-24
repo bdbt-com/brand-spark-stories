@@ -678,7 +678,7 @@ const AdminList = () => {
       feedPumpTimer.current = setTimeout(release, FEED_RELEASE_MS);
     };
     release();
-  }, []);
+  }, [bumpFromFeedItem]);
 
   const fetchDailyStats = useCallback(async () => {
     await runRequest("daily-stats", async (signal) => {
