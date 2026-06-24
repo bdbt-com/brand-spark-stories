@@ -113,6 +113,8 @@ function InlineGraph({ data, dataKey, label, color, hourly, dataKey2, color2, la
           <Chart data={data}>
             <XAxis
               dataKey={hourly ? "hour" : "day"}
+              type="category"
+              allowDuplicatedCategory={false}
               tick={{ fontSize: 9, fill: "hsl(var(--muted-foreground))" }}
               tickFormatter={(v: string) => {
                 if (hourly) {
@@ -126,7 +128,6 @@ function InlineGraph({ data, dataKey, label, color, hourly, dataKey2, color2, la
               }}
               interval="preserveStartEnd"
               minTickGap={hourly ? 20 : 30}
-              allowDuplicatedCategory={false}
             />
             <YAxis tick={{ fontSize: 9, fill: "hsl(var(--muted-foreground))" }} width={30} allowDecimals={false} />
             <Tooltip
@@ -160,21 +161,42 @@ function InlineGraph({ data, dataKey, label, color, hourly, dataKey2, color2, la
                 return new Date(v).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
               }}
             />
+            {/* Visitor line(s) first so they use the chart-level `data` and render under the dots */}
+            <Line
+              type="monotone"
+              data={data}
+              dataKey={dataKey}
+              stroke={color}
+              strokeWidth={1.75}
+              dot={false}
+              activeDot={{ r: 3, strokeWidth: 0 }}
+              isAnimationActive={false}
+              connectNulls
+            />
+            {dataKey2 && (
+              <Line
+                type="monotone"
+                data={data}
+                dataKey={dataKey2}
+                stroke={color2}
+                strokeWidth={1.75}
+                dot={false}
+                activeDot={{ r: 3, strokeWidth: 0 }}
+                isAnimationActive={false}
+                connectNulls
+              />
+            )}
             {hasMarkers && emailMarkers && emailMarkers.length > 0 && (
-              <Scatter data={emailMarkers} dataKey="y" fill="hsl(42 55% 62%)" shape={(props: any) => {
+              <Scatter data={emailMarkers} dataKey="y" fill="hsl(42 55% 62%)" isAnimationActive={false} shape={(props: any) => {
                 const r = Math.min(8, 4 + (props.payload.emailCount - 1) * 1.5);
-                return <circle cx={props.cx} cy={props.cy} r={r} fill="hsl(42 55% 62%)" stroke="none" />;
+                return <circle cx={props.cx} cy={props.cy} r={r} fill="hsl(42 55% 62%)" stroke="hsl(0 0% 6%)" strokeWidth={1.5} />;
               }} />
             )}
             {hasMarkers && courseMarkers && courseMarkers.length > 0 && (
-              <Scatter data={courseMarkers} dataKey="y" fill="hsl(190 80% 60%)" shape={(props: any) => {
+              <Scatter data={courseMarkers} dataKey="y" fill="hsl(190 80% 60%)" isAnimationActive={false} shape={(props: any) => {
                 const r = Math.min(8, 4 + (props.payload.courseCount - 1) * 1.5);
-                return <circle cx={props.cx} cy={props.cy} r={r} fill="hsl(190 80% 60%)" stroke="none" />;
+                return <circle cx={props.cx} cy={props.cy} r={r} fill="hsl(190 80% 60%)" stroke="hsl(0 0% 6%)" strokeWidth={1.5} />;
               }} />
-            )}
-            <Line type="monotone" dataKey={dataKey} stroke={color} strokeWidth={1.5} dot={false} activeDot={{ r: 3, strokeWidth: 0 }} />
-            {dataKey2 && (
-              <Line type="monotone" dataKey={dataKey2} stroke={color2} strokeWidth={1.5} dot={false} activeDot={{ r: 3, strokeWidth: 0 }} />
             )}
           </Chart>
         </ResponsiveContainer>
