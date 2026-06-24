@@ -181,7 +181,7 @@ serve(async (req) => {
       };
 
       const push = (type: string, label: string, detail: string) => {
-        items.push({ type, label, detail, timestamp: ts, country });
+        items.push({ type, label, detail, timestamp: ts, country, rawId: vid });
       };
 
       if (vid.startsWith("latest-auto:")) {
