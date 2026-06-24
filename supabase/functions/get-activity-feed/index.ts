@@ -160,7 +160,7 @@ serve(async (req) => {
       }
     }
 
-    const items: { type: string; label: string; detail: string; timestamp: string; country: string }[] = [];
+    const items: { type: string; label: string; detail: string; timestamp: string; country: string; rawId?: string }[] = [];
 
     const BUTTON_LABELS: Record<string, { label: string; detail: string }> = {
       "button-blueprint": { label: "Free Foundation Blueprint", detail: "Click from /bio (button)" },
@@ -181,7 +181,7 @@ serve(async (req) => {
       };
 
       const push = (type: string, label: string, detail: string) => {
-        items.push({ type, label, detail, timestamp: ts, country });
+        items.push({ type, label, detail, timestamp: ts, country, rawId: vid });
       };
 
       if (vid.startsWith("latest-auto:")) {

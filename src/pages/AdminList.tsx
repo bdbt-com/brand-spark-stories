@@ -225,6 +225,7 @@ interface FeedItem {
   detail: string;
   timestamp: string;
   country?: string | null;
+  rawId?: string;
 }
 
 const FEED_CONFIG: Record<string, { icon: typeof Play; color: string; bg: string; label: string }> = {
@@ -330,12 +331,15 @@ const AdminList = () => {
       d.setUTCMinutes(0, 0, 0);
       return d.toISOString();
     };
+    const sortedHours = Array.from(visitorsByHour.keys()).sort();
     const findY = (key: string) => {
       if (visitorsByHour.has(key)) return visitorsByHour.get(key)!;
-      // fallback: nearest hour we have
-      let nearest = 0;
-      visitorsByHour.forEach((v) => { if (v > nearest) nearest = v; });
-      return Math.max(1, Math.round(nearest / 4));
+      // nearest earlier hour we have; else 0
+      let last = 0;
+      for (const h of sortedHours) {
+        if (h <= key) last = visitorsByHour.get(h)!; else break;
+      }
+      return last;
     };
     const emailMap = new Map<string, SignupMarker>();
     todaySignups.email_signups.forEach((s) => {
@@ -596,6 +600,49 @@ const AdminList = () => {
   // item finishes animating before the next one begins (silky, non-overlapping).
   const FEED_RELEASE_MS = 560;
   const FEED_ANIM_MS = 520;
+  const bumpFromFeedItem = useCallback((item: FeedItem) => {
+    const vid = item.rawId;
+    if (!vid) return;
+    const bumpCount = (key: string) => {
+      setVideoCounts((prev) => {
+        const c = prev[key] || { total: 0, today: 0, "7d": 0, "14d": 0, "30d": 0 };
+        return { ...prev, [key]: { total: c.total + 1, today: c.today + 1, "7d": c["7d"] + 1, "14d": c["14d"] + 1, "30d": c["30d"] + 1 } };
+      });
+    };
+    const bumpTick = (field: keyof NonNullable<typeof liveTick>) => {
+      setLiveTick((prev) => prev ? { ...prev, [field]: (prev[field] as number) + 1, total_clicks_today: prev.total_clicks_today + 1 } : prev);
+    };
+    if (vid.startsWith("latest-auto:")) {
+      const id = vid.slice("latest-auto:".length);
+      bumpCount(vid); // drives the Latest Video Redirects tile (key: latest-auto:<id>)
+      if (id) bumpCount("redirect:" + id);
+      bumpTick("podcast_redirects_today");
+    } else if (vid.startsWith("auto-redirect:")) {
+      const id = vid.slice("auto-redirect:".length);
+      bumpCount(vid);
+      if (id) bumpCount("redirect:" + id);
+      bumpTick("bio_redirects_today");
+    } else if (vid === "auto-redirect") {
+      bumpCount(vid);
+      bumpTick("bio_redirects_today");
+    } else if (vid.startsWith("latest-page:") || vid.startsWith("latest-grid:")) {
+      const id = vid.slice(vid.indexOf(":") + 1);
+      bumpCount(vid);
+      if (id) bumpCount(id);
+      bumpTick("podcast_clicks_today");
+    } else if (vid.startsWith("bio-click:")) {
+      const id = vid.slice("bio-click:".length);
+      bumpCount(vid);
+      if (id) bumpCount(id);
+      bumpTick("bio_clicks_today");
+    } else if (vid.startsWith("button-youtube-random:")) {
+      bumpCount(vid);
+      bumpCount("button-youtube");
+    } else {
+      bumpCount(vid);
+    }
+  }, []);
+
   const startFeedPump = useCallback(() => {
     if (feedPumpTimer.current) return; // already pumping
     const release = () => {
@@ -605,6 +652,7 @@ const AdminList = () => {
         return;
       }
       const k = feedKey(next);
+      bumpFromFeedItem(next);
       setFeed((prev) => {
         const merged = [next, ...prev];
         merged.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
@@ -630,14 +678,30 @@ const AdminList = () => {
       feedPumpTimer.current = setTimeout(release, FEED_RELEASE_MS);
     };
     release();
-  }, []);
+  }, [bumpFromFeedItem]);
 
   const fetchDailyStats = useCallback(async () => {
     await runRequest("daily-stats", async (signal) => {
       const { data, error } = await supabase.functions.invoke("get-daily-stats", { signal, timeout: 10000 });
       if (error) throw error;
       if (data?.daily) setDailyStats(data.daily);
-      if (data?.hourly) setHourlyStats(data.hourly);
+      if (data?.hourly) {
+        const incoming: { hour: string; visitors: number; bio_clicks: number; podcast_clicks: number; bio_redirects: number; podcast_redirects: number }[] = data.hourly;
+        // Defensive: ensure every hour from UTC midnight → current hour exists.
+        const midnight = new Date();
+        midnight.setUTCHours(0, 0, 0, 0);
+        const currentHour = new Date();
+        currentHour.setUTCMinutes(0, 0, 0);
+        const byKey = new Map(incoming.map((h) => [new Date(h.hour).toISOString(), h]));
+        const padded: typeof incoming = [];
+        for (let t = midnight.getTime(); t <= currentHour.getTime(); t += 3600000) {
+          const key = new Date(t).toISOString();
+          padded.push(
+            byKey.get(key) || { hour: key, visitors: 0, bio_clicks: 0, podcast_clicks: 0, bio_redirects: 0, podcast_redirects: 0 }
+          );
+        }
+        setHourlyStats(padded);
+      }
     });
   }, [runRequest]);
 
