@@ -641,7 +641,23 @@ const AdminList = () => {
       const { data, error } = await supabase.functions.invoke("get-daily-stats", { signal, timeout: 10000 });
       if (error) throw error;
       if (data?.daily) setDailyStats(data.daily);
-      if (data?.hourly) setHourlyStats(data.hourly);
+      if (data?.hourly) {
+        const incoming: { hour: string; visitors: number; bio_clicks: number; podcast_clicks: number; bio_redirects: number; podcast_redirects: number }[] = data.hourly;
+        // Defensive: ensure every hour from UTC midnight → current hour exists.
+        const midnight = new Date();
+        midnight.setUTCHours(0, 0, 0, 0);
+        const currentHour = new Date();
+        currentHour.setUTCMinutes(0, 0, 0);
+        const byKey = new Map(incoming.map((h) => [new Date(h.hour).toISOString(), h]));
+        const padded: typeof incoming = [];
+        for (let t = midnight.getTime(); t <= currentHour.getTime(); t += 3600000) {
+          const key = new Date(t).toISOString();
+          padded.push(
+            byKey.get(key) || { hour: key, visitors: 0, bio_clicks: 0, podcast_clicks: 0, bio_redirects: 0, podcast_redirects: 0 }
+          );
+        }
+        setHourlyStats(padded);
+      }
     });
   }, [runRequest]);
 
