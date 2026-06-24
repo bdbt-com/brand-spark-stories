@@ -160,7 +160,7 @@ serve(async (req) => {
       }
     }
 
-    const items: { type: string; label: string; detail: string; timestamp: string; country: string }[] = [];
+    const items: { type: string; label: string; detail: string; timestamp: string; country: string; rawId?: string }[] = [];
 
     const BUTTON_LABELS: Record<string, { label: string; detail: string }> = {
       "button-blueprint": { label: "Free Foundation Blueprint", detail: "Click from /bio (button)" },
