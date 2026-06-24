@@ -600,6 +600,49 @@ const AdminList = () => {
   // item finishes animating before the next one begins (silky, non-overlapping).
   const FEED_RELEASE_MS = 560;
   const FEED_ANIM_MS = 520;
+  const bumpFromFeedItem = useCallback((item: FeedItem) => {
+    const vid = item.rawId;
+    if (!vid) return;
+    const bumpCount = (key: string) => {
+      setVideoCounts((prev) => {
+        const c = prev[key] || { total: 0, today: 0, "7d": 0, "14d": 0, "30d": 0 };
+        return { ...prev, [key]: { total: c.total + 1, today: c.today + 1, "7d": c["7d"] + 1, "14d": c["14d"] + 1, "30d": c["30d"] + 1 } };
+      });
+    };
+    const bumpTick = (field: keyof NonNullable<typeof liveTick>) => {
+      setLiveTick((prev) => prev ? { ...prev, [field]: (prev[field] as number) + 1, total_clicks_today: prev.total_clicks_today + 1 } : prev);
+    };
+    if (vid.startsWith("latest-auto:")) {
+      const id = vid.slice("latest-auto:".length);
+      bumpCount(vid); // drives the Latest Video Redirects tile (key: latest-auto:<id>)
+      if (id) bumpCount("redirect:" + id);
+      bumpTick("podcast_redirects_today");
+    } else if (vid.startsWith("auto-redirect:")) {
+      const id = vid.slice("auto-redirect:".length);
+      bumpCount(vid);
+      if (id) bumpCount("redirect:" + id);
+      bumpTick("bio_redirects_today");
+    } else if (vid === "auto-redirect") {
+      bumpCount(vid);
+      bumpTick("bio_redirects_today");
+    } else if (vid.startsWith("latest-page:") || vid.startsWith("latest-grid:")) {
+      const id = vid.slice(vid.indexOf(":") + 1);
+      bumpCount(vid);
+      if (id) bumpCount(id);
+      bumpTick("podcast_clicks_today");
+    } else if (vid.startsWith("bio-click:")) {
+      const id = vid.slice("bio-click:".length);
+      bumpCount(vid);
+      if (id) bumpCount(id);
+      bumpTick("bio_clicks_today");
+    } else if (vid.startsWith("button-youtube-random:")) {
+      bumpCount(vid);
+      bumpCount("button-youtube");
+    } else {
+      bumpCount(vid);
+    }
+  }, []);
+
   const startFeedPump = useCallback(() => {
     if (feedPumpTimer.current) return; // already pumping
     const release = () => {
@@ -609,6 +652,7 @@ const AdminList = () => {
         return;
       }
       const k = feedKey(next);
+      bumpFromFeedItem(next);
       setFeed((prev) => {
         const merged = [next, ...prev];
         merged.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
