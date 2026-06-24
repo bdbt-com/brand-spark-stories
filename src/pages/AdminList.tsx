@@ -225,6 +225,7 @@ interface FeedItem {
   detail: string;
   timestamp: string;
   country?: string | null;
+  rawId?: string;
 }
 
 const FEED_CONFIG: Record<string, { icon: typeof Play; color: string; bg: string; label: string }> = {
