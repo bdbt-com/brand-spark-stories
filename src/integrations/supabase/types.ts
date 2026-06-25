@@ -73,6 +73,7 @@ export type Database = {
           guide_id: string | null
           guide_title: string | null
           id: string
+          last_name: string | null
         }
         Insert: {
           created_at?: string | null
@@ -84,6 +85,7 @@ export type Database = {
           guide_id?: string | null
           guide_title?: string | null
           id?: string
+          last_name?: string | null
         }
         Update: {
           created_at?: string | null
@@ -95,6 +97,7 @@ export type Database = {
           guide_id?: string | null
           guide_title?: string | null
           id?: string
+          last_name?: string | null
         }
         Relationships: [
           {
