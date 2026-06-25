@@ -5,6 +5,13 @@ export const validateFirstName = (name: string) => {
   return null;
 };
 
+export const validateLastName = (name: string) => {
+  if (!name.trim()) return "Last name is required";
+  if (name.trim().length < 2) return "Last name must be at least 2 characters";
+  if (name.trim().length > 50) return "Last name must be less than 50 characters";
+  return null;
+};
+
 export const validateEmail = (email: string) => {
   if (!email.trim()) return "Email address is required";
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -12,13 +19,15 @@ export const validateEmail = (email: string) => {
   return null;
 };
 
-export const validateForm = (firstName: string, email: string) => {
+export const validateForm = (firstName: string, lastName: string, email: string) => {
   const firstNameError = validateFirstName(firstName);
+  const lastNameError = validateLastName(lastName);
   const emailError = validateEmail(email);
-  
+
   return {
     firstName: firstNameError,
+    lastName: lastNameError,
     email: emailError,
-    isValid: !firstNameError && !emailError
+    isValid: !firstNameError && !lastNameError && !emailError,
   };
 };

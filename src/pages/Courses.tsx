@@ -28,6 +28,8 @@ interface Course {
   status: CourseStatus;
 }
 
+const EXERCISE_COURSE_URL = "https://bigdaddysbigtips.xperiencify.io";
+
 const courses: Course[] = [
   {
     topic: "Exercise",
@@ -41,7 +43,7 @@ const courses: Course[] = [
     ],
     cta: "Start Exercise Wins",
     icon: Dumbbell,
-    status: "coming-soon",
+    status: "available",
   },
   {
     topic: "Money",
@@ -90,7 +92,7 @@ const courses: Course[] = [
 const StatusPill = ({ status }: { status: CourseStatus }) => {
   if (status === "available") {
     return (
-      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-green-500/15 border border-green-500/40 text-green-400 text-[11px] font-bold tracking-wider uppercase">
+      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/15 border border-black/40 text-black text-[11px] font-bold tracking-wider uppercase">
         <Sparkles className="w-3 h-3" />
         Available Now
       </span>
@@ -150,59 +152,71 @@ const Courses = () => {
             {courses.map((course) => {
               const Icon = course.icon;
               const locked = course.status === "coming-soon";
+              const available = course.status === "available";
               return (
                 <Card
                   key={course.topic}
                   onClick={() => locked && scrollToWaitlist(course.topic)}
-                  className={`group relative bg-[#141414] border border-primary/20 rounded-2xl shadow-soft transition-all duration-300 md:hover:-translate-y-1 md:hover:border-primary/50 md:hover:shadow-[0_0_40px_-10px_hsl(var(--primary)/0.5)] h-full overflow-hidden ${
-                    locked ? "cursor-pointer" : ""
-                  }`}
+                  className={`group relative rounded-2xl shadow-soft transition-all duration-300 md:hover:-translate-y-1 h-full overflow-hidden ${
+                    available
+                      ? "bg-primary border-2 border-primary md:hover:shadow-[0_0_50px_-8px_hsl(var(--primary)/0.8)]"
+                      : "bg-[#141414] border border-primary/20 md:hover:border-primary/50 md:hover:shadow-[0_0_40px_-10px_hsl(var(--primary)/0.5)]"
+                  } ${locked ? "cursor-pointer" : ""}`}
                 >
                   <CardContent className="relative p-6 sm:p-7 flex flex-col h-full gap-5">
-                    {/* Top row: icon + badge (badge sits above cover) */}
                     <div className="flex items-start justify-between gap-3 relative z-20">
                       <div
-                        className={`w-14 h-14 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center transition-colors md:group-hover:bg-primary/20`}
+                        className={`w-14 h-14 rounded-2xl flex items-center justify-center transition-colors ${
+                          available
+                            ? "bg-black/15 border border-black/30"
+                            : "bg-primary/10 border border-primary/20 md:group-hover:bg-primary/20"
+                        }`}
                       >
-                        <Icon className="w-7 h-7 text-primary" strokeWidth={2.25} />
+                        <Icon className={`w-7 h-7 ${available ? "text-black" : "text-primary"}`} strokeWidth={2.25} />
                       </div>
                       <StatusPill status={course.status} />
                     </div>
 
-                    {/* Title + hook (behind cover) */}
                     <div className="space-y-2 relative z-0">
-                      <h3 className="text-xl sm:text-2xl font-bold italic text-primary leading-tight">
+                      <h3 className={`text-xl sm:text-2xl font-bold italic leading-tight ${available ? "text-black" : "text-primary"}`}>
                         {course.title}
                       </h3>
-                      <p className="text-[15px] text-muted-foreground leading-relaxed">
+                      <p className={`text-[15px] leading-relaxed ${available ? "text-black/85" : "text-muted-foreground"}`}>
                         {course.hook}
                       </p>
                     </div>
 
-                    {/* Bullets (behind cover) */}
                     <ul className="space-y-2.5 relative z-0">
                       {course.bullets.map((b) => (
-                        <li key={b} className="flex items-start gap-2.5 text-[15px] text-foreground/95 leading-snug">
-                          <Check className="w-4 h-4 text-primary mt-1 shrink-0" strokeWidth={3} />
+                        <li key={b} className={`flex items-start gap-2.5 text-[15px] leading-snug ${available ? "text-black" : "text-foreground/95"}`}>
+                          <Check className={`w-4 h-4 mt-1 shrink-0 ${available ? "text-black" : "text-primary"}`} strokeWidth={3} />
                           <span>{b}</span>
                         </li>
                       ))}
                     </ul>
 
-                    {/* Cover removed — text must stay readable on mobile (frost blurred it) */}
-
-                    {/* CTA (above cover) */}
                     <div className="mt-auto pt-2 relative z-20">
-                      <Button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          scrollToWaitlist(course.topic);
-                        }}
-                        variant="outline"
-                        className="w-full min-h-12 rounded-xl border-2 border-primary/60 text-primary font-bold tracking-tight bg-[#141414]/80 md:hover:bg-primary md:hover:text-primary-foreground md:hover:border-primary md:hover:scale-[1.02] transition-all"
-                      >
-                        {course.cta}
-                      </Button>
+                      {available ? (
+                        <Button
+                          asChild
+                          className="w-full min-h-12 rounded-xl bg-black text-primary font-bold tracking-tight hover:bg-black/90 hover:scale-[1.02] transition-all"
+                        >
+                          <a href={EXERCISE_COURSE_URL} target="_blank" rel="noopener noreferrer">
+                            {course.cta}
+                          </a>
+                        </Button>
+                      ) : (
+                        <Button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            scrollToWaitlist(course.topic);
+                          }}
+                          variant="outline"
+                          className="w-full min-h-12 rounded-xl border-2 border-primary/60 text-primary font-bold tracking-tight bg-[#141414]/80 md:hover:bg-primary md:hover:text-primary-foreground md:hover:border-primary md:hover:scale-[1.02] transition-all"
+                        >
+                          {course.cta}
+                        </Button>
+                      )}
                     </div>
                   </CardContent>
                 </Card>

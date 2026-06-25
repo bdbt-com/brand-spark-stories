@@ -15,7 +15,8 @@ import { useFormValidation } from "@/hooks/useFormValidation";
 import { supabase } from "@/integrations/supabase/client";
 import { getGuideUrl } from "@/data/guideMapping";
 
-const COURSE_OPTIONS = ["Exercise", "Money", "Nutrition", "Sleep"];
+// Exercise has launched as a live course — only future courses appear here.
+const COURSE_OPTIONS = ["Money", "Nutrition", "Sleep"];
 
 interface CoursesIntentModalProps {
   open: boolean;
@@ -25,6 +26,7 @@ interface CoursesIntentModalProps {
 
 const CoursesIntentModal = ({ open, onOpenChange, onSubmitted }: CoursesIntentModalProps) => {
   const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [courses, setCourses] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -42,7 +44,7 @@ const CoursesIntentModal = ({ open, onOpenChange, onSubmitted }: CoursesIntentMo
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!validateAllFields("Friend", email)) return;
+    if (!validateAllFields(firstName, lastName, email)) return;
 
     setIsLoading(true);
     clearErrors();
@@ -50,7 +52,8 @@ const CoursesIntentModal = ({ open, onOpenChange, onSubmitted }: CoursesIntentMo
     try {
       const sendPromise = supabase.functions.invoke("send-guide", {
         body: {
-          firstName: firstName || "Friend",
+          firstName: firstName.trim(),
+          lastName: lastName.trim(),
           email,
           guideTitle: "Courses Waiting List",
           guideDownloadUrl: guideUrl,

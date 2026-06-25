@@ -420,41 +420,53 @@ const Home = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6 items-stretch">
             {[
-              { topic: "Exercise", title: "Daily Wins For Exercise", hook: "Build a workout into your day, without needing a gym, personal trainer or any extra time.", bullets: ["Consistency over intensity", "Simple exercise habits", "More energy & confidence", "No overwhelm"], cta: "Start Exercise Wins", Icon: Dumbbell },
-              { topic: "Money", title: "Daily Wins For Money", hook: "Stop money leaks and reduce financial stress without budgets or complicated spreadsheets.", bullets: ["Spending awareness", "Habit-based saving", "Systems over budgeting", "Small wins that compound"], cta: "Start Money Wins", Icon: PiggyBank },
-              { topic: "Nutrition", title: "Daily Wins For Nutrition", hook: "Eat better without extreme dieting.", bullets: ["Craving control", "Better food defaults (keep your guilty pleasures!)", "Energy & mood improvement", "Sustainable habits"], cta: "Start Nutritional Wins", Icon: Apple },
-              { topic: "Sleep", title: "Daily Wins For Sleep", hook: "Fix the habit that quietly affects everything else.", bullets: ["Better recovery & confidence", "Lower stress/anxiety", "More discipline & motivation", "Energy ripple effects"], cta: "Start Sleep Wins", Icon: Moon },
-            ].map(({ topic, title, hook, bullets, cta, Icon }) => (
-              <Card key={topic} className="group relative bg-[#141414] border border-primary/20 rounded-2xl shadow-soft transition-all duration-300 md:hover:-translate-y-1 md:hover:border-primary/50 md:hover:shadow-[0_0_40px_-10px_hsl(var(--primary)/0.5)] h-full overflow-hidden">
+              { topic: "Exercise", title: "Daily Wins For Exercise", hook: "Build a workout into your day, without needing a gym, personal trainer or any extra time.", bullets: ["Consistency over intensity", "Simple exercise habits", "More energy & confidence", "No overwhelm"], cta: "Start Exercise Wins", Icon: Dumbbell, available: true },
+              { topic: "Money", title: "Daily Wins For Money", hook: "Stop money leaks and reduce financial stress without budgets or complicated spreadsheets.", bullets: ["Spending awareness", "Habit-based saving", "Systems over budgeting", "Small wins that compound"], cta: "Start Money Wins", Icon: PiggyBank, available: false },
+              { topic: "Nutrition", title: "Daily Wins For Nutrition", hook: "Eat better without extreme dieting.", bullets: ["Craving control", "Better food defaults (keep your guilty pleasures!)", "Energy & mood improvement", "Sustainable habits"], cta: "Start Nutritional Wins", Icon: Apple, available: false },
+              { topic: "Sleep", title: "Daily Wins For Sleep", hook: "Fix the habit that quietly affects everything else.", bullets: ["Better recovery & confidence", "Lower stress/anxiety", "More discipline & motivation", "Energy ripple effects"], cta: "Start Sleep Wins", Icon: Moon, available: false },
+            ].map(({ topic, title, hook, bullets, cta, Icon, available }) => (
+              <Card key={topic} className={`group relative rounded-2xl shadow-soft transition-all duration-300 md:hover:-translate-y-1 h-full overflow-hidden ${available ? "bg-primary border-2 border-primary md:hover:shadow-[0_0_50px_-8px_hsl(var(--primary)/0.8)]" : "bg-[#141414] border border-primary/20 md:hover:border-primary/50 md:hover:shadow-[0_0_40px_-10px_hsl(var(--primary)/0.5)]"}`}>
                 <CardContent className="relative p-6 sm:p-7 flex flex-col h-full gap-5">
                   <div className="flex items-start justify-between gap-3">
-                    <div className="w-14 h-14 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center md:group-hover:bg-primary/20 transition-colors">
-                      <Icon className="w-7 h-7 text-primary" strokeWidth={2.25} />
+                    <div className={`w-14 h-14 rounded-2xl flex items-center justify-center transition-colors ${available ? "bg-black/15 border border-black/30" : "bg-primary/10 border border-primary/20 md:group-hover:bg-primary/20"}`}>
+                      <Icon className={`w-7 h-7 ${available ? "text-black" : "text-primary"}`} strokeWidth={2.25} />
                     </div>
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/15 border border-primary/40 text-primary text-[11px] font-bold tracking-wider uppercase">
-                      <LockIcon className="w-3 h-3" />
-                      Coming Soon
-                    </span>
+                    {available ? (
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/15 border border-black/40 text-black text-[11px] font-bold tracking-wider uppercase">
+                        Available Now
+                      </span>
+                    ) : (
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/15 border border-primary/40 text-primary text-[11px] font-bold tracking-wider uppercase">
+                        <LockIcon className="w-3 h-3" />
+                        Coming Soon
+                      </span>
+                    )}
                   </div>
 
                   <div className="space-y-2">
-                    <h3 className="text-xl sm:text-2xl font-bold italic text-primary leading-tight">{title}</h3>
-                    <p className="text-[15px] text-muted-foreground leading-relaxed">{hook}</p>
+                    <h3 className={`text-xl sm:text-2xl font-bold italic leading-tight ${available ? "text-black" : "text-primary"}`}>{title}</h3>
+                    <p className={`text-[15px] leading-relaxed ${available ? "text-black/85" : "text-muted-foreground"}`}>{hook}</p>
                   </div>
 
                   <ul className="space-y-2.5">
                     {bullets.map((b) => (
-                      <li key={b} className="flex items-start gap-2.5 text-[15px] text-foreground/95 leading-snug">
-                        <Check className="w-4 h-4 text-primary mt-1 shrink-0" strokeWidth={3} />
+                      <li key={b} className={`flex items-start gap-2.5 text-[15px] leading-snug ${available ? "text-black" : "text-foreground/95"}`}>
+                        <Check className={`w-4 h-4 mt-1 shrink-0 ${available ? "text-black" : "text-primary"}`} strokeWidth={3} />
                         <span>{b}</span>
                       </li>
                     ))}
                   </ul>
 
                   <div className="mt-auto pt-2">
-                    <Button asChild variant="outline" className="w-full min-h-12 rounded-xl border-2 border-primary/60 text-primary font-bold tracking-tight bg-[#141414]/80 md:hover:bg-primary md:hover:text-primary-foreground md:hover:border-primary md:hover:scale-[1.02] transition-all">
-                      <Link to={`/courses?topic=${encodeURIComponent(topic)}`}>{cta}</Link>
-                    </Button>
+                    {available ? (
+                      <Button asChild className="w-full min-h-12 rounded-xl bg-black text-primary font-bold tracking-tight hover:bg-black/90 hover:scale-[1.02] transition-all">
+                        <a href="https://bigdaddysbigtips.xperiencify.io" target="_blank" rel="noopener noreferrer">{cta}</a>
+                      </Button>
+                    ) : (
+                      <Button asChild variant="outline" className="w-full min-h-12 rounded-xl border-2 border-primary/60 text-primary font-bold tracking-tight bg-[#141414]/80 md:hover:bg-primary md:hover:text-primary-foreground md:hover:border-primary md:hover:scale-[1.02] transition-all">
+                        <Link to={`/courses?topic=${encodeURIComponent(topic)}`}>{cta}</Link>
+                      </Button>
+                    )}
                   </div>
                 </CardContent>
               </Card>
