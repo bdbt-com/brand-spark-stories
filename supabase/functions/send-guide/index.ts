@@ -11,6 +11,7 @@ const corsHeaders = {
 
 interface SendGuideRequest {
   firstName: string;
+  lastName?: string;
   email: string;
   guideTitle: string;
   guideDownloadUrl: string;
@@ -56,7 +57,7 @@ const handler = async (req: Request): Promise<Response> => {
   }
 
   try {
-    const { firstName, email, guideTitle, guideDownloadUrl }: SendGuideRequest = await req.json();
+    const { firstName, lastName, email, guideTitle, guideDownloadUrl }: SendGuideRequest = await req.json();
 
     // Server-side validation
     const firstNameError = validateFirstName(firstName);
@@ -126,15 +127,18 @@ const handler = async (req: Request): Promise<Response> => {
     }
 
     // Store submission in database
+    const insertRow: Record<string, unknown> = {
+      first_name: firstName.trim(),
+      email: sanitizedEmail,
+      guide_title: guideTitle.trim(),
+      guide_download_url: guideDownloadUrl,
+      email_sent: false,
+    };
+    if (lastName && lastName.trim()) insertRow.last_name = lastName.trim();
+
     const { data: dbData, error: dbError } = await supabase
       .from("email_subscriptions")
-      .insert({
-        first_name: firstName.trim(),
-        email: sanitizedEmail,
-        guide_title: guideTitle.trim(),
-        guide_download_url: guideDownloadUrl,
-        email_sent: false,
-      })
+      .insert(insertRow)
       .select()
       .single();
 

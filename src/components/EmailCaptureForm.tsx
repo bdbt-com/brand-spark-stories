@@ -23,7 +23,8 @@ interface EmailCaptureFormProps {
   onCourseChange?: (v: string) => void;
 }
 
-const COURSE_OPTIONS = ["Exercise", "Money", "Nutrition", "Sleep", "All of them"];
+// Exercise is now live as a real course, so it's removed from the future-courses waitlist.
+const COURSE_OPTIONS = ["Money", "Nutrition", "Sleep", "All of them"];
 
 const EmailCaptureForm = ({
   title,
@@ -41,6 +42,7 @@ const EmailCaptureForm = ({
   onCourseChange,
 }: EmailCaptureFormProps) => {
   const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -49,29 +51,24 @@ const EmailCaptureForm = ({
 
   const heading = headingLabel === undefined ? "Get Your Free Copy" : headingLabel;
 
-  const handleInputChange = (field: "firstName" | "email", value: string) => {
-    if (field === "firstName") {
-      setFirstName(value);
-      if (fieldErrors.firstName) validateField("firstName", value);
-    } else {
-      setEmail(value);
-      if (fieldErrors.email) validateField("email", value);
-    }
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!validateAllFields("Friend", email)) return;
+    if (!validateAllFields(firstName, lastName, email)) return;
 
     setIsLoading(true);
     clearErrors();
 
     try {
       const sendPromise = supabase.functions.invoke("send-guide", {
-        body: { firstName: firstName || "Friend", email, guideTitle: title, guideDownloadUrl },
+        body: {
+          firstName: firstName.trim(),
+          lastName: lastName.trim(),
+          email,
+          guideTitle: title,
+          guideDownloadUrl,
+        },
       });
 
-      // Best-effort waitlist insert when a course is selected
       if (showCourseSelector && courseValue) {
         supabase
           .from("course_waitlist")
@@ -86,6 +83,7 @@ const EmailCaptureForm = ({
         setIsSubmitted(true);
         setTimeout(() => {
           setFirstName("");
+          setLastName("");
           setEmail("");
           setIsSubmitted(false);
           onClose();
@@ -152,20 +150,57 @@ const EmailCaptureForm = ({
       <form onSubmit={handleSubmit} className="space-y-3">
         <div className="space-y-1">
           <Label htmlFor="firstName" className={compact ? "text-xs" : "text-sm"}>
-            First Name <span className="text-muted-foreground font-normal">(optional)</span>
+            First Name *
           </Label>
           <Input
             id="firstName"
             type="text"
             value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
+            onChange={(e) => {
+              setFirstName(e.target.value);
+              if (fieldErrors.firstName) validateField("firstName", e.target.value);
+            }}
+            onBlur={() => validateField("firstName", firstName)}
             placeholder="Enter your first name"
             disabled={isLoading}
             autoComplete="given-name"
-            className={`transition-all duration-200 ${compact ? "text-sm h-8" : ""} focus:border-primary focus:ring-primary/20`}
+            className={`transition-all duration-200 ${compact ? "text-sm h-8" : ""} ${
+              fieldErrors.firstName
+                ? "border-red-500 focus:border-red-500 focus:ring-red-200"
+                : "focus:border-primary focus:ring-primary/20"
+            }`}
           />
+          {fieldErrors.firstName && (
+            <p className="text-xs text-red-500 animate-fade-in">{fieldErrors.firstName}</p>
+          )}
         </div>
 
+        <div className="space-y-1">
+          <Label htmlFor="lastName" className={compact ? "text-xs" : "text-sm"}>
+            Last Name *
+          </Label>
+          <Input
+            id="lastName"
+            type="text"
+            value={lastName}
+            onChange={(e) => {
+              setLastName(e.target.value);
+              if (fieldErrors.lastName) validateField("lastName", e.target.value);
+            }}
+            onBlur={() => validateField("lastName", lastName)}
+            placeholder="Enter your last name"
+            disabled={isLoading}
+            autoComplete="family-name"
+            className={`transition-all duration-200 ${compact ? "text-sm h-8" : ""} ${
+              fieldErrors.lastName
+                ? "border-red-500 focus:border-red-500 focus:ring-red-200"
+                : "focus:border-primary focus:ring-primary/20"
+            }`}
+          />
+          {fieldErrors.lastName && (
+            <p className="text-xs text-red-500 animate-fade-in">{fieldErrors.lastName}</p>
+          )}
+        </div>
 
         <div className="space-y-1">
           <Label htmlFor="email" className={compact ? "text-xs" : "text-sm"}>
@@ -175,7 +210,11 @@ const EmailCaptureForm = ({
             id="email"
             type="email"
             value={email}
-            onChange={(e) => handleInputChange("email", e.target.value)}
+            onChange={(e) => {
+              setEmail(e.target.value);
+              if (fieldErrors.email) validateField("email", e.target.value);
+            }}
+            onBlur={() => validateField("email", email)}
             placeholder="your@email.com"
             disabled={isLoading}
             className={`transition-all duration-200 ${compact ? "text-sm h-8" : ""} ${
@@ -183,7 +222,6 @@ const EmailCaptureForm = ({
                 ? "border-red-500 focus:border-red-500 focus:ring-red-200"
                 : "focus:border-primary focus:ring-primary/20"
             }`}
-            onBlur={() => validateField("email", email)}
           />
           {fieldErrors.email && (
             <p className="text-xs text-red-500 animate-fade-in flex items-center">
@@ -196,7 +234,7 @@ const EmailCaptureForm = ({
         {showCourseSelector && (
           <div className="space-y-2 pt-1">
             <Label className="text-sm text-foreground">
-              Which course are you most interested in?{" "}
+              Which future course are you most interested in?{" "}
               <span className="text-muted-foreground font-normal">(optional)</span>
             </Label>
             <div className="flex flex-wrap gap-2">

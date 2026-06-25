@@ -343,41 +343,46 @@ const AdminList = () => {
 
   const { emailMarkers, courseMarkers } = useMemo(() => {
     if (graphRange !== 'today' || hourlyStats.length === 0) return { emailMarkers: [], courseMarkers: [] };
-    const visitorsByHour = new Map<string, number>();
+    // Index hourlyStats by epoch ms of their hour timestamp so we can match
+    // signup buckets back to the EXACT raw `hour` string the XAxis uses.
+    // (Mixing ISO formats — e.g. "+00:00" vs ".000Z" — creates a brand new
+    // category and recharts tacks the dot on at the end of the axis.)
+    const hoursByTime = new Map<number, { raw: string; visitors: number }>();
     hourlyStats.forEach((h) => {
-      const key = new Date(h.hour).toISOString();
-      visitorsByHour.set(key, h.visitors);
+      hoursByTime.set(new Date(h.hour).getTime(), { raw: h.hour, visitors: h.visitors });
     });
-    const bucket = (iso: string) => {
+    const sortedTimes = Array.from(hoursByTime.keys()).sort((a, b) => a - b);
+    const bucketTime = (iso: string) => {
       const d = new Date(iso);
       d.setUTCMinutes(0, 0, 0);
-      return d.toISOString();
+      return d.getTime();
     };
-    const sortedHours = Array.from(visitorsByHour.keys()).sort();
-    const findY = (key: string) => {
-      if (visitorsByHour.has(key)) return visitorsByHour.get(key)!;
-      // nearest earlier hour we have; else 0
-      let last = 0;
-      for (const h of sortedHours) {
-        if (h <= key) last = visitorsByHour.get(h)!; else break;
+    const lookup = (t: number) => {
+      if (hoursByTime.has(t)) return hoursByTime.get(t)!;
+      // clamp to nearest earlier known hour; fall back to first known hour
+      let last = hoursByTime.get(sortedTimes[0])!;
+      for (const tt of sortedTimes) {
+        if (tt <= t) last = hoursByTime.get(tt)!; else break;
       }
       return last;
     };
-    const emailMap = new Map<string, SignupMarker>();
+    const emailMap = new Map<number, SignupMarker>();
     todaySignups.email_signups.forEach((s) => {
-      const key = bucket(s.created_at);
-      const existing = emailMap.get(key) || { hour: key, y: findY(key), emailCount: 0, courseCount: 0, emails: [], courses: [] };
+      const t = bucketTime(s.created_at);
+      const hit = lookup(t);
+      const existing = emailMap.get(t) || { hour: hit.raw, y: hit.visitors, emailCount: 0, courseCount: 0, emails: [], courses: [] };
       existing.emailCount += 1;
       existing.emails.push(s.first_name ? `${s.first_name} <${s.email}>` : s.email);
-      emailMap.set(key, existing);
+      emailMap.set(t, existing);
     });
-    const courseMap = new Map<string, SignupMarker>();
+    const courseMap = new Map<number, SignupMarker>();
     todaySignups.course_signups.forEach((s) => {
-      const key = bucket(s.created_at);
-      const existing = courseMap.get(key) || { hour: key, y: findY(key), emailCount: 0, courseCount: 0, emails: [], courses: [] };
+      const t = bucketTime(s.created_at);
+      const hit = lookup(t);
+      const existing = courseMap.get(t) || { hour: hit.raw, y: hit.visitors, emailCount: 0, courseCount: 0, emails: [], courses: [] };
       existing.courseCount += 1;
       existing.courses.push(s.course_title ? `${s.course_title} (${s.email})` : s.email);
-      courseMap.set(key, existing);
+      courseMap.set(t, existing);
     });
     return { emailMarkers: Array.from(emailMap.values()), courseMarkers: Array.from(courseMap.values()) };
   }, [graphRange, hourlyStats, todaySignups]);
