@@ -125,10 +125,10 @@ const CoursesIntentModal = ({ open, onOpenChange, onSubmitted }: CoursesIntentMo
             <form onSubmit={handleSubmit} className="space-y-3 mt-1">
               <div className="space-y-2">
                 <Label className="text-xs text-foreground">
-                  Which course are you most interested in?{" "}
+                  Which future course are you most interested in?{" "}
                   <span className="text-muted-foreground font-normal">(optional)</span>
                 </Label>
-                <div className="grid grid-cols-2 gap-2.5">
+                <div className="grid grid-cols-3 gap-2.5">
                   {COURSE_OPTIONS.map((opt) => {
                     const selected = courses.includes(opt);
                     return (
@@ -162,6 +162,48 @@ const CoursesIntentModal = ({ open, onOpenChange, onSubmitted }: CoursesIntentMo
                 )}
               </div>
 
+              <div className="grid grid-cols-2 gap-2">
+                <div className="space-y-1">
+                  <Label htmlFor="intent-first" className="text-xs">First Name *</Label>
+                  <Input
+                    id="intent-first"
+                    type="text"
+                    value={firstName}
+                    onChange={(e) => {
+                      setFirstName(e.target.value);
+                      if (fieldErrors.firstName) validateField("firstName", e.target.value);
+                    }}
+                    onBlur={() => validateField("firstName", firstName)}
+                    placeholder="First name"
+                    disabled={isLoading}
+                    autoComplete="given-name"
+                    className={`h-11 text-base ${fieldErrors.firstName ? "border-red-500" : "focus:border-primary"}`}
+                  />
+                  {fieldErrors.firstName && (
+                    <p className="text-xs text-red-500">{fieldErrors.firstName}</p>
+                  )}
+                </div>
+                <div className="space-y-1">
+                  <Label htmlFor="intent-last" className="text-xs">Last Name *</Label>
+                  <Input
+                    id="intent-last"
+                    type="text"
+                    value={lastName}
+                    onChange={(e) => {
+                      setLastName(e.target.value);
+                      if (fieldErrors.lastName) validateField("lastName", e.target.value);
+                    }}
+                    onBlur={() => validateField("lastName", lastName)}
+                    placeholder="Last name"
+                    disabled={isLoading}
+                    autoComplete="family-name"
+                    className={`h-11 text-base ${fieldErrors.lastName ? "border-red-500" : "focus:border-primary"}`}
+                  />
+                  {fieldErrors.lastName && (
+                    <p className="text-xs text-red-500">{fieldErrors.lastName}</p>
+                  )}
+                </div>
+              </div>
 
               <div className="space-y-1">
                 <Label htmlFor="intent-email" className="text-xs">Email Address *</Label>
