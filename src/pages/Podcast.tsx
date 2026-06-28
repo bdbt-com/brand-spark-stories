@@ -259,16 +259,22 @@ const Podcast = () => {
               Watch on YouTube
             </Button>
 
-            {/* Browse Courses CTA */}
-            <Link
-              to="/courses?intent=1"
-              aria-label="Browse Courses"
-              onClick={() => trackClick("button-courses")}
-              className="group inline-flex items-center justify-center gap-2 w-full h-12 sm:h-14 px-6 text-base sm:text-lg font-semibold tracking-tight text-primary bg-black rounded-xl border border-primary/20 transition-all duration-200 ease-smooth hover:bg-black/90 hover:scale-[1.02] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-black touch-manipulation"
+            {/* Live course CTA — direct to Xperiencify */}
+            <a
+              href="https://bigdaddysbigtips.xperiencify.io"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Start Daily Wins For Exercise"
+              onClick={() => trackClick("podcast-exercise-course")}
+              className="group flex w-full items-center justify-between gap-4 rounded-xl bg-primary px-5 py-4 text-black shadow-sm transition-all duration-200 ease-smooth hover:bg-primary/90 hover:scale-[1.01] active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-black touch-manipulation"
             >
-              <span className="relative">Browse Courses</span>
-              <ArrowRight className="relative w-5 h-5 transition-transform duration-300 ease-out group-hover:translate-x-1" />
-            </Link>
+              <div className="flex flex-col text-left min-w-0">
+                <span className="text-[11px] sm:text-xs font-bold uppercase tracking-[0.18em] text-black/70">Now Live · Our First Course</span>
+                <span className="text-base sm:text-lg font-bold leading-tight truncate">Daily Wins For Exercise</span>
+                <span className="text-xs sm:text-sm text-black/75 leading-snug">Build a workout into your day — no gym, no extra time.</span>
+              </div>
+              <ArrowRight className="shrink-0 w-5 h-5 transition-transform duration-300 ease-out group-hover:translate-x-1" />
+            </a>
 
             {/* Spotify */}
             <div className="flex items-center justify-center mt-3 sm:mt-4">
