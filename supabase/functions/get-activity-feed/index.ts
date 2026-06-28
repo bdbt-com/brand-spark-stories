@@ -167,6 +167,7 @@ serve(async (req) => {
       "button-youtube": { label: "YouTube channel", detail: "Click from /bio (button)" },
       "button-spotify": { label: "Spotify show", detail: "Click from /bio (button)" },
       "button-courses": { label: "Browse Courses", detail: "Click from /podcast (button)" },
+      "podcast-exercise-course": { label: "Daily Wins For Exercise", detail: "Click from /podcast → Xperiencify" },
       "podcast-spotify": { label: "Spotify show", detail: "Click from /podcast (Spotify)" },
       "podcast-blueprint": { label: "Free Foundation Blueprint", detail: "Click from /podcast (Blueprint)" },
     };
