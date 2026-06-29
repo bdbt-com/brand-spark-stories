@@ -1,20 +1,14 @@
-## Flat black rectangle "Browse Courses" button on Podcast page
+## Plan: Update podcast course card label
 
-**Goal:** Replace the current gradient-gold shimmer "Browse Courses" button on `/podcast` with a cleaner, flatter black rectangle that matches the Exercise card CTA style (black background, gold text, less rounded).
+**Task:** Change the sub-label on the podcast page course CTA card from "Now Live · Our First Course" to "Open Now · Join The First Class".
 
-### What to change
-**File:** `src/pages/Podcast.tsx` — lines 263-275 (the "Browse Courses" CTA)
+**File to edit:** `src/pages/Podcast.tsx` — line containing the course card label text.
 
-**Current:** gradient-gold pill with shimmer, black text, heavy rounded-2xl, tall height.
-**New:**
-- `bg-black` background
-- `text-primary` (gold) text
-- `rounded-xl` (less rounded, more rectangular)
-- Remove gradient, shimmer, and holographic overlay spans
-- Keep the same width (`w-full`), height (`h-12 sm:h-14`), font weight, and link behavior (`to="/courses?intent=1"`)
-- Keep hover/active transitions (`hover:scale-[1.02]`, `active:scale-[0.98]`, `hover:bg-black/90`)
-- Keep the `ArrowRight` icon and `group-hover:translate-x-1` hover effect
+**Change:**
+- From: `Now Live · Our First Course`
+- To: `Open Now · Join The First Class`
 
-### Verify
-- Reload `/podcast` and confirm the "Browse Courses" button is now a flat black rectangle with gold text.
-- Click it — still routes to `/courses?intent=1` and tracks correctly.
+No other UI, tracking, or logic changes.
+
+**Verification:**
+- Load `/podcast` and confirm the gold course card shows the new label.
