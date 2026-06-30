@@ -1,14 +1,13 @@
-## Plan: Update podcast course card label
+## Plan: Move Spotify into the social icon row
 
-**Task:** Change the sub-label on the podcast page course CTA card from "Now Live · Our First Course" to "Open Now · Join The First Class".
+**File:** `src/pages/Podcast.tsx`
 
-**File to edit:** `src/pages/Podcast.tsx` — line containing the course card label text.
+1. Remove the standalone Spotify card block (the `<div className="flex items-center justify-center mt-3 sm:mt-4">` containing the Spotify `<a>`).
+2. In the social icons row (currently Instagram + TikTok above the thumbnail), add a third `<a>` for Spotify after TikTok:
+   - Same greyed style as IG/TT: `text-foreground/40 hover:text-foreground/80 transition-colors`
+   - Same size: `w-6 h-6 sm:w-7 sm:h-7`
+   - Uses `currentColor` Spotify SVG (so it's grey, not green)
+   - href = existing `SPOTIFY_URL`, target=_blank, rel=noopener, aria-label="Spotify"
+   - onClick still calls `trackClick("podcast-spotify")` and `setRedirected(true)`
 
-**Change:**
-- From: `Now Live · Our First Course`
-- To: `Open Now · Join The First Class`
-
-No other UI, tracking, or logic changes.
-
-**Verification:**
-- Load `/podcast` and confirm the gold course card shows the new label.
+No other changes.
