@@ -963,12 +963,15 @@ const AdminList = () => {
                     const mins = Math.floor(p.avg_duration / 60);
                     const secs = Math.round(p.avg_duration % 60);
                     const timeStr = `${mins > 0 ? `${mins}m ` : ''}${secs}s`;
-                    const extra =
+                    const extras: { count: number; label: string }[] =
                       path === '/courses'
-                        ? { count: videoCounts['button-courses']?.total || 0, label: 'course btn clicks' }
+                        ? [{ count: videoCounts['button-courses']?.total || 0, label: 'course btn clicks' }]
                         : path === '/podcast'
-                        ? { count: videoCounts['podcast-spotify']?.total || 0, label: 'spotify clicks' }
-                        : null;
+                        ? [
+                            { count: videoCounts['podcast-spotify']?.total || 0, label: 'spotify clicks' },
+                            { count: videoCounts['podcast-exercise-course']?.total || 0, label: 'exercise course clicks' },
+                          ]
+                        : [];
                     const signupKey = rangeKey === 'since_launch' ? 'total' : (rangeKey as 'today' | '7d' | '14d' | '30d');
                     const courseSignupCount = path === '/courses' ? (courseSignups[signupKey] || 0) : null;
                     return (
@@ -985,12 +988,13 @@ const AdminList = () => {
                           <p className="text-[10px] text-muted-foreground mt-2 tabular-nums inline-flex items-center justify-center gap-1">
                             <Clock className="w-2.5 h-2.5" />{timeStr} avg · {p.views.toLocaleString()} views
                           </p>
-                          {extra && (
-                            <p className="text-[10px] text-primary/80 mt-1 tabular-nums inline-flex items-center justify-center gap-1">
+                          {extras.map((ex) => (
+                            <p key={ex.label} className="text-[10px] text-primary/80 mt-1 tabular-nums inline-flex items-center justify-center gap-1">
                               <MousePointerClick className="w-2.5 h-2.5" />
-                              <AnimatedCounter value={extra.count} /> {extra.label}
+                              <AnimatedCounter value={ex.count} /> {ex.label}
                             </p>
-                          )}
+                          ))}
+
                           {courseSignupCount !== null && (
                             <p className="text-[10px] text-primary mt-1 tabular-nums inline-flex items-center justify-center gap-1 font-semibold">
                               <UserPlus className="w-2.5 h-2.5" />
