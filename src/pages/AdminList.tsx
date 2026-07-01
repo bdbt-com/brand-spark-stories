@@ -620,7 +620,10 @@ const AdminList = () => {
         timeout: 6000,
       });
       if (error) throw error;
-      if (data?.server_time) lastFeedSince.current = data.server_time;
+      if (data?.server_time) {
+        lastFeedSince.current = data.server_time;
+        serverOffsetRef.current = new Date(data.server_time).getTime() - Date.now();
+      }
       const incoming: FeedItem[] = data?.feed || [];
       if (incoming.length === 0) return;
       const fresh: FeedItem[] = [];
