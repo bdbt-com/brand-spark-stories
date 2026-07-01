@@ -174,6 +174,27 @@ export type Database = {
         }
         Relationships: []
       }
+      interaction_rate_records: {
+        Row: {
+          best_per_min: number
+          day: string
+          id: string
+          recorded_at: string
+        }
+        Insert: {
+          best_per_min?: number
+          day: string
+          id?: string
+          recorded_at?: string
+        }
+        Update: {
+          best_per_min?: number
+          day?: string
+          id?: string
+          recorded_at?: string
+        }
+        Relationships: []
+      }
       latest_video_cache: {
         Row: {
           duration: string | null

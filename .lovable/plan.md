@@ -1,20 +1,23 @@
-## Plan: Add "Interactions/min" live counter next to the Last 24 Hours header
+Add a hover tooltip to the "X.X /min" live counter on `/admin-list` showing three stats:
 
-**File:** `src/pages/AdminList.tsx` (Last 24 Hours activity feed card header)
+1. **Current** — the live value already displayed (feed items in trailing 60s, server-time adjusted).
+2. **Today's best** — highest per-minute rate observed since 00:00 local today.
+3. **All-time best** — highest per-minute rate ever recorded.
 
-Add a small live-updating stat to the right of the existing "Last 24 Hours (100/100)" header, aligned into the empty space before the green pulse dot.
+## Implementation
 
-**Label:** `X.X /min` (e.g. `2.4 /min`) with a subtle "interactions" caption underneath, styled to match the existing card typography (gold value, muted caption).
+**Frontend (`src/pages/AdminList.tsx`)**
+- Wrap the "/min" stat (both mobile and desktop instances) in a shadcn `HoverCard` (already available in `src/components/ui/hover-card.tsx`) so hover/tap reveals a small dark card with the 3 rows.
+- Every second when `interactionsPerMin` recomputes, compare against `todayBest` state; if higher, update and persist.
+- On mount, load `todayBest` and `allTimeBest` from a new lightweight table via a `SELECT`, and load today's from same table filtered by date.
+- When a new best is set, `upsert` it to the DB so it survives refresh and is shared across admin sessions.
 
-**Calculation:**
-- Source: the same `feedItems` array that powers the Last 24 Hours list (every notification row — clicks, redirects, signups, downloads).
-- Formula: `count of items whose timestamp falls within the last 60 seconds` — recomputed every second via a `setInterval` tick.
-- Rounded to 1 decimal place using `.toFixed(1)`.
-- Because each feed item = 1 notification, this literally measures "notifications popping into the feed per minute" as requested.
+**Backend (new migration)**
+- Create `public.interaction_rate_records` with columns: `id`, `day` (date, unique), `best_per_min` (numeric), `recorded_at`. 
+- Grant `SELECT, INSERT, UPDATE` to `authenticated` + `ALL` to `service_role`; enable RLS with a policy allowing admin role (reuse existing `has_role` pattern already used on admin tables).
+- "All-time best" = `MAX(best_per_min)` across all rows.
 
-**Edge cases:**
-- On first mount (feed still loading) → show `0.0 /min`.
-- If fewer than 60s of data are available (page just opened), still use the raw count over the last 60s window (so it ramps up naturally rather than being inflated).
-- Counter re-renders once per second; underlying feed continues polling on its existing schedule — no new network calls, no new edge functions, no DB changes.
-
-**Layout:** Insert a right-aligned flex child inside the existing header row so it sits between the "(100/100)" text and the green pulse dot without disturbing mobile stacking.
+## Notes
+- No changes to how the current /min number is calculated — only reads it and stores highs.
+- Tooltip styled to match the existing black/gold admin card aesthetic.
+- Values shown to 0.1 decimal like the current counter.
