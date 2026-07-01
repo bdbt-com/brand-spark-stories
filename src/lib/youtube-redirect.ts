@@ -10,13 +10,16 @@ export function trackClick(trackId: string) {
   try {
     const body = JSON.stringify({ videoId: trackId });
     const url = `${SUPABASE_URL}/functions/v1/track-video-click`;
-    if (typeof navigator !== "undefined" && "sendBeacon" in navigator) {
-      navigator.sendBeacon(url, new Blob([body], { type: "application/json" }));
-      return;
-    }
+    // Note: sendBeacon can't set the `apikey` header Supabase's gateway requires,
+    // so we always use fetch with keepalive. Works for new-tab opens (current page
+    // stays alive) and normal navigations.
     fetch(url, {
       method: "POST",
-      headers: { "Content-Type": "application/json", apikey: SUPABASE_ANON_KEY },
+      headers: {
+        "Content-Type": "application/json",
+        apikey: SUPABASE_ANON_KEY,
+        Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+      },
       body,
       keepalive: true,
     }).catch(() => {});
