@@ -399,6 +399,7 @@ const AdminList = () => {
   }, [feed]);
 
   const lastFeedSince = useRef<string | null>(null);
+  const serverOffsetRef = useRef<number>(0); // serverTime - clientTime, applied to timeAgo so browser-clock skew doesn't mislabel events
   const feedItemKeys = useRef<Set<string>>(new Set());
   const requestLocks = useRef<Record<string, boolean>>({});
   const requestControllers = useRef<Record<string, AbortController | null>>({});
