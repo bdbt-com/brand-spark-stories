@@ -1538,9 +1538,14 @@ const AdminList = () => {
                   <Activity className="w-4 h-4 text-primary" />
                   Last 24 Hours
                   <span className="text-[10px] font-normal text-muted-foreground ml-1">({filteredFeed.length}/{feed.length})</span>
-                  <span className="ml-auto relative flex h-2 w-2">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                  <span className="ml-auto flex items-center gap-2">
+                    <span className="text-xs font-semibold text-primary tabular-nums" title="Interactions in the last 60 seconds">
+                      {interactionsPerMin}<span className="text-muted-foreground font-normal"> /min</span>
+                    </span>
+                    <span className="relative flex h-2 w-2">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                    </span>
                   </span>
                 </h3>
                 <FeedFilterBar filter={feedFilter} setFilter={setFeedFilter} counts={feedCounts} />
