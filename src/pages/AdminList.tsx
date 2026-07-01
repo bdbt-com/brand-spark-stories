@@ -603,7 +603,10 @@ const AdminList = () => {
         };
         schedule(step);
       }
-      if (data?.server_time) lastFeedSince.current = data.server_time;
+      if (data?.server_time) {
+        lastFeedSince.current = data.server_time;
+        serverOffsetRef.current = new Date(data.server_time).getTime() - Date.now();
+      }
     }, 10000);
   }, [runRequest]);
 
