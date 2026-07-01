@@ -408,6 +408,20 @@ const AdminList = () => {
   // Keys currently mid-entry-animation. Drives the animate-* classes precisely
   // and is cleared after the animation duration so re-renders don't re-trigger.
   const [animatingKeys, setAnimatingKeys] = useState<Set<string>>(new Set());
+  const [nowMs, setNowMs] = useState(() => Date.now());
+  useEffect(() => {
+    const id = setInterval(() => setNowMs(Date.now()), 1000);
+    return () => clearInterval(id);
+  }, []);
+  const interactionsPerMin = useMemo(() => {
+    const cutoff = nowMs - 60_000;
+    let n = 0;
+    for (const item of feed) {
+      const t = new Date(item.timestamp).getTime();
+      if (t >= cutoff && t <= nowMs) n++;
+    }
+    return n.toFixed(1);
+  }, [feed, nowMs]);
   // Global single-item release queue: ensures one entry animates fully before the next begins.
   const feedQueue = useRef<FeedItem[]>([]);
   const feedPumpTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
