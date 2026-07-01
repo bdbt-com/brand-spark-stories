@@ -425,6 +425,44 @@ const AdminList = () => {
     }
     return n.toFixed(1);
   }, [feed, nowMs]);
+  const [todayBest, setTodayBest] = useState<number>(0);
+  const [allTimeBest, setAllTimeBest] = useState<number>(0);
+  const todayISO = useMemo(() => new Date(nowMs + serverOffsetRef.current).toISOString().slice(0, 10), [nowMs]);
+  const bestPersistRef = useRef<number>(0);
+  // Initial load of stored bests
+  useEffect(() => {
+    (async () => {
+      const { data } = await supabase.from('interaction_rate_records').select('day,best_per_min');
+      if (!data) return;
+      const today = new Date().toISOString().slice(0, 10);
+      let allT = 0, td = 0;
+      for (const r of data) {
+        const v = Number(r.best_per_min) || 0;
+        if (v > allT) allT = v;
+        if (r.day === today && v > td) td = v;
+      }
+      setAllTimeBest(allT);
+      setTodayBest(td);
+      bestPersistRef.current = td;
+    })();
+  }, []);
+  // Track new highs and persist (throttled)
+  useEffect(() => {
+    const current = parseFloat(interactionsPerMin);
+    if (!isFinite(current)) return;
+    if (current > todayBest) setTodayBest(current);
+    if (current > allTimeBest) setAllTimeBest(current);
+    if (current > bestPersistRef.current) {
+      bestPersistRef.current = current;
+      supabase.from('interaction_rate_records').upsert(
+        { day: todayISO, best_per_min: current, recorded_at: new Date().toISOString() },
+        { onConflict: 'day' }
+      ).then(() => {});
+    }
+  }, [interactionsPerMin, todayISO]);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const _dummyBestsUsed = { todayBest, allTimeBest };
+
   // Component-scoped timeAgo that (a) applies serverOffset so browser clock skew
   // doesn't mislabel fresh events, (b) treats future-dated events (negative diff)
   // as "just now" instead of "0m ago", and (c) recomputes each second via nowMs.
