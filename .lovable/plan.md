@@ -1,13 +1,20 @@
-## Plan: Show "Exercise course clicks" counter on admin Podcast card
+## Plan: Add "Interactions/min" live counter next to the Last 24 Hours header
 
-The button already tracks via `trackClick("podcast-exercise-course")`, so no new tracking wiring is needed — clicks land in `video_clicks` under that ID and are already returned by `get-video-clicks` into `videoCounts`.
+**File:** `src/pages/AdminList.tsx` (Last 24 Hours activity feed card header)
 
-**File:** `src/pages/AdminList.tsx` (Podcast card in the per-page grid, around lines 969–970)
+Add a small live-updating stat to the right of the existing "Last 24 Hours (100/100)" header, aligned into the empty space before the green pulse dot.
 
-Change the Podcast card's `extra` block so it shows **two** lines instead of one:
-1. Existing: `podcast-spotify` → "spotify clicks"
-2. New: `podcast-exercise-course` → "exercise course clicks" (styled the same as the spotify line, gold `MousePointerClick` icon, `AnimatedCounter`)
+**Label:** `X.X /min` (e.g. `2.4 /min`) with a subtle "interactions" caption underneath, styled to match the existing card typography (gold value, muted caption).
 
-Implementation detail: replace the single `extra` object for `/podcast` with an array of `{ count, label }` entries and map them into stacked `<p>` rows (same classes as the current one). Same treatment optional for `/courses` if we want symmetry, but per your request only the Podcast card gets the new counter.
+**Calculation:**
+- Source: the same `feedItems` array that powers the Last 24 Hours list (every notification row — clicks, redirects, signups, downloads).
+- Formula: `count of items whose timestamp falls within the last 60 seconds` — recomputed every second via a `setInterval` tick.
+- Rounded to 1 decimal place using `.toFixed(1)`.
+- Because each feed item = 1 notification, this literally measures "notifications popping into the feed per minute" as requested.
 
-No DB changes, no edge function changes.
+**Edge cases:**
+- On first mount (feed still loading) → show `0.0 /min`.
+- If fewer than 60s of data are available (page just opened), still use the raw count over the last 60s window (so it ramps up naturally rather than being inflated).
+- Counter re-renders once per second; underlying feed continues polling on its existing schedule — no new network calls, no new edge functions, no DB changes.
+
+**Layout:** Insert a right-aligned flex child inside the existing header row so it sits between the "(100/100)" text and the green pulse dot without disturbing mobile stacking.

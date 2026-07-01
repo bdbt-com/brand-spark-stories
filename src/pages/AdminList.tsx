@@ -408,6 +408,20 @@ const AdminList = () => {
   // Keys currently mid-entry-animation. Drives the animate-* classes precisely
   // and is cleared after the animation duration so re-renders don't re-trigger.
   const [animatingKeys, setAnimatingKeys] = useState<Set<string>>(new Set());
+  const [nowMs, setNowMs] = useState(() => Date.now());
+  useEffect(() => {
+    const id = setInterval(() => setNowMs(Date.now()), 1000);
+    return () => clearInterval(id);
+  }, []);
+  const interactionsPerMin = useMemo(() => {
+    const cutoff = nowMs - 60_000;
+    let n = 0;
+    for (const item of feed) {
+      const t = new Date(item.timestamp).getTime();
+      if (t >= cutoff && t <= nowMs) n++;
+    }
+    return n.toFixed(1);
+  }, [feed, nowMs]);
   // Global single-item release queue: ensures one entry animates fully before the next begins.
   const feedQueue = useRef<FeedItem[]>([]);
   const feedPumpTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -863,9 +877,14 @@ const AdminList = () => {
               <Activity className="w-3.5 h-3.5 text-primary" />
               <span className="text-xs font-bold text-foreground">Last 24 Hours</span>
               <span className="text-[10px] text-muted-foreground">({filteredFeed.length}/{feed.length})</span>
-              <span className="relative flex h-2 w-2 ml-auto">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+              <span className="ml-auto flex items-center gap-2">
+                <span className="text-[10px] font-semibold text-primary tabular-nums" title="Interactions in the last 60 seconds">
+                  {interactionsPerMin}<span className="text-muted-foreground font-normal"> /min</span>
+                </span>
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                </span>
               </span>
             </div>
             <FeedFilterBar filter={feedFilter} setFilter={setFeedFilter} counts={feedCounts} />
@@ -1519,9 +1538,14 @@ const AdminList = () => {
                   <Activity className="w-4 h-4 text-primary" />
                   Last 24 Hours
                   <span className="text-[10px] font-normal text-muted-foreground ml-1">({filteredFeed.length}/{feed.length})</span>
-                  <span className="ml-auto relative flex h-2 w-2">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                  <span className="ml-auto flex items-center gap-2">
+                    <span className="text-xs font-semibold text-primary tabular-nums" title="Interactions in the last 60 seconds">
+                      {interactionsPerMin}<span className="text-muted-foreground font-normal"> /min</span>
+                    </span>
+                    <span className="relative flex h-2 w-2">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                    </span>
                   </span>
                 </h3>
                 <FeedFilterBar filter={feedFilter} setFilter={setFeedFilter} counts={feedCounts} />
