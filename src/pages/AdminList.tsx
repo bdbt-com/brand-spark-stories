@@ -399,6 +399,7 @@ const AdminList = () => {
   }, [feed]);
 
   const lastFeedSince = useRef<string | null>(null);
+  const serverOffsetRef = useRef<number>(0); // serverTime - clientTime, applied to timeAgo so browser-clock skew doesn't mislabel events
   const feedItemKeys = useRef<Set<string>>(new Set());
   const requestLocks = useRef<Record<string, boolean>>({});
   const requestControllers = useRef<Record<string, AbortController | null>>({});
@@ -414,14 +415,25 @@ const AdminList = () => {
     return () => clearInterval(id);
   }, []);
   const interactionsPerMin = useMemo(() => {
-    const cutoff = nowMs - 60_000;
+    const effectiveNow = nowMs + serverOffsetRef.current;
+    const cutoff = effectiveNow - 60_000;
     let n = 0;
     for (const item of feed) {
       const t = new Date(item.timestamp).getTime();
-      if (t >= cutoff && t <= nowMs) n++;
+      if (t >= cutoff && t <= effectiveNow) n++;
     }
     return n.toFixed(1);
   }, [feed, nowMs]);
+  // Component-scoped timeAgo that (a) applies serverOffset so browser clock skew
+  // doesn't mislabel fresh events, (b) treats future-dated events (negative diff)
+  // as "just now" instead of "0m ago", and (c) recomputes each second via nowMs.
+  const timeAgoLive = useCallback((ts: string) => {
+    const diff = nowMs + serverOffsetRef.current - new Date(ts).getTime();
+    if (diff < 60000) return "just now";
+    if (diff < 3600000) return `${Math.floor(diff / 60000)}m ago`;
+    if (diff < 86400000) return `${Math.floor(diff / 3600000)}h ago`;
+    return `${Math.floor(diff / 86400000)}d ago`;
+  }, [nowMs]);
   // Global single-item release queue: ensures one entry animates fully before the next begins.
   const feedQueue = useRef<FeedItem[]>([]);
   const feedPumpTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -602,7 +614,10 @@ const AdminList = () => {
         };
         schedule(step);
       }
-      if (data?.server_time) lastFeedSince.current = data.server_time;
+      if (data?.server_time) {
+        lastFeedSince.current = data.server_time;
+        serverOffsetRef.current = new Date(data.server_time).getTime() - Date.now();
+      }
     }, 10000);
   }, [runRequest]);
 
@@ -616,7 +631,10 @@ const AdminList = () => {
         timeout: 6000,
       });
       if (error) throw error;
-      if (data?.server_time) lastFeedSince.current = data.server_time;
+      if (data?.server_time) {
+        lastFeedSince.current = data.server_time;
+        serverOffsetRef.current = new Date(data.server_time).getTime() - Date.now();
+      }
       const incoming: FeedItem[] = data?.feed || [];
       if (incoming.length === 0) return;
       const fresh: FeedItem[] = [];
@@ -911,7 +929,7 @@ const AdminList = () => {
                       <span className="text-[11px] font-medium text-foreground truncate">{item.detail}</span>
                       <span className="text-[10px] text-muted-foreground truncate">{sub}</span>
                       <span className="text-[10px] text-muted-foreground whitespace-nowrap ml-auto flex-shrink-0">
-                        {timeAgo(item.timestamp)}
+                        {timeAgoLive(item.timestamp)}
                       </span>
                     </div>
                   );
@@ -1574,7 +1592,7 @@ const AdminList = () => {
                             <p className="text-[10px] text-muted-foreground truncate">{sub}</p>
                           </div>
                           <span className="text-[10px] text-muted-foreground whitespace-nowrap flex-shrink-0">
-                            {timeAgo(item.timestamp)}
+                            {timeAgoLive(item.timestamp)}
                           </span>
                         </div>
                       );
