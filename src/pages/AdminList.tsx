@@ -415,14 +415,25 @@ const AdminList = () => {
     return () => clearInterval(id);
   }, []);
   const interactionsPerMin = useMemo(() => {
-    const cutoff = nowMs - 60_000;
+    const effectiveNow = nowMs + serverOffsetRef.current;
+    const cutoff = effectiveNow - 60_000;
     let n = 0;
     for (const item of feed) {
       const t = new Date(item.timestamp).getTime();
-      if (t >= cutoff && t <= nowMs) n++;
+      if (t >= cutoff && t <= effectiveNow) n++;
     }
     return n.toFixed(1);
   }, [feed, nowMs]);
+  // Component-scoped timeAgo that (a) applies serverOffset so browser clock skew
+  // doesn't mislabel fresh events, (b) treats future-dated events (negative diff)
+  // as "just now" instead of "0m ago", and (c) recomputes each second via nowMs.
+  const timeAgoLive = useCallback((ts: string) => {
+    const diff = nowMs + serverOffsetRef.current - new Date(ts).getTime();
+    if (diff < 60000) return "just now";
+    if (diff < 3600000) return `${Math.floor(diff / 60000)}m ago`;
+    if (diff < 86400000) return `${Math.floor(diff / 3600000)}h ago`;
+    return `${Math.floor(diff / 86400000)}d ago`;
+  }, [nowMs]);
   // Global single-item release queue: ensures one entry animates fully before the next begins.
   const feedQueue = useRef<FeedItem[]>([]);
   const feedPumpTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
