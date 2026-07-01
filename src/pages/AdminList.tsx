@@ -934,10 +934,21 @@ const AdminList = () => {
               <Activity className="w-3.5 h-3.5 text-primary" />
               <span className="text-xs font-bold text-foreground">Last 24 Hours</span>
               <span className="text-[10px] text-muted-foreground">({filteredFeed.length}/{feed.length})</span>
-              <span className="ml-auto flex items-center gap-2">
-                <span className="text-[10px] font-semibold text-primary tabular-nums" title="Interactions in the last 60 seconds">
-                  {interactionsPerMin}<span className="text-muted-foreground font-normal"> /min</span>
-                </span>
+                <span className="ml-auto flex items-center gap-2">
+                  <HoverCard openDelay={100} closeDelay={80}>
+                    <HoverCardTrigger asChild>
+                      <span className="text-[10px] font-semibold text-primary tabular-nums cursor-help">
+                        {interactionsPerMin}<span className="text-muted-foreground font-normal"> /min</span>
+                      </span>
+                    </HoverCardTrigger>
+                    <HoverCardContent side="bottom" align="end" className="w-56 p-3 bg-black border-primary/40 text-xs">
+                      <div className="font-bold text-primary mb-2">Interactions / min</div>
+                      <div className="flex justify-between py-1"><span className="text-muted-foreground">Current</span><span className="text-foreground tabular-nums font-semibold">{interactionsPerMin}</span></div>
+                      <div className="flex justify-between py-1"><span className="text-muted-foreground">Today's best</span><span className="text-foreground tabular-nums font-semibold">{todayBest.toFixed(1)}</span></div>
+                      <div className="flex justify-between py-1"><span className="text-muted-foreground">All-time best</span><span className="text-primary tabular-nums font-semibold">{allTimeBest.toFixed(1)}</span></div>
+                    </HoverCardContent>
+                  </HoverCard>
+
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
