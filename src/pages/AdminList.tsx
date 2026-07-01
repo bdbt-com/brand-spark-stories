@@ -2,6 +2,7 @@ import { useEffect, useState, useCallback, useMemo, useRef } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Loader2, Play, TrendingDown, TrendingUp, BarChart3, Clock, MousePointerClick, ArrowRightLeft, UserPlus, Download, Activity, Minus } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, ComposedChart, Scatter } from "recharts";
 import { useYouTubeVideos } from "@/hooks/useYouTubeVideos";
 import { PINNED_TOP_VIDEOS } from "@/data/pinnedTopVideos";
@@ -424,6 +425,44 @@ const AdminList = () => {
     }
     return n.toFixed(1);
   }, [feed, nowMs]);
+  const [todayBest, setTodayBest] = useState<number>(0);
+  const [allTimeBest, setAllTimeBest] = useState<number>(0);
+  const todayISO = useMemo(() => new Date(nowMs + serverOffsetRef.current).toISOString().slice(0, 10), [nowMs]);
+  const bestPersistRef = useRef<number>(0);
+  // Initial load of stored bests
+  useEffect(() => {
+    (async () => {
+      const { data } = await supabase.from('interaction_rate_records').select('day,best_per_min');
+      if (!data) return;
+      const today = new Date().toISOString().slice(0, 10);
+      let allT = 0, td = 0;
+      for (const r of data) {
+        const v = Number(r.best_per_min) || 0;
+        if (v > allT) allT = v;
+        if (r.day === today && v > td) td = v;
+      }
+      setAllTimeBest(allT);
+      setTodayBest(td);
+      bestPersistRef.current = td;
+    })();
+  }, []);
+  // Track new highs and persist (throttled)
+  useEffect(() => {
+    const current = parseFloat(interactionsPerMin);
+    if (!isFinite(current)) return;
+    if (current > todayBest) setTodayBest(current);
+    if (current > allTimeBest) setAllTimeBest(current);
+    if (current > bestPersistRef.current) {
+      bestPersistRef.current = current;
+      supabase.from('interaction_rate_records').upsert(
+        { day: todayISO, best_per_min: current, recorded_at: new Date().toISOString() },
+        { onConflict: 'day' }
+      ).then(() => {});
+    }
+  }, [interactionsPerMin, todayISO]);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const _dummyBestsUsed = { todayBest, allTimeBest };
+
   // Component-scoped timeAgo that (a) applies serverOffset so browser clock skew
   // doesn't mislabel fresh events, (b) treats future-dated events (negative diff)
   // as "just now" instead of "0m ago", and (c) recomputes each second via nowMs.
@@ -895,10 +934,21 @@ const AdminList = () => {
               <Activity className="w-3.5 h-3.5 text-primary" />
               <span className="text-xs font-bold text-foreground">Last 24 Hours</span>
               <span className="text-[10px] text-muted-foreground">({filteredFeed.length}/{feed.length})</span>
-              <span className="ml-auto flex items-center gap-2">
-                <span className="text-[10px] font-semibold text-primary tabular-nums" title="Interactions in the last 60 seconds">
-                  {interactionsPerMin}<span className="text-muted-foreground font-normal"> /min</span>
-                </span>
+                <span className="ml-auto flex items-center gap-2">
+                  <HoverCard openDelay={100} closeDelay={80}>
+                    <HoverCardTrigger asChild>
+                      <span className="text-[10px] font-semibold text-primary tabular-nums cursor-help">
+                        {interactionsPerMin}<span className="text-muted-foreground font-normal"> /min</span>
+                      </span>
+                    </HoverCardTrigger>
+                    <HoverCardContent side="bottom" align="end" className="w-56 p-3 bg-black border-primary/40 text-xs">
+                      <div className="font-bold text-primary mb-2">Interactions / min</div>
+                      <div className="flex justify-between py-1"><span className="text-muted-foreground">Current</span><span className="text-foreground tabular-nums font-semibold">{interactionsPerMin}</span></div>
+                      <div className="flex justify-between py-1"><span className="text-muted-foreground">Today's best</span><span className="text-foreground tabular-nums font-semibold">{todayBest.toFixed(1)}</span></div>
+                      <div className="flex justify-between py-1"><span className="text-muted-foreground">All-time best</span><span className="text-primary tabular-nums font-semibold">{allTimeBest.toFixed(1)}</span></div>
+                    </HoverCardContent>
+                  </HoverCard>
+
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
@@ -1557,9 +1607,19 @@ const AdminList = () => {
                   Last 24 Hours
                   <span className="text-[10px] font-normal text-muted-foreground ml-1">({filteredFeed.length}/{feed.length})</span>
                   <span className="ml-auto flex items-center gap-2">
-                    <span className="text-xs font-semibold text-primary tabular-nums" title="Interactions in the last 60 seconds">
-                      {interactionsPerMin}<span className="text-muted-foreground font-normal"> /min</span>
-                    </span>
+                    <HoverCard openDelay={100} closeDelay={80}>
+                      <HoverCardTrigger asChild>
+                        <span className="text-xs font-semibold text-primary tabular-nums cursor-help">
+                          {interactionsPerMin}<span className="text-muted-foreground font-normal"> /min</span>
+                        </span>
+                      </HoverCardTrigger>
+                      <HoverCardContent side="bottom" align="end" className="w-60 p-3 bg-black border-primary/40 text-xs">
+                        <div className="font-bold text-primary mb-2">Interactions / min</div>
+                        <div className="flex justify-between py-1"><span className="text-muted-foreground">Current</span><span className="text-foreground tabular-nums font-semibold">{interactionsPerMin}</span></div>
+                        <div className="flex justify-between py-1"><span className="text-muted-foreground">Today's best</span><span className="text-foreground tabular-nums font-semibold">{todayBest.toFixed(1)}</span></div>
+                        <div className="flex justify-between py-1"><span className="text-muted-foreground">All-time best</span><span className="text-primary tabular-nums font-semibold">{allTimeBest.toFixed(1)}</span></div>
+                      </HoverCardContent>
+                    </HoverCard>
                     <span className="relative flex h-2 w-2">
                       <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                       <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
