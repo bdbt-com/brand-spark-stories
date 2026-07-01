@@ -929,7 +929,7 @@ const AdminList = () => {
                       <span className="text-[11px] font-medium text-foreground truncate">{item.detail}</span>
                       <span className="text-[10px] text-muted-foreground truncate">{sub}</span>
                       <span className="text-[10px] text-muted-foreground whitespace-nowrap ml-auto flex-shrink-0">
-                        {timeAgo(item.timestamp)}
+                        {timeAgoLive(item.timestamp)}
                       </span>
                     </div>
                   );
@@ -1592,7 +1592,7 @@ const AdminList = () => {
                             <p className="text-[10px] text-muted-foreground truncate">{sub}</p>
                           </div>
                           <span className="text-[10px] text-muted-foreground whitespace-nowrap flex-shrink-0">
-                            {timeAgo(item.timestamp)}
+                            {timeAgoLive(item.timestamp)}
                           </span>
                         </div>
                       );
