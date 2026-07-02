@@ -27,3 +27,7 @@ verify_jwt = false
 [functions.get-live-tick]
 verify_jwt = false
 
+[functions.save-interaction-rate]
+verify_jwt = false
+
+
