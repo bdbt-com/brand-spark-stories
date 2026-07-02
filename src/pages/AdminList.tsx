@@ -495,7 +495,7 @@ const AdminList = () => {
       const current = parseFloat(interactionsPerMin);
       if (!isFinite(current) || current <= 0) return;
       try {
-        const url = `${SUPABASE_URL_CONST}/functions/v1/save-interaction-rate`;
+        const url = `https://xvqhkjgowlwfdosxmvba.supabase.co/functions/v1/save-interaction-rate`;
         const body = JSON.stringify({ day: todayISO, best_per_min: current });
         const blob = new Blob([body], { type: 'application/json' });
         navigator.sendBeacon?.(url, blob);
