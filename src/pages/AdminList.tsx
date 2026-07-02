@@ -1050,13 +1050,20 @@ const AdminList = () => {
                     const mins = Math.floor(p.avg_duration / 60);
                     const secs = Math.round(p.avg_duration % 60);
                     const timeStr = `${mins > 0 ? `${mins}m ` : ''}${secs}s`;
+                    const vcField = (key: string): number => {
+                      const row = videoCounts[key];
+                      if (!row) return 0;
+                      if (rangeKey === 'since_launch') return row.total || 0;
+                      if (rangeKey === 'today') return row.today || 0;
+                      return row[rangeKey as '7d' | '14d' | '30d'] || 0;
+                    };
                     const extras: { count: number; label: string }[] =
                       path === '/courses'
-                        ? [{ count: videoCounts['button-courses']?.total || 0, label: 'course btn clicks' }]
+                        ? [{ count: vcField('button-courses'), label: 'course btn clicks' }]
                         : path === '/podcast'
                         ? [
-                            { count: videoCounts['podcast-spotify']?.total || 0, label: 'spotify clicks' },
-                            { count: videoCounts['podcast-exercise-course']?.total || 0, label: 'exercise course clicks' },
+                            { count: vcField('podcast-spotify'), label: 'spotify clicks' },
+                            { count: vcField('podcast-exercise-course'), label: 'exercise course clicks' },
                           ]
                         : [];
                     const signupKey = rangeKey === 'since_launch' ? 'total' : (rangeKey as 'today' | '7d' | '14d' | '30d');
