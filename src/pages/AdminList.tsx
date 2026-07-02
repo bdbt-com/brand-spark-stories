@@ -429,36 +429,86 @@ const AdminList = () => {
   const [allTimeBest, setAllTimeBest] = useState<number>(0);
   const todayISO = useMemo(() => new Date(nowMs + serverOffsetRef.current).toISOString().slice(0, 10), [nowMs]);
   const bestPersistRef = useRef<number>(0);
-  // Initial load of stored bests
-  useEffect(() => {
-    (async () => {
-      const { data } = await supabase.from('interaction_rate_records').select('day,best_per_min');
-      if (!data) return;
-      const today = new Date().toISOString().slice(0, 10);
-      let allT = 0, td = 0;
-      for (const r of data) {
-        const v = Number(r.best_per_min) || 0;
-        if (v > allT) allT = v;
-        if (r.day === today && v > td) td = v;
-      }
-      setAllTimeBest(allT);
-      setTodayBest(td);
-      bestPersistRef.current = td;
-    })();
+  const allTimePersistRef = useRef<number>(0);
+  const loadedRef = useRef<boolean>(false);
+
+  const refreshBests = useCallback(async () => {
+    const { data } = await supabase.from('interaction_rate_records').select('day,best_per_min');
+    if (!data) return;
+    const today = new Date(Date.now() + serverOffsetRef.current).toISOString().slice(0, 10);
+    let allT = 0, td = 0;
+    for (const r of data) {
+      const v = Number(r.best_per_min) || 0;
+      if (v > allT) allT = v;
+      if (r.day === today && v > td) td = v;
+    }
+    setAllTimeBest((prev) => Math.max(prev, allT));
+    setTodayBest((prev) => Math.max(prev, td));
+    bestPersistRef.current = Math.max(bestPersistRef.current, td);
+    allTimePersistRef.current = Math.max(allTimePersistRef.current, allT);
+    loadedRef.current = true;
   }, []);
-  // Track new highs and persist (throttled)
+
+  // Initial load + periodic refresh so peaks from other admin sessions surface
   useEffect(() => {
+    refreshBests();
+    const id = setInterval(refreshBests, 30000);
+    return () => clearInterval(id);
+  }, [refreshBests]);
+
+  // Track new highs and persist (with retry + await so failures are visible)
+  useEffect(() => {
+    if (!loadedRef.current) return;
     const current = parseFloat(interactionsPerMin);
-    if (!isFinite(current)) return;
+    if (!isFinite(current) || current <= 0) return;
     if (current > todayBest) setTodayBest(current);
     if (current > allTimeBest) setAllTimeBest(current);
     if (current > bestPersistRef.current) {
+      const prev = bestPersistRef.current;
       bestPersistRef.current = current;
-      supabase.from('interaction_rate_records').upsert(
-        { day: todayISO, best_per_min: current, recorded_at: new Date().toISOString() },
-        { onConflict: 'day' }
-      ).then(() => {});
+      allTimePersistRef.current = Math.max(allTimePersistRef.current, current);
+      (async () => {
+        const payload = { day: todayISO, best_per_min: current, recorded_at: new Date().toISOString() };
+        const first = await supabase
+          .from('interaction_rate_records')
+          .upsert(payload, { onConflict: 'day' })
+          .select();
+        if (first.error) {
+          console.warn('rate-record upsert failed, retrying:', first.error);
+          const second = await supabase
+            .from('interaction_rate_records')
+            .upsert(payload, { onConflict: 'day' })
+            .select();
+          if (second.error) {
+            console.error('rate-record upsert retry failed:', second.error);
+            bestPersistRef.current = prev; // allow another try next tick
+          }
+        }
+      })();
     }
+  }, [interactionsPerMin, todayISO, todayBest, allTimeBest]);
+
+  // Beacon fallback: if the admin closes the tab right after a spike, make sure
+  // the latest high is persisted server-side via a max-guarded edge function.
+  useEffect(() => {
+    const flush = () => {
+      const current = parseFloat(interactionsPerMin);
+      if (!isFinite(current) || current <= 0) return;
+      try {
+        const url = `${SUPABASE_URL_CONST}/functions/v1/save-interaction-rate`;
+        const body = JSON.stringify({ day: todayISO, best_per_min: current });
+        const blob = new Blob([body], { type: 'application/json' });
+        navigator.sendBeacon?.(url, blob);
+      } catch {
+        /* ignore */
+      }
+    };
+    window.addEventListener('pagehide', flush);
+    document.addEventListener('visibilitychange', flush);
+    return () => {
+      window.removeEventListener('pagehide', flush);
+      document.removeEventListener('visibilitychange', flush);
+    };
   }, [interactionsPerMin, todayISO]);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const _dummyBestsUsed = { todayBest, allTimeBest };
