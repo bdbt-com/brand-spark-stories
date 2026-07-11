@@ -599,7 +599,7 @@ const Home = () => {
               </Link>
             </Button>
             <Button asChild size="lg" className="italic font-bold">
-              <Link to="/courses">
+              <Link to="/courses" onClick={() => trackClick("button-courses")}>
                 Browse Courses <ArrowRight className="w-5 h-5 ml-2" />
               </Link>
             </Button>
