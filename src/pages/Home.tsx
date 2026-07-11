@@ -9,7 +9,7 @@ import { useEffect, useState, useRef } from "react";
 import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "@/components/ui/collapsible";
 import ChevronRipple from "@/components/ChevronRipple";
 import { supabase } from "@/integrations/supabase/client";
-import { startTrackedRedirect } from "@/lib/youtube-redirect";
+import { startTrackedRedirect, trackClick } from "@/lib/youtube-redirect";
 import linkBlueprintAsset from "@/assets/link-blueprint.png.asset.json";
 import linkYoutubeAsset from "@/assets/link-youtube.png.asset.json";
 import linkSpotifyAsset from "@/assets/link-spotify.png.asset.json";
@@ -302,6 +302,7 @@ const Home = () => {
           <Link
             to="/courses?intent=1"
             aria-label="Browse Courses"
+            onClick={() => trackClick("button-courses")}
             className="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-2xl w-full sm:w-auto h-14 md:h-16 px-10 md:px-12 text-lg md:text-xl font-semibold tracking-tight text-black bg-gradient-to-r from-primary via-[hsl(35_45%_78%)] to-primary bg-[length:200%_100%] bg-[position:0%_50%] transition-[background-position,transform,box-shadow] duration-500 ease-out hover:bg-[position:100%_50%] hover:-translate-y-0.5 active:translate-y-0 shadow-[0_0_0_1px_hsl(var(--primary)/0.35),0_10px_30px_-12px_hsl(var(--primary)/0.45)] hover:shadow-[0_0_0_1px_hsl(var(--primary)/0.5),0_18px_45px_-12px_hsl(var(--primary)/0.65)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-black"
           >
             <span aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-1/2 rounded-t-2xl bg-gradient-to-b from-white/30 to-transparent" />
@@ -598,7 +599,7 @@ const Home = () => {
               </Link>
             </Button>
             <Button asChild size="lg" className="italic font-bold">
-              <Link to="/courses">
+              <Link to="/courses" onClick={() => trackClick("button-courses")}>
                 Browse Courses <ArrowRight className="w-5 h-5 ml-2" />
               </Link>
             </Button>
