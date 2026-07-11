@@ -1086,8 +1086,9 @@ const AdminList = () => {
             {(() => {
               const rows = pageStats[rangeKey] || [];
               const byPath = new Map(rows.map((r) => [r.page_path === '' ? '/' : r.page_path, r]));
-              const NAV_PAGES: { path: string; label: string }[] = [
+               const NAV_PAGES: { path: string; label: string }[] = [
                  { path: '/', label: 'Home' },
+                 { path: '/bio', label: 'Bio' },
                  { path: '/courses', label: 'Courses' },
                  { path: '/podcast', label: 'Podcast' },
                  { path: '/tips', label: 'Tips' },
