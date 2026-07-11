@@ -9,7 +9,7 @@ import { useEffect, useState, useRef } from "react";
 import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "@/components/ui/collapsible";
 import ChevronRipple from "@/components/ChevronRipple";
 import { supabase } from "@/integrations/supabase/client";
-import { startTrackedRedirect } from "@/lib/youtube-redirect";
+import { startTrackedRedirect, trackClick } from "@/lib/youtube-redirect";
 import linkBlueprintAsset from "@/assets/link-blueprint.png.asset.json";
 import linkYoutubeAsset from "@/assets/link-youtube.png.asset.json";
 import linkSpotifyAsset from "@/assets/link-spotify.png.asset.json";
