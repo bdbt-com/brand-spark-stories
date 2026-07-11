@@ -1,46 +1,34 @@
-## Two fixes for /admin-list
+## What I found so far
 
-### 1. All-time best "/min" resets after a day
+Scanned every counter on `/admin-list` and the tracking that feeds them. Two concrete bugs, plus a verification pass for the rest.
 
-**Cause:** the counter's "all-time best" is loaded from `interaction_rate_records`, but yesterday's peak of ~30 was never actually persisted — only 9 got saved for 2026-07-01. Today's row correctly shows 23. Root causes in `AdminList.tsx`:
+### Bug 1 — Page Stats grid is missing `/bio`
 
-- The upsert is fire-and-forget with no `keepalive`, so if the tab is closed shortly after a spike the write is dropped.
-- We only persist when `current > bestPersistRef.current`; if the very first spike after mount fires *before* the initial DB load resolves, `bestPersistRef` is still 0, and once the async load overwrites state with the (lower) stored value we can end up not persisting a subsequent higher-but-not-highest value.
-- Nothing separately tracks all-time best — it's derived only from what happens to be in the table.
+`NAV_PAGES` in `AdminList.tsx` lists Home `/`, Courses, Podcast, Tips, About — but not `/bio` (the Link‑in‑Bio landing page). So visitors landing on `/bio` (and `/links`) don't get their own card. If a card looks "swapped" between /bio and /podcast, this is the likely cause: bio traffic isn't shown, so the eye pairs the wrong numbers.
 
-**Fix in `src/pages/AdminList.tsx`:**
-- Gate the "persist on new high" effect so it only runs *after* the initial load completes (add a `loadedRef` flag).
-- When a new high is detected, `await` the upsert and if it errors, retry once; use `.select()` so we actually see failures in console.
-- Also persist when `current === bestPersistRef.current` but the stored row is missing/older (defensive `upsert` on first high per session).
-- Send the write with `{ count: 'exact' }` removed and add a `navigator.sendBeacon` fallback on `visibilitychange`/`pagehide` firing a POST to a tiny new edge function `save-interaction-rate` (uses service role) so in-flight highs survive tab close.
-- Track `allTimeBest` as `Math.max(loadedAllTime, sessionPeak)` so the number the admin sees on-screen is always the ceiling of what's been observed, and re-query `MAX(best_per_min)` on each poll tick so a peak from another admin session is picked up.
+**Fix:** add a `/bio` card to `NAV_PAGES` (folds `/bio` + `/links` visitors together since `get_bio_click_sessions` treats them as one).
 
-**New edge function `supabase/functions/save-interaction-rate/index.ts`** — accepts `{ day, best_per_min }`, does a server-side upsert only if the incoming value is greater than the stored one (so beacon writes can't lower an existing high).
+### Bug 2 — Courses card's "course btn clicks" is always 0/stale
 
-### 2. Exercise-course / Spotify / Courses-button click counters don't respond to time-range selector
+The Courses card shows `vcField('button-courses')`, but `button-courses` is never emitted anywhere in the codebase. The Podcast page's "Browse Courses" button doesn't call `trackClick("button-courses")`.
 
-**Cause:** in the page cards grid (`AdminList.tsx` ~lines 1053-1061), the extras always read `.total`:
+**Fix:** add `trackClick("button-courses")` to the Browse Courses button in `src/pages/Podcast.tsx`.
 
-```
-{ count: videoCounts['podcast-exercise-course']?.total || 0, ... }
-{ count: videoCounts['podcast-spotify']?.total || 0, ... }
-{ count: videoCounts['button-courses']?.total || 0, ... }
-```
+### Verification pass (no changes expected, just confirming)
 
-So Today / 7d / 14d / 30d all show the same lifetime number.
-
-**Fix:** map `rangeKey` to the right field on `videoCounts[key]`:
-- `today` → `.today`
-- `7d` → `["7d"]`
-- `14d` → `["14d"]`
-- `30d` → `["30d"]`
-- `since_launch` → `.total`
-
-Apply to all three extras (courses button, spotify, exercise course) in both the mobile and desktop card grids if they exist in both places.
+- `/bio` vs `/podcast` **link clicks** (`bio_clicks` / `podcast_clicks`) come from `get_today_live_tick` / `get_daily_stats` / `get_hourly_stats_today` — all three RPCs consistently define `/bio` = `page_path IN ('/bio','/links')` and `/podcast` = `regexp_replace(page_path,'/+$','') = '/podcast'`. Labels in the panel match the data keys (`dataKey="bio_clicks"` → `/bio`, `dataKey2="podcast_clicks"` → `/podcast`). ✅ not swapped.
+- `/bio` vs `/podcast` **redirects** — `br` sums `auto-redirect*` (bio), `pr` sums `latest-auto:*` (podcast); labels/graph keys match. ✅ not swapped.
+- Podcast card extras (`podcast-spotify`, `podcast-exercise-course`) are actually tracked in `Podcast.tsx`. ✅ correct.
+- `vcField` correctly maps range → `today`/`7d`/`14d`/`30d`/`total`. ✅
+- Live-tick optimistic bumps: `podcast_clicks` on `latest-page:` / `latest-grid:`, `bio_clicks` on `bio-click:`, redirect buckets on `auto-redirect*` / `latest-auto:*`. ✅ match server semantics.
 
 ### Files touched
-- `src/pages/AdminList.tsx` (both fixes)
-- `supabase/functions/save-interaction-rate/index.ts` (new)
-- `supabase/config.toml` (register new function, public)
 
-No schema changes needed — `interaction_rate_records` already has the right shape.
+- `src/pages/AdminList.tsx` — add `/bio` entry to `NAV_PAGES`.
+- `src/pages/Podcast.tsx` — add `trackClick("button-courses")` to the Browse Courses button's onClick.
+
+No DB or edge‑function changes. Low credit cost.
+
+### If something else is actually off
+
+If after these two fixes you still see a specific counter that looks wrong, tell me which card + which number and I'll trace that one directly — from what I can see in the code, everything else is wired to the correct source.
