@@ -35,6 +35,33 @@ export type Database = {
         }
         Relationships: []
       }
+      daily_stats_cache: {
+        Row: {
+          bio_clicks: number
+          bio_redirects: number
+          day: string
+          podcast_clicks: number
+          podcast_redirects: number
+          visitors: number
+        }
+        Insert: {
+          bio_clicks?: number
+          bio_redirects?: number
+          day: string
+          podcast_clicks?: number
+          podcast_redirects?: number
+          visitors?: number
+        }
+        Update: {
+          bio_clicks?: number
+          bio_redirects?: number
+          day?: string
+          podcast_clicks?: number
+          podcast_redirects?: number
+          visitors?: number
+        }
+        Relationships: []
+      }
       email_jobs: {
         Row: {
           created_at: string | null
@@ -508,6 +535,10 @@ export type Database = {
         Returns: boolean
       }
       process_email_queue: { Args: never; Returns: Json }
+      refresh_daily_stats_cache: {
+        Args: { end_day: string; start_day: string }
+        Returns: undefined
+      }
       send_assessment_email: { Args: { p_email_job_id: number }; Returns: Json }
       send_email_from_queue: { Args: { p_email_id: number }; Returns: Json }
       send_pdf_email_with_signed_url: {
