@@ -42,6 +42,8 @@ export type Database = {
           day: string
           podcast_clicks: number
           podcast_redirects: number
+          pv_rows: number
+          sum_duration_seconds: number
           visitors: number
         }
         Insert: {
@@ -50,6 +52,8 @@ export type Database = {
           day: string
           podcast_clicks?: number
           podcast_redirects?: number
+          pv_rows?: number
+          sum_duration_seconds?: number
           visitors?: number
         }
         Update: {
@@ -58,6 +62,8 @@ export type Database = {
           day?: string
           podcast_clicks?: number
           podcast_redirects?: number
+          pv_rows?: number
+          sum_duration_seconds?: number
           visitors?: number
         }
         Relationships: []
@@ -252,6 +258,30 @@ export type Database = {
           updated_at?: string
           video_id?: string
           view_count_text?: string | null
+        }
+        Relationships: []
+      }
+      page_daily_stats_cache: {
+        Row: {
+          day: string
+          page_path: string
+          sum_duration_seconds: number
+          views: number
+          visitors: number
+        }
+        Insert: {
+          day: string
+          page_path: string
+          sum_duration_seconds?: number
+          views?: number
+          visitors?: number
+        }
+        Update: {
+          day?: string
+          page_path?: string
+          sum_duration_seconds?: number
+          views?: number
+          visitors?: number
         }
         Relationships: []
       }
