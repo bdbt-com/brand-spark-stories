@@ -1,34 +1,65 @@
-## What I found so far
+## What's actually wrong
 
-Scanned every counter on `/admin-list` and the tracking that feeds them. Two concrete bugs, plus a verification pass for the rest.
+`/podcast` is being hammered by bots/crawlers — ~47,000 hits/day, of which ~47,000 are "unique" `session_id`s (each bot request is a fresh browser mount, so every hit gets a new session id). Only ~400 sessions in a day have more than one page-view; the rest are one-shot direct hits to `/podcast`.
 
-### Bug 1 — Page Stats grid is missing `/bio`
+Result: `daily_stats_cache.visitors` for the last 14 days is ~40k/day, cumulative ~1.02M → 1.06M. The counter isn't broken — it's counting bots as real visitors. Every other stat that rolls up from `page_views` (page stats, podcast clicks, avg duration) is inflated the same way. Bio, redirects, subscribers, video clicks, course signups look clean.
 
-`NAV_PAGES` in `AdminList.tsx` lists Home `/`, Courses, Podcast, Tips, About — but not `/bio` (the Link‑in‑Bio landing page). So visitors landing on `/bio` (and `/links`) don't get their own card. If a card looks "swapped" between /bio and /podcast, this is the likely cause: bio traffic isn't shown, so the eye pairs the wrong numbers.
+## Plan
 
-**Fix:** add a `/bio` card to `NAV_PAGES` (folds `/bio` + `/links` visitors together since `get_bio_click_sessions` treats them as one).
+### 1. Detect bots at ingest (track-page-view edge function)
 
-### Bug 2 — Courses card's "course btn clicks" is always 0/stale
+Add server-side user-agent classification. If UA matches a bot pattern (Googlebot, bingbot, GPTBot, ClaudeBot, PerplexityBot, facebookexternalhit, Twitterbot, LinkedInBot, headless Chrome, curl/wget/python/go-http, empty UA, etc.) mark the row as bot and skip it from stats.
 
-The Courses card shows `vcField('button-courses')`, but `button-courses` is never emitted anywhere in the codebase. The Podcast page's "Browse Courses" button doesn't call `trackClick("button-courses")`.
+### 2. Store the signal on `page_views`
 
-**Fix:** add `trackClick("button-courses")` to the Browse Courses button in `src/pages/Podcast.tsx`.
+Migration adds two nullable columns:
+- `user_agent text`
+- `is_bot boolean not null default false`
 
-### Verification pass (no changes expected, just confirming)
+Edge function writes both on insert. No backfill of UA for old rows.
 
-- `/bio` vs `/podcast` **link clicks** (`bio_clicks` / `podcast_clicks`) come from `get_today_live_tick` / `get_daily_stats` / `get_hourly_stats_today` — all three RPCs consistently define `/bio` = `page_path IN ('/bio','/links')` and `/podcast` = `regexp_replace(page_path,'/+$','') = '/podcast'`. Labels in the panel match the data keys (`dataKey="bio_clicks"` → `/bio`, `dataKey2="podcast_clicks"` → `/podcast`). ✅ not swapped.
-- `/bio` vs `/podcast` **redirects** — `br` sums `auto-redirect*` (bio), `pr` sums `latest-auto:*` (podcast); labels/graph keys match. ✅ not swapped.
-- Podcast card extras (`podcast-spotify`, `podcast-exercise-course`) are actually tracked in `Podcast.tsx`. ✅ correct.
-- `vcField` correctly maps range → `today`/`7d`/`14d`/`30d`/`total`. ✅
-- Live-tick optimistic bumps: `podcast_clicks` on `latest-page:` / `latest-grid:`, `bio_clicks` on `bio-click:`, redirect buckets on `auto-redirect*` / `latest-auto:*`. ✅ match server semantics.
+### 3. Exclude bots from every aggregate
+
+Update these RPCs so every `page_views` scan adds `AND is_bot = false`:
+- `refresh_daily_stats_cache` (fills both `daily_stats_cache` and `page_daily_stats_cache`)
+- `get_daily_stats` (today live branch)
+- `get_hourly_stats_today`
+- `get_visitor_stats`
+- `get_page_stats`
+- `get_bio_click_sessions`
+- `get_podcast_click_sessions`
+- `get_today_live_tick`
+
+### 4. One-time historical cleanup
+
+Old rows have no UA, so use a heuristic backfill for `is_bot`:
+- `page_path = '/podcast'` AND session had exactly one page-view AND `duration_seconds` is null or 0 → mark bot.
+Anything else stays human. Then re-run `refresh_daily_stats_cache('2026-03-01', yesterday)` to rewrite both cache tables.
+
+### 5. Weekly auto-reconcile (pg_cron)
+
+Schedule a job every Monday 03:00 UTC that:
+1. Calls `refresh_daily_stats_cache(today - 14, yesterday)` — rebuilds the last two weeks from raw data so any drift/late-arriving duration updates are corrected.
+2. Logs row counts before/after into a small `stats_reconcile_log` table so we can see what changed.
+
+`pg_cron` and `pg_net` are already installed on this project; the schedule SQL is inserted (not migrated) because it embeds project-specific URLs.
+
+### 6. Verification pass on the admin dashboard
+
+After the cleanup migration lands I'll spot-check:
+- `get_today_live_tick` matches raw `page_views` (excluding bots) for today
+- `get_daily_stats` last 7 days matches `daily_stats_cache` sums
+- `get_page_stats` totals per page look sane (no page > total visitors)
+- Bio clicks, podcast clicks, redirects, signups unchanged from current values
 
 ### Files touched
 
-- `src/pages/AdminList.tsx` — add `/bio` entry to `NAV_PAGES`.
-- `src/pages/Podcast.tsx` — add `trackClick("button-courses")` to the Browse Courses button's onClick.
+- `supabase/functions/track-page-view/index.ts` — UA capture + bot classification
+- Migration: `page_views.user_agent`, `page_views.is_bot`, index on `is_bot`, RPC rewrites, backfill, cache rebuild, `stats_reconcile_log` table
+- Insert (not migration): pg_cron weekly schedule
 
-No DB or edge‑function changes. Low credit cost.
+No frontend changes — `AdminList.tsx` keeps working; the numbers just become real.
 
-### If something else is actually off
+### Credits
 
-If after these two fixes you still see a specific counter that looks wrong, tell me which card + which number and I'll trace that one directly — from what I can see in the code, everything else is wired to the correct source.
+Low. One edge-function edit, one migration, one cron insert, one verification read. The backfill is a single UPDATE + one `refresh_daily_stats_cache` call over ~140 days.

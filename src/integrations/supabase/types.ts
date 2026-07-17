@@ -291,27 +291,60 @@ export type Database = {
           duration_seconds: number | null
           entered_at: string | null
           id: string
+          is_bot: boolean
           page_path: string
           referrer: string | null
           session_id: string
+          user_agent: string | null
         }
         Insert: {
           country?: string | null
           duration_seconds?: number | null
           entered_at?: string | null
           id?: string
+          is_bot?: boolean
           page_path: string
           referrer?: string | null
           session_id: string
+          user_agent?: string | null
         }
         Update: {
           country?: string | null
           duration_seconds?: number | null
           entered_at?: string | null
           id?: string
+          is_bot?: boolean
           page_path?: string
           referrer?: string | null
           session_id?: string
+          user_agent?: string | null
+        }
+        Relationships: []
+      }
+      stats_reconcile_log: {
+        Row: {
+          days_refreshed: number
+          end_day: string
+          id: string
+          notes: string | null
+          ran_at: string
+          start_day: string
+        }
+        Insert: {
+          days_refreshed: number
+          end_day: string
+          id?: string
+          notes?: string | null
+          ran_at?: string
+          start_day: string
+        }
+        Update: {
+          days_refreshed?: number
+          end_day?: string
+          id?: string
+          notes?: string | null
+          ran_at?: string
+          start_day?: string
         }
         Relationships: []
       }
@@ -590,6 +623,7 @@ export type Database = {
               error: true
             } & "Could not choose the best candidate function between: public.urlencode(string => bytea), public.urlencode(string => varchar). Try renaming the parameters or the function itself in the database so function overloading can be resolved"
           }
+      weekly_stats_reconcile: { Args: never; Returns: undefined }
     }
     Enums: {
       [_ in never]: never
