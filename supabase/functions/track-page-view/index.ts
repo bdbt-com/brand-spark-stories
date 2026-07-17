@@ -40,6 +40,13 @@ async function lookupCountry(ip: string | null): Promise<string | null> {
   return null;
 }
 
+const BOT_UA_REGEX = /bot|crawl|spider|slurp|bingpreview|facebookexternalhit|facebookcatalog|whatsapp|telegrambot|twitterbot|linkedinbot|discordbot|slackbot|embedly|quora link preview|redditbot|pinterest|vkshare|w3c_validator|applebot|semrush|ahrefs|mj12|dotbot|petalbot|yandex|baiduspider|duckduckbot|gptbot|chatgpt|claudebot|perplexity|anthropic|oai-searchbot|bytespider|amazonbot|meta-external|headlesschrome|phantomjs|puppeteer|playwright|selenium|curl\/|wget\/|python-requests|python-httpx|go-http-client|okhttp|node-fetch|axios\/|libwww|http_request|scrapy|lighthouse|pagespeed|prerender/i;
+
+function isBotUA(ua: string | null): boolean {
+  if (!ua || ua.trim().length === 0) return true;
+  return BOT_UA_REGEX.test(ua);
+}
+
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
