@@ -80,7 +80,6 @@ Deno.serve(async (req) => {
 
     if (body.page_path && body.session_id) {
       const ua = req.headers.get("user-agent");
-      const is_bot = isBotUA(ua);
 
       let country = pickCountry(req);
       if (!country) country = await lookupCountry(clientIp(req));
@@ -90,7 +89,7 @@ Deno.serve(async (req) => {
         session_id: body.session_id,
         country,
         user_agent: ua,
-        is_bot,
+        is_bot: false,
       };
       if (body.referrer) insertData.referrer = body.referrer;
 
