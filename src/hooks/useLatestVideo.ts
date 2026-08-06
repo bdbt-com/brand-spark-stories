@@ -96,14 +96,19 @@ export const useLatestVideo = () => {
         setLoading(false);
       }
 
+      let resolved: LatestVideo | null = cached;
+
       if (!fresh) {
         const live = await liveFallback();
         if (cancelled) return;
-        if (live) setVideo(live);
+        if (live) {
+          resolved = live;
+          setVideo(live);
+        }
       }
 
       if (cancelled) return;
-      if (!cached) {
+      if (!resolved) {
         setError(dbErrMsg || "No video available");
       }
       setLoading(false);
