@@ -17,9 +17,24 @@ const RedirectBridge = () => {
     const trackId = params.get("trackId") || videoId;
     const playlist = params.get("list") || undefined;
 
-    if (!videoId) return;
+    if (!videoId) {
+      window.location.replace("/podcast");
+      return;
+    }
+
+    let navigated = false;
+    const go = () => {
+      if (navigated) return;
+      navigated = true;
+      navigateToYouTube(videoId, playlist);
+    };
+
+    // Hard safety net: whatever happens with tracking, we leave this page.
+    const safety = setTimeout(go, 1500);
 
     // Track with a normal fetch — we're still on our own site, so this reliably completes
+    const controller = new AbortController();
+    const abortTimer = setTimeout(() => controller.abort(), 800);
     const track = fetch(`${SUPABASE_URL}/functions/v1/track-video-click`, {
       method: "POST",
       headers: {
@@ -27,12 +42,14 @@ const RedirectBridge = () => {
         apikey: SUPABASE_ANON_KEY,
       },
       body: JSON.stringify({ videoId: trackId }),
+      signal: controller.signal,
     }).catch(() => {});
 
-    // Wait for tracking to finish (or timeout after 1.5s), then navigate
-    const timeout = new Promise((r) => setTimeout(r, 1500));
+    const timeout = new Promise((r) => setTimeout(r, 800));
     Promise.race([track, timeout]).then(() => {
-      navigateToYouTube(videoId, playlist);
+      clearTimeout(abortTimer);
+      clearTimeout(safety);
+      go();
     });
   }, [params]);
 
