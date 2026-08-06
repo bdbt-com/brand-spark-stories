@@ -60,6 +60,14 @@ export const useLatestVideo = () => {
       setLoading(true);
       setError(null);
 
+      // 1. Instant paint from the last video this browser saw (or the built-in fallback),
+      //    so the page is never stuck loading if the backend is unreachable.
+      const local = readLocal();
+      if (local) {
+        setVideo(local);
+        setLoading(false);
+      }
+
       let cached: LatestVideo | null = null;
       let dbErrMsg: string | null = null;
       let fresh = false;
@@ -108,10 +116,14 @@ export const useLatestVideo = () => {
       }
 
       if (cancelled) return;
-      if (!resolved) {
+      if (resolved) {
+        writeLocal(resolved);
+      } else if (!local) {
         setError(dbErrMsg || "No video available");
       }
       setLoading(false);
+
+
 
       // Fire-and-forget: refresh the cache so the next visitor gets up-to-date data.
       try {
