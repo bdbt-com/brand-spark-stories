@@ -10,6 +10,39 @@ export interface LatestVideo {
   duration: string;
 }
 
+const LOCAL_KEY = "latest-video-cache-v1";
+
+/** Last-resort fallback so the podcast page always has something to link to. */
+const HARDCODED_FALLBACK: LatestVideo = {
+  videoId: "T0DuctattZs",
+  title: "Why Daily Wins Are the Opposite of New Year's Resolutions",
+  thumbnail: "https://i.ytimg.com/vi/T0DuctattZs/maxresdefault.jpg",
+  viewCountText: "",
+  publishedText: "",
+  duration: "",
+};
+
+const readLocal = (): LatestVideo => {
+  try {
+    const raw = localStorage.getItem(LOCAL_KEY);
+    if (raw) {
+      const parsed = JSON.parse(raw) as LatestVideo;
+      if (parsed?.videoId) return parsed;
+    }
+  } catch {
+    /* ignore */
+  }
+  return HARDCODED_FALLBACK;
+};
+
+const writeLocal = (v: LatestVideo) => {
+  try {
+    localStorage.setItem(LOCAL_KEY, JSON.stringify(v));
+  } catch {
+    /* ignore */
+  }
+};
+
 const withTimeout = (ms: number) => {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), ms);
