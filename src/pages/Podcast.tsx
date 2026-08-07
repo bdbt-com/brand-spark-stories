@@ -87,6 +87,8 @@ const Podcast = () => {
   };
 
   const goToGridVideo = (videoId: string) => {
+    if (navigatingRef.current) return;
+    navigatingRef.current = true;
     setRedirected(true); // cancel hero countdown
     startTrackedRedirect(videoId, `latest-grid:${videoId}`);
   };
