@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { Play, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -59,6 +59,7 @@ const Podcast = () => {
   const { videos: recentVideos } = useYouTubeVideos();
   const { videos: topVideos } = useTopVideos(3);
   const [redirected, setRedirected] = useState(false);
+  const navigatingRef = useRef(false);
 
   // noindex this page
   useEffect(() => {
@@ -75,13 +76,19 @@ const Podcast = () => {
   }, []);
 
   const goToVideo = (auto = false) => {
-    if (!video || redirected) return;
+    if (!video) return;
+    // Manual clicks must always work, even if the user previously opened
+    // Spotify or an auto-redirect was armed — only block a genuine double-fire.
+    if (navigatingRef.current) return;
+    navigatingRef.current = true;
     setRedirected(true);
     const trackPrefix = auto ? "latest-auto" : "latest-page";
     startTrackedRedirect(video.videoId, `${trackPrefix}:${video.videoId}`, UPLOADS_PLAYLIST_ID);
   };
 
   const goToGridVideo = (videoId: string) => {
+    if (navigatingRef.current) return;
+    navigatingRef.current = true;
     setRedirected(true); // cancel hero countdown
     startTrackedRedirect(videoId, `latest-grid:${videoId}`);
   };
