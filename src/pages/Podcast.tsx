@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { Play, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
