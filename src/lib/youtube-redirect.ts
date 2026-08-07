@@ -47,29 +47,23 @@ export function startTrackedRedirect(videoId: string, trackId?: string, playlist
   window.location.href = `/redirect?${params.toString()}`;
 }
 
+/** Canonical watch URL for a video (optionally continuing into a playlist). */
+export function youtubeWatchUrl(videoId: string, playlist?: string) {
+  return `https://www.youtube.com/watch?v=${videoId}${playlist ? `&list=${playlist}` : ""}`;
+}
+
 /**
- * Open the YouTube app on mobile (with web fallback if not installed),
- * or open youtube.com directly on desktop. Called from the RedirectBridge
- * page after tracking has completed.
+ * Send the user to YouTube. We always use the plain https URL — on iOS and
+ * Android the YouTube app claims these as universal/app links and opens itself,
+ * while browsers without the app just load the web player. Custom schemes like
+ * `vnd.youtube://` are blocked or error out in several in-app browsers
+ * (Instagram, TikTok, Facebook), which was silently dropping traffic.
  */
 export function navigateToYouTube(videoId: string, playlist?: string) {
-  const listSuffix = playlist ? `&list=${playlist}` : "";
-  const webUrl = `https://www.youtube.com/watch?v=${videoId}${listSuffix}`;
-  const ua = navigator.userAgent || "";
-  const isMobile = /Android|iPhone|iPad|iPod/i.test(ua);
-
-  if (!isMobile) {
+  const webUrl = youtubeWatchUrl(videoId, playlist);
+  try {
+    window.location.replace(webUrl);
+  } catch {
     window.location.href = webUrl;
-    return;
   }
-
-  // Try the YouTube app deep link (the app honours &list= too)
-  window.location.href = `vnd.youtube://www.youtube.com/watch?v=${videoId}${listSuffix}`;
-
-  // If the app didn't take over (page still visible after 1.5s), fall back to web
-  setTimeout(() => {
-    if (!document.hidden) {
-      window.location.href = webUrl;
-    }
-  }, 1500);
 }
