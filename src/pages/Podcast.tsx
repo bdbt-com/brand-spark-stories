@@ -59,6 +59,7 @@ const Podcast = () => {
   const { videos: recentVideos } = useYouTubeVideos();
   const { videos: topVideos } = useTopVideos(3);
   const [redirected, setRedirected] = useState(false);
+  const navigatingRef = useRef(false);
 
   // noindex this page
   useEffect(() => {
