@@ -61,19 +61,9 @@ const Podcast = () => {
   const [redirected, setRedirected] = useState(false);
   const navigatingRef = useRef(false);
 
-  // noindex this page
-  useEffect(() => {
-    const meta = document.createElement("meta");
-    meta.name = "robots";
-    meta.content = "noindex,nofollow";
-    document.head.appendChild(meta);
-    const originalTitle = document.title;
-    document.title = "Latest Episode — Daily Wins";
-    return () => {
-      document.head.removeChild(meta);
-      document.title = originalTitle;
-    };
-  }, []);
+  // Head metadata (incl. noindex — this page auto-redirects to YouTube)
+  // is handled centrally in RouteSeo.
+
 
   const goToVideo = (auto = false) => {
     if (!video) return;
