@@ -12,3 +12,8 @@ Allow: /
 
 User-agent: *
 Allow: /
+Disallow: /admin-list
+Disallow: /redirect
+Disallow: /thumbnail-template
+
+Sitemap: https://bigdaddysbigtips.com/sitemap.xml
