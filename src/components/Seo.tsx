@@ -1,6 +1,19 @@
+import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 
 const SITE_URL = "https://bigdaddysbigtips.com";
+
+/**
+ * Tags that exist statically in index.html (as a fallback for crawlers that
+ * don't run JS) and are also managed by Helmet. Once Helmet is live we drop
+ * the static copies client-side so pages never ship duplicates.
+ */
+const STATIC_DUPES = [
+  'meta[name="description"]',
+  'meta[property="og:title"]',
+  'meta[property="og:description"]',
+  'meta[property="og:url"]',
+];
 
 interface SeoProps {
   title: string;
@@ -12,6 +25,16 @@ interface SeoProps {
 
 const Seo = ({ title, description, path, noindex }: SeoProps) => {
   const url = `${SITE_URL}${path === "/" ? "/" : path}`;
+
+  useEffect(() => {
+    STATIC_DUPES.forEach((selector) => {
+      document
+        .querySelectorAll(`${selector}:not([data-rh])`)
+        .forEach((el) => el.remove());
+    });
+  }, []);
+
+
 
   return (
     <Helmet>
