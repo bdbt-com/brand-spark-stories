@@ -60,26 +60,18 @@ const META: Record<string, Meta> = {
   },
 };
 
-const NOINDEX_PATHS = ["/admin-list", "/redirect", "/thumbnail-template", "/bio"];
+// Pages that must never appear in search results.
+// /podcast auto-redirects to YouTube, so it stays out of the index.
+const NOINDEX_PATHS = ["/admin-list", "/redirect", "/thumbnail-template", "/bio", "/podcast"];
 
 const RouteSeo = () => {
   const { pathname } = useLocation();
   const path = pathname.length > 1 ? pathname.replace(/\/+$/, "") : "/";
 
-  if (NOINDEX_PATHS.includes(path)) {
-    return (
-      <Seo
-        title="Big Daddy's Big Tips"
-        description="Practical tips and Daily Wins from Big Daddy's Big Tips."
-        path={path}
-        noindex
-      />
-    );
-  }
-
   // /tips/:keyword shares the Tips metadata but canonicalises to /tips
   const key = path.startsWith("/tips") ? "/tips" : path;
   const meta = META[key];
+  const noindex = NOINDEX_PATHS.includes(path);
 
   if (!meta) {
     return (
@@ -92,7 +84,8 @@ const RouteSeo = () => {
     );
   }
 
-  return <Seo title={meta.title} description={meta.description} path={key} />;
+  return <Seo title={meta.title} description={meta.description} path={key} noindex={noindex} />;
 };
+
 
 export default RouteSeo;
