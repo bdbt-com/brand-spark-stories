@@ -31,7 +31,7 @@ const Navigation = () => {
                 {!logoError ? (
                   <img 
                     src={logoTransparent}
-                    alt="Big Daddy's Big Tips Logo" 
+                    alt="Big Daddy's Big Tips" 
                     className="h-12 w-auto object-contain"
                     onError={(e) => {
                       console.log('Logo failed to load:', e);
