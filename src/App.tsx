@@ -21,6 +21,8 @@ import RedirectBridge from "./pages/RedirectBridge";
 
 import ScrollToTop from "./components/ScrollToTop";
 import PageViewTracker from "./components/PageViewTracker";
+import RouteSeo from "./components/RouteSeo";
+
 
 const queryClient = new QueryClient();
 
