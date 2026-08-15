@@ -68,9 +68,11 @@ const RouteSeo = () => {
   const { pathname } = useLocation();
   const path = pathname.length > 1 ? pathname.replace(/\/+$/, "") : "/";
 
-  // /tips/:keyword shares the Tips metadata but canonicalises to /tips
-  const key = path.startsWith("/tips") ? "/tips" : path;
+  // /tips/:keyword shares the Tips metadata but canonicalises to /tips;
+  // /bio is an alias of /links.
+  const key = path.startsWith("/tips") ? "/tips" : path === "/bio" ? "/links" : path;
   const meta = META[key];
+
   const noindex = NOINDEX_PATHS.includes(path);
 
   if (!meta) {
