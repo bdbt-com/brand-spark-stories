@@ -45,50 +45,18 @@ const HourlyRateGrid = () => {
           </ul>
         </section>
 
-        <section className="relative mx-auto max-w-xl overflow-hidden rounded-xl border border-border bg-card p-3 sm:p-4">
-          <table
-            aria-hidden="true"
-            className="pointer-events-none w-full select-none text-[10px] sm:text-[11px] leading-tight border-collapse opacity-90"
-          >
-            <thead>
-              <tr>
-                <th className="text-left px-1 sm:px-2 py-1.5 whitespace-nowrap text-primary">Salary</th>
-                {PREVIEW_HOURS.map(({ h, mobile }) => (
-                  <th
-                    key={h}
-                    className={`px-1 sm:px-2 py-1.5 text-center whitespace-nowrap text-primary tabular-nums${
-                      mobile ? "" : " hidden sm:table-cell"
-                    }`}
-                  >
-                    {h}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {PREVIEW_SALARIES.map((s, i) => (
-                <tr key={s} className={i % 2 ? "bg-background/40" : ""}>
-                  <td className="px-1 sm:px-2 py-1.5 whitespace-nowrap font-semibold text-primary">
-                    {gbp(s / 1000)}k
-                  </td>
-                  {PREVIEW_HOURS.map(({ h, mobile }) => (
-                    <td
-                      key={h}
-                      className={`px-1 sm:px-2 py-1.5 text-center whitespace-nowrap tabular-nums${
-                        mobile ? "" : " hidden sm:table-cell"
-                      }`}
-                    >
-                      {gbp(s / (WEEKS_WORKED * h), 2)}
-                    </td>
-                  ))}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-
-          {/* Fade the teaser out so it reads as a sample, not the full sheet. */}
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-card via-card/90 to-transparent" />
-          <p className="pointer-events-none absolute inset-x-0 bottom-4 px-3 text-center text-[11px] sm:text-xs text-muted-foreground">
+        <section className="mx-auto max-w-xl rounded-xl border border-border bg-card p-3 sm:p-4">
+          <div className="relative">
+            <table
+              aria-hidden="true"
+              className="pointer-events-none w-full select-none text-[10px] sm:text-[11px] leading-tight border-collapse opacity-90"
+            >
+...
+            </table>
+            {/* Fade the teaser out so it reads as a sample, not the full sheet. */}
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-card via-card/90 to-transparent" />
+          </div>
+          <p className="pt-3 text-center text-[11px] sm:text-xs text-muted-foreground">
             Preview only — the full grid covers 30 salaries across 13 weekly-hour columns.
           </p>
         </section>
