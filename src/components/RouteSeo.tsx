@@ -62,7 +62,7 @@ const META: Record<string, Meta> = {
 
 // Pages that must never appear in search results.
 // /podcast auto-redirects to YouTube, so it stays out of the index.
-const NOINDEX_PATHS = ["/admin-list", "/redirect", "/thumbnail-template", "/bio", "/podcast"];
+const NOINDEX_PATHS = ["/admin-list", "/redirect", "/thumbnail-template", "/bio", "/podcast", "/hourly-rate-grid"];
 
 const RouteSeo = () => {
   const { pathname } = useLocation();

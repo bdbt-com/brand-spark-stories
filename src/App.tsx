@@ -18,6 +18,7 @@ import LinkInBio from "./pages/LinkInBio";
 import AdminList from "./pages/AdminList";
 import NotFound from "./pages/NotFound";
 import RedirectBridge from "./pages/RedirectBridge";
+import HourlyRateGrid from "./pages/HourlyRateGrid";
 
 import ScrollToTop from "./components/ScrollToTop";
 import PageViewTracker from "./components/PageViewTracker";
@@ -53,6 +54,7 @@ const App = () => (
           <Route path="/bio" element={<LinkInBio />} />
           <Route path="/admin-list" element={<AdminList />} />
           <Route path="/redirect" element={<RedirectBridge />} />
+          <Route path="/hourly-rate-grid" element={<HourlyRateGrid />} />
           <Route path="/latest" element={<Navigate to="/podcast" replace />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
