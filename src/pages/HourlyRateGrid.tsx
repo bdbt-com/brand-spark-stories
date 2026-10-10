@@ -4,25 +4,22 @@ import { Button } from "@/components/ui/button";
 import { Download } from "lucide-react";
 import gridAsset from "@/assets/hourly-rate-grid.xlsx.asset.json";
 
-const HOURS = [10, 15, 20, 25, 30, 35, 37.5, 40, 45, 50, 60, 70, 80];
-const SALARIES = Array.from({ length: 30 }, (_, i) => (i + 1) * 10000);
+// A small, non-interactive teaser of the real grid. The full grid
+// (30 salaries × 13 hour columns) ships in the spreadsheet itself.
+const PREVIEW_HOURS = [20, 30, 37.5, 40, 50, 60];
+const PREVIEW_SALARIES = [30000, 60000, 90000, 120000, 150000, 180000];
 const WEEKS_WORKED = 45; // 225 working days / 5
 const DOWNLOAD_URL = `https://bigdaddysbigtips.com${gridAsset.url}`;
 
 const gbp = (n: number, dp = 0) =>
   "£" + n.toLocaleString("en-GB", { minimumFractionDigits: dp, maximumFractionDigits: dp });
 
-const EXAMPLES = [
-  { salary: 250000, hoursPerDay: 7 },
-  { salary: 160000, hoursPerDay: 10 },
-];
-
 const HourlyRateGrid = () => {
   const [showForm, setShowForm] = useState(true);
 
   return (
     <main className="min-h-screen bg-background pt-24 pb-16 px-4">
-      <div className="max-w-6xl mx-auto space-y-10">
+      <div className="max-w-3xl mx-auto space-y-10">
         <header className="text-center space-y-3">
           <h1 className="text-3xl md:text-5xl font-bold">Illustrative Hourly Rate Grid</h1>
           <p className="text-muted-foreground max-w-2xl mx-auto">
@@ -40,28 +37,29 @@ const HourlyRateGrid = () => {
           </ul>
         </section>
 
-        <section className="rounded-xl border border-border bg-card overflow-auto max-h-[70vh]">
-          <table className="w-full text-sm border-collapse">
+        <section className="relative mx-auto max-w-xl overflow-hidden rounded-xl border border-border bg-card p-4">
+          <table
+            aria-hidden="true"
+            className="pointer-events-none w-full select-none text-[11px] leading-tight border-collapse opacity-90"
+          >
             <thead>
               <tr>
-                <th className="sticky top-0 left-0 z-20 bg-secondary text-primary text-left px-3 py-2 whitespace-nowrap">
-                  Annual Salary
-                </th>
-                {HOURS.map((h) => (
-                  <th key={h} className="sticky top-0 z-10 bg-secondary text-primary px-3 py-2 whitespace-nowrap">
-                    {h} hrs/wk
+                <th className="text-left px-2 py-1.5 whitespace-nowrap text-primary">Salary</th>
+                {PREVIEW_HOURS.map((h) => (
+                  <th key={h} className="px-2 py-1.5 text-center whitespace-nowrap text-primary tabular-nums">
+                    {h}
                   </th>
                 ))}
               </tr>
             </thead>
             <tbody>
-              {SALARIES.map((s, i) => (
+              {PREVIEW_SALARIES.map((s, i) => (
                 <tr key={s} className={i % 2 ? "bg-background/40" : ""}>
-                  <td className="sticky left-0 z-10 bg-card font-semibold text-primary px-3 py-2 whitespace-nowrap border-r border-border">
-                    {gbp(s)}
+                  <td className="px-2 py-1.5 whitespace-nowrap font-semibold text-primary">
+                    {gbp(s / 1000)}k
                   </td>
-                  {HOURS.map((h) => (
-                    <td key={h} className="px-3 py-2 text-center whitespace-nowrap tabular-nums">
+                  {PREVIEW_HOURS.map((h) => (
+                    <td key={h} className="px-2 py-1.5 text-center whitespace-nowrap tabular-nums">
                       {gbp(s / (WEEKS_WORKED * h), 2)}
                     </td>
                   ))}
@@ -69,22 +67,12 @@ const HourlyRateGrid = () => {
               ))}
             </tbody>
           </table>
-        </section>
 
-        <section className="grid md:grid-cols-2 gap-4">
-          {EXAMPLES.map(({ salary, hoursPerDay }) => {
-            const hrs = 225 * hoursPerDay;
-            return (
-              <div key={salary} className="rounded-xl border border-border bg-card p-5 space-y-1 text-sm">
-                <h3 className="text-lg mb-2">Example</h3>
-                <p>Days worked: 225</p>
-                <p>Hours worked per day: {hoursPerDay}</p>
-                <p>Hours worked per year: {hrs.toLocaleString("en-GB")}</p>
-                <p>Amount earned in year: {gbp(salary)}</p>
-                <p className="font-semibold text-primary">Hourly rate: {gbp(salary / hrs, 2)}</p>
-              </div>
-            );
-          })}
+          {/* Fade the teaser out so it reads as a sample, not the full sheet. */}
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-card via-card/90 to-transparent" />
+          <p className="pointer-events-none absolute inset-x-0 bottom-4 text-center text-xs text-muted-foreground">
+            Preview only — the full grid covers 30 salaries across 13 weekly-hour columns.
+          </p>
         </section>
 
         <section className="max-w-lg mx-auto rounded-xl border border-primary/40 bg-card p-6 space-y-4">
