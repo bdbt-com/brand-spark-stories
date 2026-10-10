@@ -6,7 +6,15 @@ import gridAsset from "@/assets/hourly-rate-grid.xlsx.asset.json";
 
 // A small, non-interactive teaser of the real grid. The full grid
 // (30 salaries × 13 hour columns) ships in the spreadsheet itself.
-const PREVIEW_HOURS = [20, 30, 37.5, 40, 50, 60];
+// `mobile: false` columns are hidden on phones so the teaser always fits.
+const PREVIEW_HOURS = [
+  { h: 20, mobile: true },
+  { h: 30, mobile: true },
+  { h: 37.5, mobile: false },
+  { h: 40, mobile: true },
+  { h: 50, mobile: false },
+  { h: 60, mobile: true },
+];
 const PREVIEW_SALARIES = [30000, 60000, 90000, 120000, 150000, 180000];
 const WEEKS_WORKED = 45; // 225 working days / 5
 const DOWNLOAD_URL = `https://bigdaddysbigtips.com${gridAsset.url}`;
@@ -37,16 +45,21 @@ const HourlyRateGrid = () => {
           </ul>
         </section>
 
-        <section className="relative mx-auto max-w-xl overflow-hidden rounded-xl border border-border bg-card p-4">
+        <section className="relative mx-auto max-w-xl overflow-hidden rounded-xl border border-border bg-card p-3 sm:p-4">
           <table
             aria-hidden="true"
-            className="pointer-events-none w-full select-none text-[11px] leading-tight border-collapse opacity-90"
+            className="pointer-events-none w-full select-none text-[10px] sm:text-[11px] leading-tight border-collapse opacity-90"
           >
             <thead>
               <tr>
-                <th className="text-left px-2 py-1.5 whitespace-nowrap text-primary">Salary</th>
-                {PREVIEW_HOURS.map((h) => (
-                  <th key={h} className="px-2 py-1.5 text-center whitespace-nowrap text-primary tabular-nums">
+                <th className="text-left px-1 sm:px-2 py-1.5 whitespace-nowrap text-primary">Salary</th>
+                {PREVIEW_HOURS.map(({ h, mobile }) => (
+                  <th
+                    key={h}
+                    className={`px-1 sm:px-2 py-1.5 text-center whitespace-nowrap text-primary tabular-nums${
+                      mobile ? "" : " hidden sm:table-cell"
+                    }`}
+                  >
                     {h}
                   </th>
                 ))}
@@ -55,11 +68,16 @@ const HourlyRateGrid = () => {
             <tbody>
               {PREVIEW_SALARIES.map((s, i) => (
                 <tr key={s} className={i % 2 ? "bg-background/40" : ""}>
-                  <td className="px-2 py-1.5 whitespace-nowrap font-semibold text-primary">
+                  <td className="px-1 sm:px-2 py-1.5 whitespace-nowrap font-semibold text-primary">
                     {gbp(s / 1000)}k
                   </td>
-                  {PREVIEW_HOURS.map((h) => (
-                    <td key={h} className="px-2 py-1.5 text-center whitespace-nowrap tabular-nums">
+                  {PREVIEW_HOURS.map(({ h, mobile }) => (
+                    <td
+                      key={h}
+                      className={`px-1 sm:px-2 py-1.5 text-center whitespace-nowrap tabular-nums${
+                        mobile ? "" : " hidden sm:table-cell"
+                      }`}
+                    >
                       {gbp(s / (WEEKS_WORKED * h), 2)}
                     </td>
                   ))}
@@ -70,7 +88,7 @@ const HourlyRateGrid = () => {
 
           {/* Fade the teaser out so it reads as a sample, not the full sheet. */}
           <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-card via-card/90 to-transparent" />
-          <p className="pointer-events-none absolute inset-x-0 bottom-4 text-center text-xs text-muted-foreground">
+          <p className="pointer-events-none absolute inset-x-0 bottom-4 px-3 text-center text-[11px] sm:text-xs text-muted-foreground">
             Preview only — the full grid covers 30 salaries across 13 weekly-hour columns.
           </p>
         </section>
