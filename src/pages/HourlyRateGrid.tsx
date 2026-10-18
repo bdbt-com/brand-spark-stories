@@ -104,6 +104,7 @@ const HourlyRateGrid = () => {
               compact={false}
               hideable={false}
               headingLabel={null}
+              showNameFields={false}
               submitLabel="Send Me The Spreadsheet"
               successTitle="Spreadsheet Sent! 🎉"
             />

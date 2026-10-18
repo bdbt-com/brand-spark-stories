@@ -21,6 +21,7 @@ interface EmailCaptureFormProps {
   showCourseSelector?: boolean;
   courseValue?: string;
   onCourseChange?: (v: string) => void;
+  showNameFields?: boolean;
 }
 
 // Exercise is now live as a real course, so it's removed from the future-courses waitlist.
@@ -40,6 +41,7 @@ const EmailCaptureForm = ({
   showCourseSelector = false,
   courseValue,
   onCourseChange,
+  showNameFields = true,
 }: EmailCaptureFormProps) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -53,7 +55,11 @@ const EmailCaptureForm = ({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!validateAllFields(firstName, lastName, email)) return;
+    if (showNameFields) {
+      if (!validateAllFields(firstName, lastName, email)) return;
+    } else if (validateField("email", email)) {
+      return;
+    }
 
     setIsLoading(true);
     clearErrors();
@@ -66,6 +72,7 @@ const EmailCaptureForm = ({
           email,
           guideTitle: title,
           guideDownloadUrl,
+          nameOptional: !showNameFields,
         },
       });
 
@@ -148,6 +155,8 @@ const EmailCaptureForm = ({
       )}
 
       <form onSubmit={handleSubmit} className="space-y-3">
+        {showNameFields && (
+          <>
         <div className="space-y-1">
           <Label htmlFor="firstName" className={compact ? "text-xs" : "text-sm"}>
             First Name *
@@ -201,6 +210,8 @@ const EmailCaptureForm = ({
             <p className="text-xs text-red-500 animate-fade-in">{fieldErrors.lastName}</p>
           )}
         </div>
+          </>
+        )}
 
         <div className="space-y-1">
           <Label htmlFor="email" className={compact ? "text-xs" : "text-sm"}>
