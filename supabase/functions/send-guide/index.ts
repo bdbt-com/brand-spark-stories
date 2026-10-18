@@ -15,6 +15,8 @@ interface SendGuideRequest {
   email: string;
   guideTitle: string;
   guideDownloadUrl: string;
+  // When true the form did not ask for a name (e.g. the hourly rate grid page).
+  nameOptional?: boolean;
 }
 
 // Input validation functions
@@ -57,16 +59,19 @@ const handler = async (req: Request): Promise<Response> => {
   }
 
   try {
-    const { firstName, lastName, email, guideTitle, guideDownloadUrl }: SendGuideRequest = await req.json();
+    const { firstName, lastName, email, guideTitle, guideDownloadUrl, nameOptional }: SendGuideRequest = await req.json();
+    const hasFirstName = typeof firstName === "string" && firstName.trim().length > 0;
 
-    // Server-side validation
-    const firstNameError = validateFirstName(firstName);
-    if (firstNameError) {
-      console.log(`Validation error - firstName: ${firstNameError}`);
-      return new Response(
-        JSON.stringify({ error: firstNameError }),
-        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
+    // Server-side validation. Names are only required when the form asked for one.
+    if (!nameOptional) {
+      const firstNameError = validateFirstName(firstName);
+      if (firstNameError) {
+        console.log(`Validation error - firstName: ${firstNameError}`);
+        return new Response(
+          JSON.stringify({ error: firstNameError }),
+          { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        );
+      }
     }
 
     const emailError = validateEmail(email);
@@ -87,7 +92,7 @@ const handler = async (req: Request): Promise<Response> => {
     }
 
     // Sanitize inputs for HTML output
-    const sanitizedFirstName = sanitizeHtml(firstName.trim());
+    const sanitizedFirstName = hasFirstName ? sanitizeHtml(firstName.trim()) : "there";
     const sanitizedGuideTitle = sanitizeHtml(guideTitle.trim());
     const sanitizedEmail = email.trim().toLowerCase();
 
@@ -128,7 +133,7 @@ const handler = async (req: Request): Promise<Response> => {
 
     // Store submission in database
     const insertRow: Record<string, unknown> = {
-      first_name: firstName.trim(),
+      first_name: hasFirstName ? firstName.trim() : null,
       email: sanitizedEmail,
       guide_title: guideTitle.trim(),
       guide_download_url: guideDownloadUrl,
