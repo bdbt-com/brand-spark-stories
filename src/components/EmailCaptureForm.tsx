@@ -155,6 +155,8 @@ const EmailCaptureForm = ({
       )}
 
       <form onSubmit={handleSubmit} className="space-y-3">
+        {showNameFields && (
+          <>
         <div className="space-y-1">
           <Label htmlFor="firstName" className={compact ? "text-xs" : "text-sm"}>
             First Name *
@@ -208,6 +210,8 @@ const EmailCaptureForm = ({
             <p className="text-xs text-red-500 animate-fade-in">{fieldErrors.lastName}</p>
           )}
         </div>
+          </>
+        )}
 
         <div className="space-y-1">
           <Label htmlFor="email" className={compact ? "text-xs" : "text-sm"}>

@@ -12,7 +12,7 @@ const Navigation = () => {
 
   const navItems = [
     { name: "Home", path: "/" },
-    { name: "Courses", path: "/courses" },
+    // Courses is hidden from the menu for now. The page and its code are kept.
     { name: "Podcast", path: "/podcast" },
     { name: "Tips", path: "/tips" },
     { name: "About", path: "/about" },
