@@ -12,10 +12,11 @@ const Navigation = () => {
 
   const navItems = [
     { name: "Home", path: "/" },
-    // Courses is hidden from the menu for now. The page and its code are kept.
+    { name: "Coaching", path: "/coaching" },
+    { name: "About", path: "/about" },
     { name: "Podcast", path: "/podcast" },
     { name: "Tips", path: "/tips" },
-    { name: "About", path: "/about" },
+    // Courses, Daily Wins, Community etc. stay live but are off the menu.
   ];
 
   const isActive = (path: string) => location.pathname === path;
@@ -127,7 +128,7 @@ const Navigation = () => {
               className="hover-scale shadow-soft"
               asChild
             >
-              <Link to="/blueprint">Get Your Free Foundation Blueprint</Link>
+              <Link to="/test">Take Your Free Daily Wins Test</Link>
             </Button>
           </div>
 
@@ -179,7 +180,7 @@ const Navigation = () => {
                   className="w-full hover-scale-sm shadow-soft"
                   asChild
                 >
-                  <Link to="/blueprint">Get Your Free Foundation Blueprint</Link>
+                  <Link to="/test">Take Your Free Daily Wins Test</Link>
                 </Button>
               </div>
             </div>

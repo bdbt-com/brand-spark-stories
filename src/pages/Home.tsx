@@ -1,612 +1,346 @@
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { ArrowRight, Droplets, Activity, Moon, DollarSign, Heart, Smile, Target, Zap, ChevronDown, FileText, Headphones, Instagram, Youtube, Play, Dumbbell, PiggyBank, Apple, Check, Lock as LockIcon } from "lucide-react";
-import { Link } from "react-router-dom";
-import TipsCarousel from "@/components/TipsCarousel";
-import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "@/components/ui/carousel";
-import { useEffect, useState, useRef } from "react";
-import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "@/components/ui/collapsible";
-import ChevronRipple from "@/components/ChevronRipple";
-import { supabase } from "@/integrations/supabase/client";
-import { startTrackedRedirect, trackClick } from "@/lib/youtube-redirect";
-import linkBlueprintAsset from "@/assets/link-blueprint.png.asset.json";
-import linkYoutubeAsset from "@/assets/link-youtube.png.asset.json";
-import linkSpotifyAsset from "@/assets/link-spotify.png.asset.json";
-import clapperboardAsset from "@/assets/clapperboard-shot.png.asset.json";
-import blueprintCoverAsset from "@/assets/foundation-blueprint-cover.png.asset.json";
-import bdClapperSetAsset from "@/assets/bd-clapper-set.png.asset.json";
-import bdTalking1Asset from "@/assets/bd-talking-1.png.asset.json";
-import bdTalking2Asset from "@/assets/bd-talking-2.png.asset.json";
-import { SiInstagram, SiSpotify, SiTiktok, SiYoutube } from "react-icons/si";
+import { useState } from "react";
+import {
+  ArrowRight, HeartPulse, Apple, PiggyBank, Users, Briefcase, Sun,
+  Headphones, BookOpen, GraduationCap, MapPin, Globe, Clock, Play,
+} from "lucide-react";
+import { GoldButton, OutlineButton, Section, Title, Eyebrow, Prose, Card } from "@/components/site/ui";
+import LeadForm from "@/components/site/LeadForm";
+import SiteFooter from "@/components/site/SiteFooter";
+import { startTrackedRedirect } from "@/lib/youtube-redirect";
 
-type Episode = { videoId: string; title: string; views: string; featured?: boolean };
+const HERO_IMAGE = "/lovable-uploads/recording-setup-new.jpg";
 
-const PODCAST_EPISODES: Episode[] = [
-  { videoId: "z8NqukMz2Q8", title: "Give me 0.1% And I'll Change Your Direction - Daily Wins Podcast 121", views: "564K views" },
-  { videoId: "zUGM3gZbNY8", title: "Most People Stop here. Are You Most People? Daily Wins Podcast 116", views: "521K views", featured: true },
-  { videoId: "ZK4wdEe_b-s", title: "You Need To Understand This Cycle - Daily Wins Podcast 122", views: "446K views" },
+const EPISODES = [
+  { videoId: "z8NqukMz2Q8", title: "Give me 0.1% And I'll Change Your Direction", views: "564K views" },
+  { videoId: "zUGM3gZbNY8", title: "Most People Stop Here. Are You Most People?", views: "521K views" },
+  { videoId: "ZK4wdEe_b-s", title: "You Need To Understand This Cycle", views: "446K views" },
 ];
 
-const EpisodeCard = ({ episode }: { episode: Episode }) => {
-  const [playing, setPlaying] = useState(false);
+const SENSE_ACTION = [
+  ["Get more sleep", "Stay up scrolling"],
+  ["Move your body", "Sit for hours"],
+  ["Eat nutritious food", "Reach for convenience"],
+  ["Save for the future", "Spend without thinking"],
+  ["Invest in relationships", "Get distracted by screens"],
+  ["Make time for yourself", "Put yourself last"],
+];
+
+const LONG_GAME = [
+  { Icon: HeartPulse, title: "Health & Longevity", text: "Don't just train for the body you want next summer. Train for the life you want at 80. The strength to lift your grandchildren. The fitness to explore new places. The independence to keep doing the things you love." },
+  { Icon: Apple, title: "Nutrition & Energy", text: "Don't just eat for how you want to look. Eat for how you want to live. More energy to enjoy your days. Better health to enjoy your years. A body that supports your ambitions rather than limits them." },
+  { Icon: PiggyBank, title: "Money & Financial Freedom", text: "Don't just work for your money. Make your money work for your future. Less financial stress. More freedom to make choices. The ability to spend your time doing what matters, rather than what your bank balance dictates." },
+  { Icon: Users, title: "Relationships & Family", text: "Don't wait until you have more time for the people you love. Build the relationships you'll treasure for a lifetime. More moments that matter. Stronger connections. Fewer regrets about the time you wish you'd spent differently." },
+  { Icon: Briefcase, title: "Career & Personal Growth", text: "Don't just chase your next promotion. Build a career that opens doors for decades. Develop the skills, confidence and relationships that create opportunities, independence and a sense of purpose." },
+  { Icon: Sun, title: "Time & Fulfilment", text: "Don't spend five days waiting for the weekend, 50 weeks waiting for the summer holiday or forty years waiting for retirement. Build a life you enjoy living on ordinary Tuesdays." },
+];
+
+const PREVIEW_BARS = [
+  ["Body & Movement", 6.2], ["Energy & Recovery", 4.1], ["Money & Time", 5.4],
+  ["Relationships", 7.8], ["Habits & Self-Control", 4.6], ["Purpose & Growth", 6.9],
+] as const;
+
+const Home = () => {
+  const [form, setForm] = useState<null | { title: string; tag: string; description: string }>(null);
+
   return (
-    <div className="rounded-2xl overflow-hidden border border-primary/20 bg-[#141414] shadow-soft">
-      <div className="relative aspect-video bg-black">
-        {playing ? (
-          <iframe
-            src={`https://www.youtube.com/embed/${episode.videoId}?autoplay=1&playsinline=1`}
-            title={episode.title}
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-            className="absolute inset-0 w-full h-full"
-          />
-        ) : (
-          <button
-            type="button"
-            onClick={() => setPlaying(true)}
-            className="absolute inset-0 w-full h-full group"
-            aria-label={`Play ${episode.title}`}
-          >
-            <img
-              src={`https://img.youtube.com/vi/${episode.videoId}/hqdefault.jpg`}
-              alt={episode.title}
-              loading="lazy"
-              decoding="async"
-              className="absolute inset-0 w-full h-full object-cover"
-            />
-            <span className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition-colors">
-              <span className="w-14 h-14 rounded-full bg-primary text-primary-foreground flex items-center justify-center shadow-lg">
-                <Play className="w-6 h-6 ml-0.5" fill="currentColor" />
+    <div className="min-h-screen">
+      {/* HERO — full-width image of Ben teaching. Swap HERO_IMAGE for a b-roll <video> when supplied. */}
+      <section className="relative overflow-hidden min-h-[88vh] flex items-center">
+        <img src={HERO_IMAGE} alt="Ben Raven recording a Daily Wins episode" className="absolute inset-0 w-full h-full object-cover object-[60%_35%] animate-kenburns" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/95 via-black/80 to-black/40" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
+        <div className="relative max-w-6xl mx-auto px-5 sm:px-6 lg:px-8 py-20 w-full">
+          <div className="max-w-2xl animate-fade-in">
+            <Eyebrow>Daily Wins Coaching & Mentoring</Eyebrow>
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-[1.08] tracking-tight">
+              <span className="text-white">Helping you play the long game.</span>{" "}
+              <span className="italic text-primary">One Daily Win at a time.</span>
+            </h1>
+            <p className="text-xl md:text-2xl font-semibold text-white mt-6">Change your life by changing almost nothing about your day.</p>
+            <div className="mt-5 space-y-4 text-base md:text-lg text-white/80 leading-relaxed">
+              <p>We all know we should sleep better, move more, eat healthier and save money. But knowing what to do and actually doing it are two very different things.</p>
+              <p>I'm Ben Raven, founder of Daily Wins. Through personal coaching, mentoring and practical life skills, I help people understand their behaviours, break unhelpful cycles and make tiny changes today compound into a better future.</p>
+            </div>
+            <p className="mt-6 italic text-primary/90 text-lg">You won't achieve your goal tomorrow. But you can make sure tomorrow contributes towards it.</p>
+            <div className="flex flex-col sm:flex-row gap-3 mt-8">
+              <GoldButton to="/coaching" arrow>Explore Coaching & Mentoring</GoldButton>
+              <OutlineButton to="/test" className="bg-black/40 backdrop-blur">Take the Free Daily Wins Test</OutlineButton>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Stats strip */}
+      <div className="border-y border-primary/15 bg-black/60">
+        <div className="max-w-4xl mx-auto px-5 py-7 grid grid-cols-3 gap-4 text-center">
+          {[["30K+", "YouTube subscribers"], ["300+", "Daily Wins episodes"], ["8PM", "New episode, every day"]].map(([s, l]) => (
+            <div key={l}><p className="font-bold italic text-[#E8CE8A] text-2xl md:text-4xl leading-none">{s}</p><p className="text-[10px] md:text-xs uppercase tracking-wider text-white/55 mt-2">{l}</p></div>
+          ))}
+        </div>
+      </div>
+
+      {/* Same resolutions */}
+      <Section narrow>
+        <Title>There's a reason you keep making the same New Year's resolutions.</Title>
+        <Prose className="mt-8">
+          <p>Every year, you tell yourself you'll get fitter. Eat better. Save more. Drink less. Spend less time on your phone. Be more present with the people you love.</p>
+          <p>You start with the best intentions. But life gets busy. Motivation fades. Old habits return.</p>
+          <p>And before you know it, you're making the same promises to yourself all over again. <span className="text-white font-semibold">Different year. Same resolutions. Same frustrations.</span></p>
+          <p className="text-xl text-white font-semibold border-l-2 border-primary pl-5">The problem isn't your desire to change. It's that you've never been taught why you keep repeating your Daily Drifts.</p>
+          <p>We spend so much time thinking about what we need to change that we rarely stop to understand why we haven't changed it already.</p>
+        </Prose>
+      </Section>
+
+      {/* Common sense vs common action */}
+      <Section className="bg-[#0b0b0b] border-y border-white/5">
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <Title>Common sense isn't always common action.</Title>
+            <Prose className="mt-6">
+              <p>We live in a world overflowing with information about how to improve our lives. We know more about health, nutrition, sleep, exercise, money and wellbeing than ever before. Yet knowing better doesn't necessarily mean doing better.</p>
+              <p className="text-white font-semibold">If knowing what to do was enough, we'd all be living very different lives.</p>
+              <p><span className="text-primary font-semibold">Daily Wins is about closing that gap.</span> Understanding why we make the decisions we make, and learning how to turn what we already know into what we actually do.</p>
+              <p>Not through guilt, pressure or endless willpower. Simply by making the better decision easier.</p>
+            </Prose>
+          </div>
+          <div className="rounded-2xl border border-primary/25 overflow-hidden">
+            <div className="grid grid-cols-2 bg-primary text-black">
+              <div className="p-4 md:p-5"><p className="font-bold uppercase tracking-wide">Common Sense</p><p className="text-sm opacity-75">What we know</p></div>
+              <div className="p-4 md:p-5 border-l border-black/15"><p className="font-bold uppercase tracking-wide">Common Action</p><p className="text-sm opacity-75">What we do</p></div>
+            </div>
+            {SENSE_ACTION.map(([a, b], i) => (
+              <div key={a} className={`grid grid-cols-2 ${i % 2 ? "bg-[#141414]" : "bg-[#101010]"}`}>
+                <p className="p-4 md:p-5 text-white font-medium">{a}</p>
+                <p className="p-4 md:p-5 text-white/60 border-l border-white/10">{b}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </Section>
+
+      {/* Comfort trade */}
+      <Section>
+        <div className="max-w-3xl">
+          <Title>We can't choose between comfort and discomfort. Only which one comes first.</Title>
+          <Prose className="mt-6">
+            <p>Every day, we make small decisions that trade one kind of comfort for another.</p>
+            <p>Staying in bed instead of exercising feels comfortable now, but being less physically capable can make life more uncomfortable later. Spending money on something we don't need feels rewarding today, but financial stress can create discomfort tomorrow. Having the sugary snack at 3pm feels rewarding in the moment, but a body composition you don't like can impact your confidence and self-esteem over time.</p>
+            <p className="text-white text-xl font-semibold">This is The Comfort Trade.</p>
+            <p>We repeatedly choose immediate comfort without fully considering the long-term price. And sometimes, the behaviours we use to feel better today are the very things making us feel worse tomorrow.</p>
+          </Prose>
+        </div>
+
+        <div className="mt-12 max-w-4xl mx-auto">
+          <div className="grid grid-cols-2 gap-3 md:gap-5">
+            <p className="text-center text-xs md:text-sm uppercase tracking-[0.2em] text-white/50">The Daily Drift</p>
+            <p className="text-center text-xs md:text-sm uppercase tracking-[0.2em] text-primary">The Daily Win</p>
+            <div className="rounded-2xl border border-white/15 bg-[#151515] p-5 md:p-7">
+              <p className="text-xs uppercase tracking-wider text-white/50">Short-term comfort</p>
+              <p className="text-lg md:text-2xl font-bold mt-2">Stay up scrolling</p>
+            </div>
+            <div className="rounded-2xl border border-primary/40 bg-primary/[0.07] p-5 md:p-7">
+              <p className="text-xs uppercase tracking-wider text-primary/80">Short-term discomfort</p>
+              <p className="text-lg md:text-2xl font-bold mt-2">Put the phone down and go to bed</p>
+            </div>
+            <div className="flex justify-center"><ArrowRight className="w-6 h-6 text-white/30 rotate-90" /></div>
+            <div className="flex justify-center"><ArrowRight className="w-6 h-6 text-primary rotate-90" /></div>
+            <div className="rounded-2xl border border-white/15 bg-[#151515] p-5 md:p-7">
+              <p className="text-xs uppercase tracking-wider text-white/50">Long-term discomfort</p>
+              <p className="text-base md:text-xl font-bold mt-2 text-white/80">Fatigue, anxiety, brain fog & frustration</p>
+            </div>
+            <div className="rounded-2xl border border-primary bg-primary text-black p-5 md:p-7">
+              <p className="text-xs uppercase tracking-wider text-black/70">Long-term comfort</p>
+              <p className="text-base md:text-xl font-bold mt-2 text-black">Recovery, confidence, clarity & energy</p>
+            </div>
+          </div>
+          <p className="text-center text-white/75 mt-8 text-lg max-w-2xl mx-auto">Daily Wins coaching helps you recognise these trades and make more deliberate choices. Because playing the long game means understanding when a little discomfort today can create a lot more comfort tomorrow.</p>
+        </div>
+      </Section>
+
+      {/* Big goals / small goals */}
+      <Section narrow className="bg-[#0b0b0b] border-y border-white/5 md:py-24">
+        <Title>Big goals feel overwhelming. Small goals feel pointless.</Title>
+        <Prose className="mt-6">
+          <p>And that's precisely why so many of us struggle to change. We dismiss big goals because they feel too overwhelming. We dismiss small goals because they seem too insignificant. So we end up doing neither, and let the time pass anyway.</p>
+          <p>But our brains aren't making these decisions without reason. We're naturally drawn towards immediate rewards and away from effort, uncertainty and discomfort. We find it easier to value what we can experience today than the benefits we might enjoy months or years from now. And that creates a problem.</p>
+          <p className="text-white font-semibold">The changes that could make the biggest difference to our future are often the ones that feel least rewarding today.</p>
+          <p>I help you understand why your brain makes these decisions, recognise the everyday behaviours influencing your future and learn how to make the better choice the easier choice.</p>
+          <p>Because whether you realise it or not, you're already making small decisions every day that are shaping your life. The question is whether they're taking you towards the future you want <span className="text-primary font-semibold">(Daily Wins)</span>, or away from it <span className="text-white/60 font-semibold">(Daily Drifts)</span>.</p>
+        </Prose>
+        <p className="text-2xl md:text-3xl italic font-bold text-white mt-10 leading-snug">Neither feels significant today. <span className="text-primary">Both compound into something significant tomorrow.</span></p>
+      </Section>
+
+      {/* Test teaser */}
+      <Section>
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <Eyebrow>The Free Daily Wins Test</Eyebrow>
+            <Title>How well are you playing the long game?</Title>
+            <p className="text-xl text-white font-semibold mt-5">You can't improve what you haven't taken the time to understand.</p>
+            <Prose className="mt-5">
+              <p>How happy are you with your health, finances, relationships, habits and the direction your life is heading? And where could a few small changes make the biggest difference?</p>
+              <p>Take my free Daily Wins Test and discover where you're thriving, where your Daily Drifts might be holding you back, and which Daily Wins could help you move forward.</p>
+              <p>Answer 28 simple questions, receive a personalised snapshot of your life and discover a recommended starting point. No judgement. No pass or fail. Just a better understanding of where you are and where you'd like to go.</p>
+            </Prose>
+            <GoldButton to="/test" arrow className="mt-8">Take My Free Daily Wins Test</GoldButton>
+          </div>
+          <Card className="relative">
+            <span className="absolute -top-3 right-6 bg-primary text-black text-xs font-bold px-3 py-1 rounded-full">Example results</span>
+            <p className="font-bold text-lg">Your Daily Wins Snapshot</p>
+            <p className="text-sm text-white/50 mb-5">Long Game Score: <span className="text-primary font-bold">58/100</span></p>
+            <div className="space-y-3.5">
+              {PREVIEW_BARS.map(([n, s]) => (
+                <div key={n}>
+                  <div className="flex justify-between text-sm mb-1"><span>{n}</span><span className="text-white/60">{s}/10</span></div>
+                  <div className="h-2 rounded-full bg-white/10"><div className={`h-full rounded-full ${s < 5 ? "bg-primary" : "bg-primary/50"}`} style={{ width: `${s * 10}%` }} /></div>
+                </div>
+              ))}
+            </div>
+            <div className="mt-6 rounded-xl border border-primary/30 p-4">
+              <p className="text-xs uppercase tracking-wider text-primary">Recommended starting point</p>
+              <p className="font-bold mt-1">Energy & Recovery</p>
+              <p className="text-sm text-white/65 mt-1">Your first Daily Win: go to bed 15 minutes earlier.</p>
+            </div>
+          </Card>
+        </div>
+      </Section>
+
+      {/* The long game */}
+      <Section className="bg-[#0b0b0b] border-y border-white/5">
+        <div className="max-w-3xl">
+          <Title>The life you'll be living in 20 years is being shaped by the tiny decisions you're making today.</Title>
+          <Prose className="mt-6">
+            <p>We focus on how we want to feel today. But what if the smallest decisions you make today could change what your life looks like in 10, 20 or even 30 years?</p>
+            <p>Imagine being 75 and still having the strength to explore the world. Having the financial freedom to choose how you spend your time. Having relationships that have grown stronger with every passing year. Having a career that excites you rather than exhausts you. And waking up each morning to a life you actually look forward to living.</p>
+            <p className="text-white text-xl font-semibold">That's the long game.</p>
+            <p>Not sacrificing your happiness today for some distant reward. But making small decisions that can improve your life now, while building an even better one for the future. And it starts in the most ordinary moments of your day.</p>
+          </Prose>
+        </div>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mt-12">
+          {LONG_GAME.map(({ Icon, title, text }) => (
+            <Card key={title} className="hover:border-primary/50 transition-colors">
+              <div className="w-11 h-11 rounded-xl bg-primary/15 flex items-center justify-center mb-4"><Icon className="w-5 h-5 text-primary" /></div>
+              <h3 className="font-bold text-xl text-white">{title}</h3>
+              <p className="text-white/70 mt-3 leading-relaxed">{text}</p>
+            </Card>
+          ))}
+        </div>
+        <div className="max-w-3xl mx-auto text-center mt-16">
+          <h3 className="italic font-bold text-primary text-3xl">The Long Game</h3>
+          <p className="text-lg text-white/80 mt-4 leading-relaxed">The long game isn't about adding more years to your life. It's about adding more life to your years. And you don't have to change your entire life to start changing your future. You just start with one Daily Win.</p>
+          <div className="flex flex-wrap items-center justify-center gap-x-2 gap-y-2 mt-8 text-sm md:text-base font-semibold">
+            {["Achievable", "Repeatable", "Consistency", "Momentum"].map((w, i) => (
+              <span key={w} className="flex items-center gap-2">
+                <span className="px-4 py-2 rounded-full border border-primary/40 text-white">{w}</span>
+                {i < 3 && <ArrowRight className="w-4 h-4 text-primary" />}
               </span>
-            </span>
-          </button>
-        )}
-      </div>
-      <div className="p-4">
-        <p className="text-sm font-semibold text-foreground line-clamp-2">{episode.title}</p>
-        <p className="text-xs text-muted-foreground mt-1">{episode.views}</p>
-      </div>
+            ))}
+          </div>
+          <p className="text-white/70 mt-6">One Daily Win is achievable. The achievable things are the repeatable things. The repeatable things create consistency. Consistency builds momentum.</p>
+          <p className="text-white font-semibold mt-3 text-lg">All you need to be willing to do is start small, and give it time.</p>
+        </div>
+      </Section>
+
+      {/* Free events */}
+      <Section id="events">
+        <div className="max-w-3xl">
+          <Eyebrow>Free Introductory Events</Eyebrow>
+          <Title>Experience Daily Wins for yourself. On me.</Title>
+          <Prose className="mt-6">
+            <p>You don't have to commit to private coaching to start benefiting from Daily Wins. I host free introductory events, both online and in person, where we explore the ideas behind the Daily Wins philosophy and how they can be applied to everyday life.</p>
+            <p>We'll look at why common sense doesn't always translate into common action, how the Comfort Trade influences our behaviours and why compounding makes small changes so powerful.</p>
+            <p>You'll leave with a fresh perspective on your own habits, practical Daily Wins you can start using immediately and a better understanding of how to play the long game.</p>
+            <p className="text-white font-semibold">No pressure. No obligation. Just an opportunity to learn something useful about yourself.</p>
+          </Prose>
+        </div>
+        <div className="grid md:grid-cols-2 gap-5 mt-10">
+          {[
+            { Icon: MapPin, title: "Free In-Person Introduction", meta: [["120 minutes", Clock], ["London", MapPin]], text: "A personal, interactive experience. Limited spaces.", tag: "Event interest: In-person introduction (London)" },
+            { Icon: Globe, title: "Free Online Introduction", meta: [["60 minutes", Clock], ["Join from anywhere", Globe]], text: "Discover how Daily Wins can help you, from wherever you are.", tag: "Event interest: Online introduction" },
+          ].map((e) => (
+            <Card key={e.title} className="flex flex-col">
+              <div className="flex items-center justify-between">
+                <h3 className="font-bold text-2xl italic text-white">{e.title}</h3>
+                <span className="text-xs font-bold text-black bg-primary rounded-full px-3 py-1">FREE</span>
+              </div>
+              <div className="flex gap-5 mt-4 text-sm text-white/70">
+                {e.meta.map(([label, I]) => { const Ic = I as typeof Clock; return <span key={label as string} className="flex items-center gap-1.5"><Ic className="w-4 h-4 text-primary" />{label as string}</span>; })}
+              </div>
+              <p className="text-white/75 mt-4 flex-1">{e.text}</p>
+              <p className="text-sm text-primary/80 mt-4">Next dates coming soon</p>
+              <GoldButton className="mt-4 w-full min-h-12 text-base" onClick={() => setForm({ title: e.title, tag: e.tag, description: "Dates are being finalised. Leave your details and you'll be first to hear when registration opens." })}>
+                Register my interest
+              </GoldButton>
+            </Card>
+          ))}
+        </div>
+        <div className="text-center mt-10">
+          <OutlineButton to="/test" arrow>Take the Free Daily Wins Test</OutlineButton>
+        </div>
+      </Section>
+
+      {/* Free resources */}
+      <Section className="bg-[#0b0b0b] border-y border-white/5">
+        <div className="max-w-3xl">
+          <Title>Start your first Daily Win today. For free.</Title>
+          <Prose className="mt-6">
+            <p>Not everyone wants or needs personal coaching. And you shouldn't have to pay to begin improving your life.</p>
+            <p>That's why Daily Wins offers a growing collection of free and affordable resources designed to help you understand yourself and make small changes that can create meaningful long-term benefits.</p>
+          </Prose>
+        </div>
+        <div className="grid md:grid-cols-3 gap-5 mt-10">
+          {[
+            { Icon: Headphones, title: "The Daily Wins Podcast & Videos", text: "Explore the science, psychology and everyday behaviours behind living a better life.", cta: "Watch & Listen", to: "/podcast" },
+            { Icon: BookOpen, title: "The Daily Wins Library", text: "Discover practical Daily Wins across health, money, relationships, time and personal wellbeing.", cta: "Explore Now", to: "/tips" },
+            { Icon: GraduationCap, title: "Daily Wins Courses", text: "Something in between free content and personalised coaching. Practical, affordable and designed to help you build useful life skills and better everyday habits.", cta: "Explore Courses", to: "/courses" },
+          ].map((r) => (
+            <Card key={r.title} className="flex flex-col">
+              <div className="w-11 h-11 rounded-xl bg-primary/15 flex items-center justify-center mb-4"><r.Icon className="w-5 h-5 text-primary" /></div>
+              <h3 className="font-bold text-xl text-white">{r.title}</h3>
+              <p className="text-white/70 mt-3 flex-1 leading-relaxed">{r.text}</p>
+              <OutlineButton to={r.to} arrow className="mt-6 min-h-12 text-base">{r.cta}</OutlineButton>
+            </Card>
+          ))}
+        </div>
+        <div className="grid md:grid-cols-3 gap-5 mt-8">
+          {EPISODES.map((e) => (
+            <button key={e.videoId} onClick={() => startTrackedRedirect(e.videoId)} className="group text-left rounded-2xl overflow-hidden border border-white/10 bg-[#141414] hover:border-primary/40 transition-colors">
+              <div className="relative aspect-video">
+                <img src={`https://img.youtube.com/vi/${e.videoId}/hqdefault.jpg`} alt={e.title} loading="lazy" className="absolute inset-0 w-full h-full object-cover" />
+                <span className="absolute inset-0 flex items-center justify-center bg-black/25 group-hover:bg-black/10 transition-colors">
+                  <span className="w-12 h-12 rounded-full bg-primary text-black flex items-center justify-center"><Play className="w-5 h-5 ml-0.5" fill="currentColor" /></span>
+                </span>
+              </div>
+              <div className="p-4"><p className="text-sm font-semibold line-clamp-2">{e.title}</p><p className="text-xs text-white/50 mt-1">{e.views}</p></div>
+            </button>
+          ))}
+        </div>
+      </Section>
+
+      {/* Final CTA */}
+      <Section narrow className="text-center md:py-28">
+        <Title className="md:text-5xl">A year from now, will you still be making the same promises to yourself?</Title>
+        <Prose className="mt-8 text-left md:text-center">
+          <p>Another year will pass. Another 365 days of decisions. Another year of habits, routines, opportunities and experiences.</p>
+          <p>And every day, those decisions will be helping to shape your future. You can keep waiting for the perfect moment to change. For Monday. For January. For life to become less busy.</p>
+          <p>Or you can start making small changes now. Changes that don't require you to turn your life upside down. Changes that fit into the life you're already living. Changes that, given time and consistency, can help create a future you'll be grateful for.</p>
+          <p className="text-white font-semibold">You don't have to win every single day. You just have to start making more of your days count.</p>
+        </Prose>
+        <p className="text-2xl md:text-3xl italic font-bold text-primary mt-10">Win the long game. One Daily Win at a time.</p>
+        <div className="flex flex-col sm:flex-row gap-3 justify-center mt-10">
+          <GoldButton to="/test" arrow>Take the Free Daily Wins Test</GoldButton>
+          <OutlineButton to="/coaching">Explore Coaching & Mentoring</OutlineButton>
+        </div>
+      </Section>
+
+      <SiteFooter />
+
+      {form && (
+        <LeadForm open={!!form} onOpenChange={(o) => !o && setForm(null)} title={form.title} description={form.description}
+          tag={form.tag} submitLabel="Register my interest" successText="You're on the list. I'll email you as soon as dates are confirmed." />
+      )}
     </div>
   );
 };
 
-const Home = () => {
-  const images = [bdClapperSetAsset.url,
-  bdTalking2Asset.url,
-  bdTalking1Asset.url,
-  "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png",
-  // Sunset silhouette on rocks
-
-  // Man with dog outdoors
-  "/lovable-uploads/4fd0818e-20c3-4941-9c54-6915db50a7c0.png",
-  // Meditation with mirror
-  "/lovable-uploads/661d98ce-15f1-4542-b8c0-bab549b78a55.png",
-  // Man in bathroom mirror
-  "/lovable-uploads/33ba01bc-045c-4c44-ac70-c61c05093bdc.png",
-  // Silhouette by pool
-  "/lovable-uploads/2678016c-a3fa-4e29-bf3d-3ebe92201186.png",
-  // Person exercising outdoors
-  linkSpotifyAsset.url,
-  // Man on phone in modern setting - replaced with arms-wide speaking shot
-  "/lovable-uploads/7db6bd1f-c12f-45f2-a1d1-505f38c743a1.png",
-  // Man outdoors smiling
-  "/lovable-uploads/8db636d1-94ff-432a-a4b1-6ca278173f2f.png",
-  // Man in shoe store
-  "/lovable-uploads/a886c4a9-0d09-442e-8348-25bd795ad7d0.png",
-  // Man in home theater
-  linkYoutubeAsset.url,
-  // Man in car smiling - replaced with close-up speaking shot
-  "/lovable-uploads/347bc4c8-a5fc-40c4-a30c-1d91b5bd5761.png",
-  // Man on beach at sunset
-  "/lovable-uploads/75853635-930c-4fa5-9403-d0b58c6db83b.png" // Person meditating in gazebo
-  ];
-  const [embla, setEmbla] = useState<CarouselApi | null>(null);
-  const [filteredImages, setFilteredImages] = useState<string[]>([]);
-  const [isHowOpen, setIsHowOpen] = useState(false);
-  const [isHowWorkOpen, setIsHowWorkOpen] = useState(false);
-  const [playingVideo, setPlayingVideo] = useState<number | null>(null);
-  const podcastEpisodes = PODCAST_EPISODES;
-
-
-  // Auto-redirect to YouTube after 4 seconds of playing
-  useEffect(() => {
-    if (playingVideo === null) return;
-    const episode = podcastEpisodes[playingVideo];
-    if (!episode) return;
-    const timer = setTimeout(() => {
-      startTrackedRedirect(episode.videoId);
-      setPlayingVideo(null);
-    }, 4000);
-    return () => clearTimeout(timer);
-  }, [playingVideo]);
-  const howRef = useRef<HTMLDivElement>(null);
-  const podcastRef = useRef<HTMLDivElement>(null);
-  const howWorkContentRef = useRef<HTMLDivElement>(null);
-  const howContentRef = useRef<HTMLDivElement>(null);
-  const handleScrollToHow = () => {
-    howRef.current?.scrollIntoView({
-      behavior: "smooth",
-      block: "center"
-    });
-  };
-  const handleHowOpenChange = (open: boolean) => {
-    setIsHowOpen(open);
-    if (open) {
-      // Wait for content to expand, then scroll to show the top of the content
-      setTimeout(() => {
-        const contentElement = howContentRef.current;
-        if (contentElement) {
-          contentElement.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
-        }
-      }, 200);
-    }
-  };
-  const howWorkTriggerRef = useRef<HTMLButtonElement>(null);
-  const handleHowWorkOpenChange = (open: boolean) => {
-    setIsHowWorkOpen(open);
-    if (open) {
-      // Wait for content to expand, then scroll to show the top of the content
-      setTimeout(() => {
-        const contentElement = howWorkContentRef.current;
-        if (contentElement) {
-          contentElement.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
-        }
-      }, 200);
-    }
-  };
-  const isPhotoLike = (src: string): Promise<boolean> => new Promise(resolve => {
-    const img = new Image();
-    img.onload = () => {
-      const size = 32;
-      const canvas = document.createElement("canvas");
-      canvas.width = size;
-      canvas.height = size;
-      const ctx = canvas.getContext("2d");
-      if (!ctx) return resolve(true);
-      ctx.drawImage(img, 0, 0, size, size);
-      const {
-        data
-      } = ctx.getImageData(0, 0, size, size);
-      let whiteish = 0;
-      const total = size * size;
-      for (let i = 0; i < total; i++) {
-        const r = data[i * 4];
-        const g = data[i * 4 + 1];
-        const b = data[i * 4 + 2];
-        const max = Math.max(r, g, b);
-        const min = Math.min(r, g, b);
-        const sat = max === 0 ? 0 : (1 - min / max) * 100;
-        const bright = (r + g + b) / 3;
-        if (bright > 245 && sat < 10) whiteish++;
-      }
-      const ratio = whiteish / total;
-      resolve(ratio < 0.6);
-    };
-    img.onerror = () => resolve(true);
-    img.src = src;
-  });
-  useEffect(() => {
-    let cancelled = false;
-    const run = async () => {
-      const keep = await Promise.all(images.map(s => isPhotoLike(s)));
-      const next = images.filter((_, i) => keep[i]);
-      if (!cancelled) setFilteredImages(next);
-    };
-    run();
-    return () => {
-      cancelled = true;
-    };
-  }, []);
-  useEffect(() => {
-    if (!embla) return;
-    const id = setInterval(() => {
-      if (embla.canScrollNext()) {
-        embla.scrollNext();
-      } else {
-        embla.scrollTo(0);
-      }
-    }, 5500);
-    return () => clearInterval(id);
-  }, [embla]);
-  return <div className="min-h-screen">
-      {/* Hero Section */}
-      <section className="relative bg-gradient-hero text-white py-6 lg:py-24 overflow-hidden">
-        <div className="absolute inset-0 bg-black/20"></div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-6 lg:gap-12 items-center">
-            <div className="animate-fade-in text-center">
-              <h1 className="text-4xl lg:text-6xl font-bold mb-3 lg:mb-5 leading-tight">
-                <span className="block text-white">Are your habits building the life you want?</span>
-                <span className="block text-[hsl(35_45%_75%)]">or quietly pulling you away from it?</span>
-              </h1>
-              <p className="text-sm lg:text-lg text-white/90 leading-relaxed mb-4 lg:mb-7 mx-auto max-w-prose">
-                Your days are shaped by tiny repeated habits. And whether you realise it or not, your energy, health, finances, confidence and momentum are already compounding, either moving you forward or holding you back.
-              </p>
-            </div>
-            <div className="animate-float">
-              <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 lg:p-8 shadow-strong max-w-[85%] mx-auto lg:max-w-none">
-                <Carousel setApi={setEmbla} opts={{
-                loop: true
-              }} className="w-full" aria-label="Daily success journey image carousel">
-                  <CarouselContent>
-                    {(filteredImages.length ? filteredImages : images).map((src, idx) => {
-                      const focalMap: Record<string, string> = {
-                        // Sunset silhouette on rocks - lower so person not sky
-                        "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png": "center 75%",
-                        // Man with dog outdoors - keep face
-                        "/lovable-uploads/4fd0818e-20c3-4941-9c54-6915db50a7c0.png": "center 25%",
-                        // Meditation with mirror - keep head/upper body
-                        "/lovable-uploads/661d98ce-15f1-4542-b8c0-bab549b78a55.png": "center 20%",
-                        // Man in bathroom mirror - face is upper
-                        "/lovable-uploads/33ba01bc-045c-4c44-ac70-c61c05093bdc.png": "center 15%",
-                        // Silhouette by pool - keep figure
-                        "/lovable-uploads/2678016c-a3fa-4e29-bf3d-3ebe92201186.png": "center 70%",
-                        // Person exercising outdoors - keep body
-                        "/lovable-uploads/7db6bd1f-c12f-45f2-a1d1-505f38c743a1.png": "center 30%",
-                        // Man outdoors smiling
-                        "/lovable-uploads/8db636d1-94ff-432a-a4b1-6ca278173f2f.png": "center 25%",
-                        // Man in shoe store
-                        "/lovable-uploads/a886c4a9-0d09-442e-8348-25bd795ad7d0.png": "center 30%",
-                        // Man on beach at sunset
-                        "/lovable-uploads/347bc4c8-a5fc-40c4-a30c-1d91b5bd5761.png": "center 60%",
-                        // Person meditating in gazebo
-                        "/lovable-uploads/75853635-930c-4fa5-9403-d0b58c6db83b.png": "center 40%",
-                      };
-                      const objectPosition = focalMap[src] ?? "center 30%";
-                      return (
-                        <CarouselItem key={src}>
-                          <div className="w-full aspect-[4/3] lg:aspect-square rounded-xl overflow-hidden">
-                            <img
-                              src={src}
-                              alt={`Big Life Change inspiration image ${idx + 1}`}
-                              className="w-full h-full object-cover"
-                              style={{ objectPosition }}
-                              loading={idx === 0 ? "eager" : "lazy"}
-                            />
-                          </div>
-                        </CarouselItem>
-                      );
-                    })}
-                  </CarouselContent>
-                </Carousel>
-              </div>
-            </div>
-          </div>
-        </div>
-        {/* Bottom Chevron Scroll */}
-        <button aria-label="Scroll to next section" onClick={() => podcastRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })} className="group absolute z-10 bottom-8 left-1/2 -translate-x-1/2 hidden lg:block">
-          <div className="relative w-14 h-14">
-            <div className="relative w-14 h-14 rounded-full bg-white/15 backdrop-blur border border-white/30 flex items-center justify-center">
-              <ChevronDown className="w-6 h-6 text-white transition-transform group-hover:translate-y-0.5" />
-            </div>
-          </div>
-        </button>
-      </section>
-
-      {/* Anchor for chevron scroll */}
-      <div ref={podcastRef} aria-hidden="true" />
-
-
-
-
-      {/* Browse Courses CTA - sits between hero and boxes */}
-      <section className="pt-8 lg:pt-24 pb-6 lg:pb-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-center">
-          <Link
-            to="/courses?intent=1"
-            aria-label="Browse Courses"
-            onClick={() => trackClick("button-courses")}
-            className="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-2xl w-full sm:w-auto h-14 md:h-16 px-10 md:px-12 text-lg md:text-xl font-semibold tracking-tight text-black bg-gradient-to-r from-primary via-[hsl(35_45%_78%)] to-primary bg-[length:200%_100%] bg-[position:0%_50%] transition-[background-position,transform,box-shadow] duration-500 ease-out hover:bg-[position:100%_50%] hover:-translate-y-0.5 active:translate-y-0 shadow-[0_0_0_1px_hsl(var(--primary)/0.35),0_10px_30px_-12px_hsl(var(--primary)/0.45)] hover:shadow-[0_0_0_1px_hsl(var(--primary)/0.5),0_18px_45px_-12px_hsl(var(--primary)/0.65)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-black"
-          >
-            <span aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-1/2 rounded-t-2xl bg-gradient-to-b from-white/30 to-transparent" />
-            <span aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden rounded-2xl">
-              <span className="absolute top-0 left-0 h-full w-1/3 bg-gradient-to-r from-transparent via-white/35 to-transparent animate-shimmer-sweep" />
-            </span>
-            <span className="relative">Browse Courses</span>
-            <ArrowRight className="relative w-5 h-5 transition-transform duration-300 ease-out group-hover:translate-x-1" />
-          </Link>
-        </div>
-      </section>
-
-      {/* Follow / Social footer (moved from Courses) */}
-      <section className="pt-6 lg:pt-10 pb-4">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center space-y-8">
-          <div className="grid grid-cols-3 gap-4 sm:gap-8 max-w-2xl mx-auto">
-            {[
-              { stat: "30K+", label: "YouTube Subscribers" },
-              { stat: "100+", label: "Daily Wins Shared" },
-              { stat: "8PM", label: "New Episode, Every Day" },
-            ].map((s) => (
-              <div key={s.label} className="space-y-1">
-                <div className="font-bold italic text-[#E8CE8A] text-[clamp(1.75rem,5vw,2.75rem)] leading-none">
-                  {s.stat}
-                </div>
-                <div className="text-[11px] sm:text-xs uppercase tracking-wider text-muted-foreground">
-                  {s.label}
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <p className="italic text-muted-foreground text-sm sm:text-base max-w-xl mx-auto">
-            "Helping people replace Daily Drifts with Daily Wins."
-          </p>
-
-          <div className="space-y-5">
-            <p className="font-bold italic text-primary text-lg sm:text-xl">
-              Follow @bigdaddysbigtips
-            </p>
-
-            <div className="flex items-center justify-center gap-4 sm:gap-5">
-              {[
-                { Icon: SiInstagram, href: "https://instagram.com/BigDaddysBigTips", label: "Instagram" },
-                { Icon: SiSpotify, href: "https://open.spotify.com/show/7AryqWOzeVCOC7WQ9wcBlk", label: "Spotify" },
-                { Icon: SiTiktok, href: "https://tiktok.com/@BigDaddysBigTips", label: "TikTok" },
-                { Icon: SiYoutube, href: "https://youtube.com/@BigDaddysBigTips", label: "YouTube" },
-              ].map(({ Icon, href, label }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={label}
-                  className="group w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#141414] border border-primary/40 flex items-center justify-center transition-all duration-300 hover:border-primary hover:-translate-y-0.5 hover:shadow-[0_0_25px_-5px_hsl(var(--primary)/0.7)]"
-                >
-                  <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-[#E8CE8A] transition-transform group-hover:scale-110" />
-                </a>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Pull quote */}
-      <section className="py-12 lg:py-16">
-        <div className="max-w-3xl mx-auto px-6">
-          <blockquote className="text-center italic font-bold text-foreground text-lg md:text-2xl leading-relaxed">
-            "If you don't build a system around your Daily Wins, comfort will quietly build one around your Daily Drifts."
-          </blockquote>
-        </div>
-      </section>
-
-      {/* Why Life Feels Harder Than It Should */}
-      <section className="pt-6 lg:pt-8 pb-24">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6">
-          <h2 className="italic text-3xl md:text-4xl font-bold text-primary text-center mb-10">
-            Why Life Feels Harder Than It Should
-          </h2>
-
-          <p className="text-foreground font-semibold text-center mb-6">
-            Modern life quietly pulls us towards Daily Drifts:
-          </p>
-
-          <ul className="space-y-2 text-center italic text-foreground mb-10">
-            <li>Too many screens → overstimulated mind</li>
-            <li>Overstimulated mind → poor sleep</li>
-            <li>Poor sleep → low energy</li>
-            <li>Low energy → worse food choices</li>
-            <li>Worse food → less movement</li>
-            <li>Low movement → lower confidence</li>
-            <li>Low confidence → more stress</li>
-            <li>More stress → emotional spending</li>
-            <li>Emotional spending → financial pressure</li>
-          </ul>
-
-          <div className="space-y-4 text-center text-foreground leading-relaxed">
-            <p>Most people think they have separate problems. In reality, they have a system problem.</p>
-            <p>The good news? A system of Daily Drifts can be replaced with a system of Daily Wins.</p>
-            <p>This is not another all-or-nothing New Year's resolution. It is a system you build gradually, layering small Daily Wins that quietly reshape your habits, identity, and ultimately, your future.</p>
-          </div>
-        </div>
-      </section>
-
-      {/* Courses preview - laid out like Courses page */}
-      <section className="py-12 lg:py-16 bg-background">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="italic text-3xl md:text-4xl font-bold text-primary mb-4">
-              Start Your Daily Wins Journey
-            </h2>
-            <p className="text-muted-foreground text-base sm:text-lg max-w-2xl mx-auto">
-              Four simple systems. One connected life. Pick where you want your first win.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6 items-stretch">
-            {[
-              { topic: "Exercise", title: "Daily Wins For Exercise", hook: "Build a workout into your day, without needing a gym, personal trainer or any extra time.", bullets: ["Consistency over intensity", "Simple exercise habits", "More energy & confidence", "No overwhelm"], cta: "Start Exercise Wins", Icon: Dumbbell, available: true },
-              { topic: "Money", title: "Daily Wins For Money", hook: "Stop money leaks and reduce financial stress without budgets or complicated spreadsheets.", bullets: ["Spending awareness", "Habit-based saving", "Systems over budgeting", "Small wins that compound"], cta: "Start Money Wins", Icon: PiggyBank, available: false },
-              { topic: "Nutrition", title: "Daily Wins For Nutrition", hook: "Eat better without extreme dieting.", bullets: ["Craving control", "Better food defaults (keep your guilty pleasures!)", "Energy & mood improvement", "Sustainable habits"], cta: "Start Nutritional Wins", Icon: Apple, available: false },
-              { topic: "Sleep", title: "Daily Wins For Sleep", hook: "Fix the habit that quietly affects everything else.", bullets: ["Better recovery & confidence", "Lower stress/anxiety", "More discipline & motivation", "Energy ripple effects"], cta: "Start Sleep Wins", Icon: Moon, available: false },
-            ].map(({ topic, title, hook, bullets, cta, Icon, available }) => (
-              <Card key={topic} className={`group relative rounded-2xl shadow-soft transition-all duration-300 md:hover:-translate-y-1 h-full overflow-hidden ${available ? "bg-primary border-2 border-primary md:hover:shadow-[0_0_50px_-8px_hsl(var(--primary)/0.8)]" : "bg-[#141414] border border-primary/20 md:hover:border-primary/50 md:hover:shadow-[0_0_40px_-10px_hsl(var(--primary)/0.5)]"}`}>
-                <CardContent className="relative p-6 sm:p-7 flex flex-col h-full gap-5">
-                  <div className="flex items-start justify-between gap-3">
-                    <div className={`w-14 h-14 rounded-2xl flex items-center justify-center transition-colors ${available ? "bg-black/15 border border-black/30" : "bg-primary/10 border border-primary/20 md:group-hover:bg-primary/20"}`}>
-                      <Icon className={`w-7 h-7 ${available ? "text-black" : "text-primary"}`} strokeWidth={2.25} />
-                    </div>
-                    {available ? (
-                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/15 border border-black/40 text-black text-[11px] font-bold tracking-wider uppercase">
-                        Available Now
-                      </span>
-                    ) : (
-                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/15 border border-primary/40 text-primary text-[11px] font-bold tracking-wider uppercase">
-                        <LockIcon className="w-3 h-3" />
-                        Coming Soon
-                      </span>
-                    )}
-                  </div>
-
-                  <div className="space-y-2">
-                    <h3 className={`text-xl sm:text-2xl font-bold italic leading-tight ${available ? "text-black" : "text-primary"}`}>{title}</h3>
-                    <p className={`text-[15px] leading-relaxed ${available ? "text-black/85" : "text-muted-foreground"}`}>{hook}</p>
-                  </div>
-
-                  <ul className="space-y-2.5">
-                    {bullets.map((b) => (
-                      <li key={b} className={`flex items-start gap-2.5 text-[15px] leading-snug ${available ? "text-black" : "text-foreground/95"}`}>
-                        <Check className={`w-4 h-4 mt-1 shrink-0 ${available ? "text-black" : "text-primary"}`} strokeWidth={3} />
-                        <span>{b}</span>
-                      </li>
-                    ))}
-                  </ul>
-
-                  <div className="mt-auto pt-2">
-                    {available ? (
-                      <Button asChild className="w-full min-h-12 rounded-xl bg-black text-primary font-bold tracking-tight hover:bg-black/90 hover:scale-[1.02] transition-all">
-                        <a href="https://bigdaddysbigtips.xperiencify.io" target="_blank" rel="noopener noreferrer">{cta}</a>
-                      </Button>
-                    ) : (
-                      <Button asChild variant="outline" className="w-full min-h-12 rounded-xl border-2 border-primary/60 text-primary font-bold tracking-tight bg-[#141414]/80 md:hover:bg-primary md:hover:text-primary-foreground md:hover:border-primary md:hover:scale-[1.02] transition-all">
-                        <Link to={`/courses?topic=${encodeURIComponent(topic)}`}>{cta}</Link>
-                      </Button>
-                    )}
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* They're All Connected */}
-      <section className="py-12 lg:py-16">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
-          <h2 className="italic text-3xl md:text-4xl font-bold text-primary mb-8">
-            They're All Connected
-          </h2>
-
-          <p className="font-bold text-foreground text-lg md:text-xl mb-10">
-            Sleep → Nutrition → Exercise → Money → Confidence → Happiness
-          </p>
-
-          <p className="font-bold text-foreground mb-2">
-            Most people try to fix life one problem at a time.
-          </p>
-          <p className="font-bold text-foreground mb-8">
-            Daily Wins work differently. Small habits that create ripple effects:
-          </p>
-
-          <ul className="space-y-3 text-foreground mb-0">
-            <li>Better sleep improves food choices.</li>
-            <li>Better food improves energy.</li>
-            <li>Better energy improves movement.</li>
-            <li>Better routines reduce stress spending.</li>
-            <li>Tiny wins compound into a different life.</li>
-          </ul>
-        </div>
-      </section>
-
-      {/* Start For Free */}
-      <section className="py-12 lg:py-16 bg-background">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
-          <h2 className="italic text-3xl md:text-4xl font-bold text-primary mb-8">
-            Start For Free
-          </h2>
-
-          <div className="flex justify-center mb-8">
-            <img
-              src={blueprintCoverAsset.url}
-              alt="Foundation Blueprint"
-              className="w-full max-w-sm rounded-2xl border border-primary/30 shadow-strong"
-            />
-          </div>
-
-          <p className="italic font-bold text-foreground text-lg md:text-xl mb-3">
-            Not ready for a course?
-          </p>
-          <p className="italic text-muted-foreground mb-8 max-w-xl mx-auto">
-            Download the free Foundation Blueprint and start building momentum today.
-          </p>
-
-          <div className="flex justify-center">
-            <Button asChild size="lg" className="italic font-bold">
-              <Link to="/blueprint">
-                Download Free Blueprint <ArrowRight className="w-5 h-5 ml-2" />
-              </Link>
-            </Button>
-          </div>
-        </div>
-      </section>
-
-      {/* Learn For Free Every Day */}
-      <section className="py-20 lg:py-24">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <div className="text-center mb-12">
-            <h2 className="italic text-3xl md:text-4xl font-bold text-primary mb-4">
-              Learn For Free Every Day
-            </h2>
-            <p className="italic text-muted-foreground">
-              30,000+ people learning better habits every day
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6 mb-10">
-            {PODCAST_EPISODES.map((ep) => (
-              <EpisodeCard key={ep.videoId} episode={ep} />
-            ))}
-          </div>
-
-          <div className="flex justify-center mb-20">
-            <Button asChild variant="outline" size="lg" className="italic font-bold">
-              <a href="https://youtube.com/@BigDaddysBigTips" target="_blank" rel="noopener noreferrer">
-                Watch On YouTube <ArrowRight className="w-5 h-5 ml-2" />
-              </a>
-            </Button>
-          </div>
-
-          {/* About Me */}
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="italic text-3xl md:text-4xl font-bold text-primary mb-8">
-              About Me
-            </h2>
-            <p className="italic text-foreground leading-relaxed mb-6">
-              After years working in finance and studying habits, health and behaviour, I realised something surprising; most people do not fail because they are lazy or lack discipline. They are simply living in a world where comfort has evolved faster than our biology.
-            </p>
-            <p className="italic text-foreground leading-relaxed mb-10">
-              Modern life has made choosing comfort easier. It has made Daily Drifts easier. So I created Daily Wins to help people replace downward spirals with upward momentum through tiny daily actions that quietly compound.
-            </p>
-
-            <div className="flex justify-center">
-              <Button asChild variant="outline" size="lg" className="italic font-bold">
-                <Link to="/about#story">
-                  My Story <ArrowRight className="w-5 h-5 ml-2" />
-                </Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Ready To Replace Daily Drifts With Daily Wins? */}
-      <section className="py-20 lg:py-28 bg-background">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
-          <h2 className="italic text-3xl md:text-5xl font-bold text-primary mb-10 leading-tight">
-            Ready To Replace Daily Drifts With Daily Wins?
-          </h2>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-stretch sm:items-center">
-            <Button asChild variant="outline" size="lg" className="italic font-bold">
-              <Link to="/blueprint">
-                Start With The Free Foundation Blueprint <ArrowRight className="w-5 h-5 ml-2" />
-              </Link>
-            </Button>
-            <Button asChild size="lg" className="italic font-bold">
-              <Link to="/courses" onClick={() => trackClick("button-courses")}>
-                Browse Courses <ArrowRight className="w-5 h-5 ml-2" />
-              </Link>
-            </Button>
-          </div>
-        </div>
-      </section>
-
-    </div>;
-};
 export default Home;

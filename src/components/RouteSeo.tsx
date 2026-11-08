@@ -9,12 +9,22 @@ interface Meta {
 
 const META: Record<string, Meta> = {
   "/": {
-    title: "Big Daddy's Big Tips — Daily Wins For A Better Life",
+    title: "Daily Wins with Ben Raven — Coaching, Mentoring & Life Skills",
     description:
-      "Practical daily habits for health, money, sleep and mindset. Free Foundation Blueprint, the Daily Wins podcast and simple tips that actually stick.",
+      "Helping you play the long game, one Daily Win at a time. Coaching, mentoring, free events and the free Daily Wins Test from Ben Raven.",
+  },
+  "/test": {
+    title: "Free Daily Wins Test — How Well Are You Playing The Long Game?",
+    description:
+      "Answer 28 simple questions and get a personalised snapshot of your life, your strengths, your first Daily Win and a recommended starting point. Free.",
+  },
+  "/coaching": {
+    title: "Daily Wins Coaching & Mentoring with Ben Raven",
+    description:
+      "Understand yourself, change your behaviours and win the long game. Free discovery calls, private coaching, intensives and the Daily Wins Community.",
   },
   "/about": {
-    title: "About Big Daddy's Big Tips — The Story Behind Daily Wins",
+    title: "About Ben Raven — Founder of Daily Wins",
     description:
       "How Big Daddy's Big Tips started, why Daily Wins exist, and the honest story behind turning small everyday habits into lasting change.",
   },

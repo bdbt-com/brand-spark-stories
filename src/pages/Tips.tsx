@@ -2467,10 +2467,10 @@ const Tips = () => {
               Want More Life-Changing Strategies?
             </h2>
             <p className="text-lg sm:text-xl text-white/90 mb-8 max-w-2xl mx-auto px-4">
-              Get the complete BDBT system with your personalised blueprint and start implementing these tips today.
+              Take the free Daily Wins Test to discover where you're thriving, where your Daily Drifts are holding you back and your recommended starting point.
             </p>
             <Button variant="colored-bg" size="lg" asChild className="w-full sm:w-auto">
-              <Link to="/blueprint">Download Your Blueprint</Link>
+              <Link to="/test">Take Your Free Daily Wins Test</Link>
             </Button>
           </div>
         </div>

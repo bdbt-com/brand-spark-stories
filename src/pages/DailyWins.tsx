@@ -307,8 +307,8 @@ const DailyWins = () => {
           </p>
           <div className="flex justify-center">
             <Button variant="colored-bg" size="lg" asChild className="w-full sm:w-auto max-w-sm">
-              <Link to="/blueprint">
-                Get Your Foundation Blueprint Here <ArrowRight className="w-5 h-5 ml-2" />
+              <Link to="/test">
+                Take Your Free Daily Wins Test <ArrowRight className="w-5 h-5 ml-2" />
               </Link>
             </Button>
           </div>

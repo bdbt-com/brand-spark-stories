@@ -56,8 +56,8 @@ const socialLinks = [
 
 const links = [
   {
-    title: "Free Foundation Blueprint",
-    href: "/blueprint",
+    title: "Free Daily Wins Test",
+    href: "/test",
     external: false,
     trackId: "button-blueprint",
     thumbnail: "/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png",

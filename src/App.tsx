@@ -8,7 +8,8 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Courses from "./pages/Courses";
 import Tips from "./pages/Tips";
-import Blueprint from "./pages/Blueprint";
+import DailyWinsTest from "./pages/DailyWinsTest";
+import Coaching from "./pages/Coaching";
 import Podcast from "./pages/Podcast";
 import DailyWins from "./pages/DailyWins";
 import Partnership from "./pages/Partnership";
@@ -44,7 +45,11 @@ const App = () => (
           <Route path="/courses" element={<Courses />} />
           <Route path="/feeling-stuck" element={<Navigate to="/courses" replace />} />
           <Route path="/tips/:keyword?" element={<Tips />} />
-          <Route path="/blueprint" element={<Blueprint />} />
+          <Route path="/test" element={<DailyWinsTest />} />
+          <Route path="/daily-wins-test" element={<Navigate to="/test" replace />} />
+          <Route path="/coaching" element={<Coaching />} />
+          {/* Old Foundation Blueprint links (YouTube descriptions, link in bio) now go to the test */}
+          <Route path="/blueprint" element={<Navigate to="/test" replace />} />
           <Route path="/podcast" element={<Podcast />} />
           <Route path="/daily-wins" element={<DailyWins />} />
           <Route path="/partnership" element={<Partnership />} />

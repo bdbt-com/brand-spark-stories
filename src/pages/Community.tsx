@@ -276,9 +276,9 @@ const Community = () => {
               </div>
               
               <div className="mt-12">
-                <Link to="/blueprint">
+                <Link to="/test">
                   <Button size="lg" className="text-lg px-8 py-6">
-                    Get Your Foundation Blueprint
+                    Take Your Free Daily Wins Test
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Button>
                 </Link>
