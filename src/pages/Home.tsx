@@ -31,7 +31,7 @@ const LONG_GAME = [
   { Icon: PiggyBank, title: "Money & Financial Freedom", text: "Don't just work for your money. Make your money work for your future. Less financial stress. More freedom to make choices. The ability to spend your time doing what matters, rather than what your bank balance dictates." },
   { Icon: Users, title: "Relationships & Family", text: "Don't wait until you have more time for the people you love. Build the relationships you'll treasure for a lifetime. More moments that matter. Stronger connections. Fewer regrets about the time you wish you'd spent differently." },
   { Icon: Briefcase, title: "Career & Personal Growth", text: "Don't just chase your next promotion. Build a career that opens doors for decades. Develop the skills, confidence and relationships that create opportunities, independence and a sense of purpose." },
-  { Icon: Sun, title: "Time & Fulfilment", text: "Don't spend five days waiting for the weekend, 50 weeks waiting for the summer holiday or forty years waiting for retirement. Build a life you enjoy living on ordinary Tuesdays." },
+  { Icon: Sun, title: "Time & Fulfilment", text: "Don't spend five days waiting for the weekend, fifty weeks waiting for the summer holiday or forty years waiting for retirement. Build a life you enjoy living on ordinary Tuesdays." },
 ];
 
 const PREVIEW_BARS = [
@@ -44,19 +44,19 @@ const Home = () => {
 
   return (
     <div className="min-h-screen">
-      {/* HERO — full-width image of Ben teaching. Swap HERO_IMAGE for a b-roll <video> when supplied. */}
+      {/* Hero: full-width image of Ben. Swap HERO_IMAGE for a b-roll <video> when supplied. */}
       <section className="relative overflow-hidden min-h-[88vh] flex items-center">
         <img src={HERO_IMAGE} alt="Ben Raven recording a Daily Wins episode" className="absolute inset-0 w-full h-full object-cover object-[60%_35%] animate-kenburns" />
         <div className="absolute inset-0 bg-gradient-to-r from-black/95 via-black/80 to-black/40" />
         <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
         <div className="relative max-w-6xl mx-auto px-5 sm:px-6 lg:px-8 py-20 w-full">
           <div className="max-w-2xl animate-fade-in">
-            <Eyebrow>Daily Wins Coaching & Mentoring</Eyebrow>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-[1.08] tracking-tight">
+            <Eyebrow>Ben Raven · Daily Wins</Eyebrow>
+            <h1 className="font-display text-[2.6rem] sm:text-6xl lg:text-7xl font-extrabold leading-[1.02] tracking-[-0.03em] [text-wrap:balance]">
               <span className="text-white">Helping you play the long game.</span>{" "}
               <span className="italic text-primary">One Daily Win at a time.</span>
             </h1>
-            <p className="text-xl md:text-2xl font-semibold text-white mt-6">Change your life by changing almost nothing about your day.</p>
+            <p className="text-xl md:text-2xl font-semibold text-white mt-7">Change your life by changing almost nothing about your day.</p>
             <div className="mt-5 space-y-4 text-base md:text-lg text-white/80 leading-relaxed">
               <p>We all know we should sleep better, move more, eat healthier and save money. But knowing what to do and actually doing it are two very different things.</p>
               <p>I'm Ben Raven, founder of Daily Wins. Through personal coaching, mentoring and practical life skills, I help people understand their behaviours, break unhelpful cycles and make tiny changes today compound into a better future.</p>
@@ -74,7 +74,7 @@ const Home = () => {
       <div className="border-y border-primary/15 bg-black/60">
         <div className="max-w-4xl mx-auto px-5 py-7 grid grid-cols-3 gap-4 text-center">
           {[["30K+", "YouTube subscribers"], ["300+", "Daily Wins episodes"], ["8PM", "New episode, every day"]].map(([s, l]) => (
-            <div key={l}><p className="font-bold italic text-[#E8CE8A] text-2xl md:text-4xl leading-none">{s}</p><p className="text-[10px] md:text-xs uppercase tracking-wider text-white/55 mt-2">{l}</p></div>
+            <div key={l}><p className="font-display font-extrabold italic text-primary text-3xl md:text-5xl leading-none tracking-tight">{s}</p><p className="text-[10px] md:text-xs uppercase tracking-[0.18em] text-white/55 mt-3">{l}</p></div>
           ))}
         </div>
       </div>
@@ -124,7 +124,7 @@ const Home = () => {
           <Title>We can't choose between comfort and discomfort. Only which one comes first.</Title>
           <Prose className="mt-6">
             <p>Every day, we make small decisions that trade one kind of comfort for another.</p>
-            <p>Staying in bed instead of exercising feels comfortable now, but being less physically capable can make life more uncomfortable later. Spending money on something we don't need feels rewarding today, but financial stress can create discomfort tomorrow. Having the sugary snack at 3pm feels rewarding in the moment, but a body composition you don't like can impact your confidence and self-esteem over time.</p>
+            <p>Staying in bed instead of exercising feels comfortable now, but being less physically capable can make life more uncomfortable later. Spending money on something we don't need feels good today, but financial stress can create discomfort tomorrow. The sugary snack at 3pm feels rewarding in the moment, but a body you're unhappy with can chip away at your confidence and self-esteem over time.</p>
             <p className="text-white text-xl font-semibold">This is The Comfort Trade.</p>
             <p>We repeatedly choose immediate comfort without fully considering the long-term price. And sometimes, the behaviours we use to feel better today are the very things making us feel worse tomorrow.</p>
           </Prose>
@@ -182,11 +182,11 @@ const Home = () => {
               <p>Take my free Daily Wins Test and discover where you're thriving, where your Daily Drifts might be holding you back, and which Daily Wins could help you move forward.</p>
               <p>Answer 28 simple questions, receive a personalised snapshot of your life and discover a recommended starting point. No judgement. No pass or fail. Just a better understanding of where you are and where you'd like to go.</p>
             </Prose>
-            <GoldButton to="/test" arrow className="mt-8">Take My Free Daily Wins Test</GoldButton>
+            <GoldButton to="/test" arrow className="mt-8">Take the Free Daily Wins Test</GoldButton>
           </div>
           <Card className="relative">
             <span className="absolute -top-3 right-6 bg-primary text-black text-xs font-bold px-3 py-1 rounded-full">Example results</span>
-            <p className="font-bold text-lg">Your Daily Wins Snapshot</p>
+            <p className="font-display font-bold text-xl tracking-tight">Your Daily Wins Snapshot</p>
             <p className="text-sm text-white/50 mb-5">Long Game Score: <span className="text-primary font-bold">58/100</span></p>
             <div className="space-y-3.5">
               {PREVIEW_BARS.map(([n, s]) => (
@@ -216,17 +216,17 @@ const Home = () => {
             <p>Not sacrificing your happiness today for some distant reward. But making small decisions that can improve your life now, while building an even better one for the future. And it starts in the most ordinary moments of your day.</p>
           </Prose>
         </div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mt-12">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px mt-14 rounded-2xl overflow-hidden border border-white/10 bg-white/10">
           {LONG_GAME.map(({ Icon, title, text }) => (
-            <Card key={title} className="hover:border-primary/50 transition-colors">
-              <div className="w-11 h-11 rounded-xl bg-primary/15 flex items-center justify-center mb-4"><Icon className="w-5 h-5 text-primary" /></div>
-              <h3 className="font-bold text-xl text-white">{title}</h3>
-              <p className="text-white/70 mt-3 leading-relaxed">{text}</p>
-            </Card>
+            <div key={title} className="group bg-[#0b0b0b] p-7 md:p-9 transition-colors hover:bg-[#111]">
+              <Icon className="w-6 h-6 text-primary" strokeWidth={1.5} />
+              <h3 className="font-display font-bold text-xl text-white mt-5 tracking-tight">{title}</h3>
+              <p className="text-white/65 mt-3 leading-relaxed text-[15px]">{text}</p>
+            </div>
           ))}
         </div>
         <div className="max-w-3xl mx-auto text-center mt-16">
-          <h3 className="italic font-bold text-primary text-3xl">The Long Game</h3>
+          <h3 className="font-display italic font-extrabold text-primary text-3xl md:text-4xl tracking-tight">The Long Game</h3>
           <p className="text-lg text-white/80 mt-4 leading-relaxed">The long game isn't about adding more years to your life. It's about adding more life to your years. And you don't have to change your entire life to start changing your future. You just start with one Daily Win.</p>
           <div className="flex flex-wrap items-center justify-center gap-x-2 gap-y-2 mt-8 text-sm md:text-base font-semibold">
             {["Achievable", "Repeatable", "Consistency", "Momentum"].map((w, i) => (
@@ -260,7 +260,7 @@ const Home = () => {
           ].map((e) => (
             <Card key={e.title} className="flex flex-col">
               <div className="flex items-center justify-between">
-                <h3 className="font-bold text-2xl italic text-white">{e.title}</h3>
+                <h3 className="font-display font-bold text-2xl italic text-white tracking-tight">{e.title}</h3>
                 <span className="text-xs font-bold text-black bg-primary rounded-full px-3 py-1">FREE</span>
               </div>
               <div className="flex gap-5 mt-4 text-sm text-white/70">
@@ -273,9 +273,6 @@ const Home = () => {
               </GoldButton>
             </Card>
           ))}
-        </div>
-        <div className="text-center mt-10">
-          <OutlineButton to="/test" arrow>Take the Free Daily Wins Test</OutlineButton>
         </div>
       </Section>
 
@@ -290,15 +287,15 @@ const Home = () => {
         </div>
         <div className="grid md:grid-cols-3 gap-5 mt-10">
           {[
-            { Icon: Headphones, title: "The Daily Wins Podcast & Videos", text: "Explore the science, psychology and everyday behaviours behind living a better life.", cta: "Watch & Listen", to: "/podcast" },
-            { Icon: BookOpen, title: "The Daily Wins Library", text: "Discover practical Daily Wins across health, money, relationships, time and personal wellbeing.", cta: "Explore Now", to: "/tips" },
-            { Icon: GraduationCap, title: "Daily Wins Courses", text: "Something in between free content and personalised coaching. Practical, affordable and designed to help you build useful life skills and better everyday habits.", cta: "Explore Courses", to: "/courses" },
+            { Icon: Headphones, title: "The Daily Wins Podcast & Videos", text: "Explore the science, psychology and everyday behaviours behind living a better life.", cta: "Watch & Listen", to: "/podcast", href: undefined },
+            { Icon: BookOpen, title: "The Daily Wins Library", text: "Discover practical Daily Wins across health, money, relationships, time and personal wellbeing.", cta: "Explore the Library", to: "/tips", href: undefined },
+            { Icon: GraduationCap, title: "Daily Wins Courses", text: "Something in between free content and personalised coaching. Practical, affordable and designed to help you build useful life skills and better everyday habits.", cta: "Start The Invisible Workout", to: undefined, href: "https://bigdaddysbigtips.xperiencify.io/" },
           ].map((r) => (
             <Card key={r.title} className="flex flex-col">
-              <div className="w-11 h-11 rounded-xl bg-primary/15 flex items-center justify-center mb-4"><r.Icon className="w-5 h-5 text-primary" /></div>
-              <h3 className="font-bold text-xl text-white">{r.title}</h3>
+              <r.Icon className="w-6 h-6 text-primary mb-5" strokeWidth={1.5} />
+              <h3 className="font-display font-bold text-xl text-white tracking-tight">{r.title}</h3>
               <p className="text-white/70 mt-3 flex-1 leading-relaxed">{r.text}</p>
-              <OutlineButton to={r.to} arrow className="mt-6 min-h-12 text-base">{r.cta}</OutlineButton>
+              <OutlineButton to={r.to} href={r.href} arrow className="mt-6 min-h-12 text-base">{r.cta}</OutlineButton>
             </Card>
           ))}
         </div>
@@ -319,7 +316,7 @@ const Home = () => {
 
       {/* Final CTA */}
       <Section narrow className="text-center md:py-28">
-        <Title className="md:text-5xl">A year from now, will you still be making the same promises to yourself?</Title>
+        <Title className="md:text-[3.25rem]">A year from now, will you still be making the same promises to yourself?</Title>
         <Prose className="mt-8 text-left md:text-center">
           <p>Another year will pass. Another 365 days of decisions. Another year of habits, routines, opportunities and experiences.</p>
           <p>And every day, those decisions will be helping to shape your future. You can keep waiting for the perfect moment to change. For Monday. For January. For life to become less busy.</p>

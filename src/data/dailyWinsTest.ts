@@ -1,6 +1,6 @@
-// Daily Wins Test — the 28 scales from Ben's "Daily Win Scales" sheet,
-// grouped into six life areas. Each scale is answered 1–10 (10 = the positive end).
-// Draft grouping and copy for Ben to review — edit freely, the page reads everything from here.
+// Daily Wins Test: the 28 scales from Ben's "Daily Win Scales" sheet,
+// grouped into six life areas. Each scale is answered 1 to 10 (10 = the positive end).
+// Draft grouping and copy for Ben to review. Edit freely; the page reads everything from here.
 
 export type AreaId = "body" | "energy" | "money" | "relationships" | "habits" | "purpose";
 
@@ -12,7 +12,7 @@ export interface Scale {
 }
 
 export const SCALES: Scale[] = [
-  { id: "confident", positive: "Confident", negative: "Anxious / self-doubting", area: "purpose" },
+  { id: "confident", positive: "Confident", negative: "Anxious & self-doubting", area: "purpose" },
   { id: "financially-free", positive: "Financially free", negative: "Financially stressed", area: "money" },
   { id: "energetic", positive: "Energetic", negative: "Lethargic", area: "energy" },
   { id: "body-confident", positive: "Body confident", negative: "Body conscious", area: "body" },
@@ -33,7 +33,7 @@ export const SCALES: Scale[] = [
   { id: "phone", positive: "I control my phone", negative: "It controls me", area: "habits" },
   { id: "nourishing", positive: "Nourishing myself", negative: "Convenience-led diet", area: "body" },
   { id: "active", positive: "Naturally active", negative: "Mostly sedentary", area: "body" },
-  { id: "alcohol", positive: "Intentional alcohol", negative: "Habitual / excessive", area: "energy" },
+  { id: "alcohol", positive: "Intentional alcohol", negative: "Habitual or excessive", area: "energy" },
   { id: "organised", positive: "Organised environment", negative: "Cluttered & chaotic", area: "habits" },
   { id: "living-fully", positive: "Living fully", negative: "Putting life off", area: "purpose" },
   { id: "impact", positive: "Making an impact", negative: "Not offering what I could", area: "relationships" },
@@ -62,8 +62,8 @@ export const AREAS: AreaContent[] = [
     short: "Body",
     priorityLabel: "Health, movement and fitness",
     low: "Your answers suggest movement and nutrition are areas you'd like to improve. You don't need an ambitious exercise routine to begin. Your body adapts to what you repeatedly give it, and right now it isn't being asked for much.",
-    mid: "You've got some good foundations, but your body isn't getting consistent signals to stay strong and capable. Small, repeatable movement attached to things you already do will compound quickly.",
-    high: "You're investing well in your body. Keep making deposits into your muscular retirement pot, because the strength you build now is the independence you keep later.",
+    mid: "You have some good foundations, but your body isn't getting consistent signals to stay strong and capable. Small, repeatable movement attached to things you already do will compound quickly.",
+    high: "You're investing well in your body. Keep paying into your muscular pension. The strength you build now is the independence you keep later.",
     dailyWin: {
       title: "10 squats in the shower",
       detail: "You're in there anyway. 10 squats a day is over 3,500 a year you wouldn't otherwise do, and it takes no extra time out of your day.",
@@ -105,7 +105,7 @@ export const AREAS: AreaContent[] = [
     course: {
       title: "The Invisible Pay Rise",
       detail: "Practical ways to improve your finances through everyday decisions and better systems.",
-      href: "/courses",
+      href: "/tips",
       comingSoon: true,
     },
     tipsPath: "/tips",
@@ -131,7 +131,7 @@ export const AREAS: AreaContent[] = [
     priorityLabel: "Habits, consistency and productivity",
     low: "You probably know which habits you'd like to change, but find it difficult to maintain them. That isn't a character flaw. Your environment and your brain are pulling you towards short-term comfort, and we can work with that rather than against it.",
     mid: "You follow through some of the time, but distractions and old patterns keep pulling you back. Making the better choice the easier choice will do far more than willpower.",
-    high: "You do what you say you'll do. That's a superpower. Use it to layer in one new Daily Win at a time.",
+    high: "You do what you say you'll do, and that's rarer than you might think. Use it to layer in one new Daily Win at a time.",
     dailyWin: {
       title: "Charge your phone outside the bedroom",
       detail: "One small change to your environment. Bed becomes a place for sleep again, mornings start with you rather than your notifications, and you prove to yourself you don't need constant stimulation.",
@@ -173,7 +173,7 @@ export const bandLabel = (score: number) =>
 export interface TestResult {
   answers: Record<string, number>;
   areaScores: Record<AreaId, number>;
-  overall: number; // 0–100
+  overall: number; // 0 to 100
   startArea: AreaId;
   priority: AreaId | "unsure";
   preference: StartPreference;

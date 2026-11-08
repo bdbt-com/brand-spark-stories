@@ -28,7 +28,7 @@ const persist = (v: unknown) => {
 const ScaleRow = ({ index, positive, negative, value, onChange }: {
   index: number; positive: string; negative: string; value?: number; onChange: (v: number) => void;
 }) => (
-  <div className="rounded-2xl border border-primary/15 bg-[#141414] p-4 md:p-6">
+  <div className="rounded-2xl border border-white/10 bg-[#121212] p-4 md:p-6">
     <div className="flex items-start justify-between gap-3 mb-4 text-sm md:text-base">
       <span className="font-bold text-primary uppercase tracking-wide">{positive}</span>
       <span className="text-[11px] text-white/40 pt-0.5">{index}/{SCALES.length}</span>
@@ -85,8 +85,10 @@ const nextStep = (r: TestResult) => {
   switch (pref) {
     case "course":
       return area.course
-        ? { label: area.course.title, detail: area.course.detail + (area.course.comingSoon ? " (Coming soon, join the waitlist.)" : ""), cta: area.course.comingSoon ? "Join the waitlist" : "Start the course", href: area.course.external ? area.course.href : undefined, to: area.course.external ? undefined : area.course.href }
-        : { label: "Daily Wins Courses", detail: "Practical, affordable courses designed to make everyday improvements easier.", cta: "Explore courses", to: "/courses" };
+        ? area.course.comingSoon
+          ? { label: `${area.course.title} (coming soon)`, detail: `${area.course.detail} Until it launches, the free library has plenty of money Daily Wins to start with.`, cta: "Explore free Daily Wins", to: "/tips" }
+          : { label: area.course.title, detail: area.course.detail, cta: "Start the course", href: area.course.href }
+        : { label: "The Invisible Workout", detail: "Build a complete workout into your existing routine, with no gym and no extra time.", cta: "Start the course", href: "https://bigdaddysbigtips.xperiencify.io/" };
     case "event":
       return { label: "Free Daily Wins Introductory Event", detail: "Explore why common sense doesn't always become common action, and how to start breaking the cycle. Online or in person.", cta: "View upcoming free events", to: "/#events" };
     case "coaching":
@@ -108,7 +110,7 @@ const Results = ({ result, name, onRetake }: { result: TestResult; name: string;
   return (
     <div className="space-y-10 animate-fade-in">
       <div className="text-center">
-        <Eyebrow>Your Daily Wins Snapshot</Eyebrow>
+        <Eyebrow className="justify-center">Your Daily Wins Snapshot</Eyebrow>
         <Title as="h1">{name ? `${name}, here's` : "Here's"} where you are today</Title>
         <p className="text-white/70 mt-4 max-w-xl mx-auto">No judgement. No pass or fail. Just a clearer picture of where you are and where a few small changes could make the biggest difference.</p>
       </div>
@@ -123,7 +125,7 @@ const Results = ({ result, name, onRetake }: { result: TestResult; name: string;
                 strokeDasharray={`${(result.overall / 100) * 326.7} 326.7`} />
             </svg>
             <div className="absolute inset-0 flex flex-col items-center justify-center">
-              <span className="text-5xl font-bold italic text-white">{result.overall}</span>
+              <span className="font-display text-5xl font-extrabold italic text-white">{result.overall}</span>
               <span className="text-xs text-white/50">out of 100</span>
             </div>
           </div>
@@ -161,12 +163,12 @@ const Results = ({ result, name, onRetake }: { result: TestResult; name: string;
       <Card className="border-primary/50 bg-gradient-to-b from-primary/[0.08] to-[#141414]">
         <Eyebrow>Your recommended starting point</Eyebrow>
         <div className="flex items-baseline justify-between gap-4 flex-wrap">
-          <h2 className="text-2xl md:text-3xl font-bold italic text-white">{start.name}</h2>
+          <h2 className="font-display text-2xl md:text-3xl font-extrabold italic text-white tracking-tight">{start.name}</h2>
           <span className="text-primary font-bold text-2xl">{startScore.toFixed(1)}/10</span>
         </div>
         <p className="text-white/80 mt-3 leading-relaxed">{start[band(startScore)]}</p>
         {result.priority !== "unsure" && result.priority !== start.id && (
-          <p className="text-sm text-white/55 mt-3">You told us {AREAS.find((a) => a.id === result.priority)!.name.toLowerCase()} was your priority, and you're already doing well there, so we've pointed you at the area with the most room to grow.</p>
+          <p className="text-sm text-white/55 mt-3">You chose {AREAS.find((a) => a.id === result.priority)!.name.toLowerCase()} as your priority. You're already doing well there, so I've pointed you to the area with the most room to grow.</p>
         )}
         <div className="grid md:grid-cols-2 gap-4 mt-6">
           <div className="rounded-xl border border-primary/25 p-5">
@@ -269,7 +271,7 @@ const DailyWinsTest = () => {
       <Section narrow className="pt-10 md:pt-16">
         {step === "intro" && (
           <div className="text-center animate-fade-in">
-            <Eyebrow>The Free Daily Wins Test</Eyebrow>
+            <Eyebrow className="justify-center">The Free Daily Wins Test</Eyebrow>
             <Title as="h1" className="md:text-5xl">How well are you playing the long game?</Title>
             <p className="text-xl text-white mt-6 font-semibold">You can't improve what you haven't taken the time to understand.</p>
             <div className="text-white/75 mt-5 space-y-4 text-lg leading-relaxed max-w-2xl mx-auto">
@@ -278,11 +280,10 @@ const DailyWinsTest = () => {
             </div>
             <div className="grid grid-cols-3 gap-3 max-w-lg mx-auto my-10 text-center">
               {[["28", "questions"], ["5 min", "to complete"], ["Free", "personal results"]].map(([a, b]) => (
-                <div key={b} className="rounded-xl border border-primary/20 py-4"><p className="text-2xl font-bold italic text-primary">{a}</p><p className="text-xs text-white/60 mt-1">{b}</p></div>
+                <div key={b} className="rounded-xl border border-primary/20 py-4"><p className="font-display text-2xl font-extrabold italic text-primary">{a}</p><p className="text-xs text-white/60 mt-1">{b}</p></div>
               ))}
             </div>
             <GoldButton onClick={() => setStep("priority")} arrow className="w-full sm:w-auto">Start My Free Daily Wins Test</GoldButton>
-            <p className="text-sm text-white/50 mt-5">No judgement. No pass or fail.</p>
           </div>
         )}
 
@@ -306,7 +307,7 @@ const DailyWinsTest = () => {
         {step === "scales" && (
           <div className="animate-fade-in" key={page}>
             <Eyebrow>Part {page + 1} of {PAGES}</Eyebrow>
-            <h1 className="text-2xl md:text-3xl font-bold italic text-white mb-2">Where are you right now?</h1>
+            <h1 className="font-display text-2xl md:text-3xl font-extrabold italic text-white tracking-tight mb-2">Where are you right now?</h1>
             <p className="text-white/65 mb-6">10 means the left-hand statement describes you perfectly. 1 means the right-hand one does. Go with your gut.</p>
             <div className="space-y-4">
               {pageScales.map((s) => (

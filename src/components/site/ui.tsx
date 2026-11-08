@@ -57,11 +57,11 @@ export const Section = ({ id, className, children, narrow }: { id?: string; clas
 );
 
 export const Title = ({ children, className, as: Tag = "h2" }: { children: ReactNode; className?: string; as?: "h1" | "h2" | "h3" }) => (
-  <Tag className={cn("italic font-bold text-primary text-3xl md:text-[2.6rem] leading-tight tracking-tight", className)}>{children}</Tag>
+  <Tag className={cn("font-display italic font-extrabold text-primary text-3xl md:text-[2.75rem] leading-[1.08] tracking-[-0.02em] [text-wrap:balance]", className)}>{children}</Tag>
 );
 
 export const Eyebrow = ({ children, className }: { children: ReactNode; className?: string }) => (
-  <p className={cn("text-xs md:text-sm uppercase tracking-[0.2em] text-primary/80 font-semibold mb-3", className)}>{children}</p>
+  <p className={cn("flex items-center gap-3 text-[11px] md:text-xs uppercase tracking-[0.24em] text-primary font-semibold mb-4 before:content-[''] before:h-px before:w-8 before:bg-primary/60", className)}>{children}</p>
 );
 
 export const Prose = ({ children, className }: { children: ReactNode; className?: string }) => (
@@ -69,5 +69,5 @@ export const Prose = ({ children, className }: { children: ReactNode; className?
 );
 
 export const Card = ({ children, className }: { children: ReactNode; className?: string }) => (
-  <div className={cn("rounded-2xl border border-primary/20 bg-[#141414] p-6 md:p-8", className)}>{children}</div>
+  <div className={cn("rounded-2xl border border-white/10 bg-[#121212] p-6 md:p-8", className)}>{children}</div>
 );

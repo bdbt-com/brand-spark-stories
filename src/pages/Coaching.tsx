@@ -13,25 +13,25 @@ const HERO_IMAGE = "/lovable-uploads/5e8aba04-f6cc-44a2-9bcc-eaf2424e3976.png";
 interface Offer { name: string; price: string; meta: string; text: string[]; cta: string; flagship?: boolean; bullets?: string[] }
 
 const CLARITY: Offer[] = [
-  { name: "Free Discovery Call", price: "Free", meta: "20 minutes · Online", text: ["Let's explore what you'd like to change, what you're hoping to achieve and whether Daily Wins coaching is the right fit.", "No pressure. No obligation."], cta: "Request a Discovery Call" },
-  { name: "Individual Coaching Session", price: "£150", meta: "60 minutes · Online or in person", text: ["One challenge. One focused conversation. A clearer way forward.", "Explore a specific habit, frustration or decision and leave with practical next steps."], cta: "Enquire About a Session" },
-  { name: "Daily Wins Deep Dive", price: "£195", meta: "90 minutes · Online or in person", text: ["Take a closer look at your life, identify your biggest opportunities for improvement and leave with a personalised 30-day Daily Wins Starter Blueprint."], cta: "Explore the Deep Dive" },
+  { name: "Free Discovery Call", price: "Free", meta: "20 minutes · Online", text: ["Let's explore what you'd like to change, what you're hoping to achieve and whether Daily Wins coaching is the right fit.", "No pressure. No obligation."], cta: "Request a discovery call" },
+  { name: "Individual Coaching Session", price: "£150", meta: "60 minutes · Online or in person", text: ["One challenge. One focused conversation. A clearer way forward.", "Explore a specific habit, frustration or decision and leave with practical next steps."], cta: "Enquire about a session" },
+  { name: "Daily Wins Deep Dive", price: "£195", meta: "90 minutes · Online or in person", text: ["Take a closer look at your life, identify your biggest opportunities for improvement and leave with a personalised 30-day Daily Wins Starter Blueprint."], cta: "Ask about a Deep Dive" },
 ];
 
 const LASTING: Offer[] = [
-  { name: "Four-Session Daily Wins Journey", price: "£525", meta: "4 × 60-minute sessions", flagship: true, text: ["Understand your habits, recognise the behaviours holding you back and begin building a more sustainable approach to everyday life.", "Includes a personalised 90-day Daily Wins Blueprint."], cta: "Explore This Journey" },
-  { name: "Eight-Session Transformation Journey", price: "£995", meta: "8 × 60-minute sessions", text: ["Explore several interconnected areas of your life and develop the habits, systems and self-understanding needed for broader change.", "Includes a comprehensive six-month Blueprint."], cta: "Explore This Journey" },
+  { name: "Four-Session Daily Wins Journey", price: "£525", meta: "4 × 60-minute sessions", flagship: true, text: ["Understand your habits, recognise the behaviours holding you back and begin building a more sustainable approach to everyday life.", "Includes a personalised 90-day Daily Wins Blueprint."], cta: "Enquire about the four sessions" },
+  { name: "Eight-Session Transformation Journey", price: "£995", meta: "8 × 60-minute sessions", text: ["Explore several interconnected areas of your life and develop the habits, systems and self-understanding needed for broader change.", "Includes a comprehensive six-month Blueprint."], cta: "Enquire about the eight sessions" },
 ];
 
 const INTENSIVES: Offer[] = [
-  { name: "Half-Day Life Review", price: "£495", meta: "3.5 hours", text: ["A focused review of your current circumstances, priorities and behaviours.", "We'll identify your biggest opportunities for improvement and develop a personalised 30-day plan."], cta: "Enquire About the Half-Day Review" },
-  { name: "Full-Day Life Reset", price: "£895", meta: "7 hours", text: ["A comprehensive exploration of your life, habits, goals and long-term priorities.", "We'll examine your Daily Drifts, Comfort Trades and opportunities for meaningful change, culminating in a personalised 90-day Transformation Blueprint."], cta: "Enquire About the Full-Day Reset" },
-  { name: "Three-Day Daily Wins Experience", price: "£2,495", meta: "Three full days", text: ["An immersive personal development experience exploring three interconnected dimensions of your life:"], bullets: ["The Vessel: understanding and looking after yourself", "The Ripples: understanding the influence your decisions have on others", "The Journey: understanding where you're heading and the life you want to create"], cta: "Discuss the Three-Day Experience" },
+  { name: "Half-Day Life Review", price: "£495", meta: "3.5 hours", text: ["A focused review of your current circumstances, priorities and behaviours.", "We'll identify your biggest opportunities for improvement and develop a personalised 30-day plan."], cta: "Enquire about the Half-Day Review" },
+  { name: "Full-Day Life Reset", price: "£895", meta: "7 hours", text: ["A comprehensive exploration of your life, habits, goals and long-term priorities.", "We'll examine your Daily Drifts, Comfort Trades and opportunities for meaningful change, culminating in a personalised 90-day Transformation Blueprint."], cta: "Enquire about the Full-Day Reset" },
+  { name: "Three-Day Daily Wins Experience", price: "£2,495", meta: "Three full days", text: ["An immersive personal development experience exploring three interconnected dimensions of your life:"], bullets: ["The Vessel: understanding and looking after yourself", "The Ripples: understanding the influence your decisions have on others", "The Journey: understanding where you're heading and the life you want to create"], cta: "Enquire about the Three-Day Experience" },
 ];
 
 const FAQ = [
   ["How do I know which option is right for me?", "Start with the free Daily Wins Test or book a discovery call. We can explore your goals and whether personal coaching, community membership, a course or a free resource would be the most useful starting point."],
-  ["Do I need to have a specific problem to work with you?", "Not at all. Some people want help with a particular challenge; others want to improve several aspects of their lives or simply understand themselves better."],
+  ["Do I need to have a specific problem to work with you?", "Not at all. Some people want help with a particular challenge. Others want to improve several aspects of their lives or simply understand themselves better."],
   ["What's the difference between the Daily Wins Community and private coaching?", "The community offers group learning, exclusive educational content, challenges and Q&As. Private coaching is personalised to your circumstances, goals and behaviours, with dedicated one-to-one time."],
   ["Can I join the community without booking coaching?", "Absolutely. The community is a standalone membership. You don't need to purchase coaching or courses to participate."],
   ["Can I book a single coaching session?", "Yes. Individual sessions and Deep Dives are available subject to availability."],
@@ -40,11 +40,11 @@ const FAQ = [
 ];
 
 const OfferCard = ({ o, onClick }: { o: Offer; onClick: () => void }) => (
-  <div className={cn("relative rounded-2xl border p-6 md:p-7 flex flex-col bg-[#141414]", o.flagship ? "border-primary shadow-[0_20px_60px_-30px_hsl(var(--primary)/0.6)]" : "border-primary/20")}>
-    {o.flagship && <span className="absolute -top-3 left-6 bg-primary text-black text-[11px] font-bold tracking-wider px-3 py-1 rounded-full">FLAGSHIP PROGRAMME</span>}
+  <div className={cn("relative rounded-2xl border p-6 md:p-7 flex flex-col bg-[#121212]", o.flagship ? "border-primary shadow-[0_20px_60px_-30px_hsl(var(--primary)/0.6)]" : "border-white/10")}>
+    {o.flagship && <span className="absolute -top-3 left-6 bg-primary text-black text-[11px] font-bold tracking-[0.16em] px-3 py-1 rounded-full">RECOMMENDED</span>}
     <div className="flex items-start justify-between gap-4">
-      <h4 className="font-bold text-xl text-white">{o.name}</h4>
-      <span className="text-primary font-bold text-2xl italic whitespace-nowrap">{o.price}</span>
+      <h4 className="font-display font-bold text-xl text-white tracking-tight leading-snug">{o.name}</h4>
+      <span className="font-display text-primary font-extrabold text-2xl italic whitespace-nowrap">{o.price}</span>
     </div>
     <p className="text-sm text-white/50 mt-1">{o.meta}</p>
     <div className="mt-4 space-y-3 text-white/75 leading-relaxed flex-1">
@@ -85,13 +85,13 @@ const Coaching = () => {
         <div className="relative max-w-6xl mx-auto px-5 sm:px-6 lg:px-8 py-20 md:py-28">
           <div className="max-w-2xl animate-fade-in">
             <Eyebrow>Daily Wins Coaching & Mentoring</Eyebrow>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-[1.08] tracking-tight text-white">
+            <h1 className="font-display text-[2.6rem] sm:text-6xl lg:text-7xl font-extrabold leading-[1.02] tracking-[-0.03em] text-white [text-wrap:balance]">
               Understand yourself. Change your behaviours. <span className="italic text-primary">Win the long game.</span>
             </h1>
             <div className="mt-6 space-y-4 text-lg text-white/80 leading-relaxed">
               <p>There's a reason you keep making the same promises to yourself. You know what you'd like to change. You've probably tried changing it before.</p>
               <p>But knowing what to do, understanding why you don't do it and learning how to make it happen are three very different things.</p>
-              <p>Through Daily Wins coaching, I'll help you understand your behaviours, break the cycles holding you back and develop small, achievable changes that fit your life. Whether you want to improve your health, finances, relationships, career, confidence or overall wellbeing, they all come back to the same set of basic habit principles, and we'll focus on what matters most to you.</p>
+              <p>Through Daily Wins coaching, I'll help you understand your behaviours, break the cycles holding you back and develop small, achievable changes that fit your life. Whether it's your health, finances, relationships, career, confidence or overall wellbeing, the same habit principles apply. We'll focus on what matters most to you.</p>
             </div>
             <div className="flex flex-col sm:flex-row gap-3 mt-8">
               <GoldButton onClick={() => enquire(CLARITY[0])} arrow>Request a Free Discovery Call</GoldButton>
@@ -131,8 +131,8 @@ const Coaching = () => {
             { Icon: PlayCircle, title: "Free Daily Wins Videos & Library", text: "Explore practical Daily Wins across health, money, relationships, time, productivity and wellbeing.", cta: "Explore Free Daily Wins", to: "/tips" },
           ].map((r) => (
             <Card key={r.title} className="flex flex-col">
-              <div className="w-11 h-11 rounded-xl bg-primary/15 flex items-center justify-center mb-4"><r.Icon className="w-5 h-5 text-primary" /></div>
-              <h3 className="font-bold text-xl text-white">{r.title}</h3>
+              <r.Icon className="w-6 h-6 text-primary mb-5" strokeWidth={1.5} />
+              <h3 className="font-display font-bold text-xl text-white tracking-tight">{r.title}</h3>
               <p className="text-white/70 mt-3 flex-1 leading-relaxed">{r.text}</p>
               {r.gold ? <GoldButton to={r.to} className="mt-6 min-h-12 text-base">{r.cta}</GoldButton> : <OutlineButton to={r.to} className="mt-6 min-h-12 text-base">{r.cta}</OutlineButton>}
             </Card>
@@ -147,13 +147,13 @@ const Coaching = () => {
             <Eyebrow>The Daily Wins Community</Eyebrow>
             <Title>You don't have to play the long game alone.</Title>
             <Prose className="mt-6">
-              <p>Changing your life is easier when you have somewhere to keep showing up for it. We all start with good intentions. But motivation comes and goes. Life gets busy. Old habits return.</p>
-              <p>Sometimes, all we need is a little encouragement, a fresh perspective or a reminder of why we started. That's why I've built the Daily Wins Community. A place for people who want to understand themselves better, challenge their Daily Drifts, celebrate their Daily Wins and support one another in playing the long game.</p>
+              <p>Changing your life is easier when you have somewhere to keep showing up for it. We all start with good intentions, but motivation comes and goes.</p>
+              <p>Sometimes, all we need is a little encouragement, a fresh perspective or a reminder of why we started. That's why I've built the Daily Wins Community: a place for people who want to understand themselves better, challenge their Daily Drifts, celebrate their Daily Wins and support one another in playing the long game.</p>
               <p className="text-white font-semibold">Not a community obsessed with overnight transformations. A community committed to lasting improvements.</p>
             </Prose>
           </div>
           <div className="rounded-2xl border border-primary bg-gradient-to-b from-primary/[0.1] to-[#141414] p-7 md:p-8">
-            <div className="flex items-baseline gap-2"><span className="text-5xl font-bold italic text-primary">£9.99</span><span className="text-white/60">per month</span></div>
+            <div className="flex items-baseline gap-2"><span className="font-display text-5xl font-extrabold italic text-primary tracking-tight">£9.99</span><span className="text-white/60">per month</span></div>
             <p className="font-semibold text-white mt-1">What your membership includes</p>
             <ul className="mt-6 space-y-5">
               {[
@@ -187,17 +187,17 @@ const Coaching = () => {
         </div>
 
         <div id="clarity" className="scroll-mt-24 mt-14">
-          <h3 className="text-2xl md:text-3xl font-bold italic text-white mb-6"><span className="text-primary">A.</span> Start with clarity</h3>
+          <div className="flex items-end justify-between gap-4 border-b border-white/10 pb-4 mb-7"><h3 className="font-display text-2xl md:text-3xl font-extrabold italic text-white tracking-tight">Start with clarity</h3></div>
           <div className="grid md:grid-cols-3 gap-5">{CLARITY.map((o) => <OfferCard key={o.name} o={o} onClick={() => enquire(o)} />)}</div>
         </div>
 
         <div className="mt-16">
-          <h3 className="text-2xl md:text-3xl font-bold italic text-white mb-6"><span className="text-primary">B.</span> Build lasting change</h3>
+          <div className="flex items-end justify-between gap-4 border-b border-white/10 pb-4 mb-7"><h3 className="font-display text-2xl md:text-3xl font-extrabold italic text-white tracking-tight">Build lasting change</h3></div>
           <div className="grid md:grid-cols-2 gap-5 pt-3">{LASTING.map((o) => <OfferCard key={o.name} o={o} onClick={() => enquire(o)} />)}</div>
         </div>
 
         <div className="mt-16">
-          <h3 className="text-2xl md:text-3xl font-bold italic text-white"><span className="text-primary">C.</span> Private coaching intensives</h3>
+          <div className="border-b border-white/10 pb-4"><h3 className="font-display text-2xl md:text-3xl font-extrabold italic text-white tracking-tight">Private coaching intensives</h3></div>
           <div className="max-w-3xl mt-5">
             <p className="text-xl font-semibold text-white">When was the last time you gave your own life your undivided attention?</p>
             <Prose className="mt-4">
@@ -265,23 +265,28 @@ const Coaching = () => {
       <Section className="bg-[#0b0b0b] border-t border-white/5">
         <div className="text-center max-w-2xl mx-auto">
           <Title>Where would you like to start?</Title>
-          <p className="text-white/70 mt-4 text-lg">However you'd like to begin, there's a next step that fits.</p>
+          <p className="text-white/70 mt-4 text-lg">Five ways in. Pick the one that suits you today.</p>
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-4 mt-10">
           {[
             ["Take the Free Daily Wins Test", "Discover your strengths, identify opportunities for improvement and find your recommended starting point.", "/test"],
             ["Attend a Free Daily Wins Event", "Experience the philosophy first-hand and discover small changes you can start making immediately.", "/#events"],
-            ["Explore Daily Wins Courses", "Learn at your own pace with practical, affordable courses designed to make everyday improvements easier.", "/courses"],
+            ["Explore Daily Wins Courses", "Learn at your own pace with practical, affordable courses designed to make everyday improvements easier.", "https://bigdaddysbigtips.xperiencify.io/"],
             ["Join the Daily Wins Community", "£9.99/month. Exclusive content, live Q&As, monthly challenges and encouragement from people playing the same long game.", "#community"],
             ["Explore Personal Coaching & Mentoring", "Work with me to understand your behaviours, break unhelpful cycles and develop a personalised plan for your future.", "#private"],
-          ].map(([h, t, to]) => (
-            <Link key={h} to={to.startsWith("#") ? `/coaching${to}` : to}
-              className="group rounded-2xl border border-primary/20 bg-[#141414] p-5 hover:border-primary/60 transition-colors flex flex-col">
-              <p className="font-bold text-white leading-snug">{h}</p>
-              <p className="text-sm text-white/60 mt-2 flex-1 leading-relaxed">{t}</p>
-              <ArrowRight className="w-5 h-5 text-primary mt-4 transition-transform group-hover:translate-x-1" />
-            </Link>
-          ))}
+          ].map(([h, t, to]) => {
+            const cls = "group rounded-2xl border border-white/10 bg-[#121212] p-5 hover:border-primary/60 transition-colors flex flex-col";
+            const body = (
+              <>
+                <p className="font-display font-bold text-white leading-snug tracking-tight">{h}</p>
+                <p className="text-sm text-white/60 mt-2 flex-1 leading-relaxed">{t}</p>
+                <ArrowRight className="w-5 h-5 text-primary mt-4 transition-transform group-hover:translate-x-1" />
+              </>
+            );
+            return to.startsWith("http")
+              ? <a key={h} href={to} target="_blank" rel="noopener noreferrer" className={cls}>{body}</a>
+              : <Link key={h} to={to.startsWith("#") ? `/coaching${to}` : to} className={cls}>{body}</Link>;
+          })}
         </div>
       </Section>
 
