@@ -2,7 +2,10 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, HashRouter, Routes, Route, Navigate } from "react-router-dom";
+
+// Preview builds (hosted without server rewrites) use hash URLs. The live site uses normal URLs.
+const Router = import.meta.env.VITE_HASH_ROUTER ? HashRouter : BrowserRouter;
 import Navigation from "./components/Navigation";
 import Home from "./pages/Home";
 import About from "./pages/About";
@@ -33,10 +36,10 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter>
+      <Router>
         <ScrollToTop />
         <RouteSeo />
-        <PageViewTracker />
+        {!import.meta.env.VITE_HASH_ROUTER && <PageViewTracker />}
 
         <Navigation />
         <Routes>
@@ -63,7 +66,7 @@ const App = () => (
           <Route path="/latest" element={<Navigate to="/podcast" replace />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
-      </BrowserRouter>
+      </Router>
     </TooltipProvider>
   </QueryClientProvider>
 );
