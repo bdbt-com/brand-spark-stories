@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "@/components/ui/carousel";
 import {
   ArrowRight, HeartPulse, Apple, PiggyBank, Users, Briefcase, Sun,
   Headphones, BookOpen, GraduationCap, MapPin, Globe, Clock, Play,
@@ -8,7 +9,19 @@ import LeadForm from "@/components/site/LeadForm";
 import SiteFooter from "@/components/site/SiteFooter";
 import { startTrackedRedirect } from "@/lib/youtube-redirect";
 
-const HERO_IMAGE = "/lovable-uploads/recording-setup-new.jpg";
+// Same photo carousel as the live homepage (only the images stored in this project).
+const HERO_IMAGES: [string, string][] = [
+  ["/lovable-uploads/bc6fa209-b818-463e-aeb6-08d6c7b423c6.png", "center 75%"],
+  ["/lovable-uploads/4fd0818e-20c3-4941-9c54-6915db50a7c0.png", "center 25%"],
+  ["/lovable-uploads/661d98ce-15f1-4542-b8c0-bab549b78a55.png", "center 20%"],
+  ["/lovable-uploads/33ba01bc-045c-4c44-ac70-c61c05093bdc.png", "center 15%"],
+  ["/lovable-uploads/2678016c-a3fa-4e29-bf3d-3ebe92201186.png", "center 70%"],
+  ["/lovable-uploads/7db6bd1f-c12f-45f2-a1d1-505f38c743a1.png", "center 30%"],
+  ["/lovable-uploads/8db636d1-94ff-432a-a4b1-6ca278173f2f.png", "center 25%"],
+  ["/lovable-uploads/a886c4a9-0d09-442e-8348-25bd795ad7d0.png", "center 30%"],
+  ["/lovable-uploads/347bc4c8-a5fc-40c4-a30c-1d91b5bd5761.png", "center 60%"],
+  ["/lovable-uploads/75853635-930c-4fa5-9403-d0b58c6db83b.png", "center 40%"],
+];
 
 const EPISODES = [
   { videoId: "z8NqukMz2Q8", title: "Give me 0.1% And I'll Change Your Direction", views: "564K views" },
@@ -34,37 +47,53 @@ const LONG_GAME = [
   { Icon: Sun, title: "Time & Fulfilment", text: "Don't spend five days waiting for the weekend, 50 weeks waiting for the summer holiday or forty years waiting for retirement. Build a life you enjoy living on ordinary Tuesdays." },
 ];
 
-const PREVIEW_BARS = [
-  ["Body & Movement", 6.2], ["Energy & Recovery", 4.1], ["Money & Time", 5.4],
-  ["Relationships", 7.8], ["Habits & Self-Control", 4.6], ["Purpose & Growth", 6.9],
-] as const;
 
 const Home = () => {
   const [form, setForm] = useState<null | { title: string; tag: string; description: string }>(null);
+  const [embla, setEmbla] = useState<CarouselApi | null>(null);
+  useEffect(() => {
+    if (!embla) return;
+    const id = setInterval(() => (embla.canScrollNext() ? embla.scrollNext() : embla.scrollTo(0)), 5500);
+    return () => clearInterval(id);
+  }, [embla]);
 
   return (
     <div className="min-h-screen">
-      {/* HERO — full-width image of Ben teaching. Swap HERO_IMAGE for a b-roll <video> when supplied. */}
-      <section className="relative overflow-hidden min-h-[88vh] flex items-center">
-        <img src={HERO_IMAGE} alt="Ben Raven recording a Daily Wins episode" className="absolute inset-0 w-full h-full object-cover object-[60%_35%] animate-kenburns" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/95 via-black/80 to-black/40" />
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
-        <div className="relative max-w-6xl mx-auto px-5 sm:px-6 lg:px-8 py-20 w-full">
-          <div className="max-w-2xl animate-fade-in">
-            <Eyebrow>Daily Wins Coaching & Mentoring</Eyebrow>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-[1.08] tracking-tight">
-              <span className="text-white">Helping you play the long game.</span>{" "}
-              <span className="italic text-primary">One Daily Win at a time.</span>
-            </h1>
-            <p className="text-xl md:text-2xl font-semibold text-white mt-6">Change your life by changing almost nothing about your day.</p>
-            <div className="mt-5 space-y-4 text-base md:text-lg text-white/80 leading-relaxed">
-              <p>We all know we should sleep better, move more, eat healthier and save money. But knowing what to do and actually doing it are two very different things.</p>
-              <p>I'm Ben Raven, founder of Daily Wins. Through personal coaching, mentoring and practical life skills, I help people understand their behaviours, break unhelpful cycles and make tiny changes today compound into a better future.</p>
+      {/* Hero: the live site's layout (copy left, photo carousel right) with Ben's new copy */}
+      <section className="relative bg-gradient-hero text-white py-10 lg:py-24 overflow-hidden">
+        <div className="absolute inset-0 bg-black/20"></div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+            <div className="animate-fade-in">
+              <h1 className="text-4xl lg:text-6xl font-bold mb-4 lg:mb-5 leading-tight">
+                <span className="block text-white">Helping you play the long game.</span>
+                <span className="block text-[hsl(35_45%_75%)]">One Daily Win at a time.</span>
+              </h1>
+              <p className="text-lg lg:text-2xl font-semibold text-white">Change your life by changing almost nothing about your day.</p>
+              <div className="mt-4 space-y-4 text-sm lg:text-lg text-white/90 leading-relaxed">
+                <p>We all know we should sleep better, move more, eat healthier and save money. But knowing what to do and actually doing it are two very different things.</p>
+                <p>I'm Ben Raven, founder of Daily Wins. Through personal coaching, mentoring and practical life skills, I help people understand their behaviours, break unhelpful cycles and make tiny changes today compound into a better future.</p>
+                <p className="italic text-[hsl(35_45%_75%)]">You won't achieve your goal tomorrow. But you can make sure tomorrow contributes towards it.</p>
+              </div>
+              <div className="flex flex-col sm:flex-row gap-3 mt-7">
+                <GoldButton to="/coaching" arrow>Explore Coaching & Mentoring</GoldButton>
+                <OutlineButton to="/test">Take the Free Daily Wins Test</OutlineButton>
+              </div>
             </div>
-            <p className="mt-6 italic text-primary/90 text-lg">You won't achieve your goal tomorrow. But you can make sure tomorrow contributes towards it.</p>
-            <div className="flex flex-col sm:flex-row gap-3 mt-8">
-              <GoldButton to="/coaching" arrow>Explore Coaching & Mentoring</GoldButton>
-              <OutlineButton to="/test" className="bg-black/40 backdrop-blur">Take the Free Daily Wins Test</OutlineButton>
+            <div className="animate-float">
+              <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 lg:p-8 shadow-strong max-w-[85%] mx-auto lg:max-w-none">
+                <Carousel setApi={setEmbla} opts={{ loop: true }} className="w-full" aria-label="Daily Wins image carousel">
+                  <CarouselContent>
+                    {HERO_IMAGES.map(([src, pos], idx) => (
+                      <CarouselItem key={src}>
+                        <div className="w-full aspect-[4/3] lg:aspect-square rounded-xl overflow-hidden">
+                          <img src={src} alt={`Daily Wins photo ${idx + 1}`} className="w-full h-full object-cover" style={{ objectPosition: pos }} loading={idx === 0 ? "eager" : "lazy"} />
+                        </div>
+                      </CarouselItem>
+                    ))}
+                  </CarouselContent>
+                </Carousel>
+              </div>
             </div>
           </div>
         </div>
@@ -73,7 +102,7 @@ const Home = () => {
       {/* Stats strip */}
       <div className="border-y border-primary/15 bg-black/60">
         <div className="max-w-4xl mx-auto px-5 py-7 grid grid-cols-3 gap-4 text-center">
-          {[["30K+", "YouTube subscribers"], ["300+", "Daily Wins episodes"], ["8PM", "New episode, every day"]].map(([s, l]) => (
+          {[["30K+", "YouTube subscribers"], ["100+", "Daily Wins Shared"], ["8PM", "New episode, every day"]].map(([s, l]) => (
             <div key={l}><p className="font-bold italic text-[#E8CE8A] text-2xl md:text-4xl leading-none">{s}</p><p className="text-[10px] md:text-xs uppercase tracking-wider text-white/55 mt-2">{l}</p></div>
           ))}
         </div>
@@ -171,8 +200,8 @@ const Home = () => {
       </Section>
 
       {/* Test teaser */}
-      <Section>
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+      <Section narrow>
+        <div>
           <div>
             <Eyebrow>The Free Daily Wins Test</Eyebrow>
             <Title>How well are you playing the long game?</Title>
@@ -184,24 +213,6 @@ const Home = () => {
             </Prose>
             <GoldButton to="/test" arrow className="mt-8">Take My Free Daily Wins Test</GoldButton>
           </div>
-          <Card className="relative">
-            <span className="absolute -top-3 right-6 bg-primary text-black text-xs font-bold px-3 py-1 rounded-full">Example results</span>
-            <p className="font-bold text-lg">Your Daily Wins Snapshot</p>
-            <p className="text-sm text-white/50 mb-5">Long Game Score: <span className="text-primary font-bold">58/100</span></p>
-            <div className="space-y-3.5">
-              {PREVIEW_BARS.map(([n, s]) => (
-                <div key={n}>
-                  <div className="flex justify-between text-sm mb-1"><span>{n}</span><span className="text-white/60">{s}/10</span></div>
-                  <div className="h-2 rounded-full bg-white/10"><div className={`h-full rounded-full ${s < 5 ? "bg-primary" : "bg-primary/50"}`} style={{ width: `${s * 10}%` }} /></div>
-                </div>
-              ))}
-            </div>
-            <div className="mt-6 rounded-xl border border-primary/30 p-4">
-              <p className="text-xs uppercase tracking-wider text-primary">Recommended starting point</p>
-              <p className="font-bold mt-1">Energy & Recovery</p>
-              <p className="text-sm text-white/65 mt-1">Your first Daily Win: go to bed 15 minutes earlier.</p>
-            </div>
-          </Card>
         </div>
       </Section>
 
