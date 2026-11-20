@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Check, ClipboardCheck, CalendarDays, PlayCircle, Users, MessageCircle, Sparkles, Trophy, ArrowRight } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { GoldButton, OutlineButton, Section, Title, Eyebrow, Prose, Card } from "@/components/site/ui";
+import { GoldButton, OutlineButton, Section, Title, Eyebrow, Prose, Card, Note } from "@/components/site/ui";
 import LeadForm from "@/components/site/LeadForm";
 import SiteFooter from "@/components/site/SiteFooter";
 import { cn } from "@/lib/utils";
@@ -154,6 +154,7 @@ const Coaching = () => {
           </div>
           <div className="rounded-2xl border border-primary bg-gradient-to-b from-primary/[0.1] to-[#141414] p-7 md:p-8">
             <div className="flex items-baseline gap-2"><span className="text-5xl font-bold italic text-primary">£9.99</span><span className="text-white/60">per month</span></div>
+            <Note>Draft price and feature list. Not final.</Note>
             <p className="font-semibold text-white mt-1">What your membership includes</p>
             <ul className="mt-6 space-y-5">
               {[
@@ -170,6 +171,7 @@ const Coaching = () => {
               Join the Daily Wins Community
             </GoldButton>
             <p className="text-xs text-center text-primary/80 mt-3">Opening soon · Join the waitlist</p>
+            <Note kind="needed" className="mx-auto">Members area and payments are not built yet. This button joins a waiting list.</Note>
           </div>
         </div>
       </Section>
@@ -178,6 +180,7 @@ const Coaching = () => {
       <Section className="bg-[#0b0b0b] border-y border-white/5" id="private">
         <div className="max-w-3xl">
           <Eyebrow>Private Coaching</Eyebrow>
+          <Note>Every price in this section is Ben's draft figure. Not final.</Note>
           <Title>Your life. Your priorities. Your Daily Wins.</Title>
           <Prose className="mt-6">
             <p>Sometimes, the most valuable investment you can make is in understanding yourself. We spend money improving our homes, our cars, our holidays and our careers. But how often do we invest meaningful time in understanding the person making all those decisions?</p>

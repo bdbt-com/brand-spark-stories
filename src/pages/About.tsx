@@ -1,4 +1,4 @@
-import { GoldButton, OutlineButton, Section, Eyebrow, Prose } from "@/components/site/ui";
+import { GoldButton, OutlineButton, Section, Eyebrow, Prose, Note } from "@/components/site/ui";
 import SiteFooter from "@/components/site/SiteFooter";
 
 const PORTRAIT = "/lovable-uploads/2f4d6184-a8de-43f0-a345-4ed910c90522.png";
@@ -32,6 +32,7 @@ const About = () => (
 
         <div>
           <Eyebrow>About me</Eyebrow>
+          <Note kind="needed">Ben's revised About Me text replaces the copy on this page.</Note>
           <h1 className="italic font-bold text-primary text-4xl md:text-5xl lg:text-6xl leading-[1.08] tracking-tight">These are the lessons nobody teaches us growing up.</h1>
           <Prose className="mt-8">
             <p className="text-white text-xl font-semibold">I'm Ben Raven, founder of Daily Wins.</p>

@@ -4,7 +4,7 @@ import {
   ArrowRight, HeartPulse, Apple, PiggyBank, Users, Briefcase, Sun,
   Headphones, BookOpen, GraduationCap, MapPin, Globe, Clock, Play,
 } from "lucide-react";
-import { GoldButton, OutlineButton, Section, Title, Eyebrow, Prose, Card } from "@/components/site/ui";
+import { GoldButton, OutlineButton, Section, Title, Eyebrow, Prose, Card, Note } from "@/components/site/ui";
 import LeadForm from "@/components/site/LeadForm";
 import SiteFooter from "@/components/site/SiteFooter";
 import { startTrackedRedirect } from "@/lib/youtube-redirect";
@@ -60,6 +60,7 @@ const Home = () => {
   return (
     <div className="min-h-screen">
       {/* Hero: the live site's layout (copy left, photo carousel right) with Ben's new copy */}
+      <Note kind="needed" className="mx-auto my-2">Hero photos are the ones from the live site. Swap for Ben's b-roll video if wanted.</Note>
       <section className="relative bg-gradient-hero text-white py-10 lg:py-24 overflow-hidden">
         <div className="absolute inset-0 bg-black/20"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -100,6 +101,7 @@ const Home = () => {
       </section>
 
       {/* Stats strip */}
+      <Note className="mx-auto">Figures below need confirming by Ben before launch.</Note>
       <div className="border-y border-primary/15 bg-black/60">
         <div className="max-w-4xl mx-auto px-5 py-7 grid grid-cols-3 gap-4 text-center">
           {[["30K+", "YouTube subscribers"], ["100+", "Daily Wins Shared"], ["8PM", "New episode, every day"]].map(([s, l]) => (
@@ -279,6 +281,7 @@ const Home = () => {
               </div>
               <p className="text-white/75 mt-4 flex-1">{e.text}</p>
               <p className="text-sm text-primary/80 mt-4">Next dates coming soon</p>
+              <Note kind="needed">Event dates, venue and booking link from Ben.</Note>
               <GoldButton className="mt-4 w-full min-h-12 text-base" onClick={() => setForm({ title: e.title, tag: e.tag, description: "Dates are being finalised. Leave your details and you'll be first to hear when registration opens." })}>
                 Register my interest
               </GoldButton>
