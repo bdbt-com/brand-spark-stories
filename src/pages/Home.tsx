@@ -4,11 +4,23 @@ import {
   Headphones, BookOpen, GraduationCap, MapPin, Globe, Clock, Play,
 } from "lucide-react";
 import { GoldButton, OutlineButton, Section, Title, Eyebrow, Prose, Card, Note } from "@/components/site/ui";
+import { ScrollAtmosphere, LongGameLine, CountUp, LightUp, CompoundCurve, ReadMore, StickyTestBar } from "@/components/site/fx";
 import LeadForm from "@/components/site/LeadForm";
 import SiteFooter from "@/components/site/SiteFooter";
 import { startTrackedRedirect } from "@/lib/youtube-redirect";
 
-const HERO_IMAGE = "/lovable-uploads/recording-setup-new.jpg";
+const HERO_IMAGE = "/lovable-uploads/opt/recording-setup-new.webp";
+
+const LINE_SECTIONS = [
+  { id: "why", label: "Why we repeat" },
+  { id: "gap", label: "Sense vs action" },
+  { id: "comfort-trade", label: "The Comfort Trade" },
+  { id: "goals", label: "Big and small goals" },
+  { id: "test", label: "Daily Wins Test" },
+  { id: "long-game", label: "The long game" },
+  { id: "events", label: "Free events" },
+  { id: "resources", label: "Free resources" },
+];
 
 const EPISODES = [
   { videoId: "z8NqukMz2Q8", title: "Give me 0.1% And I'll Change Your Direction", views: "564K views" },
@@ -43,7 +55,11 @@ const Home = () => {
   const [form, setForm] = useState<null | { title: string; tag: string; description: string }>(null);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen relative">
+      <ScrollAtmosphere />
+      <LongGameLine sections={LINE_SECTIONS} />
+      <StickyTestBar />
+      <div className="relative z-[1]">
       {/* Hero: full-width image of Ben. Swap HERO_IMAGE for a b-roll <video> when supplied. */}
       <section className="relative overflow-hidden min-h-[88vh] flex items-center">
         <img src={HERO_IMAGE} alt="Ben Raven recording a Daily Wins episode" className="absolute inset-0 w-full h-full object-cover object-[60%_35%] animate-kenburns" />
@@ -75,34 +91,38 @@ const Home = () => {
       <Note className="mx-auto">Figures below need confirming by Ben before launch.</Note>
       <div className="border-y border-primary/15 bg-black/60">
         <div className="max-w-4xl mx-auto px-5 py-7 grid grid-cols-3 gap-4 text-center">
-          {[["30K+", "YouTube subscribers"], ["300+", "Daily Wins episodes"], ["8PM", "New episode, every day"]].map(([s, l]) => (
-            <div key={l}><p className="font-display font-extrabold italic text-primary text-3xl md:text-5xl leading-none tracking-tight">{s}</p><p className="text-[10px] md:text-xs uppercase tracking-[0.18em] text-white/55 mt-3">{l}</p></div>
+          {([[30, "K+", "YouTube subscribers"], [300, "+", "Daily Wins episodes"], [8, "PM", "New episode, every day"]] as const).map(([v, suf, l]) => (
+            <div key={l}><p className="font-display font-extrabold italic text-primary text-3xl md:text-5xl leading-none tracking-tight">{l.startsWith("New") ? `${v}${suf}` : <CountUp value={v} suffix={suf} />}</p><p className="text-[10px] md:text-xs uppercase tracking-[0.18em] text-white/55 mt-3">{l}</p></div>
           ))}
         </div>
       </div>
 
       {/* Same resolutions */}
-      <Section narrow>
+      <Section narrow id="why">
         <Title>There's a reason you keep making the same New Year's resolutions.</Title>
         <Prose className="mt-8">
           <p>Every year, you tell yourself you'll get fitter. Eat better. Save more. Drink less. Spend less time on your phone. Be more present with the people you love.</p>
-          <p>You start with the best intentions. But life gets busy. Motivation fades. Old habits return.</p>
-          <p>And before you know it, you're making the same promises to yourself all over again. <span className="text-white font-semibold">Different year. Same resolutions. Same frustrations.</span></p>
           <p className="text-xl text-white font-semibold border-l-2 border-primary pl-5">The problem isn't your desire to change. It's that you've never been taught why you keep repeating your Daily Drifts.</p>
-          <p>We spend so much time thinking about what we need to change that we rarely stop to understand why we haven't changed it already.</p>
+          <ReadMore>
+            <p>You start with the best intentions. But life gets busy. Motivation fades. Old habits return.</p>
+            <p>And before you know it, you're making the same promises to yourself all over again. <span className="text-white font-semibold">Different year. Same resolutions. Same frustrations.</span></p>
+            <p>We spend so much time thinking about what we need to change that we rarely stop to understand why we haven't changed it already.</p>
+          </ReadMore>
         </Prose>
       </Section>
 
       {/* Common sense vs common action */}
-      <Section className="bg-[#0b0b0b] border-y border-white/5">
+      <Section id="gap" className="bg-black/45 border-y border-white/5">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div>
             <Title>Common sense isn't always common action.</Title>
             <Prose className="mt-6">
-              <p>We live in a world overflowing with information about how to improve our lives. We know more about health, nutrition, sleep, exercise, money and wellbeing than ever before. Yet knowing better doesn't necessarily mean doing better.</p>
               <p className="text-white font-semibold">If knowing what to do was enough, we'd all be living very different lives.</p>
               <p><span className="text-primary font-semibold">Daily Wins is about closing that gap.</span> Understanding why we make the decisions we make, and learning how to turn what we already know into what we actually do.</p>
-              <p>Not through guilt, pressure or endless willpower. Simply by making the better decision easier.</p>
+              <ReadMore>
+                <p>We live in a world overflowing with information about how to improve our lives. We know more about health, nutrition, sleep, exercise, money and wellbeing than ever before. Yet knowing better doesn't necessarily mean doing better.</p>
+                <p>Not through guilt, pressure or endless willpower. Simply by making the better decision easier.</p>
+              </ReadMore>
             </Prose>
           </div>
           <div className="rounded-2xl border border-primary/25 overflow-hidden">
@@ -121,14 +141,16 @@ const Home = () => {
       </Section>
 
       {/* Comfort trade */}
-      <Section>
+      <Section id="comfort-trade">
         <div className="max-w-3xl">
           <Title>We can't choose between comfort and discomfort. Only which one comes first.</Title>
           <Prose className="mt-6">
             <p>Every day, we make small decisions that trade one kind of comfort for another.</p>
-            <p>Staying in bed instead of exercising feels comfortable now, but being less physically capable can make life more uncomfortable later. Spending money on something we don't need feels good today, but financial stress can create discomfort tomorrow. The sugary snack at 3pm feels rewarding in the moment, but a body you're unhappy with can chip away at your confidence and self-esteem over time.</p>
             <p className="text-white text-xl font-semibold">This is The Comfort Trade.</p>
+            <ReadMore>
+            <p>Staying in bed instead of exercising feels comfortable now, but being less physically capable can make life more uncomfortable later. Spending money on something we don't need feels good today, but financial stress can create discomfort tomorrow. The sugary snack at 3pm feels rewarding in the moment, but a body you're unhappy with can chip away at your confidence and self-esteem over time.</p>
             <p>We repeatedly choose immediate comfort without fully considering the long-term price. And sometimes, the behaviours we use to feel better today are the very things making us feel worse tomorrow.</p>
+            </ReadMore>
           </Prose>
         </div>
 
@@ -136,44 +158,47 @@ const Home = () => {
           <div className="grid grid-cols-2 gap-3 md:gap-5">
             <p className="text-center text-xs md:text-sm uppercase tracking-[0.2em] text-white/50">The Daily Drift</p>
             <p className="text-center text-xs md:text-sm uppercase tracking-[0.2em] text-primary">The Daily Win</p>
-            <div className="rounded-2xl border border-white/15 bg-[#151515] p-5 md:p-7">
+            <LightUp className="rounded-2xl border border-white/15 bg-[#151515] p-5 md:p-7">
               <p className="text-xs uppercase tracking-wider text-white/50">Short-term comfort</p>
               <p className="text-lg md:text-2xl font-bold mt-2">Stay up scrolling</p>
-            </div>
-            <div className="rounded-2xl border border-primary/40 bg-primary/[0.07] p-5 md:p-7">
+            </LightUp>
+            <LightUp delay={900} className="rounded-2xl border border-primary/40 bg-primary/[0.07] p-5 md:p-7">
               <p className="text-xs uppercase tracking-wider text-primary/80">Short-term discomfort</p>
               <p className="text-lg md:text-2xl font-bold mt-2">Put the phone down and go to bed</p>
-            </div>
+            </LightUp>
             <div className="flex justify-center"><ArrowRight className="w-6 h-6 text-white/30 rotate-90" /></div>
             <div className="flex justify-center"><ArrowRight className="w-6 h-6 text-primary rotate-90" /></div>
-            <div className="rounded-2xl border border-white/15 bg-[#151515] p-5 md:p-7">
+            <LightUp delay={450} className="rounded-2xl border border-white/15 bg-[#151515] p-5 md:p-7">
               <p className="text-xs uppercase tracking-wider text-white/50">Long-term discomfort</p>
               <p className="text-base md:text-xl font-bold mt-2 text-white/80">Fatigue, anxiety, brain fog & frustration</p>
-            </div>
-            <div className="rounded-2xl border border-primary bg-primary text-black p-5 md:p-7">
+            </LightUp>
+            <LightUp delay={1350} className="rounded-2xl border border-primary bg-primary text-black p-5 md:p-7 shadow-[0_0_50px_-12px_hsl(var(--primary)/0.7)]">
               <p className="text-xs uppercase tracking-wider text-black/70">Long-term comfort</p>
               <p className="text-base md:text-xl font-bold mt-2 text-black">Recovery, confidence, clarity & energy</p>
-            </div>
+            </LightUp>
           </div>
           <p className="text-center text-white/75 mt-8 text-lg max-w-2xl mx-auto">Daily Wins coaching helps you recognise these trades and make more deliberate choices. Because playing the long game means understanding when a little discomfort today can create a lot more comfort tomorrow.</p>
         </div>
       </Section>
 
       {/* Big goals / small goals */}
-      <Section narrow className="bg-[#0b0b0b] border-y border-white/5 md:py-24">
+      <Section narrow id="goals" className="bg-black/45 border-y border-white/5 md:py-24">
         <Title>Big goals feel overwhelming. Small goals feel pointless.</Title>
         <Prose className="mt-6">
           <p>And that's precisely why so many of us struggle to change. We dismiss big goals because they feel too overwhelming. We dismiss small goals because they seem too insignificant. So we end up doing neither, and let the time pass anyway.</p>
-          <p>But our brains aren't making these decisions without reason. We're naturally drawn towards immediate rewards and away from effort, uncertainty and discomfort. We find it easier to value what we can experience today than the benefits we might enjoy months or years from now. And that creates a problem.</p>
           <p className="text-white font-semibold">The changes that could make the biggest difference to our future are often the ones that feel least rewarding today.</p>
+          <ReadMore>
+          <p>But our brains aren't making these decisions without reason. We're naturally drawn towards immediate rewards and away from effort, uncertainty and discomfort. We find it easier to value what we can experience today than the benefits we might enjoy months or years from now. And that creates a problem.</p>
           <p>I help you understand why your brain makes these decisions, recognise the everyday behaviours influencing your future and learn how to make the better choice the easier choice.</p>
           <p>Because whether you realise it or not, you're already making small decisions every day that are shaping your life. The question is whether they're taking you towards the future you want <span className="text-primary font-semibold">(Daily Wins)</span>, or away from it <span className="text-white/60 font-semibold">(Daily Drifts)</span>.</p>
+          </ReadMore>
         </Prose>
+        <CompoundCurve />
         <p className="text-2xl md:text-3xl italic font-bold text-white mt-10 leading-snug">Neither feels significant today. <span className="text-primary">Both compound into something significant tomorrow.</span></p>
       </Section>
 
       {/* Test teaser */}
-      <Section>
+      <Section id="test">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div>
             <Eyebrow>The Free Daily Wins Test</Eyebrow>
@@ -181,8 +206,10 @@ const Home = () => {
             <p className="text-xl text-white font-semibold mt-5">You can't improve what you haven't taken the time to understand.</p>
             <Prose className="mt-5">
               <p>How happy are you with your health, finances, relationships, habits and the direction your life is heading? And where could a few small changes make the biggest difference?</p>
+              <ReadMore>
               <p>Take my free Daily Wins Test and discover where you're thriving, where your Daily Drifts might be holding you back, and which Daily Wins could help you move forward.</p>
               <p>Answer 28 simple questions, receive a personalised snapshot of your life and discover a recommended starting point. No judgement. No pass or fail. Just a better understanding of where you are and where you'd like to go.</p>
+              </ReadMore>
             </Prose>
             <GoldButton to="/test" arrow className="mt-8">Take the Free Daily Wins Test</GoldButton>
           </div>
@@ -190,7 +217,7 @@ const Home = () => {
             <span className="absolute -top-3 right-6 bg-primary text-black text-xs font-bold px-3 py-1 rounded-full">Example results</span>
             <Note className="my-0 mb-4">Made-up scores, only to show what the results look like.</Note>
             <p className="font-display font-bold text-xl tracking-tight">Your Daily Wins Snapshot</p>
-            <p className="text-sm text-white/50 mb-5">Long Game Score: <span className="text-primary font-bold">58/100</span></p>
+            <p className="text-sm text-white/50 mb-5">Long Game Score: <span className="text-primary font-bold"><CountUp value={58} />/100</span></p>
             <div className="space-y-3.5">
               {PREVIEW_BARS.map(([n, s]) => (
                 <div key={n}>
@@ -209,14 +236,16 @@ const Home = () => {
       </Section>
 
       {/* The long game */}
-      <Section className="bg-[#0b0b0b] border-y border-white/5">
+      <Section id="long-game" className="bg-black/45 border-y border-white/5">
         <div className="max-w-3xl">
           <Title>The life you'll be living in 20 years is being shaped by the tiny decisions you're making today.</Title>
           <Prose className="mt-6">
             <p>We focus on how we want to feel today. But what if the smallest decisions you make today could change what your life looks like in 10, 20 or even 30 years?</p>
-            <p>Imagine being 75 and still having the strength to explore the world. Having the financial freedom to choose how you spend your time. Having relationships that have grown stronger with every passing year. Having a career that excites you rather than exhausts you. And waking up each morning to a life you actually look forward to living.</p>
             <p className="text-white text-xl font-semibold">That's the long game.</p>
+            <ReadMore>
+            <p>Imagine being 75 and still having the strength to explore the world. Having the financial freedom to choose how you spend your time. Having relationships that have grown stronger with every passing year. Having a career that excites you rather than exhausts you. And waking up each morning to a life you actually look forward to living.</p>
             <p>Not sacrificing your happiness today for some distant reward. But making small decisions that can improve your life now, while building an even better one for the future. And it starts in the most ordinary moments of your day.</p>
+            </ReadMore>
           </Prose>
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px mt-14 rounded-2xl overflow-hidden border border-white/10 bg-white/10">
@@ -251,9 +280,11 @@ const Home = () => {
           <Title>Experience Daily Wins for yourself. On me.</Title>
           <Prose className="mt-6">
             <p>You don't have to commit to private coaching to start benefiting from Daily Wins. I host free introductory events, both online and in person, where we explore the ideas behind the Daily Wins philosophy and how they can be applied to everyday life.</p>
+            <p className="text-white font-semibold">No pressure. No obligation. Just an opportunity to learn something useful about yourself.</p>
+            <ReadMore label="What we cover">
             <p>We'll look at why common sense doesn't always translate into common action, how the Comfort Trade influences our behaviours and why compounding makes small changes so powerful.</p>
             <p>You'll leave with a fresh perspective on your own habits, practical Daily Wins you can start using immediately and a better understanding of how to play the long game.</p>
-            <p className="text-white font-semibold">No pressure. No obligation. Just an opportunity to learn something useful about yourself.</p>
+            </ReadMore>
           </Prose>
         </div>
         <div className="grid md:grid-cols-2 gap-5 mt-10">
@@ -281,7 +312,7 @@ const Home = () => {
       </Section>
 
       {/* Free resources */}
-      <Section className="bg-[#0b0b0b] border-y border-white/5">
+      <Section id="resources" className="bg-black/45 border-y border-white/5">
         <div className="max-w-3xl">
           <Title>Start your first Daily Win today. For free.</Title>
           <Prose className="mt-6">
@@ -322,10 +353,12 @@ const Home = () => {
       <Section narrow className="text-center md:py-28">
         <Title className="md:text-[3.25rem]">A year from now, will you still be making the same promises to yourself?</Title>
         <Prose className="mt-8 text-left md:text-center">
+          <p className="text-white font-semibold">You don't have to win every single day. You just have to start making more of your days count.</p>
+          <ReadMore>
           <p>Another year will pass. Another 365 days of decisions. Another year of habits, routines, opportunities and experiences.</p>
           <p>And every day, those decisions will be helping to shape your future. You can keep waiting for the perfect moment to change. For Monday. For January. For life to become less busy.</p>
           <p>Or you can start making small changes now. Changes that don't require you to turn your life upside down. Changes that fit into the life you're already living. Changes that, given time and consistency, can help create a future you'll be grateful for.</p>
-          <p className="text-white font-semibold">You don't have to win every single day. You just have to start making more of your days count.</p>
+          </ReadMore>
         </Prose>
         <p className="text-2xl md:text-3xl italic font-bold text-primary mt-10">Win the long game. One Daily Win at a time.</p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center mt-10">
@@ -335,6 +368,7 @@ const Home = () => {
       </Section>
 
       <SiteFooter />
+      </div>
 
       {form && (
         <LeadForm open={!!form} onOpenChange={(o) => !o && setForm(null)} title={form.title} description={form.description}

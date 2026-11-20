@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, ArrowRight, Check, Loader2, RotateCcw, Sparkles, Trophy } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, Loader2, RotateCcw, Share2, Sparkles, Trophy } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
@@ -104,6 +104,17 @@ const Results = ({ result, name, onRetake }: { result: TestResult; name: string;
   const strengths = sorted.slice(0, 2);
   const [tab, setTab] = useState<AreaId>(result.startArea);
   const tabArea = AREAS.find((a) => a.id === tab)!;
+  const [shared, setShared] = useState<"" | "copied" | "failed">("");
+  const share = async () => {
+    const text = `I scored ${result.overall}/100 on the free Daily Wins Test. My starting point: ${start.name}. Take it here: https://bigdaddysbigtips.com/test`;
+    try {
+      if (navigator.share) { await navigator.share({ text }); return; }
+      await navigator.clipboard.writeText(text);
+      setShared("copied");
+    } catch (e) {
+      if ((e as Error)?.name !== "AbortError") setShared("failed");
+    }
+  };
   const step = nextStep(result);
   const startScore = result.areaScores[start.id];
 
@@ -212,8 +223,11 @@ const Results = ({ result, name, onRetake }: { result: TestResult; name: string;
         <p className="text-lg text-white/80 max-w-xl mx-auto">You won't change everything tomorrow. But you can make sure tomorrow contributes towards it.</p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <GoldButton to="/coaching" arrow>Explore Coaching & Mentoring</GoldButton>
+          <OutlineButton onClick={share}><Share2 className="w-4 h-4" />Share my score</OutlineButton>
           <OutlineButton onClick={onRetake}><RotateCcw className="w-4 h-4" />Retake the test</OutlineButton>
         </div>
+        <p className="text-sm text-primary min-h-5" role="status">{shared === "copied" ? "Copied. Paste it anywhere to share." : shared === "failed" ? "Couldn't copy on this device. Take a screenshot to share instead." : ""}</p>
+        <Note kind="needed" className="mx-auto">Results email: sending people their results needs access to the Supabase account.</Note>
       </div>
     </div>
   );

@@ -74,7 +74,7 @@ export const Card = ({ children, className }: { children: ReactNode; className?:
 
 // Review notes mark drafts and missing content for Ben. They only show in preview builds
 // (VITE_REVIEW_NOTES or VITE_HASH_ROUTER) and never on the live site.
-const SHOW_NOTES = Boolean(import.meta.env.VITE_REVIEW_NOTES || import.meta.env.VITE_HASH_ROUTER);
+export const SHOW_NOTES = Boolean(import.meta.env.VITE_REVIEW_NOTES || import.meta.env.VITE_HASH_ROUTER);
 export const Note = ({ kind = "draft", children, className }: { kind?: "draft" | "needed"; children: ReactNode; className?: string }) =>
   SHOW_NOTES ? (
     <div className={cn("flex w-fit max-w-md items-start gap-2 rounded-md border-2 border-dashed px-3 py-2 my-3 text-left text-[13px] font-semibold not-italic normal-case tracking-normal leading-snug font-sans",

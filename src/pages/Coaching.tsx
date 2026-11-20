@@ -2,12 +2,13 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Check, ClipboardCheck, CalendarDays, PlayCircle, Users, MessageCircle, Sparkles, Trophy, ArrowRight } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { GoldButton, OutlineButton, Section, Title, Eyebrow, Prose, Card, Note } from "@/components/site/ui";
+import { GoldButton, OutlineButton, Section, Title, Eyebrow, Prose, Card, Note, SHOW_NOTES } from "@/components/site/ui";
+import { ReadMore, StickyTestBar } from "@/components/site/fx";
 import LeadForm from "@/components/site/LeadForm";
 import SiteFooter from "@/components/site/SiteFooter";
 import { cn } from "@/lib/utils";
 
-const HERO_IMAGE = "/lovable-uploads/5e8aba04-f6cc-44a2-9bcc-eaf2424e3976.png";
+const HERO_IMAGE = "/lovable-uploads/opt/5e8aba04-f6cc-44a2-9bcc-eaf2424e3976.webp";
 
 // Prices and formats are Ben's working drafts. Edit here.
 interface Offer { name: string; price: string; meta: string; text: string[]; cta: string; flagship?: boolean; bullets?: string[] }
@@ -78,6 +79,7 @@ const Coaching = () => {
 
   return (
     <div className="min-h-screen">
+      <StickyTestBar />
       {/* Hero */}
       <section className="relative overflow-hidden">
         <img src={HERO_IMAGE} alt="Ben Raven at home" className="absolute inset-0 w-full h-full object-cover object-[70%_30%] opacity-40" />
@@ -91,12 +93,16 @@ const Coaching = () => {
             <div className="mt-6 space-y-4 text-lg text-white/80 leading-relaxed">
               <p>There's a reason you keep making the same promises to yourself. You know what you'd like to change. You've probably tried changing it before.</p>
               <p>But knowing what to do, understanding why you don't do it and learning how to make it happen are three very different things.</p>
+              <ReadMore>
               <p>Through Daily Wins coaching, I'll help you understand your behaviours, break the cycles holding you back and develop small, achievable changes that fit your life. Whether it's your health, finances, relationships, career, confidence or overall wellbeing, the same habit principles apply. We'll focus on what matters most to you.</p>
+              </ReadMore>
             </div>
             <div className="flex flex-col sm:flex-row gap-3 mt-8">
               <GoldButton onClick={() => enquire(CLARITY[0])} arrow>Request a Free Discovery Call</GoldButton>
               <OutlineButton to="/test" className="bg-black/40">Take the Free Daily Wins Test</OutlineButton>
             </div>
+            <Note kind="needed">A 30 to 60 second intro video of Ben would go in this hero.</Note>
+            <Note kind="needed">Booking calendar: with a Calendly (or similar) account, this button can open a calendar to pick a slot instead of a form.</Note>
           </div>
         </div>
       </section>
@@ -184,8 +190,10 @@ const Coaching = () => {
           <Title>Your life. Your priorities. Your Daily Wins.</Title>
           <Prose className="mt-6">
             <p>Sometimes, the most valuable investment you can make is in understanding yourself. We spend money improving our homes, our cars, our holidays and our careers. But how often do we invest meaningful time in understanding the person making all those decisions?</p>
+            <ReadMore>
             <p>Private coaching gives us the opportunity to do exactly that. A dedicated space to explore your life, your behaviours, your frustrations, your ambitions and the things you'd most like to change.</p>
             <p className="text-white font-semibold">Not generic advice. Not another list of things you should be doing. Personal guidance built around who you are, how you live and the future you want to create.</p>
+            </ReadMore>
           </Prose>
         </div>
 
@@ -244,12 +252,30 @@ const Coaching = () => {
       <Section narrow className="bg-[#0b0b0b] border-y border-white/5 text-center">
         <Title>A limited number of people. A meaningful amount of attention.</Title>
         <Prose className="mt-6">
+          <p className="text-white text-xl italic font-semibold">I'd rather help the right number of people properly than promise more than I can deliver.</p>
+          <ReadMore>
           <p>Alongside private coaching, I dedicate considerable time to creating free educational content, developing courses, hosting events and supporting the Daily Wins community.</p>
           <p>To give every client the preparation, attention and commitment they deserve, I deliberately limit the number of people I work with privately. Before working together, we'll explore your goals, expectations and whether my approach is right for you.</p>
-          <p className="text-white text-xl italic font-semibold">I'd rather help the right number of people properly than promise more than I can deliver.</p>
+          </ReadMore>
         </Prose>
         <GoldButton className="mt-8" onClick={() => enquire(CLARITY[0])} arrow>Request a Free Discovery Call</GoldButton>
       </Section>
+
+      {/* Client proof: preview-only placeholder until Ben supplies real quotes */}
+      {SHOW_NOTES && (
+        <Section>
+          <Eyebrow>In their words</Eyebrow>
+          <Note kind="needed">Real client quotes or YouTube comments from Ben. This section stays hidden on the live site until they are added.</Note>
+          <div className="grid md:grid-cols-3 gap-5 mt-6">
+            {[1, 2, 3].map((n) => (
+              <div key={n} className="rounded-2xl border-2 border-dashed border-white/20 p-6 min-h-40 flex flex-col justify-between">
+                <p className="text-white/45 italic">Client quote {n} goes here.</p>
+                <p className="text-sm text-white/35 mt-6">Name, and what they worked on</p>
+              </div>
+            ))}
+          </div>
+        </Section>
+      )}
 
       {/* FAQ */}
       <Section narrow>
