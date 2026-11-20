@@ -3,7 +3,7 @@ import {
   ArrowRight, HeartPulse, Apple, PiggyBank, Users, Briefcase, Sun,
   Headphones, BookOpen, GraduationCap, MapPin, Globe, Clock, Play,
 } from "lucide-react";
-import { GoldButton, OutlineButton, Section, Title, Eyebrow, Prose, Card } from "@/components/site/ui";
+import { GoldButton, OutlineButton, Section, Title, Eyebrow, Prose, Card, Note } from "@/components/site/ui";
 import LeadForm from "@/components/site/LeadForm";
 import SiteFooter from "@/components/site/SiteFooter";
 import { startTrackedRedirect } from "@/lib/youtube-redirect";
@@ -47,6 +47,7 @@ const Home = () => {
       {/* Hero: full-width image of Ben. Swap HERO_IMAGE for a b-roll <video> when supplied. */}
       <section className="relative overflow-hidden min-h-[88vh] flex items-center">
         <img src={HERO_IMAGE} alt="Ben Raven recording a Daily Wins episode" className="absolute inset-0 w-full h-full object-cover object-[60%_35%] animate-kenburns" />
+        <Note kind="needed" className="absolute top-3 right-3 z-10 my-0">Placeholder photo. Ben's b-roll video goes here.</Note>
         <div className="absolute inset-0 bg-gradient-to-r from-black/95 via-black/80 to-black/40" />
         <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
         <div className="relative max-w-6xl mx-auto px-5 sm:px-6 lg:px-8 py-20 w-full">
@@ -71,6 +72,7 @@ const Home = () => {
       </section>
 
       {/* Stats strip */}
+      <Note className="mx-auto">Figures below need confirming by Ben before launch.</Note>
       <div className="border-y border-primary/15 bg-black/60">
         <div className="max-w-4xl mx-auto px-5 py-7 grid grid-cols-3 gap-4 text-center">
           {[["30K+", "YouTube subscribers"], ["300+", "Daily Wins episodes"], ["8PM", "New episode, every day"]].map(([s, l]) => (
@@ -186,6 +188,7 @@ const Home = () => {
           </div>
           <Card className="relative">
             <span className="absolute -top-3 right-6 bg-primary text-black text-xs font-bold px-3 py-1 rounded-full">Example results</span>
+            <Note className="my-0 mb-4">Made-up scores, only to show what the results look like.</Note>
             <p className="font-display font-bold text-xl tracking-tight">Your Daily Wins Snapshot</p>
             <p className="text-sm text-white/50 mb-5">Long Game Score: <span className="text-primary font-bold">58/100</span></p>
             <div className="space-y-3.5">
@@ -268,6 +271,7 @@ const Home = () => {
               </div>
               <p className="text-white/75 mt-4 flex-1">{e.text}</p>
               <p className="text-sm text-primary/80 mt-4">Next dates coming soon</p>
+              <Note kind="needed">Event dates, venue and booking link from Ben.</Note>
               <GoldButton className="mt-4 w-full min-h-12 text-base" onClick={() => setForm({ title: e.title, tag: e.tag, description: "Dates are being finalised. Leave your details and you'll be first to hear when registration opens." })}>
                 Register my interest
               </GoldButton>

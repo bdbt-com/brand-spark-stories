@@ -71,3 +71,15 @@ export const Prose = ({ children, className }: { children: ReactNode; className?
 export const Card = ({ children, className }: { children: ReactNode; className?: string }) => (
   <div className={cn("rounded-2xl border border-white/10 bg-[#121212] p-6 md:p-8", className)}>{children}</div>
 );
+
+// Review notes mark drafts and missing content for Ben. They only show in preview builds
+// (VITE_REVIEW_NOTES or VITE_HASH_ROUTER) and never on the live site.
+const SHOW_NOTES = Boolean(import.meta.env.VITE_REVIEW_NOTES || import.meta.env.VITE_HASH_ROUTER);
+export const Note = ({ kind = "draft", children, className }: { kind?: "draft" | "needed"; children: ReactNode; className?: string }) =>
+  SHOW_NOTES ? (
+    <div className={cn("flex w-fit max-w-md items-start gap-2 rounded-md border-2 border-dashed px-3 py-2 my-3 text-left text-[13px] font-semibold not-italic normal-case tracking-normal leading-snug font-sans",
+      kind === "draft" ? "border-[#38E1FF] bg-[#06242b] text-[#9BF0FF]" : "border-[#FF5DA2] bg-[#2b0718] text-[#FFB3D3]", className)}>
+      <span className={cn("shrink-0 rounded px-1.5 py-0.5 text-[11px] font-extrabold uppercase tracking-wider text-black", kind === "draft" ? "bg-[#38E1FF]" : "bg-[#FF5DA2]")}>{kind === "draft" ? "Draft" : "Needed"}</span>
+      <span>{children}</span>
+    </div>
+  ) : null;

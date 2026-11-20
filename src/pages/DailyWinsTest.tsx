@@ -8,7 +8,7 @@ import {
   AREAS, SCALES, START_OPTIONS, band, bandLabel, computeResult,
   type AreaId, type StartPreference, type TestResult,
 } from "@/data/dailyWinsTest";
-import { GoldButton, OutlineButton, Section, Title, Eyebrow, Card } from "@/components/site/ui";
+import { GoldButton, OutlineButton, Section, Title, Eyebrow, Card, Note } from "@/components/site/ui";
 import { saveLead } from "@/components/site/LeadForm";
 
 const STORE = "dw-test-v1";
@@ -111,6 +111,7 @@ const Results = ({ result, name, onRetake }: { result: TestResult; name: string;
     <div className="space-y-10 animate-fade-in">
       <div className="text-center">
         <Eyebrow className="justify-center">Your Daily Wins Snapshot</Eyebrow>
+        <Note className="mx-auto">Draft results page. The 6 life areas, the scoring and all advice wording are drafts for Ben to review.</Note>
         <Title as="h1">{name ? `${name}, here's` : "Here's"} where you are today</Title>
         <p className="text-white/70 mt-4 max-w-xl mx-auto">No judgement. No pass or fail. Just a clearer picture of where you are and where a few small changes could make the biggest difference.</p>
       </div>
@@ -272,6 +273,7 @@ const DailyWinsTest = () => {
         {step === "intro" && (
           <div className="text-center animate-fade-in">
             <Eyebrow className="justify-center">The Free Daily Wins Test</Eyebrow>
+            <Note className="mx-auto">Draft test built from Ben's 28 scales. His Canva version replaces the layout and wording.</Note>
             <Title as="h1" className="md:text-5xl">How well are you playing the long game?</Title>
             <p className="text-xl text-white mt-6 font-semibold">You can't improve what you haven't taken the time to understand.</p>
             <div className="text-white/75 mt-5 space-y-4 text-lg leading-relaxed max-w-2xl mx-auto">
