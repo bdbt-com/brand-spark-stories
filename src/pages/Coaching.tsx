@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils";
 const HERO_IMAGE = "/lovable-uploads/5e8aba04-f6cc-44a2-9bcc-eaf2424e3976.png";
 
 // Prices and formats are Ben's working drafts. Edit here.
-interface Offer { name: string; price: string; meta: string; text: string[]; cta: string; flagship?: boolean; bullets?: string[] }
+interface Offer { name: string; price: string; meta: string; text: string[]; cta: string; flagship?: boolean; bullets?: string[]; after?: string }
 
 const CLARITY: Offer[] = [
   { name: "Free Discovery Call", price: "Free", meta: "20 minutes · Online", text: ["Let's explore what you'd like to change, what you're hoping to achieve and whether Daily Wins coaching is the right fit.", "No pressure. No obligation."], cta: "Request a Discovery Call" },
@@ -26,7 +26,7 @@ const LASTING: Offer[] = [
 const INTENSIVES: Offer[] = [
   { name: "Half-Day Life Review", price: "£495", meta: "3.5 hours", text: ["A focused review of your current circumstances, priorities and behaviours.", "We'll identify your biggest opportunities for improvement and develop a personalised 30-day plan."], cta: "Enquire About the Half-Day Review" },
   { name: "Full-Day Life Reset", price: "£895", meta: "7 hours", text: ["A comprehensive exploration of your life, habits, goals and long-term priorities.", "We'll examine your Daily Drifts, Comfort Trades and opportunities for meaningful change, culminating in a personalised 90-day Transformation Blueprint."], cta: "Enquire About the Full-Day Reset" },
-  { name: "Three-Day Daily Wins Experience", price: "£2,495", meta: "Three full days", text: ["An immersive personal development experience exploring three interconnected dimensions of your life:"], bullets: ["The Vessel: understanding and looking after yourself", "The Ripples: understanding the influence your decisions have on others", "The Journey: understanding where you're heading and the life you want to create"], cta: "Discuss the Three-Day Experience" },
+  { name: "Three-Day Daily Wins Experience", price: "£2,495", meta: "Three full days", text: ["An immersive personal development experience exploring three interconnected dimensions of your life:"], bullets: ["The Vessel: understanding and looking after yourself", "The Ripples: understanding the influence your decisions have on others", "The Journey: understanding where you're heading and the life you want to create"], after: "Includes a long-term personal Blueprint and a follow-up coaching call.", cta: "Discuss the Three-Day Experience" },
 ];
 
 const FAQ = [
@@ -56,6 +56,7 @@ const OfferCard = ({ o, onClick }: { o: Offer; onClick: () => void }) => (
           ); })}
         </ul>
       )}
+      {o.after && <p>{o.after}</p>}
     </div>
     {o.price === "Free" || o.flagship ? (
       <GoldButton onClick={onClick} className="mt-6 min-h-12 text-base w-full">{o.cta}</GoldButton>
