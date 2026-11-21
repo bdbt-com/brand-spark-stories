@@ -190,6 +190,12 @@ export const StickyTestBar = () => {
     const next = y > 640 && !nearEnd;
     setShow((s) => (s === next ? s : next));
   });
+  // Lets other fixed elements (such as the preview's version switch) move out of the bar's way.
+  useEffect(() => {
+    if (show) document.documentElement.dataset.testbar = "1";
+    else delete document.documentElement.dataset.testbar;
+    return () => { delete document.documentElement.dataset.testbar; };
+  }, [show]);
   return (
     <div
       className={cn("md:hidden fixed inset-x-0 bottom-0 z-40 border-t border-primary/30 bg-black/90 backdrop-blur-md transition-transform duration-300 motion-reduce:transition-none", show ? "translate-y-0" : "translate-y-full")}
