@@ -43,7 +43,7 @@ const LONG_GAME = [
   { Icon: PiggyBank, title: "Money & Financial Freedom", text: "Don't just work for your money. Make your money work for your future. Less financial stress. More freedom to make choices. The ability to spend your time doing what matters, rather than what your bank balance dictates." },
   { Icon: Users, title: "Relationships & Family", text: "Don't wait until you have more time for the people you love. Build the relationships you'll treasure for a lifetime. More moments that matter. Stronger connections. Fewer regrets about the time you wish you'd spent differently." },
   { Icon: Briefcase, title: "Career & Personal Growth", text: "Don't just chase your next promotion. Build a career that opens doors for decades. Develop the skills, confidence and relationships that create opportunities, independence and a sense of purpose." },
-  { Icon: Sun, title: "Time & Fulfilment", text: "Don't spend five days waiting for the weekend, fifty weeks waiting for the summer holiday or forty years waiting for retirement. Build a life you enjoy living on ordinary Tuesdays." },
+  { Icon: Sun, title: "Time & Fulfilment", text: "Don't spend five days waiting for the weekend, fifty weeks waiting for the summer holiday or forty years waiting for retirement. Build a life you enjoy living on ordinary Tuesdays. One where happiness isn't permanently postponed until the next weekend, holiday or milestone." },
 ];
 
 const PREVIEW_BARS = [
@@ -208,7 +208,7 @@ const Home = () => {
               <p>How happy are you with your health, finances, relationships, habits and the direction your life is heading? And where could a few small changes make the biggest difference?</p>
               <ReadMore>
               <p>Take my free Daily Wins Test and discover where you're thriving, where your Daily Drifts might be holding you back, and which Daily Wins could help you move forward.</p>
-              <p>Answer 28 simple questions, receive a personalised snapshot of your life and discover a recommended starting point. No judgement. No pass or fail. Just a better understanding of where you are and where you'd like to go.</p>
+              <p>Answer 28 simple questions, receive a personalised snapshot of your life and discover a recommended starting point based on your answers. No judgement. No pass or fail. Just a better understanding of where you are and where you'd like to go.</p>
               </ReadMore>
             </Prose>
             <GoldButton to="/test" arrow className="mt-8">Take the Free Daily Wins Test</GoldButton>

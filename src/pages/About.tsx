@@ -16,7 +16,7 @@ const LESSONS = [
   "How to make better financial decisions.",
   "How to look after our bodies.",
   "How to develop meaningful relationships.",
-  "How to make everyday decisions that serve our future selves.",
+  "And how to make everyday decisions that serve our future selves.",
 ];
 
 const About = () => (
