@@ -41,6 +41,11 @@ export const UPLOADS_PLAYLIST_ID = "UULFUjFNTMKnaeP5TyN-cOF5bw";
  * on our own domain first, then sends the user to YouTube.
  */
 export function startTrackedRedirect(videoId: string, trackId?: string, playlist?: string) {
+  // Preview builds have no /redirect page on the host, so open YouTube directly.
+  if (import.meta.env.VITE_HASH_ROUTER) {
+    window.open(youtubeWatchUrl(videoId, playlist), "_blank", "noopener");
+    return;
+  }
   const params = new URLSearchParams({ video: videoId });
   if (trackId) params.set("trackId", trackId);
   if (playlist) params.set("list", playlist);
