@@ -44,7 +44,7 @@ const LONG_GAME = [
   { Icon: PiggyBank, title: "Money & Financial Freedom", text: "Don't just work for your money. Make your money work for your future. Less financial stress. More freedom to make choices. The ability to spend your time doing what matters, rather than what your bank balance dictates." },
   { Icon: Users, title: "Relationships & Family", text: "Don't wait until you have more time for the people you love. Build the relationships you'll treasure for a lifetime. More moments that matter. Stronger connections. Fewer regrets about the time you wish you'd spent differently." },
   { Icon: Briefcase, title: "Career & Personal Growth", text: "Don't just chase your next promotion. Build a career that opens doors for decades. Develop the skills, confidence and relationships that create opportunities, independence and a sense of purpose." },
-  { Icon: Sun, title: "Time & Fulfilment", text: "Don't spend five days waiting for the weekend, 50 weeks waiting for the summer holiday or forty years waiting for retirement. Build a life you enjoy living on ordinary Tuesdays." },
+  { Icon: Sun, title: "Time & Fulfilment", text: "Don't spend five days waiting for the weekend, 50 weeks waiting for the summer holiday or forty years waiting for retirement. Build a life you enjoy living on ordinary Tuesdays. One where happiness isn't permanently postponed until the next weekend, holiday or milestone." },
 ];
 
 
@@ -202,8 +202,8 @@ const Home = () => {
       </Section>
 
       {/* Test teaser */}
-      <Section narrow>
-        <div>
+      <Section>
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div>
             <Eyebrow>The Free Daily Wins Test</Eyebrow>
             <Title>How well are you playing the long game?</Title>
@@ -211,10 +211,29 @@ const Home = () => {
             <Prose className="mt-5">
               <p>How happy are you with your health, finances, relationships, habits and the direction your life is heading? And where could a few small changes make the biggest difference?</p>
               <p>Take my free Daily Wins Test and discover where you're thriving, where your Daily Drifts might be holding you back, and which Daily Wins could help you move forward.</p>
-              <p>Answer 28 simple questions, receive a personalised snapshot of your life and discover a recommended starting point. No judgement. No pass or fail. Just a better understanding of where you are and where you'd like to go.</p>
+              <p>Answer 28 simple questions, receive a personalised snapshot of your life and discover a recommended starting point based on your answers. No judgement. No pass or fail. Just a better understanding of where you are and where you'd like to go.</p>
             </Prose>
             <GoldButton to="/test" arrow className="mt-8">Take My Free Daily Wins Test</GoldButton>
           </div>
+          {/* Illustrative results preview, as mocked up in Ben's homepage document */}
+          <Card>
+            <p className="font-bold text-lg">Your Daily Wins Snapshot</p>
+            <p className="text-sm text-white/50 mb-5">Illustrative preview</p>
+            <Note className="my-0 mb-4">Example scores copied from the mock-up in Ben's document.</Note>
+            <div className="space-y-3.5">
+              {([["Health & Energy", 4], ["Financial Wellbeing", 3], ["Relationships", 8], ["Time & Focus", 5], ["Purpose & Fulfilment", 7]] as const).map(([n, v]) => (
+                <div key={n}>
+                  <div className="flex justify-between text-sm mb-1"><span>{n}</span><span className="text-white/60">{v}/10</span></div>
+                  <div className="h-2 rounded-full bg-white/10"><div className="h-full rounded-full bg-primary" style={{ width: `${v * 10}%` }} /></div>
+                </div>
+              ))}
+            </div>
+            <div className="mt-6 rounded-xl border border-primary/30 p-4">
+              <p className="text-xs uppercase tracking-wider text-primary">Your recommended starting point</p>
+              <p className="font-bold mt-1">Financial Wellbeing</p>
+              <p className="text-sm text-white/65 mt-1">Explore a small money habit you can start this week, and discover The Invisible Pay Rise course.</p>
+            </div>
+          </Card>
         </div>
       </Section>
 
@@ -268,8 +287,8 @@ const Home = () => {
         </div>
         <div className="grid md:grid-cols-2 gap-5 mt-10">
           {[
-            { Icon: MapPin, title: "Free In-Person Introduction", meta: [["120 minutes", Clock], ["London", MapPin]], text: "A personal, interactive experience. Limited spaces.", tag: "Event interest: In-person introduction (London)" },
-            { Icon: Globe, title: "Free Online Introduction", meta: [["60 minutes", Clock], ["Join from anywhere", Globe]], text: "Discover how Daily Wins can help you, from wherever you are.", tag: "Event interest: Online introduction" },
+            { Icon: MapPin, title: "Free In-Person Introduction", meta: [["120 minutes", Clock], ["London", MapPin]], text: "Personal, interactive experience in London. Limited spaces.", tag: "Event interest: In-person introduction (London)" },
+            { Icon: Globe, title: "Free Online Introduction", meta: [["60 minutes", Clock], ["Join from anywhere", Globe]], text: "Discover how Daily Wins can help you.", tag: "Event interest: Online introduction" },
           ].map((e) => (
             <Card key={e.title} className="flex flex-col">
               <div className="flex items-center justify-between">
@@ -306,7 +325,7 @@ const Home = () => {
           {[
             { Icon: Headphones, title: "The Daily Wins Podcast & Videos", text: "Explore the science, psychology and everyday behaviours behind living a better life.", cta: "Watch & Listen", to: "/podcast" },
             { Icon: BookOpen, title: "The Daily Wins Library", text: "Discover practical Daily Wins across health, money, relationships, time and personal wellbeing.", cta: "Explore Now", to: "/tips" },
-            { Icon: GraduationCap, title: "Daily Wins Courses", text: "Something in between free content and personalised coaching. Practical, affordable and designed to help you build useful life skills and better everyday habits.", cta: "Explore Courses", to: "/courses" },
+            { Icon: GraduationCap, title: "Daily Wins Courses", text: "If you want something in between free content and personalised coaching, you can take advantage of the Daily Wins Courses. Practical, affordable and designed to help you build useful life skills and develop better everyday habits.", cta: "Explore Courses", to: "/courses" },
           ].map((r) => (
             <Card key={r.title} className="flex flex-col">
               <div className="w-11 h-11 rounded-xl bg-primary/15 flex items-center justify-center mb-4"><r.Icon className="w-5 h-5 text-primary" /></div>
