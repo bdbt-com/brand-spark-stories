@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, ChevronDown } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const reducedMotion = () =>
@@ -49,10 +49,10 @@ export const ScrollAtmosphere = () => {
   return (
     <div ref={ref} aria-hidden className="pointer-events-none fixed inset-0 z-0 overflow-hidden" style={{ "--p": 0 } as CSSProperties}>
       <div className="absolute inset-0" style={{ background: "radial-gradient(90% 60% at 12% 8%, rgba(72,98,135,0.26), transparent 70%)", opacity: "calc(1 - var(--p) * 1.5)" }} />
-      <div className="absolute inset-0" style={{ background: "radial-gradient(110% 75% at 88% 92%, hsl(42 55% 62% / 0.24), transparent 70%)", opacity: "calc(var(--p) * 1.35)" }} />
+      <div className="absolute inset-0" style={{ background: "radial-gradient(110% 75% at 88% 92%, rgba(194,155,98,0.24), transparent 70%)", opacity: "calc(var(--p) * 1.35)" }} />
       <div
         className="absolute -right-40 top-[-10vh] h-[46vh] w-[46vh] rounded-full blur-3xl motion-reduce:hidden"
-        style={{ background: "hsl(42 55% 62% / 0.16)", transform: "translate3d(calc(var(--p) * -55vw), calc(var(--p) * 80vh), 0)" }}
+        style={{ background: "rgba(194,155,98,0.16)", transform: "translate3d(calc(var(--p) * -55vw), calc(var(--p) * 80vh), 0)" }}
       />
       <div
         className="absolute inset-0 opacity-[0.05]"
@@ -76,7 +76,7 @@ export const LongGameLine = ({ sections }: { sections: { id: string; label: stri
   return (
     <nav aria-label="Page sections" className="hidden xl:block fixed left-6 top-1/2 -translate-y-1/2 z-30 h-[56vh] w-4">
       <div className="absolute left-1/2 -translate-x-1/2 inset-y-0 w-px bg-white/15" />
-      <div ref={fill} className="absolute left-1/2 -translate-x-1/2 inset-y-0 w-px bg-primary origin-top" style={{ transform: "scaleY(0)" }} />
+      <div ref={fill} className="absolute left-1/2 -translate-x-1/2 inset-y-0 w-px bg-gold origin-top" style={{ transform: "scaleY(0)" }} />
       {sections.map((s, i) => (
         <button
           key={s.id}
@@ -87,8 +87,8 @@ export const LongGameLine = ({ sections }: { sections: { id: string; label: stri
           className="group absolute left-1/2 -translate-x-1/2 -translate-y-1/2 flex h-4 w-4 items-center justify-center focus-visible:outline-none"
           style={{ top: `${(i / (sections.length - 1)) * 100}%` }}
         >
-          <span className={cn("block rounded-full transition-all duration-300 group-focus-visible:ring-2 group-focus-visible:ring-white", i <= active ? "h-2.5 w-2.5 bg-primary shadow-[0_0_12px_hsl(var(--primary)/0.8)]" : "h-1.5 w-1.5 bg-white/35 group-hover:bg-white")} />
-          <span className={cn("pointer-events-none absolute left-6 whitespace-nowrap text-xs font-semibold tracking-wide transition-opacity", i === active ? "text-primary opacity-100" : "text-white/80 opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100")}>{s.label}</span>
+          <span className={cn("block rounded-full transition-all duration-300 group-focus-visible:ring-2 group-focus-visible:ring-white", i <= active ? "h-2.5 w-2.5 bg-gold shadow-[0_0_12px_rgba(194,155,98,0.8)]" : "h-1.5 w-1.5 bg-white/35 group-hover:bg-white")} />
+          <span className={cn("pointer-events-none absolute left-6 whitespace-nowrap text-xs font-semibold tracking-wide transition-opacity", i === active ? "text-gold opacity-100" : "text-white/80 opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100")}>{s.label}</span>
         </button>
       ))}
     </nav>
@@ -143,16 +143,16 @@ export const CompoundCurve = () => {
   const line: CSSProperties = { strokeDasharray: 1, strokeDashoffset: "var(--draw)" as unknown as number };
   const end: CSSProperties = { opacity: "var(--end)" as unknown as number, transition: "opacity 400ms ease-out" };
   return (
-    <div ref={ref} className="mt-10 rounded-2xl border border-white/10 bg-black/40 p-4 md:p-6" style={{ "--draw": 1, "--end": 0 } as CSSProperties}>
+    <div ref={ref} className="mt-10 rounded-lg border border-white/10 bg-black/40 p-4 md:p-6" style={{ "--draw": 1, "--end": 0 } as CSSProperties}>
       <svg viewBox="0 0 600 300" role="img" aria-label="Chart: Daily Wins and Daily Drifts start at the same point today and move further apart every year." className="w-full h-auto">
         {[75, 150, 225].map((y) => <line key={y} x1="40" x2="570" y1={y} y2={y} stroke="#ffffff" strokeOpacity={y === 150 ? 0.22 : 0.07} strokeDasharray={y === 150 ? "4 6" : undefined} />)}
-        <path d="M40,150 C250,146 430,118 560,24" fill="none" stroke="hsl(42 55% 62%)" strokeWidth="4" strokeLinecap="round" pathLength={1} style={line} />
+        <path d="M40,150 C250,146 430,118 560,24" fill="none" stroke="#C29B62" strokeWidth="4" strokeLinecap="round" pathLength={1} style={line} />
         <path d="M40,150 C250,154 430,182 560,276" fill="none" stroke="#8a8a8a" strokeWidth="4" strokeLinecap="round" pathLength={1} style={line} />
         <circle cx="40" cy="150" r="6" fill="#ffffff" />
         <g style={end}>
-          <circle cx="560" cy="24" r="7" fill="hsl(42 55% 62%)" />
+          <circle cx="560" cy="24" r="7" fill="#C29B62" />
           <circle cx="560" cy="276" r="7" fill="#8a8a8a" />
-          <text x="548" y="52" textAnchor="end" fill="hsl(42 55% 62%)" fontSize="19" fontWeight="700">Daily Wins</text>
+          <text x="548" y="52" textAnchor="end" fill="#C29B62" fontSize="19" fontWeight="700">Daily Wins</text>
           <text x="548" y="258" textAnchor="end" fill="#b5b5b5" fontSize="19" fontWeight="700">Daily Drifts</text>
         </g>
         <text x="40" y="180" fill="#ffffff" fillOpacity="0.7" fontSize="15" fontWeight="600">Today</text>
@@ -172,7 +172,7 @@ export const ReadMore = ({ children, label = "Read more" }: { children: ReactNod
         type="button"
         aria-expanded={open}
         onClick={() => setOpen((o) => !o)}
-        className="inline-flex items-center gap-1.5 text-primary text-base font-semibold underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded"
+        className="inline-flex items-center gap-1.5 text-gold text-base font-semibold underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded"
       >
         {open ? "Show less" : label}
         <ChevronDown className={cn("w-4 h-4 transition-transform", open && "rotate-180")} />
@@ -198,13 +198,13 @@ export const StickyTestBar = () => {
   }, [show]);
   return (
     <div
-      className={cn("md:hidden fixed inset-x-0 bottom-0 z-40 border-t border-primary/30 bg-black/90 backdrop-blur-md transition-transform duration-300 motion-reduce:transition-none", show ? "translate-y-0" : "translate-y-full")}
+      className={cn("md:hidden fixed inset-x-0 bottom-0 z-40 border-t border-gold/30 bg-black/90 backdrop-blur-md transition-transform duration-300 motion-reduce:transition-none", show ? "translate-y-0" : "translate-y-full")}
       style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)" }}
       aria-hidden={!show}
     >
       <Link to="/test" tabIndex={show ? 0 : -1} className="flex items-center justify-between gap-3 px-4 py-3">
         <span className="text-sm text-white/85 leading-tight"><span className="block font-semibold text-white">Free Daily Wins Test</span>28 questions. No pass or fail.</span>
-        <span className="inline-flex shrink-0 items-center gap-1.5 rounded-xl bg-primary px-4 py-2.5 text-sm font-bold text-black">Start <ArrowRight className="w-4 h-4" /></span>
+        <span className="inline-flex shrink-0 items-center rounded-md bg-gold px-4 py-2.5 font-display uppercase font-extrabold leading-none text-black">Start</span>
       </Link>
     </div>
   );

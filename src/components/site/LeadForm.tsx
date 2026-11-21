@@ -63,16 +63,16 @@ const LeadForm = ({
 
   return (
     <Dialog open={open} onOpenChange={close}>
-      <DialogContent className="max-w-md border-primary/30 bg-[#111]">
+      <DialogContent className="max-w-md border-gold/30 bg-[#111]">
         {state === "done" ? (
           <div className="text-center py-6">
-            <CheckCircle className="w-12 h-12 text-primary mx-auto mb-4" />
+            <CheckCircle className="w-12 h-12 text-gold mx-auto mb-4" />
             <p className="text-lg font-semibold">{successText}</p>
           </div>
         ) : (
           <>
             <DialogHeader>
-              <DialogTitle className="text-primary italic text-2xl">{title}</DialogTitle>
+              <DialogTitle className="font-display uppercase font-extrabold text-white text-3xl leading-none">{title}</DialogTitle>
               {description && <DialogDescription>{description}</DialogDescription>}
             </DialogHeader>
             <form onSubmit={submit} className="space-y-4 mt-2">

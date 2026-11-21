@@ -19,10 +19,15 @@ export default {
 		},
 		extend: {
 			fontFamily: {
-				sans: ['Manrope', 'ui-sans-serif', 'system-ui', 'Segoe UI', 'Helvetica', 'Arial', 'sans-serif'],
-				display: ['Archivo', 'Manrope', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+				// BDBT brand type: one family. Body at normal width, headlines condensed (see BRAND.md).
+				sans: ['"Archivo Variable"', 'ui-sans-serif', 'system-ui', 'Segoe UI', 'Helvetica', 'Arial', 'sans-serif'],
+				display: ['"Archivo Variable", "Arial Narrow", Impact, ui-sans-serif, sans-serif', { fontVariationSettings: '"wdth" 68' }],
 			},
 			colors: {
+				// BDBT brand palette (see BRAND.md). Gold always marks the Daily Win.
+				gold: '#C29B62',
+				coal: '#11100E',
+				ash: '#A8A196',
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
 				ring: 'hsl(var(--ring))',
