@@ -129,7 +129,7 @@ const Coaching = () => {
         <img src={HERO_IMAGE} alt="Ben Raven at home" width={1600} height={1067} fetchPriority="high" decoding="async" className="absolute inset-0 w-full h-full object-cover object-[70%_30%] opacity-40" />
         <div className="absolute inset-0 bg-gradient-to-r from-black via-black/85 to-black/40" />
         <div className="relative max-w-6xl mx-auto px-5 sm:px-6 lg:px-8 py-20 md:py-28">
-          <h1 className="font-display uppercase font-extrabold leading-[0.9] tracking-[-0.01em] text-[3.1rem] sm:text-7xl lg:text-[6.5rem] max-w-[14ch]">
+          <h1 className="font-display uppercase font-extrabold leading-[0.9] tracking-[-0.01em] text-[3.1rem] sm:text-7xl lg:text-[6.5rem] max-w-[20ch]">
             <span className="block text-white">Understand yourself. Change your behaviours.</span>
             <span className="block text-gold">Win the long game.</span>
           </h1>
@@ -161,7 +161,7 @@ const Coaching = () => {
         <div className="grid md:grid-cols-3 gap-x-10 mt-10">
           {FREE.map((r, i) => (
             <div key={r.title} className="border-t border-white/15 py-6 flex flex-col">
-              <h3 className="font-display uppercase font-extrabold text-2xl leading-none">{r.title}</h3>
+              <h3 className="font-display uppercase font-extrabold text-2xl leading-none text-white">{r.title}</h3>
               <p className="text-white/70 mt-3 flex-1 leading-relaxed">{r.text}</p>
               {i === 0 ? <GoldButton to={r.to} className="mt-5 self-start">{r.cta}</GoldButton> : <OutlineButton to={r.to} className="mt-5 self-start">{r.cta}</OutlineButton>}
             </div>
@@ -249,7 +249,7 @@ const Coaching = () => {
           <Accordion type="single" collapsible>
             {FAQ.map(([q, a]) => (
               <AccordionItem key={q} value={q} className="border-white/15">
-                <AccordionTrigger className="text-left text-lg font-semibold hover:no-underline hover:text-gold">{q}</AccordionTrigger>
+                <AccordionTrigger className="text-left text-lg font-semibold text-white hover:no-underline hover:text-gold">{q}</AccordionTrigger>
                 <AccordionContent className="text-white/75 text-base leading-relaxed">{a}</AccordionContent>
               </AccordionItem>
             ))}

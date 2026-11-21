@@ -131,12 +131,15 @@ export const LightUp = ({ children, delay = 0, className }: { children: ReactNod
 /** Two lines that start together and pull apart as you scroll: Daily Wins rising, Daily Drifts falling. */
 export const CompoundCurve = () => {
   const ref = useRef<HTMLDivElement>(null);
+  const best = useRef(0);
   useScrollFrame(() => {
     const el = ref.current;
     if (!el) return;
     const r = el.getBoundingClientRect();
     const vh = window.innerHeight;
-    const p = reducedMotion() ? 1 : Math.min(1, Math.max(0, (vh * 0.92 - r.top) / (vh * 0.62)));
+    // Draws as you scroll in, then stays drawn.
+    best.current = Math.max(best.current, reducedMotion() ? 1 : Math.min(1, Math.max(0, (vh * 0.92 - r.top) / (vh * 0.62))));
+    const p = best.current;
     el.style.setProperty("--draw", (1 - p).toFixed(4));
     el.style.setProperty("--end", p > 0.96 ? "1" : "0");
   });

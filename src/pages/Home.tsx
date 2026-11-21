@@ -239,7 +239,7 @@ const Home = () => {
           {EVENTS.map((e) => (
             <Card key={e.title} className="flex flex-col">
               <div className="flex items-start justify-between gap-4">
-                <h3 className="font-display uppercase font-extrabold text-4xl leading-none">{e.title}</h3>
+                <h3 className="font-display uppercase font-extrabold text-4xl leading-none text-white">{e.title}</h3>
                 <span className="font-display uppercase font-extrabold text-black bg-gold rounded px-2.5 py-1 leading-none">Free</span>
               </div>
               <dl className="mt-6 flex-1">
@@ -264,7 +264,7 @@ const Home = () => {
         <div className="grid md:grid-cols-3 gap-x-10 mt-10">
           {RESOURCES.map((r) => (
             <div key={r.title} className="border-t border-white/15 py-6 flex flex-col">
-              <h3 className="font-display uppercase font-extrabold text-2xl leading-none">{r.title}</h3>
+              <h3 className="font-display uppercase font-extrabold text-2xl leading-none text-white">{r.title}</h3>
               <p className="text-white/70 mt-3 flex-1 leading-relaxed">{r.text}</p>
               <OutlineButton to={r.to} href={r.href} className="mt-5 self-start">{r.cta}</OutlineButton>
             </div>
