@@ -1,0 +1,1 @@
+const e=[{videoId:"z8NqukMz2Q8",title:"Give me 0.1% And I'll Change Your Direction - Daily Wins Podcast 121",views:"564K views"},{videoId:"zUGM3gZbNY8",title:"Most People Stop here. Are You Most People? Daily Wins Podcast 116",views:"521K views"},{videoId:"ZK4wdEe_b-s",title:"You Need To Understand This Cycle - Daily Wins Podcast 122",views:"446K views"}];export{e as P};
