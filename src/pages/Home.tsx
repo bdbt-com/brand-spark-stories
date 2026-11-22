@@ -44,8 +44,8 @@ const LONG_GAME = [
 ];
 
 const PREVIEW_BARS = [
-  ["Body & Movement", 6.2], ["Energy & Recovery", 4.1], ["Money & Time", 5.4],
-  ["Relationships", 7.8], ["Habits & Self-Control", 4.6], ["Purpose & Growth", 6.9],
+  ["Health & Energy", 4], ["Financial Wellbeing", 3], ["Relationships", 8],
+  ["Time & Focus", 5], ["Purpose & Fulfilment", 7],
 ] as const;
 
 const EVENTS = [
@@ -185,10 +185,10 @@ const Home = () => {
             <GoldButton to="/test" className="mt-8">Take the Free Daily Wins Test</GoldButton>
           </div>
           <Card>
-            <Note className="my-0 mb-4">Made-up scores, only to show what the results look like.</Note>
+            <Note className="my-0 mb-4">Example scores from the mock-up in Ben's document.</Note>
             <div className="flex items-end justify-between gap-4">
               <p className="text-sm text-ash">Example results<br /><span className="text-white font-semibold text-base">Long Game Score</span></p>
-              <p className="font-display font-extrabold text-gold text-6xl leading-none"><CountUp value={58} /><span className="text-2xl text-ash">/100</span></p>
+              <p className="font-display font-extrabold text-gold text-6xl leading-none"><CountUp value={54} /><span className="text-2xl text-ash">/100</span></p>
             </div>
             <div className="space-y-3.5 mt-6">
               {PREVIEW_BARS.map(([n, s]) => (
@@ -200,8 +200,8 @@ const Home = () => {
             </div>
             <div className="mt-6 border-t border-white/10 pt-5">
               <p className="text-sm text-gold">Recommended starting point</p>
-              <p className="font-semibold mt-1">Energy & Recovery</p>
-              <p className="text-sm text-white/65 mt-1">First Daily Win: go to bed 15 minutes earlier.</p>
+              <p className="font-semibold mt-1">Financial Wellbeing</p>
+              <p className="text-sm text-white/65 mt-1">First Daily Win: review one regular expense this week.</p>
             </div>
           </Card>
         </div>

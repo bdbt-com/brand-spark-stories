@@ -11,7 +11,7 @@ import {
 import { GoldButton, OutlineButton, Section, Title, Eyebrow, Card, Note } from "@/components/site/ui";
 import { saveLead } from "@/components/site/LeadForm";
 
-const STORE = "dw-test-v1";
+const STORE = "dw-test-v2";
 const PER_PAGE = 4;
 const PAGES = Math.ceil(SCALES.length / PER_PAGE);
 
@@ -122,7 +122,7 @@ const Results = ({ result, name, onRetake }: { result: TestResult; name: string;
     <div className="space-y-10 animate-fade-in">
       <div className="text-center">
         <Eyebrow className="justify-center">Your Daily Wins Snapshot</Eyebrow>
-        <Note className="mx-auto">Draft results page. The 6 life areas, the scoring and all advice wording are drafts for Ben to review.</Note>
+        <Note className="mx-auto">Draft results page. Which scale counts towards which of the 5 life areas, the scoring and all advice wording are drafts for Ben to review.</Note>
         <Title as="h1" className="mx-auto max-w-[16ch]">{name ? `${name}, here's` : "Here's"} where you are today</Title>
         <p className="text-white/70 mt-4 max-w-xl mx-auto">No judgement. No pass or fail. Just a clearer picture of where you are and where a few small changes could make the biggest difference.</p>
       </div>
@@ -295,7 +295,7 @@ const DailyWinsTest = () => {
               <p>Answer 28 simple questions, receive a personalised snapshot of your life and discover a recommended starting point based on your answers.</p>
             </div>
             <div className="grid grid-cols-3 gap-3 max-w-lg mx-auto my-10 text-center">
-              {[["28", "questions"], ["5 min", "to complete"], ["Free", "personal results"]].map(([a, b]) => (
+              {[["28", "questions"], ["5", "life areas"], ["Free", "personal results"]].map(([a, b]) => (
                 <div key={b} className="rounded-md border border-gold/20 py-4"><p className="font-display text-2xl font-extrabold text-gold">{a}</p><p className="text-xs text-white/60 mt-1">{b}</p></div>
               ))}
             </div>
