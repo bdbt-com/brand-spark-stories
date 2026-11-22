@@ -128,7 +128,7 @@ const Coaching = () => {
         <div className="grid md:grid-cols-3 gap-5 mt-10">
           {[
             { Icon: ClipboardCheck, title: "The Free Daily Wins Test", text: "Answer 28 questions across different areas of your life. Discover your strengths, identify opportunities for improvement and receive personalised Daily Wins and a recommended starting point.", cta: "Take My Free Daily Wins Test", to: "/test", gold: true },
-            { Icon: CalendarDays, title: "Free Daily Wins Events", text: "Join me online or in person to explore the Comfort Trade, Common Sense vs Common Action, Daily Drifts and the power of compounding. Leave with a better understanding of your own behaviours and practical ideas you can use immediately.", cta: "View Upcoming Free Events", to: "/#events" },
+            { Icon: CalendarDays, title: "Free Daily Wins Events", text: "Join me online or in person to explore the Comfort Trade, Common Sense vs Common Action, Daily Drifts and the power of compounding. Leave with a better understanding of your own behaviours and practical ideas you can start using immediately.", cta: "View Upcoming Free Events", to: "/#events" },
             { Icon: PlayCircle, title: "Free Daily Wins Videos & Library", text: "Explore practical Daily Wins across health, money, relationships, time, productivity and wellbeing.", cta: "Explore Free Daily Wins", to: "/tips" },
           ].map((r) => (
             <Card key={r.title} className="flex flex-col">
