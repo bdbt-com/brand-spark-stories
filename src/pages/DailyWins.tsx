@@ -28,7 +28,7 @@ const DailyWins = () => {
       id: 1,
       user: {
         name: "Sarah Johnson",
-        avatar: "/api/placeholder/50/50",
+        avatar: "",
         initials: "SJ",
         level: "Gold Member"
       },
@@ -42,7 +42,7 @@ const DailyWins = () => {
       id: 2,
       user: {
         name: "Mike Chen",
-        avatar: "/api/placeholder/50/50",
+        avatar: "",
         initials: "MC",
         level: "Premium"
       },
@@ -56,7 +56,7 @@ const DailyWins = () => {
       id: 3,
       user: {
         name: "Emily Rodriguez",
-        avatar: "/api/placeholder/50/50",
+        avatar: "",
         initials: "ER",
         level: "Community"
       },
@@ -70,7 +70,7 @@ const DailyWins = () => {
       id: 4,
       user: {
         name: "David Thompson",
-        avatar: "/api/placeholder/50/50",
+        avatar: "",
         initials: "DT",
         level: "Gold Member"
       },
@@ -84,7 +84,7 @@ const DailyWins = () => {
       id: 5,
       user: {
         name: "Jessica Park",
-        avatar: "/api/placeholder/50/50",
+        avatar: "",
         initials: "JP",
         level: "Premium"
       },
