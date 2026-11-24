@@ -191,7 +191,7 @@ const Partnership = () => {
               within 24 hours to discuss how we can work together.
             </p>
 
-            <Card>
+            <Card id="partnership-form" className="scroll-mt-24">
               <CardContent className="p-6">
                 {status === "sent" ? (
                   <div className="py-10 text-center">
@@ -371,7 +371,7 @@ const Partnership = () => {
                 <p className="text-white/90 mb-4">
                   Join our partner network and start building something amazing.
                 </p>
-                <Button variant="accent" size="sm">
+                <Button variant="accent" size="sm" onClick={() => document.getElementById("partnership-form")?.scrollIntoView({ behavior: "smooth", block: "start" })}>
                   Schedule a Call
                 </Button>
               </CardContent>
