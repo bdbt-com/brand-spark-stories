@@ -20,6 +20,7 @@ import {
   DollarSign
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
 
 const Partnership = () => {
   const [formData, setFormData] = useState({
@@ -39,10 +40,18 @@ const Partnership = () => {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [sent, setSent] = useState(false);
+
+  // Save the proposal with the site's other leads (course_waitlist, tagged) so it isn't lost.
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
-    console.log("Form submitted:", formData);
+    const f = formData;
+    const { error } = await supabase.from("course_waitlist").insert({
+      email: f.email.trim().toLowerCase(),
+      course_title: `Partnership proposal | Name: ${f.name} | Company: ${f.company || "-"} | Phone: ${f.phone || "-"} | Type: ${f.partnershipType} | Budget: ${f.budget || "-"} | ${f.message}`.slice(0, 900),
+    });
+    if (error) return alert("Sorry, that didn't send. Please try again.");
+    setSent(true);
   };
 
   const partnershipTypes = [
@@ -283,8 +292,8 @@ const Partnership = () => {
                     />
                   </div>
 
-                  <Button type="submit" variant="hero" size="lg" className="w-full">
-                    Submit Partnership Proposal
+                  <Button type="submit" variant="hero" size="lg" className="w-full" disabled={sent}>
+                    {sent ? "Thanks, we'll be in touch within 24 hours" : "Submit Partnership Proposal"}
                     <ArrowRight className="w-5 h-5 ml-2" />
                   </Button>
                 </form>
