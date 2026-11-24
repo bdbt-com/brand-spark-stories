@@ -28,7 +28,7 @@ const About = () => (
 
       <div className="grid lg:grid-cols-[0.8fr_1.2fr] gap-10 lg:gap-16 items-start mt-12">
         <div className="lg:sticky lg:top-24">
-          <img src={PORTRAIT} srcSet={`${PORTRAIT.replace(".webp", "-700.webp")} 700w, ${PORTRAIT} 1100w`} sizes="(min-width: 1024px) 40vw, 100vw" alt="Ben Raven, founder of Daily Wins" width={1100} height={1375} decoding="async" className="w-full aspect-[4/5] object-cover object-top rounded-lg" />
+          <img src={PORTRAIT} srcSet={`${PORTRAIT.replace(".webp", "-800.webp")} 800w, ${PORTRAIT} 1100w`} sizes="(min-width: 1024px) 40vw, 100vw" alt="Ben Raven, founder of Daily Wins" width={1100} height={1375} decoding="async" className="w-full aspect-[4/5] object-cover object-top rounded-lg" />
           <p className="font-display uppercase font-extrabold text-2xl leading-none mt-4">Ben Raven</p>
           <p className="text-ash text-sm mt-1">Founder of Daily Wins. Coach and mentor.</p>
         </div>
@@ -62,7 +62,7 @@ const About = () => (
 
     <div className="grid grid-cols-2 md:grid-cols-4">
       {STRIP.map((src) => (
-        <img key={src} src={src} alt="" width={900} height={900} loading="lazy" decoding="async" className="w-full aspect-square object-cover" />
+        <img key={src} src={src} srcSet={`${src.replace(".webp", "-sq600.webp")} 600w, ${src} 1200w`} sizes="(min-width: 768px) 25vw, 50vw" alt="" width={900} height={900} loading="lazy" decoding="async" className="w-full aspect-square object-cover" />
       ))}
     </div>
 
