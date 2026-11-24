@@ -28,7 +28,7 @@ const About = () => (
 
       <div className="grid lg:grid-cols-[0.8fr_1.2fr] gap-10 lg:gap-16 items-start mt-12">
         <div className="lg:sticky lg:top-24">
-          <img src={PORTRAIT} alt="Ben Raven, founder of Daily Wins" width={1100} height={1375} decoding="async" className="w-full aspect-[4/5] object-cover object-top rounded-lg" />
+          <img src={PORTRAIT} srcSet={`${PORTRAIT.replace(".webp", "-700.webp")} 700w, ${PORTRAIT} 1100w`} sizes="(min-width: 1024px) 40vw, 100vw" alt="Ben Raven, founder of Daily Wins" width={1100} height={1375} decoding="async" className="w-full aspect-[4/5] object-cover object-top rounded-lg" />
           <p className="font-display uppercase font-extrabold text-2xl leading-none mt-4">Ben Raven</p>
           <p className="text-ash text-sm mt-1">Founder of Daily Wins. Coach and mentor.</p>
         </div>

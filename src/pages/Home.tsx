@@ -7,6 +7,7 @@ import SiteFooter from "@/components/site/SiteFooter";
 import { startTrackedRedirect } from "@/lib/youtube-redirect";
 
 const HERO_IMAGE = "/lovable-uploads/opt/recording-setup-new.webp";
+const HERO_IMAGE_PHONE = "/lovable-uploads/opt/recording-setup-new-phone.webp";
 
 const LINE_SECTIONS = [
   { id: "why", label: "Why we repeat" },
@@ -70,7 +71,11 @@ const Home = () => {
       <div className="relative z-[1]">
       {/* Hero: full-width image of Ben. Swap HERO_IMAGE for a b-roll <video> when supplied. */}
       <section className="relative overflow-hidden min-h-[86vh] flex items-end">
-        <img src={HERO_IMAGE} alt="Ben Raven recording a Daily Wins episode" width={1920} height={1280} fetchPriority="high" decoding="async" className="absolute inset-0 w-full h-full object-cover object-[60%_35%] animate-kenburns" />
+        {/* Phones get a portrait crop of the same framing, so they don't download the full-width photo. */}
+        <picture>
+          <source media="(max-width: 767px)" srcSet={HERO_IMAGE_PHONE} />
+          <img src={HERO_IMAGE} alt="Ben Raven recording a Daily Wins episode" width={1920} height={1280} fetchPriority="high" decoding="async" className="absolute inset-0 w-full h-full object-cover object-[60%_35%] animate-kenburns" />
+        </picture>
         <Note kind="needed" className="absolute top-3 right-3 z-10 my-0">Placeholder photo. Ben's b-roll video goes here.</Note>
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/30" />
         <div className="relative max-w-6xl mx-auto px-5 sm:px-6 lg:px-8 pt-32 pb-14 md:pb-20 w-full">
