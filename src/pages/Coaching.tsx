@@ -7,7 +7,7 @@ import LeadForm from "@/components/site/LeadForm";
 import SiteFooter from "@/components/site/SiteFooter";
 import { cn } from "@/lib/utils";
 
-const HERO_IMAGE = "/lovable-uploads/5e8aba04-f6cc-44a2-9bcc-eaf2424e3976.png";
+const HERO_IMAGE = "/lovable-uploads/web/5e8aba04-f6cc-44a2-9bcc-eaf2424e3976.webp";
 
 // Prices and formats are Ben's working drafts. Edit here.
 interface Offer { name: string; price: string; meta: string; text: string[]; cta: string; flagship?: boolean; bullets?: string[]; after?: string }

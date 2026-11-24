@@ -1,12 +1,12 @@
 import { GoldButton, OutlineButton, Section, Eyebrow, Prose, Note } from "@/components/site/ui";
 import SiteFooter from "@/components/site/SiteFooter";
 
-const PORTRAIT = "/lovable-uploads/2f4d6184-a8de-43f0-a345-4ed910c90522.png";
+const PORTRAIT = "/lovable-uploads/web/2f4d6184-a8de-43f0-a345-4ed910c90522.webp";
 const STRIP = [
-  "/lovable-uploads/recording-setup-new.jpg",
-  "/lovable-uploads/b362cf10-f3b4-4ab1-aeb3-30ab18058ace.png",
-  "/lovable-uploads/7db6bd1f-c12f-45f2-a1d1-505f38c743a1.png",
-  "/lovable-uploads/7208834d-dbba-4fc6-8da5-2f81f4e3796f.png",
+  "/lovable-uploads/web/recording-setup-new.webp",
+  "/lovable-uploads/web/b362cf10-f3b4-4ab1-aeb3-30ab18058ace.webp",
+  "/lovable-uploads/web/7db6bd1f-c12f-45f2-a1d1-505f38c743a1.webp",
+  "/lovable-uploads/web/7208834d-dbba-4fc6-8da5-2f81f4e3796f.webp",
 ];
 
 const LESSONS = [
