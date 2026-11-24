@@ -178,6 +178,14 @@ Run in the Claude desktop browser on Harry's Mac (the cloud workspace can't reac
 - Email alerts for new enquiries, and a proper leads table.
 - Hosting move off Lovable. The nine files Lovable served from `/__l5e/` are now copied into `public/lovable-uploads/` on both work branches and the `src/assets/*.asset.json` files point at them (old path kept as `lovable_url`). Only the hourly rate grid .xlsx is used by these branches; the eight PNGs were used by the old live homepage.
 
+## Job 2, 24 November 2026: getting ready to go live
+
+- **Ben's list:** doc "Website: what I still need from you", https://claude.ai/artifact/UPpmSKLi2z6HxG3hofbrf3
+- **Go-live plan:** doc "BDBT go-live plan: Lovable to Cloudflare Pages", https://claude.ai/artifact/DbUx7CTZ1KVQM4jKV9jp9U. Not started. DNS is at GoDaddy; email is Microsoft 365 plus Resend, so every DNS record must be copied before the nameserver change.
+- **Noindex:** preview wrappers carry a robots noindex tag, and `Seo.tsx` now adds it on every page in preview builds. The repo is public, so the preview link can't be made private on GitHub's free plan.
+- **Phone speed (Lighthouse, simulated mid-range phone on slow 4G):** A now serves its photos as WebP from `public/lovable-uploads/web/`; B uses a phone crop of the hero and smaller About images (`-phone`, `-800`, `-sq600` files in `opt/`). A Home main image 7.0s to 4.4s, A About 11.8s to 4.5s, B Home 4.2s to 3.5s, B About 5.3s to 3.9s.
+- **Live Partnership fix:** one-file change to `src/pages/Partnership.tsx` on `main`, drafted but NOT pushed. Waiting for Harry's go. Going live needs a Publish in Lovable after the push. The live site matched `main` (18 Oct) when checked.
+
 ## Waiting on Harry
 
 - **Supabase login** (project `xvqhkjgowlwfdosxmvba`): needed for enquiry alerts, the results email, a leads table and the members area.
