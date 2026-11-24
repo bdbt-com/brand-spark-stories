@@ -74,6 +74,10 @@ const Podcast = () => {
     setRedirected(true);
     const trackPrefix = auto ? "latest-auto" : "latest-page";
     startTrackedRedirect(video.videoId, `${trackPrefix}:${video.videoId}`, UPLOADS_PLAYLIST_ID);
+    // Release the double-click guard. Preview builds open YouTube in a new tab and the
+    // page stays open, and a page restored with the Back button keeps its state, so a
+    // guard that never resets leaves every later click dead.
+    window.setTimeout(() => { navigatingRef.current = false; }, 1500);
   };
 
   const goToGridVideo = (videoId: string) => {
@@ -81,6 +85,7 @@ const Podcast = () => {
     navigatingRef.current = true;
     setRedirected(true); // cancel hero countdown
     startTrackedRedirect(videoId, `latest-grid:${videoId}`);
+    window.setTimeout(() => { navigatingRef.current = false; }, 1500);
   };
 
   // Idle-based auto-redirect: 1st after 10s, 2nd after 45s of AFK, then suppressed for 24h
