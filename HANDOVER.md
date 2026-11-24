@@ -185,6 +185,7 @@ Run in the Claude desktop browser on Harry's Mac (the cloud workspace can't reac
 - **Noindex:** preview wrappers carry a robots noindex tag, and `Seo.tsx` now adds it on every page in preview builds. The repo is public, so the preview link can't be made private on GitHub's free plan.
 - **Phone speed (Lighthouse, simulated mid-range phone on slow 4G):** A now serves its photos as WebP from `public/lovable-uploads/web/`; B uses a phone crop of the hero and smaller About images (`-phone`, `-800`, `-sq600` files in `opt/`). A Home main image 7.0s to 4.4s, A About 11.8s to 4.5s, B Home 4.2s to 3.5s, B About 5.3s to 3.9s.
 - **Live Partnership fix:** pushed to `main` (60f822f) but Lovable never picked it up, so the live site still loses proposals. Harry chose to skip it (24 Nov): no more Lovable work. Both preview versions already have the fix, so it goes live with the move off Lovable.
+- **Go-live prep (25 Nov):** sitemap now lists Coaching and the test and drops the `/blueprint` redirect; `public/_headers` caches `/assets/*` for a year on Cloudflare Pages. Live-style builds (`npx vite build`, normal addresses) of both versions tested locally with Cloudflare-style serving: every page and old address works, reloads on inner pages work, no draft labels, no broken images, no sideways scroll on desktop or phone, no files over 25MB.
 - **Harry's decision:** once Ben picks a version and it's finished, host it on bigdaddysbigtips.com via the go-live plan with no Lovable involvement.
 
 ## Waiting on Harry
