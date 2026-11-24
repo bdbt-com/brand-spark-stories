@@ -24,8 +24,7 @@ https://bdbt-com.github.io/brand-spark-stories/
 - Opens on A. A button fixed to the bottom of the screen switches between "A · Docs only" (`index.html`) and "B · Upgraded" (`b.html`).
 - Public: anyone with the link can open it. Search engines are told not to list it.
 - Blue "DRAFT" and pink "NEEDED" labels mark drafts and gaps. They only show in preview builds (see `Note` in `src/components/site/ui.tsx`) and never on the live site.
-- Forms on this link should save to the real Supabase database. This has not been tested.
-- Podcast and Tips have some missing images on the preview only (see "Still open").
+- Forms on this link save to the real Supabase database (tested 24 Nov, see below).
 
 There is also an older preview inside Claude ("Daily Wins Site Compare"). It is out of date. Use the link above.
 
@@ -166,18 +165,18 @@ Testing was done with Playwright and the Chrome already in the workspace. The te
 - About page: Ben said a revised About Me text is coming.
 - Coaching page, preview only: empty slots for client quotes, an intro video of Ben and a booking calendar.
 
-**Not tested**
-- The public preview link itself. All tests ran on a local copy of the same files.
-- Forms saving to Supabase.
-- YouTube: it is blocked in the test workspace, so video links were only seen opening a new tab, and the Podcast and Tips pages were partly empty in tests.
-- Speed on a real phone.
-- Pages outside the rebuild (Courses, Partnership, Community, Link in bio) were not re-tested after the menu and font changes.
+**Public link test, 24 November 2026**
+Run in the Claude desktop browser on Harry's Mac (the cloud workspace can't reach github.io, YouTube or Supabase). Both versions, 1366 and 390 wide, every page in the menu plus Courses, Partnership, Community, Link in bio, Daily Wins Wall and Hourly Rate Grid.
+- Fixed: Link in bio profile photo and three template images were missing from `gh-pages`. Podcast episode buttons only worked once (click guard never reset). Partnership form only logged to the console, so proposals were lost (live site too); it now saves via `saveLead` tagged "Partnership proposal". Partnership "Schedule a Call" had no handler; it now scrolls to the form. Daily Wins Wall asked for a dead `/api/placeholder` avatar.
+- Passed: no broken images, failed requests or sideways scroll on any page; phone menu; every enquiry pop-up; FAQs; in-page jumps; every top-video, Podcast, Link in bio and Tips YouTube link; full test run to results on both versions; Tips guide form opens.
+- Saved to Supabase (`course_waitlist`, HTTP 201): two test runs, one coaching enquiry, one partnership proposal. All use name "TEST Claude preview check" and emails `preview-test+...@bigdaddysbigtips.com`. Delete those rows.
+- Still not tested: the Tips guide email and Courses waitlist send real emails through the `send-guide` function, so they weren't submitted. Share my score on a real phone (in the test frame the clipboard was blocked). Speed on a real phone.
 
 **Not built**
 - Community members area and payments.
 - Results email after the test.
 - Email alerts for new enquiries, and a proper leads table.
-- Hosting move off Lovable. Some images on the old pages are served only by Lovable (paths starting `/__l5e/`) and will break when hosting moves. They need copying into the project first.
+- Hosting move off Lovable. The nine files Lovable served from `/__l5e/` are now copied into `public/lovable-uploads/` on both work branches and the `src/assets/*.asset.json` files point at them (old path kept as `lovable_url`). Only the hourly rate grid .xlsx is used by these branches; the eight PNGs were used by the old live homepage.
 
 ## Waiting on Harry
 
