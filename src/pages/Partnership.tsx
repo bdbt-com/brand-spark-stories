@@ -20,6 +20,7 @@ import {
   DollarSign
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { saveLead } from "@/components/site/LeadForm";
 
 const Partnership = () => {
   const [formData, setFormData] = useState({
@@ -39,10 +40,19 @@ const Partnership = () => {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+
+  // Saves the proposal with the other site leads (course_waitlist, tagged) so it isn't lost.
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
-    console.log("Form submitted:", formData);
+    setStatus("sending");
+    const f = formData;
+    try {
+      await saveLead(f.email, `Partnership proposal | Name: ${f.name} | Company: ${f.company || "-"} | Phone: ${f.phone || "-"} | Type: ${f.partnershipType} | Budget: ${f.budget || "-"} | ${f.message}`);
+      setStatus("sent");
+    } catch {
+      setStatus("error");
+    }
   };
 
   const partnershipTypes = [
@@ -183,6 +193,13 @@ const Partnership = () => {
 
             <Card>
               <CardContent className="p-6">
+                {status === "sent" ? (
+                  <div className="py-10 text-center">
+                    <CheckCircle className="w-10 h-10 text-primary mx-auto mb-4" />
+                    <p className="text-lg font-semibold">Thanks, your proposal has been sent.</p>
+                    <p className="text-muted-foreground mt-2">We'll get back to you within 24 hours.</p>
+                  </div>
+                ) : (
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid md:grid-cols-2 gap-4">
                     <div>
@@ -283,11 +300,15 @@ const Partnership = () => {
                     />
                   </div>
 
-                  <Button type="submit" variant="hero" size="lg" className="w-full">
-                    Submit Partnership Proposal
+                  <Button type="submit" variant="hero" size="lg" className="w-full" disabled={status === "sending"}>
+                    {status === "sending" ? "Sending..." : "Submit Partnership Proposal"}
                     <ArrowRight className="w-5 h-5 ml-2" />
                   </Button>
+                  {status === "error" && (
+                    <p className="text-sm text-destructive text-center">That didn't send. Please try again, or email us instead.</p>
+                  )}
                 </form>
+                )}
               </CardContent>
             </Card>
           </div>
