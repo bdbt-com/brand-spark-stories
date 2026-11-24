@@ -47,7 +47,8 @@ const Seo = ({ title, description, path, noindex }: SeoProps) => {
       <meta property="og:type" content="website" />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
-      {noindex && <meta name="robots" content="noindex,nofollow" />}
+      {/* Preview builds (hash routing, GitHub Pages) are never indexed, on any page. */}
+      {(noindex || import.meta.env.VITE_HASH_ROUTER) && <meta name="robots" content="noindex,nofollow" />}
     </Helmet>
   );
 };
