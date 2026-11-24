@@ -184,7 +184,8 @@ Run in the Claude desktop browser on Harry's Mac (the cloud workspace can't reac
 - **Go-live plan:** doc "BDBT go-live plan: Lovable to Cloudflare Pages", https://claude.ai/artifact/DbUx7CTZ1KVQM4jKV9jp9U. Not started. DNS is at GoDaddy; email is Microsoft 365 plus Resend, so every DNS record must be copied before the nameserver change.
 - **Noindex:** preview wrappers carry a robots noindex tag, and `Seo.tsx` now adds it on every page in preview builds. The repo is public, so the preview link can't be made private on GitHub's free plan.
 - **Phone speed (Lighthouse, simulated mid-range phone on slow 4G):** A now serves its photos as WebP from `public/lovable-uploads/web/`; B uses a phone crop of the hero and smaller About images (`-phone`, `-800`, `-sq600` files in `opt/`). A Home main image 7.0s to 4.4s, A About 11.8s to 4.5s, B Home 4.2s to 3.5s, B About 5.3s to 3.9s.
-- **Live Partnership fix:** one-file change to `src/pages/Partnership.tsx` on `main`, pushed to `main` on 24 Nov (commit 60f822f) with Harry's go. It is live only once Harry presses Publish in Lovable. The live site matched `main` (18 Oct) when checked.
+- **Live Partnership fix:** pushed to `main` (60f822f) but Lovable never picked it up, so the live site still loses proposals. Harry chose to skip it (24 Nov): no more Lovable work. Both preview versions already have the fix, so it goes live with the move off Lovable.
+- **Harry's decision:** once Ben picks a version and it's finished, host it on bigdaddysbigtips.com via the go-live plan with no Lovable involvement.
 
 ## Waiting on Harry
 
